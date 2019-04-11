@@ -6,10 +6,28 @@
     <description>Recent content in ASP.NET Web API on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 01 Oct 2018 02:44:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 14 Nov 2018 00:42:34 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/asp.net-web-api/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>修改 web.config 可以不讓 IIS 自動重啟？！</title>
+      <link>https://blog.yowko.com/avoid-iis-restart-webconfig-modify/</link>
+      <pubDate>Wed, 14 Nov 2018 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/avoid-iis-restart-webconfig-modify/</guid>
+      <description>修改 web.config 可以不讓 IIS 自動重啟？！ 這是同事提出的問題：想要修改 web.config 中的 NLog log level，但不敢冒然修改 production server 上的檔案，深怕檔案一改立馬引發 IIS recycle 直接影響線</description>
+    </item>
+    
+    <item>
+      <title>關於 ASP.NET File Change Notification (FCN) 的一些事</title>
+      <link>https://blog.yowko.com/fcn/</link>
+      <pubDate>Sun, 11 Nov 2018 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/fcn/</guid>
+      <description>關於 ASP.NET File Change Notification (FCN) 的一些事 這幾天在測試如何達成修改 web.config 而不引起 IIS 重啟時看到幾種做法，其中一個是調整 web.config 的 fcnMode 設定值，過去不認識這個設定引起我的好奇而查</description>
+    </item>
     
     <item>
       <title>讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded</title>
