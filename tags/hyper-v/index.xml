@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hyper-V on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/hyper-v/</link>
+    <description>Recent content in Hyper-V on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 16 Aug 2017 23:23:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/hyper-v/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>無法啟動 Hyper-V 虛擬機器 - Hypervisor 未執行</title>
+      <link>https://blog.yowko.com/hypervisor-not-started/</link>
+      <pubDate>Wed, 16 Aug 2017 23:23:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/hypervisor-not-started/</guid>
+      <description>無法啟動 Hyper-V 虛擬機器 - Hypervisor 未執行 之前為了測試 Windows Container 功能，在筆電上安裝 Windows Server 2016，加上需要 Linux 環境，也啟用了 Hyper-V 功能安裝了 CentOS 7，測試靠一段落後有陣子沒</description>
+    </item>
+    
+  </channel>
+</rss>

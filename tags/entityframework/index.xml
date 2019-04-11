@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>EntityFramework on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/entityframework/</link>
+    <description>Recent content in EntityFramework on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 27 May 2018 21:54:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/entityframework/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>如何避免多個 Entity Framework 6 instance 造成資料覆蓋問題 (DB First - SQL Server)</title>
+      <link>https://blog.yowko.com/entityframework-6-concurrency/</link>
+      <pubDate>Sun, 27 May 2018 21:54:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/entityframework-6-concurrency/</guid>
+      <description>如何避免多個 Entity Framework 6 instance 造成資料覆蓋問題 (DB First - SQL Server) 前後台分離且共同存取 table 或是同時有多台機器甚至是修改資料不經由 Entity Framework 都是平常開發上很常見的情境，但</description>
+    </item>
+    
+    <item>
+      <title>使用 Entity Framework Insert 大量資料</title>
+      <link>https://blog.yowko.com/entityframework-bulk-insert/</link>
+      <pubDate>Sat, 19 May 2018 00:38:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/entityframework-bulk-insert/</guid>
+      <description>使用 Entity Framework Insert 大量資料 這是參加 黃忠成老師的 Entity Framework 全線開發 課程時他提出讓學員思考的問題：如何使用 Entity Framework Insert 大量資料，我當下立馬想起印象中以前同事也被這個</description>
+    </item>
+    
+    <item>
+      <title>使用 ASP.NET Web API 建立 OData 服務</title>
+      <link>https://blog.yowko.com/aspnet-web-api-odata/</link>
+      <pubDate>Thu, 12 Oct 2017 00:50:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspnet-web-api-odata/</guid>
+      <description>使用 ASP.NET Web API 建立 OData 服務 OData 從 2013 年首次出現後就吸引不少技術人員目光，剛好當時專案允許立馬就嘗試，以當時的專案需要同時提供 API 給 WebSite、iOS</description>
+    </item>
+    
+    <item>
+      <title>ASP.NET Identity 2 使用 EntityFramework 搭配 Oracle</title>
+      <link>https://blog.yowko.com/aspnet-identity-2-entityframework-oracle/</link>
+      <pubDate>Sat, 30 Sep 2017 01:01:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspnet-identity-2-entityframework-oracle/</guid>
+      <description>ASP.NET Identity 2 使用 EntityFramework 搭配 Oracle 相信開發 ASP.NET 比較久的朋友都曾經聽過甚至是用過 ASP.NET Membership - ASP.NET 2.0 時期的預設使用者權限管理系統，但也相信不少人對它深惡痛絕，不可否認以現</description>
+    </item>
+    
+  </channel>
+</rss>

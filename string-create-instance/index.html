@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 string 建立 instance 及反序列化 json 為 class - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="使用 string 建立 instance 及反序列化 json 為 class 最近的專案在架構拆分時，將可能可以共用的部份獨立設計成開放式的服務，將執行行為也當做輸入參數的一部份，直接交由使" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/string-create-instance/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="使用 string 建立 instance 及反序列化 json 為 class" />
+<meta property="og:description" content="使用 string 建立 instance 及反序列化 json 為 class 最近的專案在架構拆分時，將可能可以共用的部份獨立設計成開放式的服務，將執行行為也當做輸入參數的一部份，直接交由使" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/string-create-instance/" /><meta property="article:published_time" content="2017-07-13T23:55:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-22T00:09:03&#43;08:00"/>
+
+<meta itemprop="name" content="使用 string 建立 instance 及反序列化 json 為 class">
+<meta itemprop="description" content="使用 string 建立 instance 及反序列化 json 為 class 最近的專案在架構拆分時，將可能可以共用的部份獨立設計成開放式的服務，將執行行為也當做輸入參數的一部份，直接交由使">
+
+
+<meta itemprop="datePublished" content="2017-07-13T23:55:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-22T00:09:03&#43;08:00" />
+<meta itemprop="wordCount" content="906">
+
+
+
+<meta itemprop="keywords" content="C#," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 string 建立 instance 及反序列化 json 為 class"/>
+<meta name="twitter:description" content="使用 string 建立 instance 及反序列化 json 為 class 最近的專案在架構拆分時，將可能可以共用的部份獨立設計成開放式的服務，將執行行為也當做輸入參數的一部份，直接交由使"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-07-13 </span>
+        
+        <span class="more-meta"> 約 906 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#使用-string-建立-instance-及反序列化-json-為-class">使用 string 建立 instance 及反序列化 json 為 class</a>
+<ul>
+<li><a href="#基本設定">基本設定</a></li>
+<li><a href="#關於-class-的-typename">關於 class 的 TypeName</a></li>
+<li><a href="#將-string-轉為-class-type">將 string 轉為 class Type</a></li>
+<li><a href="#使用-type-建立-instance">使用 Type 建立 instance</a></li>
+<li><a href="#將-json-string-反序列化為指定-class-type">將 json string 反序列化為指定 class Type</a></li>
+<li><a href="#完整成果程式碼">完整成果程式碼</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="使用-string-建立-instance-及反序列化-json-為-class">使用 string 建立 instance 及反序列化 json 為 class</h1>
+
+<p>最近的專案在架構拆分時，將可能可以共用的部份獨立設計成開放式的服務，將執行行為也當做輸入參數的一部份，直接交由使用端自行定義。雖然功能開發時遇到不少問題需要逐一的克服，卻可以擁有極大的彈性</p>
+
+<p>今天就針對其中的一小部份語法做個紀錄：如何使用 string 產生 instance 及反序列化 json 為 class</p>
+
+<h2 id="基本設定">基本設定</h2>
+
+<ol>
+<li><p>有個 Model class 為 User，獨立於各個專案之外，其他專案皆引用 dll 來使用 User</p>
+
+<pre><code class="language-cs">public class User
+{
+    public Guid _internalId{ get; set; }
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Addr { get; set; }
+    public string Phone { get; set; }
+    public int BirthMonth { get; set; }
+}
+</code></pre></li>
+
+<li><p>輸入端需要傳送 class 的 TypeName</p></li>
+
+<li><p>接收端使用 class 的 TypeName 將已轉換為 json string 的 User 進行反序列化</p></li>
+</ol>
+
+<h2 id="關於-class-的-typename">關於 class 的 TypeName</h2>
+
+<ul>
+<li><p>組成</p>
+
+<blockquote>
+<p>命名空間，加上逗號，後面接著組件的顯示名稱 (<code>Namespace,AssemblyName</code>)</p>
+</blockquote></li>
+
+<li><p>範例</p>
+
+<blockquote>
+<p><code>TestForNuget.User, TestForNuget, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</code></p>
+</blockquote></li>
+
+<li><p>符號含義</p>
+
+<table>
+<thead>
+<tr>
+<th>分隔符號</th>
+<th>意義</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>反斜線 ()</td>
+<td>跳逃字元</td>
+</tr>
+
+<tr>
+<td>逗號 （，）</td>
+<td>後面接著組件名稱。</td>
+</tr>
+
+<tr>
+<td>加號 （+）</td>
+<td>之前的巢狀的類別。</td>
+</tr>
+
+<tr>
+<td>句號 （.）</td>
+<td>代表命名空間識別項。</td>
+</tr>
+
+<tr>
+<td>括號 ([])</td>
+<td>類型名稱後面，表示該類型的陣列<br/>-或-<br/>對於泛型類型，封入泛型型別引數清單<br/>-或-<br/>在型別引數清單中，會封裝至組件限定的類型。</td>
+</tr>
+</tbody>
+</table></li>
+
+<li><p>取得方式</p>
+
+<blockquote>
+<p>使用 <code>AssemblyQualifiedName</code> 屬性</p>
+</blockquote>
+
+<pre><code class="language-cs">var typename=typeof(User).AssemblyQualifiedName;
+</code></pre></li>
+
+<li><p>其他方式？</p>
+
+<ul>
+<li><p>先取得 assembly name</p>
+
+<pre><code class="language-cs">Assembly asm = typeof(User).Assembly;
+asm.FullName.Dump();
+//以下為極簡寫法
+//typeof(User).Assembly.FullName.Dump();
+</code></pre></li>
+
+<li><p>取得 class 名稱</p>
+
+<pre><code class="language-cs">User dto = new User();
+dto.GetType().FullName.Dump();
+//以下為極簡寫法
+//typeof(User).FullName.Dump();
+</code></pre></li>
+
+<li><p>將兩者組合</p>
+
+<pre><code class="language-cs">$&quot;{dto.GetType().FullName}, {asm.FullName}&quot;.Dump();
+</code></pre></li>
+
+<li><p>結果與直接使用 <code>AssemblyQualifiedName</code> 相同，但實際測試下，如果該 class 在建立 instance 前已被使用過就可以成功建立，但如果從未使用不使用 <code>AssemblyQualifiedName</code> 會無法建立 instance</p></li>
+</ul></li>
+</ul>
+
+<h2 id="將-string-轉為-class-type">將 string 轉為 class Type</h2>
+
+<pre><code class="language-cs">Type dataType = Type.GetType(typename);
+</code></pre>
+
+<blockquote>
+<p>這邊的 dataType 如果為 null ，請檢查 typename 是否為合格的 typeName</p>
+</blockquote>
+
+<h2 id="使用-type-建立-instance">使用 Type 建立 instance</h2>
+
+<ul>
+<li><p>寫法 一</p>
+
+<blockquote>
+<p>使用 assembly name 與 type name 來建立 instance，需多一層轉換</p>
+</blockquote>
+
+<pre><code class="language-cs">//使用 assembly name 與 type name 建立 instance
+var tempInstance = Activator.CreateInstance(asm.FullName, dto.GetType().FullName);
+//將封裝的 instance 拆封，並轉為正確 class type
+var realInstance = Convert.ChangeType(tempInstance.Unwrap(), parameterDataType);
+</code></pre></li>
+
+<li><p>寫法 二</p>
+
+<blockquote>
+<p>直接使用 <code>AssemblyQualifiedName</code> 來建立 instance</p>
+</blockquote>
+
+<pre><code class="language-cs">var parameterInstance = Activator.CreateInstance(dataType);
+</code></pre></li>
+</ul>
+
+<h2 id="將-json-string-反序列化為指定-class-type">將 json string 反序列化為指定 class Type</h2>
+
+<pre><code class="language-cs">JsonConvert.DeserializeObject(jsonstr,dataType)
+</code></pre>
+
+<h2 id="完整成果程式碼">完整成果程式碼</h2>
+
+<ol>
+<li><p>發送端</p>
+
+<pre><code class="language-cs">void Main()
+{
+    var typename = typeof(User).AssemblyQualifiedName;
+    User dto = new User() { _internalId = Guid.NewGuid(), Name = &quot;Yowko&quot;, Addr = &quot;Taipei&quot;, BirthMonth = 7, Id = &quot;A123456789&quot;, Phone = &quot;09123456789&quot; };
+    var jsonstr = JsonConvert.SerializeObject(dto);
+    SendObj(typename,jsonstr);
+}
+void SendObj(string typename,string jsonstr)
+{
+    //web request
+}
+</code></pre></li>
+
+<li><p>接收端</p>
+
+<pre><code class="language-cs">public IHttpActionResult Post([FromBody]PstData value)
+{
+    Deserialize(value.typename,value.jsonstr);
+}
+void Deserialize(string typename,string jsonstr)
+{
+    Type dataType = Type.GetType(typename);
+    var obj = JsonConvert.DeserializeObject(jsonstr, dataType);
+    // do something
+}
+public class PstData { 
+    public string typename { get; set; }
+    public string jsonstr { get; set; }
+}
+</code></pre></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>就完成的程式碼來看，程式碼數量非常少，但卻花了不少時間才找到正確的方法跟 debug。不得不承認對於 C# 語法基礎還是有很多需要好好努力的地方，透過這種專案實作來嘗試不同寫法，雖然會比較辛苦，但的確是學習的好方式，如同 coding 角度的走出舒適圈 XD</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/w3f99sx1.aspx" target="_blank">Type.GetType 方法 (String)</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/library/system.type.assemblyqualifiedname.aspx" target="_blank">Type.AssemblyQualifiedName Property</a></li>
+<li><a href="https://stackoverflow.com/questions/3657424/get-assembly-by-class-name" target="_blank">get assembly by class name</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-22</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/common-logging/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">使用 Common.Logging 搭配 NLog 及 log4net</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/nuget-package-explorer/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">使用 NuGet Package Explorer 建立 NuGet 套件</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/string-create-instance\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

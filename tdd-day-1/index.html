@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1 About 參加課程 測試的重要性大部份的工程師都懂，也都 想 做，只是更多時候絕大多數人都停留在 想 這個階段，這跟常" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/tdd-day-1/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1" />
+<meta property="og:description" content="自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1 About 參加課程 測試的重要性大部份的工程師都懂，也都 想 做，只是更多時候絕大多數人都停留在 想 這個階段，這跟常" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/tdd-day-1/" /><meta property="article:published_time" content="2017-05-23T22:47:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-22T16:33:55&#43;08:00"/>
+
+<meta itemprop="name" content="自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1">
+<meta itemprop="description" content="自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1 About 參加課程 測試的重要性大部份的工程師都懂，也都 想 做，只是更多時候絕大多數人都停留在 想 這個階段，這跟常">
+
+
+<meta itemprop="datePublished" content="2017-05-23T22:47:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-22T16:33:55&#43;08:00" />
+<meta itemprop="wordCount" content="5006">
+
+
+
+<meta itemprop="keywords" content="TDD,Unit Test,MSTest," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1"/>
+<meta name="twitter:description" content="自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1 About 參加課程 測試的重要性大部份的工程師都懂，也都 想 做，只是更多時候絕大多數人都停留在 想 這個階段，這跟常"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-05-23 </span>
+        
+        <span class="more-meta"> 約 5006 字 </span>
+          <span class="more-meta"> 預計閱讀 10 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#自動測試與-tdd-實務開發-使用-c-心得-day-1">自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1</a>
+<ul>
+<li><a href="#about-參加課程">About 參加課程</a></li>
+<li><a href="#兩年間的差異">兩年間的差異</a></li>
+<li><a href="#課程內容">課程內容</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="自動測試與-tdd-實務開發-使用-c-心得-day-1">自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1</h1>
+
+<h2 id="about-參加課程">About 參加課程</h2>
+
+<p>測試的重要性大部份的工程師都懂，也都 <code>想</code> 做，只是更多時候絕大多數人都停留在 <code>想</code> 這個階段，這跟常聽到同事說 <code>想</code> 要多學點東西、<code>想</code> 強化自己的技術能力一樣，仔細觀察下發現大多數人的心態是：</p>
+
+<ol>
+<li>公司提供資源就學</li>
+<li>工作上用到不得不就學</li>
+<li>花自己錢跟時間免談</li>
+</ol>
+
+<p>台灣軟體工作很多，靠著學校老師教的 coding 技能要找到一份程式工作是件容易的事，如果只求糊口或是有份工作其實這樣也就夠了，但如果想要成為合格或是優秀工程師就得要常常充實自己、不斷地學習與練習，但這是個人選擇不是絕對必要的，不是每個工程師就必需追求卓越不可，有其他努力的目標也是很棒的</p>
+
+<p>而測試並不是追求卓越才需具備的技能，它是一個合格工程師的基本門檻，軟體品質並不是 <code>說</code> 就算數的，我們得提供科學化的數據來佐證：哪些功能是測試過的、使用哪些測試案例、使用什麼樣的測試方法、哪些功能是還沒有測試的、沒有測試的功能會造成什麼的風險&hellip;.etc 只有在我們能提供這些數據的同時我們才能宣稱程式品質具有一定的保障，基於這個原因我也不是個合格的工程師&gt;&rdquo;&lt;||&rdquo; 我也沒有辦法提供相關測試數據，當然沒有做的原因跟大家都一樣：時程很趕、沒有足夠的技能、基本功能不會有錯不用測、一堆外部相依不適合、某些功能只有在 production 環境可以驗證&hellip;..，當然我也是一直 <code>想</code> 做，只是一直無法擺脫拖延症的糾纏，以往在專案公司大部份的流程跟細節都是自己可控制，加上整個開發生命周期可能就三個月，有沒有測試自己覺得沒什麼差，直到轉換工作到產品公司後才意識到測試可以解決不少痛處：</p>
+
+<ol>
+<li>改 A 不知道 B 會不會壞</li>
+<li>使用者來來去去，已經沒有人清楚完整功能</li>
+<li>系統 domain know-how 只有少數人清楚，造成人力調度難度增加</li>
+<li>耦合度高，沒有測試保護，不敢改，造成既有問題無法解決</li>
+</ol>
+
+<p>這是我這二次參加 91 大的 TDD 課程，兩次間隔約莫差了三年：2014/8 v.s. 2017/5，這兩次間的變化很大，下面做個比較</p>
+
+<table>
+<thead>
+<tr>
+<th>-</th>
+<th>第一次</th>
+<th>第二次</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong><em>參加動機</em></strong></td>
+<td><a href="https://blog.chunfuchao.com/?p=656&amp;variant=zh-tw" target="_blank">一窩蜂驅動開發</a>,<br/> 像是大家都在學，我不學好像我不懂、落後別人</td>
+<td>想要讓程式品質提昇、有正確的測試觀念及技能</td>
+</tr>
+
+<tr>
+<td><strong><em>課程期待</em></strong></td>
+<td>希望學到一招半式就可以打遍天下無敵手</td>
+<td>釐清原本的疑問及改善測試寫法</td>
+</tr>
+
+<tr>
+<td><strong><em>自己心態</em></strong></td>
+<td>想了解為什 TDD 這麼紅</td>
+<td>不想再對程式碼品質自我感覺良好，學習正確有系統的做法</td>
+</tr>
+
+<tr>
+<td><strong><em>講師功力</em></strong></td>
+<td>超強，神一樣的存在，但有距離感</td>
+<td>更強了，致力於讓大家真正學會，引導功力、整體課程規劃都有提升</td>
+</tr>
+
+<tr>
+<td><strong><em>課程感受</em></strong></td>
+<td>課程太豐富，自己聽不太懂，導致吸收有限</td>
+<td>引導大家思考加上課程回顧加深印象-效果好</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="兩年間的差異">兩年間的差異</h2>
+
+<ol>
+<li><p>對技術立場的改變</p>
+
+<blockquote>
+<p>自己經過三年不同工作的磨練，不再像以前專案公司一昧追求新技術、追求快速開發、追求一窩蜂式的開發，逐漸認清人的時間有限：不可能什麼都很懂，可以知道很多東西但還是需要有一項或是少數幾項特別專精的，有這樣的認知後讓我可以選擇放棄追求某些技能(特別感謝 格明 (原 新旺)- CTO Nicolas 在面試的場合中願意提點我這件重要的事，否則我可能還是在汲汲營營地追求新技術</p>
+</blockquote></li>
+
+<li><p>91 大在教學上的提升</p>
+
+<blockquote>
+<p>有在 follow 91 大臉書的朋友(如果還沒有 follow 的快去 follow <a href="https://www.facebook.com/91agile/" target="_blank">91 敏捷開發之路</a>) 都知道 91 大為了提昇教學能力及品質，花了不少工夫在自我要求改善上，透過這次課程我尤其能感受到差別：整個課程的編排、段落的銜接、表達能力、引導功力、輔助教具都有不止一個檔次的提昇，讓上課的學習效果倍增</p>
+</blockquote></li>
+
+<li><p>內心想法的調整</p>
+
+<blockquote>
+<p>一直以來都覺得自己是個水準之上的工程師，但就是這樣的想法常常會限制自己，自己覺得不錯是自我感覺良好嗎？ 還是周遭其他人給自己的錯覺？ 仔細想想自己就是隻井底之鞋，老是用極度狹隘的眼界來理解所有的一切，不知道你有沒有這樣的經驗：台上的講師問有沒有問題？你明明有問題但沒人問你就不好意思舉手了，覺得大家都會 優秀如我怎麼可能不會，我以前就是這樣XD，總想著等等回家查查或是等等私下問講師，但常常問題就這麼稍蹤即逝，有天我想通了：我就是要來學習的 ，如果我沒有學到或是搞清楚我不懂的，我大可把時間跟金錢花在更有意義的地方，所以不管問題再怎麼笨還是應該要問，因為可恥的不是不知道笨問題的答案，而是連搞清楚笨問題答案的勇氣都沒有，畢竟術業有專攻，不可能知道所有事，尤其在軟體開發這個產業更是明顯；先知先覺固然是好事，但後知後覺也至少還是學會了，但我以前的行為卻是後知不覺，怎麼能期望有更好的表現，這點在看了這次課程中 91 大的補充文章 <a href="https://dotblogs.com.tw/hatelove/2016/04/27/learn-to-ask-and-answer-questions" target="_blank">[隨筆] 學問－該怎麼提高上課的學習效果？</a> 更是心有戚戚焉，一開始可能很難，也許試著先將問題詳細紀錄下來避免遺漏開始做起是個不錯的方式，改變不是件容易的事，但總要開始朝著目標前進才有機會</p>
+</blockquote></li>
+</ol>
+
+<hr />
+
+<h2 id="課程內容">課程內容</h2>
+
+<ol>
+<li><p>課程主要講的是開發，測試只是輔助；主要是教需求確認，測試程式是工具</p></li>
+
+<li><p>最終的課程目標</p>
+
+<ul>
+<li><p>使用自然語言當做測試案例</p></li>
+
+<li><p>產生支援 instant search 的測試結果報告(包括：網頁、 word、pdf 格式)</p></li>
+
+<li><p>讓開發流程：需求 &ndash;&gt; 測試案例 &ndash;&gt; 程式碼 &ndash;&gt; 文件 一次搞定</p>
+
+<blockquote>
+<p>文件常常無法即時跟著需求變更來調整，一定會隨著需求變更異動的只有程式碼，所以更應該讓由程式碼來產生文件 以確保文件的即時性</p>
+
+<p>可以將產生文件的動作跟 CI hook 在一起</p>
+</blockquote></li>
+
+<li><p>讓大家在可以有能力完成整套測試：end to end test、 integration test、model、web api&hellip;.</p></li>
+</ul></li>
+
+<li><p>可以透過測試解決開發的常見問題</p>
+
+<ul>
+<li><p>要快速並精準定位錯誤在哪裡是困難的</p>
+
+<blockquote>
+<p>錯誤訊息有時候很簡略，常常還沒講到重點，看半天還是不知道從何查起，如果有測試程式把關，你知道哪些功能的錯誤機率是比較低，可能先查別的地方</p>
+</blockquote></li>
+
+<li><p>無法提供測過哪些方法、使用哪些測試案例的數據資訊</p>
+
+<blockquote>
+<p>數據是品質保障的強力證據，讓程式 release 時更有信心，出問題時有證據知道問題發生原因，當下被質問時才不會啞口無言，沒有方向</p>
+</blockquote></li>
+
+<li><p>改東可能會壞西</p>
+
+<blockquote>
+<p>避免出現非預期中的錯誤突然冒出來，你一定也遇過你明明沒殺 A 但 A 還是因為你而死 XD，這就是隱藏的相依，只要遇到一次就加上測試，慢慢地就會釐清完整的相依關係了</p>
+</blockquote></li>
+
+<li><p>平行開發時互相影響</p>
+
+<blockquote>
+<p>避免開發時程互相等待而延長(跨 team 的 api 介接，容易發生)，可以保障每次更版不會因為修改而造成其他 team 所需功能異常(e.g. backend 改了驗證 api，讓 frontend 用完全無法驗證，只能暫停開發等修復)</p>
+</blockquote></li>
+
+<li><p>測試環境無法完整測試</p>
+
+<blockquote>
+<p>有些外部資源是測試環境無法提供的(e.x. 金流、物流)，透過測試模擬是個解法，透過模擬可能一開始跟實際環境會有落差，一樣是遇到時就調整，最後就會有正確的版本</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>如何解決上述問題</p>
+
+<ul>
+<li><p>unit test</p>
+
+<blockquote>
+<p>難免會有 bug，應該特別將 production issue 加入 unit test 力求 bug 不再重覆發生</p>
+</blockquote></li>
+
+<li><p>production code 需要包含測試程式</p>
+
+<blockquote>
+<p>讓商業邏輯及程式架構依然鮮明時就寫，效果最好，時間一久難免有遺漏</p>
+</blockquote></li>
+
+<li><p>常保程式碼都是隨時可以測試</p>
+
+<blockquote>
+<p>如果出現紅燈，準備動手的人就會擔心這是正常現象還是被改壞了，無形中造成時間浪費也讓開發人員對測試漸失信心</p>
+</blockquote></li>
+
+<li><p>ioslated 關注點分離</p>
+
+<blockquote>
+<p>隔離其他變因，專心驗證在意或是重要性較高的部份</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>什麼是單元測試</p>
+
+<ul>
+<li><p>最小的測試單位</p>
+
+<blockquote>
+<p>以需求為出發點的衡量單位，不是以程式碼 function 來看</p>
+</blockquote></li>
+
+<li><p>外部相依性為 0</p>
+
+<blockquote>
+<p>db、network、file 都不該在單元測試中出現</p>
+</blockquote></li>
+
+<li><p>不具備商業邏輯</p>
+
+<blockquote>
+<p>不會有 if-else、for-loop、try-catch</p>
+</blockquote></li>
+
+<li><p>測試案例間相依性為 0</p>
+
+<blockquote>
+<p>不會因為測試間使用到共用資源或是測試案例間有互相呼叫的狀況</p>
+</blockquote></li>
+
+<li><p>一個測試案例只測一件事</p>
+
+<blockquote>
+<p>以需求為出發點，不要在同一個測試案例驗證超過一件事，讓測試案例可以很快速反應出狀況</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>好的單元測試特性：FIRST</p>
+
+<ul>
+<li><p>F - Fast</p>
+
+<blockquote>
+<p>一般來說小於 500 ms，快才不會中斷開發，如果超過 1 秒就需探究是否違反單元測試的定義</p>
+</blockquote></li>
+
+<li><p>I - Independent：</p>
+
+<blockquote>
+<p>外部相依為 0</p>
+</blockquote></li>
+
+<li><p>R - Repeatable：</p>
+
+<blockquote>
+<p>在沒有修改的情況下，何時跑、跑幾次結果都是一致的</p>
+</blockquote></li>
+
+<li><p>S - Self-Validating：</p>
+
+<blockquote>
+<p>a. 程式會自己進行驗證動作(不需人力介入驗證) b. 可以快速提供錯誤或是正確的資訊</p>
+</blockquote></li>
+
+<li><p>T - Timely：</p>
+
+<blockquote>
+<p>即時性，在 commit production code 時，測試也應該完成並都是綠燈的情境下一同 commit</p>
+</blockquote></li>
+</ul></li>
+</ol>
+
+<p><strong>測試程式的可讀性也很重要，如果很難看得懂，造成後續維護困難，慢慢地愈來愈沒維護意願了</strong></p>
+
+<ol>
+<li><p>3A 原則</p>
+
+<ul>
+<li><p>Arrange</p>
+
+<ul>
+<li>初始化 target</li>
+<li>初始化 target 方法需要使用的參數</li>
+<li>設定模擬物件的執行動作</li>
+
+<li><p>指定 expected 結果</p>
+
+<blockquote>
+<p>也可以放在 assert，放在 arrange 一目暸然效果更強</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>Act</p>
+
+<ul>
+<li>實際執行 target 方法</li>
+<li>模擬外部如何互動</li>
+</ul></li>
+
+<li><p>Assert</p>
+
+<ul>
+<li>驗證實際結果是否合乎 expected</li>
+</ul></li>
+</ul></li>
+
+<li><p>如何開始進行單元測試</p>
+
+<ul>
+<li><p>為測試方法命名一個充份揭露意圖的名稱</p>
+
+<blockquote>
+<p>改成想要進行的驗證、可以使用中文、讓人一眼就知道在測什麼</p>
+</blockquote></li>
+
+<li><p>可以定義團隊共同規範</p>
+
+<ul>
+<li>保留字：
+
+<ul>
+<li><code>target</code>：測試對象</li>
+<li><code>expected</code>：期望值</li>
+<li><code>actual</code>：實際結果</li>
+</ul></li>
+</ul></li>
+</ul></li>
+
+<li><p>MSTest</p>
+
+<ul>
+<li><p>attribute</p>
+
+<blockquote>
+<p>很多就不一一列出，有興趣可以參考 <a href="https://blog.yowko.com/2017/02/MStest-NUnit3-xUnit.net2-Compare.html" target="_blank">MSTest,NUnit 3,xUnit.net 2.0 比較</a></p>
+</blockquote></li>
+
+<li><p>event hook</p>
+
+<ul>
+<li><p>AssemblyInitialize</p>
+
+<blockquote>
+<p>測試執行前方法，一個測試專案只執行一次</p>
+</blockquote></li>
+
+<li><p>AssemblyCleanup</p>
+
+<blockquote>
+<p>測試執行後方法，一個測試專案只執行一次</p>
+</blockquote></li>
+
+<li><p>ClassInitialize</p>
+
+<blockquote>
+<p>測試執行前方法，一個測試 class 只執行一次</p>
+</blockquote></li>
+
+<li><p>ClassCleanup</p>
+
+<blockquote>
+<p>測試執行後方法，一個測試 class 只執行一次</p>
+</blockquote></li>
+
+<li><p>TestInitialize</p>
+
+<blockquote>
+<p>常用來設定測試用的初始值，每個測試皆會執行一次</p>
+</blockquote></li>
+
+<li><p>TestCleanup</p>
+
+<blockquote>
+<p>常用來清除測試產生的資料，每個測試皆會執行一次</p>
+</blockquote></li>
+
+<li><p>class 與 assembly level 的 event hook 需要 static method</p></li>
+</ul></li>
+
+<li><p>TestCategoty</p>
+
+<blockquote>
+<p>用來標記用，可以掛很多個</p>
+</blockquote></li>
+
+<li><p>Ignore</p>
+
+<blockquote>
+<p>暫時不跑 ，可能是無法 repeatable 的功能，也可能只是暫放用來確認需求內容還沒有開始寫正式測試</p>
+</blockquote></li>
+
+<li><p>TestContext</p>
+
+<blockquote>
+<p>Writeline == console.WriteLine</p>
+</blockquote></li>
+
+<li><p>AreNotEqual</p>
+
+<blockquote>
+<p>視商業邏輯需求使用，也釐清後續處理法</p>
+</blockquote></li>
+
+<li><p>針對驗證 exception MSTest 是比較弱的</p>
+
+<blockquote>
+<p>只能針對整個測試方法來驗證，如果在真正執行 target method 前就出現預期 exception 這樣也會被判定為 pass &ndash;&gt; 應該使用其他 test library</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>為什麼需要 Independent(Isolated)</p>
+
+<ul>
+<li><p>Fast</p>
+
+<blockquote>
+<p>可以讓測試程式執行得比較快</p>
+</blockquote></li>
+
+<li><p>SOC</p>
+
+<blockquote>
+<p>關注點分離，專心驗證在意的內容</p>
+</blockquote></li>
+
+<li><p>Single Responsibility</p>
+
+<blockquote>
+<p>單一職責，避免出現異常還需要多花時間去找造成問題的原因</p>
+</blockquote></li>
+
+<li><p>Testability</p>
+
+<blockquote>
+<p>可測試性，相依性過重的程式碼維護上不僅困難重重，也可能因為無法固定其他變因而沒辦法測試</p>
+</blockquote></li>
+
+<li><p>Robustness</p>
+
+<blockquote>
+<p>測試程式的強健性，讓測試程式不是在維持在一個恐怖的平衡上，容易因為其他外在因素而造成測試程式不穩定(e.g. 驗證文字內容，但文字內容可能常常頻繁異動，這樣就是不具備強健性)</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>如何解決相依問題</p>
+
+<ul>
+<li><p>單一職責</p>
+
+<blockquote>
+<p>擷取相依 class 為 interface</p>
+</blockquote></li>
+
+<li><p>依賴介面</p>
+
+<ul>
+<li>從使用者角度定義介面</li>
+<li>相依 class 實作介面</li>
+</ul></li>
+
+<li><p>依賴注入</p>
+
+<ul>
+<li>從建構式注入相依介面的 instance</li>
+<li>從 property</li>
+</ul></li>
+
+<li><p>測試程式自行定義實作 stub 物件</p>
+
+<ul>
+<li>實作相依介面</li>
+<li>決定 stub 實作內容(hardcode)</li>
+</ul></li>
+</ul></li>
+
+<li><p>單元測試的驗證方式</p>
+
+<ul>
+<li><p>驗證回傳值</p>
+
+<blockquote>
+<p>針對有回傳值的 method</p>
+</blockquote></li>
+
+<li><p>驗證狀態的改變(void method)</p>
+
+<blockquote>
+<p>針對沒有回傳值但會改變屬性或是狀態的 method</p>
+</blockquote></li>
+
+<li><p>驗證外部互動 (mock)</p>
+
+<blockquote>
+<p>針對外部相依 (e.g. log、mail、sms) 只能測到確定有呼叫</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>stub vs mock</p>
+
+<ul>
+<li><p>stub</p>
+
+<blockquote>
+<p>模擬外部回傳值或是回應</p>
+</blockquote></li>
+
+<li><p>mock</p>
+
+<blockquote>
+<p>驗證 SUT (System under test) 與相依物件互動是否符合預期</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>關於 Code Coverage</p>
+
+<ul>
+<li><p>大於 0%</p>
+
+<blockquote>
+<p>萬事起頭難，先求有再求多</p>
+</blockquote></li>
+
+<li><p>critical path 先做</p>
+
+<blockquote>
+<p>先保障重要性高或是使用頻率高的功能</p>
+</blockquote></li>
+
+<li><p>檢視未涵蓋的 code</p>
+
+<blockquote>
+<p>是重要性低還是根本沒用到</p>
+</blockquote></li>
+
+<li><p>相對趨勢 &gt; 絕對數字</p>
+
+<blockquote>
+<p>追求逐步增加 而非絕對比例</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>其他問題</p>
+
+<ul>
+<li><p>是曾否需要針對外部資源做測試 e.g. api、db access&hellip;</p>
+
+<blockquote>
+<p>針對外部資源不做測試，外部資源應該自行進行測試 &ndash;&gt; 不測試回應，但需測試執行呼叫的行為，出事時才能證明真的有呼叫，是對方沒有正確回應</p>
+</blockquote></li>
+
+<li><p>是否需要測試 private method</p>
+
+<blockquote>
+<p>無需單獨對 private 進行測試，單元測試重點是測試外部如何與 class 互動，不是想了解 method 的行為，在測試 public or internal 的過程就應該 cover private 與 protected method</p>
+</blockquote>
+
+<ul>
+<li>封裝變化、實作細節 隔離出物件邊界</li>
+<li>internal 需要修改 assemblyinfo &ndash;&gt; InternalVisibleTo</li>
+</ul></li>
+
+<li><p>常見迷思：unit test 是以程式碼為出發點  所以就變成要針對每個 method 來測試  如果使用多個 method 就覺得不是 unit test</p>
+
+<blockquote>
+<p>unit test 的重點是驗證需求，不是功能的實作；驗證結果或是互動結果是否合乎預期，不是要求程式碼應該如何作動</p>
+</blockquote></li>
+
+<li><p>測試時假造很多東西   這樣還算是測試嗎？</p>
+
+<blockquote>
+<p>關注點分離、 Isolated 提醒我們，重點是在驗證互動，確認是否符合預期，讓需求得到滿足，假造或是模擬只是固定其他變因的手段，讓我們可以把重點集中在當下要驗證的點上</p>
+</blockquote></li>
+</ul></li>
+</ol>
+
+<hr />
+
+<h2 id="心得">心得</h2>
+
+<p>雖然有嘗試寫測試，但一直以來沒有很完整地使用測試來完成專案讓我覺得不踏實，有些觀念或是測試方法也不知道正不正確，甚至同事還問我為什麼還要再參加一次課程，這個答案很直覺：因為我沒有信心宣稱自己會、我想搞清楚不懂的、我也做更有系統性的學習。很多技巧或是方式，可能可以在網路上用幾個關鍵字找到解決方式，問題當下是找到了處理方式，但那是正確的解法嗎？如果把問題換成生病還會上網亂求藥方嗎？也絕不可能隨便就相信網路上的鍵盤醫生，還是會想要找合格的醫生及醫院做正確的處理，一樣的意思，如果真的在意程式碼品質，我想大家都會認同我想找個口碑佳、真正可以幫助我的好老師</p>
+
+<p>有人在意要犧牲自己假日休息時間、有的人在意學費很貴，這都是強求不來的，也是個人選擇，沒有好壞之別，以我個人為例，第二次課程我繳一樣的學費，還得早上五點起床準備，然後搭著捷運首班車、高鐵首班車到台中上班，因為我相信好的課程帶給我的絕對遠遠超過時間及金錢的價值，如果將這些時間成本、金錢成本所換得的技能提昇攤提至往後的工作年限，你會發現這樣的投資絕對划算</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://blog.chunfuchao.com/?p=656&amp;variant=zh-tw" target="_blank">一窩蜂驅動開發</a></li>
+<li><a href="https://www.facebook.com/91agile/" target="_blank">91 敏捷開發之路</a></li>
+<li><a href="https://dotblogs.com.tw/hatelove/2016/04/27/learn-to-ask-and-answer-questions" target="_blank">[隨筆] 學問－該怎麼提高上課的學習效果？</a></li>
+<li><a href="https://blog.yowko.com/2017/02/MStest-NUnit3-xUnit.net2-Compare.html" target="_blank">MSTest,NUnit 3,xUnit.net 2.0 比較</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-22</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/tdd/">TDD</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/unit-test/">Unit Test</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/mstest/">MSTest</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/visual-studio-debug-cs0006/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">Visual Studio 無法 Debug 專案 (錯誤代碼：CS0006)</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/rabbitmq-client-send-consume/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">使用 .Net client 連線至 RabbitMQ 收發訊息</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/tdd-day-1\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

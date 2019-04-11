@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Jenkins 2 如何建立 Pipeline job - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="Jenkins 2 如何建立 Pipeline job Pipeline 是 Jenkins 2 的一大特色，其概念就是將建置流程步驟透過 DSL(Domain-Specific Languages) 來定義與描述，使用的語法是 groovy，但如果只為了 build job 而刻意學 goovy 個人擔" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/jenkins-pipeline/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="Jenkins 2 如何建立 Pipeline job" />
+<meta property="og:description" content="Jenkins 2 如何建立 Pipeline job Pipeline 是 Jenkins 2 的一大特色，其概念就是將建置流程步驟透過 DSL(Domain-Specific Languages) 來定義與描述，使用的語法是 groovy，但如果只為了 build job 而刻意學 goovy 個人擔" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/jenkins-pipeline/" /><meta property="article:published_time" content="2017-02-22T01:42:34&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-12T00:42:34&#43;08:00"/>
+
+<meta itemprop="name" content="Jenkins 2 如何建立 Pipeline job">
+<meta itemprop="description" content="Jenkins 2 如何建立 Pipeline job Pipeline 是 Jenkins 2 的一大特色，其概念就是將建置流程步驟透過 DSL(Domain-Specific Languages) 來定義與描述，使用的語法是 groovy，但如果只為了 build job 而刻意學 goovy 個人擔">
+
+
+<meta itemprop="datePublished" content="2017-02-22T01:42:34&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-12T00:42:34&#43;08:00" />
+<meta itemprop="wordCount" content="964">
+
+
+
+<meta itemprop="keywords" content="Jenkins,DevOps," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jenkins 2 如何建立 Pipeline job"/>
+<meta name="twitter:description" content="Jenkins 2 如何建立 Pipeline job Pipeline 是 Jenkins 2 的一大特色，其概念就是將建置流程步驟透過 DSL(Domain-Specific Languages) 來定義與描述，使用的語法是 groovy，但如果只為了 build job 而刻意學 goovy 個人擔"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-02-22 </span>
+        
+        <span class="more-meta"> 約 964 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#jenkins-2-如何建立-pipeline-job">Jenkins 2 如何建立 Pipeline job</a>
+<ul>
+<li><a href="#使用情境">使用情境</a></li>
+<li><a href="#實際做法">實際做法</a></li>
+<li><a href="#build">Build</a></li>
+</ul></li>
+<li><a href="#參考資料">參考資料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="jenkins-2-如何建立-pipeline-job">Jenkins 2 如何建立 Pipeline job</h1>
+
+<p>Pipeline 是 Jenkins 2 的一大特色，其概念就是將建置流程步驟透過 DSL(Domain-Specific Languages) 來定義與描述，使用的語法是 groovy，但如果只為了 build job 而刻意學 goovy 個人擔心學完不常用很快就忘，實際上我只用基本語法來完成 Pipeline 的工作，因此本文關於 groovy 語法的部份只會帶過而已。</p>
+
+<p>本文的另個重點，將會使用 Jenkins 2 搭配 PowerShell 與 robocopy 來完成持續性部署 (Continuous Deployment) 的自動化作業。</p>
+
+<h2 id="使用情境">使用情境</h2>
+
+<ol>
+<li>checkout source code and build</li>
+<li>停止網站 or windows service</li>
+<li>程式部署</li>
+<li>啟動網站 or windows service</li>
+</ol>
+
+<h2 id="實際做法">實際做法</h2>
+
+<ol>
+<li><p>checkout source code and build</p>
+
+<ul>
+<li>可以參考 <a href="http://blog.yowko.com/2017/02/jenkins-2-build-dotnet-project.html" target="_blank">如何使用 Jenkins 2 建置 .NET 專案</a> 來建立 build job, 這邊就不重複贅述</li>
+
+<li><p>需要注意的是 build 參數要加上 publish 設定後面才可以進行部署</p>
+
+<pre><code>/p:DeployOnBuild=True /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:publishUrl={filepath}
+</code></pre></li>
+</ul></li>
+
+<li><p>停止網站 or windows service</p>
+
+<ul>
+<li><p>建立 StopWebSite 的 freestyle project</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/23155475/a52e8b68-f84d-11e6-917c-0bce2431dc8e.png" alt="1stopwebsite" /></p></li>
+
+<li><p>使用參數化建置</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/23155477/a53cb65c-f84d-11e6-812f-b959cee8e16c.png" alt="2addparameterize" /></p>
+
+<ul>
+<li><p>加入 string 參數來表示目標 server</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/23155480/a552f232-f84d-11e6-9faa-3bce3f7012f4.png" alt="4serverip" /></p></li>
+
+<li><p>加入 string 參數來表示欲停止的 IIS 網站名稱</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/23155479/a5483c16-f84d-11e6-8b62-758fc4a2a259.png" alt="3sitename" /></p></li>
+</ul></li>
+
+<li><p>使用 PowerShell 來停止 website</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/23155470/a4ed669c-f84d-11e6-8113-15045775ea85.png" alt="5ps" /></p>
+
+<ul>
+<li>記得安裝 PowerShell plugin (沒裝過的可以參考 <a href="https://blog.yowko.com/2017/02/jenkins2-powershell-plugin.html" target="_blank">Jenkins 2 如何使用 PowerShell 以及自定 build fail (指定 exit code)</a>)</li>
+
+<li><p>加入一個 build step 使用 Windows PowerShell</p>
+
+<pre><code class="language-ps1">if ( Invoke-Command -ComputerName  $env:serverIP -ScriptBlock { (Get-WebAppPoolState -Name $args[0]).Value -eq &quot;Started&quot; } -argumentlist $env:siteName)
+{
+    Invoke-Command -ComputerName $env:serverIP -ScriptBlock { Stop-WebAppPool -Name $args[0] } -argumentlist $env:siteName
+}
+            
+do
+{
+    Invoke-Command -ComputerName $env:serverIP -ScriptBlock { Stop-WebAppPool -Name $args[0] } -argumentlist $env:siteName
+    Start-Sleep -Seconds 1
+}
+until ( Invoke-Command -ComputerName  $env:serverIP -ScriptBlock { (Get-WebAppPoolState -Name $args[0]).Value -eq &quot;Stopped&quot; } -argumentlist $env:siteName  )
+</code></pre></li>
+
+<li><p>在 Windows PowerShell 要取用定義在 Jenkins 的變數，記得在 變數前面加上 <code>$env:</code></p></li>
+</ul></li>
+</ul></li>
+
+<li><p>程式部署</p>
+
+<ul>
+<li>建立 DeployWebSite 的 freestyle project</li>
+
+<li><p>使用參數化建置</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/23155471/a517c63a-f84d-11e6-8184-5ec8647ed054.png" alt="6deploy" /></p>
+
+<ul>
+<li>加入 string 參數來表示部署<code>來源</code>位置</li>
+<li>加入 string 參數來表示部署<code>目標</code>位置</li>
+</ul></li>
+
+<li><p>使用 PowerShell 與 robocopy 來複製檔案</p>
+
+<pre><code class="language-ps1">Try
+{
+    $lasterror=robocopy $env:SourceFolder $env:DestinationFolder *.* /E /MT /purge
+}
+Catch
+{
+    write-output &quot;get data fail!&quot;
+    exit 1
+}
+if($lasterror -le 7)
+{
+ exit 0
+}
+</code></pre>
+
+<ul>
+<li>需要注意的是 robocopy 的 exit code
+<br /></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th align="left">exit code</th>
+<th align="left">說明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">0</td>
+<td align="left">沒有錯誤，也沒有複製任何檔案，來源與目標已同步</td>
+</tr>
+
+<tr>
+<td align="left">1</td>
+<td align="left">檔案已成功複製</td>
+</tr>
+
+<tr>
+<td align="left">2</td>
+<td align="left">偵測到目標有額外檔案(檔案比來源目錄還多)</td>
+</tr>
+
+<tr>
+<td align="left">4</td>
+<td align="left">檔案或是資料夾不一致</td>
+</tr>
+
+<tr>
+<td align="left">8</td>
+<td align="left">檔案或是資料夾無法被複製(複製出錯且重試次數過多)</td>
+</tr>
+
+<tr>
+<td align="left">16</td>
+<td align="left">錯誤，無法複製任何檔案(使用方法錯誤或是權限不足)</td>
+</tr>
+</tbody>
+</table></li>
+</ul></li>
+
+<li><p>啟動網站 or windows service</p>
+
+<ul>
+<li>建立 StartWebSite 的 freestyle project</li>
+<li>使用參數化建置
+
+<ul>
+<li>加入 string 參數來表示目標 server</li>
+<li>加入 string 參數來表示欲停止的 IIS 網站名稱</li>
+</ul></li>
+<li>使用 PowerShell 來啟動 website</li>
+
+<li><p>步驟跟  <code>停止網站 or windows service</code> 一樣，只是換成啟動</p>
+
+<pre><code class="language-ps1">if ( Invoke-Command -ComputerName  $env:serverIP -ScriptBlock { (Get-WebAppPoolState -Name $args[0]).Value -eq &quot;Stopped&quot; } -argumentlist $env:siteName)
+{
+    Invoke-Command -ComputerName $env:serverIP -ScriptBlock { Start-WebAppPool -Name $args[0] } -argumentlist $env:siteName
+}
+            
+do
+{
+    Invoke-Command -ComputerName $env:serverIP -ScriptBlock { Start-WebAppPool -Name $args[0] } -argumentlist $env:siteName
+    Start-Sleep -Seconds 1
+}
+until ( Invoke-Command -ComputerName  $env:serverIP -ScriptBlock { (Get-WebAppPoolState -Name $args[0]).Value -eq &quot;Started&quot; } -argumentlist $env:siteName  )
+</code></pre></li>
+</ul></li>
+
+<li><p>建立 Pipeline job</p>
+
+<ul>
+<li><p>建立 TestPipeline 的 Pipeline 專案</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/23155472/a5264aca-f84d-11e6-8f89-240551f49d9c.png" alt="7pipeline" /></p></li>
+
+<li><p>建立使用其他 build job 時需要的參數</p></li>
+
+<li><p>撰寫 pipeline script</p>
+
+<ul>
+<li>逐步定義步驟
+
+<ol>
+<li>BuildProject</li>
+<li>StopWebSite</li>
+<li>Deploy</li>
+<li>StartWebSite</li>
+</ol></li>
+
+<li><p>給定參數</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/23155473/a528ffae-f84d-11e6-843f-b1a28608e1ac.png" alt="8para" /></p>
+
+<ol>
+<li>需要指定參數型態</li>
+<li>指定參數名稱</li>
+<li>指定參數值
+<br /></li>
+</ol></li>
+</ul>
+
+<pre><code class="language-groovy">node {
+    stage ('BuildProject') {
+            build job: 'TestDotNetProject'
+        }
+    stage ('StopWebSite') {
+            build job: 'StopWebSite', parameters: [[$class: 'StringParameterValue', name: 'serverIP', value: params.serverIP],[$class: 'StringParameterValue', name: 'siteName', value: params.siteName]]   
+        }    
+    stage ('Deploy') {
+            build job: 'DeployWebSite', parameters: [[$class: 'StringParameterValue', name: 'SourceFolder', value: params.SourceFolder],[$class: 'StringParameterValue', name: 'DestinationFolder', value: params.DestinationFolder]]   
+        }
+    stage ('StartWebSite') {
+            build job: 'StartWebSite', parameters: [[$class: 'StringParameterValue', name: 'serverIP', value: params.serverIP],[$class: 'StringParameterValue', name: 'siteName', value: params.siteName]]   
+        }
+    }
+</code></pre>
+
+<h2 id="build">Build</h2></li>
+</ul></li>
+
+<li><p>執行 build (給定參數)</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/23155476/a52ec6fa-f84d-11e6-9c28-6d2fa197ef1f.png" alt="9buildnow" /></p></li>
+
+<li><p>逐步執行</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/23155474/a52d0b9e-f84d-11e6-9a3d-239faf895706.png" alt="10executebuild" /></p></li>
+</ol>
+
+<h1 id="參考資料">參考資料</h1>
+
+<ol>
+<li><a href="http://jenkins.readbook.tw/jenkins/jenkins2/index.html" target="_blank">jenkins 2.0</a></li>
+<li><a href="http://trunk-studio.com/blog/jenkins-2-preview/" target="_blank">Jenkins 2.0 初體驗：Pipeline 的使用</a></li>
+<li><a href="http://stackoverflow.com/questions/9169341/how-to-use-msbuild-msdeploypublish-to-target-local-file-system" target="_blank">How to use MsBuild MsDeployPublish to target local file system?</a></li>
+<li><a href="https://jenkins.io/doc/book/pipeline/getting-started/" target="_blank">Getting Started with Pipeline</a></li>
+<li><a href="https://rucialk.wordpress.com/2016/03/17/jenkins-groovy-accessing-build-parameters/" target="_blank">Jenkins &amp; Groovy – accessing build parameters</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-12</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/jenkins/">Jenkins</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/devops/">DevOps</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/dotnet-redis-lists/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 3 (使用 Lists 型別)</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/dotnet-redis-hashes/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 2 (使用 Hashes 型別)</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/jenkins-pipeline\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

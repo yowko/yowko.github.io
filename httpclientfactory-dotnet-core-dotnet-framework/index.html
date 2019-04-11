@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>在 .NET Core 與 .NET Framework 上使用 HttpClientFactory - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="在 .NET Core 與 .NET Framework 上使用 HttpClientFactory 之前筆記 探討 HttpClient 可能的問題 與 HttpClient 無法反應 DNS 異動的解決方式 的出現是因為工作任務需要將一些重要訊息傳送至 Slack 而留意到 .NET Core 使用的 HttpClientFactory 是" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="在 .NET Core 與 .NET Framework 上使用 HttpClientFactory" />
+<meta property="og:description" content="在 .NET Core 與 .NET Framework 上使用 HttpClientFactory 之前筆記 探討 HttpClient 可能的問題 與 HttpClient 無法反應 DNS 異動的解決方式 的出現是因為工作任務需要將一些重要訊息傳送至 Slack 而留意到 .NET Core 使用的 HttpClientFactory 是" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/" /><meta property="article:published_time" content="2019-01-16T23:45:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-01-16T23:44:30&#43;08:00"/>
+
+<meta itemprop="name" content="在 .NET Core 與 .NET Framework 上使用 HttpClientFactory">
+<meta itemprop="description" content="在 .NET Core 與 .NET Framework 上使用 HttpClientFactory 之前筆記 探討 HttpClient 可能的問題 與 HttpClient 無法反應 DNS 異動的解決方式 的出現是因為工作任務需要將一些重要訊息傳送至 Slack 而留意到 .NET Core 使用的 HttpClientFactory 是">
+
+
+<meta itemprop="datePublished" content="2019-01-16T23:45:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-01-16T23:44:30&#43;08:00" />
+<meta itemprop="wordCount" content="2913">
+
+
+
+<meta itemprop="keywords" content="C#,dotnet core,dotnet," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="在 .NET Core 與 .NET Framework 上使用 HttpClientFactory"/>
+<meta name="twitter:description" content="在 .NET Core 與 .NET Framework 上使用 HttpClientFactory 之前筆記 探討 HttpClient 可能的問題 與 HttpClient 無法反應 DNS 異動的解決方式 的出現是因為工作任務需要將一些重要訊息傳送至 Slack 而留意到 .NET Core 使用的 HttpClientFactory 是"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-16 </span>
+        
+        <span class="more-meta"> 約 2913 字 </span>
+          <span class="more-meta"> 預計閱讀 6 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#在-net-core-與-net-framework-上使用-httpclientfactory">在 .NET Core 與 .NET Framework 上使用 HttpClientFactory</a>
+<ul>
+<li><a href="#關於-httpclientfactory">關於 HttpClientFactory</a></li>
+<li><a href="#前提設定">前提設定</a></li>
+<li><a href="#使用方式">使用方式</a></li>
+<li><a href="#outgoing-request-middleware">Outgoing Request middleware</a></li>
+<li><a href="#重試策略-使用-polly">重試策略：使用 Polly</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資料">參考資料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="在-net-core-與-net-framework-上使用-httpclientfactory">在 .NET Core 與 .NET Framework 上使用 HttpClientFactory</h1>
+
+<p>之前筆記 <a href="https://blog.yowko.com/httpclient-issue/" target="_blank">探討 HttpClient 可能的問題</a> 與 <a href="https://blog.yowko.com/httpclient-not-respect-dns-change" target="_blank">HttpClient 無法反應 DNS 異動的解決方式</a> 的出現是因為工作任務需要將一些重要訊息傳送至 Slack 而留意到 .NET Core 使用的 HttpClientFactory 是改善過去 HttpClient 存在的一些問題，為了可以更完整理解 HttpClient 缺憾做得的一些紀錄</p>
+
+<p>既然對於 HttpClient 過去的問題有些認識後，當然還是得來搞清楚 HttpClientFactory 的內容囉</p>
+
+<h2 id="關於-httpclientfactory">關於 HttpClientFactory</h2>
+
+<ul>
+<li>設計理念：
+
+<ul>
+<li>提供一個集中位置來命名和設定 HttpClient instance</li>
+<li>透過委派 DelegatingHandlers 來實現 outgoing 的 middleware</li>
+<li>統一管理 HttpClientMessageHandler (HttpClientHandler 的基底類別) 的生命周期與連線</li>
+</ul></li>
+<li>從 .NET Core 2.1 開始加入，用來建立及管理 HttpClient instance</li>
+<li>HttpClient 底層使用的 HttpClientHandler 的生命周期及 DNS 過期問題會統一由 HttpClientFactory  管理</li>
+
+<li><p>透過重複使用 HttpClient 底層 connection 來避免 socket 耗盡</p>
+
+<blockquote>
+<p>過去在 .NET Framework 上可以透過 singleton 或是 static instance 來避免問題發生</p>
+</blockquote></li>
+
+<li><p>透過增加 <code>PooledConnectionLifetime</code> 屬性來處理 <code>ServicePointManager.ConnectionLeaseTimeout</code></p>
+
+<blockquote>
+<p>過去在 .NET Framework 上可以透過指定 <code>DefaultRequestHeaders.ConnectionClose</code> 設定為 <code>true</code> 或是修改 <code>ServicePointManager.ConnectionLeaseTimeout</code> 解決，詳細內容可以參考 <a href="https://blog.yowko.com/httpclient-not-respect-dns-change" target="_blank">HttpClient 無法反應 DNS 異動的解決方式</a></p>
+</blockquote></li>
+
+<li><p>每次都取得新的 HttpClient instance 但成本最高的底層 HttpClientHandler 與 connection 則依生命周期決定由 pool 中或是建立新的 instance</p>
+
+<ul>
+<li><p>HttpClientHandler 預設的存活時間為 2 分鐘</p>
+
+<ul>
+<li>HttpClientHandler 到期時不會立即被 dispose 而是移至過期的 pool 避免再被新建立的 HttpClient 取用並等待到使用該 HttpClientHandler 中的  HttpClient 結束工作後，自然被 gc 掉</li>
+</ul></li>
+
+<li><p>每個具名 HttpClient 可以擁有單獨設定 SetHandlerLifetime 可以指定 Handler 過期時間，這也是 DNS 異動被採用的時間，不得低於 1 秒</p></li>
+</ul></li>
+</ul>
+
+<h2 id="前提設定">前提設定</h2>
+
+<ol>
+<li>Visual Studio 2017 15.9.4</li>
+
+<li><p>.NET Core 2.2.101</p>
+
+<ul>
+<li><p>Program.cs</p>
+
+<pre><code class="language-cs">public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateWebHostBuilder(args).Build().Run();
+    }
+
+    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =&gt;
+        WebHost.CreateDefaultBuilder(args)
+            .UseStartup&lt;Startup&gt;();
+}
+</code></pre></li>
+
+<li><p>Startup.cs</p>
+
+<pre><code class="language-cs">public class Startup
+{
+    // This method gets called by the runtime. Use this method to add services to the container.
+    // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+    public void ConfigureServices(IServiceCollection services)
+    {
+    }
+
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+
+        app.Run(async (context) =&gt;
+        {
+            await context.Response.WriteAsync(&quot;Hello World!&quot;);
+        });
+    }
+}
+</code></pre></li>
+</ul></li>
+
+<li><p>.NET Framework 4.7.2</p>
+
+<blockquote>
+<p>詳細使用方法請參考 <a href="https://blog.yowko.com/aspnet-core-di-httpclientfactory-in-aspnet-mvc-5" target="_blank">在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory</a></p>
+</blockquote>
+
+<ul>
+<li><p>Startup.cs</p>
+
+<pre><code class="language-cs">public partial class Startup
+{
+    public void Configuration(IAppBuilder app)
+    {
+        var services = new ServiceCollection();
+        ConfigureAuth(app);
+        ConfigureServices(services);
+        var resolver = new DefaultDependencyResolver(services.BuildServiceProvider());
+        DependencyResolver.SetResolver(resolver);
+    }
+    public void ConfigureServices(IServiceCollection services)
+    {
+                
+        services.AddControllersAsServices(typeof(Startup).Assembly.GetExportedTypes()
+        .Where(t =&gt; !t.IsAbstract &amp;&amp; !t.IsGenericTypeDefinition)
+        .Where(t =&gt; typeof(IController).IsAssignableFrom(t) || t.Name.EndsWith(&quot;Controller&quot;, StringComparison.OrdinalIgnoreCase)));
+    }
+}
+</code></pre></li>
+
+<li><p>DefaultDependencyResolver.cs</p>
+
+<pre><code class="language-cs">public class DefaultDependencyResolver : IDependencyResolver
+{
+    protected IServiceProvider serviceProvider;
+
+    public DefaultDependencyResolver(IServiceProvider serviceProvider)
+    {
+        this.serviceProvider = serviceProvider;
+    }
+
+    public object GetService(Type serviceType)
+    {
+        return this.serviceProvider.GetService(serviceType);
+    }
+
+    public IEnumerable&lt;object&gt; GetServices(Type serviceType)
+    {
+        return this.serviceProvider.GetServices(serviceType);
+    }
+}
+</code></pre></li>
+
+<li><p>ServiceProviderExtensions.cs</p>
+
+<pre><code class="language-cs">public static class ServiceProviderExtensions
+{
+    public static IServiceCollection AddControllersAsServices(this IServiceCollection services,
+    IEnumerable&lt;Type&gt; controllerTypes)
+    {
+        foreach (var type in controllerTypes)
+        {
+            services.AddTransient(type);
+        }
+
+        return services;
+    }
+}
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="使用方式">使用方式</h2>
+
+<ul>
+<li>.NET Core 因已預設參考 <code>Microsoft.AspNetCore.App</code> 的 metapackage，已內建 <code>Microsoft.Extensions.Http</code> plugin，故無須額外安裝套件</li>
+
+<li><p>.NET Framework 需另外安裝 <code>Microsoft.Extensions.Http</code> NuGet 套件</p>
+
+<blockquote>
+<p>這邊使用 <code>Microsoft.Extensions.Http 2.2.0</code></p>
+</blockquote>
+
+<ul>
+<li><p>Package Manger</p>
+
+<pre><code>Install-Package Microsoft.Extensions.Http
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package Microsoft.Extensions.Http 
+</code></pre></li>
+</ul></li>
+</ul>
+
+<ol>
+<li><p>基本用法</p>
+
+<blockquote>
+<p>最適合用來重構既有系統，有相同的 HttpClient 使用方式，只有將建立 HttpClient instance 使用 <code>CreateClient</code> 取代即可</p>
+</blockquote>
+
+<ul>
+<li><p>在 <code>Startup.cs</code> 的 <code>ConfigureServices</code> 方法中透過 <code>IServiceCollection</code> 呼叫擴充方法：<code>AddHttpClient</code> 來進行註冊</p>
+
+<pre><code class="language-cs">public void ConfigureServices(IServiceCollection services)
+{
+    services.AddHttpClient();
+}
+</code></pre></li>
+
+<li><p>在需要使用 HttpClient 的 class 中透過 .NET Core 的建構式注入</p>
+
+<pre><code class="language-cs">private readonly IHttpClientFactory _clientFactory;
+
+public HomeController(IHttpClientFactory clientFactory)
+{
+    _clientFactory = clientFactory;
+}
+</code></pre></li>
+
+<li><p>需要使用 HttpClient 直接透過 <code>CreateClient</code> 方法取得即可</p>
+
+<pre><code class="language-cs">var client = _clientFactory.CreateClient();
+</code></pre></li>
+</ul></li>
+
+<li><p>使用具名 HttpClient</p>
+
+<blockquote>
+<p>透過在 <code>Startup.ConfigureServices</code> 註冊時指定 client 的名稱及基本設定</p>
+</blockquote>
+
+<ul>
+<li><p>在 <code>Startup.cs</code> 註冊 HttpClientFactory 時指定名稱及預做基本設定</p>
+
+<pre><code class="language-cs">services.AddHttpClient(&quot;yowkoblog&quot;, c =&gt;
+{
+    c.BaseAddress = new Uri(&quot;https://blog.yowko.com/&quot;);
+});
+</code></pre></li>
+
+<li><p>在需要使用 HttpClient 的 class 中透過 .NET Core 的建構式注入 (與 <code>基本用法</code> 相同)</p>
+
+<pre><code class="language-cs">private readonly IHttpClientFactory _clientFactory;
+
+public HomeController(IHttpClientFactory clientFactory)
+{
+    _clientFactory = clientFactory;
+}
+</code></pre></li>
+
+<li><p>需要使用 HttpClient 直接透過 <code>CreateClient</code> 方法並指定名稱 (&lsquo;yowkoblog&rsquo;) 即可  (與 <code>基本用法</code> 接近)</p>
+
+<pre><code class="language-cs">//名稱與 services.AddHttpClient 註冊時相同
+var client = _clientFactory.CreateClient(&quot;yowkoblog&quot;);
+</code></pre></li>
+</ul></li>
+
+<li><p>使用具型別的 HttpClient</p>
+
+<blockquote>
+<p>將 client 的基本設定、使用方法與處理邏輯封裝在特定類別中</p>
+</blockquote>
+
+<ul>
+<li><p>方法一：基本設定寫在建構式中</p>
+
+<ul>
+<li><p>建立類別</p>
+
+<pre><code class="language-cs">public class YowkoBlogService
+{
+
+    public HttpClient Client { get; }
+
+    public YowkoBlogService(HttpClient client)
+    {
+        client.BaseAddress = new Uri(&quot;https://blog.yowko.com&quot;);
+                    
+        Client = client;
+    }
+
+    public async Task&lt;string&gt; GetPosts()
+    {
+        var response = await Client.GetAsync(&quot;/&quot;);
+
+        response.EnsureSuccessStatusCode();
+
+        var result = await response.Content.ReadAsStringAsync();
+
+        return result;
+    }
+}
+</code></pre></li>
+
+<li><p>在 <code>Startup.cs</code> 使用自訂類別來註冊 HttpClientFactory</p>
+
+<pre><code class="language-cs">services.AddHttpClient&lt;YowkoBlogService&gt;();
+</code></pre></li>
+
+<li><p>在需要使用 HttpClient 的 class 中透過 .NET Core 的建構式注入 (與 <code>基本用法</code> 相同)</p>
+
+<pre><code class="language-cs">private readonly YowkoBlogService _yowkoBlogService;
+
+public HomeController(YowkoBlogService yowkoBlogService)
+{
+    _yowkoBlogService = yowkoBlogService;
+}
+</code></pre></li>
+
+<li><p>直接呼叫自訂類別中的自訂方法即可</p>
+
+<pre><code class="language-cs">var result = await _yowkoBlogService.GetPosts();
+</code></pre></li>
+</ul></li>
+
+<li><p>方法二：基本設定寫在 <code>Startup.cs</code> 的註冊中</p>
+
+<ul>
+<li><p>自訂類別</p>
+
+<pre><code class="language-cs">public class YowkoBlogService
+{
+
+    public HttpClient Client { get; }
+
+    public YowkoBlogService(HttpClient client)
+    {
+        Client = client;
+    }
+
+    public async Task&lt;string&gt; GetPosts()
+    {
+        var response = await Client.GetAsync(&quot;/&quot;);
+
+        response.EnsureSuccessStatusCode();
+
+        var result = await response.Content.ReadAsStringAsync();
+
+        return result;
+    }
+}
+</code></pre></li>
+
+<li><p>在 <code>Startup.cs</code> 使用自訂類別來註冊 HttpClientFactory</p>
+
+<pre><code class="language-cs">services.AddHttpClient&lt;YowkoBlogService&gt;(c =&gt;
+{
+    c.BaseAddress = new Uri(&quot;https://blog.yowko.com&quot;);
+});
+</code></pre></li>
+
+<li><p>其他動作與 <code>方法一</code> 相同</p></li>
+</ul></li>
+
+<li><p>方法三：將 HttpClient 完全封裝不對外公開</p>
+
+<ul>
+<li><p>自訂類別</p>
+
+<pre><code class="language-cs">public class YowkoBlogService
+{
+
+    private readonly HttpClient Client;
+
+    public YowkoBlogService(HttpClient client)
+    {
+        Client = client;
+    }
+
+    public async Task&lt;string&gt; GetPosts()
+    {
+        var response = await Client.GetAsync(&quot;/&quot;);
+
+        response.EnsureSuccessStatusCode();
+
+        var result = await response.Content.ReadAsStringAsync();
+
+        return result;
+    }
+}
+</code></pre></li>
+
+<li><p>在 <code>Startup.cs</code> 使用自訂類別來註冊 HttpClientFactory</p>
+
+<pre><code class="language-cs">services.AddHttpClient&lt;YowkoBlogService&gt;(c =&gt;
+{
+    c.BaseAddress = new Uri(&quot;https://blog.yowko.com&quot;);
+});
+</code></pre></li>
+
+<li><p>其他動作與 <code>方法一</code> 相同</p></li>
+</ul></li>
+</ul></li>
+
+<li><p>使用 refit 套件來產生 HttpClient</p>
+
+<blockquote>
+<p>可以將 REST API 透過 interface 來呈現</p>
+</blockquote>
+
+<ul>
+<li><p>安裝 refit</p>
+
+<ul>
+<li><p>Package Manager</p>
+
+<pre><code>Install-Package refit
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package refit
+</code></pre></li>
+</ul></li>
+
+<li><p>建立 interface</p>
+
+<pre><code class="language-cs">public interface IJsonbinClient
+{
+    [Get(&quot;/_/me&quot;)]
+    Task&lt;User&gt; GetMeAsync();
+}
+</code></pre></li>
+
+<li><p>取得結果 class</p>
+
+<pre><code class="language-cs">public class AboutMe
+{
+    public string email { get; set; }
+    public string githubId { get; set; }
+    public string username { get; set; }
+    public Requests requests { get; set; }
+    public Accounttype accountType { get; set; }
+    public DateTime updated { get; set; }
+    public DateTime created { get; set; }
+    public string[] _public { get; set; }
+    public string apikey { get; set; }
+    public string publicId { get; set; }
+}
+
+public class Requests
+{
+    public int PATCH { get; set; }
+    public int POST { get; set; }
+    public int GET { get; set; }
+    public int PUT { get; set; }
+}
+
+public class Accounttype
+{
+    public string name { get; set; }
+} 
+</code></pre></li>
+
+<li><p>在 <code>Startup.cs</code> 註冊並透過 refit 動態產生 IJsonbinClient 實作</p>
+
+<pre><code class="language-cs">services.AddHttpClient(&quot;JSonbin&quot;, c =&gt;
+    {
+        c.BaseAddress = new Uri(&quot;https://jsonbin.org/&quot;);
+        c.DefaultRequestHeaders.Add(&quot;authorization&quot;, &quot;token {api token}&quot;);
+    })
+    .AddTypedClient(c =&gt; Refit.RestService.For&lt;IJsonbinClient&gt;(c));       
+
+</code></pre></li>
+
+<li><p>在需要使用 HttpClient 的 class 中透過 .NET Core 的建構式注入 (與 <code>基本用法</code> 相同)</p>
+
+<pre><code class="language-cs">private readonly IJsonbinClient _jsonbinClient;
+
+public HomeController(IJsonbinClient jsonbinClient)
+{
+   _jsonbinClient = jsonbinClient;
+}
+</code></pre></li>
+
+<li><p>直接呼叫自訂類別中的自訂方法即可</p>
+
+<pre><code class="language-cs">var result =await _yowkoBlogService.GetPosts();
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="outgoing-request-middleware">Outgoing Request middleware</h2>
+
+<p>middleware 在 .NET Core 中佔有舉足輕重的地位，許多設計都有 middleware 的影子，HttpClientFactory 便是其一，與 ASP.NET Core middleware 相似  outgoing Request middleware 可以在具名 HttpClient 上註冊與套用多個 handler 並用來管理 cache、error handling 、serialization 與 logging</p>
+
+<ol>
+<li><p>新增自訂 OuterHandler 、InnerHandler 皆繼承自 <code>DelegatingHandler</code></p>
+
+<ul>
+<li><p>OuterHandler.cs</p>
+
+<pre><code class="language-cs">public class OuterHandler : DelegatingHandler
+{
+    private readonly ILogger&lt;OuterHandler&gt; _logger;
+
+    public OuterHandler(ILogger&lt;OuterHandler&gt; logger)
+    {
+        _logger = logger;
+    }
+
+    protected override async Task&lt;HttpResponseMessage&gt; SendAsync(HttpRequestMessage request,
+        CancellationToken cancellationToken)
+    {
+        _logger.LogInformation($&quot;OuterHandler Call Start&quot;);
+        var response = await base.SendAsync(request, cancellationToken);
+        _logger.LogInformation($&quot;OuterHandler Call End&quot;);
+        return response;
+    }
+}
+</code></pre></li>
+
+<li><p>InnerHandler.cs</p>
+
+<pre><code class="language-cs">public class InnerHandler : DelegatingHandler
+{
+    private readonly ILogger&lt;InnerHandler&gt; _logger;
+
+    public InnerHandler(ILogger&lt;InnerHandler&gt; logger)
+    {
+        _logger = logger;
+    }
+
+    protected override async Task&lt;HttpResponseMessage&gt; SendAsync(HttpRequestMessage request,
+        CancellationToken cancellationToken)
+    {
+        _logger.LogInformation($&quot;InnerHandler Call Start&quot;);
+        var response = await base.SendAsync(request, cancellationToken);
+        _logger.LogInformation($&quot;InnerHandler Call End&quot;);
+        return response;
+    }
+}
+</code></pre></li>
+</ul></li>
+
+<li><p>在 <code>Startup.cs</code> 的 <code>ConfigureServices</code> 方法中註冊自訂 Handler</p>
+
+<pre><code class="language-cs">services.AddTransient&lt;OuterHandler&gt;();
+services.AddTransient&lt;InnerHandler&gt;();
+
+services.AddHttpClient(&quot;yowkoblog&quot;, c =&gt;
+{
+    c.BaseAddress = new Uri(&quot;https://blog.yowko.com&quot;);
+        
+})
+// 註冊的順序會影響執行的順序
+.AddHttpMessageHandler&lt;OuterHandler&gt;() //發出 request 時第一個執行，取回 response 時最後一個執行，對 HttpClientHandler 是較外層
+.AddHttpMessageHandler&lt;InnerHandler&gt;(); //發出 request 時最後執行，取回 response 時第一個執行，對 HttpClientHandler 是較內層
+            
+</code></pre></li>
+
+<li><p>實際結果</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/51261569-76a45180-19eb-11e9-9572-cc01fccf6081.png" alt="1result" /></p></li>
+</ol>
+
+<ul>
+<li><p>完整流程</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/51324487-ce9f8e80-1aa5-11e9-9523-38b9440d5938.png" alt="httpclient" /></p></li>
+</ul>
+
+<h2 id="重試策略-使用-polly">重試策略：使用 Polly</h2>
+
+<p>過去在使用 HttpClient 取得外部資料時，最難控制的大概就是網路問題及遠端資源的狀態，一般都是自行實做重試及錯誤處理，而這樣的問題在 IHttpClientFactory 透過整合 <a href="https://github.com/App-vNext/Polly" target="_blank">Polly</a> 後而變得不同了</p>
+
+<p>Polly 是綜合彈性和暫時故障處理的套件，允許開發人員使用流暢及 thread-safe 的方式來達成 Retry、鎔斷、Timeout、隔離、降級退回等策略</p>
+
+<ol>
+<li><p>安裝 <code>Microsoft.Extensions.Http.Polly</code> NuGet 套件</p>
+
+<blockquote>
+<p>Install-Package Microsoft.Extensions.Http.Polly</p>
+</blockquote>
+
+<ul>
+<li><p>Package Manager</p>
+
+<pre><code>Install-Package Microsoft.Extensions.Http.Polly
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package Microsoft.Extensions.Http.Polly
+</code></pre></li>
+</ul></li>
+
+<li><p>建立 Polly 重試策略</p>
+
+<ul>
+<li><p>暫時性錯誤：透過 <code>HandleTransientHttpError</code></p>
+
+<pre><code class="language-cs">static IAsyncPolicy&lt;HttpResponseMessage&gt; GetRetryPolicy()
+{
+    return HttpPolicyExtensions
+        .HandleTransientHttpError()//遇到 HTTP 5xx
+        .OrResult(msg =&gt; msg.StatusCode == System.Net.HttpStatusCode.NotFound)//或是得到 404 NoFound
+        .WaitAndRetryAsync(6, retryAttempt =&gt; TimeSpan.FromSeconds(Math.Pow(2,retryAttempt)));//重試六次，間隔秒數為 2 的 {重試次數} 次方:重試第一次間隔 2 的 1 次方、重試第三次間隔為 2 的 3 次方
+}
+</code></pre></li>
+
+<li><p>預先定義一般策略</p>
+
+<pre><code class="language-cs">var timeout = Policy.TimeoutAsync&lt;HttpResponseMessage&gt;(TimeSpan.FromSeconds(10));
+var longTimeout = Policy.TimeoutAsync&lt;HttpResponseMessage&gt;(TimeSpan.FromSeconds(30));
+</code></pre></li>
+</ul></li>
+
+<li><p>在 Startup.cs 的 ConfigureServices 方法中透過上述的 Polly 重試策略來註冊 HttpClient</p>
+
+<ul>
+<li><p>透過靜態方法來註冊</p>
+
+<pre><code class="language-cs">services.AddHttpClient()
+    .AddPolicyHandler(GetRetryPolicy());
+</code></pre></li>
+
+<li><p>動態註冊策略</p>
+
+<pre><code class="language-cs">services.AddHttpClient()
+    .AddPolicyHandler(request =&gt; 
+        request.Method == HttpMethod.Get ? timeout : longTimeout);
+</code></pre></li>
+
+<li><p>同時使用多種策略</p>
+
+<pre><code class="language-cs">services.AddHttpClient()
+.AddTransientHttpErrorPolicy(p =&gt; p.RetryAsync(3))//至多重試三次
+.AddTransientHttpErrorPolicy(p =&gt; p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));//若失敗五次，就暫停嘗試 30秒
+</code></pre></li>
+
+<li><p>具名註冊</p>
+
+<blockquote>
+<p>為策略命名且定義，可以依不同的具名 client 指定不同策略</p>
+</blockquote>
+
+<pre><code class="language-cs">var registry = services.AddPolicyRegistry();
+
+registry.Add(&quot;regular&quot;, timeout);
+registry.Add(&quot;long&quot;, longTimeout);
+
+services.AddHttpClient()
+    .AddPolicyHandlerFromRegistry(&quot;regular&quot;);
+</code></pre></li>
+</ul></li>
+
+<li><p>實際效果</p>
+
+<blockquote>
+<p>原本無法成功取得，重試第三次後正常</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/51261570-76a45180-19eb-11e9-88c1-ddbb0e167662.png" alt="2pollyretry" /></p></li>
+</ol>
+
+<ul>
+<li><p>實作 jitter 策略</p>
+
+<blockquote>
+<p>jitter 是讓重試間隔加入隨機的時間，避免大量重試行為同時發生</p>
+</blockquote>
+
+<pre><code class="language-cs">Random jitterer = new Random(); 
+Policy
+.Handle&lt;HttpResponseException&gt;()
+//預設重試間隔為 2 的 {重試次數} 次方秒，再加入一個隨機時間以錯開重試動作
+.WaitAndRetry(5,  retryAttempt =&gt; TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))  + TimeSpan.FromMilliseconds(jitterer.Next(0, 100)));
+</code></pre></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>從 .NET Core 與 ASP.NET Core 問世以來，我不時會被官方文件搞混，尤其是這次的主角 HttpClientFactory 我特別有感覺：就是文件常常會有兩者混用的問題，以 HttpClientFactory 為例，到底是 .NET Core 2.1 加入還是 ASP.NET Core 2.1 加入，目標到底是 .NET Core 還是 ASP.NET Core</p>
+
+<ul>
+<li><p>.NET Core</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/51261574-773ce800-19eb-11e9-948e-bd48791cb1fa.png" alt="3dotnetcore" /></p></li>
+
+<li><p>ASP.NET Core</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/51261576-773ce800-19eb-11e9-835f-e9591e522c62.png" alt="4aspnetcore" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/51261564-760bbb00-19eb-11e9-8426-f603c0c04e8b.png" alt="5aspnet" /></p></li>
+</ul>
+
+<p>這篇筆記關於 HttpClient 的部份雖然還不完整 (缺了 HttpMessageHandler、logging、lifetime 管理)，但因為已經拖快兩個月了 最後決定先完成基本常用功能的介紹其他功能留在之後再補，不然我怕筆記可能永遠只會是草稿了 XD</p>
+
+<h1 id="參考資料">參考資料</h1>
+
+<ol>
+<li><a href="https://www.stevejgordon.co.uk/introduction-to-httpclientfactory-aspnetcore" target="_blank">HttpClientFactory in ASP.NET Core 2.1 (Part 1)</a></li>
+<li><a href="https://www.stevejgordon.co.uk/httpclientfactory-aspnetcore-outgoing-request-middleware-pipeline-delegatinghandlers" target="_blank">The Outgoing Request Middleware Pipeline with Handlers</a></li>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-2.1" target="_blank">Initiate HTTP requests</a></li>
+<li><a href="https://stackoverflow.com/questions/51498896/use-httpclientfactory-from-net-4-6-2" target="_blank">Use HttpClientFactory from .NET 4.6.2</a></li>
+<li><a href="https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests" target="_blank">Use HttpClientFactory to implement resilient HTTP requests</a></li>
+<li><a href="https://github.com/dotnet/corefx/issues/11224" target="_blank">Singleton HttpClient doesn&rsquo;t respect DNS changes</a></li>
+<li><a href="https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly" target="_blank">Implement HTTP call retries with exponential backoff with HttpClientFactory and Polly policies</a></li>
+<li><a href="https://blog.yowko.com/httpclient-issue/" target="_blank">探討 HttpClient 可能的問題</a></li>
+<li><a href="https://blog.yowko.com/httpclient-not-respect-dns-change" target="_blank">HttpClient 無法反應 DNS 異動的解決方式</a></li>
+<li><a href="https://blog.yowko.com/aspnet-core-di-httpclientfactory-in-aspnet-mvc-5" target="_blank">在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-01-16</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
+          
+		    
+		    
+		      
+		    	
+            <a href="https://blog.yowko.com/tags/dotnet-core/">.NET Core</a>
+          
+		    
+		    
+          
+        	
+            <a href="https://blog.yowko.com/tags/dotnet/">.NET</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/dapper-customattribute-typehandler/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">透過自訂 Attribute 標示屬性讓 Dapper 進行 json 轉換</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/aspnet-core-di-httpclientfactory-in-aspnet-mvc-5/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/httpclientfactory-dotnet-core-dotnet-framework\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mac on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/mac/</link>
+    <description>Recent content in Mac on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 17 Mar 2019 21:30:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MacBook 遇到需啟用硬體虛擬化錯誤</title>
+      <link>https://blog.yowko.com/macbook-bootcamp-enable-virtualization/</link>
+      <pubDate>Sun, 17 Mar 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/macbook-bootcamp-enable-virtualization/</guid>
+      <description>MacBook 遇到需啟用硬體虛擬化錯誤 這幾天開啟電腦時，都會出現 Docker 的錯誤提醒，原以為是 Windows 上了新的 patch 後迫使 Docker for Windows 需要連帶更新而沒有留意(過去因為 Windows 更新而讓</description>
+    </item>
+    
+    <item>
+      <title>在 Mac 上安裝 Kafka-Manager</title>
+      <link>https://blog.yowko.com/kafka-manager/</link>
+      <pubDate>Sat, 09 Mar 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kafka-manager/</guid>
+      <description>在 Mac 上安裝 Kafka-Manager 最近的專案使用了 Kafka 當做中間層的訊息傳遞工具，功能上還不到遇到問題就先遭遇開發 debug 的種種狀況，其中最常發生但問題原因又不太一樣的就是</description>
+    </item>
+    
+  </channel>
+</rss>

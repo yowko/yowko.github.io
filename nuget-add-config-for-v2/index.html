@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>設定 NuGet Package 安裝時自動加入 Config 區段 (For NuGet feed v2) - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="設定 NuGet Package 安裝時自動加入 Config 區段 (For NuGet feed v2) 部份 NuGet Package 的功能是相依在 config 的設定上，有些設定是 package 正常運作的基本條件，有些設定則是保留給使用者的彈性調整空間" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/nuget-add-config-for-v2/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="設定 NuGet Package 安裝時自動加入 Config 區段 (For NuGet feed v2)" />
+<meta property="og:description" content="設定 NuGet Package 安裝時自動加入 Config 區段 (For NuGet feed v2) 部份 NuGet Package 的功能是相依在 config 的設定上，有些設定是 package 正常運作的基本條件，有些設定則是保留給使用者的彈性調整空間" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/nuget-add-config-for-v2/" /><meta property="article:published_time" content="2017-07-23T18:16:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-24T18:16:58&#43;08:00"/>
+
+<meta itemprop="name" content="設定 NuGet Package 安裝時自動加入 Config 區段 (For NuGet feed v2)">
+<meta itemprop="description" content="設定 NuGet Package 安裝時自動加入 Config 區段 (For NuGet feed v2) 部份 NuGet Package 的功能是相依在 config 的設定上，有些設定是 package 正常運作的基本條件，有些設定則是保留給使用者的彈性調整空間">
+
+
+<meta itemprop="datePublished" content="2017-07-23T18:16:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-24T18:16:58&#43;08:00" />
+<meta itemprop="wordCount" content="1037">
+
+
+
+<meta itemprop="keywords" content="套件,NuGet,web.config," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="設定 NuGet Package 安裝時自動加入 Config 區段 (For NuGet feed v2)"/>
+<meta name="twitter:description" content="設定 NuGet Package 安裝時自動加入 Config 區段 (For NuGet feed v2) 部份 NuGet Package 的功能是相依在 config 的設定上，有些設定是 package 正常運作的基本條件，有些設定則是保留給使用者的彈性調整空間"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-07-23 </span>
+        
+        <span class="more-meta"> 約 1037 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#設定-nuget-package-安裝時自動加入-config-區段-for-nuget-feed-v2">設定 NuGet Package 安裝時自動加入 Config 區段 (For NuGet feed v2)</a>
+<ul>
+<li><a href="#基本設定">基本設定</a></li>
+<li><a href="#建立-nuget">建立 NuGet</a></li>
+<li><a href="#修改-package-內容">修改 Package 內容</a></li>
+<li><a href="#注意事項">注意事項</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="設定-nuget-package-安裝時自動加入-config-區段-for-nuget-feed-v2">設定 NuGet Package 安裝時自動加入 Config 區段 (For NuGet feed v2)</h1>
+
+<p>部份 NuGet Package 的功能是相依在 config 的設定上，有些設定是 package 正常運作的基本條件，有些設定則是保留給使用者的彈性調整空間，無論目的為何，將相關設定加入 config 都是必要的。</p>
+
+<p>除此之外 config 的儲存位置也有不同，有些直接放在 web.config 或是 app.config，也有單獨存在的(像是 nlog.config)，決定儲存位置的因素就是：有沒有線上修改的需求。放在 web.config 中很直覺但一修改就會造成 IIS restart 影響線上服務，所以需要在 service online 的時間點進行 config 調整，建議將設定抽離 web.config 檔案</p>
+
+<p>回到 NuGet Package 安裝時自動加入 Config 主題上，想必大家都遇過某個套件很好用，但卻缺了必要的 config 設定區段，一開始根本無法使用，上網查該加入哪些設定幾乎可以加入安裝 SOP 中了，原本可以更完美的套件使用體驗不免扣了分。</p>
+
+<p>就來看看如何設定 NuGet Package 安裝時自動加入 Config 區段吧</p>
+
+<h2 id="基本設定">基本設定</h2>
+
+<ol>
+<li><p>專案範本</p>
+
+<blockquote>
+<p>以下將會使用 Common.Logging 當做範例,示範如何在安裝時自動將相關設定加入 config 中，關於 Common.Loggin 使用，請參考 <a href="https://blog.yowko.com/2017/07/common-logging.html" target="_blank">使用 Common.Logging 搭配 NLog 及 Log4Net</a></p>
+</blockquote></li>
+
+<li><p>使用 NuGet Package Explorer</p>
+
+<blockquote>
+<p>利用 NuGet Package Explorer 來示範打包 NuGet package 讓設定的步驟可以更清楚，NuGet Package Explorer 的詳細用法可以參考 <a href="https://blog.yowko.com/2017/07/nuget-package-explorer.html" target="_blank">使用 NuGet Package Explorer 建立 NuGet 套件</a></p>
+</blockquote></li>
+
+<li><p>NuGet Package 將使用自建 NuGet server 進行示範</p>
+
+<blockquote>
+<p>關於自建 NuGet server 詳細資訊可以參考 <a href="https://blog.yowko.com/2017/07/self-host-nuget-server.html" target="_blank">自建 NuGet Server</a></p>
+</blockquote></li>
+</ol>
+
+<h2 id="建立-nuget">建立 NuGet</h2>
+
+<p><a href="https://blog.yowko.com/2017/07/nuget-package-explorer.html" target="_blank">使用 NuGet Package Explorer 建立 NuGet 套件</a> 有從頭建立的詳細步驟，以下我使用線上的 package 來建立</p>
+
+<ol>
+<li><p>Open a package from online feed</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/28498520-d99438c0-6fd1-11e7-8495-06393d8be8fd.png" alt="1createfromfeed" /></p></li>
+
+<li><p>指定 Package source &ndash;&gt; 搜尋 <code>common.logging</code> &ndash;&gt; 選擇正確版本(預設列出最新版，可以點選 <code>show all versions</code> 找到想要的版本)</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/28498518-d99277a6-6fd1-11e7-8246-606a35b1c629.png" alt="2searchcommon" /></p></li>
+
+<li><p>線上 package 內容</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/28498519-d992e358-6fd1-11e7-8596-2ef0a3e1d566.png" alt="3packagenuspec" /></p></li>
+</ol>
+
+<h2 id="修改-package-內容">修改 Package 內容</h2>
+
+<ol>
+<li><p>加入 content 資料夾</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/28498521-d9bb10f8-6fd1-11e7-95b2-99421b9e5104.png" alt="4contentfolder" /></p></li>
+
+<li><p>加入 web.config.transform 檔案</p>
+
+<blockquote>
+<p>這邊檔案類型與 NuGet server 使用版本有關，請注意，詳細原因請參考文末注意事項</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/28498522-d9c98200-6fd1-11e7-98d7-ac3479c86e51.png" alt="5newfile" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/28498523-d9cb0a6c-6fd1-11e7-8f8f-fb99dc083940.png" alt="6addfile" /></p></li>
+
+<li><p>修改 web.config.transform 內容</p>
+
+<blockquote>
+<p>新增想要加入 web.config 的內容</p>
+</blockquote>
+
+<pre><code class="language-xml">&lt;configuration&gt;
+&lt;configSections&gt;
+    &lt;sectionGroup name=&quot;common&quot;&gt;
+        &lt;section name=&quot;logging&quot; type=&quot;Common.Logging.ConfigurationSectionHandler, Common.Logging&quot;/&gt;
+    &lt;/sectionGroup&gt;
+    &lt;section name=&quot;nlog&quot; type=&quot;NLog.Config.ConfigSectionHandler, NLog&quot;/&gt;
+&lt;/configSections&gt;
+&lt;common&gt;
+    &lt;logging&gt;
+        &lt;factoryAdapter type=&quot;Common.Logging.NLog.NLogLoggerFactoryAdapter, Common.Logging.NLog41&quot;&gt;
+            &lt;arg key=&quot;configType&quot; value=&quot;INLINE&quot; /&gt;
+        &lt;/factoryAdapter&gt;
+    &lt;/logging&gt;
+&lt;/common&gt;
+&lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.nlog-project.org/schemas/NLog.xsd NLog.xsd&quot; autoReload=&quot;true&quot; throwExceptions=&quot;false&quot; internalLogLevel=&quot;Off&quot; internalLogFile=&quot;c:\temp\nlog-internal.log&quot;&gt;
+    &lt;targets async=&quot;true&quot;&gt;
+        &lt;target xsi:type=&quot;File&quot; name=&quot;f&quot; fileName=&quot;${basedir}/logs-inline/${shortdate}.log&quot; layout=&quot;${longdate} ${uppercase:${level}} ${message}&quot; /&gt;
+    &lt;/targets&gt;
+    &lt;rules&gt;
+        &lt;logger name=&quot;*&quot; minlevel=&quot;Debug&quot; writeTo=&quot;f&quot; /&gt;
+    &lt;/rules&gt;
+&lt;/nlog&gt;
+&lt;/configuration&gt;
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/28498524-d9cb0f30-6fd1-11e7-96c2-b40ab3bbaee9.png" alt="7filecontent" /></p></li>
+</ol>
+
+<h2 id="注意事項">注意事項</h2>
+
+<ol>
+<li>上述範例是以 web 專案為例，如果是 windows 類型程式請將檔案改為 <code>app.config.transform</code></li>
+
+<li><p>如果是 NuGet 2.6 以後版本，需要使用 <code>.xdt</code> 轉換</p>
+
+<blockquote>
+<p>上述範例使用 NuGet.Server，是基於 NuGet feed v2 ，所以需用 <code>.transform</code></p>
+</blockquote>
+
+<ul>
+<li><p>NuGet feed v3 (VS 2015 and later / NuGet v3.x and above)</p>
+
+<blockquote>
+<p><a href="https://api.nuget.org/v3/index.json" target="_blank">https://api.nuget.org/v3/index.json</a></p>
+</blockquote></li>
+
+<li><p>NuGet feed v2 (VS 2013 and earlier / NuGet 2.x)</p>
+
+<blockquote>
+<p><a href="https://www.nuget.org/api/v2" target="_blank">https://www.nuget.org/api/v2</a></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>實測下如果版號未更新，nuspec 的內容會被 cache，會造成 config 的轉換用到舊版</p>
+
+<blockquote>
+<p>這不確定是不是 NuGet.Server 的問題，嘗試 refresh cache 也沒有效果</p>
+</blockquote></li>
+
+<li><p>uninstall package 時會自動逆向移除加入的內容</p>
+
+<blockquote>
+<p><code>.xdt</code> 則需要自行處理移除內容</p>
+</blockquote></li>
+
+<li><p>修改 config 時，格式會亂掉，需要自行重新排版</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/28498525-d9dc7a86-6fd1-11e7-9369-569287db7c68.png" alt="8unformat" /></p></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>實際內容跟步驟都不多，但 NuGet 的版本問題造成搜尋時的作法分歧，花了不少時間才釐清正確的做法</p>
+
+<p>反覆測試後才找出可能是 bug 的問題，還是個人設定錯誤造成的，但總歸一句還是自己學藝不精造成的，還好透過這次機會有搞清楚一些細節</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://blog.yowko.com/2017/07/common-logging.html" target="_blank">使用 Common.Logging 搭配 NLog 及 Log4Net</a></li>
+<li><a href="https://blog.yowko.com/2017/07/nuget-package-explorer.html" target="_blank">使用 NuGet Package Explorer 建立 NuGet 套件</a></li>
+<li><a href="https://blog.yowko.com/2017/07/self-host-nuget-server.html" target="_blank">自建 NuGet Server</a></li>
+<li><a href="https://docs.microsoft.com/en-us/nuget/create-packages/source-and-config-file-transformations" target="_blank">Transforming source code and configuration files</a></li>
+<li><a href="https://www.nuget.org/" target="_blank">NuGet</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-24</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/%E5%A5%97%E4%BB%B6/">套件</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/nuget/">NuGet</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/web.config/">web.config</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/create-aspnet-web-api/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">建立 ASP.NET Web API 專案的幾種方式</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/nuget-package-auto-version/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">NuGet 發行 Package 時自動增加版號</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/nuget-add-config-for-v2\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

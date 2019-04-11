@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Windows OS 安裝 Jenkins 2.0 紀實 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="Windows OS 安裝 Jenkins 2.0 紀實 Jenkins 2.0 主要多了 Pipeline 特性，功能上跟 Workflow plgin 雷同，可以自行定義建置流程，也因為是由 Groovy 語法組成，讓整個建置 task 都可以被版控，而達成 infrastructure as code 目的" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/jenkins2-on-windows/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="Windows OS 安裝 Jenkins 2.0 紀實" />
+<meta property="og:description" content="Windows OS 安裝 Jenkins 2.0 紀實 Jenkins 2.0 主要多了 Pipeline 特性，功能上跟 Workflow plgin 雷同，可以自行定義建置流程，也因為是由 Groovy 語法組成，讓整個建置 task 都可以被版控，而達成 infrastructure as code 目的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/jenkins2-on-windows/" /><meta property="article:published_time" content="2016-12-30T00:42:34&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-08T00:42:34&#43;08:00"/>
+
+<meta itemprop="name" content="Windows OS 安裝 Jenkins 2.0 紀實">
+<meta itemprop="description" content="Windows OS 安裝 Jenkins 2.0 紀實 Jenkins 2.0 主要多了 Pipeline 特性，功能上跟 Workflow plgin 雷同，可以自行定義建置流程，也因為是由 Groovy 語法組成，讓整個建置 task 都可以被版控，而達成 infrastructure as code 目的">
+
+
+<meta itemprop="datePublished" content="2016-12-30T00:42:34&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-08T00:42:34&#43;08:00" />
+<meta itemprop="wordCount" content="591">
+
+
+
+<meta itemprop="keywords" content="Jenkins," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Windows OS 安裝 Jenkins 2.0 紀實"/>
+<meta name="twitter:description" content="Windows OS 安裝 Jenkins 2.0 紀實 Jenkins 2.0 主要多了 Pipeline 特性，功能上跟 Workflow plgin 雷同，可以自行定義建置流程，也因為是由 Groovy 語法組成，讓整個建置 task 都可以被版控，而達成 infrastructure as code 目的"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-12-30 </span>
+        
+        <span class="more-meta"> 約 591 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#windows-os-安裝-jenkins-2-0-紀實">Windows OS 安裝 Jenkins 2.0 紀實</a>
+<ul>
+<li><a href="#系統要求">系統要求</a></li>
+<li><a href="#安裝-jenkins">安裝 Jenkins</a></li>
+<li><a href="#第一次登入需建立管理者">第一次登入需建立管理者</a></li>
+<li><a href="#安裝-plugin">安裝 plugin</a></li>
+</ul></li>
+<li><a href="#參考資料">參考資料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="windows-os-安裝-jenkins-2-0-紀實">Windows OS 安裝 Jenkins 2.0 紀實</h1>
+
+<p>Jenkins 2.0 主要多了 Pipeline 特性，功能上跟 Workflow plgin 雷同，可以自行定義建置流程，也因為是由 Groovy 語法組成，讓整個建置 task 都可以被版控，而達成 infrastructure as code 目的，於是趁著硬體更新一併進行 Jenkins 2.0 的導入，由於之前使用 Jenkins 1 時沒有留下筆記，結果在架 Jenkins 2.0 時又回憶了好一陣子XD  於是立馬來紀錄囉</p>
+
+<h2 id="系統要求">系統要求</h2>
+
+<ol>
+<li><p>最低要求</p>
+
+<ul>
+<li>Java 7</li>
+<li>256MB 可用記憶體</li>
+<li>1GB+ 可用硬碟空間</li>
+</ul></li>
+
+<li><p>建議要求</p>
+
+<ul>
+<li>Java 8</li>
+<li>1GB+ 可用要求</li>
+<li>50GB+ 可用硬碟空間</li>
+</ul></li>
+</ol>
+
+<h2 id="安裝-jenkins">安裝 Jenkins</h2>
+
+<ol>
+<li><p>下載對應 os 的安裝檔</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21677006/2efa537c-d373-11e6-9b6b-e48f0428d59a.png" alt="1download" /></p></li>
+
+<li><p>直接解壓安裝</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21677007/2efb506a-d373-11e6-8ade-0580a6846b52.png" alt="2install" /></p></li>
+
+<li><p>安裝完成</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21677010/2f004f02-d373-11e6-9cf3-da332772c47d.png" alt="3installed" /></p></li>
+
+<li><p>解鎖 Jenkins</p>
+
+<ul>
+<li><p>安全限制，必需到指定位置 <code>%ProgramFiles(x86)%\Jenkins\secrets\initialAdminPassword</code>(安裝目錄下) 取得密碼</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21677009/2eff12f4-d373-11e6-9202-63b5847b50fa.png" alt="4unlock" /></p></li>
+</ul></li>
+</ol>
+
+<p><strong><em>如果連網需要透過 proxy 才需要進行下列步驟</em></strong>
+* 無法安裝 plugin</p>
+
+<pre><code>![5plugin](https://cloud.githubusercontent.com/assets/3851540/21677011/2f1c1066-d373-11e6-8f91-5699f156a5d3.png)
+</code></pre>
+
+<ul>
+<li><p>設定 proxy</p>
+
+<ol>
+<li>伺服器
+<br /></li>
+</ol>
+
+<blockquote>
+<p>proxyserver</p>
+</blockquote>
+
+<ol>
+<li>連接埠
+<br /></li>
+</ol>
+
+<blockquote>
+<p>proxyport</p>
+</blockquote>
+
+<ol>
+<li>使用者名稱
+<br /></li>
+</ol>
+
+<blockquote>
+<p>username</p>
+</blockquote>
+
+<ol>
+<li>密碼
+<br /></li>
+</ol>
+
+<blockquote>
+<p>password</p>
+</blockquote>
+
+<ol>
+<li>不要代理的主機
+<br /></li>
+</ol>
+
+<blockquote>
+<p>whitelist</p>
+</blockquote>
+
+<ol>
+<li>Test Url
+<br /></li>
+</ol>
+
+<blockquote>
+<p>測試 proxy 是否正確的 url</p>
+</blockquote></li>
+</ul>
+
+<p><strong><em>如果連網需要透過 proxy 才需要進行上述步驟</em></strong></p>
+
+<h2 id="第一次登入需建立管理者">第一次登入需建立管理者</h2>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21715702/08ed0b9c-d441-11e6-932f-3f643694fa9a.png" alt="7firstadmin" /></p>
+
+<ul>
+<li><p>Create First Admin User</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21715701/08e9674e-d441-11e6-97db-608b54e3ccb0.png" alt="9addadmin" /></p>
+
+<ul>
+<li>刪除 <code>secrets\initialAdminPassword</code></li>
+<li>刪除 <code>users\admin\config.xml</code></li>
+<li>新增 <code>jenkins.install.InstallUtil.lastExecVersion</code></li>
+<li>新增 <code>users\{usernam}\config.xml</code></li>
+</ul></li>
+
+<li><p>Continue as admin</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21715700/08e764a8-d441-11e6-9d47-ac00750c6a79.png" alt="8asadmin" /></p>
+
+<ul>
+<li>新增 <code>jenkins.install.InstallUtil.lastExecVersion</code></li>
+<li>username:admin</li>
+<li>password:- 使用 <code>\Jenkins\secrets\initialAdminPassword</code>(安裝目錄下) 取得密碼</li>
+</ul></li>
+</ul>
+
+<h2 id="安裝-plugin">安裝 plugin</h2>
+
+<blockquote>
+<ul>
+<li>依實際需求來安裝 e.g. git,msbuild,&hellip;etc</li>
+<li>其中個人建議應該要安裝的是 <code>simple theme</code>，以下就以 <code>simple theme</code> 為例紀錄 plugin 的安裝步驟</li>
+</ul>
+</blockquote>
+
+<ol>
+<li><p>管理 Jenkins</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21677012/2f1d7ef6-d373-11e6-8f4c-9c6ea9aa4d35.png" alt="6-1mange" /></p></li>
+
+<li><p>管理外掛程式</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21677016/2f22cbe0-d373-11e6-9521-9c6ab067ade2.png" alt="6-2plgin" /></p></li>
+
+<li><p>可用的 &ndash;&gt; 搜尋 <code>simple theme</code> &ndash;&gt; 勾選 &ndash;&gt; 安裝</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21677013/2f1e22b6-d373-11e6-8a25-745bdac19454.png" alt="6-3filter" /></p></li>
+
+<li><p>安裝完成</p>
+
+<ul>
+<li>需重啟 Jenkins</li>
+
+<li><p><a href="http://jenkinsServer/restart" target="_blank">http://jenkinsServer/restart</a> 可用來重啟</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21677014/2f20497e-d373-11e6-8b73-abc5478a7651.png" alt="6-4installed" /></p></li>
+</ul></li>
+
+<li><p>設定 theme</p>
+
+<ul>
+<li><p>5-1. 管理 Jenkins</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21677012/2f1d7ef6-d373-11e6-8f4c-9c6ea9aa4d35.png" alt="6-1mange" /></p></li>
+
+<li><p>5-2. 系統設定</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21677015/2f22be34-d373-11e6-97a6-c0e6eb95068a.png" alt="6-5system" /></p></li>
+
+<li><p>5-3. 設定 theme</p>
+
+<ul>
+<li><p>可以至 <a href="http://afonsof.com/jenkins-material-theme/" target="_blank">jenkins-material-theme</a> 挑選喜歡的 theme</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21677008/2efc4d4e-d373-11e6-911d-9e0984399157.png" alt="6-6theme" /></p></li>
+</ul></li>
+
+<li><p>5-4. 效果</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21677005/2ef9cbe6-d373-11e6-9b6c-cb736a899c2d.png" alt="6-7result" /></p></li>
+</ul></li>
+</ol>
+
+<p>設定完是不是比較高級可能見人見智，但至少畫面生動多了</p>
+
+<h1 id="參考資料">參考資料</h1>
+
+<ol>
+<li><a href="https://jenkins.io" target="_blank">jenkins 官網</a></li>
+<li><a href="http://afonsof.com/jenkins-material-theme/" target="_blank">jenkins-material-theme</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-08</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/jenkins/">Jenkins</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/chocolatey-proxy/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">為 Chocolatey 設定需驗證的 proxy</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/tortoisegit-proxy/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">為 TortoiseGit 設定需驗證的 proxy</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/jenkins2-on-windows\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

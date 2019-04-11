@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>MongoDB 在 Windows 上的 HA 機制 - Replica Sets - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="MongoDB 在 Windows 上的 HA 機制 - Replica Sets 嚴格來說 MongoDB 在 HA 上支援過兩種作法：1. Master-Slave 2. Replica Set，但官網已正式公告從 MongoDB 3.2 起開始不再將 master-slave 視為 cluster 機制的一部份，詳細內容請參" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/mongodb-windows-ha-replica-sets/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="MongoDB 在 Windows 上的 HA 機制 - Replica Sets" />
+<meta property="og:description" content="MongoDB 在 Windows 上的 HA 機制 - Replica Sets 嚴格來說 MongoDB 在 HA 上支援過兩種作法：1. Master-Slave 2. Replica Set，但官網已正式公告從 MongoDB 3.2 起開始不再將 master-slave 視為 cluster 機制的一部份，詳細內容請參" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/mongodb-windows-ha-replica-sets/" /><meta property="article:published_time" content="2017-09-05T01:19:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-25T17:21:34&#43;08:00"/>
+
+<meta itemprop="name" content="MongoDB 在 Windows 上的 HA 機制 - Replica Sets">
+<meta itemprop="description" content="MongoDB 在 Windows 上的 HA 機制 - Replica Sets 嚴格來說 MongoDB 在 HA 上支援過兩種作法：1. Master-Slave 2. Replica Set，但官網已正式公告從 MongoDB 3.2 起開始不再將 master-slave 視為 cluster 機制的一部份，詳細內容請參">
+
+
+<meta itemprop="datePublished" content="2017-09-05T01:19:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-25T17:21:34&#43;08:00" />
+<meta itemprop="wordCount" content="960">
+
+
+
+<meta itemprop="keywords" content="MongoDB,Windows Service," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MongoDB 在 Windows 上的 HA 機制 - Replica Sets"/>
+<meta name="twitter:description" content="MongoDB 在 Windows 上的 HA 機制 - Replica Sets 嚴格來說 MongoDB 在 HA 上支援過兩種作法：1. Master-Slave 2. Replica Set，但官網已正式公告從 MongoDB 3.2 起開始不再將 master-slave 視為 cluster 機制的一部份，詳細內容請參"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-09-05 </span>
+        
+        <span class="more-meta"> 約 960 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#mongodb-在-windows-上的-ha-機制-replica-sets">MongoDB 在 Windows 上的 HA 機制 - Replica Sets</a>
+<ul>
+<li><a href="#關於-replica-set">關於 Replica Set</a></li>
+<li><a href="#建立-replica-set">建立 Replica Set</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="mongodb-在-windows-上的-ha-機制-replica-sets">MongoDB 在 Windows 上的 HA 機制 - Replica Sets</h1>
+
+<p>嚴格來說 MongoDB 在 HA 上支援過兩種作法：1. Master-Slave 2. Replica Set，但官網已正式公告從 MongoDB 3.2 起開始不再將 master-slave 視為 cluster 機制的一部份，詳細內容請參考官方文件 <a href="https://docs.mongodb.com/manual/core/master-slave/" target="_blank">Master Slave Replication</a>，取而代之的是 Replica sets，因此現在建立 MongoDB HA 當然得採取 Replica sets</p>
+
+<p>剛好趁公司要建立新 MongoDB HA 機制，重新筆記一下流程及相關操作</p>
+
+<h2 id="關於-replica-set">關於 Replica Set</h2>
+
+<p>Replica Set 是數個 MongoDB 的 instance，用來同時儲存相同資料，其中各個 MongoDB 依其作用有不同角色</p>
+
+<ol>
+<li><p>Primary</p>
+
+<ul>
+<li>一個 Replica Set 中僅會有一個 Primary</li>
+<li>負責處理所有 <code>寫入</code> 操作，並將操作紀錄至 <code>oplog</code> 上</li>
+</ul>
+
+<p><img src="https://docs.mongodb.com/manual/_images/replica-set-read-write-operations-primary.bakedsvg.svg" alt="Primary" /></p></li>
+
+<li><p>Secondary</p>
+
+<ul>
+<li>一個 Replica Set 中可以有一個以上 Secondary</li>
+<li>將 Primary 的 oplog 複製至自己的資料庫中</li>
+</ul>
+
+<p><img src="https://docs.mongodb.com/manual/_images/replica-set-primary-with-two-secondaries.bakedsvg.svg" alt="Secondary" /></p></li>
+
+<li><p>Arbiter</p>
+
+<ul>
+<li>一個 Replica Set 中可以有零個或一個 Arbiter</li>
+<li>不實際儲存資料內容，僅參與其他 Secondary 的心跳檢測與新 Primary 選舉，為的是讓選舉可以達成有效人數</li>
+<li>相對於 Secondary 因未參與資料複製而較節省硬體資源</li>
+</ul>
+
+<p><img src="https://docs.mongodb.com/manual/_images/replica-set-primary-with-secondary-and-arbiter.bakedsvg.svg" alt="Arbiter" /></p></li>
+</ol>
+
+<ul>
+<li><p>Automatic Failover</p>
+
+<ul>
+<li>當 Primary 未回應其他成員的心跳檢測超過 10 秒，就會引發 failover</li>
+<li>會由多個 Secondary 中推選出一個新的 Primary</li>
+</ul>
+
+<p><img src="https://docs.mongodb.com/manual/_images/replica-set-trigger-election.bakedsvg.svg" alt="Automatic Failover" /></p></li>
+</ul>
+
+<h2 id="建立-replica-set">建立 Replica Set</h2>
+
+<p>以下將會透過 <code>yaml</code> 格式建立 Windows Service 版的 MongoDB instance，如果不清楚做法請參考 <a href="https://blog.yowko.com/2017/08/windows-mongodb.html" target="_blank">如何在 Windows 環境安裝及設定 MongoDB</a></p>
+
+<ol>
+<li><p>建立 MongoDB 的 yaml 設定檔</p>
+
+<blockquote>
+<p>以下將會建立三個角色各一的 <code>yaml</code>，設定部份大同相異，需要注意的是加上了 <code>replication</code> 的部份，用來讓各個角色認識彼此</p>
+</blockquote>
+
+<ul>
+<li><p>1-1. Primary</p>
+
+<pre><code class="language-yml">systemLog:
+    destination: file
+    path: &quot;C:\\mongodb\\replicaset\\primary\\log.log&quot;
+    logAppend: true
+storage:
+    dbPath: &quot;C:\\mongodb\\replicaset\\primary&quot;
+    directoryPerDB: true
+net:
+    port: 27017
+    bindIp: 127.0.0.1
+processManagement:
+    windowsService:
+        serviceName: MongoDBPrimary
+        displayName: MongoDBPrimary
+replication:
+    replSetName: TestReplicaSet
+</code></pre></li>
+
+<li><p>1-2. Secondary</p>
+
+<pre><code class="language-yml">systemLog:
+    destination: file
+    path: &quot;C:\\mongodb\\replicaset\\secondary\\log.log&quot;
+    logAppend: true
+storage:
+    dbPath: &quot;C:\\mongodb\\replicaset\\secondary&quot;
+    directoryPerDB: true
+net:
+    port: 27027
+    bindIp: 127.0.0.1
+processManagement:
+    windowsService:
+        serviceName: MongoDBSecondary
+        displayName: MongoDBSecondary
+replication:
+    replSetName: TestReplicaSet
+</code></pre></li>
+
+<li><p>1-3. Arbiter</p>
+
+<pre><code class="language-yml">systemLog:
+    destination: file
+    path: &quot;C:\\mongodb\\replicaset\\arbiter\\log.log&quot;
+    logAppend: true
+storage:
+    dbPath: &quot;C:\\mongodb\\replicaset\\arbiter&quot;
+    directoryPerDB: true
+net:
+    port: 27037
+    bindIp: 127.0.0.1
+processManagement:
+    windowsService:
+        serviceName: MongoDBArbiter
+        displayName: MongoDBArbiter
+replication:
+    replSetName: TestReplicaSet
+</code></pre></li>
+</ul></li>
+
+<li><p>安裝並啟動 MongoDB</p>
+
+<ul>
+<li><p>2-1. 安裝</p>
+
+<ul>
+<li><p>Primary</p>
+
+<pre><code>&quot;C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe&quot; --config &quot;C:\mongodb\replicaset\primary\mongo.conf&quot; --install
+</code></pre></li>
+
+<li><p>Secondary</p>
+
+<pre><code>&quot;C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe&quot; --config &quot;C:\mongodb\replicaset\secondary\mongo.conf&quot; --install
+</code></pre></li>
+
+<li><p>Arbiter</p>
+
+<pre><code>&quot;C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe&quot; --config &quot;C:\mongodb\replicaset\arbiter\mongo.conf&quot; --install
+</code></pre></li>
+</ul></li>
+
+<li><p>2-2. 啟動</p>
+
+<ul>
+<li><p>Primary</p>
+
+<pre><code>net start MongoDBPrimary
+</code></pre></li>
+
+<li><p>Secondary</p>
+
+<pre><code>net start MongoDBSecondary
+</code></pre></li>
+
+<li><p>Arbiter</p>
+
+<pre><code>net start MongoDBArbiter
+</code></pre></li>
+</ul></li>
+</ul></li>
+
+<li><p>連線至 MongoDB Primary</p>
+
+<blockquote>
+<p>剛剛建立的三個 instance ，本身並沒有角色差異，只是為了辨識方便，硬給個名字而已，原則上隨便挑一個就可以，為避免混淆建議命名要有規則</p>
+</blockquote>
+
+<pre><code>&quot;C:\Program Files\MongoDB\Server\3.4\bin\mongo.exe&quot; 127.0.0.1:27017
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30034801-720a0898-91d6-11e7-88cd-40128a00c230.png" alt="1connecttoprimary" /></p></li>
+
+<li><p>初始化 Replica Set</p>
+
+<blockquote>
+<p>指定 <code>replSetName</code> 並加入 primary</p>
+</blockquote>
+
+<pre><code>rs.initiate( {   _id : &quot;TestReplicaSet&quot;,members: [ { _id : 0, host : &quot;127.0.0.1:27017&quot; } ]})
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30034802-7230f9f8-91d6-11e7-84cf-b84f8e004dd5.png" alt="2init" /></p>
+
+<ul>
+<li>成功會回傳 <code>&quot;ok&quot;:1</code></li>
+<li>執行 enter 換行，會發現角色已變為 <code>Primary</code></li>
+</ul></li>
+
+<li><p>加入 <code>Secondary</code></p>
+
+<pre><code>rs.add(&quot;127.0.0.1:27027&quot;)
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30034803-724dbb2e-91d6-11e7-9406-01f5bdad3999.png" alt="3secondary" /></p></li>
+
+<li><p>確認 Replica Set 狀態</p>
+
+<pre><code>rs.status()
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30034805-7254edf4-91d6-11e7-9df4-787adc58bcd8.png" alt="4rsstatus" /></p></li>
+
+<li><p>加入 Arbiter</p>
+
+<pre><code>rs.addArb(&quot;127.0.0.1:27037&quot;)
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30034804-72544d86-91d6-11e7-96af-c54dba81b168.png" alt="5addarbiter" /></p></li>
+
+<li><p>確認 Replica Set 狀態</p>
+
+<pre><code>rs.status()
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30034806-725832b6-91d6-11e7-8a13-9b515aa9f510.png" alt="6arbiterstatus" /></p></li>
+
+<li><p>模擬 primary down 執行 failover</p>
+
+<ul>
+<li><p>在 primary 中執行下列指令</p>
+
+<ul>
+<li><p>切換至 <code>admin</code></p>
+
+<pre><code>use admin
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30034807-725e6ff0-91d6-11e7-81f9-b5760710d150.png" alt="7useadmin" /></p></li>
+
+<li><p>關閉 mongodb instance</p>
+
+<pre><code>db.shutdownServer()
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30034808-725e858a-91d6-11e7-87dd-549990cfd6e3.png" alt="8shutdown" /></p></li>
+</ul></li>
+
+<li><p>secondary 提為 primary</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30034809-72753d52-91d6-11e7-96dd-de70bb5477b8.png" alt="9becomeprimary" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>不知道什麼緣故，每次做完 MongoDB 的設定，我都有種 &ldquo;滿容易的呀，這不用特別做筆記了吧！！&rdquo;，但每次要設定時又會卡關一陣子XD</p>
+
+<p>經過再次設定以及簡單紀錄後，我相信下次應該不會 <del>再忘記了吧</del>，或是該說我知道哪邊可以查了</p>
+
+<p>使用 Replica Set 設定 MongoDB HA，比 master-slave 方便，至少不用自行處理 master/slave 切換，設定上難度也不高，值得推薦</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://docs.mongodb.com/manual/core/master-slave/" target="_blank">Master Slave Replication</a></li>
+<li><a href="http://www.cnblogs.com/yaoxing/p/mongodb-replica-set-setup.html" target="_blank">關於MongoDb Replica Set的故障轉移集群——實戰篇</a></li>
+<li><a href="https://serverfault.com/questions/746121/stop-mongos-process" target="_blank">Stop mongos process</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-25</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/mongodb/">MongoDB</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/windows-service/">Windows Service</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/ifconfig-command-not-found/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">Linux 找不到 ifconfig、wget 指令？！</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/web-server-for-chrome/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">透過 Chrome Extension 將靜態網頁開啟成網站</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/mongodb-windows-ha-replica-sets\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

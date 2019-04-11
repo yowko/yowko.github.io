@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 .Net client 連線至 Apache Kafka 收發訊息 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="使用 .Net client 連線至 Apache Kafka 收發訊息 繼之前紀錄 如何在 Windows OS 安裝 Apache Kafka 到現在默默地過了兩個月XD，直到最近才有時間可以再開始進行 MQ 相關功能比較，經過初步比較" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/kafka-client-produce-consume/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="使用 .Net client 連線至 Apache Kafka 收發訊息" />
+<meta property="og:description" content="使用 .Net client 連線至 Apache Kafka 收發訊息 繼之前紀錄 如何在 Windows OS 安裝 Apache Kafka 到現在默默地過了兩個月XD，直到最近才有時間可以再開始進行 MQ 相關功能比較，經過初步比較" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/kafka-client-produce-consume/" /><meta property="article:published_time" content="2017-05-25T01:00:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-22T01:00:27&#43;08:00"/>
+
+<meta itemprop="name" content="使用 .Net client 連線至 Apache Kafka 收發訊息">
+<meta itemprop="description" content="使用 .Net client 連線至 Apache Kafka 收發訊息 繼之前紀錄 如何在 Windows OS 安裝 Apache Kafka 到現在默默地過了兩個月XD，直到最近才有時間可以再開始進行 MQ 相關功能比較，經過初步比較">
+
+
+<meta itemprop="datePublished" content="2017-05-25T01:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-22T01:00:27&#43;08:00" />
+<meta itemprop="wordCount" content="1164">
+
+
+
+<meta itemprop="keywords" content="Kafka,C#," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 .Net client 連線至 Apache Kafka 收發訊息"/>
+<meta name="twitter:description" content="使用 .Net client 連線至 Apache Kafka 收發訊息 繼之前紀錄 如何在 Windows OS 安裝 Apache Kafka 到現在默默地過了兩個月XD，直到最近才有時間可以再開始進行 MQ 相關功能比較，經過初步比較"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-05-25 </span>
+        
+        <span class="more-meta"> 約 1164 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#使用-net-client-連線至-apache-kafka-收發訊息">使用 .Net client 連線至 Apache Kafka 收發訊息</a>
+<ul>
+<li><a href="#安裝-net-client">安裝 .Net Client</a></li>
+<li><a href="#接收訊息">接收訊息</a></li>
+<li><a href="#發送訊息">發送訊息</a></li>
+<li><a href="#其他選項">其他選項</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="使用-net-client-連線至-apache-kafka-收發訊息">使用 .Net client 連線至 Apache Kafka 收發訊息</h1>
+
+<p>繼之前紀錄 <a href="//blog.yowko.com/2017/03/windows-os-apache-kafka.html" target="_blank">如何在 Windows OS 安裝 Apache Kafka</a> 到現在默默地過了兩個月XD，直到最近才有時間可以再開始進行 MQ 相關功能比較，經過初步比較後，目前打算以 RabbitMQ 與 Apache Kafka 兩個 MQ 系統為主要選項來做比較，之前文章 <a href="//blog.yowko.com/2017/05/rabbitmq-client-send-consume.html" target="_blank">使用 .Net client 連線至 RabbitMQ 收發訊息</a> 介紹了使用 .Net Client 連線 RabbitMQ 進行基本發送訊息及接收訊息的程式碼，今天就來看看 .Net 如何連線 Apache Kafka 進行收發訊息</p>
+
+<p>身為 .Net 工程師，雖然想多熟悉 linux，但終究沒有那麼容易，今天的 demo 還是會以 Windows 上的 Kafka 當做範例，如果對 Windows 上安裝 Apache Kafka 有興趣的可以參考 <a href="//blog.yowko.com/2017/03/windows-os-apache-kafka.html" target="_blank">如何在 Windows OS 安裝 Apache Kafka</a></p>
+
+<h2 id="安裝-net-client">安裝 .Net Client</h2>
+
+<ul>
+<li><p><del><a href="https://github.com/Microsoft/CSharpClient-for-Kafka" target="_blank">Microsoft/CSharpClient-for-Kafka</a></del></p>
+
+<blockquote>
+<p>Kafka .Net Client 在 NuGet 上有好幾套件，其實並不好選擇，本來想使用 Microsoft 出的 <a href="https://github.com/Microsoft/CSharpClient-for-Kafka" target="_blank">CSharpClient-for-Kafka</a>，但專案說明出現：</p>
+
+<p>只支援到 Kafka 0.8，直到 Kafka 1.0 才會重新包裝 library，如果是 Kafaka 0.9 之後版本請使用 <a href="https://github.com/confluentinc/confluent-kafka-dotnet" target="_blank">confluent-kafka-dotnet</a></p>
+</blockquote>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/26392985/fa28a29e-409a-11e7-8a38-cf7212573d49.png" alt="1msnote" /></p></li>
+
+<li><p><a href="https://github.com/confluentinc/confluent-kafka-dotnet" target="_blank">confluentinc/confluent-kafka-dotnet</a></p>
+
+<ul>
+<li><p>使用 Package Manager Console</p>
+
+<pre><code>Install-Package Confluent.Kafka -Version 0.9.5
+</code></pre>
+
+<blockquote>
+<p>官方建議的安裝語法有指定版本為 0.9.5 我看最新版本就是 0.9.5 ，不指定還是會安裝 0.9.5</p>
+</blockquote></li>
+
+<li><p>使用 NuGet Package Explorer</p>
+
+<ol>
+<li><p>專案(project) 上按右鍵 &ndash;&gt; Manage NuGet Packages&hellip;</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/26392986/fa2e19c2-409a-11e7-9c96-2bd621b9b87a.png" alt="2nugetmanage" /></p></li>
+
+<li><p>Browse &ndash;&gt; 搜尋 <code>confluent.kafka</code> &ndash;&gt; 點選 <code>Confluent.Kafka</code> &ndash;&gt; Install</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/26392984/fa269bb6-409a-11e7-8099-27d038d6ad3a.png" alt="3nugetinstall" /></p></li>
+</ol></li>
+</ul></li>
+</ul>
+
+<h2 id="接收訊息">接收訊息</h2>
+
+<blockquote>
+<p>使用 confluent-kafka-dotnet 的<a href="https://github.com/confluentinc/confluent-kafka-dotnet/tree/master/examples/SimpleConsumer" target="_blank">官方範例</a>來建立 consumer</p>
+</blockquote>
+
+<ul>
+<li><p>範例程式</p>
+
+<pre><code class="language-cs">void Main()
+{
+    //指定 kafka 所在位置及 port
+    string brokerList = &quot;localhost:9092&quot;;
+    //指定要監聽的 topic，可以監聽多個
+    var topics = new List&lt;string&gt;() { &quot;Yowkotest&quot; };
+    //這個 group.id 沒什麼作用，可以隨便給，將 kafka 位置設定給 config
+    var config = new Dictionary&lt;string, object&gt;
+    {
+        { &quot;group.id&quot;, &quot;yowko&quot; },
+        { &quot;bootstrap.servers&quot;, brokerList }
+    };
+    //將 config 餵給 consumer
+    using (var consumer = new Consumer&lt;Null, string&gt;(config, null, new StringDeserializer(Encoding.UTF8)))
+    {
+        consumer.Assign(new List&lt;TopicPartitionOffset&gt; { new TopicPartitionOffset(topics.First(), 0, 0) });
+        //持續監聽
+        while (true)
+        {
+            Message&lt;Null, string&gt; msg;
+            //接受訊息
+            if (consumer.Consume(out msg))
+            {
+                Console.WriteLine($&quot;Topic: {msg.Topic} Partition: {msg.Partition} Offset: {msg.Offset} {msg.Value}&quot;);
+            }
+        }
+    }
+}
+</code></pre></li>
+
+<li><p>注意事項</p>
+
+<ul>
+<li>只會接受 producer 在 consumer 啟動後所發送的訊息</li>
+<li>多個 consumer 都會收到同樣訊息，不是分配接受端</li>
+</ul></li>
+</ul>
+
+<h2 id="發送訊息">發送訊息</h2>
+
+<ul>
+<li><p>範例程式</p>
+
+<pre><code class="language-cs">void Main()
+{
+    //指定 kafka 所在位置及 port
+    string brokerList = &quot;localhost:9092&quot;;
+    //指定發送的 topic
+    string topicName = &quot;Yowkotest&quot;;
+    //將 kafka 位置設定給 config
+    var config = new Dictionary&lt;string, object&gt; { { &quot;bootstrap.servers&quot;, brokerList } };
+    //將 config 餵給 producer
+    using (var producer = new Producer&lt;Null, string&gt;(config, null, new StringSerializer(Encoding.UTF8)))
+    {
+        Console.WriteLine($&quot;{producer.Name} producing on {topicName}. q to exit.&quot;);
+        string text;
+        //持續等待 user 輸入
+        while ((text = Console.ReadLine()) != &quot;q&quot;)
+        {
+            // 非同步發送訊息至 broker
+            var deliveryReport = producer.ProduceAsync(topicName, null, text);
+            //發送成功後輸出訊息
+            deliveryReport.ContinueWith(task =&gt;
+                {
+                    Console.WriteLine($&quot;Partition: {task.Result.Partition}, Offset: {task.Result.Offset}, Message: {text}&quot;);
+                });
+        }
+        //將 producer request 保留至 disk，確保資料不會遺失
+        producer.Flush();
+    }
+}
+</code></pre></li>
+
+<li><p>注意事項</p>
+
+<ul>
+<li>flush 動作不一定要執行，建議只針對重要訊息執行即可，會影響效能</li>
+<li>如果會關閉 producer ，建議執行避免有未完成的 request 遺失</li>
+</ul></li>
+</ul>
+
+<h2 id="其他選項">其他選項</h2>
+
+<ul>
+<li>使用其他 .Net Client -  <a href="https://github.com/ah-/rdkafka-dotnet" target="_blank">ah-/rdkafka-dotnet</a></li>
+
+<li><p>範例程式</p>
+
+<pre><code class="language-cs">void Main()
+{
+    // 這個 GroupId 沒什麼作用，可以隨便給
+    var config = new Config() { GroupId = &quot;example-csharp-consumer&quot; };
+    //將 config 跟 kafaka host 跟 port 指定跟 consumer
+    using (var consumer = new EventConsumer(config, &quot;127.0.0.1:9092&quot;))
+    {
+        //如果收到訊息時的行為
+        consumer.OnMessage += (obj, msg) =&gt;
+        {
+            string text = Encoding.UTF8.GetString(msg.Payload, 0, msg.Payload.Length);
+            //取得訊息後輸出
+            Console.WriteLine($&quot;Topic: {msg.Topic} Partition: {msg.Partition} Offset: {msg.Offset} {text}&quot;);
+        };
+        // consumer 訂閱 topic
+        consumer.Subscribe((new[] { &quot;Yowkotest&quot; }).ToList());
+        // 開始監聽
+        consumer.Start();
+        Console.WriteLine(&quot;Started consumer, press enter to stop consuming&quot;);
+        Console.ReadLine();
+    }
+}
+</code></pre></li>
+
+<li><p>注意事項</p>
+
+<ul>
+<li>只有沒收過的訊息，啟動監聽後會全部收下來</li>
+<li>一樣是非分配訊息接受，訊息會被後起的 consumer 收走</li>
+</ul></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>Kafka 在 .Net 上的資源相對於 RabbitMQ 是比較少的，設定上也較煩瑣，周邊配套功能或是工具支援都較少，不像 RabbitMQ 成熟，可能因為發展時間造成的。</p>
+
+<p>功能跟預期(可以自動分流 consumer)不同，我想應該是設定面問題，這個再找時間進行研究跟調整，有新的心得再跟大家分享</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="//blog.yowko.com/2017/03/windows-os-apache-kafka.html" target="_blank">如何在 Windows OS 安裝 Apache Kafka</a></li>
+<li><a href="//blog.yowko.com/2017/05/rabbitmq-client-send-consume.html" target="_blank">使用 .Net client 連線至 RabbitMQ 收發訊息</a></li>
+<li><a href="https://github.com/Microsoft/CSharpClient-for-Kafka" target="_blank">Microsoft/CSharpClient-for-Kafka</a></li>
+<li><a href="https://github.com/confluentinc/confluent-kafka-dotnet" target="_blank">confluentinc/confluent-kafka-dotnet</a></li>
+<li><a href="https://github.com/ah-/rdkafka-dotnet" target="_blank">ah-/rdkafka-dotnet</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-22</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/kafka/">Kafka</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/git-mv/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">Git 修改資料夾名稱的做法</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/visual-studio-debug-cs0006/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">Visual Studio 無法 Debug 專案 (錯誤代碼：CS0006)</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/kafka-client-produce-consume\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

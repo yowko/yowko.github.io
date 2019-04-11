@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>你可能會想知道的關於 .PDB 檔的一些事 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="你可能會想知道的關於 .PDB 檔的一些事 .PDB 檔是什麼？ Program DataBase file 的縮寫 編譯過程中會產生 儲存所有模組 (module) 中符號跟位址的清單、檔案名稱、符號定義的行號 通常在編譯" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/about-pdb/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="你可能會想知道的關於 .PDB 檔的一些事" />
+<meta property="og:description" content="你可能會想知道的關於 .PDB 檔的一些事 .PDB 檔是什麼？ Program DataBase file 的縮寫 編譯過程中會產生 儲存所有模組 (module) 中符號跟位址的清單、檔案名稱、符號定義的行號 通常在編譯" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/about-pdb/" /><meta property="article:published_time" content="2017-01-01T00:42:34&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-09T00:42:34&#43;08:00"/>
+
+<meta itemprop="name" content="你可能會想知道的關於 .PDB 檔的一些事">
+<meta itemprop="description" content="你可能會想知道的關於 .PDB 檔的一些事 .PDB 檔是什麼？ Program DataBase file 的縮寫 編譯過程中會產生 儲存所有模組 (module) 中符號跟位址的清單、檔案名稱、符號定義的行號 通常在編譯">
+
+
+<meta itemprop="datePublished" content="2017-01-01T00:42:34&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-09T00:42:34&#43;08:00" />
+<meta itemprop="wordCount" content="1021">
+
+
+
+<meta itemprop="keywords" content="Debug,Visual Studio," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="你可能會想知道的關於 .PDB 檔的一些事"/>
+<meta name="twitter:description" content="你可能會想知道的關於 .PDB 檔的一些事 .PDB 檔是什麼？ Program DataBase file 的縮寫 編譯過程中會產生 儲存所有模組 (module) 中符號跟位址的清單、檔案名稱、符號定義的行號 通常在編譯"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-01-01 </span>
+        
+        <span class="more-meta"> 約 1021 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#你可能會想知道的關於-pdb-檔的一些事">你可能會想知道的關於 .PDB 檔的一些事</a>
+<ul>
+<li><a href="#pdb-檔是什麼">.PDB 檔是什麼？</a></li>
+<li><a href="#pdb-檔中有什麼資料">.PDB 檔中有什麼資料？</a></li>
+<li><a href="#如何確認內容">如何確認內容</a></li>
+<li><a href="#pdb-如檔如何被載入">PDB 如檔如何被載入</a></li>
+<li><a href="#visual-studio-設定符號位置">Visual Studio 設定符號位置</a></li>
+<li><a href="#原始檔已被修改">原始檔已被修改</a></li>
+<li><a href="#手動產出-pdb">手動產出 .pdb</a></li>
+<li><a href="#build-setting-的影響">Build Setting 的影響</a></li>
+</ul></li>
+<li><a href="#參考資料">參考資料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="你可能會想知道的關於-pdb-檔的一些事">你可能會想知道的關於 .PDB 檔的一些事</h1>
+
+<h2 id="pdb-檔是什麼">.PDB 檔是什麼？</h2>
+
+<p><strong>P</strong>rogram <strong>D</strong>ata<strong>B</strong>ase file 的縮寫</p>
+
+<ol>
+<li>編譯過程中會產生</li>
+<li>儲存所有模組 (module) 中符號跟位址的清單、檔案名稱、符號定義的行號</li>
+<li>通常在編譯期間從原始碼建立 PDB 文件。它儲存模組中所有符號的列表及位址以及檔案名稱和定義符號的行號。</li>
+</ol>
+
+<h2 id="pdb-檔中有什麼資料">.PDB 檔中有什麼資料？</h2>
+
+<ol>
+<li>區域變數名稱</li>
+<li>程式碼檔案名稱</li>
+<li>程式碼行號</li>
+
+<li><p>程式碼索引</p>
+
+<blockquote>
+<p>會將命令嵌入 pdb 中，可以參考這篇<a href="http://www.codeproject.com/Articles/115125/Source-Indexing-and-Symbol-Servers-A-Guide-to-Easi" target="_blank">Source Indexing and Symbol Servers: A Guide to Easier Debugging</a></p>
+</blockquote></li>
+</ol>
+
+<h2 id="如何確認內容">如何確認內容</h2>
+
+<ol>
+<li><p>使用 <code>Dia2Dump</code></p>
+
+<blockquote>
+<p>可以參考<a href="http://anferneehardaway.pixnet.net/blog/post/6273453" target="_blank">阿尼文章-.pdb 檔案的內容</a></p>
+</blockquote>
+
+<p>以 Visual Studio 2015 為例</p>
+
+<ul>
+<li>1-1. 開啟 <code>%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\DIA SDK\Samples\DIA2Dump\DIA2Dump.sln</code></li>
+<li>1-2. 編譯 (Build)</li>
+<li>1-3. 使用 <code>Dia2Dump.exe</code><br />
+
+<ul>
+<li>1-3-1. 可以進到<code>%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\DIA SDK\Samples\DIA2Dump\x64\Debug\</code></li>
+<li>1-3-2. 直接指定 exe &ldquo;C:\Program Files (x86)\Microsoft Visual Studio 14.0\DIA SDK\Samples\DIA2Dump\x64\Debug\Dia2Dump.exe&rdquo;</li>
+</ul></li>
+
+<li><p>1-4. <code>Dia2Dump.exe -?</code> 可以查看命令參數</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678288/1eeba552-d379-11e6-90ff-6f3a4465e442.png" alt="dia2dump_question" /></p></li>
+
+<li><p>1-5. 參數</p>
+
+<pre><code>usage: Dia2Dump.exe [ options ] &lt;filename&gt;
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>參數</th>
+<th>說明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>-?</code></td>
+<td>print this help</td>
+</tr>
+
+<tr>
+<td><code>-all</code></td>
+<td>print all the debug info</td>
+</tr>
+
+<tr>
+<td><code>-m</code></td>
+<td>print all the mods</td>
+</tr>
+
+<tr>
+<td><code>-p</code></td>
+<td>print all the publics</td>
+</tr>
+
+<tr>
+<td><code>-g</code></td>
+<td>print all the globals</td>
+</tr>
+
+<tr>
+<td><code>-t</code></td>
+<td>print all the types</td>
+</tr>
+
+<tr>
+<td><code>-f</code></td>
+<td>print all the files</td>
+</tr>
+
+<tr>
+<td><code>-s</code></td>
+<td>print symbols</td>
+</tr>
+
+<tr>
+<td><code>-l [RVA [bytes]]</code></td>
+<td>print line number info at RVA address in the bytes range</td>
+</tr>
+
+<tr>
+<td><code>-c</code></td>
+<td>print section contribution info</td>
+</tr>
+
+<tr>
+<td><code>-dbg</code></td>
+<td>dump debug streams</td>
+</tr>
+
+<tr>
+<td><code>-injsrc [file]</code></td>
+<td>dump injected source</td>
+</tr>
+
+<tr>
+<td><code>-sf</code></td>
+<td>dump all source files</td>
+</tr>
+
+<tr>
+<td><code>-oem</code></td>
+<td>dump all OEM specific types</td>
+</tr>
+
+<tr>
+<td><code>-fpo [RVA]</code></td>
+<td>dump frame pointer omission information for a func addr</td>
+</tr>
+
+<tr>
+<td><code>-fpo [symbolname]</code></td>
+<td>dump frame pointer omission information for a func symbol</td>
+</tr>
+
+<tr>
+<td><code>-compiland [name]</code></td>
+<td>dump symbols for this compiland</td>
+</tr>
+
+<tr>
+<td><code>-lines &lt;funcname&gt;</code></td>
+<td>dump line numbers for this function</td>
+</tr>
+
+<tr>
+<td><code>-lines &lt;RVA&gt;</code></td>
+<td>dump line numbers for this address</td>
+</tr>
+
+<tr>
+<td><code>-type &lt;symbolname&gt;</code></td>
+<td>dump this type in detail</td>
+</tr>
+
+<tr>
+<td><code>-label &lt;RVA&gt;</code></td>
+<td>dump label at RVA</td>
+</tr>
+
+<tr>
+<td><code>-sym &lt;symbolname&gt; [childname]</code></td>
+<td>dump child information of this symbol</td>
+</tr>
+
+<tr>
+<td><code>-sym &lt;RVA&gt; [childname]</code></td>
+<td>dump child information of symbol at this addr</td>
+</tr>
+
+<tr>
+<td><code>-lsrc  &lt;file&gt; [line]</code></td>
+<td>dump line numbers for this source file</td>
+</tr>
+
+<tr>
+<td><code>-ps &lt;RVA&gt; [-n &lt;number&gt;]</code></td>
+<td>dump symbols after this address, default 16</td>
+</tr>
+
+<tr>
+<td><code>-psr &lt;RVA&gt; [-n &lt;number&gt;]</code></td>
+<td>dump symbols before this address, default 16</td>
+</tr>
+
+<tr>
+<td><code>-annotations &lt;RVA&gt;</code></td>
+<td>dump annotation symbol for this RVA</td>
+</tr>
+
+<tr>
+<td><code>-maptosrc &lt;RVA&gt;</code></td>
+<td>dump src RVA for this image RVA</td>
+</tr>
+
+<tr>
+<td><code>-mapfromsrc &lt;RVA&gt;</code></td>
+<td>dump image RVA for src RVA</td>
+</tr>
+</tbody>
+</table></li>
+
+<li><p>1-6. 取得所有內容</p>
+
+<pre><code>&quot;%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\DIA SDK\Samples\DIA2Dum
+p\x64\Debug\Dia2Dump.exe&quot; -all C:\tt.pdb
+</code></pre>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678292/1f0a892c-d379-11e6-86fc-37ed9890400a.png" alt="PDB_ALL" /></p>
+
+<ul>
+<li><p>有 source code file 位置跟行號資訊</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678294/1f0ef408-d379-11e6-998f-49e2b2a244e6.png" alt="pdb_file_lines" /></p></li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h2 id="pdb-如檔如何被載入">PDB 如檔如何被載入</h2>
+
+<p>程式碼編譯成 dll 或是 exe 的二進位檔(binary)時，會將 PDB 路徑存入 binary 中 ，並產生一組 <code>GUID</code> 與 <code>遞增 Age</code> 同時封裝進 binary 及 PDB 中，
+透過比對 <code>GUID</code> 與 <code>Age</code> 就可以識別 binary 與 PDB 版本是否相同(如果程式碼未異動，重新編譯的過程仍會重新產生 <code>GUID</code> 及  <code>遞增 Age</code> 並封裝，因此可能造成 PDB 無法使用)</p>
+
+<ol>
+<li><p>執行階段</p>
+
+<blockquote>
+<p>pdb 需與 執行檔在同一個資料夾中，才會直接出現錯誤的行號</p>
+</blockquote></li>
+
+<li><p>debug the program 載入順序</p>
+
+<ul>
+<li>2-1. 二進位檔中 (exe or dll) 中所封裝的 PDB 路徑</li>
+
+<li><p>2-2. 二進位檔的所在路徑中(只能在同資料夾中)</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678290/1f047546-d379-11e6-8b65-dc203a96844c.png" alt="error" /></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678285/1ee5265a-d379-11e6-92ca-b4ad0029ecae.png" alt="debug1" /></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678284/1ee3be82-d379-11e6-94a5-5a84bbb9273d.png" alt="debug" /></p></li>
+
+<li><p><strong><em>修改 .pdb 檔名就會對應不到</em></strong></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678291/1f07db5a-d379-11e6-8316-a7a0b5fbc416.png" alt="notfound" /></p></li>
+</ul></li>
+
+<li><p>Visual Studio Debugger 載入順序</p>
+
+<ul>
+<li>3-1. 二進位檔中 (exe or dll) 中所封裝的 PDB 路徑</li>
+<li>3-2. 二進位檔的所在路徑中(只能在同資料夾中)</li>
+<li>3-3. 組件(assembly)載入的路徑</li>
+<li>3-4. 符號儲存快取</li>
+<li>3-5. 符號儲存的路徑</li>
+</ul>
+
+<blockquote>
+<p><strong>二進位檔中 (exe or dll) 中所封裝的 PDB 路徑</strong></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678297/1f267d80-d379-11e6-8861-3e3164f236df.png" alt="pdbpathinbinary" /></p>
+</blockquote></li>
+</ol>
+
+<h2 id="visual-studio-設定符號位置">Visual Studio 設定符號位置</h2>
+
+<ol>
+<li><p>Tools &ndash;&gt; Options..</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678283/1ee1ce92-d379-11e6-883f-a9f247d12994.png" alt="toolsoption" /></p></li>
+
+<li><p>Debugging &ndash;&gt; Symbols</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678287/1ee98b28-d379-11e6-89d6-95e22777e715.png" alt="debugging" /></p></li>
+
+<li><p>Symbol file(.pdb) locations</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678293/1f0e23ac-d379-11e6-9a26-2fa0d5eb2949.png" alt="location" /></p></li>
+</ol>
+
+<h2 id="原始檔已被修改">原始檔已被修改</h2>
+
+<ul>
+<li><p>會造成 debug 位置不在正確的位置上</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678295/1f10541a-d379-11e6-97e7-12a988285a91.png" alt="pdbmismatch" /></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678286/1ee86d74-d379-11e6-83cb-88758f1f1ec9.png" alt="debuglocationerror" /></p></li>
+</ul>
+
+<h2 id="手動產出-pdb">手動產出 .pdb</h2>
+
+<pre><code>&quot;%ProgramFiles(x86)%\MSBuild\14.0\bin\csc.exe&quot; /out:D:\My.exe /debug /pdb:C:\tt.pdb &quot;C:\Program.cs&quot;
+</code></pre>
+
+<ul>
+<li>可以透 <code>csc</code> 指令來指定 binary 跟 pdb 的位置</li>
+</ul>
+
+<h2 id="build-setting-的影響">Build Setting 的影響</h2>
+
+<ol>
+<li><p><code>none</code></p>
+
+<blockquote>
+<p>不會產生 <code>pdb</code></p>
+</blockquote></li>
+
+<li><p><code>full</code></p>
+
+<blockquote>
+<p>有<code>pdb</code>，且會產生可偵錯的程式碼(會產生 DebuggableAttribute 來通知 JIT 編譯器有可用的偵錯資訊)</p>
+</blockquote></li>
+
+<li><p><code>pdb-only</code></p>
+
+<blockquote>
+<p>僅產生 <code>pdb</code> ，但無法偵錯</p>
+</blockquote></li>
+</ol>
+
+<h1 id="參考資料">參考資料</h1>
+
+<ol>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/ms241903%28v=vs.100%29.aspx" target="_blank">MSDN</a></li>
+<li><a href="http://www.codeproject.com/Articles/349076/Know-Program-Database-file-PDB" target="_blank">Know Program Database file (PDB)</a></li>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/78f4aasd.aspx" target="_blank">Command-line Building With csc.exe</a></li>
+<li><a href="http://www.codeproject.com/Articles/115125/Source-Indexing-and-Symbol-Servers-A-Guide-to-Easi" target="_blank">Source Indexing and Symbol Servers: A Guide to Easier Debugging</a></li>
+<li><a href="http://www.codeproject.com/Articles/37456/How-To-Inspect-the-Content-of-a-Program-Database-P" target="_blank">How to Inspect the Content of a Program Database (PDB) File</a></li>
+<li><a href="http://devcenter.wintellect.com/jrobbins/pdb-files-what-every-developer-must-know" target="_blank">PDB Files: What Every Developer Must Know</a></li>
+<li><a href="http://www.debuginfo.com/articles/debuginfomatch.html" target="_blank">MATCHING DEBUG INFORMATION</a></li>
+<li><a href="http://www.lionhack.com/2014/01/14/advanced-dotnet-debugging-pdbs-and-symbols/" target="_blank">Advanced .NET Debugging - PDBs and Symbol Stores</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-09</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/debug/">Debug</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/visual-studio/">Visual Studio</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/visual-studio-build-output-verbosity/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">調整 Visual Studio MSBuild 專案建置輸出詳細等級(Output 視窗輸出資訊詳細等級)</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/chocolatey-proxy/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">為 Chocolatey 設定需驗證的 proxy</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/about-pdb\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

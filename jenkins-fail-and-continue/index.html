@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job 同事打算設定固定周期性執行 pipeline job 將所有專案 build 一輪，讓專案可以常保在健康的狀態。 非常正確的想法，但我的疑問是為" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/jenkins-fail-and-continue/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job" />
+<meta property="og:description" content="Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job 同事打算設定固定周期性執行 pipeline job 將所有專案 build 一輪，讓專案可以常保在健康的狀態。 非常正確的想法，但我的疑問是為" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/jenkins-fail-and-continue/" /><meta property="article:published_time" content="2017-04-26T02:21:00&#43;08:00"/>
+<meta property="article:modified_time" content="2017-04-26T02:21:42&#43;08:00"/>
+
+<meta itemprop="name" content="Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job">
+<meta itemprop="description" content="Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job 同事打算設定固定周期性執行 pipeline job 將所有專案 build 一輪，讓專案可以常保在健康的狀態。 非常正確的想法，但我的疑問是為">
+
+
+<meta itemprop="datePublished" content="2017-04-26T02:21:00&#43;08:00" />
+<meta itemprop="dateModified" content="2017-04-26T02:21:42&#43;08:00" />
+<meta itemprop="wordCount" content="630">
+
+
+
+<meta itemprop="keywords" content="Jenkins," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job"/>
+<meta name="twitter:description" content="Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job 同事打算設定固定周期性執行 pipeline job 將所有專案 build 一輪，讓專案可以常保在健康的狀態。 非常正確的想法，但我的疑問是為"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-26 </span>
+        
+        <span class="more-meta"> 約 630 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#jenkins-如何在-pipeline-中平行-build-job-與失敗不中斷-job">Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job</a>
+<ul>
+<li><a href="#使用-groovy-plugin-進行設定">使用 Groovy plugin 進行設定</a></li>
+<li><a href="#同時-build-多個-stage">同時 build 多個 stage</a></li>
+<li><a href="#在同一個-stage-build-多個-job">在同一個 stage build 多個 job</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資料">參考資料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="jenkins-如何在-pipeline-中平行-build-job-與失敗不中斷-job">Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job</h1>
+
+<p>同事打算設定固定周期性執行 pipeline job 將所有專案 build 一輪，讓專案可以常保在健康的狀態。</p>
+
+<p>非常正確的想法，但我的疑問是為什麼需要使用到 pipeline job：因為 job 有互相依賴的狀況，得確定基底 job 完成才能執行其他 job，就讓我們來看可以怎麼設定</p>
+
+<h2 id="使用-groovy-plugin-進行設定">使用 Groovy plugin 進行設定</h2>
+
+<blockquote>
+<p>安裝 Groovy plugin 的方式請參考 <a href="//blog.yowko.com/2017/04/jenkins2-getlastsuccessfulbuild.html" target="_blank">Jenkins 2 如何取得上次編譯成功的時間</a></p>
+</blockquote>
+
+<h2 id="同時-build-多個-stage">同時 build 多個 stage</h2>
+
+<ol>
+<li><p>原本循序做法</p>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-groovy">stage('testPowerShell') {
+    build job: 'testPowerShell', parameters: [
+    [$class: 'StringParameterValue', name: 'serviceNames', value: 'reveal,TestCert'],
+    [$class: 'StringParameterValue', name: 'filelocation', value: 'D:\\serverlist.json'],
+    [$class: 'StringParameterValue', name: 'groupNo', value: '0']
+    ]
+}
+stage('TestCopy') {
+    build job: 'TestCopy', parameters: [
+        [$class: 'StringParameterValue', name: 'excludeFolders', value: 'D:\\Downloads\\NewReveal\\reveal.js-master\\test D:\\Downloads\\NewReveal\\reveal.js-master\\js']
+    ]
+}
+</code></pre></li>
+
+<li><p>依序執行</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400369/e554f71e-2a24-11e7-932c-c341725b19a0.png" alt="1step1" /></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400370/e5597334-2a24-11e7-8458-d11c8a4fc2a1.png" alt="2step2" /></p></li>
+
+<li><p>有錯直接中斷後續動作</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400372/e55cf770-2a24-11e7-87c5-a68fa110f166.png" alt="3blocking" /></p></li>
+</ul></li>
+
+<li><p>使用 <code>parallel</code> 平行處理</p>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-groovy">parallel(
+    job1:{stage('testPowerShell') {
+        build job: 'testPowerShell', parameters: [
+        [$class: 'StringParameterValue', name: 'serviceNames', value: 'reveal,TestCert'],
+        [$class: 'StringParameterValue', name: 'filelocation', value: 'D:\\serverlist.json'],
+        [$class: 'StringParameterValue', name: 'groupNo', value: '0']
+        ]
+    }},
+    job2:{stage('TestCopy') {
+    build job: 'TestCopy', parameters: [
+        [$class: 'StringParameterValue', name: 'excludeFolders', value: 'D:\\Downloads\\NewReveal\\reveal.js-master\\test D:\\Downloads\\NewReveal\\reveal.js-master\\js']
+    ]
+    }}
+)
+</code></pre></li>
+
+<li><p>平行執行</p>
+
+<blockquote>
+<p>將多個 stage 視為同一個 node 會同時啟動，會等待較長的 stage 完成後才統一回傳結果</p>
+</blockquote>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400371/e55c8e98-2a24-11e7-98b7-e1c07408b795.png" alt="4starttoget" /></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400368/e5346f12-2a24-11e7-9fce-ebd049f812d9.png" alt="5stoptoget" /></p></li>
+
+<li><p>出錯仍會執行其他 stage</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400367/e53343bc-2a24-11e7-885c-015e3d8236ac.png" alt="6noblocking" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="在同一個-stage-build-多個-job">在同一個 stage build 多個 job</h2>
+
+<p>這比較符合同事的需求，需要有基礎的 job 先完成後再進行其他 job 的建置</p>
+
+<ul>
+<li><p>語法</p>
+
+<blockquote>
+<p>只在 stage 2 去載入多個 job 並使用 parallel build</p>
+</blockquote>
+
+<pre><code class="language-groovy">def transformIntoStep(jobFullName) {
+    return {
+        build job: jobFullName,
+        parameters: [string(name: 'Environ', value: 'QA')],
+        quietPeriod: 3
+        }
+}
+                
+stage('Step1') {
+    build job: 'A01-TestDev', parameters: [
+    [$class: 'StringParameterValue', name: 'serviceNames', value: 'reveal,TestCert'],
+    [$class: 'StringParameterValue', name: 'filelocation', value: 'D:\\serverlist.json'],
+    [$class: 'StringParameterValue', name: 'groupNo', value: '0']
+    ]
+}
+stage('Step2') {
+    def branches = [: ]
+    def jobs = &quot;${buildjobs}&quot;.tokenize(',')
+    def i = 0;
+    for (jobName in jobs) {
+    //println(jobName);
+    branches[&quot;job${i}&quot;] = transformIntoStep(jobName);
+    i++;
+    }
+    //println(branches);
+    parallel branches;
+                
+}
+stage('Step3') {
+    build job: 'A01-TestDev', parameters: [
+    [$class: 'StringParameterValue', name: 'serviceNames', value: 'reveal,TestCert'],
+    [$class: 'StringParameterValue', name: 'filelocation', value: 'D:\\serverlist.json'],
+    [$class: 'StringParameterValue', name: 'groupNo', value: '0']
+    ]
+}
+</code></pre></li>
+
+<li><p>正常執行</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400364/e531b9d4-2a24-11e7-9961-76f010f609c3.png" alt="7pipelineparallel" /></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400366/e533326e-2a24-11e7-83d6-706d370c8dc8.png" alt="8parallelok" /></p></li>
+
+<li><p>某個 job 有異常，也不會影響其他 job build</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400363/e53178e8-2a24-11e7-84fd-74205e439893.png" alt="9parallelfail" /></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400365/e53300b4-2a24-11e7-9e9a-c4c60411e6a9.png" alt="10paralleljobok" /></p></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>我測試下來，塞入多個 build job 的行為如果不拉出去用 function (transformIntoStep)來處理，會只 build 最後一個 job 多次，效果跟 <a href="https://jenkins.io/doc/pipeline/examples/#jobs-in-parallel" target="_blank">Jobs In Parallel</a> 相同，文件有提到 build array 是拿來 build 同一個 job 多次用的，這個要多注意</p>
+
+<h1 id="參考資料">參考資料</h1>
+
+<ol>
+<li><a href="https://jenkins.io/doc/pipeline/examples/" target="_blank">Pipeline Examples</a></li>
+<li><a href="https://www.cloudbees.com/blog/parallelism-and-distributed-builds-jenkins" target="_blank">Parallelism and Distributed Builds with Jenkins</a></li>
+<li><a href="//blog.yowko.com/2017/04/jenkins2-getlastsuccessfulbuild.html" target="_blank">Jenkins 2 如何取得上次編譯成功的時間</a></li>
+<li><a href="https://jenkins.io/doc/pipeline/examples/#jobs-in-parallel" target="_blank">Jobs In Parallel</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2017-04-26</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/jenkins/">Jenkins</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/stackexchange-redis-get-all-keys-or-pattern/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">如何使用 StackExchange.Redis 取得所有 keys 值與指定 pattern 的 key</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/sql-server-log-exception/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">SQL Server 如何紀錄執行錯誤</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/jenkins-fail-and-continue\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

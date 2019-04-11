@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>如何快速比對資料庫結構差異並產生同步指令 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="如何快速比對資料庫結構差異並產生同步指令 之前文章 如何為 SQL SERVER 建立資料庫版控 簡短地介紹如何使用 SQL Server Data Tools (SSDT) 來將資料庫物件轉換為程式碼以利進行版控，" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/sql-server-schema-compare/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="如何快速比對資料庫結構差異並產生同步指令" />
+<meta property="og:description" content="如何快速比對資料庫結構差異並產生同步指令 之前文章 如何為 SQL SERVER 建立資料庫版控 簡短地介紹如何使用 SQL Server Data Tools (SSDT) 來將資料庫物件轉換為程式碼以利進行版控，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/sql-server-schema-compare/" /><meta property="article:published_time" content="2017-04-10T00:20:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-16T00:20:54&#43;08:00"/>
+
+<meta itemprop="name" content="如何快速比對資料庫結構差異並產生同步指令">
+<meta itemprop="description" content="如何快速比對資料庫結構差異並產生同步指令 之前文章 如何為 SQL SERVER 建立資料庫版控 簡短地介紹如何使用 SQL Server Data Tools (SSDT) 來將資料庫物件轉換為程式碼以利進行版控，">
+
+
+<meta itemprop="datePublished" content="2017-04-10T00:20:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-16T00:20:54&#43;08:00" />
+<meta itemprop="wordCount" content="773">
+
+
+
+<meta itemprop="keywords" content="SQL Server,Visual Studio," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何快速比對資料庫結構差異並產生同步指令"/>
+<meta name="twitter:description" content="如何快速比對資料庫結構差異並產生同步指令 之前文章 如何為 SQL SERVER 建立資料庫版控 簡短地介紹如何使用 SQL Server Data Tools (SSDT) 來將資料庫物件轉換為程式碼以利進行版控，"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-10 </span>
+        
+        <span class="more-meta"> 約 773 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#如何快速比對資料庫結構差異並產生同步指令">如何快速比對資料庫結構差異並產生同步指令</a>
+<ul>
+<li><a href="#新增-schema-比對">新增 schema 比對</a></li>
+<li><a href="#執行-schema-比對-project-database">執行 schema 比對 : project - database</a></li>
+<li><a href="#執行-schema-比對-database-database">執行 schema 比對 : database - database</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="如何快速比對資料庫結構差異並產生同步指令">如何快速比對資料庫結構差異並產生同步指令</h1>
+
+<p>之前文章 <a href="//blog.yowko.com/2017/04/sql-server-data-tools.html" target="_blank">如何為 SQL SERVER 建立資料庫版控</a> 簡短地介紹如何使用 SQL Server Data Tools (SSDT) 來將資料庫物件轉換為程式碼以利進行版控，接著要來介紹 SSDT 另個好用的功能：Schema 比對</p>
+
+<p>資料庫版控對開發人員是一大福音，但如果只是知道版本差異而無法快速產生 sync db 的 script 對開發流程改善的效益還是有限，微軟 SSDT 開發人員也為我們設想到了：我們可以透過 SQL Server Data Tools (SSDT) 來快速比對資料庫間的差異，也可以比對資料庫及資料庫專案(轉換為程式碼的資料庫)，比較完成後不僅可以直接從 Visual Studio 異動資料庫，還能產生出 sync script 保留了讓 DBA 介入的彈性，讓無法由開發人員直接異動的環境也可以享受到便利性</p>
+
+<h2 id="新增-schema-比對">新增 schema 比對</h2>
+
+<blockquote>
+<p>方式有兩個(擇一即可)</p>
+</blockquote>
+
+<ol>
+<li><p>專案右鍵 &ndash;&gt; Schema Compare&hellip;</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838792/97cbf416-1d81-11e7-928d-d06fb5bf38a0.png" alt="1addcompare" /></p>
+
+<ul>
+<li><p>透過這個方式建立 schema 比對，預設 source 就會指向資料庫專案</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838799/97f2735c-1d81-11e7-8e0e-844d5101933c.png" alt="3defaultproject" /></p></li>
+</ul></li>
+
+<li><p>Visual Studio 主選單中的 Tools &ndash;&gt; SQL Server &ndash;&gt; New Schema Comparison&hellip;</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838790/97cbba78-1d81-11e7-8a51-518751835895.png" alt="2newcompare" /></p>
+
+<ul>
+<li><p>透過這個方式建立 schema 比對，source 與 target 都會是空的，比較適合用來做不同資料庫間的比對</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838794/97f09bfe-1d81-11e7-97e4-8c59d136a7ec.png" alt="4emptysourcetarget" /></p></li>
+</ul></li>
+
+<li><p>選擇比對的 source 與 target</p>
+
+<blockquote>
+<p>以下以 target 為例(source 選擇方式也相同)</p>
+</blockquote>
+
+<ul>
+<li><p>3-1. Select Target</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838796/97f12998-1d81-11e7-9278-56ef7d17bf05.png" alt="5selecttarget" /></p></li>
+
+<li><p>3-2. 支援三種比對類型</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838795/97f128da-1d81-11e7-9052-287184d45c3e.png" alt="6SCHEMATYPE" /></p>
+
+<ul>
+<li><p>Project</p>
+
+<blockquote>
+<p>資料庫專案</p>
+</blockquote></li>
+
+<li><p>Database</p>
+
+<blockquote>
+<p>一般資料庫連線</p>
+</blockquote></li>
+
+<li><p>Data-tier Application File</p>
+
+<blockquote>
+<p>使用 DAC 檔，這個另外擇日紀錄</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>3-3. 選擇或是填寫資料連線資訊</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838798/97f2a462-1d81-11e7-8361-28cc20d73b9a.png" alt="7connection" /></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838797/97f277d0-1d81-11e7-811a-f01a935ea693.png" alt="8connection" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="執行-schema-比對-project-database">執行 schema 比對 : project - database</h2>
+
+<div style="color:red">需要特別注意 source 與 target 的位置</div>
+
+<p>為什麼需要特別強調 source 與 target 位置，因為位置一錯可能你好幾天辛苦的工作就會付之一炬了</p>
+
+<ul>
+<li>source 指的是 <code>更新的來源依據</code> (比較新的 schema)</li>
+<li>target 則是 <code>想要更新的目標</code> (比較舊的 schema)</li>
+</ul>
+
+<ol>
+<li><p>開始 Compare</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838800/9815c438-1d81-11e7-86db-00ef87e88f58.png" alt="9COMPARE" /></p></li>
+
+<li><p>取得結果</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838801/98162af4-1d81-11e7-8a5e-05d0bc3007c5.png" alt="10result" /></p></li>
+
+<li><p>更新資料庫</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838802/98177aa8-1d81-11e7-939c-cacf5ebffedc.png" alt="11update" /></p></li>
+
+<li><p>產生資料庫 sync script</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838788/97ca2de8-1d81-11e7-9ecc-174939567eaa.png" alt="12genscript" /></p></li>
+
+<li><p>確認 script 正確性</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838803/9818ded4-1d81-11e7-864e-09b6433e5453.png" alt="12confirm" /></p>
+
+<ul>
+<li><p>以上述截圖例子就是有人直接在 db 中加了一個欄位，而沒有加入版控中，所以如果直接 update 或是 執行 script 就會刪除這個欄位，而如果是想要將這個欄位加入版控中，只要將 source 與 target 交換即可</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838791/97cb9f52-1d81-11e7-8e9f-ad38eba56ca4.png" alt="13switch" /></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838789/97ca7cda-1d81-11e7-8a6d-b85d56771793.png" alt="14schemaupdate" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="執行-schema-比對-database-database">執行 schema 比對 : database - database</h2>
+
+<div style="color:red">需要特別注意 source 與 target 的位置</div>
+
+<ul>
+<li>步驟與上述 project - database 皆相同，只是上述流程 source or target 有一個是資料庫專案 (project)，database to database 就是 source 與 target 各為兩個不同的 database</li>
+
+<li><p>下列範例使用 sqlexpress 與 localdb 來模擬</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24838793/97cc8d0e-1d81-11e7-8a4a-b7ba598fca89.png" alt="15db2db" /></p></li>
+</ul>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="//blog.yowko.com/2017/04/sql-server-data-tools.html" target="_blank">如何為 SQL SERVER 建立資料庫版控</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-16</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/sql-server/">SQL Server</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/visual-studio/">Visual Studio</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/visual-studio-2017-code-map/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">Visual Studio 2017 如何使用 Code Map 功能</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/sql-server-version-control/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">如何為 SQL SERVER 建立資料庫版控</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/sql-server-schema-compare\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

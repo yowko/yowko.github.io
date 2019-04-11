@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>在Local Git Remote SVN(本機使用 Git，版控 Server 使用 SVN) - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="Local Git Remote SVN(本機使用 Git，版控 Server 使用 SVN) 大家一定或多或少感受到 Git 愈來愈多人採用，為了不輸別人(咦?)應該是為了體會 Git 的過人之處，最好的方式" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/local-git-remote-svn/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="在Local Git Remote SVN(本機使用 Git，版控 Server 使用 SVN)" />
+<meta property="og:description" content="Local Git Remote SVN(本機使用 Git，版控 Server 使用 SVN) 大家一定或多或少感受到 Git 愈來愈多人採用，為了不輸別人(咦?)應該是為了體會 Git 的過人之處，最好的方式" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/local-git-remote-svn/" /><meta property="article:published_time" content="2016-12-12T00:42:34&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-06T00:42:34&#43;08:00"/>
+
+<meta itemprop="name" content="在Local Git Remote SVN(本機使用 Git，版控 Server 使用 SVN)">
+<meta itemprop="description" content="Local Git Remote SVN(本機使用 Git，版控 Server 使用 SVN) 大家一定或多或少感受到 Git 愈來愈多人採用，為了不輸別人(咦?)應該是為了體會 Git 的過人之處，最好的方式">
+
+
+<meta itemprop="datePublished" content="2016-12-12T00:42:34&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-06T00:42:34&#43;08:00" />
+<meta itemprop="wordCount" content="1339">
+
+
+
+<meta itemprop="keywords" content="Git,SVN," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="在Local Git Remote SVN(本機使用 Git，版控 Server 使用 SVN)"/>
+<meta name="twitter:description" content="Local Git Remote SVN(本機使用 Git，版控 Server 使用 SVN) 大家一定或多或少感受到 Git 愈來愈多人採用，為了不輸別人(咦?)應該是為了體會 Git 的過人之處，最好的方式"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-12-12 </span>
+        
+        <span class="more-meta"> 約 1339 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#local-git-remote-svn-本機使用-git-版控-server-使用-svn">Local Git Remote SVN(本機使用 Git，版控 Server 使用 SVN)</a></li>
+<li><a href="#建議流程">建議流程</a></li>
+<li><a href="#1-從-svn-取得-source-code-擇一即可">1. 從 svn 取得 source code (擇一即可)</a></li>
+<li><a href="#2-新增-feature-branch">2. 新增 feature branch</a></li>
+<li><a href="#3-git-commit">3. Git Commit</a></li>
+<li><a href="#4-merge-到-git-svn">4. merge 到 git svn</a></li>
+<li><a href="#5-push-至-svn">5. push 至 SVN</a>
+<ul>
+<li><a href="#note-合併多個-git-commit-一次儲存到-svn">Note: 合併多個 git commit，一次儲存到 SVN</a></li>
+</ul></li>
+<li><a href="#6-刪除-featur-branch">6. 刪除 featur branch</a></li>
+<li><a href="#參考資料">參考資料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="local-git-remote-svn-本機使用-git-版控-server-使用-svn">Local Git Remote SVN(本機使用 Git，版控 Server 使用 SVN)</h1>
+
+<p>大家一定或多或少感受到 Git 愈來愈多人採用，<del>為了不輸別人(咦?)</del>應該是為了體會 Git 的過人之處，最好的方式就是開始使用它，但公司的版控豈是說換就換的。這邊簡單紀錄一下個人使用經驗：該如何在版控 server 仍使用 SVN 的前提下，開發人員在開發環境改用 Git 管理。</p>
+
+<h1 id="建議流程">建議流程</h1>
+
+<ol>
+<li><p>從 SVN 取得 source code</p>
+
+<blockquote>
+<p>將 source code 從 SVN 取出，並改由 Git 管理</p>
+</blockquote></li>
+
+<li><p>建立 feature branch</p>
+
+<blockquote>
+<p>每次修改前，都建立分支</p>
+</blockquote></li>
+
+<li><p>修改 &ndash;&gt; commit</p>
+
+<blockquote>
+<p>每次修改後，就留下版本紀錄</p>
+</blockquote></li>
+
+<li><p>確定完成 &ndash;&gt; merge 到本機 git-svn repository</p>
+
+<blockquote>
+<p>確認版本後，就將 feature branch merge 回一開始從 SVN 取回的 master branch 中</p>
+</blockquote></li>
+
+<li><p>儲存到 SVN</p>
+
+<blockquote>
+<p>dcommit(push) 到 svn</p>
+</blockquote></li>
+
+<li><p>刪除 feature branch</p>
+
+<blockquote>
+<p>將 feature branch 刪除，每次修改都建立 branch</p>
+</blockquote></li>
+</ol>
+
+<h1 id="1-從-svn-取得-source-code-擇一即可">1. 從 svn 取得 source code (擇一即可)</h1>
+
+<ul>
+<li><p>A. 使用指令</p>
+
+<pre><code>git svn clone {svn_repository_url} {資料夾名稱}
+</code></pre>
+
+<ul>
+<li><p>沒有指定 <code>資料夾名稱</code> 時，預設使用<code>專案名稱</code>當作資料夾名稱</p>
+
+<pre><code>git svn clone https://svnserver/svn/TestGitSvn
+</code></pre>
+
+<ul>
+<li>會建立 <code>專案名稱</code> 資料夾，並將 source code 下載至 <code>專案名稱</code> 資料夾中
+<img src="https://trello-attachments.s3.amazonaws.com/580186252406cb39e4a22eed/5834fc369c173c6969d43d41/2c4cb54f51118760acc6e122241a0c7f/_output_gitsvn1.png" alt="gitsvn1" /></li>
+</ul></li>
+
+<li><p>指定 <code>資料夾名稱</code></p>
+
+<pre><code>svn clone https://svnserver/svn/TestGitSvn/ test
+</code></pre>
+
+<ul>
+<li>會建立 <code>test</code> 資料夾，並將 source code 下載至 <code>test</code>
+<img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/677x442/f591972cc3381299cedf03f0f732f3f6/_output_gitsvn2.png" alt="gitsvn2" /></li>
+</ul></li>
+</ul></li>
+
+<li><p>B. 使用 TortoiseGit</p>
+
+<ol>
+<li><p>clone 專案</p>
+
+<ul>
+<li>資料夾空白處，按右鍵 &ndash;&gt; <code>Git Clone</code>
+<img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/532x283/5e3ee2500648b0c21b6bd7ddb386ef16/_output_gitclone1.png" alt="gitclone1" /></li>
+</ul></li>
+
+<li><p>from svn
+<img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/555x392/4f46450bc7a182d86a4583e6a21ad079/_output_gitclone2.png" alt="gitclone2" /></p>
+
+<ul>
+<li><p>2-1. URL</p>
+
+<blockquote>
+<p>SVN url</p>
+</blockquote></li>
+
+<li><p>2-2. Directory</p>
+
+<blockquote>
+<p>目標目錄</p>
+</blockquote></li>
+
+<li><p>2-3. From SVN Repository</p>
+
+<blockquote>
+<p>表示從 SVN 下載，相關下載屬性也在這個區塊設定</p>
+</blockquote></li>
+</ul></li>
+</ol></li>
+
+<li><p>C. 大型專案
+檔案數較多或是 Commit 數量較多的專案</p>
+
+<ol>
+<li><p>使用指令</p>
+
+<ul>
+<li><p>使用 <code>-r HEAD</code> , 只取得最新版</p>
+
+<pre><code>git svn clone -r HEAD {svn_repository_url} {資料夾名稱}
+</code></pre></li>
+
+<li><p>如果中間發生斷線，可以試試<code>git svn fetch</code>*</p></li>
+</ul></li>
+
+<li><p>使用 TortoiseGit</p>
+
+<ul>
+<li><p>指定 From</p>
+
+<ul>
+<li><p>無法像指令指定 <code>HEAD</code>，就挑最後一版</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/555x392/a22e1eddb6c70f199bb06eda6590cafd/_output_tgit_from.png" alt="tgit_from" /></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/757x438/1b347e613d9b988a4a385a8cd7a7498d/_output_tgit_from_done.png" alt="tgit_from_done" /></p></li>
+</ul></li>
+
+<li><p>git SVN Fetch</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/719x823/dfcea68bfa255d60114e16760f9a664d/_output_gitsvnfetch.png" alt="git_svn_fetch" /></p></li>
+</ul></li>
+</ol></li>
+</ul>
+
+<h1 id="2-新增-feature-branch">2. 新增 feature branch</h1>
+
+<p>建立 feature branch，僅在本機作業，不會影響 SVN</p>
+
+<ul>
+<li><p>A. 使用指令</p>
+
+<pre><code>git checkout -b {branchbname}
+</code></pre>
+
+<ul>
+<li><code>-b</code> 會先建立 <code>{branchname}</code> 同時並切換過去，效果等同於下列兩句
+
+<ol>
+<li><code>git branch {branchbname}</code></li>
+<li><code>git checkout {branchbname}</code></li>
+</ol></li>
+</ul></li>
+
+<li><p>B. 使用 TortoiseGit</p>
+
+<ol>
+<li><p>在欲建立 branch 的資料夾上按右鍵 &ndash;&gt; <code>TortoiseGit</code>&ndash;&gt; <code>Create Branch</code></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/651x481/c5fc467adb4f631339e12e83b876fdb5/_output_createbranch.png" alt="createbranch" /></p></li>
+
+<li><p>branch 相關屬性</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/460x383/0dd4ef1f6afbc8c9fef725c6e990ac16/_output_createbranch1.png" alt="createbranch1" /></p>
+
+<ul>
+<li><p>2-1. Name</p>
+
+<blockquote>
+<p>填入 branch name</p>
+</blockquote></li>
+
+<li><p>2-2. Base On</p>
+
+<blockquote>
+<p>新分支的來源，預設以目前工作分支，也可以選擇其他分支</p>
+</blockquote></li>
+
+<li><p>2-3. Switch to new branch</p>
+
+<blockquote>
+<p>建立分支後，直接將工作目錄，切換過去</p>
+</blockquote></li>
+</ul></li>
+</ol></li>
+</ul>
+
+<h1 id="3-git-commit">3. Git Commit</h1>
+
+<blockquote>
+<ul>
+<li>在本機將變更留下紀錄，其他人不會看到變更，SVN 也沒有這個變更</li>
+<li>養成留下版本變更的習慣，也不會讓團隊其他人拿到修改中的版本</li>
+</ul>
+</blockquote>
+
+<ul>
+<li><p>A. 使用指令</p>
+
+<pre><code>git commit -a -m 'something'
+</code></pre>
+
+<ul>
+<li><code>-a</code> 是將新增的檔案也納入 commit 範圍，等同於  <code>git add .</code></li>
+<li><code>-m 'something'</code>, 是在 commit 時直接給註解</li>
+</ul></li>
+
+<li><p>B. 使用 TortoiseGit</p>
+
+<ol>
+<li><p>欲 commit 位置的資料夾 按右鍵 &ndash;&gt; <code>Git Commit -&gt; &quot;branchname&quot;...</code></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/460x293/f76e02d8695b7e98c1a44543a947007e/_output_gitcommit.png" alt="gitcommit" /></p></li>
+
+<li><p>Commit</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/583x556/5d9c8dff671302b56c3cfee03a298627/_output_gitcommit2.png" alt="gitcommit2" /></p></li>
+</ol>
+
+<ul>
+<li><p>2-1. Message</p>
+
+<blockquote>
+<p>commit 的註解</p>
+</blockquote></li>
+
+<li><p>2-2. trick <code>Not Versioned Files</code></p>
+
+<blockquote>
+<p>挑選要加入版控的新增檔案</p>
+</blockquote></li>
+</ul></li>
+</ul>
+
+<h1 id="4-merge-到-git-svn">4. merge 到 git svn</h1>
+
+<blockquote>
+<ul>
+<li>修改已經完成，將 commit merge 到一開始下載的 repository 中，準備儲存到 svn</li>
+<li><code>merge</code> 指的是將特定 commit 合併至目前工作目錄分支，所以要留意目前工作目錄的位置</li>
+</ul>
+</blockquote>
+
+<ul>
+<li><p>A. 使用指令</p>
+
+<ol>
+<li><p>切換到一開始建立 git repository 的 branch (預設 master)</p>
+
+<pre><code>git checkout master
+</code></pre></li>
+
+<li><p>合併分支(merge)</p>
+
+<pre><code>git merge branchbname
+</code></pre></li>
+</ol></li>
+
+<li><p>B. 使用 TortoiseGit</p>
+
+<ol>
+<li><p>切換到一開始建立 git repository 的 branch (預設 master)</p>
+
+<ul>
+<li><p>1-1. git show log</p>
+
+<ul>
+<li><p>在資料夾按右鍵，選 <code>Git Show Log</code></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/475x292/fbb47e9842f5654f10798cd0d5e349ee/_output_gitlog.png" alt="gitlog" /></p></li>
+</ul></li>
+
+<li><p>1-2. 在 <code>master</code> 上，按右鍵 &ndash;&gt; <code>Switch/Checkout to &quot;master&quot;</code></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/1021x747/1c55c0603dd931d704ac1b4292b7e3c8/_output_checkoutmaster.png" alt="checkoutmaster" /></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/1021x747/24b59846fb8702bf875f7e11dba3c258/_output_checkouted.png" alt="checkouted" /></p></li>
+</ul></li>
+
+<li><p>合併分支(merge)</p>
+
+<ul>
+<li>2-1. 在欲合併的分支上按右鍵</li>
+
+<li><p>2-2. 點選<code>Merge to &quot;master&quot;</code>&hellip;</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/1021x747/6f912aca9d25b45d0f9e11778147c4db/_output_mergeto.png" alt="mergeto" /></p></li>
+
+<li><p>2-3. option</p>
+
+<ul>
+<li><p>可以直接使用預設即可</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/508x461/ba2dedb82878e9966864518995dedb08/_output_mergeoption.png" alt="mergeoption" /></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/1021x747/ecbed5c0555acd43b3f5b40a466ce92b/_output_mergedone.png" alt="mergedone" /></p></li>
+</ul></li>
+</ul></li>
+</ol></li>
+</ul>
+
+<h1 id="5-push-至-svn">5. push 至 SVN</h1>
+
+<blockquote>
+<p>將本機 Git 的變更，存進 SVN，使用 <code>dcommit</code> 指令</p>
+</blockquote>
+
+<ul>
+<li><p>A. 使用指令</p>
+
+<ol>
+<li><p>更新版本</p>
+
+<pre><code>git svn rebase
+</code></pre></li>
+
+<li><p>dcommit 至 SVN</p>
+
+<pre><code>git svn dcommit
+</code></pre></li>
+</ol></li>
+
+<li><p>B. 使用 TortoiseGit</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/580186252406cb39e4a22eed/5834fc369c173c6969d43d41/8ea295193874f76277aa9129e7c5fb35/_output_GITSVN.png" alt="GitSVN" /></p>
+
+<ol>
+<li>資料夾右鍵</li>
+<li>點選 <code>TortoiseGit</code></li>
+
+<li><p>點選 <code>SVN DCommit...</code></p>
+
+<ul>
+<li><p>預設會執行<code>Git SVN Rebase</code> 進行更新</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/379x184/b2e695981354c57dbc1cda9b5b0bb55b/_output_committype.png" alt="committype" /></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/757x438/8cc13c0be8e24bbc6b48fed5a93594cc/_output_commited.png" alt="commited" /></p></li>
+</ul></li>
+</ol></li>
+</ul>
+
+<h2 id="note-合併多個-git-commit-一次儲存到-svn">Note: 合併多個 git commit，一次儲存到 SVN</h2>
+
+<blockquote>
+<p>合併多次版本變更，讓 SVN 紀錄相對好閱讀</p>
+</blockquote>
+
+<ul>
+<li><p>A. 使用指令</p>
+
+<ol>
+<li><p>Rebase</p>
+
+<pre><code>git rebase -i HEAD~3
+</code></pre>
+
+<ul>
+<li><code>HEAD~3</code> 指最近三個 commit</li>
+</ul></li>
+
+<li><p>合併 (squash)</p>
+
+<ul>
+<li>要留下的用 <code>p</code> or <code>pick</code></li>
+<li>要合併的用 <code>s</code> or  <code>squash</code></li>
+<li>改完，直接按<code>:wq</code> 存檔離開</li>
+</ul></li>
+</ol></li>
+
+<li><p>B. 使用 TortoiseGit</p>
+
+<ol>
+<li><p><code>Git SVN Rebase</code></p>
+
+<ul>
+<li><p>1-1. 資料夾 &ndash;&gt; 右鍵 &ndash;&gt; TortoiseGit &ndash;&gt; Git Rebase</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/404x323/4859f3f8bc0f97a94418397f679e8ceb/_output_git_reabse.png" alt="git_rebase" /></p></li>
+
+<li><p>1-2. 選擇 <code>Squash ALL</code> &ndash;&gt; <code>Start Rebase</code></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/682x553/4cea7fde523d47ab3862f847e9af70a5/_output_Squash.png" alt="Squash" /></p></li>
+
+<li><p>1-3. Commit &ndash;&gt; DONE</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/682x553/3a521971126b495dc779867ab37e01c4/_output_REBASECOMMIT.png" alt="REBASECOMMIT" /></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/682x553/6aa516a8d1b6f053fb01e9f3cae02912/_output_rebasedone.png" alt="rebasedone" /></p></li>
+</ul></li>
+
+<li><p><code>Combine to one commit</code></p>
+
+<ul>
+<li><p>2-1. git show log</p>
+
+<ul>
+<li><p>在資料夾按右鍵，選 <code>Git Show Log</code></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/475x292/fbb47e9842f5654f10798cd0d5e349ee/_output_gitlog.png" alt="gitlog" /></p></li>
+</ul></li>
+
+<li><p>2-2. 選擇欲合併的 commit &ndash;&gt; 按右鍵 &ndash;&gt;<code>Combine to one commit</code></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/1021x747/fc905d78143b1b0ea38d13ce0a1d213a/_output_combine2one.png" alt="combine2one" /></p></li>
+
+<li><p>2-3. 修改訊息 &ndash;&gt; <code>commit</code></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/583x556/2d0f36b129b22a30b5b4437304c3e2d5/_output_combine2one_commit.png" alt="combine2one_commit" /></p></li>
+</ul></li>
+</ol></li>
+</ul>
+
+<h1 id="6-刪除-featur-branch">6. 刪除 featur branch</h1>
+
+<blockquote>
+<p>featur branch 不需推送到 SVN，feature 完成後就可以刪除</p>
+</blockquote>
+
+<ul>
+<li><p>A. 使用指令</p>
+
+<pre><code>git branch -d {branchname}
+</code></pre></li>
+
+<li><p>B. 使用 TortoiseGit</p>
+
+<ol>
+<li><p>merge 後會提示刪除</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/757x438/91b44b63eb26b387aabb75e592a53421/_output_removebranch.png" alt="removebranch" /></p></li>
+
+<li><p>branch 管理</p>
+
+<ul>
+<li><p>2-1. 資料夾右鍵 &ndash;&gt; <code>TortoiseGit</code> &ndash;&gt; <code>Switch/Checkout..</code></p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/782x426/230d7acb2d2334714b79e66ab0dbb9e7/_output_switchcheckout.png" alt="switchcheckout" /></p></li>
+
+<li><p>2-2. 選擇其他 branch</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/460x339/732d311e1a45acaaf2e99987c4fb02db/_output_otherbranch.png" alt="otherbranch" /></p></li>
+
+<li><p>2-3. DELETE</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5834fc369c173c6969d43d41/714x452/f28926c4e0641acbc4d1586b11d55a11/_output_delete.png" alt="delete" /></p></li>
+</ul></li>
+</ol></li>
+</ul>
+
+<h1 id="參考資料">參考資料</h1>
+
+<ol>
+<li><a href="https://git-scm.com/docs/git-svn" target="_blank">git-svn</a></li>
+<li><a href="http://blog.lyhdev.com/2014/01/git-svn-svn.html" target="_blank">使用 git-svn 工具管理 SVN 專案</a></li>
+<li><a href="http://plasma.z6i.org/archives/007533.html" target="_blank">我的 git-svn 用法</a></li>
+<li><a href="http://blog.chhsu.org/2010/05/git-git-svn.html" target="_blank">git 與 git-svn 簡單教學</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-06</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/git/">Git</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/svn/">SVN</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/sql-server-io-statistics/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">試著看懂 SQL Server IO 統計資訊</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/aspnet-identity-use-username-login/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">在 ASP.NET MVC 5 預設專案範本中透過 ASP.NET Identity 由 Email 改用 Username 登入</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/local-git-remote-svn\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

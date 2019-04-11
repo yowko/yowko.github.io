@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PostgreSQL on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/postgresql/</link>
+    <description>Recent content in PostgreSQL on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 17 Feb 2019 20:40:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用 C# 存取 PostgreSQL</title>
+      <link>https://blog.yowko.com/csharp-postgresql/</link>
+      <pubDate>Sun, 17 Feb 2019 20:40:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/csharp-postgresql/</guid>
+      <description>使用 C# 存取 PostgreSQL 之前筆記 使用 C# 存取 Cassandra 提到想要將 log 存放至 NoSQL 中而正在嘗試某幾套 NoSQL，現在就來看看 PostgreSQL 的使用吧 基本環境說明 在 mac 上使用 docker 建立 Post</description>
+    </item>
+    
+  </channel>
+</rss>

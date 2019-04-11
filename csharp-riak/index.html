@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 C# 存取 Riak - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="使用 C# 存取 Riak 之前筆記 使用 C# 存取 Cassandra 提到想要將 log 存放至 NoSQL 中而正在嘗試某幾套 NoSQL，現在就來看看 Riak 的使用吧 基本環境說明 在 Windows 上使用 docker 建立 linux 版本 R" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/csharp-riak/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="使用 C# 存取 Riak" />
+<meta property="og:description" content="使用 C# 存取 Riak 之前筆記 使用 C# 存取 Cassandra 提到想要將 log 存放至 NoSQL 中而正在嘗試某幾套 NoSQL，現在就來看看 Riak 的使用吧 基本環境說明 在 Windows 上使用 docker 建立 linux 版本 R" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/csharp-riak/" /><meta property="article:published_time" content="2019-02-23T20:40:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-02-23T20:40:00&#43;08:00"/>
+
+<meta itemprop="name" content="使用 C# 存取 Riak">
+<meta itemprop="description" content="使用 C# 存取 Riak 之前筆記 使用 C# 存取 Cassandra 提到想要將 log 存放至 NoSQL 中而正在嘗試某幾套 NoSQL，現在就來看看 Riak 的使用吧 基本環境說明 在 Windows 上使用 docker 建立 linux 版本 R">
+
+
+<meta itemprop="datePublished" content="2019-02-23T20:40:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-02-23T20:40:00&#43;08:00" />
+<meta itemprop="wordCount" content="621">
+
+
+
+<meta itemprop="keywords" content="C#,NoSQL," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 C# 存取 Riak"/>
+<meta name="twitter:description" content="使用 C# 存取 Riak 之前筆記 使用 C# 存取 Cassandra 提到想要將 log 存放至 NoSQL 中而正在嘗試某幾套 NoSQL，現在就來看看 Riak 的使用吧 基本環境說明 在 Windows 上使用 docker 建立 linux 版本 R"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-02-23 </span>
+        
+        <span class="more-meta"> 約 621 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#使用-c-存取-riak">使用 C# 存取 Riak</a>
+<ul>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#建立-riak-instance">建立 Riak instance</a></li>
+<li><a href="#使用方式">使用方式</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="使用-c-存取-riak">使用 C# 存取 Riak</h1>
+
+<p>之前筆記 <a href="https://blog.yokwo.com/csharp-cassandra" target="_blank">使用 C# 存取 Cassandra</a> 提到想要將 log 存放至 NoSQL 中而正在嘗試某幾套 NoSQL，現在就來看看 Riak 的使用吧</p>
+
+<h2 id="基本環境說明">基本環境說明</h2>
+
+<blockquote>
+<p>在 Windows 上使用 docker 建立 linux 版本 Riak，接著使用 C# 連線至 Riak 執行基本 CRUD</p>
+</blockquote>
+
+<ol>
+<li>Windows 10 Version 1803 (OS Build 17134.590)</li>
+<li>Docker Community 18.09.2</li>
+<li>Bogus 25.0.4</li>
+<li>Riak 2.1.4</li>
+
+<li><p>RiakClient 2.5.0</p>
+
+<blockquote>
+<p>RiakClient 目前還未推出 .NETStandard 版本</p>
+</blockquote></li>
+</ol>
+
+<h2 id="建立-riak-instance">建立 Riak instance</h2>
+
+<p>Riak 有 Riak KV 與 Riak TS 兩種</p>
+
+<ul>
+<li><code>Riak KV</code> ：為一般 NoSQL database</li>
+<li><code>Riak TS</code> ：則是為基於 Riak KV 核心功能，針對 Time Series 資料優化的產品</li>
+</ul>
+
+<blockquote>
+<p>透過 docker 僅建立單一 local Riakdb KV instance</p>
+</blockquote>
+
+<pre><code class="language-cmd">docker run -d -p 8087:8087 -p 8098:8098 basho/riak-kv
+</code></pre>
+
+<blockquote>
+<ul>
+<li>8087 是 Protocol Buffers 使用的</li>
+<li>8098 則是 HTTP 使用</li>
+</ul>
+</blockquote>
+
+<h2 id="使用方式">使用方式</h2>
+
+<ol>
+<li><p>透過 <a href="http://127.0.0.1:8098/riak/status" target="_blank">http://127.0.0.1:8098/riak/status</a> 來確認是否有正確安裝及啟動</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/53295022-ec8eaa80-382c-11e9-86fb-db8172834335.png" alt="1startup" /></p></li>
+
+<li><p>設定 C# 連線 config</p>
+
+<pre><code class="language-xml">&lt;configuration&gt;
+&lt;configSections&gt;
+    &lt;section name=&quot;riakConfig&quot; type=&quot;RiakClient.Config.RiakClusterConfiguration, RiakClient&quot; /&gt;
+&lt;/configSections&gt;
+&lt;riakConfig nodePollTime=&quot;5000&quot; defaultRetryWaitTime=&quot;200&quot; defaultRetryCount=&quot;3&quot;&gt;
+    &lt;nodes&gt;
+    &lt;node name=&quot;dev1&quot; hostAddress=&quot;localhost&quot; poolSize=&quot;20&quot; /&gt;
+    &lt;/nodes&gt;
+&lt;/riakConfig&gt;
+&lt;/configuration&gt;
+</code></pre></li>
+
+<li><p>安裝 <code>RiakClient</code> NuGet 套件
+&gt; 本次測試使用 RiakClient  版本為 <code>2.5.0</code></p>
+
+<ul>
+<li><p>Package Manager</p>
+
+<pre><code>Install-Package RiakClient
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package RiakClient
+</code></pre></li>
+</ul></li>
+
+<li><p>實際存取 Riak</p>
+
+<ul>
+<li><p>Insert</p>
+
+<pre><code class="language-cs">//準備 insert 用假資料
+var _user = GetFakeUserData();
+        
+//從 config 中讀取資料
+var cluster = RiakCluster.FromConfig(&quot;riakConfig&quot;);
+//建立連線
+var client = cluster.CreateClient();
+        
+//準備 RiakObject ：指定 UserId 為 key 且 bucket 為 users
+var o = new RiakObject(&quot;users&quot;, _user.UserId.ToString(), _user);
+//將資料寫入 riak
+client.Put(o);
+</code></pre></li>
+
+<li><p>Select</p>
+
+<pre><code class="language-cs">//從 config 中讀取資料
+var cluster = RiakCluster.FromConfig(&quot;riakConfig&quot;);
+//建立連線
+var client = cluster.CreateClient();
+
+//以 key 來搜尋 users bucket 
+var result = client.Get(&quot;users&quot;, &quot;40bd4101-4bd5-0d39-3f92-a0575a9670f0&quot;);
+//如果成功
+if (result.IsSuccess)
+{
+    //將內容轉為 User 物件
+    result.Value.GetObject&lt;User&gt;();
+}
+</code></pre></li>
+
+<li><p>Update</p>
+
+<pre><code class="language-cs">User user = new User();
+//以 key 來搜尋 users bucket 
+var result = client.Get(&quot;users&quot;, &quot;40bd4101-4bd5-0d39-3f92-a0575a9670f0&quot;);
+//如果成功
+if (result.IsSuccess)
+{
+    //將內容轉為 User 物件
+    user = result.Value.GetObject&lt;User&gt;();
+    //將名稱改為 &quot;Yowko&quot;
+    user.Name = &quot;Yowko&quot;;
+            
+    //準備 RiakObject ：指定 UserId 為 key 且 bucket 為 users
+    var o = new RiakObject(&quot;users&quot;, user.UserId.ToString(), user);
+    //更新資料
+    var updateResult = client.Put(o);
+}
+</code></pre></li>
+
+<li><p>Delete</p>
+
+<pre><code class="language-cs">//以 key 刪除 users bucket 資料
+var deleteResult = client.Delete(&quot;users&quot;, &quot;40bd4101-4bd5-0d39-3f92-a0575a9670f0&quot;);
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>優點：</p>
+
+<ul>
+<li>Riak 有支援 Protocol Buffers 猜測在傳輸的效率上應該不差</li>
+</ul>
+
+<p>缺點：</p>
+
+<ol>
+<li>在連線設定上，一定要透過 configSections 來設定，使用上便利性稍差;</li>
+<li>API 只能透過 key 來搜尋及刪除，會大幅限縮使用情境，</li>
+<li>目前仍無 .NETStandard 版本，對於 .Net Core 及跨平台需求的使用者直接就出局了</li>
+</ol>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="http://basho.com/products/riak-kv" target="_blank">RIAK KV</a></li>
+<li><a href="https://github.com/basho/riak-dotnet-client" target="_blank">basho/riak-dotnet-client</a></li>
+<li><a href="https://docs.basho.com/riak/kv/2.1.4/developing/getting-started/csharp/crud-operations/" target="_blank">Getting Started: CRUD Operations with C Sharp</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-02-23</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/nosql/">NoSQL</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/nosql-insert-benchmark/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">[Benchmark] 使用 C# 對 NoSQL insert 操作的效能數據</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/export-import-windows-container-image/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">匯出與匯入 Windows Container Image</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/csharp-riak\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

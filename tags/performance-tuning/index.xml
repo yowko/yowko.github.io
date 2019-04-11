@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Performance Tuning on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/performance-tuning/</link>
+    <description>Recent content in Performance Tuning on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 19 May 2018 00:38:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/performance-tuning/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用 Entity Framework Insert 大量資料</title>
+      <link>https://blog.yowko.com/entityframework-bulk-insert/</link>
+      <pubDate>Sat, 19 May 2018 00:38:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/entityframework-bulk-insert/</guid>
+      <description>使用 Entity Framework Insert 大量資料 這是參加 黃忠成老師的 Entity Framework 全線開發 課程時他提出讓學員思考的問題：如何使用 Entity Framework Insert 大量資料，我當下立馬想起印象中以前同事也被這個</description>
+    </item>
+    
+  </channel>
+</rss>

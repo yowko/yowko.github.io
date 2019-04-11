@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常 在之前筆記 在 Visual Studio 中使用 WebPack 來編譯 Vue.js 紀錄到如何在 Visual Studio 使用 WebPack 來編譯 Vue.js，設定上步驟並不多，使用上也相當方" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/webpack-error-in-visual-studio/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常" />
+<meta property="og:description" content="WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常 在之前筆記 在 Visual Studio 中使用 WebPack 來編譯 Vue.js 紀錄到如何在 Visual Studio 使用 WebPack 來編譯 Vue.js，設定上步驟並不多，使用上也相當方" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/webpack-error-in-visual-studio/" /><meta property="article:published_time" content="2017-11-14T23:21:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-28T23:21:36&#43;08:00"/>
+
+<meta itemprop="name" content="WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常">
+<meta itemprop="description" content="WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常 在之前筆記 在 Visual Studio 中使用 WebPack 來編譯 Vue.js 紀錄到如何在 Visual Studio 使用 WebPack 來編譯 Vue.js，設定上步驟並不多，使用上也相當方">
+
+
+<meta itemprop="datePublished" content="2017-11-14T23:21:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-28T23:21:36&#43;08:00" />
+<meta itemprop="wordCount" content="669">
+
+
+
+<meta itemprop="keywords" content="Frontend,Tools,Visual Studio," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常"/>
+<meta name="twitter:description" content="WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常 在之前筆記 在 Visual Studio 中使用 WebPack 來編譯 Vue.js 紀錄到如何在 Visual Studio 使用 WebPack 來編譯 Vue.js，設定上步驟並不多，使用上也相當方"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-11-14 </span>
+        
+        <span class="more-meta"> 約 669 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#webpack-在-visual-studio-無法正確編譯-在-command-prompt-卻正常">WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常</a>
+<ul>
+<li><a href="#錯誤訊息">錯誤訊息</a></li>
+<li><a href="#解決方式">解決方式</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="webpack-在-visual-studio-無法正確編譯-在-command-prompt-卻正常">WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常</h1>
+
+<p>在之前筆記 <a href="https://blog.yowko.com/2017/11/visual-studio-webpack-vuejs.html" target="_blank">在 Visual Studio 中使用 WebPack 來編譯 Vue.js</a> 紀錄到如何在 Visual Studio 使用 WebPack 來編譯 Vue.js，設定上步驟並不多，使用上也相當方便，只是又踩到雷了XD 不過我在家中電腦與公司電腦都有遇到相同問題，而且公司電腦還遇到兩次一樣的狀況(應該不算是人品問題吧 &gt;&rdquo;&lt;)：Visual Studio 的 WebPack 無法順利完成編譯，查了好久，也試著把有專案重建 都無法解決問題，後來才發現在 Command Prompt 中是正常的 @@&rdquo;</p>
+
+<p>就來看看問題發生原因跟解決方式吧</p>
+
+<h2 id="錯誤訊息">錯誤訊息</h2>
+
+<ol>
+<li><p>訊息內容</p>
+
+<pre><code>C:\Users\YowkoTsai\Documents\Visual Studio 2017\Projects\TestWebpack\TestWebpack&gt; cmd /c SET NODE_ENV=development&amp;&amp; webpack --color --display-error-details
+Hash: d15ba0238639a7c76803
+Version: webpack 3.8.1
+Time: 793ms
+                Asset    Size  Chunks                    Chunk Names
+./Scripts/Build/dist.js  301 kB       0  [emitted]  [big]  main
+[0] (webpack)/buildin/global.js 488 bytes {0} [built]
+[1] ./Scripts/VueSrc/main.js 221 bytes {0} [built]
+[6] ./Scripts/VueSrc/app.vue 2.74 kB {0} [built] [failed] [1 error]
+    + 4 hidden modules
+ERROR in ./Scripts/VueSrc/app.vue
+Module build failed: SyntaxError: Unexpected token {
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:404:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Object.&lt;anonymous&gt; (C:\Users\YowkoTsai\Documents\Visual Studio 2017\Projects\TestWebpack\TestWebpack\node_modules\vue-loader\index.js:1:80)
+    at Module._compile (module.js:397:26)
+    at Object.Module._extensions..js (module.js:404:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at loadLoader (C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\node_modules\loader-runner\lib\loadLoader.js:13:17)
+    at iteratePitchingLoaders (C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\node_modules\loader-runner\lib\LoaderRunner.js:169:2)
+    at runLoaders (C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\node_modules\loader-runner\lib\LoaderRunner.js:362:2)
+    at NormalModule.doBuild (C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\lib\NormalModule.js:182:3)
+    at NormalModule.build (C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\lib\NormalModule.js:275:15)
+    at Compilation.buildModule (C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\lib\Compilation.js:151:10)
+    at factoryCallback (C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\lib\Compilation.js:344:12)
+    at C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\lib\NormalModuleFactory.js:241:5
+    at C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\lib\NormalModuleFactory.js:94:13
+    at C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\node_modules\tapable\lib\Tapable.js:268:11
+    at NormalModuleFactory.&lt;anonymous&gt; (C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\lib\CompatibilityPlugin.js:52:5)
+    at NormalModuleFactory.applyPluginsAsyncWaterfall (C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\node_modules\tapable\lib\Tapable.js:272:13)
+    at C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\lib\NormalModuleFactory.js:69:10
+    at C:\Users\YowkoTsai\AppData\Roaming\npm\node_modules\webpack\lib\NormalModuleFactory.js:194:7
+    at nextTickCallbackWith0Args (node.js:452:9)
+    at process._tickCallback (node.js:381:13)
+@ ./Scripts/VueSrc/main.js 2:0-28
+Process terminated with code 2.
+</code></pre>
+
+<blockquote>
+<p>我另台電腦遇到的錯誤是 <code>&gt;</code> arrow function 無法編譯的問題， error code 8，但解法相同</p>
+</blockquote></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32787249-0f387888-c991-11e7-9c32-233c0cdeeef4.png" alt="1error" /></p></li>
+
+<li><p>在 Command Prompt 卻一切正常</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32787252-0f6e84f0-c991-11e7-963c-68fe34c5dc71.png" alt="2cmd" /></p></li>
+</ol>
+
+<h2 id="解決方式">解決方式</h2>
+
+<ul>
+<li><p>將 Visual Studio 使用的 WebPack 設定與 Command Prompt 相同 &ndash;&gt; 吃環境變數中的設定</p>
+
+<ul>
+<li><p>Visual Studio 主選單 Tools &ndash;&gt; Options&hellip;</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32787256-1036c1ae-c991-11e7-9a20-fe6b14fe8d1a.png" alt="6tools" /></p></li>
+
+<li><p>Projects and Solutions &ndash;&gt; Web Package Management &ndash;&gt; External Web Tools</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32787734-4249c078-c992-11e7-8d5b-79b33fe9714e.png" alt="7externaltools" /></p></li>
+
+<li><p>將 <code>$(PATH)</code> 移至第一個位置</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32787253-0fa5753c-c991-11e7-988d-62bc02f0f615.png" alt="3change1" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32787254-0fdc2258-c991-11e7-8547-177e81c43f7d.png" alt="4cahnge2" /></p></li>
+</ul></li>
+
+<li><p>設定成功</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32787255-10091100-c991-11e7-8196-da1b687d42b2.png" alt="5buildok" /></p></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>這個問題我每台電腦、每個 Visual Studio (我同時測試過 Visual Studio 2015 及 Visual Studio 2017 ) 都需要調整設定，我傾向認定應該是微軟 Visual Studio 團隊經過考量所做的選擇而非 bug 畢竟不同 Visual Studio 間的設定都相同，也都會出現問題 XD</p>
+
+<p>讓人不解的是做這樣的設計不是很容易出現 Visual Studio 與 Command Prompt 行為不同的情況嗎，一般前端工具的使用者應該不會透過 Visual Studio ，一定直接操作 global 環境的呀，，好在靈光乍現，想到用 Command Prompt 測試才找出問題</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://github.com/FormidableLabs/webpack-dashboard/issues/97" target="_blank">Visual Studio Task Runner console throwing error</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-28</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/frontend/">Frontend</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/visual-studio/">Visual Studio</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/windows-container-static-ip/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">Windows Container 使用固定 IP</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/dockfile-windows-container-oracle-xe/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">使用 Dockerfile 建立 Windows Container 版本 Oracle XE</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/webpack-error-in-visual-studio\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

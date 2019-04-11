@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bot on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/bot/</link>
+    <description>Recent content in Bot on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 05 Dec 2016 00:42:34 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/bot/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Facebook Messenger Bot 需要申請什麼呢？</title>
+      <link>https://blog.yowko.com/facebook-messenger-bot/</link>
+      <pubDate>Mon, 05 Dec 2016 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/facebook-messenger-bot/</guid>
+      <description>Facebook Messenger Bot 需要申請什麼呢？ 要建立一個 facebook messenger 的 bot，在 Microsoft Bot Framework 的幫助下，只需幾個簡單設定，很快就能完成，不過申請的流程有點雜亂，特別紀錄一下備忘 1.</description>
+    </item>
+    
+  </channel>
+</rss>

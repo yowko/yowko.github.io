@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>如何使用 NUnit3 console 在沒有 Visual Studio 的環境下執行 NUnit 測試 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="如何使用 NUnit3 console 在沒有 Visual Studio 的環境下執行 NUnit 測試 一般情況下我們都是透過 Visual Studio 來開發測試程式，但並非所有環境都有 Visula Studio 像是 CI Server 一般都不會安裝 Visual Studio" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/nunit3-console/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="如何使用 NUnit3 console 在沒有 Visual Studio 的環境下執行 NUnit 測試" />
+<meta property="og:description" content="如何使用 NUnit3 console 在沒有 Visual Studio 的環境下執行 NUnit 測試 一般情況下我們都是透過 Visual Studio 來開發測試程式，但並非所有環境都有 Visula Studio 像是 CI Server 一般都不會安裝 Visual Studio" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/nunit3-console/" /><meta property="article:published_time" content="2017-04-16T18:11:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-17T00:42:22&#43;08:00"/>
+
+<meta itemprop="name" content="如何使用 NUnit3 console 在沒有 Visual Studio 的環境下執行 NUnit 測試">
+<meta itemprop="description" content="如何使用 NUnit3 console 在沒有 Visual Studio 的環境下執行 NUnit 測試 一般情況下我們都是透過 Visual Studio 來開發測試程式，但並非所有環境都有 Visula Studio 像是 CI Server 一般都不會安裝 Visual Studio">
+
+
+<meta itemprop="datePublished" content="2017-04-16T18:11:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-17T00:42:22&#43;08:00" />
+<meta itemprop="wordCount" content="1322">
+
+
+
+<meta itemprop="keywords" content="NUnit,Tools,Unit Test," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何使用 NUnit3 console 在沒有 Visual Studio 的環境下執行 NUnit 測試"/>
+<meta name="twitter:description" content="如何使用 NUnit3 console 在沒有 Visual Studio 的環境下執行 NUnit 測試 一般情況下我們都是透過 Visual Studio 來開發測試程式，但並非所有環境都有 Visula Studio 像是 CI Server 一般都不會安裝 Visual Studio"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-16 </span>
+        
+        <span class="more-meta"> 約 1322 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#如何使用-nunit3-console-在沒有-visual-studio-的環境下執行-nunit-測試">如何使用 NUnit3 console 在沒有 Visual Studio 的環境下執行 NUnit 測試</a>
+<ul>
+<li><a href="#基礎環境">基礎環境</a></li>
+<li><a href="#nunit-console-指令及參數">NUnit console 指令及參數</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="如何使用-nunit3-console-在沒有-visual-studio-的環境下執行-nunit-測試">如何使用 NUnit3 console 在沒有 Visual Studio 的環境下執行 NUnit 測試</h1>
+
+<p>一般情況下我們都是透過 Visual Studio 來開發測試程式，但並非所有環境都有 Visula Studio 像是 CI Server 一般都不會安裝 Visual Studio，這時候我們就可以透過 NUnit console 來執行測試，就讓我們來看看可以怎麼使用吧</p>
+
+<h2 id="基礎環境">基礎環境</h2>
+
+<ol>
+<li><p>測試框架：NUint 3</p>
+
+<blockquote>
+<p>Visula Studio 中的相關使用可以參考 <a href="//blog.yowko.com/2017/02/visual-studio-2015-use-nunit-xunit.html" target="_blank">Visual Studio 2015 如何產生 NUnit 或 xUnit 的測試專案</a></p>
+</blockquote></li>
+
+<li><p>測試範例：使用 ASP.NET WebApi 預設專案範本(包含測試)</p>
+
+<pre><code class="language-cs">[Test()]
+public void ValuesController_Get_Return_value1_value2()
+{
+    // Arrange
+    ValuesController controller = new ValuesController();
+                // Act
+    IEnumerable&lt;string&gt; result = controller.Get();
+                // Assert
+    Assert.IsNotNull(result);
+    Assert.AreEqual(2, result.Count());
+    Assert.AreEqual(&quot;value1&quot;, result.ElementAt(0));
+    Assert.AreEqual(&quot;value2&quot;, result.ElementAt(1));
+}
+</code></pre></li>
+
+<li><p>測試工具：NUnit console</p>
+
+<blockquote>
+<p>請至 <a href="https://www.nunit.org/index.php?p=download" target="_blank">NUnit download</a> 下載</p>
+</blockquote></li>
+</ol>
+
+<h2 id="nunit-console-指令及參數">NUnit console 指令及參數</h2>
+
+<ul>
+<li><p>指令</p>
+
+<blockquote>
+<p><code>NUNIT3-CONSOLE [inputfiles] [options]</code></p>
+</blockquote>
+
+<ul>
+<li><p>inputfiles</p>
+
+<blockquote>
+<p>一個以上的 dll 或是 測試專案</p>
+</blockquote></li>
+
+<li><p>options</p>
+
+<blockquote>
+<p>任意數量的選項</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>參數</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">選項</th>
+<th align="left">說明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">@FILE</td>
+<td align="left">指定內容是 command-line 參數的檔案. 每一行都是一個 command-line 參數</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;test=NAMES</td>
+<td align="left">指定要執行的測試名稱，以 <code>,</code> 分隔，可以使用 <code>--where</code> 來代替</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;testlist=FILE</td>
+<td align="left">指定內容是要執行測試的檔案,一行是一個測試.</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;where=EXPRESSION</td>
+<td align="left">使用運算式來過濾測試對象，指定 test names, classes, methods, catgories or properties 的比較運算子是 <code>==</code>, <code>!=</code>, <code>=~</code> and <code>!~</code>. 關於運算式詳細說明可以參考 Test Selection Language.</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;params｜p=PARAMETER</td>
+<td align="left">指定測試所需參數．多個參數可以 1.使用 <code>;</code> 分隔 2.重複多次 &ndash;params e.g. &ndash;params=env=prd</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;config=NAME</td>
+<td align="left">指定專案 configuration (e.g.: Debug).</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;process=PROCESS</td>
+<td align="left">執行緒隔離方式：<code>Single</code>, <code>Separate</code>, <code>Multiple</code>. 預設單一 dll 使用 <code>Separate</code> ;多個 dll 則是 <code>Multiple</code>. 預設情況執行緒都會平行執行.</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;inprocess</td>
+<td align="left">與 <code>--process=Single</code> 相同</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;agents=NUMBER</td>
+<td align="left">指定可以並行執行的測試 agent.預設啟動所以測試 agent 一起執行. 這個設定是給平行執行用的.</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;domain=DOMAIN</td>
+<td align="left">dll 的隔離方式：<code>None</code>, <code>Single</code>, <code>Multiple</code>.預設單一 dll 使用 <code>Single</code>;多個 dll 則是 <code>Multiple</code></td>
+</tr>
+
+<tr>
+<td align="left">&ndash;framework=FRAMEWORK</td>
+<td align="left">指定測試執行 type/version .Examples: mono, net-4.5, v4.0, 2.0, mono-4.0</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;x86</td>
+<td align="left">在 64 位元系統上使用 32 位元執行緒來進行測試</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;dispose-runners</td>
+<td align="left">在每個 runner 執行完成後 dispose</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;timeout=MILLISECONDS</td>
+<td align="left">設定每個 test case 的執行逾時時間(毫秒)</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;seed=SEED</td>
+<td align="left">設定重複測試次數</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;workers=NUMBER</td>
+<td align="left">指定 worker threads 數量. 用來控制平行測試預設是 cpu 數</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;stoponerror</td>
+<td align="left">如果測試失敗或是出現錯就立即停止</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;skipnontestassemblies</td>
+<td align="left">忽略所有非測試的 dll，不會吐錯誤</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;debug</td>
+<td align="left">測試前先啟動 debugger，用來測試需 attach 在其他 process 的情境</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;debug-agent</td>
+<td align="left">只有使用 debug build 產生的 nunit console 可以使用，可以用來 debug nunit console</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;pause</td>
+<td align="left">讓 NUnit 開啟一個訊息視窗，可以 attach debugger 主要用在 &ndash;debug 無法正常運作時</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;wait</td>
+<td align="left">不立即關閉 console</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;work=PATH</td>
+<td align="left">output 檔案的資料夾</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;output, &ndash;out=PATH</td>
+<td align="left">測試中輸出文字的內容儲存檔的案路徑</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;err=PATH</td>
+<td align="left">測試紀錄錯誤的檔案路徑</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;result=SPEC</td>
+<td align="left">可以用來設定測試結果檔名，也可以設定測試結果的種類：<code>nunit3</code>、<code>nunit2</code>。e.g. &ndash;result=b.xml;format=nunit2</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;explore[=SPEC]</td>
+<td align="left">僅顯示或儲存測試資訊息，不進行測試。可指定輸出 SPEC： <code>nunit3</code>,<code>cases</code>。<code>未指定</code> 會直接將資訊顯示在 console 上，指定 SPEC 會拿來當做儲存的 file name e.g. &ndash;explore=case.xml;format=cases</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;noresult</td>
+<td align="left">不儲存任何測試結果</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;labels=VALUE</td>
+<td align="left">是否將 tese case 名稱輸出：<code>Off</code>, <code>On</code>, <code>All</code>，我測試起來結果都一樣</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;trace=LEVEL</td>
+<td align="left">設定內部 trace level：<code>Off</code>, <code>Error</code>, <code>Warning</code>, <code>Info</code>, <code>Verbose (Debug)</code></td>
+</tr>
+
+<tr>
+<td align="left">&ndash;encoding=CODEPAGE</td>
+<td align="left">指定 console CODEPAGE。除非輸出包含特殊字符，否則通常不需要此選項。</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;shadowcopy</td>
+<td align="left">通知 .NET 將載入的 dll 複製到shadowcopy目錄。</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;teamcity</td>
+<td align="left">使用 TeamCity 服務訊息</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;loaduserprofile</td>
+<td align="left">將 user 設定載入至獨立的測試 process 中。</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;list-extensions</td>
+<td align="left">列出所有擴展點和每個擴展點上安裝的擴展名。 Lists all extension points and the extensions installed on each of them.這個不知道在幹嘛XD</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;set-principal-policy=POLICY</td>
+<td align="left">設定測試 domain 的主要策略：<code>UnauthenticatedPrincipal</code>，<code>NoPrincipal</code>，<code>WindowsPrincipal</code></td>
+</tr>
+
+<tr>
+<td align="left">&ndash;noheader, &ndash;noh</td>
+<td align="left">不顯示 NUnit console 本身相關資訊</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;nocolor, &ndash;noc</td>
+<td align="left">console 無顏色輸出</td>
+</tr>
+
+<tr>
+<td align="left">&ndash;help, -h</td>
+<td align="left">顯示參數說明</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>因為 NUnit 2 與 NUnit 3 有不少的改變，所以在 NUnit console 的參數上也有不少異動，一般我們是不會只使用 NUnit console 來進行測試，這只是為了與 CI 整合的前置作業</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://www.nunit.org/index.php?p=download" target="_blank">NUnit download</a></li>
+<li><a href="https://github.com/nunit/docs/wiki/Console-Command-Line" target="_blank">Console Command Line</a></li>
+<li><a href="http://stackoverflow.com/questions/39333023/what-is-the-difference-between-nunit3-xml-format-and-nunit2-xml-format" target="_blank">What is the difference between nunit3 xml format and nunit2 xml format?</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-17</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/nunit/">NUnit</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/unit-test/">Unit Test</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/sql-server-backup-restore/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">三種用來備份還原 SQL Server schema 與資料的做法</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/sql-server-dac/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">你認識 SQL Server 的資料層應用程式(Data-tier Applications - DAC)嗎?</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/nunit3-console\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

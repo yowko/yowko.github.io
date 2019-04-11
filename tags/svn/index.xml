@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SVN on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/svn/</link>
+    <description>Recent content in SVN on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 12 Dec 2016 00:42:34 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/svn/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>在Local Git Remote SVN(本機使用 Git，版控 Server 使用 SVN)</title>
+      <link>https://blog.yowko.com/local-git-remote-svn/</link>
+      <pubDate>Mon, 12 Dec 2016 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/local-git-remote-svn/</guid>
+      <description>Local Git Remote SVN(本機使用 Git，版控 Server 使用 SVN) 大家一定或多或少感受到 Git 愈來愈多人採用，為了不輸別人(咦?)應該是為了體會 Git 的過人之處，最好的方式</description>
+    </item>
+    
+  </channel>
+</rss>

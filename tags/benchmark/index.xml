@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Benchmark on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/benchmark/</link>
+    <description>Recent content in Benchmark on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 05 Jan 2019 23:45:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/benchmark/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>HttpClient 無法反應 DNS 異動的解決方式</title>
+      <link>https://blog.yowko.com/httpclient-not-respect-dns-change/</link>
+      <pubDate>Sat, 05 Jan 2019 23:45:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/httpclient-not-respect-dns-change/</guid>
+      <description>HttpClient 無法反應 DNS 異動的解決方式 之前筆記 探討 HttpClient 可能的問題 提到使用 HttpCLient 時避免 socket 耗盡的方式就是只建立一個 HttpClient instance (透過 static or singleton)，但這樣的方式</description>
+    </item>
+    
+    <item>
+      <title>[Benchmark] DB 物件對映至 C# class 的做法</title>
+      <link>https://blog.yowko.com/object-relation-mapping/</link>
+      <pubDate>Tue, 01 Jan 2019 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/object-relation-mapping/</guid>
+      <description>[Benchmark] DB 物件對映至 C# class 的做法 跟同事討論到 ORM 的優劣，當然各有擁護的對象，但相同的目標卻很一致：速度快，而在 速度快 這個基本前提下，我個人覺得還有討論</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Monitoring on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/monitoring/</link>
+    <description>Recent content in Monitoring on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 12 May 2018 00:23:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/monitoring/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用 Elastic Stack (ELK) 來監控 MongoDB</title>
+      <link>https://blog.yowko.com/elk-mongodb-monitor/</link>
+      <pubDate>Sat, 12 May 2018 00:23:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/elk-mongodb-monitor/</guid>
+      <description>使用 Elastic Stack (ELK) 來監控 MongoDB 之前筆記 Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana) 提到因為想要將部份系統資料餵進 ELK 用來監控及除錯，順手紀錄 Windows 平台上架設 Elastic Stack (ELK - Elasticsearch , Logstash ,</description>
+    </item>
+    
+    <item>
+      <title>如何客製化 Opserver - 使用不同帳號密碼來監控多台 Windows Server</title>
+      <link>https://blog.yowko.com/opserver-windows-server_multiple_auth/</link>
+      <pubDate>Thu, 30 Mar 2017 01:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/opserver-windows-server_multiple_auth/</guid>
+      <description>如何客製化 Opserver - 使用不同帳號密碼來監控多台 Windows Server 之前文章 如何使用 Opserver 來監控 Windows Server 介紹該怎麼設定 Opserver 來監控 Windows Server，但我們也發現只能使用同一組帳號</description>
+    </item>
+    
+    <item>
+      <title>如何使用 Opserver 來監控 Windows Server</title>
+      <link>https://blog.yowko.com/opserver-windows-server/</link>
+      <pubDate>Wed, 29 Mar 2017 01:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/opserver-windows-server/</guid>
+      <description>如何使用 Opserver 來監控 Windows Server 之前文章 如何使用 Opserver 來監控 Redis 介紹該怎麼設定 Opserver for Redis，如何使用 Opserver 來監控 Elasticsearch 介紹如何設定 Opserver for Elasticsearch ,接著就來看看該如何使用 Opserver 監</description>
+    </item>
+    
+    <item>
+      <title>如何使用 Opserver 來監控 Elasticsearch</title>
+      <link>https://blog.yowko.com/opserver-elasticsearch/</link>
+      <pubDate>Tue, 28 Mar 2017 01:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/opserver-elasticsearch/</guid>
+      <description>如何使用 Opserver 來監控 Elasticsearch 之前筆記 如何使用 Opserver 來監控 Redis 介紹該怎麼設定 Opserver for Redis，而 Opserver 官方介紹中也包含監控 Elasticsearch 的功能，立馬就來試試該如何設定 文章大綱 安</description>
+    </item>
+    
+  </channel>
+</rss>

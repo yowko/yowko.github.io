@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LocalDB on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/localdb/</link>
+    <description>Recent content in LocalDB on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 04 Feb 2018 00:01:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/localdb/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>IIS 存取 LocalDB (.MDF) 時出現 Error 52</title>
+      <link>https://blog.yowko.com/iis-localdb-mdf-error-52/</link>
+      <pubDate>Sun, 04 Feb 2018 00:01:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/iis-localdb-mdf-error-52/</guid>
+      <description>IIS 存取 LocalDB (.MDF) 時出現 Error 52 資料庫是網頁應用程式儲存資料最常見的方式，存取資料的操作方法也最廣為人知，只是資料庫本身有維護及管理成本，如果目的只是本</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>SQL Server 無法修改資料表定義？！ - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="SQL Server 無法修改資料表定義？！ 沒辦法直接修改 SQL Server 資料表定義的問題，說常見也不是很常見，但也不算罕見，畢竟通常只需要設定一次，剛好我常常安裝新的測" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/sql-server-cahnges-not-permitted/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="SQL Server 無法修改資料表定義？！" />
+<meta property="og:description" content="SQL Server 無法修改資料表定義？！ 沒辦法直接修改 SQL Server 資料表定義的問題，說常見也不是很常見，但也不算罕見，畢竟通常只需要設定一次，剛好我常常安裝新的測" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/sql-server-cahnges-not-permitted/" /><meta property="article:published_time" content="2017-06-23T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-23T21:30:12&#43;08:00"/>
+
+<meta itemprop="name" content="SQL Server 無法修改資料表定義？！">
+<meta itemprop="description" content="SQL Server 無法修改資料表定義？！ 沒辦法直接修改 SQL Server 資料表定義的問題，說常見也不是很常見，但也不算罕見，畢竟通常只需要設定一次，剛好我常常安裝新的測">
+
+
+<meta itemprop="datePublished" content="2017-06-23T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-23T21:30:12&#43;08:00" />
+<meta itemprop="wordCount" content="574">
+
+
+
+<meta itemprop="keywords" content="SQL Server," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SQL Server 無法修改資料表定義？！"/>
+<meta name="twitter:description" content="SQL Server 無法修改資料表定義？！ 沒辦法直接修改 SQL Server 資料表定義的問題，說常見也不是很常見，但也不算罕見，畢竟通常只需要設定一次，剛好我常常安裝新的測"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-06-23 </span>
+        
+        <span class="more-meta"> 約 574 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#sql-server-無法修改資料表定義">SQL Server 無法修改資料表定義？！</a>
+<ul>
+<li><a href="#錯誤訊息">錯誤訊息</a></li>
+<li><a href="#可能需要重新建立資料表的操作">可能需要重新建立資料表的操作</a></li>
+<li><a href="#發生原因">發生原因</a></li>
+<li><a href="#如何關閉">如何關閉</a></li>
+<li><a href="#建議作法">建議作法</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="sql-server-無法修改資料表定義">SQL Server 無法修改資料表定義？！</h1>
+
+<p>沒辦法直接修改 SQL Server 資料表定義的問題，說常見也不是很常見，但也不算罕見，畢竟通常只需要設定一次，剛好我常常安裝新的測試用 SQL Server 所以遇過好幾次，這次隔比較久，就花了比較多時間才找到設定，特別筆記一下</p>
+
+<h2 id="錯誤訊息">錯誤訊息</h2>
+
+<ul>
+<li><p>訊息內容</p>
+
+<blockquote>
+<p>Saving changes is not permitted.The changes you have made reuire the following tables to be dropped and re-created.You have either made changes to a table that can&rsquo;t be re-created or enabled the option Prevent saving changes that require the table to be re-created.</p>
+</blockquote></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/27478402-188e72ea-5842-11e7-81f4-00621a85739f.png" alt="1errormsg" /></p></li>
+
+<li><p>不允許儲存變更，因為您所做的變更需要卸除及重新建立所列出的資料表</p></li>
+</ul>
+
+<h2 id="可能需要重新建立資料表的操作">可能需要重新建立資料表的操作</h2>
+
+<ol>
+<li>將新 column 插入 table 的中間</li>
+<li>移除 column</li>
+<li>改動 column 的 Null 屬性</li>
+<li>改變 column 的順序</li>
+<li>改變 column 的資料類型</li>
+</ol>
+
+<h2 id="發生原因">發生原因</h2>
+
+<p>異動資料表的中繼資料結構時，因為 table 可能需要重建。而重建 table 時，可能會造成中繼資料的異常和資料遺失，所以預設不允許會造成 table 重建的 table 異動</p>
+
+<h2 id="如何關閉">如何關閉</h2>
+
+<ol>
+<li><p>SSMS 主選單上的 Tools &ndash;&gt; Options&hellip;</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/27478403-188f8ad6-5842-11e7-8481-4a3f35cc81a6.png" alt="2tools" /></p></li>
+
+<li><p>Designers &ndash;&gt; 取消勾選 Prevent saving changes that require the table to be re-created</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/27478404-189175e4-5842-11e7-8ce6-c9c83f9edcfa.png" alt="3uncheck" /></p></li>
+</ol>
+
+<h2 id="建議作法">建議作法</h2>
+
+<p>直接從 table desginer 異動 table design 有造成資料遺失的風險，官方建議採用 SQL statement 來異動 table</p>
+
+<ul>
+<li><p>範例：將 table column 改為允許 NULL</p>
+
+<blockquote>
+<p><code>alter table MyTable alter column CreateDate datetime NULL</code></p>
+</blockquote></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>我自己通常是在開發階段需要反覆地修改 table design，所以會刻意關關以便於開發階段的調整，加上開發環境的資料重要性較低也較少，如果出現問題影響有限，至於其他環境 是否要關閉請自行衡量實際情況(雖然我沒有真的發生資料遺失的情形，但官方都說有風險，請不要鐵齒~~)</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://docs.microsoft.com/en-us/sql/ssms/visual-db-tools/save-not-permitted-dialog-box" target="_blank">Save (Not Permitted) Dialog Box</a></li>
+<li><a href="https://support.microsoft.com/zh-hk/help/956176/error-message-when-you-try-to-save-a-table-in-sql-server-saving-changes-is-not-permitted" target="_blank">當您嘗試在 SQL Server 中儲存的資料表時，出現錯誤訊息: 「 儲存變更並不允許&rdquo;</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-23</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/sql-server/">SQL Server</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/visual-studio-external-tools/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">關於 Visual Studio 中的外部工具(External Tools)</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/mstest-exe/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">使用 MSTest.exe 指令來進行測試</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/sql-server-cahnges-not-permitted\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>網站畫面吃到 SCSS 樣式 ？！ - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="網站畫面吃到 SCSS 樣式 ？！ 最近正在如火如塗地開發新專案，眼看著上線時間日漸逼近，網站的功能也慢慢有雛型了，偶爾間幫同事 debug 的過程中發現同事負責開發" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/scss/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="網站畫面吃到 SCSS 樣式 ？！" />
+<meta property="og:description" content="網站畫面吃到 SCSS 樣式 ？！ 最近正在如火如塗地開發新專案，眼看著上線時間日漸逼近，網站的功能也慢慢有雛型了，偶爾間幫同事 debug 的過程中發現同事負責開發" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/scss/" /><meta property="article:published_time" content="2017-12-09T23:35:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-30T23:35:49&#43;08:00"/>
+
+<meta itemprop="name" content="網站畫面吃到 SCSS 樣式 ？！">
+<meta itemprop="description" content="網站畫面吃到 SCSS 樣式 ？！ 最近正在如火如塗地開發新專案，眼看著上線時間日漸逼近，網站的功能也慢慢有雛型了，偶爾間幫同事 debug 的過程中發現同事負責開發">
+
+
+<meta itemprop="datePublished" content="2017-12-09T23:35:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-30T23:35:49&#43;08:00" />
+<meta itemprop="wordCount" content="509">
+
+
+
+<meta itemprop="keywords" content="Frontend," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="網站畫面吃到 SCSS 樣式 ？！"/>
+<meta name="twitter:description" content="網站畫面吃到 SCSS 樣式 ？！ 最近正在如火如塗地開發新專案，眼看著上線時間日漸逼近，網站的功能也慢慢有雛型了，偶爾間幫同事 debug 的過程中發現同事負責開發"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-12-09 </span>
+        
+        <span class="more-meta"> 約 509 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#網站畫面吃到-scss-樣式">網站畫面吃到 SCSS 樣式 ？！</a>
+<ul>
+<li><a href="#異常畫面說明">異常畫面說明</a></li>
+<li><a href="#疑惑部份">疑惑部份</a></li>
+<li><a href="#問題原因">問題原因</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="網站畫面吃到-scss-樣式">網站畫面吃到 SCSS 樣式 ？！</h1>
+
+<p>最近正在如火如塗地開發新專案，眼看著上線時間日漸逼近，網站的功能也慢慢有雛型了，偶爾間幫同事 debug 的過程中發現同事負責開發的頁面看起來怪怪的，為什麼跟樣式跟其他頁面不一樣？！ 不查還好一查竟然找不出真正原因，幸虧過了幾天偶爾間突然有靈感讓我想到原因，以下分享過程跟解決方式</p>
+
+<h2 id="異常畫面說明">異常畫面說明</h2>
+
+<ol>
+<li><p>正常畫面</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/33536644-41123244-d8f1-11e7-9a2c-2ae0276e9737.png" alt="1normal" /></p></li>
+
+<li><p>異常畫面</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/33536645-413d7f94-d8f1-11e7-967e-0a4a019a45fd.png" alt="2stranger" /></p></li>
+</ol>
+
+<ul>
+<li><p>異常部份</p>
+
+<ul>
+<li>badge 圓角效果過小</li>
+<li>文件顏色過深</li>
+</ul></li>
+
+<li><p>檢查結果</p>
+
+<blockquote>
+<p>吃到異常 css</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/33536646-416436de-d8f1-11e7-9b9d-3d8093848eb1.png" alt="3scss" /></p></li>
+</ul>
+
+<h2 id="疑惑部份">疑惑部份</h2>
+
+<ol>
+<li><p><code>.scss</code> 應該無法直接引用</p></li>
+
+<li><p>全站未載入(僅 map 檔用到)</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/33536647-418aed6a-d8f1-11e7-8f3e-36dcfe227097.png" alt="4noscssuse" /></p></li>
+
+<li><p>無法直接取得 <code>.scss</code></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/33536648-41b15680-d8f1-11e7-890b-7eef6bbdc32c.png" alt="5openinother" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/33536650-4203101a-d8f1-11e7-87fe-ca964a6ece73.png" alt="6404" /></p></li>
+</ol>
+
+<h2 id="問題原因">問題原因</h2>
+
+<blockquote>
+<p>看到上述的第二點是不是已經猜到問題原因了？！沒錯，正是瀏覽器自動解析 .map 檔功能造成的</p>
+</blockquote>
+
+<ul>
+<li><p>關閉 source map 功能即恢復正常</p>
+
+<ol>
+<li><p>Chrome &ndash;&gt; Settings</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/33796924-1c40056c-dd39-11e7-8e8b-a049b1f0fa3d.png" alt="7setting" /></p></li>
+
+<li><p>Preferences &ndash;&gt; Sources &ndash;&gt; Enable CSS source maps</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/33796922-1bf129ce-dd39-11e7-8f59-bb06df2f9e13.png" alt="8enable" /></p></li>
+
+<li><p>使用一般 css</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/33796923-1c18d834-dd39-11e7-99ae-da27c4232947.png" alt="9normalcss" /></p></li>
+</ol></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>這次發現的狀況有點曲折，一開始是畫面異常讓我注意到為什麼是直接被 scss 所影響，雖然很快就發現是重複載入 bootstrap css 造成畫面不正常，但卻搞不清楚為什麼在 View 中引用 bootstrap 就會造成 scss 的載入，也不知道 scss 相關檔案從何處載入，我嘗試修改本機的所有 scss 檔案名稱測試是否會因此引發載入錯誤，並沒有成功</p>
+
+<p>最後不知道怎麼來的靈感才想起可能是 source map 的關係，立馬測試後證實了猜測正確，不過前前後後也花了好幾天才想到，讓我懷念起有專業前端工程師配合的日子呀</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://ithelp.ithome.com.tw/articles/10159158" target="_blank">Sass教學 (24) - Sass 3.3 Source Maps</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-30</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/frontend/">Frontend</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/pure-css-treeview/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">使用 Pure CSS 製作 Treeview (樹狀圖)</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/tortoisegit-missing-options/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">TortoiseGit 與遠端操作的功能不見了？！</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/scss\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

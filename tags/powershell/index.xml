@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PowerShell on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/powershell/</link>
+    <description>Recent content in PowerShell on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 08 May 2018 09:57:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/powershell/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>如何知道使用的 dll 是否需以 32 位元模式執行</title>
+      <link>https://blog.yowko.com/detect-dll-require-32bit/</link>
+      <pubDate>Tue, 08 May 2018 09:57:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/detect-dll-require-32bit/</guid>
+      <description>如何知道使用的 dll 是否需以 32 位元模式執行 最近因為年度計畫預計做些 Windows server OS 的升級作業，將大部份 OS 升級為 Windows Server 2016，也順便整理 server 上的 applica</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 中無法使用 PowerShell 安裝 IIS？！改用 DISM</title>
+      <link>https://blog.yowko.com/windows-7-powershell-iis-dism/</link>
+      <pubDate>Fri, 09 Feb 2018 01:28:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-7-powershell-iis-dism/</guid>
+      <description>Windows 7 中無法使用 PowerShell 安裝 IIS？！改用 DISM 這次遇到的問題是在公司的 Windows 7 電腦上，雖然 Windows 7 也是優秀的作業系統，但終究是較早期的產品，對於一些新的工具就</description>
+    </item>
+    
+    <item>
+      <title>如何得知電腦上 .Net FrameWork 版本？ - 使用 PowerShell</title>
+      <link>https://blog.yowko.com/get-dot-net-framework-version/</link>
+      <pubDate>Fri, 22 Sep 2017 00:01:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/get-dot-net-framework-version/</guid>
+      <description>如何得知電腦上 .Net FrameWork 版本？ - 使用 PowerShell 今天再次遇到想要確認 server 上 .Net FrameWork 版本的情境，套用著相同的 SOP： google 關鍵字，找到 microsoft docs 的說明網頁，再花了幾十秒看完 microsoft</description>
+    </item>
+    
+    <item>
+      <title>如何取得 Container 所使用的 Ip</title>
+      <link>https://blog.yowko.com/container-ip/</link>
+      <pubDate>Sat, 02 Sep 2017 01:03:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/container-ip/</guid>
+      <description>雖然一般來說都會將 container 的服務透過 port mapping 的動作，讓外部直接透過 docker host ip 來使用 container 所提供的服務，並不需要刻意取得 container 真正使用的 ip 不過為了確認 container 服務正確 container ip</description>
+    </item>
+    
+    <item>
+      <title>net use 指令出現 error 2148073478</title>
+      <link>https://blog.yowko.com/net-use-error-2148073478/</link>
+      <pubDate>Mon, 07 Aug 2017 22:23:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/net-use-error-2148073478/</guid>
+      <description>net use 指令出現 error 2148073478 同事反應 Jenkins 沒辦法順利將 CI build 的檔案部署至遠端，確認過資料夾權限、robocopy 語法一切正常後，發現原來是 net use 指令的權限問題，</description>
+    </item>
+    
+    <item>
+      <title>使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)</title>
+      <link>https://blog.yowko.com/pickles-specflow/</link>
+      <pubDate>Tue, 27 Jun 2017 22:47:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/pickles-specflow/</guid>
+      <description>使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation) 你有遇過類似的狀況嗎？：改了 code 卻忘了改註解 或是 看既有 code 時發現 code 行為與註解說明不同？ 這兩種情況在我</description>
+    </item>
+    
+    <item>
+      <title>如何使用 Git Attributes 來避免 web.config(app.config) 連線字串的機敏資訊被 commit</title>
+      <link>https://blog.yowko.com/git-attributes-prevent-commit-password/</link>
+      <pubDate>Mon, 15 May 2017 01:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/git-attributes-prevent-commit-password/</guid>
+      <description>如何使用 Git Attributes 來避免 web.config(app.config) 連線字串的機敏資訊被 commit 自從 GitHub 與雲端服務盛行以來，你一定有聽過類似的鄉野傳聞：某個開發人員不慎把雲端服務的帳號及密碼 commit 至 G</description>
+    </item>
+    
+    <item>
+      <title>PowerShell ISE 執行外部執行檔(.exe) 時出現 RemoteException NativeCommandError</title>
+      <link>https://blog.yowko.com/powershell-ise-nativecommanderror/</link>
+      <pubDate>Wed, 22 Mar 2017 02:44:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/powershell-ise-nativecommanderror/</guid>
+      <description>PowerShell ISE 執行外部執行檔(.exe) 時出現 RemoteException NativeCommandError 打算使用 PowerShell 叫用 PsExec.exe 來執行一些指令，使用 PowerShell ISE 開發時持續出現錯誤訊息，查了些資料，紀錄一下 結論 依以往的範例</description>
+    </item>
+    
+    <item>
+      <title>PowerShell 基本語法筆記 2</title>
+      <link>https://blog.yowko.com/powershell-operator-pipeline-xml/</link>
+      <pubDate>Tue, 14 Mar 2017 02:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/powershell-operator-pipeline-xml/</guid>
+      <description>PowerShell 基本語法筆記 2 自從開始使用 PowerShell 來與 Jenkins 2 整合進行 CI 與 CD 的流程之後，有愈來愈多需求出現，原本的文章 powershell 基本語法筆記 的內容無法負荷，因此補充一下其他</description>
+    </item>
+    
+    <item>
+      <title>如何使用 Powershell 與 robocopy 複製檔案至同一目錄下多個子目錄中</title>
+      <link>https://blog.yowko.com/powershell-recursive-robocopy/</link>
+      <pubDate>Thu, 09 Mar 2017 01:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/powershell-recursive-robocopy/</guid>
+      <description>如何使用 Powershell 與 robocopy 複製檔案至同一目錄下多個子目錄中 同事問到如何將檔案複製至同一個根目錄下的多個子目錄中，原本的做法將有這個檔案的路徑列出來，再用</description>
+    </item>
+    
+    <item>
+      <title>Jenkins 2 如何使用 PowerShell 以及自定 build fail (指定 exit code)</title>
+      <link>https://blog.yowko.com/jenkins-powershell-plugin/</link>
+      <pubDate>Sun, 12 Feb 2017 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-powershell-plugin/</guid>
+      <description>Jenkins 2 如何使用 PowerShell 以及自定 build fail (指定 exit code) Jenkins 除了用來做為 CI(持續性整合) 工具外，也可以與其他 plugin 配合達成其他目的(e.g.IIS restart、檔</description>
+    </item>
+    
+    <item>
+      <title>PowerShell 基本語法筆記</title>
+      <link>https://blog.yowko.com/powershell-basic-script/</link>
+      <pubDate>Thu, 12 Jan 2017 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/powershell-basic-script/</guid>
+      <description>PowerShell 基本語法筆記 最近工作上的需要，用了 PowerShell 語法來處理，幾乎各式各樣的花式需求都可以達成，怪不得百敬老師非常推薦 PowerShell ，功能十分強大呀，只可惜學習資源</description>
+    </item>
+    
+    <item>
+      <title>如何執行遠端 PowerShell Script</title>
+      <link>https://blog.yowko.com/run-remote-powershell/</link>
+      <pubDate>Wed, 21 Dec 2016 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/run-remote-powershell/</guid>
+      <description>如何執行遠端 PowerShell Script 百敬老師之前在推廣活動上說，他認為 PowerShell 是近期最值得投資的技能，相信以他的身份地位及眼光，絕對是不會錯的，可惜的是一直沒有機會可</description>
+    </item>
+    
+    <item>
+      <title>建立支援 UEFI 開機的 Windows Server 2016 安裝 USB</title>
+      <link>https://blog.yowko.com/windows-server-2016-uefi-usb/</link>
+      <pubDate>Sun, 18 Dec 2016 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-server-2016-uefi-usb/</guid>
+      <description>建立支援 UEFI 開機的 Windows Server 2016 安裝 USB 之前的筆記 建立可開機的 Windows Server 2016 安裝 USB，我們看了如何建立可開機的 USB。 而我自己在安裝 Windows Server 2016 過程中，卻是一開機就</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例 Windows 環境中將 Redis 安裝成 service 的做法，曾經在 Windows 環境如何設定 Redis Master-Slave 與 Sentinel 介紹過，最近同事要架設 Linux 環境 Redis 時，問到該如何將 Redis 安裝為" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/centos7-redis-service/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例" />
+<meta property="og:description" content="在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例 Windows 環境中將 Redis 安裝成 service 的做法，曾經在 Windows 環境如何設定 Redis Master-Slave 與 Sentinel 介紹過，最近同事要架設 Linux 環境 Redis 時，問到該如何將 Redis 安裝為" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/centos7-redis-service/" /><meta property="article:published_time" content="2017-09-06T00:12:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-26T00:12:50&#43;08:00"/>
+
+<meta itemprop="name" content="在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例">
+<meta itemprop="description" content="在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例 Windows 環境中將 Redis 安裝成 service 的做法，曾經在 Windows 環境如何設定 Redis Master-Slave 與 Sentinel 介紹過，最近同事要架設 Linux 環境 Redis 時，問到該如何將 Redis 安裝為">
+
+
+<meta itemprop="datePublished" content="2017-09-06T00:12:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-26T00:12:50&#43;08:00" />
+<meta itemprop="wordCount" content="673">
+
+
+
+<meta itemprop="keywords" content="Linux,Redis," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例"/>
+<meta name="twitter:description" content="在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例 Windows 環境中將 Redis 安裝成 service 的做法，曾經在 Windows 環境如何設定 Redis Master-Slave 與 Sentinel 介紹過，最近同事要架設 Linux 環境 Redis 時，問到該如何將 Redis 安裝為"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-09-06 </span>
+        
+        <span class="more-meta"> 約 673 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#在-linux-中將-redis-安裝成-service-以-centos-7-為例">在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例</a>
+<ul>
+<li><a href="#將-redis-安裝為-linux-service">將 Redis 安裝為 Linux Service</a></li>
+<li><a href="#解除安裝-linux-service">解除安裝 Linux Service</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="在-linux-中將-redis-安裝成-service-以-centos-7-為例">在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例</h1>
+
+<p>Windows 環境中將 Redis 安裝成 service 的做法，曾經在 <a href="https://blog.yowko.com/2017/03/windows-redis-master-slave-sentinel.html" target="_blank">Windows 環境如何設定 Redis Master-Slave 與 Sentinel</a> 介紹過，最近同事要架設 Linux 環境 Redis 時，問到該如何將 Redis 安裝為 Linux Service 讓 Redis 隨系統啟動自動啟動，避免系統異常重啟後 Redis 無人啟動讓服務中斷，趁這個機會紀錄一下自己常用的做法</p>
+
+<h2 id="將-redis-安裝為-linux-service">將 Redis 安裝為 Linux Service</h2>
+
+<ol>
+<li><p>下載、解壓縮、編譯 Redis</p>
+
+<pre><code>$ wget http://download.redis.io/releases/redis-4.0.1.tar.gz
+$ tar xzf redis-4.0.1.tar.gz
+$ cd redis-4.0.1
+$ make
+</code></pre>
+
+<blockquote>
+<p>如果想要更方便使用 redis 相關指令，會透過 <code>make install</code> 將執行檔安裝至 <code>/usr/local/bin</code> 中</p>
+</blockquote></li>
+
+<li><p>準備 Redis instance 用的 config</p>
+
+<blockquote>
+<p>這個步驟無論是不是安裝成 Service 都是必要的。不知道如何開始？！ 官網上有提供 Redis 各個版本的範例：<a href="https://redis.io/topics/config" target="_blank">Redis configuration</a></p>
+</blockquote></li>
+
+<li><p>安裝 Linux Service</p>
+
+<blockquote>
+<p>make (compile) redis 後，在 <code>/utils/</code> 資料夾下有個 <code>install_server.sh</code> 檔可用來安裝 Linux Service</p>
+</blockquote>
+
+<ul>
+<li><p>執行 <code>install_server.sh</code></p>
+
+<pre><code>./redis-4.0.1/utils/install_server.sh
+</code></pre></li>
+
+<li><p>設定使用的 port (預設 6379)</p>
+
+<pre><code>Please select the redis port for this instance: [6379]
+</code></pre></li>
+
+<li><p>設定使用的 config 位置 (預設 <code>/etc/redis/6379.conf</code>)</p>
+
+<pre><code>Please select the redis config file name [/etc/redis/6379.conf]
+</code></pre></li>
+
+<li><p>設定 log 位置 (預設 <code>/var/log/redis_6379.log</code>)</p>
+
+<pre><code>Please select the redis log file name [/var/log/redis_6379.log]
+</code></pre></li>
+
+<li><p>設定資料儲存目錄 (預設 <code>/var/lib/redis/6379</code>)</p>
+
+<pre><code>Please select the data directory for this instance [/var/lib/redis/6379]
+</code></pre></li>
+
+<li><p>設定 redis 執行檔位置 (預設 <code>/usr/local/bin/redis-server</code>)</p>
+
+<pre><code>Please select the redis executable path [/usr/local/bin/redis-server]
+</code></pre></li>
+
+<li><p>確認設定是否正確</p>
+
+<pre><code>Selected config:
+Port           : 6379
+Config file    : /etc/6379.conf
+Log file       : /var/log/redis_6379.log
+Data dir       : /var/lib/redis/6379
+Executable     : /usr/local/bin/redis-server
+Cli Executable : /usr/local/bin/redis-cli
+Is this ok? Then press ENTER to go on or Ctrl-C to abort.
+</code></pre></li>
+
+<li><p>安裝成功</p>
+
+<pre><code>Copied /tmp/6379.conf =&gt; /etc/init.d/redis_6379
+Installing service...
+Successfully added to chkconfig!
+Successfully added to runlevels 345!
+Starting Redis server...
+Installation successful!
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30070736-f9d7669c-9296-11e7-8524-0ab3dc5aedb7.png" alt="1install" /></p></li>
+</ul></li>
+
+<li><p>確認安裝狀態</p>
+
+<ul>
+<li><p>列出所有非系統 service 再自行挑選出 <code>level 3</code> 是開啟狀態的(表示隨系統啟動)</p>
+
+<blockquote>
+<p><code>chkconfig --list</code></p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30070738-fa01516e-9296-11e7-9c01-3fb2e31c0f9c.png" alt="2chkconfiglist" /></p></li>
+
+<li><p>直接過濾出隨系統啟動的非系統 service</p>
+
+<blockquote>
+<ul>
+<li>英文：<code>chkconfig --list | grep 3:on</code></li>
+<li>中文：<code>chkconfig --list | grep 3:開啟</code></li>
+</ul>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30070741-fa2c01a2-9296-11e7-9b82-cbf6b3ced2ca.png" alt="3chkconfig3" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="解除安裝-linux-service">解除安裝 Linux Service</h2>
+
+<ul>
+<li><p>直接刪除</p>
+
+<blockquote>
+<p><code>chkconfig --del redis_6379</code></p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30070739-fa1b6ac2-9296-11e7-9b29-d08ab201c7de.png" alt="4delservice" /></p></li>
+
+<li><p>設定不隨開機啟動</p>
+
+<blockquote>
+<p><code>chkconfig --level 3 redis_6379 off</code></p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30070740-fa1cb990-9296-11e7-8eac-884363d36ada.png" alt="5levele3off" /></p></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>這是 Redis 內建的設定 Service 工具，相較於自行處理啟動指令與 service 設定檔方便不少，自從使用這個方法後就再也沒查過文件看要打哪些指令跟設定什麼參數，還深怕指令跟參數打錯，簡單的方法最適合才記得久嘛 哈哈</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://discuss.pivotal.io/hc/en-us/articles/205308418-How-to-install-and-use-Redis-on-Linux" target="_blank">How to install and use Redis on Linux</a></li>
+<li><a href="http://www.thegeekstuff.com/2011/06/chkconfig-examples" target="_blank">7 Linux chkconfig Command Examples – Add, Remove, View, Change Services</a></li>
+<li><a href="https://blog.yowko.com/2017/03/windows-redis-master-slave-sentinel.html" target="_blank">Windows 環境如何設定 Redis Master-Slave 與 Sentinel</a></li>
+<li><a href="https://redis.io/topics/config" target="_blank">Redis configuration</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-26</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/windows-mongodb-replica-set-auth/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">在 Windows 啟用 MongoDB Replica Set 驗證</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/ifconfig-command-not-found/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">Linux 找不到 ifconfig、wget 指令？！</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/centos7-redis-service\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作 排程工作在許多系統中都是必備組件，常用來處理非立即性作業(e.g.：每日交易結清，發送電子報&amp;hellip;" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/topshelf-quartznet-windows-service/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作" />
+<meta property="og:description" content="使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作 排程工作在許多系統中都是必備組件，常用來處理非立即性作業(e.g.：每日交易結清，發送電子報&hellip;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/topshelf-quartznet-windows-service/" /><meta property="article:published_time" content="2018-04-12T21:00:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-04T21:00:39&#43;08:00"/>
+
+<meta itemprop="name" content="使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作">
+<meta itemprop="description" content="使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作 排程工作在許多系統中都是必備組件，常用來處理非立即性作業(e.g.：每日交易結清，發送電子報&hellip;">
+
+
+<meta itemprop="datePublished" content="2018-04-12T21:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-04T21:00:39&#43;08:00" />
+<meta itemprop="wordCount" content="1230">
+
+
+
+<meta itemprop="keywords" content="套件,C#,Windows Service," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作"/>
+<meta name="twitter:description" content="使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作 排程工作在許多系統中都是必備組件，常用來處理非立即性作業(e.g.：每日交易結清，發送電子報&hellip;"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-12 </span>
+        
+        <span class="more-meta"> 約 1230 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#使用-topshelf-搭配-quartz-net-撰寫-windows-service-排程執行工作">使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作</a>
+<ul>
+<li><a href="#實際使用方式">實際使用方式</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="使用-topshelf-搭配-quartz-net-撰寫-windows-service-排程執行工作">使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作</h1>
+
+<p>排程工作在許多系統中都是必備組件，常用來處理非立即性作業(e.g.：每日交易結清，發送電子報&hellip;etc)，如果沒有特別要求或限制下做法非常多：像是 host 在 web application 下的 web background runner : Quartz.Net 與 hangfire 或是 console +  scheduled tasks ，另外就是今天要紀錄的 Windows Service + timer 功能，都可以達到排程執行目的</p>
+
+<p>雖然今天要紀錄的內容目標是 Windows Service + timer，卻也有些不同，會透過 console 應用程式與 Quartz.Net 來實作，並使用 Topshelf 來安裝，其中 Topshelf 是套用來簡便建立 Windows Service 的 framework，可以直接撰寫 console 應用程式讓整個開發及偵錯更為容易，完成功能開發後再將 console 應用程式安裝為 Windows Service 而 Quartz.NET 則是排程 framework，移植自 java 上的 Quartz. 立馬來看看如何實作吧</p>
+
+<h2 id="實際使用方式">實際使用方式</h2>
+
+<ol>
+<li>建立 console 專案</li>
+
+<li><p>安裝 NuGet 套件 <code>Topshelf</code> 及 <code>Topshelf.Quartz</code></p>
+
+<pre><code class="language-cs">install-package Topshelf  
+install-package Topshelf.Quartz
+</code></pre></li>
+
+<li><p>加入 Service</p>
+
+<blockquote>
+<p>用來處理 Windows Service 啟動及停止行為</p>
+</blockquote>
+
+<pre><code class="language-cs">using System;
+
+namespace TestTopshelf
+{
+    public class WinService
+    {
+        public void OnStart()
+        {
+            Console.WriteLine(&quot;Service Start.&quot;);
+        }
+    
+        public void OnStop()
+        {
+            Console.WriteLine(&quot;Service Stop.&quot;);
+        }
+    }
+}
+</code></pre></li>
+
+<li><p>加入實際需要排程執行的動作</p>
+
+<blockquote>
+<p>需繼承 <code>IJob</code> 並實作 <code>Execute</code></p>
+</blockquote>
+
+<pre><code class="language-cs">using Quartz;
+using System;
+    
+namespace TestTopshelf
+{
+    public class Job : IJob
+    {
+        public void Execute(IJobExecutionContext context)
+        {
+            Console.WriteLine($&quot;[{DateTime.Now}] Execute Job!&quot;);
+        }
+    }
+}
+
+</code></pre></li>
+
+<li><p>設定 Topshelf 及 Quartz</p>
+
+<pre><code class="language-cs">using System;
+using Quartz;
+using Topshelf;
+using Topshelf.Quartz;
+    
+namespace TestTopshelf
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 執行 Windows Service 的 host 相關設定
+            HostFactory.Run(x =&gt;
+            {
+                // 註冊 WinService 至 Topshelf 
+                x.Service&lt;WinService&gt;(s =&gt;
+                {
+                    // 註冊 WinService 初始化方法至 Topshelf 
+                    s.ConstructUsing(() =&gt; new WinService());
+                    // 註冊如何啟動
+                    s.WhenStarted(service =&gt; service.OnStart());
+                    // 註冊如何停止
+                    s.WhenStopped(service =&gt; service.OnStop());
+    
+                    //設定 Quartz 如何執行
+                    s.ScheduleQuartzJob(q =&gt;
+                        q.WithJob(() =&gt;
+                            JobBuilder.Create&lt;Job&gt;().Build())//建立 Job
+                            .AddTrigger(() =&gt; TriggerBuilder.Create()//設定 trigger
+                                .WithSimpleSchedule(b =&gt; b
+                                    .WithIntervalInSeconds(10)//10秒執行一次
+                                    .RepeatForever())
+                                .Build()));
+                });
+    
+                    
+                x.RunAsLocalSystem()// 以 `local system` 執行
+                    .StartAutomatically()//開機自動啟動
+                    .EnableServiceRecovery(rc =&gt; rc.RestartService(1));//直到錯誤計數重置的天數
+    
+                x.SetServiceName(&quot;WinService&quot;);//設定 service 名稱
+                x.SetDisplayName(&quot;WinService&quot;);//設定 service 顯示名稱
+                x.SetDescription(&quot;Test WinService with Topshelf and Quartz&quot;);//設定 service 描述
+            });
+        }
+    }
+}
+
+</code></pre></li>
+
+<li><p>執行</p>
+
+<ul>
+<li><p>直接執行 console</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/38634250-917ed094-3df4-11e8-8b80-592bbf2e72b2.png" alt="1execute" /></p>
+</blockquote></li>
+
+<li><p>註冊為 Windows Service</p>
+
+<blockquote>
+<p>需以管理者權限執行</p>
+</blockquote>
+
+<ul>
+<li><p>指令</p>
+
+<pre><code class="language-cmd">{console application}.exe install
+</code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-cmd">TestTopshelf.exe install
+</code></pre>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/38634251-91b9ddec-3df4-11e8-8990-743513a41131.png" alt="2install" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/38634252-91f1d5c6-3df4-11e8-99fa-53d43c41519e.png" alt="3install2" /></p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>一開始提到可以達成排程工作的做法很多元，不同做法間各有優缺點也有不同的適用情境，大致上我自己的挑選方式是：</p>
+
+<ol>
+<li><p>web background runner</p>
+
+<blockquote>
+<p>沒有專屬的 job server 時</p>
+</blockquote>
+
+<ul>
+<li>好處是跟網站在一起有問題會立馬發現</li>
+<li>缺點也是跟網站在一起會資源互相影響</li>
+</ul></li>
+
+<li><p>windows service</p>
+
+<blockquote>
+<p>有專屬 job server 且需持續或固定時間執行</p>
+</blockquote>
+
+<ul>
+<li>好處是針對頻繁或耗時作業有控制權 (遇到上次作業未結束可以略過不跑)</li>
+<li>缺點較為耗資源，修改需要重新安裝、不好 debug (最後兩個缺點使用 topshelf 可解決)</li>
+</ul></li>
+
+<li><p>scheduled task</p>
+
+<blockquote>
+<p>有專屬 job server 且需要可以彈性設定執行時間或是頻率</p>
+</blockquote>
+
+<ul>
+<li>好處是資源耗用較低，執行頻率可彈性設定</li>
+<li>缺點是上個作業尚未完成，可能會重複執行
+<br /></li>
+</ul></li>
+</ol>
+
+<p>依我自己的經驗是各個方式都出現過問題，還是需要有其他備援或是監控機制比較保險，但回歸到今天的內容：Topshelf 與 Quartz.NET 是非常優秀的套件，讓解決方案不且更為豐富方便也相當容易上手，值得學習</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="http://www.mpustelak.com/2017/01/scheduled-jobs-made-easy-topshelf-quartz-net/" target="_blank">Scheduled jobs made easy – Topshelf and Quartz.NET</a></li>
+<li><a href="https://topshelf.readthedocs.io/en/latest/configuration/quickstart.html" target="_blank">Configuring Topshelf » Show me the code!</a></li>
+<li><a href="https://www.quartz-scheduler.net/documentation/quartz-3.x/quick-start.html" target="_blank">Quartz.NET Quick Start Guide</a></li>
+<li><a href="http://docs.topshelf-project.com/en/latest/overview/commandline.html" target="_blank">Topshelf Command-Line Reference</a></li>
+<li><a href="https://weblogs.asp.net/jongalloway/428303" target="_blank">//TODONT: Use a Windows Service just to run a scheduled process</a></li>
+<li><a href="https://stackoverflow.com/questions/1460580/scheduled-task-or-windows-service" target="_blank">scheduled task or windows service</a></li>
+<li><a href="https://stackoverflow.com/questions/390307/windows-service-vs-scheduled-task" target="_blank">windows service vs scheduled task</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-10-04</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/%E5%A5%97%E4%BB%B6/">套件</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/windows-service/">Windows Service</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/clear-windows-credential/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">清除 Windows 上的 git 驗證資訊(Credential)</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/redlocknet-redis-lock/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">使用 RedLock.net 搭配 redis 達成分散式 Lock</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/topshelf-quartznet-windows-service\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

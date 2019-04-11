@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service 之前曾經在 在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例 介紹過如何使用 redis 內建的 install_server.sh 執行檔將 redis instance 安裝成開機啟動的 service，" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/centos7-redis-sentinel-service/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service" />
+<meta property="og:description" content="在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service 之前曾經在 在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例 介紹過如何使用 redis 內建的 install_server.sh 執行檔將 redis instance 安裝成開機啟動的 service，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/centos7-redis-sentinel-service/" /><meta property="article:published_time" content="2017-09-21T00:52:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-26T00:52:12&#43;08:00"/>
+
+<meta itemprop="name" content="在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service">
+<meta itemprop="description" content="在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service 之前曾經在 在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例 介紹過如何使用 redis 內建的 install_server.sh 執行檔將 redis instance 安裝成開機啟動的 service，">
+
+
+<meta itemprop="datePublished" content="2017-09-21T00:52:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-26T00:52:12&#43;08:00" />
+<meta itemprop="wordCount" content="730">
+
+
+
+<meta itemprop="keywords" content="Linux,Redis," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service"/>
+<meta name="twitter:description" content="在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service 之前曾經在 在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例 介紹過如何使用 redis 內建的 install_server.sh 執行檔將 redis instance 安裝成開機啟動的 service，"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-09-21 </span>
+        
+        <span class="more-meta"> 約 730 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#在-centos-7-上將-redis-sentinel-安裝成開機啟動的-service">在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service</a>
+<ul>
+<li><a href="#準備-sentinel-config">準備 sentinel config</a></li>
+<li><a href="#設定-service-啟動-script">設定 Service 啟動 script</a></li>
+<li><a href="#設定-systemd-的定義檔">設定 systemd 的定義檔</a></li>
+<li><a href="#啟動-service">啟動 service</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="在-centos-7-上將-redis-sentinel-安裝成開機啟動的-service">在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service</h1>
+
+<p>之前曾經在 <a href="https://blog.yowko.com/2017/09/centos7-redis-service.html" target="_blank">在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例</a> 介紹過如何使用 redis 內建的 <code>install_server.sh</code> 執行檔將 redis instance 安裝成開機啟動的 service，也在 <a href="https://blog.yowko.com/2017/03/windows-redis-master-slave-sentinel.html" target="_blank">Windows 環境如何設定 Redis Master-Slave 與 Sentinel</a> 介紹過如何在 Windows 環境中將 redis instance 及 sentinel 安裝為 windows service</p>
+
+<p>最近公司正在 review redis 相關設定，才發現筆記中缺了 redis sentinel 在 CentOS 7 上相關設定的內容，剛好趁這個機會補上</p>
+
+<h2 id="準備-sentinel-config">準備 sentinel config</h2>
+
+<p>詳細內容可以參考 <a href="https://blog.yowko.com/2017/03/windows-redis-master-slave-sentinel.html" target="_blank">Windows 環境如何設定 Redis Master-Slave 與 Sentinel</a></p>
+
+<ul>
+<li><p>建立 sentinel config</p>
+
+<pre><code>vi /etc/redis/sentinel.conf
+</code></pre></li>
+
+<li><p>修改 config (以下僅示範用，請依實際情況調整)</p>
+
+<pre><code>port 26379
+daemonize yes
+sentinel monitor master 127.0.0.1 6379 1
+sentinel down-after-milliseconds master 3000
+sentinel failover-timeout master 18000
+sentinel parallel-syncs master 1
+</code></pre></li>
+</ul>
+
+<h2 id="設定-service-啟動-script">設定 Service 啟動 script</h2>
+
+<ol>
+<li><p>將 redis 預設腳本複製至 <code>/etc/init.d/</code> 中</p>
+
+<pre><code>cp ~/redis-4.0.1/utils/redis_init_script /etc/init.d/redis_sentinel
+</code></pre></li>
+
+<li><p>調整啟動 script</p>
+
+<blockquote>
+<p><code>vi /etc/init.d/redis_sentinel</code></p>
+</blockquote>
+
+<ul>
+<li><p>修改 <code>REDISPORT</code></p>
+
+<blockquote>
+<p>一般慣例 sentinel 使用 <code>26379</code>，但只要不跟 redis instance 重複， port 並沒有實際限制</p>
+</blockquote></li>
+
+<li><p>修改 <code>EXEC</code></p>
+
+<blockquote>
+<p>使用 <code>redis-sentinel</code> 來執行比較方便 (使用 <code>redis-server</code> 需要加上 <code>--sentinel</code> 參數)</p>
+</blockquote></li>
+
+<li><p>修改 <code>CONF</code></p>
+
+<blockquote>
+<p>指定上面準備的 sentinel config 位置</p>
+</blockquote></li>
+
+<li><p>下方範例可直接使用</p>
+
+<pre><code class="language-bash">#!/bin/sh
+#
+# Simple Redis init.d script conceived to work on Linux systems
+# as it does use of the /proc filesystem.
+            REDISPORT=26379
+EXEC=/usr/local/bin/redis-sentinel
+CLIEXEC=/usr/local/bin/redis-cli
+            PIDFILE=/var/run/redis_${REDISPORT}.pid
+CONF=&quot;/etc/redis/sentinel.conf&quot;
+            case &quot;$1&quot; in
+    start)
+        if [ -f $PIDFILE ]
+        then
+                echo &quot;$PIDFILE exists, process is already running or crashed&quot;
+        else
+                echo &quot;Starting Redis server...&quot;
+                $EXEC $CONF
+        fi
+        ;;
+    stop)
+        if [ ! -f $PIDFILE ]
+        then
+                echo &quot;$PIDFILE does not exist, process is not running&quot;
+        else
+                PID=$(cat $PIDFILE)
+                echo &quot;Stopping ...&quot;
+                $CLIEXEC -p $REDISPORT shutdown
+                while [ -x /proc/${PID} ]
+                do
+                    echo &quot;Waiting for Redis to shutdown ...&quot;
+                    sleep 1
+                done
+                echo &quot;Redis stopped&quot;
+        fi
+        ;;
+    *)
+        echo &quot;Please use start or stop as first argument&quot;
+        ;;
+esac
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="設定-systemd-的定義檔">設定 systemd 的定義檔</h2>
+
+<ol>
+<li><p>建立 <code>redis_sentinel.service</code> 定義檔</p>
+
+<pre><code>vi /etc/systemd/system/redis_sentinel.service
+</code></pre></li>
+
+<li><p>新增定義檔內容</p>
+
+<pre><code>[Unit] 
+Description=Redis Sentinel on port 26379
+    
+[Service] 
+Type=forking
+ExecStart=/etc/init.d/redis_sentinel start
+ExecStop=/etc/init.d/redis_sentinel stop
+    
+[Install]
+WantedBy=multi-user.target
+</code></pre></li>
+</ol>
+
+<h2 id="啟動-service">啟動 service</h2>
+
+<ol>
+<li><p>重新載入 systemd 中的 config</p>
+
+<pre><code>systemctl daemon-reload
+</code></pre></li>
+
+<li><p>開啟開機自動啟動</p>
+
+<pre><code>systemctl enable redis_sentinel.service
+</code></pre></li>
+
+<li><p>立即啟動 service</p>
+
+<pre><code>systemctl start redis_sentinel.service
+</code></pre></li>
+</ol>
+
+<ul>
+<li><p>systemctl start redis_sentinel.service</p>
+
+<blockquote>
+<p>如果啟動失敗可以看到詳細訊息</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30655896-dad51f08-9e64-11e7-842f-a3400a54ddaa.png" alt="1sysstatus" /></p></li>
+
+<li><p>systemctl list-unit-files | grep -i redis_sentinel.service</p>
+
+<blockquote>
+<p>可以用來看 redis_sentinel.service 的狀態</p>
+</blockquote>
+
+<ul>
+<li><p>啟動前</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30655893-dad02da4-9e64-11e7-879c-efc2e5a499c8.png" alt="2disable" /></p></li>
+
+<li><p>啟動後</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30655895-dad10c42-9e64-11e7-8409-d86457001888.png" alt="3enable" /></p></li>
+</ul></li>
+
+<li><p>redis-cli -p 26379 ping</p>
+
+<blockquote>
+<p>確認是否有正確啟動，回應 <code>PONG</code> 即正確</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30655894-dad0c9ee-9e64-11e7-8880-20d9e9a23585.png" alt="4pong" /></p></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>sentinel 建立 service 的方式不像一般 redis instance 那麼方便，設定相對繁瑣些，但依上述步驟操作也還算容易，經過上述設定後就可以讓 sentinel 也能在 server 開機時自動執行，讓 redis HA 機制不會因為 server 重啟而失效</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://blog.yowko.com/2017/09/centos7-redis-service.html" target="_blank">在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例</a></li>
+<li><a href="https://blog.yowko.com/2017/03/windows-redis-master-slave-sentinel.html" target="_blank">Windows 環境如何設定 Redis Master-Slave 與 Sentinel</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html" target="_blank">Systemd 入門教程：命令篇</a></li>
+<li><a href="http://microdevsys.com/wp/enabling-or-disabling-services-using-systemctl-instead-of-chkconfig-in-rhel-7-centos-7-scientific-linux-7/" target="_blank">Enabling or disabling services using systemctl instead of chkconfig in RHEL 7 / CentOS 7 / Scientific Linux 7</a></li>
+<li><a href="https://linoxide.com/storage/install-redis-server-centos-7/" target="_blank">How to Install Redis Server on CentOS 7</a></li>
+<li><a href="https://dotblogs.com.tw/supershowwei/2016/02/02/112238" target="_blank">在 CentOS 7 安裝 Redis（方法二）</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-26</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/get-dot-net-framework-version/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">如何得知電腦上 .Net FrameWork 版本？ - 使用 PowerShell</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/git-hook-pre-commit-unit-test/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">.Net 專案在 Git commit 前自動執行 Unit Test</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/centos7-redis-sentinel-service\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

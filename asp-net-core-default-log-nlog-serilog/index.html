@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog ASP.NET Core 預設會將 WebHost 執行細節透過 stdout 輸出至 console 上，application 的所有動作都一目暸然，這在 debug 時很方便，不過部署在一般" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/asp-net-core-default-log-nlog-serilog/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog" />
+<meta property="og:description" content="將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog ASP.NET Core 預設會將 WebHost 執行細節透過 stdout 輸出至 console 上，application 的所有動作都一目暸然，這在 debug 時很方便，不過部署在一般" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/asp-net-core-default-log-nlog-serilog/" /><meta property="article:published_time" content="2019-03-10T21:00:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-03-10T21:00:31&#43;08:00"/>
+
+<meta itemprop="name" content="將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog">
+<meta itemprop="description" content="將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog ASP.NET Core 預設會將 WebHost 執行細節透過 stdout 輸出至 console 上，application 的所有動作都一目暸然，這在 debug 時很方便，不過部署在一般">
+
+
+<meta itemprop="datePublished" content="2019-03-10T21:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-03-10T21:00:31&#43;08:00" />
+<meta itemprop="wordCount" content="1209">
+
+
+
+<meta itemprop="keywords" content="ASP.NET Core,Log,Nlog,Serilog," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog"/>
+<meta name="twitter:description" content="將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog ASP.NET Core 預設會將 WebHost 執行細節透過 stdout 輸出至 console 上，application 的所有動作都一目暸然，這在 debug 時很方便，不過部署在一般"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-03-10 </span>
+        
+        <span class="more-meta"> 約 1209 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#將-asp-net-core-的預設-log-輸出至-nlog-或-serilog">將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog</a>
+<ul>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#預設行為-輸出至-console">預設行為：輸出至 console</a></li>
+<li><a href="#nlog">NLog</a></li>
+<li><a href="#serilog">Serilog</a></li>
+</ul></li>
+<li><a href="#心得">心得</a></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="將-asp-net-core-的預設-log-輸出至-nlog-或-serilog">將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog</h1>
+
+<p>ASP.NET Core 預設會將 WebHost 執行細節透過 stdout 輸出至 console 上，application 的所有動作都一目暸然，這在 debug 時很方便，不過部署在一般的 server 就不會有人時時刻刻去盯著 console，所以需要將 log 內容透過其他方式(e.g. 檔案、db、&hellip;etc)紀錄下來備查</p>
+
+<p>過去我個人是比較習慣 NLog 的設定風格，而現在團隊使用 Serilog，所以一併紀錄兩個 log framework 的設定方式</p>
+
+<h2 id="基本環境說明">基本環境說明</h2>
+
+<ol>
+<li>.NET Core 2.2.101</li>
+<li>ASP.NET Core 2.2.0</li>
+<li>使用 ASP.NET Core - API 預設範本建立環境</li>
+<li>NLog.Web.AspNetCore 4.8.0</li>
+<li>Serilog.AspNetCore 2.1.1</li>
+<li>Serilog.Sinks.File 4.0.0</li>
+<li>Serilog.Settings.Configuration 3.0.1</li>
+</ol>
+
+<h2 id="預設行為-輸出至-console">預設行為：輸出至 console</h2>
+
+<pre><code>Hosting environment: Development
+Content root path: C:\Users\yowko\source\repos\TestLog\LogTest
+Now listening on: https://localhost:5001
+Now listening on: http://localhost:5000
+Application started. Press Ctrl+C to shut down.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET https://localhost:5001/api/values
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'LogTest.Controllers.ValuesController.Get (LogTest)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = &quot;Get&quot;, controller = &quot;Values&quot;}. Executing action LogTest.Controllers.ValuesController.Get (LogTest)
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method LogTest.Controllers.ValuesController.Get (LogTest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method LogTest.Controllers.ValuesController.Get (LogTest), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.3302ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.String[]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action LogTest.Controllers.ValuesController.Get (LogTest) in 179.3543ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'LogTest.Controllers.ValuesController.Get (LogTest)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 256.8033ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET https://localhost:5001/robots.txt?1552204068727
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 5.5067ms 404
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/54085483-a92e5300-4379-11e9-9bfc-9f312f551215.png" alt="1default" /></p>
+
+<h2 id="nlog">NLog</h2>
+
+<ol>
+<li><p>安裝 NLog.Web.AspNetCore</p>
+
+<ul>
+<li><p>Package Manager</p>
+
+<pre><code>Install-Package NLog.Web.AspNetCore
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package NLog.Web.AspNetCore
+</code></pre></li>
+</ul></li>
+
+<li><p>建立 <code>nlog.config</code> 檔案</p>
+
+<blockquote>
+<p>位置為專案根目錄下</p>
+</blockquote>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    autoReload=&quot;true&quot;
+    internalLogLevel=&quot;Info&quot;
+    internalLogFile=&quot;c:\temp\internal-nlog.txt&quot;&gt;
+
+&lt;!-- 啟用 ASP.NET Core layout renderers --&gt;
+&lt;extensions&gt;
+    &lt;add assembly=&quot;NLog.Web.AspNetCore&quot;/&gt;
+&lt;/extensions&gt;
+
+&lt;!-- log 儲存目標 --&gt;
+&lt;targets&gt;
+    &lt;!-- 儲存目標類型為 &quot;檔案&quot;  --&gt;
+    &lt;target xsi:type=&quot;File&quot; name=&quot;allfile&quot; fileName=&quot;.\logs\nlog-all-${shortdate}.log&quot;
+            layout=&quot;${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}&quot; /&gt;
+
+    &lt;!-- 儲存目標類型為 &quot;檔案&quot;, only own logs.並使用部份 ASP.NET core renderers 的內容 --&gt;
+    &lt;target xsi:type=&quot;File&quot; name=&quot;ownFile-web&quot; fileName=&quot;.\logs\nlog-own-${shortdate}.log&quot;
+            layout=&quot;${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}|url: ${aspnet-request-url}|action: ${aspnet-mvc-action}&quot; /&gt;
+&lt;/targets&gt;
+
+&lt;!-- 設定 logger 名稱與 log 儲存目標的對應 --&gt;
+&lt;rules&gt;
+    &lt;!-- 所有 log --&gt;
+    &lt;logger name=&quot;*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;allfile&quot; /&gt;
+
+    &lt;!-- 將來自於 Microsoft. assembly 的 Info 以下 (Info,Debug,Trace) log 都排除 (沒有 writeTo 就不會輸出 )--&gt;
+    &lt;!-- &lt;logger name=&quot;Microsoft.*&quot; maxlevel=&quot;Info&quot; final=&quot;true&quot; /&gt;--&gt;
+    &lt;logger name=&quot;*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;ownFile-web&quot; /&gt;
+&lt;/rules&gt;
+&lt;/nlog&gt;
+</code></pre></li>
+
+<li><p>將 <code>nlog.config</code> 設定輸出</p>
+
+<ul>
+<li><p>nlog.config 上按右鍵 &ndash;&gt; Properties</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/54085484-a9c6e980-4379-11e9-86ff-551491722f71.png" alt="2properties" /></p></li>
+
+<li><p>Copy to Output Directory &ndash;&gt; Copy always</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/54085485-a9c6e980-4379-11e9-982d-9d13ca3f157d.png" alt="3copyalways" /></p></li>
+</ul></li>
+
+<li><p>在 program.cs 中設定啟用 NLog</p>
+
+<pre><code class="language-cs">public static IWebHostBuilder CreateWebHostBuilder(string[] args) =&gt;
+        WebHost.CreateDefaultBuilder(args)
+            .UseStartup&lt;Startup&gt;()
+            //.ConfigureLogging(logging =&gt;
+            //{
+            //    //清除其他 logger provide 如預設 console (一經設定 log 就不會在 console 上出現)
+            //    logging.ClearProviders();
+            //    //設定最低 log 輸出 level
+            //    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+            //})
+            .UseNLog();
+}
+</code></pre></li>
+
+<li><p>完整 program.cs 內容</p>
+
+<pre><code class="language-cs">using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using NLog.Web;
+using Microsoft.Extensions.Logging;
+
+namespace LogTest
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            CreateWebHostBuilder(args).Build().Run();
+        }
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =&gt;
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup&lt;Startup&gt;()
+                //.ConfigureLogging(logging =&gt;
+                //{
+                //    //清除其他 logger provide：預設 console
+                //    logging.ClearProviders();
+                //    //設定最底 log 輸出 level
+                //    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                //})
+                .UseNLog();
+    }
+}
+</code></pre></li>
+</ol>
+
+<h2 id="serilog">Serilog</h2>
+
+<ol>
+<li><p>安裝基礎套件 Serilog.AspNetCore</p>
+
+<ul>
+<li><p>Package Manager</p>
+
+<pre><code>Install-Package Serilog.AspNetCore
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package Serilog.AspNetCore
+</code></pre></li>
+</ul></li>
+
+<li><p>視 log 儲存類型安裝套件(以 file 為例)：Serilog.Sinks.File</p>
+
+<ul>
+<li><p>Package Manage</p>
+
+<pre><code>Install-Package Serilog.Sinks.File
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package Serilog.Sinks.File
+</code></pre></li>
+</ul></li>
+
+<li><p>安裝 json config 用套件 : Serilog.Settings.Configuration</p>
+
+<blockquote>
+<p>xml config 需要安裝 Serilog.Settings.AppSettings</p>
+</blockquote>
+
+<ul>
+<li><p>Package Manage</p>
+
+<pre><code>Install-Package Serilog.Settings.Configuration
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package Serilog.Settings.Configuration
+</code></pre></li>
+</ul></li>
+
+<li><p>設定 Serilog 相關參數</p>
+
+<blockquote>
+<p>設定值寫至 <code>appsettings.json</code></p>
+</blockquote>
+
+<pre><code class="language-json">{
+&quot;Serilog&quot;: {
+    &quot;Using&quot;: [  &quot;Serilog.Sinks.File&quot; ],
+    &quot;MinimumLevel&quot;: &quot;Debug&quot;,
+    &quot;WriteTo&quot;: [
+            {
+                &quot;Name&quot;: &quot;File&quot;,
+                &quot;Args&quot;: {
+                &quot;path&quot;: &quot;.\\Serilogs\\serilog-configuration-sample.txt&quot;,
+                &quot;outputTemplate&quot;: &quot;{Timestamp:o} [{Level:u3}] ({Application}/{MachineName}/{ThreadId}) {Message}{NewLine}{Exception}&quot;,
+                &quot;rollingInterval&quot;: &quot;Day&quot;
+                }
+            }
+        ]
+    }
+}
+</code></pre></li>
+
+<li><p>設定啟用 Serilog</p>
+
+<ul>
+<li><p>Main method</p>
+
+<pre><code class="language-cs">//從 appsettings.json 讀取設定資料
+var configuration = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile(path: &quot;appsettings.json&quot;, optional: false, reloadOnChange: true)
+        .Build();
+        
+//使用從 appsettings.json 讀取到的內容來設定 logger
+Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(configuration)
+        .CreateLogger();
+</code></pre></li>
+
+<li><p>CreateWebHostBuilder method</p>
+
+<pre><code class="language-cs">WebHost.CreateDefaultBuilder(args)
+        .UseStartup&lt;Startup&gt;()
+        //註冊 Serilog
+        .UseSerilog();
+</code></pre></li>
+</ul></li>
+
+<li><p>programs.cs 完整內容</p>
+
+<pre><code class="language-cs">using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Serilog;
+using System.IO;
+
+namespace LogTest
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile(path: &quot;appsettings.json&quot;, optional: false, reloadOnChange: true)
+            .Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+            .CreateLogger();
+
+
+            CreateWebHostBuilder(args).Build().Run();
+        }
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =&gt;
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup&lt;Startup&gt;()
+                .UseSerilog();
+    }
+}
+</code></pre></li>
+</ol>
+
+<h1 id="心得">心得</h1>
+
+<p>NLog 有點像過去的 .NET Framework 中的 System.Web ：功能齊全，只要一經引用幾乎沒什麼做不到的;Serilog 則像 .NET Core，多數功能都能滿足，但功能拆分細微，需要什麼就單獨安裝、升級</p>
+
+<p>兩者相較下 NLog 感覺是相對直覺、或許該說是習慣，但就文件的完整性來說 NLog 則是佔絕對優勢，同樣的功能 NLog 可以直接從 wiki 上找到設定方式，但 Serilog 就得要東翻西找，加上還參雜了不同版本的 ASP.NET Core 內容造成無法馬上辨別出是否為正確做法</p>
+
+<p>整個 Serilog 在使用的概念上與文件是比較接近 .NET Core，好處、壞處都很像XD</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://nlog-project.org/" target="_blank">NLog</a></li>
+<li><a href="https://github.com/NLog/NLog.Web/wiki/Getting-started-with-ASP.NET-Core-2" target="_blank">Getting started with ASP.NET Core 2</a></li>
+<li><a href="https://github.com/serilog/serilog/wiki/Getting-Started" target="_blank">serilog/serilog</a></li>
+<li><a href="http://merbla.com/2018/04/02/exploring-serilog-v2---lets-go/" target="_blank">Exploring Serilog v2 - Lets Go!</a></li>
+<li><a href="https://stackify.com/nlog-vs-log4net-vs-serilog/" target="_blank">NLog vs log4net vs Serilog: Compare .NET Logging Frameworks</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-03-10</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/asp.net-core/">ASP.NET Core</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/log/">Log</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/nlog/">Nlog</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/serilog/">Serilog</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/nunit-current-test-name/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">如何取得 NUnit 當前執行的測試方法名稱</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/kafka-manager/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">在 Mac 上安裝 Kafka-Manager</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/asp-net-core-default-log-nlog-serilog\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>關於清除 SQL Server 查詢快取的那些事 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="關於清除 SQL Server 查詢快取的那些事 之前的筆記 試著學會看懂 SQL Server IO 統計資訊 中，有粗略地介紹 SQL Server IO 的統計資訊，其中 logical reads(邏輯讀取) 是我們用來進行" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/sql-server-clear-cache/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="關於清除 SQL Server 查詢快取的那些事" />
+<meta property="og:description" content="關於清除 SQL Server 查詢快取的那些事 之前的筆記 試著學會看懂 SQL Server IO 統計資訊 中，有粗略地介紹 SQL Server IO 的統計資訊，其中 logical reads(邏輯讀取) 是我們用來進行" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/sql-server-clear-cache/" /><meta property="article:published_time" content="2016-12-27T00:42:34&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-07T00:42:34&#43;08:00"/>
+
+<meta itemprop="name" content="關於清除 SQL Server 查詢快取的那些事">
+<meta itemprop="description" content="關於清除 SQL Server 查詢快取的那些事 之前的筆記 試著學會看懂 SQL Server IO 統計資訊 中，有粗略地介紹 SQL Server IO 的統計資訊，其中 logical reads(邏輯讀取) 是我們用來進行">
+
+
+<meta itemprop="datePublished" content="2016-12-27T00:42:34&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-07T00:42:34&#43;08:00" />
+<meta itemprop="wordCount" content="815">
+
+
+
+<meta itemprop="keywords" content="SQL Server," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="關於清除 SQL Server 查詢快取的那些事"/>
+<meta name="twitter:description" content="關於清除 SQL Server 查詢快取的那些事 之前的筆記 試著學會看懂 SQL Server IO 統計資訊 中，有粗略地介紹 SQL Server IO 的統計資訊，其中 logical reads(邏輯讀取) 是我們用來進行"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-12-27 </span>
+        
+        <span class="more-meta"> 約 815 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#關於清除-sql-server-查詢快取的那些事">關於清除 SQL Server 查詢快取的那些事</a>
+<ul>
+<li><a href="#差異">差異</a></li>
+<li><a href="#名詞介紹">名詞介紹</a></li>
+<li><a href="#清除-cache-語法">清除 Cache 語法</a></li>
+<li><a href="#關於-dbcc-dropcleanbuffers">關於 <code>DBCC DROPCLEANBUFFERS</code></a></li>
+<li><a href="#為什麼需要-checkpoint">為什麼需要 CHECKPOINT</a></li>
+</ul></li>
+<li><a href="#參考資料">參考資料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="關於清除-sql-server-查詢快取的那些事">關於清除 SQL Server 查詢快取的那些事</h1>
+
+<p>之前的筆記 <a href="http://blog.yowko.com/2016/12/sql-server-io.html" target="_blank">試著學會看懂 SQL Server IO 統計資訊</a> 中，有粗略地介紹 SQL Server IO 的統計資訊，其中 <code>logical reads(邏輯讀取)</code> 是我們用來進行效能調校的重要依據，文中也提到 cache 來源是 <code>physical reads(實體讀取)</code>、<code>read-ahead reads(讀取前讀取)</code> 。在為了比較使用 memory 與使用 disk 的查詢時間差異，就得透過清除查詢 cache 來進行，接著就來看看該如何清除查詢 cache.</p>
+
+<h2 id="差異">差異</h2>
+
+<ol>
+<li><p>第一次查詢(使用 disk)</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/580af37595015aea5f142a0b/1200x293/fa7925d681f1e919127af69b7d3960c8/_output_fromdisk.png" alt="fromdisk" /></p></li>
+
+<li><p>第二次以後查詢(使用 memory)</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/580af37595015aea5f142a0b/1200x293/91374b15f91e5d4bcf5d4b0dc460b382/_output_frommemory.png" alt="frommemory" /></p></li>
+</ol>
+
+<h2 id="名詞介紹">名詞介紹</h2>
+
+<ol>
+<li><p>Clean Buffer</p>
+
+<blockquote>
+<p>data page cache 沒有修改過的</p>
+</blockquote></li>
+
+<li><p>Dirty Buffer</p>
+
+<blockquote>
+<p>data page cache 已修改過但未被寫入至磁碟中的部份</p>
+</blockquote></li>
+
+<li><p>Cold Buffer Cache</p>
+
+<blockquote>
+<p>data page 還沒載入 memory 中，需要從磁碟讀取</p>
+</blockquote></li>
+</ol>
+
+<h2 id="清除-cache-語法">清除 Cache 語法</h2>
+
+<pre><code class="language-sql">CHECKPOINT;
+DBCC DROPCLEANBUFFERS;
+</code></pre>
+
+<h2 id="關於-dbcc-dropcleanbuffers">關於 <code>DBCC DROPCLEANBUFFERS</code></h2>
+
+<ul>
+<li>僅清除 <code>Clean Buffer</code>，<code>Dirty Buffer</code>無法被清除</li>
+
+<li><p>語法</p>
+
+<ul>
+<li><p>Syntax for SQL Server</p>
+
+<pre><code class="language-sql">DBCC DROPCLEANBUFFERS [ WITH NO_INFOMSGS ]
+</code></pre></li>
+
+<li><p>Syntax for Azure SQL Data Warehouse and Parallel Data Warehouse</p>
+
+<pre><code>DBCC DROPCLEANBUFFERS ( COMPUTE | ALL ) [ WITH NO_INFOMSGS ]
+</code></pre></li>
+</ul></li>
+
+<li><p>參數說明</p>
+
+<ul>
+<li><p>WITH NO_INFOMSGS</p>
+
+<blockquote>
+<p>隱藏所有參考訊息。<code>Azure SQL Data Warehouse</code> 跟 <code>Parallel Data Warehouse</code> 環境下預設隱藏</p>
+</blockquote></li>
+
+<li><p>COMPUTE</p>
+
+<ul>
+<li>僅 <code>Azure SQL Data Warehouse</code> 跟 <code>Parallel Data Warehouse</code> 有效</li>
+<li>清除計算節點 cache</li>
+</ul></li>
+
+<li><p>ALL</p>
+
+<ul>
+<li>僅 <code>Azure SQL Data Warehouse</code> 跟 <code>Parallel Data Warehouse</code> 有效</li>
+<li>清除所有節點 cache</li>
+<li>預設值</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="為什麼需要-checkpoint">為什麼需要 CHECKPOINT</h2>
+
+<blockquote>
+<p><code>CHECKPOINT</code> 會將 <code>Dirty Buffer</code> 強制寫入 disk</p>
+</blockquote>
+
+<p>我們來模擬<code>Dirty Buffer</code> 的情境如下</p>
+
+<ol>
+<li><p>一般的 select</p>
+
+<ul>
+<li><p>將資料載入 cache</p>
+
+<pre><code class="language-sql">SELECT * FROM [AdventureWorks2014].[Sales].[Customer]
+</code></pre></li>
+</ul></li>
+
+<li><p>檢查 cache</p>
+
+<ul>
+<li><p>cache 有 122 筆資料</p>
+
+<pre><code class="language-sql">select sysObj.name,* 
+from sys.dm_os_buffer_descriptors bufferDescriptors
+INNER JOIN sys.allocation_units AllocUnits ON bufferDescriptors.allocation_unit_id = AllocUnits.allocation_unit_id
+INNER JOIN sys.partitions Partitions ON AllocUnits.container_id = Partitions.hobt_id
+INNER JOIN sys.objects sysObj ON Partitions.object_id = sysObj.object_id
+WHERE bufferDescriptors.database_id = DB_ID()
+AND sysObj.is_ms_shipped = 0
+</code></pre>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/580af37595015aea5f142a0b/1200x422/d8ef56c8a7974dbcc936847ef5ff6f2c/_output_NORAMLCACHE.png" alt="NORAMLCACHE" /></p></li>
+</ul></li>
+
+<li><p>使用 <code>DBCC DROPCLEANBUFFERS</code></p>
+
+<pre><code class="language-sql">DBCC DROPCLEANBUFFERS
+</code></pre></li>
+
+<li><p>檢查 cache</p>
+
+<ul>
+<li><p>因為僅有 <code>Clean Buffer</code>，所以可以全部清除</p>
+
+<pre><code class="language-sql">select sysObj.name,*
+from sys.dm_os_buffer_descriptors bufferDescriptors
+INNER JOIN sys.allocation_units AllocUnits ON bufferDescriptors.allocation_unit_id = AllocUnits.allocation_unit_id
+INNER JOIN sys.partitions Partitions ON AllocUnits.container_id = Partitions.hobt_id
+INNER JOIN sys.objects sysObj ON Partitions.object_id = sysObj.object_id
+WHERE bufferDescriptors.database_id = DB_ID()
+AND sysObj.is_ms_shipped = 0
+</code></pre>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/580af37595015aea5f142a0b/1200x423/92ee3f137d2561a94494aa7d6509dd69/_output_cleanbufferdbcc.png" alt="cleanbufferdbcc" /></p></li>
+</ul></li>
+
+<li><p>修改一筆資料</p>
+
+<ul>
+<li><p>製造出 <code>Dirty buffer</code></p>
+
+<pre><code class="language-sql">UPDATE [Sales].[Customer]
+SET [ModifiedDate] = GETDATE()
+WHERE [CustomerID]=1
+GO
+</code></pre></li>
+</ul></li>
+
+<li><p>一般的 select</p>
+
+<ul>
+<li><p>將資料載入 cache</p>
+
+<pre><code class="language-sql">SELECT * FROM [AdventureWorks2014].[Sales].[Customer]
+</code></pre></li>
+</ul></li>
+
+<li><p>檢查 cache</p>
+
+<ul>
+<li><p>cache 數量不變， 有 122 筆資料</p>
+
+<pre><code class="language-sql">select sysObj.name,* 
+from sys.dm_os_buffer_descriptors bufferDescriptors
+INNER JOIN sys.allocation_units AllocUnits ON bufferDescriptors.allocation_unit_id = AllocUnits.allocation_unit_id
+INNER JOIN sys.partitions Partitions ON AllocUnits.container_id = Partitions.hobt_id
+INNER JOIN sys.objects sysObj ON Partitions.object_id = sysObj.object_id
+WHERE bufferDescriptors.database_id = DB_ID()
+AND sysObj.is_ms_shipped = 0
+</code></pre>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/580af37595015aea5f142a0b/1200x399/cfd2ebab5ff062f07525f2c160c77944/_output_update.png" alt="update" /></p></li>
+</ul></li>
+
+<li><p>使用 <code>DBCC DROPCLEANBUFFERS</code></p>
+
+<pre><code class="language-sql">DBCC DROPCLEANBUFFERS
+</code></pre></li>
+
+<li><p>檢查 cache</p>
+
+<ul>
+<li><p>因為有 <code>Dirty Buffer</code>，cache 無法全部清除</p>
+
+<pre><code class="language-sql">select sysObj.name,* 
+from sys.dm_os_buffer_descriptors bufferDescriptors
+INNER JOIN sys.allocation_units AllocUnits ON bufferDescriptors.allocation_unit_id = AllocUnits.allocation_unit_id
+INNER JOIN sys.partitions Partitions ON AllocUnits.container_id = Partitions.hobt_id
+INNER JOIN sys.objects sysObj ON Partitions.object_id = sysObj.object_id
+WHERE bufferDescriptors.database_id = DB_ID()
+AND sysObj.is_ms_shipped = 0
+</code></pre>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/580af37595015aea5f142a0b/1200x408/679853a1d4d7301c5cba58b39fc7cd57/_output_updatedbcc.png" alt="updatedbcc" /></p></li>
+</ul></li>
+
+<li><p>使用 <code>CHECKPOINT</code> 及 <code>DBCC DROPCLEANBUFFERS</code></p>
+
+<pre><code class="language-sql">CHECKPOINT;
+DBCC DROPCLEANBUFFERS ;
+</code></pre></li>
+
+<li><p>檢查 cache</p>
+
+<ul>
+<li><code>CHECKPOINT</code> 將 <code>Dirty buffer</code> 被寫入 disk</li>
+<li><code>DBCC DROPCLEANBUFFERS</code>清除 <code>Clean buufer</code></li>
+
+<li><p>cache 即可全數清除</p>
+
+<pre><code class="language-sql">select sysObj.name,* 
+from sys.dm_os_buffer_descriptors bufferDescriptors
+INNER JOIN sys.allocation_units AllocUnits ON bufferDescriptors.allocation_unit_id = AllocUnits.allocation_unit_id
+INNER JOIN sys.partitions Partitions ON AllocUnits.container_id = Partitions.hobt_id
+INNER JOIN sys.objects sysObj ON Partitions.object_id = sysObj.object_id
+WHERE bufferDescriptors.database_id = DB_ID()
+AND sysObj.is_ms_shipped = 0
+</code></pre>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/580af37595015aea5f142a0b/1200x408/4b3b68cb0702af0a11b14cb310d93140/_output_ckdbcc.png" alt="ckdbcc" /></p></li>
+</ul></li>
+</ol>
+
+<h1 id="參考資料">參考資料</h1>
+
+<ol>
+<li><a href="https://blogs.msdn.microsoft.com/psssql/2009/03/17/sql-server-what-is-a-cold-dirty-or-clean-buffer/" target="_blank">SQL Server: What is a COLD, DIRTY or CLEAN Buffer?</a></li>
+<li><a href="https://sqldbpool.com/2012/08/18/dbcc-dropcleanbuffers-and-checkpoint/" target="_blank">DBCC DROPCLEANBUFFERS and CHECKPOINT</a></li>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/ms186274.aspx" target="_blank">DB_ID</a></li>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/ms189573.aspx" target="_blank">Checkpoint</a></li>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/ms187762.aspx" target="_blank">DBCC DROPCLEANBUFFERS</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-07</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/sql-server/">SQL Server</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/windows-server-2016-enable-wifi/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">啟用 Windows Server 2016 的無線網路</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/opensearch/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">怎麼讓網站在輸入網址後按 tab 就可以直接搜尋網站內容(OpenSearch)</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/sql-server-clear-cache\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

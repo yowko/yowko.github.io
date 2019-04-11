@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教" />
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/" />
+<link href="https://blog.yowko.com/index.xml" rel="alternate" type="application/rss+xml" title="Yowko&#39;s Notes" />
+  <link href="https://blog.yowko.com/index.xml" rel="feed" type="application/rss+xml" title="Yowko&#39;s Notes" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="Yowko&#39;s Notes" />
+<meta property="og:description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://blog.yowko.com/" />
+<meta property="og:updated_time" content="2017-06-22T23:12:00&#43;08:00"/>
+
+<meta itemprop="name" content="Yowko&#39;s Notes">
+<meta itemprop="description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Yowko&#39;s Notes"/>
+<meta name="twitter:description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          
+  <section id="posts" class="posts">
+    
+    
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/mstest-exe/">使用 MSTest.exe 指令來進行測試</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-22 </span>
+      
+      <span class="more-meta"> 約 982 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      使用 MSTest.exe 指令來進行測試 MSTest.exe 是用於執行 MSTest 測試的命令列命令，功能與 Nunit-console 相同，都是用來讓我們在沒有 Visual Studio 的情境下可以執行測試，像是 CI Server，就讓我們
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/mstest-exe/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspnet-mvc-displaytemplate/">ASP.NET MVC 統一顯示格式 (使用 DisplayTemplate)</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-21 </span>
+      
+      <span class="more-meta"> 約 1062 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      ASP.NET MVC 統一顯示格式 (使用 DisplayTemplate) 在 ASP.NET MVC 中所有資料格式都有預設的顯示方式(ex：DateTime 2017/12/19 下午 11:20:00、Deciaml 123457.0
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/aspnet-mvc-displaytemplate/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/specflow-outline/">餵資料集給 SpecFlow 來執行測試及驗證</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-21 </span>
+      
+      <span class="more-meta"> 約 1258 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      餵資料集給 SpecFlow 來執行測試及驗證 之前文章 使用 SpecFlow 建立人語化的單元測試 已經大致了解如何使用近似人類語言來描述需求跟寫測試案例，透過這樣的方式不僅讓需
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/specflow-outline/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/privatetype-in-privateobject/">驗證 private method 但會使用的 static 資料的做法 - PrivateType 與 PrivateObject 搭配</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-20 </span>
+      
+      <span class="more-meta"> 約 856 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      驗證 private method 但會使用的 static 資料的做法 - PrivateType 與 PrivateObject 搭配 一連幾篇筆記(Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType、Unit Test 想驗證 private static
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/privatetype-in-privateobject/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/unit-test-private-method/">Unit Test 想驗證 private method 該怎麼做？ - 使用 PrivateObject</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-19 </span>
+      
+      <span class="more-meta"> 約 468 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Unit Test 想驗證 private method 該怎麼做？ - 使用 PrivateObject Unit Test 該拿 private 屬性及欄位怎麼辦？ - 使用 PrivateObject 針對的是 private 而且是 non-static 的 field 或是 property，Unit Test 想驗證 private static method 該怎麼
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/unit-test-private-method/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/unit-test-private-field-property/">Unit Test 該拿 private 屬性及欄位怎麼辦？ - 使用 PrivateObject</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-19 </span>
+      
+      <span class="more-meta"> 約 620 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Unit Test 該拿 private 屬性及欄位怎麼辦？ - 使用 PrivateObject 在 Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType 使用 NSubstitute 產生假物件後，透過 PrivateType 設定給原本是 private static 的屬性，但文末也提供 PrivateType 是
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/unit-test-private-field-property/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/unit-test-static-method/">Unit Test 想驗證 private static method 該怎麼做？ - 使用 PrivateType</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-18 </span>
+      
+      <span class="more-meta"> 約 839 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Unit Test 想驗證 private static method 該怎麼做？ - 使用 PrivateType TDD 的第一天課程中就提到，以單元測試的角度 private method 不需單獨進行測試，在驗證 public 及 internal method 的過程中自然會涵蓋到 private or protected me
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/unit-test-static-method/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/unit-test-static-field-property/">Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-17 </span>
+      
+      <span class="more-meta"> 約 1164 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType 自從上完第二次 TDD 課程後，對於新專案的開發充滿著信心，躍躍欲試不算新學到但有新理解的技能，只是過程還是跌跌
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/unit-test-static-field-property/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspnet-mvc-post-html/">ASP.NET MVC 送出含有 `&lt;` 的表單內容時出現錯誤</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-17 </span>
+      
+      <span class="more-meta"> 約 771 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      ASP.NET MVC 送出含有 &lt; 的表單內容時出現錯誤 這是同事今天遇到的問題，當看到錯誤訊息時，我心中百感交集，想當年沒日沒夜趕專案時，這個錯誤訊息可是三天兩頭
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/aspnet-mvc-post-html/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/unit-test-web-api-ihttpactionresult/">Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-15 </span>
+      
+      <span class="more-meta"> 約 575 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult 經過 91 哥三周的 TDD 訓練，我竟自大地以為我會 unit test 了，新專案到手立馬開啟 TDD 開發模式，不要臉地覺得同事寫的 api 可測試性低相當不可
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/unit-test-web-api-ihttpactionresult/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/nuget-folder/">指定 NuGet packages 存放位置</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-15 </span>
+      
+      <span class="more-meta"> 約 697 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      指定 NuGet packages 存放位置 同事負責的 team 有個專案，因為歷史緣故因素裡面有超過二十個 projects，實際上各個專案間並沒有相依或是關連性，正確的做法應該
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/nuget-folder/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/httpclient/">使用 HttpClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-14 </span>
+      
+      <span class="more-meta"> 約 1307 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      使用 HttpClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源 之前文章 如何使用 WebRequest,HttpWebRequest 來存取 (GET,POST,PUT,DELETE,PATCH) 網路資源 紀錄 WebRequest,HttpWebRequest 的用法，使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源 則紀錄了 WebClient 的用法，接著就是我所知的最後一個可以用
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/httpclient/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/webclient/">使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-13 </span>
+      
+      <span class="more-meta"> 約 1579 字 </span>
+        <span class="more-meta"> 預計閱讀 4 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源 之前在專案中看到許多不同風格的程式，這種現象很常見，尤其在由來已久、團隊成員來來去去的專案中更是常發生，我並沒有太多想
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/webclient/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/specflow/">使用 SpecFlow 建立人語化的單元測試</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-13 </span>
+      
+      <span class="more-meta"> 約 1654 字 </span>
+        <span class="more-meta"> 預計閱讀 4 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      使用 SpecFlow 建立人語化的單元測試 如何寫出良好可讀性的程式是個持續性的挑戰，也可能是永無止盡的挑戰，而測試程式雖然目的是測試，但終究是程式，也需要具
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/specflow/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/tdd-day-2/">自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 2</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-10 </span>
+      
+      <span class="more-meta"> 約 2960 字 </span>
+        <span class="more-meta"> 預計閱讀 6 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 2 TDD 來到了第二天，邀請我參加這次 TDD 課程的前同事 - Dino 問了我個問題：這樣參加完課程，如果沒有馬上應用或是應
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/tdd-day-2/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+  </section>
+  
+  <nav class="pagination">
+    
+      <a class="prev" href="https://blog.yowko.com/page/17/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text">上一頁</span>
+      </a>
+    
+      <a class="next" href="https://blog.yowko.com/page/19/">
+        <span class="next-text">下一頁</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+  </nav>
+
+        </div>
+        
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

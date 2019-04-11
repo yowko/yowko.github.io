@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>匯出 Excel 時使用多國語系 Resource 當做欄位名稱 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="匯出 Excel 時使用多國語系 Resource 當做欄位名稱 之前筆記 使用 C# 將資料匯出成 Excel (.xlsx) 紀錄到使用 ClosedXML 搭配 generic 與 reflection 匯出 excel，方便使用者自行調整資料報表 剛好有個系統" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/reflection-resource-culture/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="匯出 Excel 時使用多國語系 Resource 當做欄位名稱" />
+<meta property="og:description" content="匯出 Excel 時使用多國語系 Resource 當做欄位名稱 之前筆記 使用 C# 將資料匯出成 Excel (.xlsx) 紀錄到使用 ClosedXML 搭配 generic 與 reflection 匯出 excel，方便使用者自行調整資料報表 剛好有個系統" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/reflection-resource-culture/" /><meta property="article:published_time" content="2018-04-06T21:53:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-04-06T21:53:14&#43;08:00"/>
+
+<meta itemprop="name" content="匯出 Excel 時使用多國語系 Resource 當做欄位名稱">
+<meta itemprop="description" content="匯出 Excel 時使用多國語系 Resource 當做欄位名稱 之前筆記 使用 C# 將資料匯出成 Excel (.xlsx) 紀錄到使用 ClosedXML 搭配 generic 與 reflection 匯出 excel，方便使用者自行調整資料報表 剛好有個系統">
+
+
+<meta itemprop="datePublished" content="2018-04-06T21:53:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-04-06T21:53:14&#43;08:00" />
+<meta itemprop="wordCount" content="1047">
+
+
+
+<meta itemprop="keywords" content="C#,Office," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="匯出 Excel 時使用多國語系 Resource 當做欄位名稱"/>
+<meta name="twitter:description" content="匯出 Excel 時使用多國語系 Resource 當做欄位名稱 之前筆記 使用 C# 將資料匯出成 Excel (.xlsx) 紀錄到使用 ClosedXML 搭配 generic 與 reflection 匯出 excel，方便使用者自行調整資料報表 剛好有個系統"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-06 </span>
+        
+        <span class="more-meta"> 約 1047 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#匯出-excel-時使用多國語系-resource-當做欄位名稱">匯出 Excel 時使用多國語系 Resource 當做欄位名稱</a>
+<ul>
+<li><a href="#使用-resource">使用 Resource</a></li>
+<li><a href="#將多國語系-resource-加入-excel-匯出">將多國語系 Resource 加入 Excel 匯出</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="匯出-excel-時使用多國語系-resource-當做欄位名稱">匯出 Excel 時使用多國語系 Resource 當做欄位名稱</h1>
+
+<p>之前筆記 <a href="https://blog.yowko.com/2018/04/list-to-excel.html" target="_blank">使用 C# 將資料匯出成 Excel (.xlsx)</a> 紀錄到使用 ClosedXML 搭配 generic 與 reflection 匯出 excel，方便使用者自行調整資料報表</p>
+
+<p>剛好有個系統需要支援多國語系，連帶地使用者對要求 excel 也需要有多國語系，雖然資料內容無法隨意改變，但 excel 的欄位名稱就有調整的空間，就來看看可以如何處理吧</p>
+
+<h2 id="使用-resource">使用 Resource</h2>
+
+<ol>
+<li><p>加入 Resource</p>
+
+<ul>
+<li><p>專案上按右鍵 &ndash;&gt; Add &ndash;&gt; New Item&hellip;</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/38173737-cadffab8-35f5-11e8-86eb-3fa7de6b0175.png" alt="1newitem" /></p>
+</blockquote></li>
+
+<li><p>Visual C# Items &ndash;&gt; Resource File &ndash;&gt; 指定 .resx 名稱</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/38173738-cb0ac6da-35f5-11e8-9db0-8d61b494dbde.png" alt="2addresx" /></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>使用 ResXManager 來管理多國語系文字</p>
+
+<ul>
+<li><p>搜尋並安裝 <code>ResXManager</code></p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/38173739-cb34d83a-35f5-11e8-957c-78bbf92fe25c.png" alt="3addnuget" /></p>
+</blockquote></li>
+
+<li><p>VS 主選單 Tools &ndash;&gt; ResX Manager</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/38173740-cb615acc-35f5-11e8-86a9-db9f14ecf26e.png" alt="4openresxmanager" /></p>
+</blockquote></li>
+
+<li><p>加入新語言</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/38173741-cb8bbbaa-35f5-11e8-9528-e4a627ac6971.png" alt="5addlang" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/38173742-cbb57058-35f5-11e8-8da8-a1fe67e59407.png" alt="6selectlang" /></p>
+</blockquote></li>
+
+<li><p>加入新字串</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/38173743-cbdfc5d8-35f5-11e8-8dff-985eb9ff01be.png" alt="7addkey" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/38173745-cc4ad2ba-35f5-11e8-8b9b-468e062d66f7.png" alt="9resxmanager" /></p>
+</blockquote>
+
+<ul>
+<li><p>第一次填寫不同語言時會提示建立 Resource 檔案</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/38173744-cc23041a-35f5-11e8-9514-4e72c1561946.png" alt="8addresxfile" /></p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h2 id="將多國語系-resource-加入-excel-匯出">將多國語系 Resource 加入 Excel 匯出</h2>
+
+<ol>
+<li><p>excel helper 直接取用 resource 內容</p>
+
+<ul>
+<li><p>範本</p>
+
+<pre><code class="language-cs">Resource.ResourceManager.GetString({resource key}, {target CultureInfo};
+</code></pre></li>
+
+<li><p>實例</p>
+
+<pre><code class="language-cs">Resource.ResourceManager.GetString(&quot;Name&quot;, new CultureInfo(&quot;zh-TW&quot;));
+</code></pre></li>
+</ul></li>
+
+<li><p>將 resource 相關資訊傳入 excel helper</p>
+
+<ul>
+<li><p>調整 excel helper</p>
+
+<ul>
+<li><p>允許可傳入 ResourceManager 及 CultureInfo</p>
+
+<pre><code class="language-cs">ResourceManager _rm;
+CultureInfo _ci;
+public XSLXHelper() : this(null, null)
+{
+}
+public XSLXHelper(ResourceManager rm, CultureInfo ci)
+{
+    _rm = rm;
+    _ci = ci;
+}
+</code></pre></li>
+
+<li><p>調整取欄位邏輯</p>
+
+<pre><code class="language-cs">if (_rm != null)
+{
+    //依 resource key 及 CultureInfo 取得 resource 內容
+    string resourceName = _ci == null ? _rm.GetString(item.Name) : _rm.GetString(item.Name, _ci);
+    //如 resource key 取不到資料則使用屬性名稱
+    sheet.Cell(1, colIdx++).Value = string.IsNullOrWhiteSpace(resourceName) ? item.Name : resourceName;
+}
+else
+    sheet.Cell(1, colIdx++).Value = item.Name;
+</code></pre></li>
+
+<li><p>程式呼叫</p>
+
+<pre><code class="language-cs">XSLXHelper helper = new XSLXHelper(new System.Resources.ResourceManager(typeof(Resource)), new CultureInfo(&quot;zh-TW&quot;));
+</code></pre></li>
+
+<li><p>完整程式碼</p>
+
+<pre><code class="language-cs">using ClosedXML.Excel;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Resources;
+            
+namespace TestHelper
+{
+    public class XSLXHelper
+    {
+        ResourceManager _rm;
+        CultureInfo _ci;
+        public XSLXHelper() : this(null, null)
+        {
+        }
+        public XSLXHelper(ResourceManager rm, CultureInfo ci)
+        {
+            _rm = rm;
+            _ci = ci;
+        }
+        /// &lt;summary&gt;
+        /// 產生 excel
+        /// &lt;/summary&gt;
+        /// &lt;typeparam name=&quot;T&quot;&gt;傳入的物件型別&lt;/typeparam&gt;
+        /// &lt;param name=&quot;data&quot;&gt;物件資料集&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public XLWorkbook Export&lt;T&gt;(List&lt;T&gt; data)
+        {
+            //建立 excel 物件
+            XLWorkbook workbook = new XLWorkbook();
+            //加入 excel 工作表名為 `Report`
+            var sheet = workbook.Worksheets.Add(&quot;Report&quot;);
+            //欄位起啟位置
+            int colIdx = 1;
+            //使用 reflection 將物件屬性取出當作工作表欄位名稱
+            foreach (var item in typeof(T).GetProperties())
+            {
+                #region - 直接使用物件屬性名稱 -
+                if (_rm != null)
+                {
+                    //依 resource key 及 CultureInfo 取得 resource 內容
+                    string resourceName = _ci == null ? _rm.GetString(item.Name) : _rm.GetString(item.Name, _ci);
+                    //如 resource key 取不得資料則使用屬性名稱
+                    sheet.Cell(1, colIdx++).Value = string.IsNullOrWhiteSpace(resourceName) ? item.Name : resourceName;
+                }
+                else
+                    sheet.Cell(1, colIdx++).Value = item.Name;
+                #endregion
+            
+            }
+            //資料起始列位置
+            int rowIdx = 2;
+            foreach (var item in data)
+            {
+                //每筆資料欄位起始位置
+                int conlumnIndex = 1;
+                foreach (var jtem in item.GetType().GetProperties())
+                {
+                    //將資料內容加上 &quot;'&quot; 避免受到 excel 預設格式影響，並依 row 及 column 填入
+                    sheet.Cell(rowIdx, conlumnIndex).Value = string.Concat(&quot;'&quot;, Convert.ToString(jtem.GetValue(item, null)));
+                    conlumnIndex++;
+                }
+                rowIdx++;
+            }
+            return workbook;
+        }
+    }
+}
+</code></pre>
+
+<pre><code class="language-cs">//想要匯出的資料集
+var users = new List&lt;User&gt;() {
+    new User(){Name=&quot;Yowko&quot;,Salary=10,Address=&quot;Taipei&quot;,Birthday=new DateTime(1983,7,29) },
+    new User(){Name=&quot;Test&quot;,Salary=20,Address=&quot;USA&quot;,Birthday=new DateTime(1993,7,29) },
+};
+//xlsx 檔案位置
+string filepath = $@&quot;./{DateTime.Now.ToString(&quot;yyyyMMddHHmmss&quot;)}.xlsx&quot;;
+
+//建立 xlxs 轉換物件
+XSLXHelper helper = new XSLXHelper(new System.Resources.ResourceManager(typeof(Resource)), new CultureInfo(&quot;zh-TW&quot;));
+//取得轉為 xlsx 的物件
+var xlsx=helper.Export(users);
+
+//存檔至指定位置
+xlsx.SaveAs(filepath);
+</code></pre></li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>在 excel helper 中直接依 CultureInfo 取得 resource 內容適用於 excel helper 與 Resource 在同個專案中，如果像同事遇到的狀況： excel helper 獨立存在於 library 專案中沒有 resource 概念時，就可以透過將 ResourceManager 與 CultureInfo 傳入來處理</p>
+
+<p>重新 review 程式碼，實際的程式碼並不多，概念與難度也不難，但卻花好幾個小時才找到真正的做法，我想主要原因是過往工作缺乏多國語系需求的關係，明顯經驗與相關知識都不足，而這就是做專案的趣味所在，常常有意外的需求來增加工作樂趣跟自我挑戰</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://dotblogs.com.tw/wasichris/2015/06/19/151598" target="_blank">多國語系 - 使用ResXManager管理資源檔</a></li>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/system.resources.resourcemanager%28v=vs.110%29.aspx" target="_blank">ResourceManager 類別</a></li>
+<li><a href="https://stackoverflow.com/questions/17828774/get-resources-with-string" target="_blank">Get Resources with string</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-04-06</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/office/">Office</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/git-clone-depth/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">加快大型 GIT Repository 下載速度(指定 depth)</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/list-to-excel/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">使用 C# 將資料匯出成 Excel (.xlsx)</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/reflection-resource-culture\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

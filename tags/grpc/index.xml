@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gRPC on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/grpc/</link>
+    <description>Recent content in gRPC on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 16 Mar 2019 21:30:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/grpc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Protobuf 該如何處理不定型別</title>
+      <link>https://blog.yowko.com/protobuf-object-any/</link>
+      <pubDate>Sat, 16 Mar 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/protobuf-object-any/</guid>
+      <description>Protobuf 該如何處理不定型別 之前筆記 Protobuf 時間屬性該如何表示？ 紀錄了 C# DateTime 屬性在 Protobuf 的 message 表示方式，當時在找資料時發現 any.proto 特別查了資料看可以應用在什麼地方，就個</description>
+    </item>
+    
+    <item>
+      <title>.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫</title>
+      <link>https://blog.yowko.com/dotnet-core-jaeger-grpc/</link>
+      <pubDate>Wed, 13 Mar 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-core-jaeger-grpc/</guid>
+      <description>.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 隨著系統使用人數愈來愈多，架構也跟著愈來愈複雜，各種技術為了解決既有問題或是加快反應速度不斷推陳出新，服務的架構也從單</description>
+    </item>
+    
+    <item>
+      <title>Protobuf 時間屬性該如何表示？</title>
+      <link>https://blog.yowko.com/protobuf-datetime-timestamp/</link>
+      <pubDate>Tue, 12 Mar 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/protobuf-datetime-timestamp/</guid>
+      <description>Protobuf 時間屬性該如何表示？ 最近的專案在跨 application 的溝通上捨去以往熟悉的 RESTful API 而採用 gRPC 做為溝通的 protocal，過去沒有相關使用經驗的我當然是踩雷不斷，</description>
+    </item>
+    
+  </channel>
+</rss>

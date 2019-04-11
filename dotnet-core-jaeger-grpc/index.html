@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content=".NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 隨著系統使用人數愈來愈多，架構也跟著愈來愈複雜，各種技術為了解決既有問題或是加快反應速度不斷推陳出新，服務的架構也從單" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/dotnet-core-jaeger-grpc/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content=".NET Core 上使用 Jaeger 追蹤 gRPC 呼叫" />
+<meta property="og:description" content=".NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 隨著系統使用人數愈來愈多，架構也跟著愈來愈複雜，各種技術為了解決既有問題或是加快反應速度不斷推陳出新，服務的架構也從單" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/dotnet-core-jaeger-grpc/" /><meta property="article:published_time" content="2019-03-13T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-03-13T21:30:31&#43;08:00"/>
+
+<meta itemprop="name" content=".NET Core 上使用 Jaeger 追蹤 gRPC 呼叫">
+<meta itemprop="description" content=".NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 隨著系統使用人數愈來愈多，架構也跟著愈來愈複雜，各種技術為了解決既有問題或是加快反應速度不斷推陳出新，服務的架構也從單">
+
+
+<meta itemprop="datePublished" content="2019-03-13T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-03-13T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="1054">
+
+
+
+<meta itemprop="keywords" content="dotnet core,C#,gRPC,Protobuf,Jaeger," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=".NET Core 上使用 Jaeger 追蹤 gRPC 呼叫"/>
+<meta name="twitter:description" content=".NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 隨著系統使用人數愈來愈多，架構也跟著愈來愈複雜，各種技術為了解決既有問題或是加快反應速度不斷推陳出新，服務的架構也從單"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-03-13 </span>
+        
+        <span class="more-meta"> 約 1054 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#net-core-上使用-jaeger-追蹤-grpc-呼叫">.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫</a>
+<ul>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#建立-jaeger-環境">建立 Jaeger 環境</a></li>
+<li><a href="#建立-grpc-message-共用層">建立 gRPC.Message 共用層</a></li>
+<li><a href="#建立-grpc-server">建立 gRPC.Server</a></li>
+<li><a href="#建立-grpc-client">建立 gRPC.Client</a></li>
+<li><a href="#實際使用">實際使用</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="net-core-上使用-jaeger-追蹤-grpc-呼叫">.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫</h1>
+
+<p>隨著系統使用人數愈來愈多，架構也跟著愈來愈複雜，各種技術為了解決既有問題或是加快反應速度不斷推陳出新，服務的架構也從單一系統變成多層式設計再轉為微服務，但不變的還是需要 trace log 來解決 bug，為了解決日益困難的 trace 問題，2010 年 Google 發表了 <a href="https://ai.google/research/pubs/pub36356" target="_blank">Dapper, a Large-Scale Distributed Systems Tracing Infrastructure</a> 論文，立下了分散式追蹤系統的根基，有很多系統就是基於該篇論文內容的實作，包含了 Zipkin、Jaeger &hellip;.etc</p>
+
+<p>所在團隊需要一套可以 trace ASP.NET Core + gRPC 的軟體，過程中嘗試了 Zipkin、Jaeger、SkyWalking，最後選擇了 Jaeger，剛完成 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫的 POC, 立馬紀錄一下，不然我相信我一定記不了多久的XD</p>
+
+<h2 id="基本環境說明">基本環境說明</h2>
+
+<ol>
+<li>macOS Mojave 10.14.3</li>
+<li>Docker Engine - Community 18.09.2</li>
+<li>Grpc 1.19.0</li>
+<li>Grpc.Tools 1.19.0</li>
+<li>Google.Protobuf 3.7.0</li>
+<li>Google.Protobuf.Tools 3.7.0</li>
+<li>OpenTracing.Contrib.Grpc 0.1.0</li>
+<li>Jaeger 0.2.2</li>
+<li>Microsoft.Extensions.Logging.Console 2.2.0</li>
+
+<li><p>ProtoBuf 定義</p>
+
+<ul>
+<li><p>message</p>
+
+<pre><code>syntax = &quot;proto3&quot;;
+
+package gRPC.Message;
+option csharp_namespace = &quot;gRPC.Message&quot;;
+import &quot;google/protobuf/timestamp.proto&quot;;
+
+message HelloRequest{
+    string Name=1;
+    google.protobuf.Timestamp SendDate=2;
+}
+
+message GoodByeRequest{
+    string Name=1;
+}
+
+message Response{
+    bool IsSuccess=1;
+    string ResponseMsg=2;
+}
+</code></pre></li>
+
+<li><p>service</p>
+
+<pre><code>syntax = &quot;proto3&quot;;
+
+package gRPC.Message; 
+option csharp_namespace = &quot;gRPC.Message&quot;;
+import &quot;message.proto&quot;;
+
+service gRPCService {
+rpc SayHello(HelloRequest) returns (Response);
+rpc SayGoodbye(GoodByeRequest) returns (Response);
+}
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="建立-jaeger-環境">建立 Jaeger 環境</h2>
+
+<blockquote>
+<p>透過 docker 建立 Jaeger 服務及後台</p>
+</blockquote>
+
+<pre><code class="language-bash">docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
+</code></pre>
+
+<h2 id="建立-grpc-message-共用層">建立 gRPC.Message 共用層</h2>
+
+<ol>
+<li><p>安裝 NuGet 套件</p>
+
+<ul>
+<li><p>Grpc</p>
+
+<ul>
+<li><p>Package Manager</p>
+
+<pre><code>Install-Package Grpc
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package Grpc
+</code></pre></li>
+</ul></li>
+
+<li><p>Grpc.Tools</p>
+
+<ul>
+<li><p>Package Manager</p>
+
+<pre><code>Install-Package Grpc.Tools
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package Grpc.Tools
+</code></pre></li>
+</ul></li>
+
+<li><p>Google.Protobuf</p>
+
+<ul>
+<li><p>Package Manager</p>
+
+<pre><code>Install-Package Google.Protobuf
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package Google.Protobuf
+</code></pre></li>
+</ul></li>
+
+<li><p>OpenTracing.Contrib.Grpc</p>
+
+<ul>
+<li><p>Package Manager</p>
+
+<pre><code>Install-Package OpenTracing.Contrib.Grpc
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package OpenTracing.Contrib.Grpc
+</code></pre></li>
+</ul></li>
+
+<li><p>Jaeger</p>
+
+<ul>
+<li><p>Package Manager</p>
+
+<pre><code>Install-Package Jaeger
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package Jaeger
+</code></pre></li>
+</ul></li>
+
+<li><p>Microsoft.Extensions.Logging.Console</p>
+
+<ul>
+<li><p>Package Manager</p>
+
+<pre><code>Install-Package Microsoft.Extensions.Logging.Console
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code>dotnet add package Microsoft.Extensions.Logging.Console
+</code></pre></li>
+</ul></li>
+</ul></li>
+
+<li><p>將 protobuf 轉為 C# class</p>
+
+<pre><code>/Users/`whoami`/.nuget/packages/grpc.tools/1.19.0/tools/macosx_x64/protoc -I /Users/`whoami`/.nuget/packages/google.protobuf.tools/3.7.0/tools/ -I ./proto/ --csharp_out src/gRPC.Message --grpc_out src/gRPC.Message ./proto/*.proto --plugin=protoc-gen-grpc=/Users/`whoami`/.nuget/packages/grpc.tools/1.19.0/tools/macosx_x64/grpc_csharp_plugin
+</code></pre></li>
+
+<li><p>加入 TracingHelper.cs</p>
+
+<pre><code class="language-cs">using Microsoft.Extensions.Logging;
+using Jaeger;
+using Jaeger.Samplers;
+
+namespace gRPC.Message
+{
+    public static class TracingHelper
+    {
+        public static Tracer InitTracer(string serviceName, ILoggerFactory loggerFactory)
+        {
+            Configuration.SamplerConfiguration samplerConfiguration = new Configuration.SamplerConfiguration(loggerFactory)
+                .WithType(ConstSampler.Type)
+                .WithParam(1);
+
+            Configuration.ReporterConfiguration reporterConfiguration = new Configuration.ReporterConfiguration(loggerFactory)
+                .WithLogSpans(true);
+
+            return (Tracer)new Configuration(serviceName, loggerFactory)
+                .WithSampler(samplerConfiguration)
+                .WithReporter(reporterConfiguration)
+                .GetTracer();
+        }
+    }
+}
+</code></pre></li>
+</ol>
+
+<h2 id="建立-grpc-server">建立 gRPC.Server</h2>
+
+<ol>
+<li>將 gRPC.Message 加入參考</li>
+
+<li><p>加入 gRPCServiceImpl.cs 並繼承 gRPCService.gRPCServiceBase</p>
+
+<pre><code class="language-cs">using System.Reflection.Metadata.Ecma335;
+using System.Threading.Tasks;
+using gRPC.Message;
+using Grpc.Core;
+
+namespace gRPC.Server
+{
+    public class gRPCServiceImpl : gRPCService.gRPCServiceBase
+    {
+        public override Task&lt;Response&gt; SayHello(HelloRequest request, ServerCallContext context)
+        {
+            return new Task&lt;Response&gt;(() =&gt;
+            {
+                return new Response
+                {
+                    IsSuccess = true,
+                    ResponseMsg = $&quot;Hi {request.Name} @ {request.SendDate.ToDateTime()} !!!&quot;
+                };
+            });
+        }
+
+        public override Task&lt;Response&gt; SayGoodbye(GoodByeRequest request, ServerCallContext context)
+        {
+            return new Task&lt;Response&gt;(() =&gt;
+            {
+                return new Response
+                {
+                    IsSuccess = true,
+                    ResponseMsg = $&quot;Bye,{request.Name}&quot;
+                };
+            });
+        }
+    }
+}
+</code></pre></li>
+
+<li><p>建立 gRPC interceptor 並啟動 gRPC server</p>
+
+<pre><code class="language-cs">using System;
+using System.Threading.Tasks;
+using gRPC.Message;
+using Grpc.Core;
+using Grpc.Core.Interceptors;
+using Jaeger;
+using Microsoft.Extensions.Logging;
+using OpenTracing.Contrib.Grpc.Interceptors;
+
+namespace gRPC.Server
+{
+    public class Program
+    {
+        private const string Server = &quot;localhost&quot;;
+        const int Port = 50051;
+
+
+        public static async Task Main(string[] args)
+        {
+            ILoggerFactory loggerFactory = new LoggerFactory().AddConsole();
+            var serviceName = &quot;server&quot;;
+            Tracer tracer = TracingHelper.InitTracer(serviceName, loggerFactory);
+            ServerTracingInterceptor tracingInterceptor = new ServerTracingInterceptor(tracer);
+                
+                
+            Grpc.Core.Server server = new Grpc.Core.Server
+            {
+                Services = {gRPCService.BindService(new gRPCServiceImpl()).Intercept(tracingInterceptor)},
+                Ports = {new ServerPort(Server, Port, ServerCredentials.Insecure)}
+            };
+            server.Start();
+
+            Console.WriteLine($&quot;Greeter server listening on server {server} and port {Port}&quot;);
+            Console.WriteLine(&quot;Press any key to stop the server...&quot;);
+            Console.ReadKey();
+
+            await server.ShutdownAsync();
+        }
+    }
+}
+</code></pre></li>
+</ol>
+
+<h2 id="建立-grpc-client">建立 gRPC.Client</h2>
+
+<ol>
+<li>將 gRPC.Message 加入參考</li>
+
+<li><p>建立 gRPC interceptor 並啟動 gRPC server</p>
+
+<pre><code class="language-cs">using System;
+using System.Threading.Tasks;
+using gRPC.Message;
+using Google.Protobuf.WellKnownTypes;
+using Grpc.Core;
+using Grpc.Core.Interceptors;
+using Jaeger;
+using Microsoft.Extensions.Logging;
+using OpenTracing.Contrib.Grpc.Interceptors;
+
+namespace gRPC.Client
+{
+    public class Program
+    {
+        const string Server = &quot;localhost&quot;;
+        const int Port = 50051;
+
+        public static async Task Main(string[] args)
+        {
+            var loggerFactory =new LoggerFactory().AddConsole();
+            var serviceName = &quot;client&quot;;
+            Tracer tracer = TracingHelper.InitTracer(serviceName, loggerFactory);
+            ClientTracingInterceptor tracingInterceptor = new ClientTracingInterceptor(tracer);
+
+
+            Channel channel = new Channel($&quot;{Server}:{Port}&quot;, ChannelCredentials.Insecure);
+
+            var client = new gRPCService.gRPCServiceClient(channel.Intercept(tracingInterceptor));
+            string user = &quot;yowko&quot;;
+
+            var reply = client.SayHello(new HelloRequest {Name = user,SendDate = DateTime.UtcNow.ToTimestamp()});
+            Console.WriteLine(&quot;Greeting: &quot; + reply.ResponseMsg);
+
+
+            var response = client.SayGoodbye(new GoodByeRequest() {Name = user});
+            Console.WriteLine(&quot;Response: &quot; + response.ResponseMsg);
+
+            await channel.ShutdownAsync();
+            Console.WriteLine(&quot;Press any key to exit...&quot;);
+            Console.ReadKey();
+        }
+    }
+}
+</code></pre></li>
+</ol>
+
+<h2 id="實際使用">實際使用</h2>
+
+<ul>
+<li><p>使用 <a href="http://localhost:16686" target="_blank">http://localhost:16686</a> 開啟 Jaeger UI</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/54298274-68da0980-45f3-11e9-84d7-193c50ce1837.png" alt="1jaegerui" /></p></li>
+
+<li><p>依 <code>Service</code> 及 <code>Operation</code> 來搜尋</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/54298275-68da0980-45f3-11e9-997b-a3dd0b6d7ccb.png" alt="2findtrace" /></p></li>
+
+<li><p>搜尋結果</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/54298276-6972a000-45f3-11e9-888d-ff08120f6665.png" alt="3traces" /></p></li>
+
+<li><p>trace 細節</p>
+
+<blockquote>
+<p>包含單一 service 內容及 service 使用順序</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/54298279-6972a000-45f3-11e9-9fcb-c1bf37d317ec.png" alt="4tracedetail" /></p></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>前面提到嘗試了 Zipkin、Jaeger、SkyWalking，其中 Zipkin 因為在 interceptor 的處理相對複雜而出局;SkyWalking 使用的組件較多、問題也較多下決定放棄，以使用的難易度來看，Jaeger 相較 Zipkin 與 SkyWalking 下，至少輕了二個量級：架構容易、使用方式也簡單</p>
+
+<p>完成程式碼內容請參考 <a href="https://github.com/yowko/dotnetCore-gRPC-Jaeger.git" target="_blank">yowko/dotnetCore-gRPC-Jaeger</a></p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://github.com/opentracing-contrib/csharp-grpc/blob/master/getting_started/README.md" target="_blank">OpenTracing gRPC Tutorial - C#</a></li>
+<li><a href="https://github.com/yowko/dotnetCore-gRPC-Jaeger.git" target="_blank">yowko/dotnetCore-gRPC-Jaeger</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-03-13</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    
+		      
+		    	
+            <a href="https://blog.yowko.com/tags/dotnet-core/">.NET Core</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/grpc/">gRPC</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/protobuf/">Protobuf</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/jaeger/">Jaeger</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/protobuf-object-any/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">Protobuf 該如何處理不定型別</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/protobuf-datetime-timestamp/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">Protobuf 時間屬性該如何表示？</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/dotnet-core-jaeger-grpc\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

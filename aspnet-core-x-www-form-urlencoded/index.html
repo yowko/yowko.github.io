@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded 最近某個專案需要將資料(前端)傳送至其他平台 API 進行處理，跟一般需求相同，只是資料傳輸格式不是使用過去較熟悉的 application/json 而是使" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/aspnet-core-x-www-form-urlencoded/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded" />
+<meta property="og:description" content="讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded 最近某個專案需要將資料(前端)傳送至其他平台 API 進行處理，跟一般需求相同，只是資料傳輸格式不是使用過去較熟悉的 application/json 而是使" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/aspnet-core-x-www-form-urlencoded/" /><meta property="article:published_time" content="2018-10-01T02:44:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-10T02:44:00&#43;08:00"/>
+
+<meta itemprop="name" content="讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded">
+<meta itemprop="description" content="讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded 最近某個專案需要將資料(前端)傳送至其他平台 API 進行處理，跟一般需求相同，只是資料傳輸格式不是使用過去較熟悉的 application/json 而是使">
+
+
+<meta itemprop="datePublished" content="2018-10-01T02:44:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-10T02:44:00&#43;08:00" />
+<meta itemprop="wordCount" content="629">
+
+
+
+<meta itemprop="keywords" content="ASP.NET Core,ASP.NET Web API," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded"/>
+<meta name="twitter:description" content="讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded 最近某個專案需要將資料(前端)傳送至其他平台 API 進行處理，跟一般需求相同，只是資料傳輸格式不是使用過去較熟悉的 application/json 而是使"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-10-01 </span>
+        
+        <span class="more-meta"> 約 629 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#讓-asp-net-web-api-與-asp-net-core-可以支援-x-www-form-urlencoded">讓  ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded</a>
+<ul>
+<li><a href="#前提設定">前提設定</a></li>
+<li><a href="#asp-net-web-api">ASP.NET Web API</a></li>
+<li><a href="#asp-net-core">ASP.NET Core</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="讓-asp-net-web-api-與-asp-net-core-可以支援-x-www-form-urlencoded">讓  ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded</h1>
+
+<p>最近某個專案需要將資料(前端)傳送至其他平台 API 進行處理，跟一般需求相同，只是資料傳輸格式不是使用過去較熟悉的 <code>application/json</code> 而是使用 <code>application/x-www-form-urlencoded</code></p>
+
+<p>雖然 <code>application/x-www-form-urlencoded</code> 是 POST 的預設格式，但單純 key-value 的格式在複雜情境下不免捉襟見肘，所以過去絕大部份專案都使用 <code>application/json</code></p>
+
+<p>用慣了 <code>application/json</code> 遇到 <code>application/x-www-form-urlencoded</code> 卻換成是我捉襟見肘了XD 為了確認負責的前端專案可以正確與外部平台串接，於是嘗試架設可以用來 debug 的 API ，有些設定沒有用過，順手筆記一下</p>
+
+<h2 id="前提設定">前提設定</h2>
+
+<ol>
+<li><p>POST model</p>
+
+<pre><code class="language-cs">public class loginmodel
+{
+    public string username { get; set; }
+    public string password { get; set; }
+    public string type { get; set; }
+}
+</code></pre></li>
+
+<li><p>使用 postman 進行測試</p>
+
+<blockquote>
+<p>以下為 postman 產出的 curl 內容，url 記得換為目標 api url</p>
+</blockquote>
+
+<pre><code>curl -X POST \
+{url} \
+-H 'Content-Type: application/x-www-form-urlencoded' \
+-d 'username=yowko&amp;password=password&amp;type=basic'
+</code></pre></li>
+</ol>
+
+<h2 id="asp-net-web-api">ASP.NET Web API</h2>
+
+<blockquote>
+<p>沒有特殊設定，只要直接建立 controller 以及 action 即可直接使用</p>
+</blockquote>
+
+<ol>
+<li><p>程式碼</p>
+
+<blockquote>
+<p>參數屬性 <code>[FromBody]</code> 加不加都可以正確 binding</p>
+</blockquote>
+
+<pre><code class="language-cs">public class ValuesController : ApiController
+{
+    [HttpPost]
+    //public string Post([FromBody]loginmodel data)
+    public string Post(loginmodel data)
+    {
+        var value = data;
+        return $&quot;{Request.Content.Headers.ContentType}_{value.username}_{value.password}_{value.type}&quot;;
+    }
+}
+</code></pre></li>
+
+<li><p>實際結果</p>
+
+<ul>
+<li><p>使用 <code>application/json</code></p>
+
+<blockquote>
+<p>可正確取得資料</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/46751630-aad1ed00-cced-11e8-8fc0-db1b9b07a37f.png" alt="1webapijson" /></p></li>
+
+<li><p>使用 <code>application/x-www-form-urlencoded</code></p>
+
+<blockquote>
+<p>可正確取得資料</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/46751631-ab6a8380-cced-11e8-90cf-f85fc8ae86b1.png" alt="2webapiurlencode" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="asp-net-core">ASP.NET Core</h2>
+
+<blockquote>
+<p><code>[FromForm]</code> 參數屬性是主要的重點</p>
+</blockquote>
+
+<ol>
+<li><p>程式碼</p>
+
+<blockquote>
+<p><code>[Consumes(&quot;application/x-www-form-urlencoded&quot;)]</code> 加不加都不影響 binding，但加上後在遇到錯誤 content-type 時回應較明確</p>
+</blockquote>
+
+<pre><code class="language-cs">[Route(&quot;api/[controller]&quot;)]
+[ApiController]
+public class ValuesController : ControllerBase
+{
+    [HttpPost]
+    [Consumes(&quot;application/x-www-form-urlencoded&quot;)]
+    public string Post([FromForm]loginmodel data)
+    {
+        return $&quot;{Request.Headers[&quot;Content-Type&quot;]}_{data.username}_{data.password}_{data.type}&quot;;
+    }
+}
+</code></pre></li>
+
+<li><p>實際結果</p>
+
+<ul>
+<li><p>使用 <code>application/json</code> 且未加上 <code>[Consumes(&quot;application/x-www-form-urlencoded&quot;)]</code></p>
+
+<blockquote>
+<p>無法正確取得資料</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/46751632-ab6a8380-cced-11e8-8cd7-9c0dc3377a87.png" alt="3corejosnempty" /></p></li>
+
+<li><p>使用 <code>application/json</code> 並加上 <code>[Consumes(&quot;application/x-www-form-urlencoded&quot;)]</code></p>
+
+<blockquote>
+<p>無法正確取得資料並得到 <code>415 Unsupported Media Type</code> 錯誤</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/46751633-ab6a8380-cced-11e8-95c0-01e395402c51.png" alt="4corejson415" /></p></li>
+
+<li><p>使用 <code>application/x-www-form-urlencoded</code></p>
+
+<blockquote>
+<p>可正確取得資料</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/46751634-ac031a00-cced-11e8-9dd5-574c7ab37d9d.png" alt="5coreurlencoded" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>ASP.NET Web API 太方便了呀，什麼設定都不用就可以通吃</p>
+
+<p>ASP.NET Core 雖然相對麻煩了些，但讓實際開發人員處理這類細微差異反而更能讓程式碼有更正確的回應，設計理念比較符合現代思維</p>
+
+<p>以這次的經驗來說，預期應該只有 <code>application/x-www-form-urlencoded</code> 的 request 可以通過資料傳送</p>
+
+<ul>
+<li>ASP.NET Web API 卻自行轉換</li>
+<li>ASP.NET Core 沒有加上 <code>[Consumes(&quot;application/x-www-form-urlencoded&quot;)]</code> 的版本還無法正確 binding 資料</li>
+</ul>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://stackoverflow.com/a/49042444/3600583" target="_blank">Accept x-www-form-urlencoded in Web API .Net Core</a></li>
+<li><a href="https://docs.microsoft.com/zh-tw/aspnet/web-api/overview/advanced/sending-html-form-data-part-1" target="_blank">ASP.NET Web API 中傳送 HTML 表單資料： form-urlencoded 資料</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-10-10</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/asp.net-core/">ASP.NET Core</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/asp.net-web-api/">ASP.NET Web API</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/google-search-in-hugo/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">將 Google自訂搜尋引擎 (Google Custom Search) 搭配 OpenSearch 加至 Hugo 網站中</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/dotnet-blogger-library/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">如何使用 Blogger APIs Client Library for .NET 匯出 Blogger 文章</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/aspnet-core-x-www-form-urlencoded\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

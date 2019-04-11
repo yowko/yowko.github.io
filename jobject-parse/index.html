@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>從 Json String 中取得物件的屬性值 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="從 Json String 中取得物件的屬性值 之前文章 使用 string 建立 instance 及反序列化 json 為 class 介紹到如何使用 string 產生 instance 及反序列化 json 為 class，後來同事看到寫法建議可以用 json.net 的 JObject.Parse" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/jobject-parse/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="從 Json String 中取得物件的屬性值" />
+<meta property="og:description" content="從 Json String 中取得物件的屬性值 之前文章 使用 string 建立 instance 及反序列化 json 為 class 介紹到如何使用 string 產生 instance 及反序列化 json 為 class，後來同事看到寫法建議可以用 json.net 的 JObject.Parse" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/jobject-parse/" /><meta property="article:published_time" content="2017-07-30T23:55:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-24T00:41:54&#43;08:00"/>
+
+<meta itemprop="name" content="從 Json String 中取得物件的屬性值">
+<meta itemprop="description" content="從 Json String 中取得物件的屬性值 之前文章 使用 string 建立 instance 及反序列化 json 為 class 介紹到如何使用 string 產生 instance 及反序列化 json 為 class，後來同事看到寫法建議可以用 json.net 的 JObject.Parse">
+
+
+<meta itemprop="datePublished" content="2017-07-30T23:55:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-24T00:41:54&#43;08:00" />
+<meta itemprop="wordCount" content="608">
+
+
+
+<meta itemprop="keywords" content="套件,C#," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="從 Json String 中取得物件的屬性值"/>
+<meta name="twitter:description" content="從 Json String 中取得物件的屬性值 之前文章 使用 string 建立 instance 及反序列化 json 為 class 介紹到如何使用 string 產生 instance 及反序列化 json 為 class，後來同事看到寫法建議可以用 json.net 的 JObject.Parse"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-07-30 </span>
+        
+        <span class="more-meta"> 約 608 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#從-json-string-中取得物件的屬性值">從 Json String 中取得物件的屬性值</a>
+<ul>
+<li><a href="#基本設定">基本設定</a></li>
+<li><a href="#將-json-string-反序列化指定-class">將 json string 反序列化指定 class</a></li>
+<li><a href="#改使用-jobject-parse">改使用 JObject.Parse</a></li>
+<li><a href="#兩者效果比較">兩者效果比較</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="從-json-string-中取得物件的屬性值">從 Json String 中取得物件的屬性值</h1>
+
+<p>之前文章 <a href="https://blog.yowko.com/2017/07/string-create-instance.html" target="_blank">使用 string 建立 instance 及反序列化 json 為 class</a> 介紹到如何使用 string 產生 instance 及反序列化 json 為 class，後來同事看到寫法建議可以用 json.net 的 <code>JObject.Parse</code> 語法</p>
+
+<p>後來試了一下，覺得滿方便的，但用途不太一樣，順手紀錄一下</p>
+
+<h2 id="基本設定">基本設定</h2>
+
+<p>本文會延續 <a href="https://blog.yowko.com/2017/07/string-create-instance.html" target="_blank">使用 string 建立 instance 及反序列化 json 為 class</a> 來進行比較，詳細資訊可以參考 使用 <a href="https://blog.yowko.com/2017/07/string-create-instance.html" target="_blank">string 建立 instance 及反序列化 json 為 class</a> 內容</p>
+
+<ol>
+<li><p>共用的 model class</p>
+
+<pre><code class="language-cs">public class User
+{
+    public Guid _internalId { get; set; }
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Addr { get; set; }
+    public string Phone { get; set; }
+    public int BirthMonth { get; set; }
+}
+</code></pre></li>
+
+<li><p>呼叫遠端方法時，一併提供</p>
+
+<ul>
+<li>class 的 <code>AssemblyQualifiedName</code></li>
+<li>model instance 的 json string</li>
+</ul></li>
+
+<li><p>遠端需要取得 json string 的屬性值進行操作</p></li>
+</ol>
+
+<h2 id="將-json-string-反序列化指定-class">將 json string 反序列化指定 class</h2>
+
+<pre><code class="language-cs">void Deserialize(string typename, string jsonstr)
+{
+    Type dataType = Type.GetType(typename);
+    var obj = JsonConvert.DeserializeObject(jsonstr, dataType);
+    // do something
+}
+</code></pre>
+
+<h2 id="改使用-jobject-parse">改使用 JObject.Parse</h2>
+
+<ol>
+<li><p>發送端程式碼</p>
+
+<pre><code class="language-cs">void Main()
+{
+    var typename = typeof(User).AssemblyQualifiedName;
+    User dto = new User() { _internalId = Guid.NewGuid(), Name = &quot;Yowko&quot;, Addr = &quot;Taipei&quot;, BirthMonth = 7, Id = &quot;A123456789&quot;, Phone = &quot;09123456789&quot; };
+    var jsonstr = JsonConvert.SerializeObject(dto);
+    SendObj(typename, jsonstr);
+}
+void SendObj(string typename, string jsonstr)
+{
+    //web request
+}
+public class PstData
+{
+    public string typename { get; set; }
+    public string jsonstr { get; set; }
+}
+</code></pre></li>
+
+<li><p>接收端程式碼</p>
+
+<pre><code class="language-cs">public IHttpActionResult Post([FromBody]PstData value)
+{
+    Deserialize(value.typename, value.jsonstr);
+}
+void Deserialize(string typename, string jsonstr)
+{
+    JObject.Parse(jsonstr).Dump();
+    // do something
+}
+</code></pre></li>
+
+<li><p>實際效果</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/28755226-93bbf434-7588-11e7-815b-d8056c7c210f.png" alt="1jobjectparse" /></p></li>
+</ol>
+
+<h2 id="兩者效果比較">兩者效果比較</h2>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/28755227-93e78fae-7588-11e7-84aa-0cd21aeee3fd.png" alt="2compare" /></p>
+
+<ul>
+<li><p>結果型別不同</p>
+
+<ul>
+<li>JsonConvert.DeserializeObject 會在執行時期將 json string 轉型為目標型別</li>
+<li>JObject.Parse 會將 json string 轉為 <a href="http://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm" target="_blank">JObject</a></li>
+</ul></li>
+
+<li><p>特定屬性操作</p>
+
+<ul>
+<li><p>JsonConvert.DeserializeObject 在開發時間僅擁有 object 的相關 api 可用</p>
+
+<blockquote>
+<p>只能使用 reflection</p>
+
+<pre><code>*   obj.GetType().GetProperties().Skip(1).Take(1).FirstOrDefault().GetValue(obj);
+</code></pre>
+</blockquote></li>
+
+<li><p>JObject.Parse 可以使用 <a href="http://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm" target="_blank">JObject</a> 功能</p>
+
+<blockquote>
+<p>可以指定屬性名稱或是屬性位置取得實際值</p>
+
+<pre><code>*   obj.Property(&quot;Name&quot;)
+*   obj.Properties().AsJEnumerable().Skip(1).Take(1)
+</code></pre>
+</blockquote></li>
+</ul></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>如果需要完整將 json string 還原為特定 class，就使用 <code>JsonConvert.DeserializeObject</code>，可以取得完整的屬性名稱及值</p>
+
+<p>如果只需取得值來進行操作，就使用 <code>JObject.Parse</code> 相對方便，也不用擔心，class 名稱錯誤或是轉型失敗的問題</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://blog.yowko.com/2017/07/string-create-instance.html" target="_blank">使用 string 建立 instance 及反序列化 json 為 class</a></li>
+<li><a href="http://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm" target="_blank">JObject</a></li>
+<li><a href="http://www.newtonsoft.com/json/help/html/M_Newtonsoft_Json_Linq_JObject_Parse.htm" target="_blank">JObject.Parse Method</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-24</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/%E5%A5%97%E4%BB%B6/">套件</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/mstest-datasource/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">讓 MSTest 支援使用資料集進行重覆測試</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/gettype/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">關於 GetType 的一些事</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/jobject-parse\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

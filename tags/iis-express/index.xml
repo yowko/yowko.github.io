@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IIS Express on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/iis-express/</link>
+    <description>Recent content in IIS Express on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 28 Jun 2017 21:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/iis-express/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>IIS Express 出現 500.19 - 0x800700b7 錯誤？！</title>
+      <link>https://blog.yowko.com/iis-express-50019-config-duplicate/</link>
+      <pubDate>Wed, 28 Jun 2017 21:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/iis-express-50019-config-duplicate/</guid>
+      <description>IIS Express 出現 500.19 - 0x800700b7 錯誤？！ 同事請我協助測試一段程式碼，一如往常的 clone source code，使用 Visual Studio 開啟 .sln，按下 F6 restore NuGet packages and build success，接著 Ctrl+F5 啟動不</description>
+    </item>
+    
+    <item>
+      <title>讓 IIS EXPRESS 的網站允許外部連接(allow remote access)</title>
+      <link>https://blog.yowko.com/iis-express-allow-external-access/</link>
+      <pubDate>Fri, 09 Dec 2016 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/iis-express-allow-external-access/</guid>
+      <description>讓 IIS EXPRESS 的網站允許外部連接(allow remote access) 讓 IIS EXPRESS 的網站可以被對本機以外提供服務 前端、行動裝置再加上愈來愈多的 IOT 相關應用出現，後端工程師最大的功</description>
+    </item>
+    
+  </channel>
+</rss>

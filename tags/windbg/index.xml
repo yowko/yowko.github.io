@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WinDBG on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/windbg/</link>
+    <description>Recent content in WinDBG on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 16 Jul 2018 15:41:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/windbg/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用 WinDbg 查出 Redis OOM - Out of Memory</title>
+      <link>https://blog.yowko.com/windbg-redis-oom-out-of-memory/</link>
+      <pubDate>Mon, 16 Jul 2018 15:41:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windbg-redis-oom-out-of-memory/</guid>
+      <description>使用 WinDbg 查出 Redis OOM - Out of Memory Session 是網站開發時既方便又相對 Cookie 安全的資料儲存技術，但 Session 弱型別的特性容易造成程式碼可讀性降低，另外 Session 將資料儲存在 server 上的特性</description>
+    </item>
+    
+    <item>
+      <title>WinDbg 設定 symbol file path 的四種方法</title>
+      <link>https://blog.yowko.com/windbg-symbol-file-path/</link>
+      <pubDate>Mon, 18 Jun 2018 00:49:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windbg-symbol-file-path/</guid>
+      <description>WinDbg 設定 symbol file path 的四種方法 有一陣子沒用 WinDbg 來進行偵錯，再次感受到年紀的影響，指令忘得很乾淨XD 當然 WinDbg 的指令對我而言本來就沒有記得很牢，忘得快也是意</description>
+    </item>
+    
+    <item>
+      <title>DebugDiag 2 Analysis 出現 DacError</title>
+      <link>https://blog.yowko.com/debugdiag-2-analysis-dacerror/</link>
+      <pubDate>Sun, 28 Jan 2018 22:43:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/debugdiag-2-analysis-dacerror/</guid>
+      <description>DebugDiag 2 Analysis 出現 DacError 繼前篇筆記 WinDBG 出現 SOS does not support the current target architecture ?! 紀錄在使用 WinDBG 偵錯 production issue 時遇到使用 64-bit 工作管理員匯出 32-bit 程式的 dump 而無法順利完成偵錯的狀況 遇到問題當下並</description>
+    </item>
+    
+    <item>
+      <title>WinDBG 出現 SOS does not support the current target architecture ?!</title>
+      <link>https://blog.yowko.com/windbg-sos-does-not-support-current/</link>
+      <pubDate>Sun, 28 Jan 2018 02:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windbg-sos-does-not-support-current/</guid>
+      <description>WinDBG 出現 SOS does not support the current target architecture ?! 前幾天 production server 上的出現 CPU high 的 warning，當下立馬想到使用 WinDBG 來追查問題發生原因，只是我使用 WinDBG 的頻率不高，每次在使用前都</description>
+    </item>
+    
+  </channel>
+</rss>

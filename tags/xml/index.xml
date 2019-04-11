@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>XML on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/xml/</link>
+    <description>Recent content in XML on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 02 Jul 2017 22:53:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/xml/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用 XSD 為 XML 客製 Intellisense 輸入選單</title>
+      <link>https://blog.yowko.com/xml-intellisense-xsd/</link>
+      <pubDate>Sun, 02 Jul 2017 22:53:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/xml-intellisense-xsd/</guid>
+      <description>使用 XSD 為 XML 客製 Intellisense 輸入選單 同事負責的專案中有個自訂的 XML，主要用來紀錄一些不同 partner 的設定資訊。因為 partner 很多，常有新增或是調整這個 XML 的需求，為了避</description>
+    </item>
+    
+  </channel>
+</rss>

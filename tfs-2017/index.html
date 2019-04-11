@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>TFS 2017 初體驗 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="TFS 2017 初體驗 公司正在評估新的版本控制系統，主要想要從 subversion 遷移至 Git 上，因此開始評估各個 Git server，包括 GitLab、BitBucket、TFS" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/tfs-2017/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="TFS 2017 初體驗" />
+<meta property="og:description" content="TFS 2017 初體驗 公司正在評估新的版本控制系統，主要想要從 subversion 遷移至 Git 上，因此開始評估各個 Git server，包括 GitLab、BitBucket、TFS" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/tfs-2017/" /><meta property="article:published_time" content="2017-03-26T02:44:34&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-15T00:42:34&#43;08:00"/>
+
+<meta itemprop="name" content="TFS 2017 初體驗">
+<meta itemprop="description" content="TFS 2017 初體驗 公司正在評估新的版本控制系統，主要想要從 subversion 遷移至 Git 上，因此開始評估各個 Git server，包括 GitLab、BitBucket、TFS">
+
+
+<meta itemprop="datePublished" content="2017-03-26T02:44:34&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-15T00:42:34&#43;08:00" />
+<meta itemprop="wordCount" content="313">
+
+
+
+<meta itemprop="keywords" content="DevOps," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="TFS 2017 初體驗"/>
+<meta name="twitter:description" content="TFS 2017 初體驗 公司正在評估新的版本控制系統，主要想要從 subversion 遷移至 Git 上，因此開始評估各個 Git server，包括 GitLab、BitBucket、TFS"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-03-26 </span>
+        
+        <span class="more-meta"> 約 313 字 </span>
+          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#tfs-2017-初體驗">TFS 2017 初體驗</a>
+<ul>
+<li><a href="#建立新專案">建立新專案</a></li>
+<li><a href="#刪除-重新命名-專案">刪除|重新命名 專案</a></li>
+<li><a href="#tfs-功能導覽">TFS 功能導覽</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="tfs-2017-初體驗">TFS 2017 初體驗</h1>
+
+<p>公司正在評估新的版本控制系統，主要想要從 subversion 遷移至 Git 上，因此開始評估各個 Git server，包括 GitLab、BitBucket、TFS。近來 TFS 整合許多專案管理工具，也重新調整 Release Management 的整合，現在專案的完整流程可以統一由 TFS 進行管理，使用上方便許多。隨手紀錄基本操作</p>
+
+<h2 id="建立新專案">建立新專案</h2>
+
+<ol>
+<li><p>首頁 &ndash;&gt; 管理</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184297/41445fa2-0f08-11e7-97f3-dee3f3c2f7e0.png" alt="1mgt" /></p></li>
+
+<li><p>建立新的 Team 專案</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184300/414be5d8-0f08-11e7-8033-f26cd2fa2b01.png" alt="2newTeamPrj" /></p></li>
+
+<li><p>選擇專案範本</p>
+
+<ul>
+<li><p>流程範本</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184305/41724e44-0f08-11e7-8d4d-f49e926c56a5.png" alt="8porcesstemplate" /></p>
+
+<ul>
+<li>Agile</li>
+<li>CMMI</li>
+<li>Scrum</li>
+</ul></li>
+
+<li><p>版本控制</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184306/4172821a-0f08-11e7-8b26-4df86ecc33de.png" alt="9scm" /></p>
+
+<ul>
+<li>Git</li>
+<li>Team Foundation 版本控制</li>
+</ul></li>
+</ul></li>
+
+<li><p>建立專案</p>
+
+<ul>
+<li><p>排程建立專案</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184308/41763400-0f08-11e7-88e7-07b934358a84.png" alt="10scedule" /></p></li>
+
+<li><p>正在建立專案</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184309/418ea51c-0f08-11e7-8d3e-1ec75b23be33.png" alt="11building" /></p></li>
+
+<li><p>已建立專案</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184310/418ef0ee-0f08-11e7-955d-2be314a71b15.png" alt="12created" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="刪除-重新命名-專案">刪除|重新命名 專案</h2>
+
+<ol>
+<li><p>進入專案 刪除|重新命名 的方式有兩個(擇一即可)</p>
+
+<ul>
+<li><p>TFS 控制台 &ndash;&gt; 檢視集合管理頁面</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184299/414a4a34-0f08-11e7-9bd2-841a7e19f5f5.png" alt="3deletepath1" /></p></li>
+
+<li><p>專案控制台 &ndash;&gt; 集合設定</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184301/415399d6-0f08-11e7-85cf-03c7d100fe23.png" alt="4deletpath2" /></p></li>
+</ul></li>
+
+<li><p>點選專案&ndash;&gt; 出現設定圖示 <code>...</code> &ndash;&gt; 刪除|重新命名</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184303/416a2912-0f08-11e7-91eb-613ab4ed9bfc.png" alt="5deleteproject" /></p>
+
+<ul>
+<li><p>刪除</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184302/4169260c-0f08-11e7-8822-9968d87231e7.png" alt="6deletealert" /></p></li>
+
+<li><p>重新命名</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184304/416f8fec-0f08-11e7-9169-67a0496e7ae1.png" alt="7renamealert" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="tfs-功能導覽">TFS 功能導覽</h2>
+
+<ol>
+<li><p>搜尋功能強化</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184294/41033c7a-0f08-11e7-83cd-fb0aca8c9ad8.png" alt="13intro1" /></p></li>
+
+<li><p>快速導覽至專案</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184295/412a5864-0f08-11e7-8c31-3681830945e9.png" alt="14intro2" /></p></li>
+
+<li><p>統一設定位置</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184296/4142cb88-0f08-11e7-93b5-b3aa507eb139.png" alt="15intro3" /></p></li>
+
+<li><p>開始使用</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24184298/414612f2-0f08-11e7-8d79-58089209a97e.png" alt="16intro4" /></p></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-15</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/devops/">DevOps</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/opserver-elasticsearch/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">如何使用 Opserver 來監控 Elasticsearch</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/stackexchange-redis-sentinel-cluster/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">如何使用 StackExchange.Redis 配合 Sentinel 或是 Cluster 達到高可用性</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/tfs-2017\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

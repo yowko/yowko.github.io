@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Jenkins 該如何使用 SSH 存取 AD(LDAP) 驗證的 Git server - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="Jenkins 該如何使用 SSH 存取 AD(LDAP) 驗證的 Git server 最近公司的專案正積極地從 SVN 搬遷到 GIT，所以連帶的 CI Server - Jenkins 這邊的 SCM (Source Code Management) 也需要一併調整，同事為了不想寫死帳號密" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/jenkins-ssh-ad-ldap-git-server/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="Jenkins 該如何使用 SSH 存取 AD(LDAP) 驗證的 Git server" />
+<meta property="og:description" content="Jenkins 該如何使用 SSH 存取 AD(LDAP) 驗證的 Git server 最近公司的專案正積極地從 SVN 搬遷到 GIT，所以連帶的 CI Server - Jenkins 這邊的 SCM (Source Code Management) 也需要一併調整，同事為了不想寫死帳號密" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/jenkins-ssh-ad-ldap-git-server/" /><meta property="article:published_time" content="2017-05-09T23:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-18T00:11:23&#43;08:00"/>
+
+<meta itemprop="name" content="Jenkins 該如何使用 SSH 存取 AD(LDAP) 驗證的 Git server">
+<meta itemprop="description" content="Jenkins 該如何使用 SSH 存取 AD(LDAP) 驗證的 Git server 最近公司的專案正積極地從 SVN 搬遷到 GIT，所以連帶的 CI Server - Jenkins 這邊的 SCM (Source Code Management) 也需要一併調整，同事為了不想寫死帳號密">
+
+
+<meta itemprop="datePublished" content="2017-05-09T23:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-18T00:11:23&#43;08:00" />
+<meta itemprop="wordCount" content="665">
+
+
+
+<meta itemprop="keywords" content="Git,Jenkins," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jenkins 該如何使用 SSH 存取 AD(LDAP) 驗證的 Git server"/>
+<meta name="twitter:description" content="Jenkins 該如何使用 SSH 存取 AD(LDAP) 驗證的 Git server 最近公司的專案正積極地從 SVN 搬遷到 GIT，所以連帶的 CI Server - Jenkins 這邊的 SCM (Source Code Management) 也需要一併調整，同事為了不想寫死帳號密"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-05-09 </span>
+        
+        <span class="more-meta"> 約 665 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#jenkins-該如何使用-ssh-存取-ad-ldap-驗證的-git-server">Jenkins 該如何使用 SSH 存取 AD(LDAP) 驗證的 Git server</a>
+<ul>
+<li><a href="#產生-ad-帳號的-ssh-key">產生 AD 帳號的 SSH Key</a></li>
+<li><a href="#將-public-key-綁定至-gitlab-的帳號">將 Public Key 綁定至 Gitlab 的帳號</a></li>
+<li><a href="#jenkins-設定">Jenkins 設定</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="jenkins-該如何使用-ssh-存取-ad-ldap-驗證的-git-server">Jenkins 該如何使用 SSH 存取 AD(LDAP) 驗證的 Git server</h1>
+
+<p>最近公司的專案正積極地從 SVN 搬遷到 GIT，所以連帶的 CI Server - Jenkins 這邊的 SCM (Source Code Management) 也需要一併調整，同事為了不想寫死帳號密碼所以打算透過 SSH 來存取 Git Server，公司為了讓大家使用上更便利，也讓大家不用記那麼多組帳號密碼，Git server 的驗證是整合 AD，而在進行 Jenkins 整合 git server 時發現網路比較少使用 AD 搭配 SSH 的做法，所以紀錄一下，另外公司目前 Git server 是使用 self-host 的 gitlab ，所以接下來的 demo ，Git server 的部份會使用 Gitlab 來呈現。</p>
+
+<h2 id="產生-ad-帳號的-ssh-key">產生 AD 帳號的 SSH Key</h2>
+
+<ol>
+<li><p>確認 AD 帳號</p>
+
+<blockquote>
+<p>最直接的方式就是去看 <code>.gitconfig</code> (通常位於 <code>C:\Users\{username}</code>) 內容, 確認對應 crendential 所設定的 username</p>
+</blockquote>
+
+<ul>
+<li><p>範例：</p>
+
+<pre><code>[credential &quot;http://gitlab.yowko.com&quot;]
+helper = wincred
+username = yowko.tsai
+</code></pre>
+
+<blockquote>
+<p>表示對於 git server (&rdquo;<a href="http://gitlab.yowko.com%22" target="_blank">http://gitlab.yowko.com&rdquo;</a>) AD 使用的 username 就是 <code>yowko.tsai</code>；而一般公開的 git server 服務這個 username 常常是 e-mail</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>Generate SSH key</p>
+
+<ul>
+<li><p>切換目錄至 <code>C:\Users\{username}\.ssh</code></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25860223/864b24b0-3513-11e7-9fb3-05c904660a7f.png" alt="1folder" /></p></li>
+
+<li><p>執行 <code>ssh-keygen -t rsa -C &quot;{上面拿的 AD 帳號}&quot;</code></p>
+
+<blockquote>
+<p><code>ssh-keygen -t rsa -C &quot;yowko.tasi&quot;</code></p>
+</blockquote>
+
+<ul>
+<li><p>過程中會詢問三個問題 &ndash;&gt; 直接 enter 即可</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25860226/8662c9a8-3513-11e7-938a-514a39f2f853.png" alt="2genkey" /></p></li>
+
+<li><p>最後會產生兩個檔案 <code>id_rsa(private key)</code>、 <code>id_rsa.pub(public key)</code></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25860228/86860f26-3513-11e7-88e7-1ea96e8c901c.png" alt="3twokey" /></p></li>
+</ul></li>
+</ul></li>
+
+<li><p>檢查 SSH 是否正確</p>
+
+<blockquote>
+<p>這邊請參考小風的做法 <a href="https://dotblogs.com.tw/kirkchen/2013/04/23/use_ssh_to_interact_with_github_in_windows" target="_blank">2013-04-23 Windows使用ssh對Github進行操作</a></p>
+</blockquote>
+
+<ul>
+<li><p>將上面的 <code>.ssh</code> 包含產生出來的 key copy 至 <code>C:\Program Files (x86)\Git\</code> 下</p></li>
+
+<li><p>執行 <code>ssh -T {git server}</code></p>
+
+<blockquote>
+<p><code>ssh -T git@gitlab.yowko.com</code></p>
+</blockquote>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25860220/863e45e2-3513-11e7-8222-fc23236a8dd1.png" alt="5testssh" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="將-public-key-綁定至-gitlab-的帳號">將 Public Key 綁定至 Gitlab 的帳號</h2>
+
+<ol>
+<li>登入 Git Server</li>
+<li>開啟 Settins</li>
+<li>開啟 SSH tab</li>
+
+<li><p>將上面產生的 id_rsa.pub 內容複製並貼上</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25860229/86ea05e4-3513-11e7-8db5-5925417de0c6.png" alt="4gitlab" /></p></li>
+</ol>
+
+<h2 id="jenkins-設定">Jenkins 設定</h2>
+
+<ol>
+<li><p>加入 SSH 的 credential</p>
+
+<ul>
+<li><p>Credentials &ndash;&gt; System &ndash;&gt; Global credentials (unrestricted)</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25860227/866fefac-3513-11e7-8297-987940b7b245.png" alt="6addcred" /></p></li>
+
+<li><p>Add Credentials</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25860222/864a3f8c-3513-11e7-8bd2-49287b6e0b88.png" alt="7addcred" /></p></li>
+
+<li><p>設定 Credentail</p>
+
+<ul>
+<li>Kind：SSH Username with private key</li>
+<li>Name：自訂顯示</li>
+
+<li><p>Private Key:Enter directly</p>
+
+<ul>
+<li><p>key：將一開始產生的 private key (id_rsa) 內容完整複製貼上</p>
+
+<pre><code>-----BEGIN RSA PRIVATE KEY-----
+MI---------------------------------------------fJI=
+-----END RSA PRIVATE KEY-----
+</code></pre></li>
+</ul></li>
+
+<li><p>Passphase：請保持空白</p></li>
+
+<li><p>Id ：不會顯示出來，沒有指定時會使用 UUID</p></li>
+</ul>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25860221/86494690-3513-11e7-8092-6151710e3901.png" alt="8ssh" /></p></li>
+</ul></li>
+
+<li><p>Job 設定</p>
+
+<ul>
+<li><p>原始碼管理 (Source Code Management) &ndash;&gt; 指定 Git Server 的 SSH 路徑 &ndash;&gt; 使用上面步驟加入的 credential</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25860225/86628d12-3513-11e7-8536-8d923a291e5e.png" alt="9jobsetting" /></p></li>
+</ul></li>
+</ol>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="http://qbsuranalang.blogspot.tw/2015/01/gitgithubgitlab.html" target="_blank">git教學（github、gitlab）</a></li>
+<li><a href="https://dotblogs.com.tw/kirkchen/2013/04/23/use_ssh_to_interact_with_github_in_windows" target="_blank">2013-04-23 Windows使用ssh對Github進行操作</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-18</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/git/">Git</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/jenkins/">Jenkins</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/docker-command-8n-windows/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">Windows Server 2016 中 Windows Container 的 docker 指令介紹</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/windows-10-docker/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">Windows 10 如何啟用 docker 功能</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/jenkins-ssh-ad-ldap-git-server\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

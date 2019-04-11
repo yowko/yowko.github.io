@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>decimal , double , float 輸出 json 的格式問題 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="decimal , double , float 輸出 json 的格式問題 之前筆記 decimal 屬性輸出 JSON 時指定的格式問題 提到在專案中因為系統介接需要統一 decimal 小數位數，過程中也才發現 json.net 在輸出沒有小數的 decimal" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/decimal-double-float-json-format/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="decimal , double , float 輸出 json 的格式問題" />
+<meta property="og:description" content="decimal , double , float 輸出 json 的格式問題 之前筆記 decimal 屬性輸出 JSON 時指定的格式問題 提到在專案中因為系統介接需要統一 decimal 小數位數，過程中也才發現 json.net 在輸出沒有小數的 decimal" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/decimal-double-float-json-format/" /><meta property="article:published_time" content="2018-04-22T17:42:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-04T17:42:45&#43;08:00"/>
+
+<meta itemprop="name" content="decimal , double , float 輸出 json 的格式問題">
+<meta itemprop="description" content="decimal , double , float 輸出 json 的格式問題 之前筆記 decimal 屬性輸出 JSON 時指定的格式問題 提到在專案中因為系統介接需要統一 decimal 小數位數，過程中也才發現 json.net 在輸出沒有小數的 decimal">
+
+
+<meta itemprop="datePublished" content="2018-04-22T17:42:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-04T17:42:45&#43;08:00" />
+<meta itemprop="wordCount" content="1307">
+
+
+
+<meta itemprop="keywords" content="套件,C#," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="decimal , double , float 輸出 json 的格式問題"/>
+<meta name="twitter:description" content="decimal , double , float 輸出 json 的格式問題 之前筆記 decimal 屬性輸出 JSON 時指定的格式問題 提到在專案中因為系統介接需要統一 decimal 小數位數，過程中也才發現 json.net 在輸出沒有小數的 decimal"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-22 </span>
+        
+        <span class="more-meta"> 約 1307 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#decimal-double-float-輸出-json-的格式問題">decimal , double , float 輸出 json 的格式問題</a>
+<ul>
+<li><a href="#前提設定">前提設定</a></li>
+<li><a href="#遇到問題及解決方式">遇到問題及解決方式</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="decimal-double-float-輸出-json-的格式問題">decimal , double , float 輸出 json 的格式問題</h1>
+
+<p>之前筆記 <a href="https://blog.yowko.com/2018/04/decimal-json-digital.html" target="_blank">decimal 屬性輸出 JSON 時指定的格式問題</a> 提到在專案中因為系統介接需要統一 decimal 小數位數，過程中也才發現 json.net 在輸出沒有小數的 decimal 時行為不太一樣(會補上 <code>.0</code>：小數點及小數點一位)，最後雖然有解決問題，但解決方式自己卻不甚滿意，加上想要順帶測試 double 及 float 的行為，所以又花了一些時間找其他方法，就來看看過程遇到的問題及最後的解決方式吧</p>
+
+<h2 id="前提設定">前提設定</h2>
+
+<ol>
+<li><p>自訂 model (包含 decimal , double , float 屬性)</p>
+
+<pre><code class="language-cs">public class TestData
+{
+    public decimal Salary { get; set; }
+    public double ExRate { get; set; }
+    public float TaxRate { get; set; }
+}
+</code></pre></li>
+
+<li><p>使用 jsonconvert</p>
+
+<pre><code class="language-cs">public class RoundingJsonConverter : JsonConverter
+{
+    //指定精準度
+    int _precision;
+    //指定四捨五入的傾向
+    MidpointRounding _rounding;
+        
+    //預設精準度小數點下 4 位
+    public RoundingJsonConverter() : this(4)
+    {
+    }
+        
+    public RoundingJsonConverter(int precision)
+    : this(precision, MidpointRounding.AwayFromZero)
+    {
+    }
+        
+    public RoundingJsonConverter(int precision, MidpointRounding rounding)
+    {
+    _precision = precision;
+    _rounding = rounding;
+    }
+        
+    public override bool CanRead
+    {
+    get { return false; }
+    }
+        
+    public override bool CanConvert(Type objectType)
+    {
+    return objectType == typeof(decimal);
+    }
+        
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+    throw new NotImplementedException();
+    }
+        
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+    decimal _value = (decimal)value;
+    //為值補 0
+    writer.WriteValue(decimal.Parse(Math.Round(_value, _precision, _rounding).ToString(&quot;0.&quot;.PadRight(2 + _precision, '0'))));
+    }
+}
+</code></pre></li>
+</ol>
+
+<h2 id="遇到問題及解決方式">遇到問題及解決方式</h2>
+
+<ol>
+<li><p>Math.Round 處理 float 會造成數值不正確</p>
+
+<blockquote>
+<p>Math.Round 沒有 float 版本，使用 Math.Round 會隱含將 float 轉型為 double，而造成數值不正確</p>
+</blockquote>
+
+<ul>
+<li><p>原始作法</p>
+
+<pre><code class="language-cs">var value= 0.225f;
+Math.Round(value,2,MidpointRounding.AwayFromZero).Dump();
+</code></pre>
+
+<ul>
+<li><p>數值不正確</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39093546-b294a4e0-4653-11e8-8470-3a2b84602646.png" alt="3floatissue" /></p>
+</blockquote></li>
+
+<li><p>Math.Round 傳入 float 會隱含轉型 double</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39093547-b2bd38c4-4653-11e8-8664-6f17411eea33.png" alt="4convertdouble" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39093548-b2e5c564-4653-11e8-8bff-959f518bfdcd.png" alt="5float" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39093549-b31080ce-4653-11e8-8b05-b8021530f3fd.png" alt="6double" /></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>新做法：先轉型為 <code>decimal</code></p>
+
+<pre><code class="language-cs">Math.Round(Convert.ToDecimal(value),2,MidpointRounding.AwayFromZero).Dump();
+</code></pre>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39093550-b33918ae-4653-11e8-9e76-25d4d3e3c999.png" alt="7floatresult" /></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>為了指定輸出格式頻繁轉型 (ToString 再 parse 回 decimal)</p>
+
+<blockquote>
+<p>WriteJson 時移除 decimal.parse 與 Math.Round 並使用 <code>WriteRawValue</code> 方法</p>
+</blockquote>
+
+<ul>
+<li><p>原始做法</p>
+
+<pre><code class="language-cs">writer.WriteValue(Math.Round(_value, _precision, _rounding).ToString(&quot;0.&quot;.PadRight(2 + _precision, '0')));
+</code></pre>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39093544-b1024920-4653-11e8-8ef0-b5b5ea141526.png" alt="1tostring" /></p>
+</blockquote></li>
+
+<li><p>新做法</p>
+
+<pre><code class="language-cs">writer.WriteRawValue((Convert.ToDecimal(value)).ToString(&quot;0.&quot;.PadRight(2 + _precision, '0')));
+</code></pre>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39093545-b26cd41a-4653-11e8-87de-25d7b70c84f2.png" alt="2rawvalue" /></p>
+</blockquote></li>
+
+<li><p>完整 jsonconvert 程式碼</p>
+
+<pre><code class="language-cs">public class RoundingJsonConverter : JsonConverter
+{
+    //指定精準度
+    int _precision;
+    //指定四捨五入的傾向
+    MidpointRounding _rounding;
+        
+    //預設精準度小數點下 4 位
+    public RoundingJsonConverter() : this(4)
+    {
+    }
+        
+    public RoundingJsonConverter(int precision)
+        : this(precision, MidpointRounding.AwayFromZero)
+    {
+    }
+        
+    public RoundingJsonConverter(int precision, MidpointRounding rounding)
+    {
+        _precision = precision;
+        _rounding = rounding;
+    }
+        
+    public override bool CanRead
+    {
+        get { return false; }
+    }
+        
+    public override bool CanConvert(Type objectType)
+    {
+        return objectType == typeof(decimal);
+    }
+        
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+        throw new NotImplementedException();
+    }
+        
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        decimal _value = (decimal)value;
+        //為值補 0
+        writer.WriteRawValue((Convert.ToDecimal(value)).ToString(&quot;0.&quot;.PadRight(2 + _precision, '0')));
+    }
+}
+</code></pre></li>
+</ul></li>
+
+<li><p>整數不輸出小數點及小數位</p>
+
+<blockquote>
+<p>加上屬性來控制是否將數字小數位末端的 <code>0</code> 移除</p>
+</blockquote>
+
+<ul>
+<li><p>原做法</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39093551-b360a0b8-4653-11e8-9ecb-0327aa4a9efe.png" alt="8notruncate" /></p>
+</blockquote></li>
+
+<li><p>新做法</p>
+
+<ul>
+<li><p>加入屬性用來判斷是否要移除</p>
+
+<pre><code class="language-cs">//用來判斷是否移除最後的 0
+bool _truncate;
+            
+public RoundingJsonConverter(int precision, bool truncate) : this(precision, MidpointRounding.AwayFromZero, truncate)
+{
+}
+            
+public RoundingJsonConverter(int precision) : this(precision, MidpointRounding.AwayFromZero, false)
+{
+}
+
+public RoundingJsonConverter(int precision, MidpointRounding rounding, bool truncate)
+{
+    _precision = precision;
+    _rounding = rounding;
+    _truncate = truncate;
+}
+</code></pre></li>
+
+<li><p>加入 <code>0</code> 的處理流程</p>
+
+<pre><code class="language-cs">if (_truncate)
+{
+    var _result = Math.Round(_value, _precision, _rounding) / 1.000000000000000000000000000000000m;//移除0
+    if (Int64.TryParse(_result.ToString(), out var longresult))//處理整數
+        writer.WriteValue(longresult);
+    else//處理非整數
+        writer.WriteValue(_result);
+}
+</code></pre></li>
+
+<li><p>在 model 上加入是否移除 <code>0</code></p>
+
+<pre><code class="language-cs">public class TestData
+{
+    [JsonConverter(typeof(RoundingJsonConverter), 2, true)]
+    public decimal Salary { get; set; }
+    [JsonConverter(typeof(RoundingJsonConverter), 2, true)]
+    public double ExRate { get; set; }
+    [JsonConverter(typeof(RoundingJsonConverter), 2, true)]
+    public float TaxRate { get; set; }
+}
+</code></pre>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39093552-b3889514-4653-11e8-9950-ec6294d70bc5.png" alt="9truncateresult" /></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>完整程式碼</p>
+
+<pre><code class="language-cs">void Main()
+{
+    var test = new TestData() { Salary = 1.995m, ExRate = 2.295D, TaxRate = 1f };
+    test.Dump();
+    JsonConvert.SerializeObject(test).Dump();
+}
+public class TestData
+{
+    [JsonConverter(typeof(RoundingJsonConverter), 2, true)]
+    public decimal Salary { get; set; }
+    [JsonConverter(typeof(RoundingJsonConverter), 2, true)]
+    public double ExRate { get; set; }
+    [JsonConverter(typeof(RoundingJsonConverter), 2, true)]
+    public float TaxRate { get; set; }
+}
+        
+public class RoundingJsonConverter : JsonConverter
+{
+    //指定精準度
+    int _precision;
+    //指定四捨五入的傾向
+    MidpointRounding _rounding;
+    //用來判斷是否移除最後的 0
+    bool _truncate;
+        
+    //預設精準度小數點下 4 位
+    public RoundingJsonConverter() : this(4)
+    {
+    }
+    public RoundingJsonConverter(int precision, bool truncate)
+            : this(precision, MidpointRounding.AwayFromZero, truncate)
+    {
+    }
+    public RoundingJsonConverter(int precision)
+        : this(precision, MidpointRounding.AwayFromZero, false)
+    {
+    }
+        
+    public RoundingJsonConverter(int precision, MidpointRounding rounding, bool truncate)
+    {
+        _precision = precision;
+        _rounding = rounding;
+        _truncate = truncate;
+    }
+        
+    public override bool CanRead
+    {
+        get { return false; }
+    }
+        
+    public override bool CanConvert(Type objectType)
+    {
+        return objectType == typeof(decimal) | objectType == typeof(double) | objectType == typeof(float);
+        //return objectType == typeof(decimal);
+    }
+        
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+        throw new NotImplementedException();
+    }
+        
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        var _value = Convert.ToDecimal(value);
+        if (_truncate)
+        {
+            var _result = Math.Round(_value, _precision, _rounding) / 1.000000000000000000000000000000000m;//移除0
+            if (Int64.TryParse(_result.ToString(), out var longresult))//處理整數
+                writer.WriteValue(longresult);
+            else//處理非整數
+                writer.WriteValue(_result);
+        }
+        else
+            writer.WriteRawValue(_value.ToString(&quot;0.&quot;.PadRight(2 + _precision, '0')));
+    }
+}
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>一開始從想要統一 decimal 的輸出格式，到後來持續調整寫法，到額外擴充支援 double 與 float，最終也可以自訂是否輸出可以刪除的小數點及 0，也許再次用到的機會並不高，但為了 coding for fun 帶來的樂趣無價呀</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://blog.yowko.com/2018/04/decimal-json-digital.html" target="_blank">decimal 屬性輸出 JSON 時指定的格式問題</a></li>
+<li><a href="http://blog.darkthread.net/post-2016-12-11-decimal-trailing-zeros.aspx" target="_blank">關於 Decimal 小數尾數零</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-10-04</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/%E5%A5%97%E4%BB%B6/">套件</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/dapper-timeout/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">C# 使用 Dapper 連線 DB 時指定逾時時間 (timeout)：0x80004005</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/decimal-json-digital/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">decimal 屬性輸出 JSON 時指定的格式問題</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/decimal-double-float-json-format\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

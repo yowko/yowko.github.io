@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Azure Function on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/azure-function/</link>
+    <description>Recent content in Azure Function on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 22 Nov 2018 23:45:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/azure-function/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Visual Studio 2017 啟動 Azure Function 偵錯出現 Fatal Error ？！</title>
+      <link>https://blog.yowko.com/visualstudio-0x8000ffff/</link>
+      <pubDate>Thu, 22 Nov 2018 23:45:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/visualstudio-0x8000ffff/</guid>
+      <description>Visual Studio 2017 啟動 Azure Function 偵錯出現 Fatal Error ？！ 因緣際會下，剛好有個很趕但很小的功能可以透過 Azure Function 來完成，過去 Azure Function 1.x 我來不及參與，直接使用 Azure Function 2.x 似乎也沒什麼違和</description>
+    </item>
+    
+  </channel>
+</rss>

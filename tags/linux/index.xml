@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/linux/</link>
+    <description>Recent content in Linux on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 16 Jun 2018 19:39:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker Push 出現 405 Method Not Allowed 錯誤？！</title>
+      <link>https://blog.yowko.com/docker-push-405-method-not-allowed/</link>
+      <pubDate>Sat, 16 Jun 2018 19:39:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-push-405-method-not-allowed/</guid>
+      <description>Docker Push 出現 405 Method Not Allowed 錯誤？！ 之前筆記 解決 Docker build pip install fail 提到在練習 Kubernetes 過程中執行 docker build 指令時會出現 pip install fail 的 error，問題發生原因是 docker 的 DNS 解析不正確造成的</description>
+    </item>
+    
+    <item>
+      <title>解決 Docker build pip install fail</title>
+      <link>https://blog.yowko.com/docker-build-pip-install-fail/</link>
+      <pubDate>Sat, 16 Jun 2018 12:27:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-build-pip-install-fail/</guid>
+      <description>解決 Docker build pip install fail 近期工作之餘將部份時間花在學習 Kubernetes 上，過程中嘗試透過 Dockerfile 建立 pyhon application 的 image 來部署至 Kubernetes 中打算用來做一些實際應用情境的演練，原以為會卡在 Kubernetes 的</description>
+    </item>
+    
+    <item>
+      <title>CentOS 7 Docker 無法連線 Docker daemon？！</title>
+      <link>https://blog.yowko.com/cannot-connect-docker-daemon/</link>
+      <pubDate>Wed, 06 Jun 2018 04:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/cannot-connect-docker-daemon/</guid>
+      <description>CentOS 7 Docker 無法連線 Docker daemon？！ 同事想在 VirtualBox 上建立 CentOS 7 虛擬環境，並在 VM 中使用 Docker，在安裝 Docker 時一如往常相當順利直到實際建立 container 時卻遇到無法</description>
+    </item>
+    
+    <item>
+      <title>Windows 慣用者如何在 Red Hat Enterprise Linux 7.5 (CentOS ) 上使用 kubeadm 架設 Kubernetes (K8s)</title>
+      <link>https://blog.yowko.com/centos-kubeadm-kubernetes/</link>
+      <pubDate>Sun, 20 May 2018 10:16:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/centos-kubeadm-kubernetes/</guid>
+      <description>Windows 慣用者如何在 Red Hat Enterprise Linux 7.5 (CentOS ) 上使用 kubeadm 架設 Kubernetes (K8s) 之前筆記 Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s) 紀錄到如何在 Ubuntu 上使用 kubeadm 建立 Kubernetes cluster，考量到</description>
+    </item>
+    
+    <item>
+      <title>在 Windows 10 上啟用 Linux Bash Shell</title>
+      <link>https://blog.yowko.com/windows-10-enable-linux-bash/</link>
+      <pubDate>Tue, 20 Feb 2018 15:31:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-10-enable-linux-bash/</guid>
+      <description>在 Windows 10 上啟用 Linux Bash Shell 主要使用的筆電在某次更新失敗後就再也無法完成更新，一直停留在 Windows 10 舊版本，雖然在備用機上的 Windows 10 仍正常運作不至於錯過了幾個有趣</description>
+    </item>
+    
+    <item>
+      <title>CentOS 7 設定防火牆允許特定 PORT 連線</title>
+      <link>https://blog.yowko.com/centos7-firewall/</link>
+      <pubDate>Fri, 29 Sep 2017 00:08:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/centos7-firewall/</guid>
+      <description>CentOS 7 設定防火牆允許特定 PORT 連線 一直以來接觸的作業系統都是 Windows 為主，加上自己熟悉的程式語言是 C#，production 環境部署及相關設定都是 Win</description>
+    </item>
+    
+    <item>
+      <title>在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service</title>
+      <link>https://blog.yowko.com/centos7-redis-sentinel-service/</link>
+      <pubDate>Thu, 21 Sep 2017 00:52:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/centos7-redis-sentinel-service/</guid>
+      <description>在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service 之前曾經在 在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例 介紹過如何使用 redis 內建的 install_server.sh 執行檔將 redis instance 安裝成開機啟動的 service，</description>
+    </item>
+    
+    <item>
+      <title>如何從 Winows docker host 透過 linux container ip 使用服務</title>
+      <link>https://blog.yowko.com/docker-host-access-linux-container-ip/</link>
+      <pubDate>Thu, 14 Sep 2017 23:16:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-host-access-linux-container-ip/</guid>
+      <description>如何從 Winows docker host 透過 linux container ip 使用服務 前幾天為了重現前幾天在 production 環境遇到的 issue，嘗試在 Windows Server 2016 透過 docker for windows 建立 linux 版 redis，因為需要模擬 sentinel failover 所以需</description>
+    </item>
+    
+    <item>
+      <title>在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例</title>
+      <link>https://blog.yowko.com/centos7-redis-service/</link>
+      <pubDate>Wed, 06 Sep 2017 00:12:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/centos7-redis-service/</guid>
+      <description>在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例 Windows 環境中將 Redis 安裝成 service 的做法，曾經在 Windows 環境如何設定 Redis Master-Slave 與 Sentinel 介紹過，最近同事要架設 Linux 環境 Redis 時，問到該如何將 Redis 安裝為</description>
+    </item>
+    
+    <item>
+      <title>Linux 找不到 ifconfig、wget 指令？！</title>
+      <link>https://blog.yowko.com/ifconfig-command-not-found/</link>
+      <pubDate>Tue, 05 Sep 2017 22:42:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ifconfig-command-not-found/</guid>
+      <description>Linux 找不到 ifconfig、wget 指令？！ 公司部份服務架設在 Linux 環境上，讓之前完全沒有 Linux 操作經驗的我有些苦手，雖然不像 Windows 那麼習慣與熟悉，但學習</description>
+    </item>
+    
+    <item>
+      <title>修改 Windows 上 Linux Container (MobyLinuxVM) 的 bip 設定</title>
+      <link>https://blog.yowko.com/windows-linux-container-mobylinuxvm-bip/</link>
+      <pubDate>Mon, 04 Sep 2017 00:51:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-linux-container-mobylinuxvm-bip/</guid>
+      <description>修改 Windows 上 Linux Container (MobyLinuxVM) 的 bip 設定 最近幾篇筆記都是跟 ip 設定有關，主要是因為 docker 預設分配 container 使用的 ip 區段與公司測試環境衝突，造成 docker host 與 container 無法存取測試環境的 server (</description>
+    </item>
+    
+    <item>
+      <title>Docker 無法連線至特定網段 (172.17.x.x)</title>
+      <link>https://blog.yowko.com/docker-172-17-ip/</link>
+      <pubDate>Sat, 02 Sep 2017 17:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-172-17-ip/</guid>
+      <description>Docker 無法連線至特定網段 (172.17.x.x) 公司正逐步採用 docker 來進行快速部署，一開始先從 Jenkins、Redis 這類基礎服務著手，在開發環境一切都很順利，加上 docker 的</description>
+    </item>
+    
+    <item>
+      <title>Docker 如何在多個 Container 間共享資料</title>
+      <link>https://blog.yowko.com/docker-data-volume-container/</link>
+      <pubDate>Thu, 11 May 2017 23:08:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-data-volume-container/</guid>
+      <description>Docker 如何在多個 Container 間共享資料 最近跟公司同事一起將部份公司服務改使用 docker 來架設，為了確保相關資料及設定不會隨著 container 消滅而不見，所以一定需要將資料保存在</description>
+    </item>
+    
+    <item>
+      <title>使用 docker 建立 CentOS 7 container</title>
+      <link>https://blog.yowko.com/docker-centos-7-container/</link>
+      <pubDate>Sat, 06 May 2017 01:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-centos-7-container/</guid>
+      <description>使用 docker 建立 CentOS 7 container 這是個奇特的情境：在 CentOS 7 實體機器上使用 docker 透過 CentOS 7 建立 CentOS 7 container ，聽來怪怪的XD，原因是 docker hub 上現有的 image 不符合公司使用需求，所以想要</description>
+    </item>
+    
+    <item>
+      <title>VirtualBox 如何安裝 Centos 7 並設定網路</title>
+      <link>https://blog.yowko.com/virtualbox-centos-7/</link>
+      <pubDate>Fri, 05 May 2017 01:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/virtualbox-centos-7/</guid>
+      <description>VirtualBox 如何安裝 Centos 7 並設定網路 公司電腦是 Windows 7，無法使用 Hyper-V 所以使用 VirtualBox 來建立 linux 環境，經過上次 嚴密 比較後依然還是選擇 CentOS 7，筆記一下安裝及設定過程 安裝 CentOS 7</description>
+    </item>
+    
+    <item>
+      <title>如何在 Windows Server 2016 的 Hyper-V 上安裝 Centos 7</title>
+      <link>https://blog.yowko.com/windows-server-2016-hyperv-centos7/</link>
+      <pubDate>Wed, 03 May 2017 01:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-server-2016-hyperv-centos7/</guid>
+      <description>如何在 Windows Server 2016 的 Hyper-V 上安裝 Centos 7 之前文章 如何在 Windows Server 2016 上安裝 Hyper-V 提到為了想體驗 linux container 所以在 Windows Server 2016 上安裝了 Hyper-V 打算安裝 linux，Windows Server 2016 跟 Hyper-V 都已</description>
+    </item>
+    
+  </channel>
+</rss>

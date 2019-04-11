@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 Webpack 來編譯 Vue.js Single File Components (.vue) - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="使用 Webpack 來編譯 Vue.js Single File Components (.vue) 最近因為新專案的部份頁面有較多的互動功能，所以打算透過 Vue.js 來處理，其中某些功能在多個頁面間可以共用，就使用了 Vue.js 的 Single File Components (.vue)" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/webpack-vue-file/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="使用 Webpack 來編譯 Vue.js Single File Components (.vue)" />
+<meta property="og:description" content="使用 Webpack 來編譯 Vue.js Single File Components (.vue) 最近因為新專案的部份頁面有較多的互動功能，所以打算透過 Vue.js 來處理，其中某些功能在多個頁面間可以共用，就使用了 Vue.js 的 Single File Components (.vue)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/webpack-vue-file/" /><meta property="article:published_time" content="2017-11-12T22:24:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-28T22:24:18&#43;08:00"/>
+
+<meta itemprop="name" content="使用 Webpack 來編譯 Vue.js Single File Components (.vue)">
+<meta itemprop="description" content="使用 Webpack 來編譯 Vue.js Single File Components (.vue) 最近因為新專案的部份頁面有較多的互動功能，所以打算透過 Vue.js 來處理，其中某些功能在多個頁面間可以共用，就使用了 Vue.js 的 Single File Components (.vue)">
+
+
+<meta itemprop="datePublished" content="2017-11-12T22:24:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-28T22:24:18&#43;08:00" />
+<meta itemprop="wordCount" content="1296">
+
+
+
+<meta itemprop="keywords" content="套件,Frontend,JavaScript," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Webpack 來編譯 Vue.js Single File Components (.vue)"/>
+<meta name="twitter:description" content="使用 Webpack 來編譯 Vue.js Single File Components (.vue) 最近因為新專案的部份頁面有較多的互動功能，所以打算透過 Vue.js 來處理，其中某些功能在多個頁面間可以共用，就使用了 Vue.js 的 Single File Components (.vue)"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-11-12 </span>
+        
+        <span class="more-meta"> 約 1296 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#使用-webpack-來編譯-vue-js-single-file-components-vue">使用 Webpack 來編譯 Vue.js Single File Components (.vue)</a>
+<ul>
+<li><a href="#基本環境">基本環境</a></li>
+<li><a href="#建立網頁並加入-vue-js-功能-用來確認-vue-js-功能正常-可略過">建立網頁並加入 vue.js 功能 (用來確認 vue.js 功能正常 - 可略過)</a></li>
+<li><a href="#將-vue-js-功能抽出-html-用來逐步製作-vue-中-可略過">將 vue.js 功能抽出 html (用來逐步製作 .vue 中 - 可略過)</a></li>
+<li><a href="#統一管理-javascript-用來逐步製作-vue-中可略過">統一管理 javascript (用來逐步製作 .vue 中可略過)</a></li>
+<li><a href="#使用-vue-來模組輸出-重點在此">使用 .vue 來模組輸出 (重點在此)</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="使用-webpack-來編譯-vue-js-single-file-components-vue">使用 Webpack 來編譯 Vue.js Single File Components (.vue)</h1>
+
+<p>最近因為新專案的部份頁面有較多的互動功能，所以打算透過 Vue.js 來處理，其中某些功能在多個頁面間可以共用，就使用了 Vue.js 的 Single File Components (.vue) - 單一檔案元件來模組化</p>
+
+<p>只是要使用 .Vue 檔案需要經過編譯，雖然可以透過 http-vue-loader (詳細內容請參考 Kuro 文章 - <a href="https://kuro.tw/posts/2017/07/11/%E4%B8%8D%E9%9C%80%E7%B7%A8%E8%AD%AF%E4%B9%9F%E8%83%BD%E8%BC%89%E5%85%A5-vue-%E5%85%83%E4%BB%B6%E6%AA%94-%E4%BD%BF%E7%94%A8-http-vue-loader/" target="_blank">不需編譯也能載入 .vue 元件檔: 使用 http-vue-loader</a>)做到直接在網頁載入 .Vue 檔案，不過效能上還是會有耗損的情況，因此還是透過正統方式來編譯及打包</p>
+
+<p>之前用到前端框架的專案，都有強大的前端工程師支援，後端工程師的工作大多寫寫 API 提供資料而已，對於編譯打包的設定多數不了解，我也是如此XD，雖然曾經設定過，但時間久遠加上前端工具日新月異，所以趁這個機會好好做個紀錄</p>
+
+<h2 id="基本環境">基本環境</h2>
+
+<ol>
+<li><p>建立新工作目錄</p>
+
+<pre><code>mkdir vuetest
+</code></pre></li>
+
+<li><p>使用新工作目錄</p>
+
+<pre><code>cd vuetest
+</code></pre></li>
+
+<li><p>加入使用 npm</p>
+
+<pre><code>npm init -y
+</code></pre>
+
+<blockquote>
+<p>會自動加入 <code>package.json</code> 並產生基本內容</p>
+</blockquote></li>
+
+<li><p>安裝 vue.js (最後需要輸出)</p>
+
+<pre><code>npm install vue -P
+</code></pre>
+
+<blockquote>
+<p><code>-P</code> 是預設值可以不加，會加至 <code>dependencies</code> 其他還有 <code>-D</code> - 只在 dev(devDependencies) 跟 <code>-O</code>(optionalDependencies)</p>
+</blockquote></li>
+
+<li><p>安裝相關套件</p>
+
+<pre><code>npm install webpack babel-loader babel-core css-loader vue-loader vue-template-compiler -D
+</code></pre></li>
+</ol>
+
+<h2 id="建立網頁並加入-vue-js-功能-用來確認-vue-js-功能正常-可略過">建立網頁並加入 vue.js 功能 (用來確認 vue.js 功能正常 - 可略過)</h2>
+
+<ol>
+<li><p>加入 <code>index.html</code> 檔案</p>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+    &lt;title&gt;Vue.js webpack .vue&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;div class=&quot;message&quot;&gt;
+            {{ message }}
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></li>
+
+<li><p>引用 vue.js</p>
+
+<pre><code class="language-html">&lt;script src=&quot;./node_modules/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+</code></pre></li>
+
+<li><p>撰寫 vue.js 功能</p>
+
+<pre><code class="language-html">&lt;script type=&quot;text/javascript&quot;&gt;
+    new Vue({
+        el: '#app',
+        data: {
+            message: &quot;Hello Vue&quot;
+        }
+    })
+&lt;/script&gt;
+</code></pre></li>
+
+<li><p>index.html 完整程式碼</p>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+    &lt;title&gt;Vue.js webpack .vue&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;div class=&quot;message&quot;&gt;
+            {{ message }}
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;./node_modules/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        new Vue({
+            el: '#app',
+            data: {
+                message: &quot;Hello Vue&quot;
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></li>
+</ol>
+
+<h2 id="將-vue-js-功能抽出-html-用來逐步製作-vue-中-可略過">將 vue.js 功能抽出 html (用來逐步製作 .vue 中 - 可略過)</h2>
+
+<ol>
+<li><p>建立 index.js</p>
+
+<pre><code class="language-js">new Vue({
+    el: '#app',
+    data: {
+        message: &quot;Hello Vue&quot;
+    }
+})
+</code></pre></li>
+
+<li><p>index.html 改引用 index.js</p>
+
+<pre><code class="language-html">&lt;script src=&quot;./src/index.js&quot;&gt;&lt;/script&gt;
+</code></pre></li>
+</ol>
+
+<h2 id="統一管理-javascript-用來逐步製作-vue-中可略過">統一管理 javascript (用來逐步製作 .vue 中可略過)</h2>
+
+<blockquote>
+<p>javascript 散落各處不好管理</p>
+</blockquote>
+
+<ol>
+<li><p>修改 index.js 加入引用 vue</p>
+
+<pre><code class="language-js">import Vue from 'vue'
+new Vue({
+    el: '#app',
+    data: {
+        message: &quot;Hello Vue123&quot;
+    }
+})
+</code></pre></li>
+
+<li><p>設定 webpack 編譯 index.js</p>
+
+<ul>
+<li>根目錄加入 <code>webpack.config.js</code></li>
+
+<li><p>設定 <code>webpack.config.js</code></p>
+
+<pre><code class="language-js">&quot;use strict&quot;;
+module.exports = {
+    entry: &quot;./src/index.js&quot;,//指定要編譯的檔案位置
+    output: {
+        filename: &quot;./dist/build.js&quot;//指定編譯後結果檔案位置
+    },
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                loader: &quot;babel-loader&quot;,//使用 babel-loader 來編譯 .js
+                exclude: /node_modules/
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['.js', '.vue'],
+        alias: {
+            'vue':'vue/dist/vue.js',//指定 vue 對應使用的真實 js 檔案
+        }
+    }
+};
+</code></pre></li>
+</ul></li>
+
+<li><p>執行編譯</p>
+
+<blockquote>
+<p>webpack</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32699865-5bfb316a-c7f7-11e7-9ea2-bbe974117f0d.png" alt="1webpack" /></p></li>
+
+<li><p>修改 js 引用</p>
+
+<ul>
+<li>移除 index.html 相關 js 引用</li>
+
+<li><p>加入編譯後檔案引用</p>
+
+<pre><code class="language-html">&lt;script src=&quot;./dist/build.js&quot;&gt;&lt;/script&gt;
+</code></pre></li>
+
+<li><p>完整 index.html</p>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+    &lt;title&gt;Vue.js webpack .vue&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;div class=&quot;message&quot;&gt;
+            {{ message }}
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;./dist/build.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="使用-vue-來模組輸出-重點在此">使用 .vue 來模組輸出 (重點在此)</h2>
+
+<ol>
+<li><p>建立 <code>msg.vue</code></p>
+
+<blockquote>
+<p>將 html、javascript、css 部份全部移至 <code>msg.vue</code></p>
+</blockquote>
+
+<pre><code class="language-html">&lt;template lang=&quot;html&quot;&gt;
+    &lt;div class=&quot;message&quot;&gt;
+        {{ message }}
+    &lt;/div&gt;
+&lt;/template&gt;
+    
+&lt;script&gt;
+export default {
+data () {
+    return {
+    message: 'Helo, .vue file'
+    }
+}
+}
+&lt;/script&gt;
+    
+&lt;style lang=&quot;css&quot;&gt;
+    .message {
+        color: blue;
+    }
+&lt;/style&gt;
+</code></pre></li>
+
+<li><p>在 index.js 加入引用 msg.vue 並指定 components</p>
+
+<pre><code class="language-js">import Vue from 'vue'
+import Msg from './msg.vue'
+new Vue({
+    el: '#app',
+    components:{Msg}
+})
+</code></pre></li>
+
+<li><p>webpack.config.js 加入編譯 <code>.vue</code> 設定</p>
+
+<ul>
+<li><p>module &ndash;&gt; loaders 加入 vue-loader</p>
+
+<pre><code>{
+    test: /\.vue$/,
+    loader: 'vue-loader'//使用 babel-loader 來編譯 .vue
+}
+</code></pre></li>
+
+<li><p>webpack.config.js 完整版</p>
+
+<pre><code class="language-js">&quot;use strict&quot;;
+module.exports = {
+    entry: &quot;./src/index.js&quot;,
+    output: {
+        filename: &quot;./dist/build.js&quot;
+    },
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                loader: &quot;babel-loader&quot;,
+                exclude: /node_modules/
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['.js', '.vue'],
+        alias: {
+            'vue':'vue/dist/vue.js',
+        }
+    }
+};
+</code></pre></li>
+</ul></li>
+
+<li><p>index.html 使用自訂 tag</p>
+
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+&lt;msg&gt;&lt;/msg&gt;
+&lt;/div&gt;
+</code></pre>
+
+<ul>
+<li><p>index.html 完整程式碼</p>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+    &lt;title&gt;Vue.js webpack .vue&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+    &lt;msg&gt;&lt;/msg&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;./dist/build.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></li>
+</ul></li>
+
+<li><p>重新編譯</p>
+
+<blockquote>
+<p>webpack</p>
+</blockquote></li>
+
+<li><p>完整專案結構</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32699866-5c2efd56-c7f7-11e7-81b7-d4807d059a3b.png" alt="2folderstructure" /></p></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>回顧起來內容不多，但可是花了我不少時間找解法也踩了不少雷才終於完整，當然難度來自於不熟悉，只是再次印證我堅信的名言：<code>難就是難在不會，會就不難了</code>，經過這次整理對一些細節比較有印象也比較清楚整個流程，只是我覺得前端工程真的滿辛苦，這真的應該力行專業分工，不然很難做得好做得快</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://kuro.tw/posts/2017/07/11/%E4%B8%8D%E9%9C%80%E7%B7%A8%E8%AD%AF%E4%B9%9F%E8%83%BD%E8%BC%89%E5%85%A5-vue-%E5%85%83%E4%BB%B6%E6%AA%94-%E4%BD%BF%E7%94%A8-http-vue-loader/" target="_blank">不需編譯也能載入 .vue 元件檔: 使用 http-vue-loader</a></li>
+<li><a href="https://docs.npmjs.com/cli/install" target="_blank">npm-install</a></li>
+<li><a href="https://segmentfault.com/a/1190000005363030" target="_blank">vue + webpack 起手式</a></li>
+<li><a href="https://vuejs.org/v2/guide/single-file-components.html" target="_blank">Single File Components</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-28</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/%E5%A5%97%E4%BB%B6/">套件</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/frontend/">Frontend</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/javascript/">JavaScript</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/visual-studio-webpack-vuejs/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">在 Visual Studio 中使用 WebPack 來編譯 Vue.js</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/visual-studio-code-terminal/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">如何修改 Visual Studio Code Terminal 使用程式</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/webpack-vue-file\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

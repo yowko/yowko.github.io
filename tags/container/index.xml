@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Container on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/container/</link>
+    <description>Recent content in Container on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 07 Mar 2019 01:30:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/container/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用 docker 建立 MongoDB Replica Set</title>
+      <link>https://blog.yowko.com/docker-mongodb-replica-set/</link>
+      <pubDate>Thu, 07 Mar 2019 01:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-mongodb-replica-set/</guid>
+      <description>使用 docker 建立 MongoDB Replica Set 前幾天筆記 使用 docker 建立 Redis Cluster - 更新版 提到為了要測試 Redis 完整 cluster 功能但又不想每次都重頭建立三組 Master-Slave 以及三個 Sentinel，所以透過 docker-compose 來</description>
+    </item>
+    
+    <item>
+      <title>使用 docker 建立 Redis Cluster - 更新版</title>
+      <link>https://blog.yowko.com/redis-cluster-docker/</link>
+      <pubDate>Tue, 05 Mar 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/redis-cluster-docker/</guid>
+      <description>使用 docker 建立 Redis Cluster - 更新版 之前筆記 使用 docker 建立 Redis Cluster 成功建立了 redis cluster，也測試過 sentinel 可以正常 failover，興高采烈測試程式碼時才發現有 bu</description>
+    </item>
+    
+    <item>
+      <title>使用 docker 建立 Redis Cluster</title>
+      <link>https://blog.yowko.com/docker-redis-cluster/</link>
+      <pubDate>Sat, 02 Mar 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-redis-cluster/</guid>
+      <description>使用 docker 建立 Redis Cluster 請參考新版內容 使用 docker 建立 Redis Cluster - 更新版 之前筆記 使用 docker 建立 Redis Master-Slave Replication Instance 紀錄到使用 docker 來建立 Redis 一個 Master node、一個 Slave node 以及三個 sentinel node 的 rep</description>
+    </item>
+    
+    <item>
+      <title>使用 docker 建立 Redis Master-Slave Replication Instance</title>
+      <link>https://blog.yowko.com/docker-redis-master-slave-replication/</link>
+      <pubDate>Thu, 28 Feb 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-redis-master-slave-replication/</guid>
+      <description>使用 docker 建立 Redis Master-Slave Replication Instance 同事問到 StackExchange.Redis 的相關功能，首先必要條件就是建立測試環境，測試環境有大有小：簡易功能，單個 node 的 redis 絕對可以滿足大部份需求，但如果是</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jenkins on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/jenkins/</link>
+    <description>Recent content in Jenkins on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 26 Oct 2017 08:53:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/jenkins/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用指令 (jenkins cli) 來執行 Jenkins 動作：安裝 plugin、重新啟動...</title>
+      <link>https://blog.yowko.com/jenkins-cli/</link>
+      <pubDate>Thu, 26 Oct 2017 08:53:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-cli/</guid>
+      <description>使用指令 (jenkins cli) 來執行 Jenkins 動作：安裝 plugin、重新啟動&amp;hellip; 一般情境我們都是使用 Jenkins GUI 來操作來安裝套件或是其他動作，可說是簡單又方便幾</description>
+    </item>
+    
+    <item>
+      <title>將 Jenkins 建立在 Windows Container 上</title>
+      <link>https://blog.yowko.com/jenkins-windows-container/</link>
+      <pubDate>Sun, 27 Aug 2017 20:17:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-windows-container/</guid>
+      <description>將 Jenkins 建立在 Windows Container 上 公司服務有逐步採用 container 技術的打算，首先第一步就是將 CI Server 給搬進 container，而這個想法老早就有人實際應用了，只是大多應用在</description>
+    </item>
+    
+    <item>
+      <title>net use 指令出現 error 2148073478</title>
+      <link>https://blog.yowko.com/net-use-error-2148073478/</link>
+      <pubDate>Mon, 07 Aug 2017 22:23:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/net-use-error-2148073478/</guid>
+      <description>net use 指令出現 error 2148073478 同事反應 Jenkins 沒辦法順利將 CI build 的檔案部署至遠端，確認過資料夾權限、robocopy 語法一切正常後，發現原來是 net use 指令的權限問題，</description>
+    </item>
+    
+    <item>
+      <title>NuGet 發行 Package 時自動增加版號</title>
+      <link>https://blog.yowko.com/nuget-package-auto-version/</link>
+      <pubDate>Sat, 22 Jul 2017 23:56:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/nuget-package-auto-version/</guid>
+      <description>NuGet 發行 Package 時自動增加版號 之前文章 Jenkins 自動 Publish NuGet Package 已經可以透過 Jenkins 將程式碼成品打包成 NuGet package，但文末也提到 NuGet 是使用 {id+版號} 當做唯一值，一</description>
+    </item>
+    
+    <item>
+      <title>Jenkins 自動 Publish NuGet Package</title>
+      <link>https://blog.yowko.com/jenkins-publish-nuget-package/</link>
+      <pubDate>Thu, 20 Jul 2017 23:49:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-publish-nuget-package/</guid>
+      <description>Jenkins 自動 Publish NuGet Package 公司專案共用元件正在逐步由直接 add dll reference 改為使用 NuGet 管理，所以有不少專案需要打包成 NuGet Package，原本都是透過 NuGet Package Explorer 這個 GUI 軟體來打包</description>
+    </item>
+    
+    <item>
+      <title>Jenkins Job 觸發其他需要參數的 Job</title>
+      <link>https://blog.yowko.com/jenkins-job-trigger-paramerized-job/</link>
+      <pubDate>Thu, 06 Jul 2017 22:17:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-job-trigger-paramerized-job/</guid>
+      <description>Jenkins Job 觸發其他需要參數的 Job Jenkins 完成專案 Continuous integration - CI build 後只能確保該專案可以通過建置，但系統各個功能是不是可以如預期執行有時是需要多個專案共同搭配的結果</description>
+    </item>
+    
+    <item>
+      <title>Git webhook 如何驅動 Jenkins 的參數化建置 (Build with Parameters)</title>
+      <link>https://blog.yowko.com/webhook-jenkins-build-with-parameter/</link>
+      <pubDate>Wed, 05 Jul 2017 22:24:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/webhook-jenkins-build-with-parameter/</guid>
+      <description>Git webhook 如何驅動 Jenkins 的參數化建置 (Build with Parameters) 之前文章 Jenkins 2 將其他 job 名稱變成可選擇的參數、Jenkins 2 如何建立 Pipeline job 曾經簡單地介紹過模組化 build flow 的想法，透過</description>
+    </item>
+    
+    <item>
+      <title>在 Jenkins 2 使用有 Submodule 的 Git Repository</title>
+      <link>https://blog.yowko.com/jenkins-git-submodule/</link>
+      <pubDate>Wed, 17 May 2017 23:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-git-submodule/</guid>
+      <description>在 Jenkins 2 使用有 Submodule 的 Git Repository 前幾天文章 Git 專案引用其他 Repository 的作法(Git Submodule) 介紹了如何使用 Git Submodule 的功能來拆解專案的相依性，讓 repository 可以引用其他外部 repository 檔案或是 source c</description>
+    </item>
+    
+    <item>
+      <title>Git 如何針對其他路徑下的 Repository 執行指令</title>
+      <link>https://blog.yowko.com/git-command-from-another-directory/</link>
+      <pubDate>Fri, 12 May 2017 23:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/git-command-from-another-directory/</guid>
+      <description>Git 如何針對其他路徑下的 Repository 執行指令 一般來說我們都會直接在專案 repository 的所在目錄下執行 git 指令，今天同事問的這個問題就是因為不是一般的人為操作：同事使用</description>
+    </item>
+    
+    <item>
+      <title>Jenkins 該如何使用 SSH 存取 AD(LDAP) 驗證的 Git server</title>
+      <link>https://blog.yowko.com/jenkins-ssh-ad-ldap-git-server/</link>
+      <pubDate>Tue, 09 May 2017 23:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-ssh-ad-ldap-git-server/</guid>
+      <description>Jenkins 該如何使用 SSH 存取 AD(LDAP) 驗證的 Git server 最近公司的專案正積極地從 SVN 搬遷到 GIT，所以連帶的 CI Server - Jenkins 這邊的 SCM (Source Code Management) 也需要一併調整，同事為了不想寫死帳號密</description>
+    </item>
+    
+    <item>
+      <title>Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job</title>
+      <link>https://blog.yowko.com/jenkins-fail-and-continue/</link>
+      <pubDate>Wed, 26 Apr 2017 02:21:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-fail-and-continue/</guid>
+      <description>Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job 同事打算設定固定周期性執行 pipeline job 將所有專案 build 一輪，讓專案可以常保在健康的狀態。 非常正確的想法，但我的疑問是為</description>
+    </item>
+    
+    <item>
+      <title>Jenkins 如何自訂首頁 header</title>
+      <link>https://blog.yowko.com/jenkis2-customize-page/</link>
+      <pubDate>Tue, 18 Apr 2017 23:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkis2-customize-page/</guid>
+      <description>Jenkins 如何自訂首頁 header 同事希望在 Jenkins 頁面的 header 加上一些常用連結甚至是系統訊息，以利資訊揭露，讓訊息不同步的情況可以獲得改善，紀錄一下該如何設定 開啟允許</description>
+    </item>
+    
+    <item>
+      <title>Jenkins 如何取得上次編譯成功的時間</title>
+      <link>https://blog.yowko.com/jenkins-get-last-success-build/</link>
+      <pubDate>Fri, 07 Apr 2017 23:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-get-last-success-build/</guid>
+      <description>Jenkins 如何取得上次編譯成功的時間 之前曾經在 Jenkins 2 將其他 job 名稱變成可選擇的參數 介紹過該如何把其他 job name 當做參數，經過一段時間的發展，job 默默地成長到</description>
+    </item>
+    
+    <item>
+      <title>如何透過 jobname 取得 Jenkins 2 的 SCM Repository URL 及如何取得 BUILD_ID 及 BUILD_NUMBER 基本語法筆記 2</title>
+      <link>https://blog.yowko.com/jenkins-scm-url/</link>
+      <pubDate>Tue, 14 Mar 2017 02:43:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-scm-url/</guid>
+      <description>如何透過 jobname 取得 Jenkins 2 的 SCM Repository URL 及如何取得 BUILD_ID 及 BUILD_NUMBER 公司的 CI 流程需要使用 SCM Repository URL 來進行不同環境間的程式碼切換，原本為每個 job 都加上一個 URL 設定，但這樣一來就</description>
+    </item>
+    
+    <item>
+      <title>Jenkins 將其他 job 名稱變成可選擇的參數</title>
+      <link>https://blog.yowko.com/jenkins-parameterize-with-job/</link>
+      <pubDate>Mon, 13 Mar 2017 02:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-parameterize-with-job/</guid>
+      <description>Jenkins 將其他 job 名稱變成可選擇的參數 專案愈來愈多，加上最近正在更新專案的 Jenkins，正好趁著這次機會將各個專案的 CI 流程統一，以往新增專案就會手</description>
+    </item>
+    
+    <item>
+      <title>Jenkins 2 整合 postman collection runner</title>
+      <link>https://blog.yowko.com/jenkins-postman/</link>
+      <pubDate>Wed, 08 Mar 2017 01:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-postman/</guid>
+      <description>Jenkins 2 整合 postman collection runner 之前的文章 利用 POSTMAN 中的 collection 來快速測試 application 功能是否正常 介紹到如何使用 postman 內建的 collection runner 來為 api 做基本的測試，今天則要延用其中的概念，在每次上線</description>
+    </item>
+    
+    <item>
+      <title>Jenkins 2 如何建立 Pipeline job</title>
+      <link>https://blog.yowko.com/jenkins-pipeline/</link>
+      <pubDate>Wed, 22 Feb 2017 01:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-pipeline/</guid>
+      <description>Jenkins 2 如何建立 Pipeline job Pipeline 是 Jenkins 2 的一大特色，其概念就是將建置流程步驟透過 DSL(Domain-Specific Languages) 來定義與描述，使用的語法是 groovy，但如果只為了 build job 而刻意學 goovy 個人擔</description>
+    </item>
+    
+    <item>
+      <title>Jenkins 2 如何使用 PowerShell 以及自定 build fail (指定 exit code)</title>
+      <link>https://blog.yowko.com/jenkins-powershell-plugin/</link>
+      <pubDate>Sun, 12 Feb 2017 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-powershell-plugin/</guid>
+      <description>Jenkins 2 如何使用 PowerShell 以及自定 build fail (指定 exit code) Jenkins 除了用來做為 CI(持續性整合) 工具外，也可以與其他 plugin 配合達成其他目的(e.g.IIS restart、檔</description>
+    </item>
+    
+    <item>
+      <title>GitHub Repository 有變動時自動通知 Jenkins 2 進行編譯建置 (GitHub Plugin)</title>
+      <link>https://blog.yowko.com/github-plugin-jenkins-webhook/</link>
+      <pubDate>Sat, 11 Feb 2017 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/github-plugin-jenkins-webhook/</guid>
+      <description>GitHub Repository 有變動時自動通知 Jenkins 2 進行編譯建置 (GitHub Plugin) 之前筆記 遠端 Git Repository 有 merge 時自動通知 Jenkins 2 進行編譯建置 (webhook) 紀錄了如何以 GitHub 為例設定 Git server 提供的 webhook 功能與 Jenkins 2 建置自動</description>
+    </item>
+    
+    <item>
+      <title>遠端 Git Repository 有變動時自動通知 Jenkins 2 進行編譯建置 (webhook)</title>
+      <link>https://blog.yowko.com/git-repository-jenkins-webhook/</link>
+      <pubDate>Fri, 10 Feb 2017 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/git-repository-jenkins-webhook/</guid>
+      <description>遠端 Git Repository 有變動時自動通知 Jenkins 2 進行編譯建置 (webhook) 之前筆記 如何使用 Jenkins 2.0 建置 .NET 專案 紀錄到該如何使用 Jenkins 2 來建置 .NET 專案，為了讓整個開發建置流程更加自動化也</description>
+    </item>
+    
+    <item>
+      <title>如何使用 Jenkins 2 建置 .NET 專案</title>
+      <link>https://blog.yowko.com/jenkins-build-dotnet-project/</link>
+      <pubDate>Thu, 09 Feb 2017 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-build-dotnet-project/</guid>
+      <description>如何使用 Jenkins 2 建置 .NET 專案 實際上使用 Jnekins 1 跟 Jenkins 2 在建置 .NET 專案的設定並沒有不同，依照 Jenkins 1 的設定即可，因為已改用 Jenkins 2 ，怕設定畫面不同，造成誤解，所以標</description>
+    </item>
+    
+    <item>
+      <title>如何修改 Jenkins 2 預設使用的 port 以及在同一 Windows Server 安裝多個 Jenkins</title>
+      <link>https://blog.yowko.com/change-jenkins-port-multiple-jenkins/</link>
+      <pubDate>Wed, 08 Feb 2017 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/change-jenkins-port-multiple-jenkins/</guid>
+      <description>如何修改 Jenkins 2 預設使用的 port 以及在同一 Windows Server 安裝多個 Jenkins 在某些情境下(e.g. slave、專案實體隔離)，需要在同一台 Server 上安裝多個 Jenkins，另</description>
+    </item>
+    
+    <item>
+      <title>全新的 Jenkins .NET Build Server 該安裝什麼</title>
+      <link>https://blog.yowko.com/dotnet-jenkins/</link>
+      <pubDate>Tue, 07 Feb 2017 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-jenkins/</guid>
+      <description>全新的 Jenkins .NET Build Server 該安裝什麼 之前開發 Jenkins Job 都是在個人電腦上，建置完成後要移至新的 build server 時又遭遇一些問題，主因就是 build server 上沒有安裝 visual studio，所以紀</description>
+    </item>
+    
+    <item>
+      <title>Windows OS 安裝 Jenkins 2.0 紀實</title>
+      <link>https://blog.yowko.com/jenkins2-on-windows/</link>
+      <pubDate>Fri, 30 Dec 2016 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins2-on-windows/</guid>
+      <description>Windows OS 安裝 Jenkins 2.0 紀實 Jenkins 2.0 主要多了 Pipeline 特性，功能上跟 Workflow plgin 雷同，可以自行定義建置流程，也因為是由 Groovy 語法組成，讓整個建置 task 都可以被版控，而達成 infrastructure as code 目的</description>
+    </item>
+    
+  </channel>
+</rss>

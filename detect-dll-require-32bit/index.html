@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>如何知道使用的 dll 是否需以 32 位元模式執行 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="如何知道使用的 dll 是否需以 32 位元模式執行 最近因為年度計畫預計做些 Windows server OS 的升級作業，將大部份 OS 升級為 Windows Server 2016，也順便整理 server 上的 applica" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/detect-dll-require-32bit/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="如何知道使用的 dll 是否需以 32 位元模式執行" />
+<meta property="og:description" content="如何知道使用的 dll 是否需以 32 位元模式執行 最近因為年度計畫預計做些 Windows server OS 的升級作業，將大部份 OS 升級為 Windows Server 2016，也順便整理 server 上的 applica" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/detect-dll-require-32bit/" /><meta property="article:published_time" content="2018-05-08T09:57:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-05-08T09:57:26&#43;08:00"/>
+
+<meta itemprop="name" content="如何知道使用的 dll 是否需以 32 位元模式執行">
+<meta itemprop="description" content="如何知道使用的 dll 是否需以 32 位元模式執行 最近因為年度計畫預計做些 Windows server OS 的升級作業，將大部份 OS 升級為 Windows Server 2016，也順便整理 server 上的 applica">
+
+
+<meta itemprop="datePublished" content="2018-05-08T09:57:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-05-08T09:57:26&#43;08:00" />
+<meta itemprop="wordCount" content="2619">
+
+
+
+<meta itemprop="keywords" content="C#,IIS,PowerShell,Tools," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何知道使用的 dll 是否需以 32 位元模式執行"/>
+<meta name="twitter:description" content="如何知道使用的 dll 是否需以 32 位元模式執行 最近因為年度計畫預計做些 Windows server OS 的升級作業，將大部份 OS 升級為 Windows Server 2016，也順便整理 server 上的 applica"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-05-08 </span>
+        
+        <span class="more-meta"> 約 2619 字 </span>
+          <span class="more-meta"> 預計閱讀 6 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#如何知道使用的-dll-是否需以-32-位元模式執行">如何知道使用的 dll 是否需以 32 位元模式執行</a>
+<ul>
+<li><a href="#使用-dumpbin-span-style-color-red-無法識別是否需要-32-位元模式-span">使用 dumpbin：<span style="color:red">無法識別是否需要 32 位元模式</span></a></li>
+<li><a href="#使用-corflags-span-style-color-red-個人測試下不一定可以識別是否需要-32-位元模式-span">使用 CorFlags：<span style="color:red">個人測試下不一定可以識別是否需要 32 位元模式</span></a></li>
+<li><a href="#使用-powershell-span-style-color-red-勉強可識別是否需要-32-位元模式-span">使用 powershell：<span style="color:red">勉強可識別是否需要 32 位元模式</span></a></li>
+<li><a href="#使用-c-span-style-color-red-可識別是否需要-32-位元模式-span">使用 c#：<span style="color:red">可識別是否需要 32 位元模式</span></a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="如何知道使用的-dll-是否需以-32-位元模式執行">如何知道使用的 dll 是否需以 32 位元模式執行</h1>
+
+<p>最近因為年度計畫預計做些 Windows server OS 的升級作業，將大部份 OS 升級為 Windows Server 2016，也順便整理 server 上的 application，發現仍有不少 application 執行在 32 位模式下，過去主要的原因是 <code>Oracle.DataAccess.dll</code>，原以為只要搞定 <code>Oracle.DataAccess.dll</code> 就可以，想不到後續又遇到其他參考的 dll 需要執行在 32 bit 模式下，所以找了幾個方式來試著不需要反覆部署至 IIS 上進行測試即可得知特定的 dll 是否需要執行在 32 bit 的相容執行環境</p>
+
+<p>網路上分享的方法有很多種，今天會以本次遇到問題的 dll 中的 <code>Oracle.DataAccess.dll</code> 與 <code>System.Data.dll</code>當做範例來進行測試，立馬來看看哪個方式比較方便吧</p>
+
+<h2 id="使用-dumpbin-span-style-color-red-無法識別是否需要-32-位元模式-span">使用 dumpbin：<span style="color:red">無法識別是否需要 32 位元模式</span></h2>
+
+<blockquote>
+<p>曾經在之前筆記 <a href="https://blog.yowko.com/2017/11/binary-is-32-bit-64-bit.html" target="_blank">如何看程式是 32 bit 還是 64 bit</a> 紀錄到，詳細的使用方式可以參考原文 <a href="https://blog.yowko.com/2017/11/binary-is-32-bit-64-bit.html" target="_blank">如何看程式是 32 bit 還是 64 bit</a></p>
+</blockquote>
+
+<ul>
+<li><p>使用方式</p>
+
+<pre><code class="language-bash">dumpbin.exe /headers {檔案}
+</code></pre></li>
+
+<li><p>實際使用</p>
+
+<ul>
+<li><p><code>System.Data.dll</code></p>
+
+<ul>
+<li><p>需要 32 位元模式</p>
+
+<pre><code class="language-cmd">$ &quot;G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\amd64\dumpbin.exe&quot; /headers D:\Test\System.Data.dll
+Microsoft (R) COFF/PE Dumper Version 12.00.40629.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Test\System.Data.dll
+
+PE signature found
+
+File Type: DLL
+
+FILE HEADER VALUES
+            14C machine (x86)
+            5 number of sections
+        471EBF27 time date stamp Wed Oct 24 11:42:31 2007
+            0 file pointer to symbol table
+            0 number of symbols
+            E0 size of optional header
+            2102 characteristics
+                Executable
+                32 bit word machine
+                DLL
+
+OPTIONAL HEADER VALUES
+            10B magic # (PE32)
+            8.00 linker version
+        2A4800 size of code
+        40800 size of initialized data
+            0 size of uninitialized data
+        2A4630 entry point (65114630)
+            1000 base of code
+        2A6000 base of data
+        64E70000 image base (64E70000 to 6515BFFF)
+            1000 section alignment
+            200 file alignment
+            5.00 operating system version
+            8.00 image version
+            4.10 subsystem version
+            0 Win32 version
+        2EC000 size of image
+            400 size of headers
+        2EDF46 checksum
+            3 subsystem (Windows CUI)
+            0 DLL characteristics
+        100000 size of stack reserve
+            1000 size of stack commit
+        100000 size of heap reserve
+            1000 size of heap commit
+            0 loader flags
+            10 number of directories
+        2A5580 [     1A2] RVA [size] of Export Directory
+        2A478C [      B4] RVA [size] of Import Directory
+        2AE000 [   35F40] RVA [size] of Resource Directory
+            0 [       0] RVA [size] of Exception Directory
+            0 [       0] RVA [size] of Certificates Directory
+        2E4000 [    4BCC] RVA [size] of Base Relocation Directory
+            1330 [      1C] RVA [size] of Debug Directory
+            0 [       0] RVA [size] of Architecture Directory
+            0 [       0] RVA [size] of Global Pointer Directory
+            0 [       0] RVA [size] of Thread Storage Directory
+        116D0 [      40] RVA [size] of Load Configuration Directory
+            0 [       0] RVA [size] of Bound Import Directory
+            1000 [     2D8] RVA [size] of Import Address Table Directory
+            0 [       0] RVA [size] of Delay Import Directory
+        110C4 [      48] RVA [size] of COM Descriptor Directory
+            0 [       0] RVA [size] of Reserved Directory
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715721-c55a85ea-5260-11e8-895c-1374bca2dfa7.png" alt="1dumpbinsystemdata" /></p></li>
+
+<li><p>不需 32 位元模式</p>
+
+<pre><code>Dump of file D:\Test\System.Data_ok.dll
+
+PE signature found
+
+File Type: DLL
+
+FILE HEADER VALUES
+            14C machine (x86)
+            3 number of sections
+        4BA1E072 time date stamp Thu Mar 18 16:12:34 2010
+            0 file pointer to symbol table
+            0 number of symbols
+            E0 size of optional header
+            2022 characteristics
+                Executable
+                Application can handle large (&gt;2GB) addresses
+                DLL
+
+OPTIONAL HEADER VALUES
+            10B magic # (PE32)
+        10.00 linker version
+        142600 size of code
+            800 size of initialized data
+            0 size of uninitialized data
+        142A7A entry point (615B2A7A)
+            2000 base of code
+        146000 base of data
+        61470000 image base (61470000 to 615B9FFF)
+            2000 section alignment
+            200 file alignment
+            4.00 operating system version
+            0.00 image version
+            4.00 subsystem version
+            0 Win32 version
+        14A000 size of image
+            200 size of headers
+        14ED98 checksum
+            3 subsystem (Windows CUI)
+            140 DLL characteristics
+                Dynamic base
+                NX compatible
+        100000 size of stack reserve
+            1000 size of stack commit
+        100000 size of heap reserve
+            1000 size of heap commit
+            0 loader flags
+            10 number of directories
+            0 [       0] RVA [size] of Export Directory
+        142A28 [      4F] RVA [size] of Import Directory
+        146000 [     434] RVA [size] of Resource Directory
+            0 [       0] RVA [size] of Exception Directory
+        143000 [    1758] RVA [size] of Certificates Directory
+        148000 [       C] RVA [size] of Base Relocation Directory
+            0 [       0] RVA [size] of Debug Directory
+            0 [       0] RVA [size] of Architecture Directory
+            0 [       0] RVA [size] of Global Pointer Directory
+            0 [       0] RVA [size] of Thread Storage Directory
+            0 [       0] RVA [size] of Load Configuration Directory
+            0 [       0] RVA [size] of Bound Import Directory
+            2000 [       8] RVA [size] of Import Address Table Directory
+            0 [       0] RVA [size] of Delay Import Directory
+            2008 [      48] RVA [size] of COM Descriptor Directory
+            0 [       0] RVA [size] of Reserved Directory
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715722-c583e520-5260-11e8-8ae9-8fd9f2e60a17.png" alt="2dumpbinsystemdata32" /></p></li>
+</ul></li>
+
+<li><p><code>Oracle.DataAccess.dll</code></p>
+
+<ul>
+<li><p>需要 32 位元</p>
+
+<pre><code>$ &quot;G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\amd64\dumpbin.exe&quot; /headers D:\Test\Oracle.DataAccess.dll
+Microsoft (R) COFF/PE Dumper Version 12.00.40629.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Test\Oracle.DataAccess.dll
+
+PE signature found
+
+File Type: DLL
+
+FILE HEADER VALUES
+            14C machine (x86)
+            3 number of sections
+        48B315B4 time date stamp Tue Aug 26 04:27:32 2008
+            0 file pointer to symbol table
+            0 number of symbols
+            E0 size of optional header
+            210E characteristics
+                Executable
+                Line numbers stripped
+                Symbols stripped
+                32 bit word machine
+                DLL
+
+OPTIONAL HEADER VALUES
+            10B magic # (PE32)
+            8.00 linker version
+        DE000 size of code
+            2000 size of initialized data
+            0 size of uninitialized data
+        DFD1E entry point (110DFD1E)
+            2000 base of code
+        E0000 base of data
+        11000000 image base (11000000 to 110E3FFF)
+            2000 section alignment
+            1000 file alignment
+            4.00 operating system version
+            0.00 image version
+            4.00 subsystem version
+            0 Win32 version
+        E4000 size of image
+            1000 size of headers
+        E5C54 checksum
+            3 subsystem (Windows CUI)
+            540 DLL characteristics
+                Dynamic base
+                NX compatible
+                No structured exception handler
+        100000 size of stack reserve
+            1000 size of stack commit
+        100000 size of heap reserve
+            1000 size of heap commit
+            0 loader flags
+            10 number of directories
+            0 [       0] RVA [size] of Export Directory
+        DFCC4 [      57] RVA [size] of Import Directory
+        E0000 [     460] RVA [size] of Resource Directory
+            0 [       0] RVA [size] of Exception Directory
+            0 [       0] RVA [size] of Certificates Directory
+        E2000 [       C] RVA [size] of Base Relocation Directory
+            0 [       0] RVA [size] of Debug Directory
+            0 [       0] RVA [size] of Architecture Directory
+            0 [       0] RVA [size] of Global Pointer Directory
+            0 [       0] RVA [size] of Thread Storage Directory
+            0 [       0] RVA [size] of Load Configuration Directory
+            0 [       0] RVA [size] of Bound Import Directory
+            2000 [       8] RVA [size] of Import Address Table Directory
+            0 [       0] RVA [size] of Delay Import Directory
+            2008 [      48] RVA [size] of COM Descriptor Directory
+            0 [       0] RVA [size] of Reserved Directory
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715723-c5ab92e6-5260-11e8-8b7f-a868594996c6.png" alt="3dumpbinoracle" /></p></li>
+
+<li><p>不需要 32 位元</p>
+
+<pre><code>$ &quot;G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\amd64\dumpbin.exe&quot; /headers D:\Test\Oracle.DataAccess_ok.dll
+Microsoft (R) COFF/PE Dumper Version 12.00.40629.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Test\Oracle.DataAccess_ok.dll
+
+PE signature found
+
+File Type: DLL
+
+FILE HEADER VALUES
+            8664 machine (x64)
+            2 number of sections
+        4B9A20B6 time date stamp Fri Mar 12 19:08:38 2010
+            0 file pointer to symbol table
+            0 number of symbols
+            F0 size of optional header
+            212E characteristics
+                Executable
+                Line numbers stripped
+                Symbols stripped
+                Application can handle large (&gt;2GB) addresses
+                32 bit word machine
+                DLL
+
+OPTIONAL HEADER VALUES
+            20B magic # (PE32+)
+            8.00 linker version
+        F6000 size of code
+            1000 size of initialized data
+            0 size of uninitialized data
+            0 entry point
+            2000 base of code
+        11000000 image base (0000000011000000 to 00000000110F9FFF)
+            2000 section alignment
+            1000 file alignment
+            4.00 operating system version
+            0.00 image version
+            4.00 subsystem version
+            0 Win32 version
+        FA000 size of image
+            1000 size of headers
+        1036BB checksum
+            3 subsystem (Windows CUI)
+            540 DLL characteristics
+                Dynamic base
+                NX compatible
+                No structured exception handler
+        400000 size of stack reserve
+            4000 size of stack commit
+        100000 size of heap reserve
+            2000 size of heap commit
+            0 loader flags
+            10 number of directories
+            0 [       0] RVA [size] of Export Directory
+            0 [       0] RVA [size] of Import Directory
+        F8000 [     460] RVA [size] of Resource Directory
+            0 [       0] RVA [size] of Exception Directory
+            0 [       0] RVA [size] of Certificates Directory
+            0 [       0] RVA [size] of Base Relocation Directory
+            0 [       0] RVA [size] of Debug Directory
+            0 [       0] RVA [size] of Architecture Directory
+            0 [       0] RVA [size] of Global Pointer Directory
+            0 [       0] RVA [size] of Thread Storage Directory
+            0 [       0] RVA [size] of Load Configuration Directory
+            0 [       0] RVA [size] of Bound Import Directory
+            0 [       0] RVA [size] of Import Address Table Directory
+            0 [       0] RVA [size] of Delay Import Directory
+            2000 [      48] RVA [size] of COM Descriptor Directory
+            0 [       0] RVA [size] of Reserved Directory
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715724-c5d5b88c-5260-11e8-89a8-6035c798d279.png" alt="4dumpbinoracle" /></p></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="使用-corflags-span-style-color-red-個人測試下不一定可以識別是否需要-32-位元模式-span">使用 CorFlags：<span style="color:red">個人測試下不一定可以識別是否需要 32 位元模式</span></h2>
+
+<blockquote>
+<p><code>CorFlags.exe</code> 是 .net framework 的內建工具</p>
+</blockquote>
+
+<ul>
+<li><p>判斷基準</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">platform</th>
+<th align="left">PE</th>
+<th align="left">32BITREQ</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">Any CPU</td>
+<td align="left">PE32</td>
+<td align="left">0</td>
+</tr>
+
+<tr>
+<td align="left">x86</td>
+<td align="left">PE32</td>
+<td align="left">1</td>
+</tr>
+
+<tr>
+<td align="left">x64</td>
+<td align="left">PE32+</td>
+<td align="left">0</td>
+</tr>
+</tbody>
+</table></li>
+
+<li><p>實際使用</p>
+
+<ul>
+<li><p><code>System.Data.dll</code></p>
+
+<ul>
+<li><p>需要 32 位元模式</p>
+
+<pre><code>$ &quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.7.1 Tools\CorFlags.exe&quot; d:\TEST\System.Data.dll
+Microsoft (R) .NET Framework CorFlags Conversion Tool.  Version  4.7.2558.0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Version   : v2.0.50727
+CLR Header: 2.5
+PE        : PE32
+CorFlags  : 0x18
+ILONLY    : 0
+32BITREQ  : 0
+32BITPREF : 0
+Signed    : 1 
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715725-c5fc2440-5260-11e8-91b7-2a1fe5456262.png" alt="5corflagssystemdata" /></p></li>
+
+<li><p>不需要 32 位元模式</p>
+
+<pre><code>$ &quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.7.1 Tools\CorFlags.exe&quot; d:\TEST\System.Data_ok.dll
+Microsoft (R) .NET Framework CorFlags Conversion Tool.  Version  4.7.2558.0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Version   : v4.0.30319
+CLR Header: 2.5
+PE        : PE32
+CorFlags  : 0x9
+ILONLY    : 1
+32BITREQ  : 0
+32BITPREF : 0
+Signed    : 1
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715727-c624472c-5260-11e8-9e4b-46da12ef7119.png" alt="6corflagsystemdata" /></p></li>
+</ul></li>
+
+<li><p><code>Oracle.DataAccess.dll</code></p>
+
+<ul>
+<li><p>需要 32 位元模式</p>
+
+<pre><code>$ &quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.7.1 Tools\CorFlags.exe&quot; d:\TEST\Oracle.DataAccess.dll
+Microsoft (R) .NET Framework CorFlags Conversion Tool.  Version  4.7.2558.0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Version   : v2.0.50727
+CLR Header: 2.5
+PE        : PE32
+CorFlags  : 0xb
+ILONLY    : 1
+32BITREQ  : 1
+32BITPREF : 0
+Signed    : 1
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715728-c64d8812-5260-11e8-9f18-7ca879c4ab9b.png" alt="7corflagoracle" /></p></li>
+
+<li><p>不需要 32 位元模式</p>
+
+<pre><code>$ &quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.7.1 Tools\CorFlags.exe&quot; d:\TEST\Oracle.DataAccess_ok.dll
+Microsoft (R) .NET Framework CorFlags Conversion Tool.  Version  4.7.2558.0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Version   : v2.0.50727
+CLR Header: 2.5
+PE        : PE32+
+CorFlags  : 0x9
+ILONLY    : 1
+32BITREQ  : 0
+32BITPREF : 0
+Signed    : 1
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715730-c683bcac-5260-11e8-9cb4-8c461d341e92.png" alt="8corflagoracle" /></p></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="使用-powershell-span-style-color-red-勉強可識別是否需要-32-位元模式-span">使用 powershell：<span style="color:red">勉強可識別是否需要 32 位元模式</span></h2>
+
+<ul>
+<li><p>ProcessorArchitecture</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">ProcessorArchitecture</th>
+<th align="left">說明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">Amd64</td>
+<td align="left">僅 64-bit AMD 處理器適用</td>
+</tr>
+
+<tr>
+<td align="left">Arm</td>
+<td align="left">ARM 處理器適用</td>
+</tr>
+
+<tr>
+<td align="left">IA64</td>
+<td align="left">僅 64-bit Intel 處理器適用.</td>
+</tr>
+
+<tr>
+<td align="left">MSIL</td>
+<td align="left">不限處理器</td>
+</tr>
+
+<tr>
+<td align="left">None</td>
+<td align="left">無法辨識處理器</td>
+</tr>
+
+<tr>
+<td align="left">X86</td>
+<td align="left">32-bit Intel 處理器, 或是 64-bit 平台上 Windows on Windows 環境(WOW64).</td>
+</tr>
+</tbody>
+</table></li>
+
+<li><p>實際使用</p>
+
+<ul>
+<li><p><code>System.Data.dll</code></p>
+
+<ul>
+<li><p>需要 32 位元模式</p>
+
+<pre><code class="language-ps1">PS C:\Users\yowko.tsai&gt; $dllpath=&quot;d:\TEST\System.Data.dll&quot;
+
+[reflection.assemblyname]::GetAssemblyName($dllpath) | fl
+
+
+Name                  : System.Data
+Version               : 2.0.0.0
+CultureInfo           : 
+CultureName           : 
+CodeBase              : file:///d:/TEST/System.Data.dll
+EscapedCodeBase       : file:///d:/TEST/System.Data.dll
+ProcessorArchitecture : X86
+ContentType           : Default
+Flags                 : PublicKey
+HashAlgorithm         : SHA1
+VersionCompatibility  : SameMachine
+KeyPair               : 
+FullName              : System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715731-c6af75a4-5260-11e8-9b1a-632b027f90e4.png" alt="9pssystemdata" /></p></li>
+
+<li><p>不需要 32 位元模式</p>
+
+<pre><code class="language-ps1">PS C:\Users\yowko.tsai&gt; $dllpath=&quot;d:\TEST\System.Data_ok.dll&quot;
+
+[reflection.assemblyname]::GetAssemblyName($dllpath) | fl
+
+
+Name                  : System.Data
+Version               : 4.0.0.0
+CultureInfo           : 
+CultureName           : 
+CodeBase              : file:///d:/TEST/System.Data_ok.dll
+EscapedCodeBase       : file:///d:/TEST/System.Data_ok.dll
+ProcessorArchitecture : None
+ContentType           : Default
+Flags                 : PublicKey
+HashAlgorithm         : SHA1
+VersionCompatibility  : SameMachine
+KeyPair               : 
+FullName              : System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715733-c6d750b0-5260-11e8-82ad-41dc242598f5.png" alt="10pssystemdata" /></p></li>
+</ul></li>
+
+<li><p><code>Oracle.DataAccess.dll</code></p>
+
+<ul>
+<li><p>需要 32 位元模式</p>
+
+<pre><code class="language-ps1">PS C:\Users\yowko.tsai&gt; $dllpath=&quot;d:\TEST\Oracle.DataAccess.dll&quot;
+
+[reflection.assemblyname]::GetAssemblyName($dllpath) | fl
+
+
+Name                  : Oracle.DataAccess
+Version               : 2.111.7.0
+CultureInfo           : 
+CultureName           : 
+CodeBase              : file:///d:/TEST/Oracle.DataAccess.dll
+EscapedCodeBase       : file:///d:/TEST/Oracle.DataAccess.dll
+ProcessorArchitecture : X86
+ContentType           : Default
+Flags                 : PublicKey
+HashAlgorithm         : SHA1
+VersionCompatibility  : SameMachine
+KeyPair               : 
+FullName              : Oracle.DataAccess, Version=2.111.7.0, Culture=neutral, PublicKeyToken=89b483f429c47342
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715734-c7248056-5260-11e8-8998-c9a7ac0c115e.png" alt="11psoracle" /></p></li>
+
+<li><p>不需要 32 位元模式</p>
+
+<pre><code class="language-ps1">PS C:\Users\yowko.tsai&gt; $dllpath=&quot;d:\TEST\Oracle.DataAccess_ok.dll&quot;
+
+[reflection.assemblyname]::GetAssemblyName($dllpath) | fl
+
+
+Name                  : Oracle.DataAccess
+Version               : 2.112.1.0
+CultureInfo           : 
+CultureName           : 
+CodeBase              : file:///d:/TEST/Oracle.DataAccess_ok.dll
+EscapedCodeBase       : file:///d:/TEST/Oracle.DataAccess_ok.dll
+ProcessorArchitecture : Amd64
+ContentType           : Default
+Flags                 : PublicKey
+HashAlgorithm         : SHA1
+VersionCompatibility  : SameMachine
+KeyPair               : 
+FullName              : Oracle.DataAccess, Version=2.112.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715735-c74f7766-5260-11e8-9d7b-86f1ba68190f.png" alt="12psoracle" /></p></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="使用-c-span-style-color-red-可識別是否需要-32-位元模式-span">使用 c#：<span style="color:red">可識別是否需要 32 位元模式</span></h2>
+
+<ul>
+<li><p>實際使用</p>
+
+<ul>
+<li><p><code>System.Data.dll</code></p>
+
+<ul>
+<li><p>需要 32 位元模式</p>
+
+<pre><code class="language-cs">string dllpath = @&quot;D:\Test\System.Data.dll&quot;;
+Assembly assembly = Assembly.ReflectionOnlyLoadFrom(dllpath);
+assembly.ManifestModule.GetPEKind(out PortableExecutableKinds peKind, out ImageFileMachine machine);
+peKind.Dump();
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715736-c77b7848-5260-11e8-9911-8863abee38f7.png" alt="13cssystemdata" /></p></li>
+
+<li><p>不需要 32 位元模式</p>
+
+<pre><code class="language-cs">string dllpath = @&quot;D:\Test\System.Data_ok.dll&quot;;
+Assembly assembly = Assembly.ReflectionOnlyLoadFrom(dllpath);
+assembly.ManifestModule.GetPEKind(out PortableExecutableKinds peKind, out ImageFileMachine machine);
+peKind.Dump();
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715737-c7a18740-5260-11e8-83ea-82a9edad16d7.png" alt="14cssystemdata" /></p></li>
+</ul></li>
+
+<li><p><code>Oracle.DataAccess.dll</code></p>
+
+<ul>
+<li><p>需要 32 位元模式</p>
+
+<pre><code class="language-cs">string dllpath = @&quot;D:\Test\Oracle.DataAccess.dll&quot;;
+Assembly assembly = Assembly.ReflectionOnlyLoadFrom(dllpath);
+assembly.ManifestModule.GetPEKind(out PortableExecutableKinds peKind, out ImageFileMachine machine);
+peKind.Dump();
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715740-c7cb025a-5260-11e8-8f45-7f339d698ab7.png" alt="15csoracle" /></p></li>
+
+<li><p>不需要 32 位元模式</p>
+
+<pre><code class="language-cs">string dllpath = @&quot;D:\Test\Oracle.DataAccess_ok.dll&quot;;
+Assembly assembly = Assembly.ReflectionOnlyLoadFrom(dllpath);
+assembly.ManifestModule.GetPEKind(out PortableExecutableKinds peKind, out ImageFileMachine machine);
+peKind.Dump();
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39715742-c7f29586-5260-11e8-9c49-668d4a1de62d.png" alt="16csoracle" /></p></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>方法乍看之下有好幾個，但實際使用上可以正確判讀出是否需要 32 bit 模式的並不多，嚴格說起來只有 PowerShell 跟 c# 的方法可以滿足要求，CorFlag 實際使用上有的 dll 可以正確判讀有的則不行，而 c# 與 PowerShell 相比，PowerShell 的訊息仍然相對模糊，c# 整體的訊息非常直覺，但 PowerShell 不用編譯的優點則是 C# 望塵莫及的</p>
+
+<p>透過將幾個方式測試一輪順便紀錄，到時有需要就視情況取用即可，雖然花了一些時間，但日後再次用到時就划算了(應該)</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://blog.yowko.com/2017/11/binary-is-32-bit-64-bit.html" target="_blank">如何看程式是 32 bit 還是 64 bit</a></li>
+<li><a href="https://malvinly.com/2016/11/16/check-whether-a-net-dll-is-built-for-any-cpu-x86-or-x64/" target="_blank">Check whether a .NET dll is built for Any CPU, x86, or x64</a></li>
+<li><a href="https://msdn.microsoft.com/library/system.reflection.processorarchitecture" target="_blank">ProcessorArchitecture 列舉</a></li>
+<li><a href="https://stackoverflow.com/questions/270531/how-to-determine-if-a-net-assembly-was-built-for-x86-or-x64" target="_blank">How to determine if a .NET assembly was built for x86 or x64?</a></li>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/system.reflection.portableexecutablekinds%28v=vs.110%29.aspx" target="_blank">PortableExecutableKinds 列舉</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-05-08</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/iis/">IIS</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/powershell/">PowerShell</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/iis-50019-0x8007000d/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">IIS 上的 ASP.NET 程式出現 500.19 (0x8007000d) 錯誤？！</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/elastic-stack-elk-windows/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana)</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/detect-dll-require-32bit\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

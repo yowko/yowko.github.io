@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation) - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation) 你有遇過類似的狀況嗎？：改了 code 卻忘了改註解 或是 看既有 code 時發現 code 行為與註解說明不同？ 這兩種情況在我" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/pickles-specflow/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)" />
+<meta property="og:description" content="使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation) 你有遇過類似的狀況嗎？：改了 code 卻忘了改註解 或是 看既有 code 時發現 code 行為與註解說明不同？ 這兩種情況在我" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/pickles-specflow/" /><meta property="article:published_time" content="2017-06-27T22:47:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-23T22:47:48&#43;08:00"/>
+
+<meta itemprop="name" content="使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)">
+<meta itemprop="description" content="使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation) 你有遇過類似的狀況嗎？：改了 code 卻忘了改註解 或是 看既有 code 時發現 code 行為與註解說明不同？ 這兩種情況在我">
+
+
+<meta itemprop="datePublished" content="2017-06-27T22:47:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-23T22:47:48&#43;08:00" />
+<meta itemprop="wordCount" content="2010">
+
+
+
+<meta itemprop="keywords" content="MSTest,PowerShell,Tools,Unit Test," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)"/>
+<meta name="twitter:description" content="使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation) 你有遇過類似的狀況嗎？：改了 code 卻忘了改註解 或是 看既有 code 時發現 code 行為與註解說明不同？ 這兩種情況在我"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-06-27 </span>
+        
+        <span class="more-meta"> 約 2010 字 </span>
+          <span class="more-meta"> 預計閱讀 5 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#使用-pickles-搭配-specflow-產生即時更新文件-living-documentation">使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)</a>
+<ul>
+<li><a href="#what-is-pickles">What is Pickles</a></li>
+<li><a href="#安裝-pickles">安裝 Pickles</a></li>
+<li><a href="#參數-http-docs-picklesdoc-com-en-latest-arguments"><a href="http://docs.picklesdoc.com/en/latest/Arguments/" target="_blank">參數</a></a></li>
+<li><a href="#如何使用-pickles">如何使用 Pickles</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="使用-pickles-搭配-specflow-產生即時更新文件-living-documentation">使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)</h1>
+
+<p>你有遇過類似的狀況嗎？：改了 code 卻忘了改註解 或是 看既有 code 時發現 code 行為與註解說明不同？ 這兩種情況在我的工作經驗中不算是常見但也不算是罕見，其實我倒不認為造成問題的人(可能就是你我)是故意的，大多數都是不小心忘記或是漏了，畢竟人難免會犯錯，功能正常是第一優先也比較容易確認，註解的正確性相對難以保障。所以就會造成文件日益失去可靠性，程式也就愈來愈難維護</p>
+
+<p>當然程式可以自我解釋是最好，但並不是所有人都看得懂程式，老闆問商業邏輯時總不能叫他自己去看程式碼，而身為工程師的大家，我想應該都不喜歡寫文件。加上會隨著需求異動修改的也通常只有程式碼，所以如果可以從程式碼來產生文件就是最理想的狀態了。</p>
+
+<p>一般情境下從程式碼來產生文件當然是很難達成，但如果專案中有使用 SpecFlow 時，事情就變得容易了，今天就來看看如何透過 Pickles 與 SpecFlow 搭配產生即時更新文件</p>
+
+<h2 id="what-is-pickles">What is Pickles</h2>
+
+<p>Pickles 是套 open source 的即時更新文件(living documentation)產生工具，可以針對 Gherkin 語法(ex. Cucumber、SpecFlow)寫出的 feature 檔來產生文件</p>
+
+<h2 id="安裝-pickles">安裝 Pickles</h2>
+
+<p>Pickles 使用上有兩個類型：</p>
+
+<ol>
+<li><p>Pickles</p>
+
+<blockquote>
+<ul>
+<li>提供 Pickles 核心功能</li>
+<li>需搭配 runner 使用</li>
+</ul>
+</blockquote>
+
+<ul>
+<li><p>安裝方式</p>
+
+<ul>
+<li><p>使用 Chocolatey 指令</p>
+
+<pre><code>choco install pickles
+</code></pre>
+
+<blockquote>
+<p>詳細內容可以參考 <a href="https://chocolatey.org/packages/pickles" target="_blank">Pickles - The Open Source Living </a></p>
+</blockquote></li>
+
+<li><p>直接下載 .zip</p>
+
+<blockquote>
+<p>至 <a href="https://github.com/picklesdoc/pickles/releases" target="_blank">GitHub</a> 下載</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>安裝 runner</p>
+
+<ul>
+<li><p>使用 NuGet 安裝</p>
+
+<ul>
+<li><p>PowerShell</p>
+
+<pre><code class="language-ps1">Install-Package Pickles
+</code></pre>
+
+<blockquote>
+<p>詳細內容可以參考 <a href="https://www.nuget.org/packages/Pickles/" target="_blank">Pickles</a></p>
+</blockquote></li>
+
+<li><p>Command Line</p>
+
+<pre><code>Install-Package Pickles.CommandLine
+</code></pre>
+
+<blockquote>
+<p>詳細內容可以參考 <a href="https://www.nuget.org/packages/Pickles.CommandLine/" target="_blank">Command line version of Pickles</a></p>
+</blockquote></li>
+
+<li><p>MSBuild</p>
+
+<pre><code>Install-Package Pickles.MSBuild
+</code></pre>
+
+<blockquote>
+<p>詳細內容可以參考 <a href="https://www.nuget.org/packages/Pickles.MSBuild/" target="_blank">MSBuild Task for Pickles</a></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>直接下載 .zip</p>
+
+<ul>
+<li>Pickles-powershell.zip</li>
+<li>Pickles-msbuild.zip</li>
+</ul>
+
+<blockquote>
+<p>至 <a href="https://github.com/picklesdoc/pickles/releases" target="_blank">GitHub</a> 下載</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+
+<li><p>Pickles UI</p>
+
+<blockquote>
+<ul>
+<li>以 GUI 方式來執行 Pickles</li>
+<li>內建 runner 不需額外安裝</li>
+</ul>
+</blockquote>
+
+<ul>
+<li><p>安裝方式</p>
+
+<ul>
+<li><p>使用 Chocolatey 指令</p>
+
+<pre><code>choco install picklesui
+</code></pre>
+
+<blockquote>
+<p>詳細內容可以參考 <a href="https://chocolatey.org/packages/picklesui" target="_blank">Pickles UI - The Open Source Living</a></p>
+</blockquote></li>
+
+<li><p>直接下載 .zip</p>
+
+<blockquote>
+<p>至 <a href="https://github.com/picklesdoc/pickles/releases" target="_blank">GitHub</a> 下載</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h2 id="參數-http-docs-picklesdoc-com-en-latest-arguments"><a href="http://docs.picklesdoc.com/en/latest/Arguments/" target="_blank">參數</a></h2>
+
+<ul>
+<li><p>Feature Directory</p>
+
+<blockquote>
+<p>Feature 檔位置資料夾</p>
+</blockquote>
+
+<ul>
+<li><p>Console</p>
+
+<pre><code>Pickles.exe --feature-directory=C:\MyProject\Features
+Pickles.exe -f=C:\MyProject\Features
+</code></pre></li>
+
+<li><p>Powershell</p>
+
+<pre><code class="language-ps1">Pickle-Features -FeatureDirectory C:\MyProject\Features
+</code></pre></li>
+
+<li><p>MSBuild</p>
+
+<pre><code>&lt;Target Name=&quot;document&quot;&gt;
+    &lt;Pickles FeatureDirectory=&quot;C:\MyProject\Features&quot; /&gt;
+&lt;/Target&gt;
+</code></pre></li>
+</ul></li>
+
+<li><p>Output Directory</p>
+
+<blockquote>
+<p>報表產出目錄</p>
+</blockquote>
+
+<ul>
+<li><p>Console</p>
+
+<pre><code>Pickles.exe --output-directory=C:\GeneratedDocs
+Pickles.exe -o=C:\GeneratedDocs
+</code></pre></li>
+
+<li><p>Powershell</p>
+
+<pre><code class="language-ps1">Pickle-Features -OutputDirectory C:\GeneratedDocs
+</code></pre></li>
+
+<li><p>MSBuild</p>
+
+<pre><code>&lt;Target Name=&quot;document&quot;&gt;
+    &lt;Pickles OutputDirectory=&quot;C:\GeneratedDocs&quot; /&gt;
+&lt;/Target&gt;
+</code></pre></li>
+</ul></li>
+
+<li><p>Documentation Format</p>
+
+<blockquote>
+<p>指定輸出文件的格式 預設為 <code>html</code> 可以使用 html, dhtml, excel, json, word, cucumber</p>
+</blockquote>
+
+<ul>
+<li><p>Console</p>
+
+<pre><code>Pickles.exe --documentation-format=Word
+Pickles.exe -df=Word
+</code></pre></li>
+
+<li><p>Powershell</p>
+
+<pre><code class="language-ps1">Pickle-Features -DocumentationFormat Word
+</code></pre></li>
+
+<li><p>MSBuild</p>
+
+<pre><code>&lt;target Name=&quot;document&quot;&gt;
+    &lt;pickles DocumentationFormat=&quot;Word&quot; /&gt;
+&lt;/target&gt;
+</code></pre></li>
+
+<li><p>html 報表</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/27592692-a2023604-5b87-11e7-9d4e-e4be699d81d5.png" alt="1html" /></p></li>
+
+<li><p>dhtml 報表</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/27592694-a22b70f0-5b87-11e7-9889-a232e926f214.png" alt="2dhtml" /></p></li>
+</ul></li>
+
+<li><p>System Under Test Name</p>
+
+<blockquote>
+<p>測試系統名稱，因為 Gherkin 是跨平台的，無法統一從 metadata 讀取系統名稱，所以需要由使用者自行指定(我沒用過)</p>
+</blockquote>
+
+<ul>
+<li><p>Console</p>
+
+<pre><code class="language-cmd">Pickles.exe --system-under-test-name=MyProject
+Pickles.exe -sn=MyProject
+</code></pre></li>
+
+<li><p>Powershell</p>
+
+<pre><code class="language-ps1">Pickle-Features -SystemUnderTestName MyProject
+</code></pre></li>
+
+<li><p>MSBuild</p>
+
+<pre><code>&lt;Target Name=&quot;document&quot;&gt;
+    &lt;Pickles SystemUnderTestName=&quot;MyProject&quot; /&gt;
+&lt;/Target&gt;
+</code></pre></li>
+</ul></li>
+
+<li><p>System Under Test Version</p>
+
+<blockquote>
+<p>測試系統版本，原因同上</p>
+</blockquote>
+
+<ul>
+<li><p>Console</p>
+
+<pre><code>Pickles.exe --system-under-test-version=2.0.1beta
+Pickles.exe -sv=2.0.1beta
+</code></pre></li>
+
+<li><p>Powershell</p>
+
+<pre><code>Pickle-Features -SystemUnderTestVersion 2.0.1beta
+</code></pre></li>
+
+<li><p>MSBuild</p>
+
+<pre><code>&lt;Target Name=&quot;document&quot;&gt;
+    &lt;Pickles SystemUnderTestVersion=&quot;2.0.1beta&quot; /&gt;
+&lt;/Target&gt;
+</code></pre></li>
+</ul></li>
+
+<li><p>Test Results Format</p>
+
+<blockquote>
+<p>測試結果的 test framework 格式，預設為 <code>nunit</code> 可接受 nunit, nunit3, xunit, xunit2, mstest, cucumberjson, specrun, vstest</p>
+</blockquote>
+
+<ul>
+<li><p>Console</p>
+
+<pre><code>Pickles.exe --test-results-format=mstest
+Pickles.exe -trfmt=mstest
+</code></pre></li>
+
+<li><p>Powershell</p>
+
+<pre><code>Pickle-Features -TestResultsFormat mstest
+</code></pre></li>
+
+<li><p>MSBuild</p>
+
+<pre><code>&lt;Target Name=&quot;document&quot;&gt;
+    &lt;Pickles ResultsFormat=&quot;mstest&quot; /&gt;
+&lt;/Target&gt;
+</code></pre></li>
+</ul></li>
+
+<li><p>Test Results File</p>
+
+<blockquote>
+<p>指定 xml(trx) 格式的測試結果檔案</p>
+</blockquote>
+
+<ul>
+<li><p>Console</p>
+
+<pre><code>Pickles.exe --link-results-file=C:\MyProject\Reports\results.trx
+Pickles.exe -lr=C:\MyProject\Reports\results.trx
+Pickles.exe -lr=C:\MyProject\Reports\*.trx
+Pickles.exe -lr=C:\MyProject\UnitTest\results.xml;C:\MyProject\SystemTest\*
+</code></pre></li>
+
+<li><p>Powershell</p>
+
+<pre><code>Pickle-Features -TestResultsFile C:\MyProject\Reports\results.trx
+</code></pre></li>
+
+<li><p>MSBuild</p>
+
+<pre><code>&lt;Target Name=&quot;document&quot;&gt;
+    &lt;Pickles ResultsFile=&quot;C:\MyProject\Reports\results.trx&quot; /&gt;
+&lt;/Target&gt;
+</code></pre></li>
+
+<li><p>有指定測試結果  報告上會顯示測試結果</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/27592699-a29e8036-5b87-11e7-8b37-3aa51ea08401.png" alt="3testresult" /></p></li>
+</ul></li>
+
+<li><p>Language</p>
+
+<blockquote>
+<p>feature 檔的語言 預設是 <code>en</code> (English)，不支援 <code>zh</code></p>
+</blockquote>
+
+<ul>
+<li><p>Console</p>
+
+<pre><code>Pickles.exe --language=sv
+Pickles.exe -l=sv
+</code></pre></li>
+
+<li><p>Powershell</p>
+
+<pre><code>Pickle-Features -Language sv
+</code></pre></li>
+
+<li><p>MSBuild</p>
+
+<pre><code>&lt;Target Name=&quot;document&quot;&gt;
+    &lt;Pickles Language=&quot;sv&quot; /&gt;
+&lt;/Target&gt;
+</code></pre></li>
+</ul></li>
+
+<li><p>Include Experimental Features</p>
+
+<blockquote>
+<p>是否啟用實驗性功能(我沒用過)</p>
+</blockquote>
+
+<ul>
+<li><p>Console</p>
+
+<pre><code>Pickles.exe --include-experimental-features
+Pickles.exe -exp
+</code></pre></li>
+
+<li><p>Powershell</p>
+
+<pre><code>Pickle-Features -IncludeExperimentalFeatures
+</code></pre></li>
+
+<li><p>MSBuild</p>
+
+<pre><code>&lt;target Name=&quot;document&quot;&gt;
+    &lt;pickles IncludeExperimentalFeatures=&quot;true&quot; /&gt;
+&lt;/target&gt;
+</code></pre></li>
+</ul></li>
+</ul>
+
+<h2 id="如何使用-pickles">如何使用 Pickles</h2>
+
+<p>Console (Pickles.exe) 是最容易也是用途最廣跟最普遍的方式；Pickles Powershell(Pickle-Features) 只能在 Visual Studio 中使用；MSBuild 每次 build project 都產一份報表？！</p>
+
+<p>以下 demo 會使用 Console 也就是透過 Pickles.exe 來產生報表搭配 Visual Studio 外部工具，過程會使用 PowerShell 語法(這邊用的 PowerShell 不是上面說的 Pickles Powershell：Pickle-Features)</p>
+
+<ol>
+<li><p>建立一個 PowerShell 檔</p>
+
+<ul>
+<li>用來執行測試、產生報表、開啟報表</li>
+
+<li><p><code>MSTest.exe 的檔案位置</code> 及 <code>Pickles-exe 的檔案位置</code> 需視實際情境修改</p>
+
+<pre><code class="language-ps1"># 用來接收傳入的參數
+Param
+(
+    [Parameter(Mandatory = $true)]
+    [String]$TargetName ,
+    [String]$TargetExt ,
+    [String]$ResultPath ,
+    [String]$FeaturePath
+)
+# MSTest.exe 的檔案位置
+$MSTestPath = &quot;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\MSTest.exe&quot;
+# Pickles-exe 的檔案位置
+$PicklesPath =&quot;D:\Downloads\Pickles-exe-2.16.0\Pickles.exe&quot;
+# MSTest 測試 function; $TestDllPath 是 測試專案 dll 檔案位置(完整檔名); $ResultPath 是測試結果產生位置(完整檔名)
+function ExeTest($MSTestPath,$TestDllPath,$TestResultFilePath)
+{
+    &amp; $MSTestPath /testcontainer:$TestDllPath /resultsfile:$TestResultFilePath
+}
+# 產生 Pickles 報表 function; $FeaturePath 是 feature 檔目錄位置; $ResultPath 是報告產出位置 ; $TestResultFilePath 是測試結果檔案位置(完整檔名)
+function GenerateReport($PicklesPath,$FeaturePath,$ResultPath,$ResultFilePath)
+{
+    &amp;$PicklesPath --test-results-format=mstest --feature-directory=&quot;$FeaturePath &quot; --output-directory=&quot;$ResultPath &quot; --link-results-file=&quot;$TestResultFilePath &quot; --documentation-format=Dhtml
+}
+# 開啟報表 function ;呼叫 chrome 開啟 Pickles 報表;$ResultIndexPath 是 Pickles 報表位置
+function OpenReport($ResultIndexPath)
+{
+    Start-Process &quot;chrome.exe&quot; $ResultIndexPath
+}
+# 使用專案名稱做為測試結果儲存檔名，並指定儲存位置
+$TestResultFilePath=$ResultPath+'\'+$TargetName+'.trx'
+# 如果檔案已存在則刪除(不刪，新的測試結果不會自行覆蓋)
+if( Test-Path -Path $TestResultFilePath) 
+{
+    Remove-Item $TestResultFilePath
+}
+# 依各 function 依序執行 測試、產生 pickles 報表、開啟報表
+ExeTest -MSTestPath $MSTestPath -TestDllPath $TargetName$TargetExt -TestResultFilePath $TestResultFilePath | GenerateReport -PicklesPath $PicklesPath -FeaturePath $FeaturePath -ResultPath $ResultPath -TestResultFilePath $TestResultFilePath | OpenReport -ResultIndexPath $ResultPath'/index.html'
+</code></pre></li>
+</ul></li>
+
+<li><p>設定 Visual Studio 外部工具</p>
+
+<blockquote>
+<p>在 <a href="https://blog.yowko.com/2017/06/visual-studio-external-tools.html" target="_blank">關於 Visual Studio 中的外部工具(External Tools)</a> 中有簡單介紹 Visual Studio 外部工具相關使用方式及參數</p>
+</blockquote>
+
+<ul>
+<li><p>Visual Studio 主選單 Tools &ndash;&gt; External Tools</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/27592695-a243b43a-5b87-11e7-989c-ee282bdd2562.png" alt="4addexternal" /></p></li>
+
+<li><p>填寫外部工具資訊</p>
+
+<ul>
+<li><p>Title</p>
+
+<ul>
+<li><p>用來顯示在 Tools 選單上的名稱</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/27592697-a24ae638-5b87-11e7-930f-15237408f829.png" alt="5title" /></p></li>
+</ul></li>
+
+<li><p>Command</p>
+
+<ul>
+<li>執行檔完整檔名</li>
+<li>範例：<code>Powershell.exe</code></li>
+</ul></li>
+
+<li><p>Arguments</p>
+
+<ul>
+<li>執行檔所需參數，需注意欄位有長度限制</li>
+
+<li><p>執行 <code>GeneratePicklesDoc.ps1</code> (上面新增的 powershell 檔案)，並依參數名稱指定參數值</p>
+
+<ul>
+<li><code>-executionpolicy remotesigned -File D:\GeneratePicklesDoc.ps1</code> 執行特定 powershell 檔案</li>
+<li><code>-TargetName $(TargetName)</code> 指定 <code>TargetName</code> 為 build 出來的 dll 檔名</li>
+<li><code>-TargetExt $(TargetExt)</code> 指定 <code>TargetExt</code> 為 build 出來的檔案副檔名</li>
+<li><code>-ResultPath &quot;D:\20170626&quot;</code> 指定 <code>ResultPath</code> 為報告產出位置(測試報告及 pickles 文件會放一起，如需修改請改上面的 ps 檔)</li>
+<li><code>-FeaturePath $(ProjectDir)</code> 指定 <code>FeaturePath</code> 為測試專案的 feature 檔實際路徑(需視專案位置調整)</li>
+</ul></li>
+
+<li><p>範例：</p>
+
+<pre><code>-executionpolicy remotesigned -File  D:\GeneratePicklesDoc.ps1 -TargetName $(TargetName) -TargetExt $(TargetExt) -ResultPath &quot;D:\20170626&quot; -FeaturePath $(ProjectDir)
+</code></pre></li>
+</ul></li>
+
+<li><p>Initial directory</p>
+
+<ul>
+<li>執行檔發動根目錄位置，可以縮短參數值長度(不用給到完整路徑)</li>
+<li>範例：<code>$(BinDir)</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+
+<li><p>產生結果</p>
+
+<ul>
+<li>開啟測試專案後，直接按下剛剛新增的 Visual Studio 外部工具即可自動進行測試、產生文件並開啟文件了</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/27592696-a24b55f0-5b87-11e7-8bd6-b78d1c083928.png" alt="6result" /></p></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>Pickles 的說明文件 <a href="http://docs.picklesdoc.com/en/latest/" target="_blank">Pickles Docs</a> 對新進的使用者並不友善，我反覆看著文件數次，還是搞不太清楚要裝哪些東西跟安裝套件的用途</p>
+
+<p>設定 Pickles 過程中遇到還遇到不熟悉 MSTest.exe 及 Visual Studio 外部工具用法，也發現 MSTest.exe 尚不支援 MSTestV2 跟 Visual Studio 外部工具 參數列有長度限制，整個設定過程上有比較多眉眉角角的，使用上要特別留意，不過將整個流程串接起來讓開發不再只是開發，相信對日後維護有一定的幫助</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://github.com/picklesdoc/pickles" target="_blank">Pickles - GitHub</a></li>
+<li><a href="http://docs.picklesdoc.com/en/latest/" target="_blank">Pickles Docs</a></li>
+<li><a href="http://docs.picklesdoc.com/en/latest/Arguments/" target="_blank">Pickles Arguments</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-23</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/mstest/">MSTest</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/powershell/">PowerShell</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/unit-test/">Unit Test</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/iis-express-50019-config-duplicate/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">IIS Express 出現 500.19 - 0x800700b7 錯誤？！</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/web-api-message-handler-unit-test/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">為 Web Api 的 Message Handler 加上單元測試</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/pickles-specflow\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

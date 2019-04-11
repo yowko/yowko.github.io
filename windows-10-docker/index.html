@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Windows 10 如何啟用 docker 功能 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="Windows 10 如何啟用 docker 功能 Windows 10 雖然不是原生支援 Windows Server container(透過 Hyper-V 支援)，執行速度較慢，但 Microsoft 在 Windows 10 上將 windows container 與 Linux container 包裝得非常方便。只要滑鼠動" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/windows-10-docker/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="Windows 10 如何啟用 docker 功能" />
+<meta property="og:description" content="Windows 10 如何啟用 docker 功能 Windows 10 雖然不是原生支援 Windows Server container(透過 Hyper-V 支援)，執行速度較慢，但 Microsoft 在 Windows 10 上將 windows container 與 Linux container 包裝得非常方便。只要滑鼠動" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/windows-10-docker/" /><meta property="article:published_time" content="2017-05-08T01:08:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-18T01:08:03&#43;08:00"/>
+
+<meta itemprop="name" content="Windows 10 如何啟用 docker 功能">
+<meta itemprop="description" content="Windows 10 如何啟用 docker 功能 Windows 10 雖然不是原生支援 Windows Server container(透過 Hyper-V 支援)，執行速度較慢，但 Microsoft 在 Windows 10 上將 windows container 與 Linux container 包裝得非常方便。只要滑鼠動">
+
+
+<meta itemprop="datePublished" content="2017-05-08T01:08:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-18T01:08:03&#43;08:00" />
+<meta itemprop="wordCount" content="713">
+
+
+
+<meta itemprop="keywords" content="Docker,Windows 10," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Windows 10 如何啟用 docker 功能"/>
+<meta name="twitter:description" content="Windows 10 如何啟用 docker 功能 Windows 10 雖然不是原生支援 Windows Server container(透過 Hyper-V 支援)，執行速度較慢，但 Microsoft 在 Windows 10 上將 windows container 與 Linux container 包裝得非常方便。只要滑鼠動"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-05-08 </span>
+        
+        <span class="more-meta"> 約 713 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#windows-10-如何啟用-docker-功能">Windows 10 如何啟用 docker 功能</a>
+<ul>
+<li><a href="#必要條件">必要條件</a></li>
+<li><a href="#啟用容器功能">啟用容器功能</a></li>
+<li><a href="#安裝-docker-for-windows">安裝 Docker for Windows</a></li>
+<li><a href="#建立-container">建立 container</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="windows-10-如何啟用-docker-功能">Windows 10 如何啟用 docker 功能</h1>
+
+<p>Windows 10 雖然不是原生支援 Windows Server container(透過 Hyper-V 支援)，執行速度較慢，但 Microsoft 在 Windows 10 上將 windows container 與 Linux container 包裝得非常方便。只要滑鼠動幾下就可以在不需人為介入下使用 Hyper-V 建立 Windows Server container 及 Linux container ，使用者體驗很好，反而在 Windows Server 2016 上還需要手動使用 Hyper-V 安裝 Linux 後才能建立 Linux container (<sup>2017</sup>&frasl;<sub>5</sub> 當下現況，Microsoft 已經對外公布會解決這個問題，只是沒說什麼時候而已XD)，複雜度遠遠超過 Windows 10，加上本來對 Linux 就不熟悉，要完全搞定這些環境是個非常大的挑戰，在兩方優劣比較下，決定暫時犧牲效能先求可以正常使用就好，畢竟重點是 container 而不是 os，立馬來看看該如何讓 Windows 10 可以使用 docker 吧</p>
+
+<h2 id="必要條件">必要條件</h2>
+
+<ol>
+<li><p>Windows 10 Anniversary Edition(年度版) 或是 Creators Update (Professional or Enterprise).</p>
+
+<blockquote>
+<p>如果沒有的話可以至微軟官方 <a href="https://www.microsoft.com/zh-tw/software-download/windows10ISO" target="_blank">下載 Windows 10 光碟映像 (ISO 檔案)</a></p>
+</blockquote></li>
+
+<li><p>確認 Windows 10 的 OS 組建版本需要 14393.222 以上</p>
+
+<blockquote>
+<p>開啟 commnad prompt 或 Windows PowerShell 執行 <code>winver.exe</code></p>
+</blockquote>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25774324/92e2ce90-32bf-11e7-8776-7640da31c656.png" alt="1build" /></p></li>
+</ol>
+
+<h2 id="啟用容器功能">啟用容器功能</h2>
+
+<ol>
+<li><p>啟用 Hyper-V</p>
+
+<ul>
+<li>使用管理者權限開啟 Windows PowerShell</li>
+
+<li><p>執行 <code>Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All</code></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25774326/930fb6d0-32bf-11e7-8b53-08b1e5f6b087.png" alt="2installhyperv" /></p></li>
+
+<li><p>提示重新啟動電腦(可以等 container 功能啟用後再重新啟動即可)</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25774325/930f7e68-32bf-11e7-835f-99f984063e1d.png" alt="3restart" /></p></li>
+</ul></li>
+
+<li><p>啟用 container</p>
+
+<ul>
+<li>使用管理者權限開啟 Windows PowerShell</li>
+
+<li><p>執行 <code>Enable-WindowsOptionalFeature -Online -FeatureName containers -All</code></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25774327/931203ae-32bf-11e7-9015-be888e1bb063.png" alt="4installcontainer" /></p></li>
+
+<li><p>重新啟動電腦</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25774329/93377206-32bf-11e7-9da7-d4259bbde6a5.png" alt="5restart" /></p>
+
+<ul>
+<li>或是執行 <code>Restart-Computer -Force</code></li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h2 id="安裝-docker-for-windows">安裝 Docker for Windows</h2>
+
+<ol>
+<li><p>下載 <a href="https://download.docker.com/win/stable/InstallDocker.msi" target="_blank">Docker for Windows</a></p></li>
+
+<li><p>執行 <code>InstallDocker.msi</code> 安裝 Docker for Windows</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25774331/9337c47c-32bf-11e7-8f3c-6f687b1d3114.png" alt="6installdocker" /></p>
+
+<ul>
+<li>安裝完成後請重新開機</li>
+</ul></li>
+
+<li><p>確認安裝狀態</p>
+
+<blockquote>
+<p>開啟 commnad prompt 或是 Windows PowerShell ，執行 <code>docker info</code></p>
+</blockquote>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25774328/93371310-32bf-11e7-940f-a9ea4d94eedf.png" alt="7dockerinfo" /></p></li>
+</ol>
+
+<h2 id="建立-container">建立 container</h2>
+
+<ul>
+<li><p>系統圖示列可在 Windows conatiner 與 Linux container 間自行切換</p>
+
+<blockquote>
+<p>切換需要一點時間，畢竟背景會默默啟動 Hyper-V</p>
+</blockquote>
+
+<ul>
+<li><p>to Linux container</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25774332/9339bc00-32bf-11e7-9412-6335c6eed595.png" alt="8towindowscontainer" /></p></li>
+
+<li><p>to windows container</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25774330/93378304-32bf-11e7-8866-b82514a61a11.png" alt="9toLinuxcontainer" /></p></li>
+</ul></li>
+
+<li><p>可以透過 commnad prompt 或是 Windows PoerShell 來切換</p>
+
+<ul>
+<li><p>commnad prompt</p>
+
+<pre><code>&quot;C:\Program Files\Docker\Docker\DockerCli.exe&quot; -SwitchDaemon
+</code></pre></li>
+
+<li><p>Windows PoerShell</p>
+
+<pre><code class="language-ps1">&amp; 'C:\Program Files\Docker\Docker\DockerCli.exe' -SwitchDaemon`
+</code></pre></li>
+</ul></li>
+
+<li><p>如果使用錯誤 os 的 image 會有提示</p>
+
+<ul>
+<li><p>Linux use windows image</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25774323/92e1f9f2-32bf-11e7-95be-b6532dcba590.png" alt="13Linuxusewindows" /></p></li>
+
+<li><p>windows use Linux image</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25774334/9360b4b8-32bf-11e7-8a1d-cf11303d0e6c.png" alt="11windowsuseLinux" /></p></li>
+</ul></li>
+</ul>
+
+<ol>
+<li><p>Linux container</p>
+
+<blockquote>
+<p><code>docker run -it --name centos centos</code></p>
+</blockquote>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25774333/933a440e-32bf-11e7-8b85-8fee469b0c64.png" alt="10Linuxok" /></p></li>
+
+<li><p>Windows Server container</p>
+
+<blockquote>
+<p><code>docker run -it microsoft/nanoserver cmd</code></p>
+</blockquote>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25774335/9362c42e-32bf-11e7-8a03-8cb4f7f109ad.png" alt="12windowerok" /></p></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>Windows 因為系統本身大小的問題，在取得 base image 或是建立 container 時執行速度都比 Linux 慢上不少，除此之外整體使用體驗與 Linux 環境幾乎相同，不由得佩服 Microsoft 的決心，Windows container 非常值得期待，想必會在 .Net 開發界有不小的衝擊</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-10" target="_blank">Windows Containers on Windows 10</a></li>
+<li><a href="https://docs.microsoft.com/zh-tw/virtualization/windowscontainers/quick-start/quick-start-windows-10" target="_blank">Windows 10 上的 Windows 容器</a></li>
+<li><a href="http://blog.miniasp.com/post/2016/11/22/Run-Linux-and-Windows-Containers-on-Windows-10.aspx" target="_blank">如何在 Windows 10 同時安裝與執行 Windows 與 Linux 容器 (Docker)</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-18</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/docker/">Docker</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/windows-10/">Windows 10</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/jenkins-ssh-ad-ldap-git-server/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">Jenkins 該如何使用 SSH 存取 AD(LDAP) 驗證的 Git server</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/git-hook-windows/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">Windows 環境下為 Git Repository 加上 Git Hook</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/windows-10-docker\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

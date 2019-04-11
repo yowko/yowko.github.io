@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 GIT 找出特定期間內特定檔案的修改資料 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="使用 GIT 找出特定期間內特定檔案的修改資料 過去幾次 production 環境的更版都遇到 config 異常的狀況，輕則只影響特定功能，嚴重的讓整個 application 都 crash，根本原因是 config 的" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/git-log-specific-files/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="使用 GIT 找出特定期間內特定檔案的修改資料" />
+<meta property="og:description" content="使用 GIT 找出特定期間內特定檔案的修改資料 過去幾次 production 環境的更版都遇到 config 異常的狀況，輕則只影響特定功能，嚴重的讓整個 application 都 crash，根本原因是 config 的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/git-log-specific-files/" /><meta property="article:published_time" content="2018-02-26T23:17:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-03T23:17:39&#43;08:00"/>
+
+<meta itemprop="name" content="使用 GIT 找出特定期間內特定檔案的修改資料">
+<meta itemprop="description" content="使用 GIT 找出特定期間內特定檔案的修改資料 過去幾次 production 環境的更版都遇到 config 異常的狀況，輕則只影響特定功能，嚴重的讓整個 application 都 crash，根本原因是 config 的">
+
+
+<meta itemprop="datePublished" content="2018-02-26T23:17:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-03T23:17:39&#43;08:00" />
+<meta itemprop="wordCount" content="957">
+
+
+
+<meta itemprop="keywords" content="Git," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 GIT 找出特定期間內特定檔案的修改資料"/>
+<meta name="twitter:description" content="使用 GIT 找出特定期間內特定檔案的修改資料 過去幾次 production 環境的更版都遇到 config 異常的狀況，輕則只影響特定功能，嚴重的讓整個 application 都 crash，根本原因是 config 的"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-02-26 </span>
+        
+        <span class="more-meta"> 約 957 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#使用-git-找出特定期間內特定檔案的修改資料">使用 GIT 找出特定期間內特定檔案的修改資料</a>
+<ul>
+<li><a href="#gi-語法">GI 語法</a></li>
+<li><a href="#測試案例">測試案例</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="使用-git-找出特定期間內特定檔案的修改資料">使用 GIT 找出特定期間內特定檔案的修改資料</h1>
+
+<p>過去幾次 production 環境的更版都遇到 config 異常的狀況，輕則只影響特定功能，嚴重的讓整個 application 都 crash，根本原因是 config 的調整是由 developer 開發但實際上線內容都是 change manager 使用工具批次套用的結果，造成 developer 沒辦法即時知道實際上線的內容，所以想透過 git 的 log 撈出針對 config 有修改紀錄的 developer 在上線前夕可以預先知道該提醒哪些 developer 進行確認</p>
+
+<p>站在客觀的角色，我不認為這是個好做法，只是我理想中相對好的做法就需要改變既有的流程，但流程可就不是說改就改的，需要時間好好討論大家的需求與顧慮，所以才想暫時透過 <code>git log</code> 列出 config 類檔案的修改人員清單</p>
+
+<h2 id="gi-語法">GI 語法</h2>
+
+<p>原本有著雄心壯志想要將 <code>git log</code> 的所有參數都測試過，順便紀錄一下用法，不過 git log 的參數實在很多，最後決定只簡單地紀錄一下我這次有用到的部份，想了解有沒有更適合的參數可以參考 <a href="https://git-scm.com/docs/git-log" target="_blank">官網</a></p>
+
+<ul>
+<li><p>git log 語法</p>
+
+<pre><code>git log [&lt;options&gt;] [&lt;revision range&gt;] [[\--] &lt;path&gt;…]
+</code></pre></li>
+
+<li><p>實際使用語法</p>
+
+<pre><code>git log --no-merges --pretty=format:\&quot;%an_%ae|%s|%ad\&quot; --name-only --since='2018/2/20' -- *.props *.md &gt; logs.txt
+</code></pre></li>
+
+<li><p>語法說明</p>
+
+<ul>
+<li><p><code>--no-merges</code></p>
+
+<blockquote>
+<p>只列出只有一個 parent 的 commit，效果等同 <code>--max-parents=1</code></p>
+</blockquote></li>
+
+<li><p><code>--pretty=format:\&quot;%an_%ae|%s|%ad\</code></p>
+
+<blockquote>
+<p>指定 log 輸出格式</p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>選項</th>
+<th>輸出說明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>%H</td>
+<td>該commit SHA-1 hash</td>
+</tr>
+
+<tr>
+<td>%h</td>
+<td>該commit簡短的 SHA-1 hash</td>
+</tr>
+
+<tr>
+<td>%T</td>
+<td>「樹（tree）」物件的 SHA-1 hash</td>
+</tr>
+
+<tr>
+<td>%t</td>
+<td>「樹」物件簡短的 SHA-1 hash</td>
+</tr>
+
+<tr>
+<td>%P</td>
+<td>parent commit 的 SHA-1 hash</td>
+</tr>
+
+<tr>
+<td>%p</td>
+<td>parent commit 簡短的 SHA-1 hash</td>
+</tr>
+
+<tr>
+<td>%an</td>
+<td>作者名字</td>
+</tr>
+
+<tr>
+<td>%ae</td>
+<td>作者電子郵件</td>
+</tr>
+
+<tr>
+<td>%ad</td>
+<td>作者日期（依據 &ndash;date 選項值而有不同的格式）</td>
+</tr>
+
+<tr>
+<td>%ar</td>
+<td>作者日期，相對時間格式。</td>
+</tr>
+
+<tr>
+<td>%cn</td>
+<td>commit 者名字</td>
+</tr>
+
+<tr>
+<td>%ce</td>
+<td>commit 者電子郵件</td>
+</tr>
+
+<tr>
+<td>%cd</td>
+<td>commit 者日期</td>
+</tr>
+
+<tr>
+<td>%cr</td>
+<td>commit 者日期，相對時間格式。</td>
+</tr>
+
+<tr>
+<td>%s</td>
+<td>標題</td>
+</tr>
+</tbody>
+</table></li>
+
+<li><p><code>--name-only</code></p>
+
+<blockquote>
+<p>只顯示檔案列表，不顯示詳細修改內容</p>
+</blockquote></li>
+
+<li><p><code>--since</code></p>
+
+<blockquote>
+<p>指定特定時間日期(2018/2/21)或是相對日期(2.weeks)</p>
+</blockquote></li>
+
+<li><p><code>--</code></p>
+
+<blockquote>
+<p>用來區隔指定特定路徑或是檔名與其他選項，需是最後一個參數(這邊指定過濾是 <code>.md</code> 與 <code>.props</code> 檔)，實測下不加 <code>--</code> 也可正常運行</p>
+</blockquote></li>
+
+<li><p><code>&gt;</code></p>
+
+<blockquote>
+<p>用來將結果輸出至檔案</p>
+</blockquote></li>
+</ul></li>
+</ul>
+
+<h2 id="測試案例">測試案例</h2>
+
+<p>使用 <a href="https://github.com/aspnet/Mvc" target="_blank">ASP.NET Core MVC</a> 當做範例</p>
+
+<ul>
+<li><p>執行語法</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/36676953-f0f6f256-1b47-11e8-93e9-8e52ea577172.png" alt="1executecmd" /></p>
+</blockquote></li>
+
+<li><p>實際結果</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/36676955-f127a52c-1b47-11e8-8ee7-ba6ecad3810e.png" alt="2result" /></p>
+</blockquote></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>繞了一大圈也只能提醒 developer 做檢查，既無法解決根本問題也很沒效率，只是流程的調整牽涉極廣，如果冒然調整可以想見需要經過持續調整的陣痛期才能真正符合需求，我的看法是應急方案跟長期計劃應該並行，避免空窗期讓問題持續發生，也應該有計劃化地做通盤考量及改善</p>
+
+<p>回到原始問題：developer 修改卻由 change manager 上線，過程中人為介入的成份太高，容易出現人為錯誤，我個人覺得透過 VSTS (TFS) 的 Release Manager 功能是最適合的，讓 developer 加入 config 設定，由主管 approve，最後一樣可以由 change manager 執行部署，主要工作都由系統進行並加上人工 review 降低錯誤機會</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://git-scm.com/docs/git-log" target="_blank">官網</a></li>
+<li><a href="https://github.com/aspnet/Mvc" target="_blank">ASP.NET Core MVC</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-10-03</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/git/">Git</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/excel-to-pdf/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">使用 C# 將 Excel 檔(.xlsx .xls) 轉換為 PDF</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/telnet-check-smtp/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">使用 telnet 檢查 SMTP 是否正常提供服務</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/git-log-specific-files\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

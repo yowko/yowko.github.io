@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 RedLock.net 搭配 redis 達成分散式 Lock - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="使用 RedLock.net 搭配 redis 達成分散式 Lock RedLock.net 是前兩個禮拜從安德魯大大的 架構面試題 #1, 線上交易的正確性 一文中看到使用 redis 搭配 RedLock 演算法製造出分散式鎖定 (Distributed locks) 的套件，也是" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/redlocknet-redis-lock/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="使用 RedLock.net 搭配 redis 達成分散式 Lock" />
+<meta property="og:description" content="使用 RedLock.net 搭配 redis 達成分散式 Lock RedLock.net 是前兩個禮拜從安德魯大大的 架構面試題 #1, 線上交易的正確性 一文中看到使用 redis 搭配 RedLock 演算法製造出分散式鎖定 (Distributed locks) 的套件，也是" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/redlocknet-redis-lock/" /><meta property="article:published_time" content="2018-04-10T01:31:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-04T01:31:44&#43;08:00"/>
+
+<meta itemprop="name" content="使用 RedLock.net 搭配 redis 達成分散式 Lock">
+<meta itemprop="description" content="使用 RedLock.net 搭配 redis 達成分散式 Lock RedLock.net 是前兩個禮拜從安德魯大大的 架構面試題 #1, 線上交易的正確性 一文中看到使用 redis 搭配 RedLock 演算法製造出分散式鎖定 (Distributed locks) 的套件，也是">
+
+
+<meta itemprop="datePublished" content="2018-04-10T01:31:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-04T01:31:44&#43;08:00" />
+<meta itemprop="wordCount" content="1463">
+
+
+
+<meta itemprop="keywords" content="套件,C#,Redis," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 RedLock.net 搭配 redis 達成分散式 Lock"/>
+<meta name="twitter:description" content="使用 RedLock.net 搭配 redis 達成分散式 Lock RedLock.net 是前兩個禮拜從安德魯大大的 架構面試題 #1, 線上交易的正確性 一文中看到使用 redis 搭配 RedLock 演算法製造出分散式鎖定 (Distributed locks) 的套件，也是"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-10 </span>
+        
+        <span class="more-meta"> 約 1463 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#使用-redlock-net-搭配-redis-達成分散式-lock">使用 RedLock.net 搭配 redis 達成分散式 Lock</a>
+<ul>
+<li><a href="#如何使用-redlock-net">如何使用 RedLock.net</a></li>
+<li><a href="#情境說明">情境說明</a></li>
+<li><a href="#可能的問題">可能的問題</a></li>
+<li><a href="#實際狀況">實際狀況</a></li>
+<li><a href="#使用-redlock-net-達成分散式-lock">使用 RedLock.net 達成分散式 Lock</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="使用-redlock-net-搭配-redis-達成分散式-lock">使用 RedLock.net 搭配 redis 達成分散式 Lock</h1>
+
+<p>RedLock.net 是前兩個禮拜從安德魯大大的 <a href="http://columns.chicken-house.net/2018/03/25/interview01-transaction/" target="_blank">架構面試題 #1, 線上交易的正確性</a> 一文中看到使用 redis 搭配 RedLock 演算法製造出分散式鎖定 (Distributed locks) 的套件，也是 Redlock distributed lock algorithm 在 C# 上的實作之一，主要相依於 StackExchange.Redis 套件(實作 Redlock 的其他程式語言及套件可以參考 <a href="https://redis.io/topics/distlock" target="_blank">Distributed locks with Redis</a>)</p>
+
+<p>當下看到安德魯大大介紹，立馬回想起過去為了達到分散式鎖定苦思了許多但還是沒有想到好方法的冏況，終於有機會突破當時的技術瓶頸，恰巧最近需要重構一段程式碼從本機的 object lock 改為分散式鎖定 (Distributed locks)，正好可以透過實戰來上手效果更佳</p>
+
+<h2 id="如何使用-redlock-net">如何使用 RedLock.net</h2>
+
+<ol>
+<li><p>系統啟動時：使用 Redis 連線資訊建立 RedLockFactory</p>
+
+<ul>
+<li><p>RedLock 自行管理連線</p>
+
+<pre><code class="language-cs">var endPoints = new List&lt;RedLockEndPoint&gt;
+{
+    new DnsEndPoint(&quot;redis1&quot;, 6379),
+    new DnsEndPoint(&quot;redis2&quot;, 6379),
+    new DnsEndPoint(&quot;redis3&quot;, 6379)
+};
+var redlockFactory = RedLockFactory.Create(endPoints);
+</code></pre></li>
+
+<li><p>共用 StackExchange.Redis 連線</p>
+
+<pre><code class="language-cs">var existingConnectionMultiplexer1 = ConnectionMultiplexer.Connect(&quot;redis1:6379&quot;);
+var existingConnectionMultiplexer2 = ConnectionMultiplexer.Connect(&quot;redis2:6379&quot;);
+var existingConnectionMultiplexer3 = ConnectionMultiplexer.Connect(&quot;redis3:6379&quot;);
+        
+var multiplexers = new List&lt;RedLockMultiplexer&gt;
+{
+    existingConnectionMultiplexer1,
+    existingConnectionMultiplexer2,
+    existingConnectionMultiplexer3
+};
+var redlockFactory = RedLockFactory.Create(multiplexers);
+</code></pre></li>
+</ul></li>
+
+<li><p>執行 lock</p>
+
+<ul>
+<li><p>lock or give up (取得 resource lock 權就做事，否則就放棄)</p>
+
+<pre><code class="language-cs">var resource = &quot;lock_key&quot;;//lock object
+var expiry = TimeSpan.FromSeconds(30);//lock object 失效時間
+        
+using (var redLock = await redlockFactory.CreateLockAsync(resource, expiry)) // 有非 async 的版本
+{
+    // 確定取得 lock 所有權
+    if (redLock.IsAcquired)
+    {
+        // 執行需要獨佔資源的核心工作
+    }
+}
+// 脫離 using 範圍自動就會解除 lock
+</code></pre></li>
+
+<li><p>lock, retry or wait to give up(取得 resource lock 權就做事，未取得就等指定 retry 時間後重試至指定 wait 時間後放棄)</p>
+
+<pre><code class="language-cs">var resource = &quot;lock_key&quot;;//lock object
+var expiry = TimeSpan.FromSeconds(30);//lock object 失效時間
+var wait = TimeSpan.FromSeconds(10);//放棄重試時間
+var retry = TimeSpan.FromSeconds(1);//重試間隔時間
+        
+// blocks 直到取得 lock 資源或是達到放棄重試時間
+using (var redLock = await redlockFactory.CreateLockAsync(resource, expiry, wait, retry)) // 有非 async 的版本
+{
+    // 確定取得 lock 所有權
+    if (redLock.IsAcquired)
+    {
+        // 執行需要獨佔資源的核心工作
+    }
+}
+// 脫離 using 範圍自動就會解除 lock
+</code></pre></li>
+</ul></li>
+
+<li><p>系統關閉時：Dispose RedLockFactory</p>
+
+<pre><code class="language-cs">redlockFactory.Dispose();
+</code></pre></li>
+</ol>
+
+<h2 id="情境說明">情境說明</h2>
+
+<blockquote>
+<p>有個 web api 有可能在瞬間收到多個重複的 request，為了避免造成值在重複 request 同時處理下造成異常，同事使用 object lock 來解決</p>
+</blockquote>
+
+<ul>
+<li><p>模擬程式碼</p>
+
+<blockquote>
+<p>原始程式碼中沒有那麼多 log 資訊，為了方便釐清狀況多加一些 log</p>
+</blockquote>
+
+<pre><code class="language-cs">static class helper
+{
+    private static object _lock = new object();
+    public static void CheckReceiveBet(string membercode)
+    {
+            
+        Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: received.&quot;);
+        lock (_lock)
+        {
+            Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: lock start. at {DateTime.Now}&quot;);
+            Thread.Sleep(5*1000);
+            Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: lock end.at {DateTime.Now}&quot;);
+        }
+    
+        Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: done.&quot;);
+    }
+}
+</code></pre>
+
+<h2 id="可能的問題">可能的問題</h2></li>
+
+<li><p>該 api 被部署至多台機器上</p>
+
+<blockquote>
+<p>application 的 object lock 只限於單台機器上</p>
+</blockquote></li>
+</ul>
+
+<ol>
+<li><p>lock object 沒有加入其他參數概念</p>
+
+<blockquote>
+<p>會造成 block 所有 request</p>
+</blockquote></li>
+</ol>
+
+<h2 id="實際狀況">實際狀況</h2>
+
+<ul>
+<li><p>使用 Task 模擬多個 request：lock 導致 single thread 處理 request</p>
+
+<pre><code class="language-cs">Task.Run(() =&gt;
+{
+    Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}: start.&quot;);
+    helper.CheckReceiveBet(&quot;123&quot;);
+});
+Task.Run(() =&gt;
+{
+    Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}: start.&quot;);
+    helper.CheckReceiveBet(&quot;ABC&quot;);
+});
+</code></pre>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/38511000-44cb0246-3c59-11e8-919a-d1d8dfb8da3c.png" alt="1objectlock" /></p>
+</blockquote></li>
+
+<li><p>需要在 lock object 加入 request 資訊，避免無差別 block 所有 request</p>
+
+<pre><code class="language-cs">static class helper
+{
+    private static object _lock = new object();
+    public static void CheckReceiveBet(string membercode)
+    {
+    
+        Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: received.&quot;);
+        lock (_lock + membercode)
+        {
+            Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: lock start. at {DateTime.Now}&quot;);
+            Thread.Sleep(5 * 1000);
+            Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: lock end.at {DateTime.Now}&quot;);
+        }
+    
+        Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: done.&quot;);
+    }
+}
+</code></pre>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/38511002-450f6d28-3c59-11e8-8921-1e1f53d6b44f.png" alt="2objectwithmember" /></p>
+</blockquote></li>
+</ul>
+
+<h2 id="使用-redlock-net-達成分散式-lock">使用 RedLock.net 達成分散式 Lock</h2>
+
+<p>透過加入 request (以本例來說將 <code>membercode</code> 加至 lock 物件) 相關內容即可避免 block 所有 request，但並沒有解決多個 instance 同時處理的狀況，立馬來看看該如何實現分散式 lock</p>
+
+<ol>
+<li><p>建立 RedisConnectionFactory 與 RedLockFactory</p>
+
+<pre><code class="language-cs">public static class RedisConnectionFactory
+{
+    private static readonly Lazy&lt;ConnectionMultiplexer&gt; Connection;
+    private static readonly RedLockFactory _redlockFactory;
+    static RedisConnectionFactory()
+    {
+        var connectionString = &quot;127.0.0.1:6379&quot;;
+        var options = ConfigurationOptions.Parse(connectionString);
+        Connection = new Lazy&lt;ConnectionMultiplexer&gt;(() =&gt; ConnectionMultiplexer.Connect(options));
+    }
+    public static ConnectionMultiplexer GetConnection() =&gt; Connection.Value;
+    public static RedLockFactory RedisLockFactory
+    {
+        get
+        {
+            var multiplexers = new List&lt;RedLockMultiplexer&gt; { RedisConnectionFactory.GetConnection() };
+            return RedLockFactory.Create(multiplexers);
+        }
+    }
+}
+</code></pre></li>
+
+<li><p>將原本的 object lock 換為 RedLock.net</p>
+
+<ul>
+<li><p>lock or give up</p>
+
+<blockquote>
+<p>取得 lock 資源;取得 lock 則放棄執行</p>
+</blockquote>
+
+<pre><code class="language-cs">static class helper
+{
+    public static void CheckReceiveBet(string membercode)
+    {
+        
+        Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: received.&quot;);
+        var resource = $&quot;lockkey_{membercode}&quot;;//resource lock key
+        var expiry = TimeSpan.FromSeconds(30);//lock key expire 時間
+        
+        // 傳入 resource lock key 與 expiry
+        using (var redLock = RedisConnectionFactory.RedisLockFactory.CreateLockAsync(resource, expiry).Result)
+        {
+            // 確定取得 lock 所有權
+            if (redLock.IsAcquired)
+            {
+                Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: lock start. at {DateTime.Now}&quot;);
+                Thread.Sleep(5 * 1000);
+                Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: lock end.at {DateTime.Now}&quot;);
+            }
+            else
+                Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}:Not get the locker&quot;);
+        }
+        Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: done.&quot;);
+    }
+}
+</code></pre>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/38511003-4539776c-3c59-11e8-9746-42b70f7621fb.png" alt="3lockorgiveup" /></p>
+</blockquote></li>
+
+<li><p>lock, retry and wait</p>
+
+<blockquote>
+<p>取得 lock 資源;未取得 lock 之前，並依指定間隔時間 (retry) 重試，直到達到指定放棄時間 (wait)</p>
+</blockquote>
+
+<pre><code class="language-cs">static class helper
+{
+    public static void CheckReceiveBet(string membercode)
+    {
+        
+        Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: received.&quot;);
+        var resource = $&quot;lockkey_{membercode}&quot;;//resource lock key
+        var expiry = TimeSpan.FromSeconds(30);//lock key expire 時間
+        var wait = TimeSpan.FromSeconds(10);//放棄重試時間
+        var retry = TimeSpan.FromSeconds(1);//重試間隔時間
+        
+        //傳入 resource lock key , expiry, wait, retry
+        using (var redLock = RedisConnectionFactory.RedisLockFactory.CreateLockAsync(resource, expiry, wait, retry).Result)
+        {
+            // 確定取得 lock 所有權
+            if (redLock.IsAcquired)
+            {
+                Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: lock start. at {DateTime.Now}&quot;);
+                Thread.Sleep(5 * 1000);
+                Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: lock end.at {DateTime.Now}&quot;);
+            }
+            else
+                Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}:Not get the locker&quot;);
+        }
+        Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: done.&quot;);
+    }
+}
+</code></pre>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/38511004-4562d5e4-3c59-11e8-863d-e64903872846.png" alt="4lockwaitretry" /></p>
+</blockquote></li>
+</ul></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>印象上前段日子我也嘗試利用 redis 來達成分散式鎖定，只是當時只透過寫入特定 key 至 redis 來檢查是否取得獨佔權，但完全沒有考慮過 cluster node 及資料碰撞問題，幸虧安德魯大大的 <a href="http://columns.chicken-house.net/2018/03/25/interview01-transaction/" target="_blank">架構面試題 #1, 線上交易的正確性</a> 一文才讓我學到正確方式，感謝安德魯大大</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="http://columns.chicken-house.net/2018/03/25/interview01-transaction/" target="_blank">架構面試題 #1, 線上交易的正確性</a></li>
+<li><a href="https://redis.io/topics/distlock" target="_blank">Distributed locks with Redis</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-10-04</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/%E5%A5%97%E4%BB%B6/">套件</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/topshelf-quartznet-windows-service/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/vstest-console-mstest-v2/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">使用命令列指令 (VSTest.Console.exe) 執行 MSTest V2 測試</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/redlocknet-redis-lock\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

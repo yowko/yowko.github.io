@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 docker 建立 Redis Cluster - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="使用 docker 建立 Redis Cluster 請參考新版內容 使用 docker 建立 Redis Cluster - 更新版 之前筆記 使用 docker 建立 Redis Master-Slave Replication Instance 紀錄到使用 docker 來建立 Redis 一個 Master node、一個 Slave node 以及三個 sentinel node 的 rep" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/docker-redis-cluster/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="使用 docker 建立 Redis Cluster" />
+<meta property="og:description" content="使用 docker 建立 Redis Cluster 請參考新版內容 使用 docker 建立 Redis Cluster - 更新版 之前筆記 使用 docker 建立 Redis Master-Slave Replication Instance 紀錄到使用 docker 來建立 Redis 一個 Master node、一個 Slave node 以及三個 sentinel node 的 rep" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/docker-redis-cluster/" /><meta property="article:published_time" content="2019-03-02T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-03-02T21:30:31&#43;08:00"/>
+
+<meta itemprop="name" content="使用 docker 建立 Redis Cluster">
+<meta itemprop="description" content="使用 docker 建立 Redis Cluster 請參考新版內容 使用 docker 建立 Redis Cluster - 更新版 之前筆記 使用 docker 建立 Redis Master-Slave Replication Instance 紀錄到使用 docker 來建立 Redis 一個 Master node、一個 Slave node 以及三個 sentinel node 的 rep">
+
+
+<meta itemprop="datePublished" content="2019-03-02T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-03-02T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="1365">
+
+
+
+<meta itemprop="keywords" content="Container,Redis,Docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 docker 建立 Redis Cluster"/>
+<meta name="twitter:description" content="使用 docker 建立 Redis Cluster 請參考新版內容 使用 docker 建立 Redis Cluster - 更新版 之前筆記 使用 docker 建立 Redis Master-Slave Replication Instance 紀錄到使用 docker 來建立 Redis 一個 Master node、一個 Slave node 以及三個 sentinel node 的 rep"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-03-02 </span>
+        
+        <span class="more-meta"> 約 1365 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#使用-docker-建立-redis-cluster">使用 docker 建立 Redis Cluster</a>
+<ul>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#master-與-slave-node">Master 與 Slave node</a></li>
+<li><a href="#sentinel-node">Sentinel node</a></li>
+<li><a href="#cluster-creator-node">Cluster Creator node</a></li>
+<li><a href="#docker-compose">docker-compose</a></li>
+<li><a href="#資料夾結構">資料夾結構</a></li>
+<li><a href="#建立-redis-cluster-並確認運作正常">建立  Redis Cluster 並確認運作正常</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="使用-docker-建立-redis-cluster">使用 docker 建立 Redis Cluster</h1>
+
+<p><font style="color:red">請參考新版內容 <a href="https://blog.yowko.com/redis-cluster-docker" target="_blank">使用 docker 建立 Redis Cluster - 更新版</a></font></p>
+
+<p>之前筆記 <a href="https://blog.yowko.com/docker-redis-master-slave-replication" target="_blank">使用 docker 建立 Redis Master-Slave Replication Instance</a> 紀錄到使用 docker 來建立 Redis 一個 Master node、一個 Slave node 以及三個 sentinel node 的 replication，對於一般開發需求已經綽綽有餘，但終究不是 cluster 模式，有些 cluster 的功能依舊是無法完整測試的，這時才想到過去我沒有真的在 production 環境建立過 redis cluster，主要原因是 redis replication 模式在過去的使用情境下資料使用率大多維持 30% 左右，使用 replication mode 已足夠，但隨著各系統對於 redis 的依賴，相信有天 redis replication 終究會不夠的，於是興起透過 docker 來建立 redis cluster 先做好測試準備的想法</p>
+
+<p>跟 redis replication 只有一個 master node 與一個 slave node 不同，redis cluster 需有三組 master - slave，再加上三個 sentinel node，基本消費立馬來到 9 個 container</p>
+
+<h2 id="基本環境說明">基本環境說明</h2>
+
+<ol>
+<li>macOS Mojave 10.14.2</li>
+<li>Docker Community 18.09.2</li>
+<li>docker-compose version 1.23.2, build 1110ad01</li>
+<li>docker-py version: 3.6.0</li>
+<li>CPython version: 3.6.6</li>
+<li>OpenSSL version: OpenSSL 1.1.0h  27 Mar 2018</li>
+</ol>
+
+<h2 id="master-與-slave-node">Master 與 Slave node</h2>
+
+<ol>
+<li><p>準備 redis config</p>
+
+<blockquote>
+<p>redis 預設未啟用 cluster，需要透過 config 來啟用</p>
+</blockquote>
+
+<pre><code># 指定 redis port
+port 6379
+# 啟用 cluster
+cluster-enabled yes
+# 指定 cluster config 檔案
+cluster-config-file nodes.conf
+# 指定 node 無法連線時間
+cluster-node-timeout 5000
+# 更新操作後進行日誌記錄
+# appendonly yes
+# 設定連線至 master 密碼
+masterauth pass.123
+# 設定連線密碼
+requirepass pass.123
+</code></pre></li>
+
+<li><p>準備 dockerfile</p>
+
+<blockquote>
+<p>使用上述建立的 config 來啟動 redis</p>
+</blockquote>
+
+<pre><code>FROM redis:5.0.3-alpine3.9
+
+MAINTAINER Yowko Tsai &lt;yowko@yowko.com&gt;
+
+EXPOSE 6379 16379
+COPY rediscluster.conf /etc/redis/rediscluster.conf
+ENTRYPOINT redis-server /etc/redis/rediscluster.conf
+</code></pre></li>
+</ol>
+
+<h2 id="sentinel-node">Sentinel node</h2>
+
+<ol>
+<li><p>準備 sentinel 用的 config</p>
+
+<blockquote>
+<p>因為 redis cluster 有三個 node，所以 sentinel 需加入三組 replication 的 monitor</p>
+</blockquote>
+
+<pre><code># sentinel port
+port 26379
+# bind ip
+bind 0.0.0.0
+    
+# 監控的 redis master host 與 port，並指定兩個 sentinel 同意決定
+sentinel monitor mymaster1 redis-master1 6379 2
+# 無法連線 3000 毫秒，判定為離線
+sentinel down-after-milliseconds mymaster1 3000
+# 同時可以從 master 拉取資料的 slave 個數為 1
+sentinel parallel-syncs mymaster1 1
+# sentinel 執行 failover 失敗時間為 10000 毫秒
+sentinel failover-timeout mymaster1 10000
+
+sentinel monitor mymaster2 redis-master2 6379 2
+sentinel down-after-milliseconds mymaster2 3000
+sentinel parallel-syncs mymaster2 1
+sentinel failover-timeout mymaster2 10000
+
+sentinel monitor mymaster3 redis-master3 6379 2
+sentinel down-after-milliseconds mymaster3 3000
+sentinel parallel-syncs mymaster3 1
+sentinel failover-timeout mymaster3 10000
+</code></pre></li>
+
+<li><p>準備 dockerfile</p>
+
+<blockquote>
+<p>使用上述的 sentinel config 來啟動 sentinel</p>
+</blockquote>
+
+<pre><code>FROM redis:5.0.3-alpine3.9
+
+MAINTAINER Yowko Tsai &lt;yowko@yowko.com&gt;
+
+EXPOSE 26379
+COPY sentinel.conf /etc/redis/sentinel.conf
+ENTRYPOINT redis-server /etc/redis/sentinel.conf --sentinel
+</code></pre></li>
+</ol>
+
+<h2 id="cluster-creator-node">Cluster Creator node</h2>
+
+<ul>
+<li>這邊使用固定 ip，因為 redis 使用 container name 建立 cluster 時會出現無法解析的錯誤，固定 ip 的綁定則會透過 docker-compose 處理</li>
+<li>透過 redis-cli 建立 cluster 是 redis 5 加入的功能，已經無法使用 redis-trib.rb</li>
+
+<li><p>建立 cluster 時需要輸入 <code>yes</code> 確認加入</p>
+
+<pre><code>FROM redis:5.0.3-alpine3.9
+
+MAINTAINER Yowko Tsai &lt;yowko@yowko.com&gt;
+
+ENTRYPOINT echo &quot;yes&quot;|redis-cli -a pass.123 --cluster create 172.19.0.2:6379 172.19.0.3:6379 172.19.0.4:6379 172.19.0.5:6379 172.19.0.6:6379 172.19.0.7:6379 --cluster-replicas 1
+</code></pre></li>
+</ul>
+
+<h2 id="docker-compose">docker-compose</h2>
+
+<blockquote>
+<p>我嘗試透過 host 做 port forward ，但在 cluster join 時一直 hang 在 wait to join 畫面，查官方文件提到除了 redis port 之外，還需要 redis port + 10000 為 redis cluster bus 使用的 port，解決方式就是直接使用 container ip 來設定 cluster</p>
+</blockquote>
+
+<pre><code class="language-yml">version: '3'
+
+services:
+
+  redis-master1:
+    container_name: redis-master1
+    build: dockernode
+    ports: 
+      - &quot;7000:6379&quot;
+    networks:
+         extnetwork:
+            ipv4_address: 172.19.0.2
+
+  redis-slave1:
+    container_name: redis-slave1
+    build: dockernode
+    command: redis-server --slaveof redis-master1 6379
+    links:
+      - redis-master1
+    ports: 
+      - &quot;7001:6379&quot;
+    networks:
+         extnetwork:
+            ipv4_address: 172.19.0.3
+
+  redis-master2:
+    container_name: redis-master2
+    build: dockernode
+    ports: 
+      - &quot;7002:6379&quot;
+    networks:
+         extnetwork:
+            ipv4_address: 172.19.0.4
+
+  redis-slave2:
+    container_name: redis-slave2
+    build: dockernode
+    command: redis-server --slaveof redis-master2 6379
+    links:
+      - redis-master2
+    ports: 
+      - &quot;7003:6379&quot;
+    networks:
+         extnetwork:
+            ipv4_address: 172.19.0.5
+
+  redis-master3:
+    container_name: redis-master3
+    build: dockernode
+    ports: 
+      - &quot;7004:6379&quot;
+    networks:
+         extnetwork:
+            ipv4_address: 172.19.0.6
+
+  redis-slave3:
+    container_name: redis-slave3
+    build: dockernode
+    command: redis-server --slaveof redis-master3 6379
+    links:
+      - redis-master3
+    ports: 
+      - &quot;7005:6379&quot;
+    networks:
+         extnetwork:
+            ipv4_address: 172.19.0.7
+
+  redis-cluster-creator:
+    container_name: redis-cluster-creator
+    build: createnode
+    networks:
+         extnetwork:
+    links:
+      - redis-master1
+      - redis-master2
+      - redis-master3
+      - redis-slave1
+      - redis-slave2
+      - redis-slave3
+
+  redis-sentinel1:
+    container_name: redis-sentinel1
+    build: sentinel
+    networks:
+         extnetwork:
+    links:
+      - redis-master1
+      - redis-master2
+      - redis-master3
+
+  redis-sentinel2:
+    container_name: redis-sentinel2
+    build: sentinel
+    networks:
+         extnetwork:
+    links:
+      - redis-master1
+      - redis-master2
+      - redis-master3
+
+  redis-sentinel3:
+    container_name: redis-sentinel3
+    build: sentinel
+    networks:
+         extnetwork:
+    links:
+      - redis-master1
+      - redis-master2
+      - redis-master3
+
+networks:
+   extnetwork:
+      ipam:
+         config:
+         - subnet: 172.19.0.0/16
+</code></pre>
+
+<h2 id="資料夾結構">資料夾結構</h2>
+
+<blockquote>
+<p>資料夾及檔案名稱只是範例，不需相同</p>
+</blockquote>
+
+<pre><code>-- sentinel
+    -- sentinel.conf
+    -- dockerfile
+-- dockernode
+    -- rediscluster.conf
+    -- dockerfile
+-- createnode
+    -- dockerfile
+-- docker-compose.yml
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/53691577-dbf5ab80-3dbb-11e9-88e4-8dbe0f922bb0.png" alt="1folderstructure" /></p>
+
+<h2 id="建立-redis-cluster-並確認運作正常">建立  Redis Cluster 並確認運作正常</h2>
+
+<ol>
+<li><p>進入 <code>docker-redis-cluster</code> 資料夾中</p>
+
+<pre><code class="language-bash">cd docker-redis-cluster
+</code></pre></li>
+
+<li><p>啟動 Redis Cluster</p>
+
+<pre><code class="language-bash">docker-compose up -d --build
+</code></pre></li>
+
+<li><p>確認 Redis Cluster 正確設定</p>
+
+<blockquote>
+<p>出現 <code>cluster_state:ok</code> 即是正確設定</p>
+</blockquote>
+
+<pre><code class="language-bash">docker exec -it redis-master1 redis-cli -a pass.123 -c cluster info
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/53691578-dbf5ab80-3dbb-11e9-90af-026926abc619.png" alt="2clusterinfo" /></p></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>查了些資料，發現網路上多數透過 docker 建立 redis cluster 的例子都是使用 redis 4 而不是 redis 5，我猜測是因為 redis 5 預設使用 redis-cli 而無法使用 ruby 或是 python 來建立 cluster，讓原本可以從 shell script 中處理掉 container ip 取得與使用而不需指定 ip 的做法失效</p>
+
+<p>原本我還不信邪地把想到的方法試過一輪，確認 redis 5 建立 cluster 暫時沒有比較漂亮的做法了, 不過如果目的只是測試應該夠用了，需要留意的只有 container ip 不要與 host 環境衝突即可</p>
+
+<p>詳細的檔案內容都在：<a href="https://github.com/yowko/docker-redis-5-cluster.git" target="_blank">yowko/docker-redis-5-cluster</a></p>
+
+<p><font style="color:red">請參考新版內容 <a href="https://blog.yowko.com/redis-cluster-docker" target="_blank">使用 docker 建立 Redis Cluster - 更新版</a></font></p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://blog.yowko.com/docker-redis-master-slave-replication" target="_blank">使用 docker 建立 Redis Master-Slave Replication Instance</a></li>
+<li><a href="https://github.com/Grokzen/docker-redis-cluster" target="_blank">Grokzen/docker-redis-cluster</a></li>
+<li><a href="https://stackoverflow.com/questions/52257866/how-to-answer-install-question-in-dockerfile" target="_blank">How to answer install question in dockerfile?</a></li>
+<li><a href="https://blog.csdn.net/hechaojie_com/article/details/83625265" target="_blank">docker-compose自定義網絡，固定容器ip地址</a></li>
+<li><a href="https://redis.io/topics/cluster-tutorial" target="_blank">Redis cluster tutorial</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-03-02</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/container/">Container</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/docker/">Docker</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/redis-cluster-docker/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">使用 docker 建立 Redis Cluster - 更新版</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/docker-redis-master-slave-replication/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">使用 docker 建立 Redis Master-Slave Replication Instance</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/docker-redis-cluster\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ELK on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/elk/</link>
+    <description>Recent content in ELK on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 12 May 2018 00:23:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/elk/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用 Elastic Stack (ELK) 來監控 MongoDB</title>
+      <link>https://blog.yowko.com/elk-mongodb-monitor/</link>
+      <pubDate>Sat, 12 May 2018 00:23:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/elk-mongodb-monitor/</guid>
+      <description>使用 Elastic Stack (ELK) 來監控 MongoDB 之前筆記 Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana) 提到因為想要將部份系統資料餵進 ELK 用來監控及除錯，順手紀錄 Windows 平台上架設 Elastic Stack (ELK - Elasticsearch , Logstash ,</description>
+    </item>
+    
+    <item>
+      <title>Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana)</title>
+      <link>https://blog.yowko.com/elastic-stack-elk-windows/</link>
+      <pubDate>Wed, 02 May 2018 02:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/elastic-stack-elk-windows/</guid>
+      <description>Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana) Elastic Stack (ELK - Elasticsearch , Logstash , Kibana) 建議執行在 Linux 平台上效能較佳 ELK Stack 在 5.0 版本加入 Beats 套件後更名為 Elastic Stack，在還沒搞清楚 Beats 反而是 5.5</description>
+    </item>
+    
+    <item>
+      <title>如何使用 Opserver 來監控 Elasticsearch</title>
+      <link>https://blog.yowko.com/opserver-elasticsearch/</link>
+      <pubDate>Tue, 28 Mar 2017 01:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/opserver-elasticsearch/</guid>
+      <description>如何使用 Opserver 來監控 Elasticsearch 之前筆記 如何使用 Opserver 來監控 Redis 介紹該怎麼設定 Opserver for Redis，而 Opserver 官方介紹中也包含監控 Elasticsearch 的功能，立馬就來試試該如何設定 文章大綱 安</description>
+    </item>
+    
+    <item>
+      <title>使用 Exceptionless 取代 ELK(Elasticsearch, Logstash, Kibana) 中的 kibana 來完成 log 集中化</title>
+      <link>https://blog.yowko.com/centralized-logging-with-exceptionless/</link>
+      <pubDate>Wed, 01 Mar 2017 01:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/centralized-logging-with-exceptionless/</guid>
+      <description>使用 Exceptionless 取代 ELK(Elasticsearch, Logstash, Kibana) 中的 kibana 來完成 log 集中化 目前公司的 application logs 集中化是用 ELK(Elasticsearch, Logstash, Kibana) 來處理的，而前公司則使用付費軟體 Splunk 來做，兩者差別最明顯的就是 ELK 是 open source 軟體 ;Splunk</description>
+    </item>
+    
+  </channel>
+</rss>

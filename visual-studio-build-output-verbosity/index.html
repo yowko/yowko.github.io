@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>調整 Visual Studio MSBuild 專案建置輸出詳細等級(Output 視窗輸出資訊詳細等級) - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="調整 Visual Studio MSBuild 專案建置輸出詳細等級(Output 視窗輸出資訊詳細等級) 有時 Visual Studio 編譯專案失敗，但只有顯示發生錯誤並沒有其他資訊造成偵錯困難或者想要" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/visual-studio-build-output-verbosity/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="調整 Visual Studio MSBuild 專案建置輸出詳細等級(Output 視窗輸出資訊詳細等級)" />
+<meta property="og:description" content="調整 Visual Studio MSBuild 專案建置輸出詳細等級(Output 視窗輸出資訊詳細等級) 有時 Visual Studio 編譯專案失敗，但只有顯示發生錯誤並沒有其他資訊造成偵錯困難或者想要" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/visual-studio-build-output-verbosity/" /><meta property="article:published_time" content="2017-01-02T00:42:34&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-09T00:42:34&#43;08:00"/>
+
+<meta itemprop="name" content="調整 Visual Studio MSBuild 專案建置輸出詳細等級(Output 視窗輸出資訊詳細等級)">
+<meta itemprop="description" content="調整 Visual Studio MSBuild 專案建置輸出詳細等級(Output 視窗輸出資訊詳細等級) 有時 Visual Studio 編譯專案失敗，但只有顯示發生錯誤並沒有其他資訊造成偵錯困難或者想要">
+
+
+<meta itemprop="datePublished" content="2017-01-02T00:42:34&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-09T00:42:34&#43;08:00" />
+<meta itemprop="wordCount" content="451">
+
+
+
+<meta itemprop="keywords" content="Debug,Visual Studio,MSBuild," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="調整 Visual Studio MSBuild 專案建置輸出詳細等級(Output 視窗輸出資訊詳細等級)"/>
+<meta name="twitter:description" content="調整 Visual Studio MSBuild 專案建置輸出詳細等級(Output 視窗輸出資訊詳細等級) 有時 Visual Studio 編譯專案失敗，但只有顯示發生錯誤並沒有其他資訊造成偵錯困難或者想要"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-01-02 </span>
+        
+        <span class="more-meta"> 約 451 字 </span>
+          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#調整-visual-studio-msbuild-專案建置輸出詳細等級-output-視窗輸出資訊詳細等級">調整 Visual Studio MSBuild 專案建置輸出詳細等級(Output 視窗輸出資訊詳細等級)</a>
+<ul>
+<li><a href="#預設-最小">預設(最小)</a></li>
+<li><a href="#調整方式">調整方式</a></li>
+<li><a href="#詳細等級">詳細等級</a></li>
+<li><a href="#測試-一般">測試(一般)</a></li>
+</ul></li>
+<li><a href="#參考資料">參考資料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="調整-visual-studio-msbuild-專案建置輸出詳細等級-output-視窗輸出資訊詳細等級">調整 Visual Studio MSBuild 專案建置輸出詳細等級(Output 視窗輸出資訊詳細等級)</h1>
+
+<p>有時 Visual Studio 編譯專案失敗，但只有顯示發生錯誤並沒有其他資訊造成偵錯困難或者想要瞭解 MSBuild 到底下了哪些指令，這個時候我們就可以透過調整 output 詳細等級來達到目的</p>
+
+<h2 id="預設-最小">預設(最小)</h2>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678152/85b0c23c-d378-11e6-8b1e-e50557a5e581.png" alt="minimal" /></p>
+
+<h2 id="調整方式">調整方式</h2>
+
+<ol>
+<li><p>開啟 Visual Studio 相關設定頁</p>
+
+<ul>
+<li><p>Visual Studio 主選單 <code>Tools</code>&ndash;&gt; <code>Options...</code></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678153/85b25bba-d378-11e6-8d73-b7d4f1016b86.png" alt="options" /></p></li>
+</ul></li>
+
+<li><p>打開 <code>專案及方案</code>&ndash;&gt; <code>建置及執行</code></p>
+
+<ul>
+<li><p><code>Projects and Solutions</code> &ndash;&gt; <code>Build and Run</code></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678154/85b2dc2a-d378-11e6-8774-e45fcc17e28f.png" alt="buildandrun" /></p></li>
+</ul></li>
+
+<li><p>調整 <code>MSBuild 專案建置輸出詳細等級</code></p>
+
+<ul>
+<li><p><code>MSBuild project build output verbosity</code></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678155/85b3f29a-d378-11e6-95af-fd8035a90fb1.png" alt="verbosity" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="詳細等級">詳細等級</h2>
+
+<table>
+<thead>
+<tr>
+<th align="left">詳細等級</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">無訊息(Quiet)</td>
+<td align="left">只會顯示組建的摘要。</td>
+</tr>
+
+<tr>
+<td align="left">最小(Minimal)</td>
+<td align="left">顯示組建的摘要和錯誤、被分類為高度和重要的警告訊息。</td>
+</tr>
+
+<tr>
+<td align="left">一般(Normal)</td>
+<td align="left">顯示組建的摘要;錯誤、被分類為高度重要的警告和訊息;建置的主要步驟。  您通常會使用這個詳細資料層級。</td>
+</tr>
+
+<tr>
+<td align="left">詳細(Detailed)</td>
+<td align="left">顯示組建的摘要;錯誤、被分類為高度重要的警告和訊息;所有建置步驟;就一般重要性分類的訊息。</td>
+</tr>
+
+<tr>
+<td align="left">診斷(Diagnostic)</td>
+<td align="left">顯示為組建可用的所有資料。  您可以使用這個詳細資料層級協助偵錯與自訂建置指令碼和其他組建問題的問題。</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="測試-一般">測試(一般)</h2>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/21678156/85b9d14c-d378-11e6-82fc-00638643172d.png" alt="normal" /></p>
+
+<h1 id="參考資料">參考資料</h1>
+
+<ol>
+<li><a href="https://msdn.microsoft.com/ZH-TW/library/jj651643.aspx" target="_blank">如何：檢閱、儲存和設定建置記錄檔</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-09</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/debug/">Debug</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/visual-studio/">Visual Studio</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/msbuild/">MSBuild</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/charles-proxy/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">為 Charles  設定需驗證的 proxy</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/about-pdb/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">你可能會想知道的關於 .PDB 檔的一些事</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/visual-studio-build-output-verbosity\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

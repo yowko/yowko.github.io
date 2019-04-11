@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 Common.Logging 搭配 NLog 及 log4net - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="使用 Common.Logging 搭配 NLog 及 log4net 在新專案中，同事打算統一 log 的紀錄方式，所以繼承了 log4net 並在 log 的 api 上加入自訂行為，讓後續 log 餵進 ELK 時可以比較順利 出發點當然是為了日後" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/common-logging/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="使用 Common.Logging 搭配 NLog 及 log4net" />
+<meta property="og:description" content="使用 Common.Logging 搭配 NLog 及 log4net 在新專案中，同事打算統一 log 的紀錄方式，所以繼承了 log4net 並在 log 的 api 上加入自訂行為，讓後續 log 餵進 ELK 時可以比較順利 出發點當然是為了日後" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/common-logging/" /><meta property="article:published_time" content="2017-07-14T23:52:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-24T23:52:50&#43;08:00"/>
+
+<meta itemprop="name" content="使用 Common.Logging 搭配 NLog 及 log4net">
+<meta itemprop="description" content="使用 Common.Logging 搭配 NLog 及 log4net 在新專案中，同事打算統一 log 的紀錄方式，所以繼承了 log4net 並在 log 的 api 上加入自訂行為，讓後續 log 餵進 ELK 時可以比較順利 出發點當然是為了日後">
+
+
+<meta itemprop="datePublished" content="2017-07-14T23:52:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-24T23:52:50&#43;08:00" />
+<meta itemprop="wordCount" content="1210">
+
+
+
+<meta itemprop="keywords" content="套件,log4net,NLog," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Common.Logging 搭配 NLog 及 log4net"/>
+<meta name="twitter:description" content="使用 Common.Logging 搭配 NLog 及 log4net 在新專案中，同事打算統一 log 的紀錄方式，所以繼承了 log4net 並在 log 的 api 上加入自訂行為，讓後續 log 餵進 ELK 時可以比較順利 出發點當然是為了日後"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-07-14 </span>
+        
+        <span class="more-meta"> 約 1210 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#使用-common-logging-搭配-nlog-及-log4net">使用 Common.Logging 搭配 NLog 及 log4net</a>
+<ul>
+<li><a href="#關於-common-logging">關於 Common.Logging</a></li>
+<li><a href="#安裝-common-logging">安裝 Common.Logging</a></li>
+<li><a href="#設定-web-config">設定 web.config</a></li>
+<li><a href="#程式碼加上-log">程式碼加上 log</a></li>
+<li><a href="#使用單獨-log-config">使用單獨 log config</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="使用-common-logging-搭配-nlog-及-log4net">使用 Common.Logging 搭配 NLog 及 log4net</h1>
+
+<p>在新專案中，同事打算統一 log 的紀錄方式，所以繼承了 log4net 並在 log 的 api 上加入自訂行為，讓後續 log 餵進 ELK 時可以比較順利</p>
+
+<p>出發點當然是為了日後處理方便，但我卻覺得不合理，因為 ELK 只需要 log 紀錄的方式符合特定 pattern 即可，不必為此限定專案只能使用 log4net ，像之前部份專案已經使用 NLog，難道要為了配合餵 log 而整個換 log 系統嗎？</p>
+
+<p>後來想起 Common.Logging 這個套件可以使用一致 log 語法，透過設定將 log 轉由 NLog 或是 log4net 處理，就來看看可以如何使用吧</p>
+
+<h2 id="關於-common-logging">關於 Common.Logging</h2>
+
+<ol>
+<li><p>支援多種 logging framework</p>
+
+<ul>
+<li>log4net (v1.2.9 - v1.2.15)</li>
+<li>NLog (v1.0 - v4.1)</li>
+<li>Microsoft Enterprise Library Logging Application Block (v3.1 - v6.0)</li>
+<li>Microsoft AppInsights</li>
+<li>Microsoft Event Tracing for Windows (ETW)*</li>
+<li>Log to STDOUT</li>
+<li>Log to DEBUG OUT</li>
+</ul></li>
+
+<li><p>支援多個 .NET 執行環境</p>
+
+<ul>
+<li>.NET 2.0</li>
+<li>.NET 3.0</li>
+<li>.NET 3.5</li>
+<li>.NET 4.0</li>
+<li>.NET 4.5</li>
+<li>Silverlight 5.0</li>
+<li>Windows Phone 7.x</li>
+<li>Windows Phone 8.x</li>
+<li>WinRT 8.1 (for Windows 8.1 and Windows Phone 8.1)</li>
+<li>Universal Windows Platform 10.0+ (WinRT for Windows 10)</li>
+
+<li><p>.NET Core 1.0*</p>
+
+<blockquote>
+<p>我自行測試 .NET 4.6 也 OK</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>採用 Apache License, Version 2.0 授權</p></li>
+
+<li><p>詳細資訊可以參考 <a href="http://net-commons.github.io/common-logging/" target="_blank">Common-logging</a></p></li>
+
+<li><p>程式碼可以參考 <a href="https://github.com/net-commons/common-logging" target="_blank">net-commons/common-logging</a></p></li>
+</ol>
+
+<h2 id="安裝-common-logging">安裝 Common.Logging</h2>
+
+<ol>
+<li><p>安裝 Common.Logging</p>
+
+<ul>
+<li>該步驟可以省略(因下一步驟包含 Common.Logging 相依，預設會安裝)</li>
+
+<li><p>以 Package Management Console 為例</p>
+
+<blockquote>
+<p><code>Install-Package Common.Logging</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>安裝 Common.Logging 對應 logging framework 套件</p>
+
+<blockquote>
+<p>需特別留意套件名稱上的版號，需要與 logging framework 配合才能使用</p>
+</blockquote>
+
+<ul>
+<li><p>以 NLog 為例 (2017/07/14 NLog 最新版為 4.1.2)</p>
+
+<blockquote>
+<p><code>Install-Package Common.Logging.NLog41</code></p>
+</blockquote></li>
+
+<li><p>以 log4net 為例 (2017/07/14 log4net 最新版為 1.2.11)</p>
+
+<blockquote>
+<p><code>Install-Package Common.Logging.log4net1211</code></p>
+</blockquote></li>
+</ul></li>
+</ol>
+
+<h2 id="設定-web-config">設定 web.config</h2>
+
+<ol>
+<li><p>加上 config section 定義</p>
+
+<blockquote>
+<p>如果對 config section 有興趣，可以參考 <a href="https://blog.yowko.com/2017/02/use-configurationsection-customize-aspnet-config.html" target="_blank">使用 ConfigurationSection 自訂 ASP.NET config (web.config) 區段</a></p>
+</blockquote>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+    &lt;configSections&gt;
+        &lt;sectionGroup name=&quot;common&quot;&gt;
+            &lt;section name=&quot;logging&quot; type=&quot;Common.Logging.ConfigurationSectionHandler, Common.Logging&quot; /&gt;
+        &lt;/sectionGroup&gt;
+    &lt;/configSections&gt;
+&lt;/configuration&gt;
+</code></pre>
+
+<ul>
+<li><p>使用 NLog</p>
+
+<blockquote>
+<p>需加上 <code>&lt;section name=&quot;nlog&quot; type=&quot;NLog.Config.ConfigSectionHandler, NLog&quot; /&gt;</code></p>
+</blockquote>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+    &lt;configSections&gt;
+        &lt;sectionGroup name=&quot;common&quot;&gt;
+            &lt;section name=&quot;logging&quot; type=&quot;Common.Logging.ConfigurationSectionHandler, Common.Logging&quot; /&gt;
+        &lt;/sectionGroup&gt;
+        &lt;section name=&quot;nlog&quot; type=&quot;NLog.Config.ConfigSectionHandler, NLog&quot; /&gt;
+    &lt;/configSections&gt;
+&lt;/configuration&gt;
+</code></pre></li>
+
+<li><p>使用 log4net</p>
+
+<blockquote>
+<p>需加上 <code>&lt;section name=&quot;log4net&quot; type=&quot;log4net.Config.log4netConfigurationSectionHandler,log4net&quot; /&gt;</code></p>
+</blockquote>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+    &lt;configSections&gt;
+        &lt;sectionGroup name=&quot;common&quot;&gt;
+            &lt;section name=&quot;logging&quot; type=&quot;Common.Logging.ConfigurationSectionHandler, Common.Logging&quot; /&gt;
+        &lt;/sectionGroup&gt;
+        &lt;section name=&quot;log4net&quot; type=&quot;log4net.Config.log4netConfigurationSectionHandler,log4net&quot; /&gt;
+    &lt;/configSections&gt;
+&lt;/configuration&gt;
+</code></pre></li>
+</ul></li>
+
+<li><p>加上 logging framework 對應設定</p>
+
+<blockquote>
+<ul>
+<li><p>type 設定需指定正確 Common.Logging 對應 logging framework 套件版本</p>
+
+<ul>
+<li><p>configType 有四種值：</p></li>
+
+<li><p>INLINE：設定直接寫在 app.config 或是 web.config</p></li>
+
+<li><p>FILE：使用單獨的 config 檔</p></li>
+
+<li><p>FILE-WATCH：使用單獨 config 檔並監控變化</p></li>
+
+<li><p>EXTERNAL：log4net 的設定是由別處處理，標記為略過的意思</p></li>
+</ul></li>
+</ul>
+</blockquote>
+
+<ul>
+<li><p>以 NLog 為例 (2017/07/14 NLog 最新版為 4.1.2)</p>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+    &lt;common&gt;
+        &lt;logging&gt;
+        &lt;factoryAdapter type=&quot;Common.Logging.NLog.NLogLoggerFactoryAdapter, Common.Logging.NLog41&quot;&gt;
+            &lt;arg key=&quot;configType&quot; value=&quot;INLINE&quot; /&gt;
+        &lt;/factoryAdapter&gt;
+        &lt;/logging&gt;
+    &lt;/common&gt;
+    &lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.nlog-project.org/schemas/NLog.xsd NLog.xsd&quot; autoReload=&quot;true&quot; throwExceptions=&quot;false&quot; internalLogLevel=&quot;Off&quot; internalLogFile=&quot;c:\temp\nlog-internal.log&quot;&gt;
+        &lt;targets async=&quot;true&quot;&gt;
+            &lt;target xsi:type=&quot;File&quot; name=&quot;f&quot; fileName=&quot;${basedir}/logs-inline/${shortdate}.log&quot; layout=&quot;${longdate} ${uppercase:${level}} ${message}&quot; /&gt;
+        &lt;/targets&gt;
+        &lt;rules&gt;
+            &lt;logger name=&quot;*&quot; minlevel=&quot;Debug&quot; writeTo=&quot;f&quot; /&gt;
+        &lt;/rules&gt;
+    &lt;/nlog&gt;
+&lt;/configuration&gt;
+</code></pre></li>
+
+<li><p>以 log4net 為例 (2017/07/14 log4net 最新版為 1.2.11)</p>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+    &lt;common&gt;
+        &lt;logging&gt;
+            &lt;factoryAdapter type=&quot;Common.Logging.log4net.log4netLoggerFactoryAdapter, Common.Logging.Log4net1211&quot;&gt;
+                &lt;arg key=&quot;configType&quot; value=&quot;INLINE&quot; /&gt;
+            &lt;/factoryAdapter&gt;
+        &lt;/logging&gt;
+    &lt;/common&gt;
+    &lt;log4net&gt;
+        &lt;appender name=&quot;Alllogger&quot; type=&quot;log4net.Appender.RollingFileAppender&quot;&gt;
+            &lt;file value=&quot;log4net-inline\&quot; /&gt;
+            &lt;datePattern value=&quot;yyyy-MM-dd\\'test.log'&quot; /&gt;
+            &lt;appendToFile value=&quot;true&quot; /&gt;
+            &lt;rollingStyle value=&quot;Composite&quot; /&gt;
+            &lt;maxSizeRollBackups value=&quot;10&quot; /&gt;
+            &lt;maximumFileSize value=&quot;100KB&quot; /&gt;
+            &lt;staticLogFileName value=&quot;false&quot; /&gt;
+            &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+                &lt;conversionPattern value=&quot;%date [%thread] %-5level %logger [%property{NDC}] - %message%newline&quot; /&gt;
+            &lt;/layout&gt;
+        &lt;/appender&gt;
+        &lt;root&gt;
+            &lt;level value=&quot;ALL&quot; /&gt;
+            &lt;appender-ref ref=&quot;Alllogger&quot; /&gt;
+        &lt;/root&gt;
+    &lt;/log4net&gt;
+&lt;/configuration&gt;
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="程式碼加上-log">程式碼加上 log</h2>
+
+<ol>
+<li><p>引用 <code>Common.Logging</code></p>
+
+<pre><code class="language-cs">using Common.Logging;
+</code></pre></li>
+
+<li><p>定義 logger</p>
+
+<pre><code class="language-cs">private static ILog logger = LogManager.GetCurrentClassLogger();
+</code></pre></li>
+
+<li><p>加上 log</p>
+
+<pre><code class="language-cs">logger.Debug($&quot;yowko-TestLog-{DateTime.Now}&quot;);
+</code></pre>
+
+<ul>
+<li><p>關於 log level</p>
+
+<table>
+<thead>
+<tr>
+<th>Common.Logging.LogLevel</th>
+<th>System.Diagnostics. TraceEventType</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Trace</td>
+<td>Verbose</td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td>Verbose</td>
+</tr>
+
+<tr>
+<td>Error</td>
+<td>Error</td>
+</tr>
+
+<tr>
+<td>Fatal</td>
+<td>Critical</td>
+</tr>
+
+<tr>
+<td>Info</td>
+<td>Information</td>
+</tr>
+
+<tr>
+<td>Warn</td>
+<td>Warning</td>
+</tr>
+</tbody>
+</table></li>
+</ul></li>
+</ol>
+
+<h2 id="使用單獨-log-config">使用單獨 log config</h2>
+
+<blockquote>
+<p>configType 為</p>
+
+<ul>
+<li>FILE：使用單獨的 config 檔</li>
+<li>FILE-WATCH：使用單獨 config 檔並監控變化</li>
+</ul>
+</blockquote>
+
+<ul>
+<li>加上 configFile 屬性，並指定 config 檔案位置</li>
+
+<li><p>以 NLog 為例 (2017/07/14 NLog 最新版為 4.1.2)</p>
+
+<ul>
+<li><p>web.config</p>
+
+<blockquote>
+<p>測試下來 NLog 只支援 <code>FILE</code> 不支援 <code>FILE-WATCH</code></p>
+</blockquote>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+    &lt;common&gt;
+        &lt;logging&gt;
+        &lt;factoryAdapter type=&quot;Common.Logging.NLog.NLogLoggerFactoryAdapter, Common.Logging.NLog41&quot;&gt;
+            &lt;arg key=&quot;configType&quot; value=&quot;FILE&quot; /&gt;
+            &lt;arg key=&quot;configFile&quot; value=&quot;~/NLog.config&quot; /&gt;
+        &lt;/factoryAdapter&gt;
+        &lt;/logging&gt;
+    &lt;/common&gt;
+&lt;/configuration&gt;
+</code></pre></li>
+
+<li><p>NLog.config</p>
+
+<pre><code class="language-xml">&lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.nlog-project.org/schemas/NLog.xsd NLog.xsd&quot; autoReload=&quot;true&quot; throwExceptions=&quot;false&quot; internalLogLevel=&quot;Off&quot; internalLogFile=&quot;c:\temp\nlog-internal.log&quot;&gt;
+    &lt;targets async=&quot;true&quot;&gt;
+        &lt;target xsi:type=&quot;File&quot; name=&quot;f&quot; fileName=&quot;${basedir}/logs-file/${shortdate}.log&quot; layout=&quot;${longdate} ${uppercase:${level}} ${message}&quot; /&gt;
+    &lt;/targets&gt;
+    &lt;rules&gt;
+        &lt;logger name=&quot;*&quot; minlevel=&quot;Debug&quot; writeTo=&quot;f&quot; /&gt;
+    &lt;/rules&gt;
+&lt;/nlog&gt;
+</code></pre></li>
+</ul></li>
+
+<li><p>以 log4net 為例 (2017/07/14 log4net 最新版為 1.2.11)</p>
+
+<ul>
+<li><p>web.config</p>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+    &lt;common&gt;
+        &lt;logging&gt;
+            &lt;factoryAdapter type=&quot;Common.Logging.log4net.log4netLoggerFactoryAdapter, Common.Logging.Log4net1211&quot;&gt;
+                &lt;arg key=&quot;configType&quot; value=&quot;FILE-WATCH&quot; /&gt;
+                &lt;arg key=&quot;configFile&quot; value=&quot;~/log4net.config&quot; /&gt;
+            &lt;/factoryAdapter&gt;
+        &lt;/logging&gt;
+    &lt;/common&gt;
+&lt;/configuration&gt;
+</code></pre></li>
+
+<li><p>log4net.config</p>
+
+<pre><code class="language-xml">&lt;log4net&gt;
+    &lt;appender name=&quot;Alllogger&quot; type=&quot;log4net.Appender.RollingFileAppender&quot;&gt;
+        &lt;file value=&quot;log4net-file\&quot; /&gt;
+        &lt;datePattern value=&quot;yyyy-MM-dd\\'test.log'&quot; /&gt;
+        &lt;appendToFile value=&quot;true&quot; /&gt;
+        &lt;rollingStyle value=&quot;Composite&quot; /&gt;
+        &lt;maxSizeRollBackups value=&quot;10&quot; /&gt;
+        &lt;maximumFileSize value=&quot;100KB&quot; /&gt;
+        &lt;staticLogFileName value=&quot;false&quot; /&gt;
+        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+        &lt;conversionPattern value=&quot;%date [%thread] %-5level %logger [%property{NDC}] - %message%newline&quot; /&gt;
+        &lt;/layout&gt;
+    &lt;/appender&gt;
+    &lt;root&gt;
+        &lt;!--DEBUG OR INFO OR ERROR OR WARN OR ALL--&gt;
+        &lt;level value=&quot;ALL&quot; /&gt;
+        &lt;appender-ref ref=&quot;Alllogger&quot; /&gt;
+    &lt;/root&gt;
+&lt;/log4net&gt;
+</code></pre></li>
+</ul></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>透過使用 Common.Logging 讓團隊中使用一致的 log 語法，又可以保留不同專案間使用不同 logging framework 的彈性，感覺還不賴，但還是有些缺點：Common.Logging 設定比較繁瑣些，需要注意的地方較多</p>
+
+<p>依成果來看，選擇使用 Common.Logging 是明智之舉，避免了客製時需要針對不同 logging framework 客製兩套的狀況，也可以直接統一 log 寫法，甚至讓更換 logging framework 都變簡單了</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="http://net-commons.github.io/common-logging/" target="_blank">Common-logging</a></li>
+<li><a href="https://github.com/net-commons/common-logging" target="_blank">net-commons/common-logging</a></li>
+<li><a href="https://blog.yowko.com/2017/02/use-configurationsection-customize-aspnet-config.html" target="_blank">使用 ConfigurationSection 自訂 ASP.NET config (web.config) 區段</a></li>
+<li><a href="http://netcommon.sourceforge.net/docs/2.0.0/reference/html/ch01.html" target="_blank">Chapter 1. Common Logging</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-24</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/%E5%A5%97%E4%BB%B6/">套件</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/log4net/">log4net</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/nlog/">NLog</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/common-logging-multiple-logging-framework/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">使用 Common.Logging 同時將 log 寫至多個 Logging Framework</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/string-create-instance/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">使用 string 建立 instance 及反序列化 json 為 class</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/common-logging\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>如何在 Windows 環境安裝及設定 MongoDB - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="如何在 Windows 環境安裝及設定 MongoDB 最近專案因為資料變異幅度較大，如果使用傳統關聯式資料庫來儲存資料，table schema 很難設計，所以打算利用 MongoDB schema-free 的特性來儲存" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/windows-mongodb/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="如何在 Windows 環境安裝及設定 MongoDB" />
+<meta property="og:description" content="如何在 Windows 環境安裝及設定 MongoDB 最近專案因為資料變異幅度較大，如果使用傳統關聯式資料庫來儲存資料，table schema 很難設計，所以打算利用 MongoDB schema-free 的特性來儲存" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/windows-mongodb/" /><meta property="article:published_time" content="2017-08-23T00:35:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-25T00:35:31&#43;08:00"/>
+
+<meta itemprop="name" content="如何在 Windows 環境安裝及設定 MongoDB">
+<meta itemprop="description" content="如何在 Windows 環境安裝及設定 MongoDB 最近專案因為資料變異幅度較大，如果使用傳統關聯式資料庫來儲存資料，table schema 很難設計，所以打算利用 MongoDB schema-free 的特性來儲存">
+
+
+<meta itemprop="datePublished" content="2017-08-23T00:35:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-25T00:35:31&#43;08:00" />
+<meta itemprop="wordCount" content="1145">
+
+
+
+<meta itemprop="keywords" content="MongoDB,Windows Service," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何在 Windows 環境安裝及設定 MongoDB"/>
+<meta name="twitter:description" content="如何在 Windows 環境安裝及設定 MongoDB 最近專案因為資料變異幅度較大，如果使用傳統關聯式資料庫來儲存資料，table schema 很難設計，所以打算利用 MongoDB schema-free 的特性來儲存"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-08-23 </span>
+        
+        <span class="more-meta"> 約 1145 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#如何在-windows-環境安裝及設定-mongodb">如何在 Windows 環境安裝及設定 MongoDB</a>
+<ul>
+<li><a href="#安裝-mongodb">安裝 MongoDB</a></li>
+<li><a href="#設定並啟動-mongodb">設定並啟動 MongoDB</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="如何在-windows-環境安裝及設定-mongodb">如何在 Windows 環境安裝及設定 MongoDB</h1>
+
+<p>最近專案因為資料變異幅度較大，如果使用傳統關聯式資料庫來儲存資料，table schema 很難設計，所以打算利用 MongoDB schema-free 的特性來儲存資料</p>
+
+<p>原本在開發環境中架設 MongoDB 時 並沒有遇到太多障礙，加上專案時程較趕，就沒有刻意留下筆記，結果在架設其他測試環境時卻卡了好久，反而是當時花不少時間查資料才搞定的 RabbitMQ 憑著詳細筆記快速搞定，所以立馬就來補筆記了 XD</p>
+
+<h2 id="安裝-mongodb">安裝 MongoDB</h2>
+
+<p>MongoDB 有 <code>Windows</code>、<code>Linux</code>、<code>OS X</code> 和 <code>Solaris</code> 四個版本，可以滿足不同環境的需求，安裝檔可以以參考 <a href="https://www.mongodb.com/download-center#community" target="_blank">下載位置</a>，今天內容是針對 Windows OS 的安裝及設定</p>
+
+<ul>
+<li><p>版本 (2017/08/22)</p>
+
+<ol>
+<li>Windows Server 2008 R2 64-bit and later, with SSL support x64</li>
+<li>Windows Server 2008 R2 64-bit and later, without SSL support x64</li>
+<li>Windows Server 2008 64-bit, without SSL support x64</li>
+</ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/29576183-85f52c4e-8799-11e7-9c92-524b938797b7.png" alt="1download" /></p></li>
+
+<li><p>直接點擊 <code>.msi</code> 檔執行安裝</p>
+
+<blockquote>
+<p>原則一直按 <code>Next</code> 就可以完成安裝，如果需要自訂安裝位置，需要使用 <code>Custom</code>，預設安裝至 <code>C:\Program Files\MongoDB\Server\3.4\</code></p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/29576185-85f6137a-8799-11e7-82fd-3bf164168773.png" alt="2install1" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/29576186-85f75942-8799-11e7-91c6-e6e95abb4e6d.png" alt="3install2" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/29576187-85f93f96-8799-11e7-9f7e-f35778bf801a.png" alt="3install3" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/29576184-85f56d4e-8799-11e7-9b94-d0c4c24cceef.png" alt="4insall4" /></p></li>
+</ul>
+
+<h2 id="設定並啟動-mongodb">設定並啟動 MongoDB</h2>
+
+<p>MongoDB 安裝完成後，僅具備 MongoDB 的核心功能，需要設定 MongoDB 執行環境參數並啟動 MongoDB instance 才能真正讓 MongoDB 擁有實際功能，設定方式有多種，可以依情境所需挑選</p>
+
+<ul>
+<li><p>直接啟動 MongoDB instance</p>
+
+<ol>
+<li><p>純 command line 指令設定</p>
+
+<blockquote>
+<p>必要的參數只有 <code>dbpath</code> - 用來存放資料的位置，其他參數皆是可選擇參數</p>
+</blockquote>
+
+<ul>
+<li><p>指定 db 存放位置</p>
+
+<pre><code>&quot;C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe&quot; --dbpath &quot;C:\mongodb\db1&quot;
+</code></pre></li>
+
+<li><p>指定 db 存放位置、 log存放位置、 port 、對外連線 ip、db 儲存模式</p>
+
+<pre><code>&quot;C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe&quot; --dbpath &quot;C:\mongodb\db1&quot; --logpath &quot;C:\mongodb\db1\log.log&quot; --port 30000 --bind_ip 127.0.0.1 --directoryperdb
+</code></pre></li>
+</ul>
+
+<blockquote>
+<p><code>mongod</code> 指令參數可以參考 <a href="https://docs.mongodb.com/manual/reference/program/mongod.exe" target="_blank">mongod.exe</a></p>
+</blockquote></li>
+
+<li><p>使用設定檔</p>
+
+<blockquote>
+<p>雖然必要參數只有一個，但要完整正確的指定所有參數也不是件容易的事。此時可以透過將參數設定檔來啟動 MongoDB</p>
+</blockquote>
+
+<ul>
+<li><p>格式</p>
+
+<blockquote>
+<p>MongoDB 2.6 開始使用 YAML，並支援舊版格式；MongoDB 2.4 之前則沒有特定格式，只要符合 <code>{參數}={設定值}</code> 即可</p>
+</blockquote>
+
+<ul>
+<li><p>MongoDB 2.4 之前版本，詳細內容可以參考 <a href="https://docs.mongodb.com/v2.4/reference/configuration-options/" target="_blank">Configuration File Options</a></p>
+
+<pre><code>port=27017
+dbpath=c:\mongodb\db3
+directoryperdb=true 
+logpath=c:\mongodb\db3\log.log 
+logappend=true 
+bind_ip=127.0.0.1
+</code></pre></li>
+
+<li><p>MongoDB 2.6 YAML 版本，詳細內容可以參考 <a href="https://docs.mongodb.com/manual/reference/configuration-options" target="_blank">Configuration File Options</a></p>
+
+<pre><code class="language-yml">systemLog:
+    destination: file
+    path: &quot;C:\\mongodb\\db3\\log.log&quot;
+    logAppend: true
+storage:
+   dbPath: &quot;C:\\mongodb\\db3&quot;
+   directoryPerDB: true
+net:
+   port: 27017
+   bindIp: 127.0.0.1
+</code></pre></li>
+</ul></li>
+
+<li><p>指令</p>
+
+<pre><code>&quot;C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe&quot; --config &quot;C:\mongodb\db3\mongo.conf&quot;
+</code></pre></li>
+</ul></li>
+</ol></li>
+
+<li><p>Windows Service</p>
+
+<blockquote>
+<p>透過直接建立 MongoDB instance 的方式，會讓執行指令的 command prompt 一直處於執行中的狀態，一旦關閉， MongoDB instance 也會被關閉，不適合長久型服務，而透過安裝成 Windows Service 就沒有這個問題了</p>
+</blockquote>
+
+<ol>
+<li><p>純 command line 指令設定</p>
+
+<pre><code>&quot;C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe&quot; --dbpath &quot;C:\mongodb\db1&quot; --logpath &quot;C:\mongodb\db1\log.log&quot; --port 30000 --bind_ip 127.0.0.1 --directoryperdb --serviceName MongoDB --serviceDisplayName MongoDB30000 --install
+</code></pre>
+
+<blockquote>
+<p>加上 <code>serviceName</code>、<code>serviceDisplayName</code>、及 <code>install</code></p>
+</blockquote></li>
+
+<li><p>mongod 指令搭配設定檔</p>
+
+<ul>
+<li><p>MongoDB 2.4 之前版本</p>
+
+<pre><code>port=27017
+dbpath=c:\mongodb\db3
+directoryperdb=true 
+logpath=c:\mongodb\db3\log.log 
+logappend=true 
+bind_ip=127.0.0.1
+</code></pre>
+
+<blockquote>
+<p>這個版本無法直接透過 config 檔案指定 service 相關設定，需與指令搭配使用</p>
+</blockquote>
+
+<pre><code>C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe&quot; --config &quot;C:\mongodb\db3\mongo.conf&quot; --serviceName MongoDB27017 --serviceDisplayName MongoDB27017 --install
+</code></pre></li>
+
+<li><p>MongoDB 2.6 YAML 版本</p>
+
+<pre><code>systemLog:
+    destination: file
+    path: &quot;C:\\mongodb\\db3\\log.log&quot;
+    logAppend: true
+storage:
+    dbPath: &quot;C:\\mongodb\\db3&quot;
+    directoryPerDB: true
+net:
+    port: 27017
+    bindIp: 127.0.0.1
+processManagement:
+    windowsService:
+        serviceName: MongoDB27017
+        displayName: MongoDB27017
+</code></pre>
+
+<pre><code>&quot;C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe&quot; --config &quot;C:\mongodb\db3\mongo.conf&quot; --install
+</code></pre>
+
+<blockquote>
+<p><code>serviceName</code>、<code>displayName</code> 由設定檔指定</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>使用 sc 指令</p>
+
+<pre><code>sc.exe create MongoDB binPath= &quot;\&quot;C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe\&quot; --service --config=\&quot;C:\mongodb\db3\mongo.conf\&quot;&quot; DisplayName= &quot;MongoDB&quot; start= &quot;auto&quot;
+</code></pre>
+
+<ul>
+<li><p>啟動</p>
+
+<blockquote>
+<p><code>net start MongoDB</code></p>
+</blockquote></li>
+
+<li><p>停止</p>
+
+<blockquote>
+<p><code>net stop MongoDB</code></p>
+</blockquote></li>
+
+<li><p>刪除</p>
+
+<blockquote>
+<p><code>sc.exe delete MongoDB</code></p>
+</blockquote></li>
+</ul></li>
+</ol></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>仔細想想好像每種安裝方式之前都用過，當然不是為了測試，主要是因為不暸解、不熟悉而沒有固定的套路才會這樣</p>
+
+<p>經過這次忘記安裝步驟的慘痛經驗，再次提醒著我應該要勤作筆記，不為別的就為了拯救記憶力退化的自己</p>
+
+<p>回到 MongoDB 本身，設定方式滿多元的，安裝流程跟設定都算簡單(也就是這樣才覺得不用筆記)，設定的相容性也做得不錯，果然不愧是牌子老口碑好</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://www.mongodb.com/download-center#community" target="_blank">MongoDB 下載位置</a></li>
+<li><a href="https://docs.mongodb.com/manual/reference/program/mongod.exe" target="_blank">mongod.exe</a></li>
+<li>[MongoDB 2.4 Configuration File<a href="https://docs.mongodb.com/v2.4/reference/configuration-options/" target="_blank"> Options</a></li>
+<li><a href="https://docs.mongodb.com/manual/reference/configuration-options" target="_blank">MongoDB 2.6 Configuration File Options</a></li>
+<li><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/" target="_blank">Install MongoDB Community Edition on Windows</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-25</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/mongodb/">MongoDB</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/windows-service/">Windows Service</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/remove-windowsfilter/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">解決無法刪除 dcoker 在 Windows 下的 image 預設目錄 windowsfilter</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/rabbtimq-cluster-force-boot/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">RabbtiMQ Cluster failover 後無法啟動 RabbitMQ instance</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/windows-mongodb\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

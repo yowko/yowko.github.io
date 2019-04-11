@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式 之前文章 使用 Selenium IDE 與 C# 做 Web UI 測試，介紹了如何使用 Selenium IDE 錄製網頁操作並將過程 export 成 c# 測試程式，雖然很方便但 Selenium api 太像" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/fluent-automation-selenium-web-ui-test/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式" />
+<meta property="og:description" content="使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式 之前文章 使用 Selenium IDE 與 C# 做 Web UI 測試，介紹了如何使用 Selenium IDE 錄製網頁操作並將過程 export 成 c# 測試程式，雖然很方便但 Selenium api 太像" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/fluent-automation-selenium-web-ui-test/" /><meta property="article:published_time" content="2017-06-08T00:14:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-22T16:33:28&#43;08:00"/>
+
+<meta itemprop="name" content="使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式">
+<meta itemprop="description" content="使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式 之前文章 使用 Selenium IDE 與 C# 做 Web UI 測試，介紹了如何使用 Selenium IDE 錄製網頁操作並將過程 export 成 c# 測試程式，雖然很方便但 Selenium api 太像">
+
+
+<meta itemprop="datePublished" content="2017-06-08T00:14:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-22T16:33:28&#43;08:00" />
+<meta itemprop="wordCount" content="1551">
+
+
+
+<meta itemprop="keywords" content="套件,TDD,Tools,Unit Test," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式"/>
+<meta name="twitter:description" content="使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式 之前文章 使用 Selenium IDE 與 C# 做 Web UI 測試，介紹了如何使用 Selenium IDE 錄製網頁操作並將過程 export 成 c# 測試程式，雖然很方便但 Selenium api 太像"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-06-08 </span>
+        
+        <span class="more-meta"> 約 1551 字 </span>
+          <span class="more-meta"> 預計閱讀 4 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#使用-fluent-automation-與-selenium-打造語意化-web-ui-測試程式">使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式</a>
+<ul>
+<li><a href="#基本設定">基本設定</a></li>
+<li><a href="#安裝-nuget-套件">安裝 NuGet 套件</a></li>
+<li><a href="#如何使用">如何使用</a></li>
+<li><a href="#其他驗證方式">其他驗證方式</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="使用-fluent-automation-與-selenium-打造語意化-web-ui-測試程式">使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式</h1>
+
+<p>之前文章 <a href="//blog.yowko.com/2017/06/selenium-ide-c-sharp-web-ui-test.html" target="_blank">使用 Selenium IDE 與 C# 做 Web UI 測試</a>，介紹了如何使用 Selenium IDE 錄製網頁操作並將過程 export 成 c# 測試程式，雖然很方便但 Selenium api 太像程式碼，一般而言測試案例是用來描述需求，這樣會讓測試案例的可讀性降低，一旦測試的可讀性降低，漸漸的就會造成維護不易，時間一久就愈來愈少人願意維護而造成 code coverage 不增反降，這對於程式碼品質絕對有負面影響。</p>
+
+<p>今天來紀錄一下 91 哥在 twMVC 活動中介紹的 Fluent Automation 套件，看它可以如何讓我們的 Web UI 測試有更好的可讀性</p>
+
+<h2 id="基本設定">基本設定</h2>
+
+<p>案例會持續延用 <a href="//blog.yowko.com/2017/06/selenium-ide-c-sharp-web-ui-test.html" target="_blank">使用 Selenium IDE 與 C# 做 Web UI 測試</a>，錄製登入 GitHub</p>
+
+<ul>
+<li><p>主要測試程式如下(如果你懶得錄，可以使用下面的版本，但請記得改帳號跟密碼)</p>
+
+<pre><code class="language-cs">using System;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Support.UI;
+using FluentAutomation;
+    
+namespace SeleniumTests
+{
+    [TestFixture]
+    public class Ngithub
+    {
+        private IWebDriver driver;
+        private StringBuilder verificationErrors;
+        private string baseURL;
+        private bool acceptNextAlert = true;
+            
+        [SetUp]
+        public void SetupTest()
+        {
+            driver = new FirefoxDriver();
+            baseURL = &quot;https://github.com/&quot;;
+            verificationErrors = new StringBuilder();
+        }
+            
+        [TearDown]
+        public void TeardownTest()
+        {
+            try
+            {
+                driver.Quit();
+            }
+            catch (Exception)
+            {
+                // Ignore errors if unable to close the browser
+            }
+            Assert.AreEqual(&quot;&quot;, verificationErrors.ToString());
+        }
+            
+        [Test]
+        public void TheNgithubTest()
+        {
+            driver.Navigate().GoToUrl(baseURL + &quot;/login&quot;);
+            driver.FindElement(By.Id(&quot;login_field&quot;)).Clear();
+            driver.FindElement(By.Id(&quot;login_field&quot;)).SendKeys(&quot;{帳號}&quot;);
+            driver.FindElement(By.Id(&quot;password&quot;)).Clear();
+            driver.FindElement(By.Id(&quot;password&quot;)).SendKeys(&quot;{密碼}&quot;);
+            driver.FindElement(By.Name(&quot;commit&quot;)).Click();
+            // 這邊要稍等一下，讓 github 完成 redirect
+            Thread.Sleep(1000);
+            //驗證網址是否正確
+            Assert.AreEqual(baseURL, driver.Url);
+        }
+            
+        private bool IsElementPresent(By by)
+        {
+            try
+            {
+                driver.FindElement(by);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+            
+        private bool IsAlertPresent()
+        {
+            try
+            {
+                driver.SwitchTo().Alert();
+                return true;
+            }
+            catch (NoAlertPresentException)
+            {
+                return false;
+            }
+        }
+            
+        private string CloseAlertAndGetItsText()
+        {
+            try
+            {
+                IAlert alert = driver.SwitchTo().Alert();
+                string alertText = alert.Text;
+                if (acceptNextAlert)
+                {
+                    alert.Accept();
+                }
+                else
+                {
+                    alert.Dismiss();
+                }
+                return alertText;
+            }
+            finally
+            {
+                acceptNextAlert = true;
+            }
+        }
+    }
+}
+</code></pre></li>
+</ul>
+
+<h2 id="安裝-nuget-套件">安裝 NuGet 套件</h2>
+
+<ol>
+<li><p>FluentAutomation.SeleniumWebDriver</p>
+
+<ul>
+<li><p>專案上按右鍵 &ndash;&gt; Manage NuGet Packages</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/26888548-f0aae4b8-4bdd-11e7-8cf4-1279dac0bc85.png" alt="1nuget" /></p></li>
+
+<li><p>Browse &ndash;&gt; 搜尋 <code>FluentAutomation.SeleniumWebDriver</code> &ndash;&gt; Install</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/26888549-f0d1bf98-4bdd-11e7-8e95-64b54034cad8.png" alt="2install" /></p></li>
+
+<li><p>會一併安裝其他相關套件</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/26888550-f0e78d32-4bdd-11e7-8781-fa4c7a354e9b.png" alt="3otherpacks" /></p></li>
+</ul></li>
+
+<li><p>Selenium.WebDriver.ChromeDriver</p>
+
+<ul>
+<li><p>專案上按右鍵 &ndash;&gt; Manage NuGet Packages</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/26888548-f0aae4b8-4bdd-11e7-8cf4-1279dac0bc85.png" alt="1nuget" /></p></li>
+
+<li><p>Browse &ndash;&gt; 搜尋 <code>Selenium.WebDriver.ChromeDriver</code> &ndash;&gt; Install</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/26888553-f0ee5446-4bdd-11e7-80d7-3ca8b766dde1.png" alt="4install" /></p></li>
+
+<li><p>這邊留意一下套件名稱，名稱很容易混洧</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/26888551-f0ea08c8-4bdd-11e7-9470-bcb17818579e.png" alt="5mass" /></p></li>
+
+<li><p>這個套件我試了好久才試出來，如果沒裝會出現錯誤訊息</p>
+
+<ul>
+<li><p>訊息內容</p>
+
+<pre><code>Test Name: Test1
+Test FullName: TestVSIXN3Tests.SampleTests.Test1
+Test Source: C:\Users\yowko.tsai\Documents\Visual Studio 2017\Projects\TestVSIX\TestVSIXN3Tests\SampleTests.cs : line 24
+Test Outcome: Failed
+Test Duration: 0:00:01.732
+            Result StackTrace: 
+at FluentAutomation.BaseCommandProvider.&lt;&gt;c__DisplayClass9.&lt;WaitUntil&gt;b__8()
+at FluentAutomation.BaseCommandProvider.Act(CommandType commandType, Action action)
+at FluentAutomation.BaseCommandProvider.WaitUntil(Expression`1 conditionAction, TimeSpan timeout)
+at FluentAutomation.BaseCommandProvider.Act(CommandType commandType, Action action)
+at FluentAutomation.CommandProvider.Navigate(Uri url)
+at FluentAutomation.ActionSyntaxProvider.Open(Uri url)
+at FluentAutomation.ActionSyntaxProvider.Open(String url)
+at TestVSIXN3Tests.SampleTests.Test1() in C:\Users\yowko.tsai\Documents\Visual Studio 2017\Projects\TestVSIX\TestVSIXN3Tests\SampleTests.cs:line 25
+--InvalidOperationException
+at OpenQA.Selenium.Remote.RemoteWebDriver.UnpackAndThrowOnError(Response errorResponse)
+at OpenQA.Selenium.Remote.RemoteWebDriver.Execute(String driverCommandToExecute, Dictionary`2 parameters)
+at OpenQA.Selenium.Remote.RemoteCookieJar.DeleteAllCookies()
+at FluentAutomation.CommandProvider.&lt;&gt;c__DisplayClass2.&lt;.ctor&gt;b__0()
+at System.Lazy`1.CreateValue()
+at System.Lazy`1.LazyInitValue()
+at System.Lazy`1.get_Value()
+at FluentAutomation.CommandProvider.get_webDriver()
+at FluentAutomation.CommandProvider.&lt;&gt;c__DisplayClass5.&lt;Navigate&gt;b__4()
+at lambda_method(Closure )
+at FluentAutomation.BaseCommandProvider.&lt;&gt;c__DisplayClass9.&lt;WaitUntil&gt;b__8()
+Result Message: 
+FluentAutomation.Exceptions.FluentException : An unexpected exception was thrown inside WaitUntil(Action). See InnerException for details.
+----&gt; System.InvalidOperationException : unknown error: Runtime.executionContextCreated has invalid 'context': {&quot;auxData&quot;:{&quot;frameId&quot;:&quot;9064.1&quot;,&quot;isDefault&quot;:true},&quot;id&quot;:1,&quot;name&quot;:&quot;&quot;,&quot;origin&quot;:&quot;://&quot;}
+(Session info: chrome=58.0.3029.110)
+(Driver info: chromedriver=2.9.248315,platform=Windows NT 6.1 SP1 x86_64)
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/26888552-f0ec8ecc-4bdd-11e7-9c83-f8b9dbc95bff.png" alt="6error" /></p></li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h2 id="如何使用">如何使用</h2>
+
+<ol>
+<li><p>引用 <code>FluentAutomation</code></p>
+
+<pre><code class="language-cs">using FluentAutomation;
+</code></pre></li>
+
+<li><p>測試 class 繼承 <code>FluentTest</code></p>
+
+<pre><code class="language-cs">public class Ngithub : FluentTest
+</code></pre></li>
+
+<li><p>建構式中指定使用的瀏覽器</p>
+
+<pre><code class="language-cs">SeleniumWebDriver.Bootstrap(SeleniumWebDriver.Browser.Firefox);
+</code></pre>
+
+<blockquote>
+<p>可指定多個瀏覽器</p>
+</blockquote></li>
+
+<li><p>使用語意化語法</p>
+
+<pre><code class="language-cs">I.Open(baseURL+&quot;login&quot;)
+.Enter(&quot;{帳號}&quot;)
+.In(&quot;#login_field&quot;)
+.Enter(&quot;{密碼}&quot;)
+.In(&quot;#password&quot;)
+.Click(&quot;input[name='commit']&quot;)
+.Wait(1).Assert.Url(baseURL);
+</code></pre></li>
+
+<li><p>完整程式</p>
+
+<pre><code class="language-cs">using NUnit.Framework;
+using FluentAutomation;
+namespace SeleniumTests
+{
+    [TestFixture]
+    public class Ngithub : FluentTest
+    {
+        private string baseURL;
+        public Ngithub()
+        {
+            baseURL = &quot;https://github.com/&quot;;
+            SeleniumWebDriver.Bootstrap(
+            SeleniumWebDriver.Browser.Firefox
+            );
+        }
+        [Test]
+        public void TheNgithubTest()
+        {
+                I.Open(baseURL+&quot;login&quot;)
+                .Enter(&quot;{帳號}}&quot;).In(&quot;#login_field&quot;)
+                .Enter(&quot;{密碼}&quot;).In(&quot;#password&quot;)
+                .Click(&quot;input[name='commit']&quot;)
+                .Wait(1)
+                .Assert.Url(baseURL);
+        }
+    }
+}
+</code></pre></li>
+</ol>
+
+<h2 id="其他驗證方式">其他驗證方式</h2>
+
+<ul>
+<li><p>驗證在 selector 中是否有特定 css class</p>
+
+<pre><code class="language-cs">I.Assert.Class(&quot;{class name}&quot;).Of(&quot;{selector}&quot;);
+</code></pre></li>
+
+<li><p>驗證特定的 selector 數量</p>
+
+<pre><code class="language-cs">I.Assert.Count(1).Of(&quot;{selector}&quot;);
+</code></pre></li>
+
+<li><p>驗證頁面上是否有特定 selector</p>
+
+<pre><code class="language-cs">I.Assert.Exists(&quot;{selector}&quot;);
+</code></pre></li>
+
+<li><p>驗證匿名函式結果是否為 false</p>
+
+<pre><code class="language-cs">var element = I.Find(&quot;input&quot;);
+I.Assert.False(() =&gt; element().IsSelect);
+</code></pre></li>
+
+<li><p>驗證 selector 內容是否為指定文字</p>
+
+<ul>
+<li><p>可以用於有 <code>innerHTML</code> 或是可以提供 <code>文字</code> 值的 DOM element 上</p>
+
+<pre><code class="language-cs">I.Assert.Text(&quot;FluentAutomation&quot;).In(&quot;{selector}&quot;);
+</code></pre></li>
+
+<li><p>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</p>
+
+<pre><code class="language-cs">I.Assert.Text((text) =&gt; text.Length &gt; 50).In(&quot;{selector}&quot;);
+</code></pre></li>
+</ul></li>
+
+<li><p>驗證匿名函數應該出現 exception</p>
+
+<blockquote>
+<p>用來做反向驗證 &ndash;&gt; 驗證某個 selector 不該存在</p>
+</blockquote>
+
+<pre><code class="language-cs">//登入成功沒有這個 div 會 pass ，登入失敗出現這個 div 會 fail
+I.Assert.Throws(() =&gt; I.Assert.Exists(&quot;#js-flash-container .flash.flash-full.flash-error .container&quot;));
+</code></pre></li>
+
+<li><p>驗證 <code>value</code> 是否合乎預期</p>
+
+<ul>
+<li><p>可以使用 selector 選定的 <code>&lt;INPUT&gt;</code>、<code>&lt;TEXTAREA&gt;</code>、<code>&lt;SELECT&gt;</code></p>
+
+<pre><code class="language-cs">I.Assert.Value(10).In(&quot;{selector}&quot;);
+</code></pre></li>
+
+<li><p>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</p>
+
+<pre><code class="language-cs">I.Assert.Value((value) =&gt; value.StartsWith(&quot;M&quot;)).In(&quot;{selector}&quot;);
+</code></pre></li>
+</ul></li>
+
+<li><p>驗證匿名函數結果應該為 <code>true</code></p>
+
+<pre><code class="language-cs">var element = I.Find(&quot;select&quot;);
+I.Assert.True(() =&gt; element().IsSelect);
+</code></pre></li>
+
+<li><p>驗證瀏覽器是否有 url</p>
+
+<ul>
+<li><p>可以驗證 <code>string</code> 或是 <code>Uri</code></p>
+
+<pre><code class="language-cs">I.Assert.Url(url);
+</code></pre></li>
+
+<li><p>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</p>
+
+<pre><code class="language-cs">I.Assert.Url((uri) =&gt; uri.Scheme == &quot;https&quot;);
+</code></pre></li>
+</ul></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>Fluent Automation 從 2015 至今都沒有更新紀錄，而且連 Fluent Automation 的官網已經失效了：<a href="http://fluent.stirno.com" target="_blank">http://fluent.stirno.com</a>，幸好 GitHub 上還有相關資訊，官方文件比較不好找 文件可以參考 <a href="https://github.com/stirno/FluentAutomation/tree/dev/Docs/v3" target="_blank">FluentAutomation Docs</a>，雖然使用上便利性稍差但功能本身非常好用，前後比較一下使用 Fluent Automation 是不是覺得意圖一目瞭然，可讀性超高呀？！</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="//blog.yowko.com/2017/06/selenium-ide-c-sharp-web-ui-test.html" target="_blank">使用 Selenium IDE 與 C# 做 Web UI 測試</a></li>
+<li><a href="https://github.com/stirno/FluentAutomation/tree/dev/Docs/v3" target="_blank">FluentAutomation Docs</a></li>
+<li><a href="https://github.com/stirno/FluentAutomation" target="_blank">GitHub - FluentAutomation</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-22</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/%E5%A5%97%E4%BB%B6/">套件</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/tdd/">TDD</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/unit-test/">Unit Test</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/pageobject-web-ui-test/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">使用 PageObject(Page Object Pattern) 建立物件導向的 Web UI 測試程式</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/selenium-ide-xunit-formatter/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">製作 Selenium IDE 的 xUnit.net 2.0 版 Formatter</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/fluent-automation-selenium-web-ui-test\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

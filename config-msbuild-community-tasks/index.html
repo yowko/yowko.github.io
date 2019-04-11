@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>專案間如何共用 config 設定 - 使用 MSBuild Community Tasks - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="專案間如何共用 config 設定 - 使用 MSBuild Community Tasks 之前文章 專案間如何共用 config 設定 - 使用 MSBuildExtensionPack 提供跨專案使用相同 config 設定值的概念，也介紹了透過 MSBuildExtensionPack 實作的細節 今天則要介紹另" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/config-msbuild-community-tasks/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="專案間如何共用 config 設定 - 使用 MSBuild Community Tasks" />
+<meta property="og:description" content="專案間如何共用 config 設定 - 使用 MSBuild Community Tasks 之前文章 專案間如何共用 config 設定 - 使用 MSBuildExtensionPack 提供跨專案使用相同 config 設定值的概念，也介紹了透過 MSBuildExtensionPack 實作的細節 今天則要介紹另" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/config-msbuild-community-tasks/" /><meta property="article:published_time" content="2017-08-13T23:28:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-24T23:28:38&#43;08:00"/>
+
+<meta itemprop="name" content="專案間如何共用 config 設定 - 使用 MSBuild Community Tasks">
+<meta itemprop="description" content="專案間如何共用 config 設定 - 使用 MSBuild Community Tasks 之前文章 專案間如何共用 config 設定 - 使用 MSBuildExtensionPack 提供跨專案使用相同 config 設定值的概念，也介紹了透過 MSBuildExtensionPack 實作的細節 今天則要介紹另">
+
+
+<meta itemprop="datePublished" content="2017-08-13T23:28:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-24T23:28:38&#43;08:00" />
+<meta itemprop="wordCount" content="1377">
+
+
+
+<meta itemprop="keywords" content="套件,MSBuild," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="專案間如何共用 config 設定 - 使用 MSBuild Community Tasks"/>
+<meta name="twitter:description" content="專案間如何共用 config 設定 - 使用 MSBuild Community Tasks 之前文章 專案間如何共用 config 設定 - 使用 MSBuildExtensionPack 提供跨專案使用相同 config 設定值的概念，也介紹了透過 MSBuildExtensionPack 實作的細節 今天則要介紹另"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-08-13 </span>
+        
+        <span class="more-meta"> 約 1377 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#專案間如何共用-config-設定-使用-msbuild-community-tasks">專案間如何共用 config 設定 - 使用 MSBuild Community Tasks</a>
+<ul>
+<li><a href="#安裝-msbuild-community-tasks">安裝 MSBuild Community Tasks</a></li>
+<li><a href="#在專案資料夾中新增-config-template">在專案資料夾中新增 config template</a></li>
+<li><a href="#在共用資料夾中新增共用的參數設定檔">在共用資料夾中新增共用的參數設定檔</a></li>
+<li><a href="#在專案資料夾中新增-msbuild-定義檔">在專案資料夾中新增 msbuild 定義檔</a></li>
+<li><a href="#實際使用">實際使用</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="專案間如何共用-config-設定-使用-msbuild-community-tasks">專案間如何共用 config 設定 - 使用 MSBuild Community Tasks</h1>
+
+<p>之前文章 <a href="https://blog.yowko.com/2017/08/shared-config.html" target="_blank">專案間如何共用 config 設定 - 使用 MSBuildExtensionPack</a> 提供跨專案使用相同 config 設定值的概念，也介紹了透過 MSBuildExtensionPack 實作的細節</p>
+
+<p>今天則要介紹另一套功能類似的 library - MSBuild Community Tasks，在進行功能比較前，先來看看該如何使用吧</p>
+
+<h2 id="安裝-msbuild-community-tasks">安裝 MSBuild Community Tasks</h2>
+
+<ul>
+<li><a href="https://github.com/loresoft/msbuildtasks/releases" target="_blank">MSBuild Community Tasks 下載位置</a></li>
+</ul>
+
+<ol>
+<li><p>使用 <code>.msi</code> 安裝</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/29250918-e9089f64-807d-11e7-8dbd-2d92f6081f7e.png" alt="1install" /></p>
+
+<ul>
+<li><p>如果沒有與 Visual Studio 整合的需求 可以移除該功能</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/29250919-e92edc6a-807d-11e7-8497-9e026aee0005.png" alt="2removcvs2010" /></p></li>
+
+<li><p>無法改變安裝路徑</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/29250920-e94c7446-807d-11e7-83da-021dae9080d6.png" alt="3nochangepath" /></p>
+
+<blockquote>
+<p>預設安裝路徑是 <code>C:\Program Files (x86)\MSBuild\MSBuildCommunityTasks</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>使用 <code>.zip</code></p>
+
+<blockquote>
+<p>將 <code>.zip</code> 解壓縮至想要位置即可</p>
+</blockquote></li>
+</ol>
+
+<h2 id="在專案資料夾中新增-config-template">在專案資料夾中新增 config template</h2>
+
+<ol>
+<li><p>複製一份 config 並 rename 成其他名稱</p>
+
+<ul>
+<li><p>範例：</p>
+
+<blockquote>
+<p><code>Web.config.template</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>將 config 內容想要由共用設定決定的部份改成變數</p>
+
+<ul>
+<li><p>範例：</p>
+
+<ul>
+<li>在 appSettings 區段中加上一個 <code>TestGlobalSetting</code></li>
+<li>value 則使用變數 <code>$YowkoTest</code></li>
+</ul></li>
+
+<li><p>完整內容</p>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+    &lt;appSettings&gt;
+        &lt;add key=&quot;TestGlobalSetting&quot; value=&quot;$YowkoTest&quot; /&gt;
+    &lt;/appSettings&gt;
+&lt;/configuration&gt;
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="在共用資料夾中新增共用的參數設定檔">在共用資料夾中新增共用的參數設定檔</h2>
+
+<ul>
+<li>檔案不需要跟特定專案放在一起，方便與其他專案共用</li>
+<li>關於 element 的詳細說明可以參考 <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-properties" target="_blank">MSBuild Properties</a></li>
+</ul>
+
+<ol>
+<li><p>使用 xml 格式</p>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+</code></pre></li>
+
+<li><p>以 <code>Project</code> 為 root element</p>
+
+<pre><code class="language-xml">&lt;Project xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;&gt;
+&lt;/Project&gt;
+</code></pre></li>
+
+<li><p>加入 <code>PropertyGroup</code> element</p>
+
+<pre><code class="language-xml">&lt;PropertyGroup&gt;
+&lt;/PropertyGroup&gt;
+</code></pre></li>
+
+<li><p>將目標參數值以參數 element 包覆</p>
+
+<pre><code class="language-xml">&lt;YowkoTest&gt;ValueChanged&lt;/YowkoTest&gt;
+</code></pre></li>
+
+<li><p>完整內容</p>
+
+<pre><code class="language-xml">&lt;Project xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;&gt;
+    &lt;PropertyGroup&gt;
+        &lt;YowkoTest&gt;ValueChanged&lt;/YowkoTest&gt;
+    &lt;/PropertyGroup&gt; 
+&lt;/Project&gt;
+</code></pre></li>
+
+<li><p>範例檔名：<code>properties.xml</code>；路徑：<code>C:\properties.xml</code></p></li>
+</ol>
+
+<h2 id="在專案資料夾中新增-msbuild-定義檔">在專案資料夾中新增 msbuild 定義檔</h2>
+
+<ul>
+<li>用來執行 config 內容取代作業</li>
+</ul>
+
+<ol>
+<li><p>使用 xml 格式</p></li>
+
+<li><p>以 <code>Project</code> 為 root element 並指定 <code>DefaultTargets</code></p>
+
+<ul>
+<li><p>DefaultTargets</p>
+
+<blockquote>
+<p>宣告預設執行的 <code>Target</code> 內容，稍後會定義，名稱可自訂</p>
+</blockquote></li>
+
+<li><p>範例：</p>
+
+<pre><code class="language-xml">&lt;Project DefaultTargets=&quot;Default&quot; xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot; &gt;
+&lt;/Project&gt;
+</code></pre></li>
+</ul></li>
+
+<li><p>匯入 <code>MSBuild.Community.Tasks.Targets</code></p>
+
+<blockquote>
+<ul>
+<li>如果前面是使用 <code>.msi</code> 安裝，位置在預設安裝路徑 <code>C:\Program Files (x86)\MSBuild\MSBuildCommunityTasks</code> 中</li>
+<li>如果是使用 <code>.zip</code> 請直接指向解壓後的目錄位置</li>
+</ul>
+</blockquote>
+
+<ul>
+<li><p>簡易寫法</p>
+
+<pre><code class="language-xml">&lt;Import Project=&quot;C:\MSBuild.Community.Tasks.v1.5.0.235\MSBuild.Community.Tasks.Targets&quot;/&gt;
+</code></pre></li>
+
+<li><p>階層寫法</p>
+
+<ul>
+<li><p>加入 <code>PropertyGroup</code> 並加入 <code>MSBuild.Community.Tasks.Targets</code> 路徑</p>
+
+<pre><code class="language-xml">&lt;PropertyGroup&gt;
+    &lt;TPath&gt;C:\MSBuild.Community.Tasks.v1.5.0.235&lt;/TPath&gt;
+&lt;/PropertyGroup&gt;
+</code></pre></li>
+
+<li><p>將 <code>MSBuild.Community.Tasks.Targets</code> 匯入</p>
+
+<pre><code class="language-xml">&lt;Import Project=&quot;$(TPath)\MSBuild.Community.Tasks.Targets&quot;/&gt;
+</code></pre></li>
+
+<li><p>兩者效果一樣，只差在如果有其他參數會共用的設定路徑時可以較簡潔</p></li>
+</ul></li>
+</ul></li>
+
+<li><p>匯入 <code>參數設定檔</code></p>
+
+<blockquote>
+<p>寫法跟上面一樣有兩種，就不重覆贅述</p>
+</blockquote>
+
+<pre><code class="language-xml">&lt;Import Project=&quot;c:\properties.xml&quot;/&gt;
+</code></pre></li>
+
+<li><p>加入 <code>ItemGroup</code> 並設定產出檔案及 template 檔案名稱</p>
+
+<ul>
+<li><p>階層寫法</p>
+
+<pre><code class="language-xml">&lt;ItemGroup&gt;
+    &lt;ConfigFile Include=&quot;Web.config&quot;&gt;
+        &lt;Template&gt;Web.config.template&lt;/Template&gt;
+    &lt;/ConfigFile&gt;
+&lt;/ItemGroup&gt;
+</code></pre></li>
+
+<li><p>平行寫法</p>
+
+<pre><code class="language-xml">&lt;ItemGroup&gt;
+    &lt;ConfigFile Include=&quot;Web.config&quot; /&gt;
+    &lt;Template Include=&quot;Web.config.template&quot; /&gt;
+&lt;/ItemGroup&gt;
+</code></pre></li>
+
+<li><p>兩者效果相同，第一種寫法結構上看起來有從屬關係，但不同寫法會影響後續參數的使用，如果沒有偏好，建議使用平行寫法</p></li>
+</ul></li>
+
+<li><p>加入執行動作的 Target</p>
+
+<ul>
+<li><p>6-1. 複製檔案</p>
+
+<blockquote>
+<p>將 template 複製一份成目標檔案</p>
+</blockquote>
+
+<pre><code class="language-xml">&lt;Target Name=&quot;CopyFile&quot;&gt;
+    &lt;Copy
+    DestinationFiles=&quot;@(ConfigFile)&quot;
+    SourceFiles=&quot;@(Template)&quot; 
+    OverwriteReadOnlyFiles=&quot;true&quot;/&gt;
+&lt;/Target&gt;
+</code></pre>
+
+<ul>
+<li>如果上一步使用的是階層寫法，<code>SourceFiles</code> 則需改為 <code>%(Template)</code>，關於符號的使用請參考 <a href="https://msdn.microsoft.com/en-us/library/bb546106.aspx" target="_blank">Special Characters to Escape</a></li>
+</ul></li>
+
+<li><p>6-2. 將 config 中的變數取代為 <code>參數設定檔</code> 中的內容</p>
+
+<ul>
+<li>設定名稱為 <code>Default</code> 與一開始 <code>Project</code> 設定預設執行的 <code>DefaultTargets</code> 名稱相同</li>
+<li>加上 <code>DependsOnTargets</code> 設定，定義前一個必需優先執行的動作</li>
+
+<li><p>加上 <code>FileUpdate</code> element</p>
+
+<ul>
+<li><code>Regex</code> 需使用 regular expression</li>
+<li><code>Multiline</code> 是否允許多行</li>
+<li><code>IgnoreCase</code> 大小寫是否有差異</li>
+
+<li><p><code>ReplacementText</code> 指定 <code>參數設定檔</code> 的變數設定值</p>
+
+<blockquote>
+<p>注意變數名稱，因為已透過 <code>import</code> 指令匯入，所以需用 <code>$()</code></p>
+</blockquote></li>
+
+<li><p><code>Files</code> 指定取代的目標檔案</p></li>
+</ul></li>
+</ul>
+
+<pre><code class="language-xml">&lt;Target Name=&quot;Default&quot; DependsOnTargets=&quot;CopyFile&quot;&gt;
+    &lt;FileUpdate Files=&quot;@(ConfigFile)&quot; Regex=&quot;\$YowkoTest&quot; ReplacementText=&quot;$(YowkoTest)&quot; Multiline=&quot;true&quot; IgnoreCase=&quot;true&quot; /&gt;
+&lt;/Target&gt;
+</code></pre></li>
+
+<li><p>完整內容</p>
+
+<pre><code class="language-xml">&lt;Project DefaultTargets=&quot;Default&quot; xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot; &gt;
+&lt;PropertyGroup&gt;
+    &lt;TPath&gt;C:\MSBuild.Community.Tasks.v1.5.0.235&lt;/TPath&gt;
+    &lt;PropertyValues&gt;C:\&lt;/PropertyValues&gt;
+    &lt;/PropertyGroup&gt;
+&lt;Import Project=&quot;$(TPath)\MSBuild.Community.Tasks.Targets&quot;/&gt;
+&lt;Import Project=&quot;$(PropertyValues)\properties.xml&quot;/&gt;
+&lt;!--&lt;Import Project=&quot;C:\MSBuild.Community.Tasks.v1.5.0.235\MSBuild.Community.Tasks.Targets&quot;/&gt;
+&lt;Import Project=&quot;C:\properties.xml&quot;/&gt;--&gt;
+&lt;ItemGroup&gt;
+    &lt;!--&lt;ConfigFile Include=&quot;Web.config&quot;&gt;
+    &lt;Template&gt;Web.config.template&lt;/Template&gt;
+    &lt;/ConfigFile&gt;--&gt;
+    &lt;ConfigFile Include=&quot;Web.config&quot; /&gt;
+    &lt;Template Include=&quot;Web.config.template&quot; /&gt;
+&lt;/ItemGroup&gt;
+&lt;Target Name=&quot;CopyFile&quot;&gt;
+    &lt;Copy
+    DestinationFiles=&quot;@(ConfigFile)&quot;
+    SourceFiles=&quot;@(Template)&quot; 
+    OverwriteReadOnlyFiles=&quot;true&quot;/&gt;
+&lt;/Target&gt;
+&lt;Target Name=&quot;Default&quot; DependsOnTargets=&quot;CopyFile&quot;&gt;
+    &lt;FileUpdate Files=&quot;@(ConfigFile)&quot; Regex=&quot;\$YowkoTest&quot; ReplacementText=&quot;$(YowkoTest)&quot; Multiline=&quot;true&quot; IgnoreCase=&quot;true&quot; /&gt;
+&lt;/Target&gt;
+&lt;/Project&gt;
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="實際使用">實際使用</h2>
+
+<ul>
+<li><p>使用 msbuild 指令執行新增的 <code>.msbuild</code> 定義檔</p>
+
+<pre><code>&quot;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\amd64\MSBuild.exe&quot; msbuildextension.msbuild
+</code></pre></li>
+
+<li><p>執行結果</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/29242249-ff8eb772-7fbb-11e7-9b6e-75c6244c72da.png" alt="4result" /></p></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>比較表</p>
+
+<table>
+<thead>
+<tr>
+<th>-</th>
+<th>MSBuild Extension Pack</th>
+<th>MSBuild Community Tasks</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>安裝方式</td>
+<td>僅安裝檔 <br/> 包含 binary 但無法直接使用</td>
+<td>安裝檔及 zip</td>
+</tr>
+
+<tr>
+<td>檔案大小</td>
+<td>13.6 MB  <br/>包含 <code>X86</code> 、 <code>X64</code>、binary</td>
+<td>.msi：988KB</td>
+</tr>
+
+<tr>
+<td>.zip：762KB</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>使用路徑</td>
+<td>僅限安裝路徑</td>
+<td>安裝路徑 or 使用 ZIP 自訂位置</td>
+</tr>
+
+<tr>
+<td>文件</td>
+<td>有官網說明網頁</td>
+<td>僅有 markdown</td>
+</tr>
+</tbody>
+</table>
+
+<ol>
+<li><p>同樣使用安裝檔的情況下，MSBuild Community Tasks 檔案 size 較 MSBuildExtensionPack 小很多</p>
+
+<blockquote>
+<p>MSBuild Community Tasks(988KB) v.s. MSBuildExtensionPack(13.6MB)</p>
+</blockquote></li>
+
+<li><p>同樣使用安裝檔的情況下，MSBuild Community Tasks 無法選擇安裝位置</p>
+
+<blockquote>
+<p>但有提供 <code>.zip</code> 直接使用檔案的方式</p>
+</blockquote></li>
+
+<li><p>MSBuild Community Tasks 使用上較彈性</p>
+
+<blockquote>
+<p>可以隨意複製 <code>.zip</code> 內容至指定位置，即可使用，不需要執行安裝檔，對於沒有權限的環境較友善</p>
+</blockquote></li>
+
+<li><p>MSBuild Community Tasks 文件更少</p>
+
+<blockquote>
+<p>MSBuild Extension Pack 至少有官方說明及 wiki 文件可以參考，MSBuild Community Tasks 就只能翻閱 <a href="https://github.com/loresoft/msbuildtasks/blob/master/Documentation/TaskDocs.md" target="_blank">TaskDocs.md</a>，有些功能還只能自行嘗試</p>
+</blockquote></li>
+</ol>
+
+<p>經過一番測試後，個人傾向使用 MSBuild Community Tasks，使用上功能目前看起差不多，但只要複製檔案就能用實在很吸引人</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://blog.yowko.com/2017/08/shared-config.html" target="_blank">專案間如何共用 config 設定 - 使用 MSBuildExtensionPack</a></li>
+<li><a href="https://github.com/loresoft/msbuildtasks/releases" target="_blank">MSBuild Community Tasks 下載位置</a></li>
+<li><a href="https://github.com/loresoft/msbuildtasks/blob/master/Documentation/TaskDocs.md" target="_blank">TaskDocs.md</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-24</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/%E5%A5%97%E4%BB%B6/">套件</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/msbuild/">MSBuild</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/msbuild-condition/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">依編譯參數來決定 config 內容</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/shared-config/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">專案間如何共用 config 設定 - 使用 MSBuildExtensionPack</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/config-msbuild-community-tasks\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

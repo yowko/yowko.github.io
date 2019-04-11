@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>MSTest,NUnit 3,xUnit.net 2.0 比較 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="MSTest,NUnit 3,xUnit.net 2.0 比較 最近新專案期望使用較多的測試來保障程式品質，所以又到了要選擇相關工具的時候，首先遇到的就是測試框架 (Test Framework)：MSTe" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/mstest-nunit-xunit/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="MSTest,NUnit 3,xUnit.net 2.0 比較" />
+<meta property="og:description" content="MSTest,NUnit 3,xUnit.net 2.0 比較 最近新專案期望使用較多的測試來保障程式品質，所以又到了要選擇相關工具的時候，首先遇到的就是測試框架 (Test Framework)：MSTe" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/mstest-nunit-xunit/" /><meta property="article:published_time" content="2017-02-15T01:42:34&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-12T00:42:34&#43;08:00"/>
+
+<meta itemprop="name" content="MSTest,NUnit 3,xUnit.net 2.0 比較">
+<meta itemprop="description" content="MSTest,NUnit 3,xUnit.net 2.0 比較 最近新專案期望使用較多的測試來保障程式品質，所以又到了要選擇相關工具的時候，首先遇到的就是測試框架 (Test Framework)：MSTe">
+
+
+<meta itemprop="datePublished" content="2017-02-15T01:42:34&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-12T00:42:34&#43;08:00" />
+<meta itemprop="wordCount" content="2178">
+
+
+
+<meta itemprop="keywords" content="Unit Test,MSTest,NUnit,xUnit," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MSTest,NUnit 3,xUnit.net 2.0 比較"/>
+<meta name="twitter:description" content="MSTest,NUnit 3,xUnit.net 2.0 比較 最近新專案期望使用較多的測試來保障程式品質，所以又到了要選擇相關工具的時候，首先遇到的就是測試框架 (Test Framework)：MSTe"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-02-15 </span>
+        
+        <span class="more-meta"> 約 2178 字 </span>
+          <span class="more-meta"> 預計閱讀 5 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#mstest-nunit-3-xunit-net-2-0-比較">MSTest,NUnit 3,xUnit.net 2.0 比較</a>
+<ul>
+<li><a href="#語法比較-attributes">語法比較 - Attributes</a></li>
+<li><a href="#語法比較-assertions">語法比較 - Assertions</a></li>
+<li><a href="#執行速度">執行速度</a></li>
+<li><a href="#其他功能">其他功能</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資料">參考資料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="mstest-nunit-3-xunit-net-2-0-比較">MSTest,NUnit 3,xUnit.net 2.0 比較</h1>
+
+<p>最近新專案期望使用較多的測試來保障程式品質，所以又到了要選擇相關工具的時候，首先遇到的就是測試框架 (Test Framework)：MSTest,NUnit 3,xUnit.net 2.0 是比較常見的三套，尤其又以 MSTest,NUnit 3 較多人使用，雖然主要功能差不多，但終究在語法上有差異，團隊使用還是得統一，所以就來做個不負責任比較XD 本來考慮要把 MSTest 加進來比的  但還在 preview 好像不太準，也許再過幾個月再來比一次吧@@&rdquo;</p>
+
+<h2 id="語法比較-attributes">語法比較 - Attributes</h2>
+
+<p><span style="color:red">我自己整理的比較表如下，如果有錯誤，還請各位大大指導，謝謝</span></p>
+
+<table>
+<thead>
+<tr>
+<th align="left">MSTest (v1)</th>
+<th align="left">NUnit 3</th>
+<th align="left">xUnit.net 2.x</th>
+<th align="left">Comments</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">[AssemblyCleanup]</td>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">識別方法，該方法包含組件中的所有測試都執行完畢後，為釋放此組件所佔用資源而要使用的程式碼。</td>
+</tr>
+
+<tr>
+<td align="left">[AssemblyInitialize]</td>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">識別方法，該方法所包含的程式碼用於已執行組件中的所有測試之前，以便配置此組件所佔用的資源。</td>
+</tr>
+
+<tr>
+<td align="left">[ClassCleanup]</td>
+<td align="left">[OneTimeTearDown]</td>
+<td align="left">IClassFixture<T></td>
+<td align="left">指定測試執行後的結束方法，一個測試 class 只執行一次</td>
+</tr>
+
+<tr>
+<td align="left">[ClassInitialize]</td>
+<td align="left">[OneTimeSetUp]</td>
+<td align="left">IClassFixture<T></td>
+<td align="left">指定測試執行前的起始方法，一個測試 class 只執行一次</td>
+</tr>
+
+<tr>
+<td align="left">[CssIteration]</td>
+<td align="left">Repeat</td>
+<td align="left"></td>
+<td align="left">表示這個測試所對應的專案反覆項目。</td>
+</tr>
+
+<tr>
+<td align="left">[CssProjectStructure]</td>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">表示這個測試所對應到之 Team 專案階層架構中的節點。</td>
+</tr>
+
+<tr>
+<td align="left">[DataSource]</td>
+<td align="left">[Theory]</td>
+<td align="left">[Theory]<br/>[xxxData]&rdquo;</td>
+<td align="left">data-driven test</td>
+</tr>
+
+<tr>
+<td align="left">[DeploymentItem]</td>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">指定應該在執行測試之前的組件一起部署的檔案或目錄。附加這個屬性對測試類別和測試方法。您可以使用多個執行個體。</td>
+</tr>
+
+<tr>
+<td align="left">[Description]</td>
+<td align="left">[Description]</td>
+<td align="left">n/a</td>
+<td align="left">用來指定測試的說明。</td>
+</tr>
+
+<tr>
+<td align="left">[ExpectedException]</td>
+<td align="left">Throws.TypeOf<Exception>()</td>
+<td align="left">Assert.Throws<br/>Record.Exception&rdquo;</td>
+<td align="left">測試的對象出現 exception Nunit 3 與 xUnit.net 都是直接從 code 處理掉，是比較方便直覺的</td>
+</tr>
+
+<tr>
+<td align="left">[ExpectedExceptionBase]</td>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">這是屬性的基底類別，這些屬性指定單元測試應擲回預期的例外狀況。</td>
+</tr>
+
+<tr>
+<td align="left">[HostType]</td>
+<td align="left">platform 有包含相關功該</td>
+<td align="left">n/a</td>
+<td align="left">指定將執行相關聯單元測試的主機的類型。</td>
+</tr>
+
+<tr>
+<td align="left">[Ignore]</td>
+<td align="left">[Ignore]</td>
+<td align="left">[Fact(Skip=&ldquo;reason&rdquo;)]</td>
+<td align="left">用來標示忽略該測試</td>
+</tr>
+
+<tr>
+<td align="left">[Owner]</td>
+<td align="left">[Author]</td>
+<td align="left">n/a</td>
+<td align="left">用來指定負責維護、執行和/或偵錯測試的人員。</td>
+</tr>
+
+<tr>
+<td align="left">[Priority]</td>
+<td align="left">[Order]</td>
+<td align="left">n/a</td>
+<td align="left">用來指定單元測試的優先權。</td>
+</tr>
+
+<tr>
+<td align="left">[TestCategory]</td>
+<td align="left">[Category]</td>
+<td align="left">n/a</td>
+<td align="left">用來指定單元測試分類別的類別。</td>
+</tr>
+
+<tr>
+<td align="left">[TestCategoryBase]</td>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">提供分類屬性的基底類別。</td>
+</tr>
+
+<tr>
+<td align="left">[TestClass]</td>
+<td align="left">[TestFixture]</td>
+<td align="left">n/a</td>
+<td align="left">將 class 標示測試 class. 特別的是 xUnit.net 不需要加上這樣的 attibute 會自動去搜尋所有 public class 中的測試方法，但這樣一來也代表著速度會受到影響;</td>
+</tr>
+
+<tr>
+<td align="left">[TestClassExtension]</td>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">啟動類別，以便將其辨認為單元測試延伸模組類別。</td>
+</tr>
+
+<tr>
+<td align="left">[TestCleanup]</td>
+<td align="left">[TearDown]</td>
+<td align="left">IDisposable.Dispose</td>
+<td align="left">指定測試執行後的方法，常用來清除測試產生的資料，每個測試皆會執行一次</td>
+</tr>
+
+<tr>
+<td align="left">[TestInitialize]</td>
+<td align="left">[SetUp]</td>
+<td align="left">Constructor</td>
+<td align="left">指定測試執行前的起始方法，常用來設定測試用的初始值，每個測試皆會執行一次</td>
+</tr>
+
+<tr>
+<td align="left">[TestMethod]</td>
+<td align="left">[Test]</td>
+<td align="left">[Fact]</td>
+<td align="left">標記為測試方法</td>
+</tr>
+
+<tr>
+<td align="left">[TestProperty]</td>
+<td align="left">[Property]</td>
+<td align="left">[Trait]</td>
+<td align="left">用來指定共用的測試屬性</td>
+</tr>
+
+<tr>
+<td align="left">[Timeout]</td>
+<td align="left">[Timeout]</td>
+<td align="left">n/a</td>
+<td align="left">用來指定單元測試的逾時期間。</td>
+</tr>
+
+<tr>
+<td align="left">[WorkItem]</td>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">用來指定與測試相關聯的工作項目。</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[TestFixtureSource]</td>
+<td align="left">ICollectionFixture<T></td>
+<td align="left">用來與其他測試共用物件</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Apartment]</td>
+<td align="left">n/a</td>
+<td align="left">可以使用在組件、class、method，用來指定測試執行的模式-STA(Single-threaded apartment)/MTA(Multi-threaded apartment)</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Combinatorial]</td>
+<td align="left">n/a</td>
+<td align="left">給定參數集合，會自動產生所有參數組合的測試</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Culture]</td>
+<td align="left">n/a</td>
+<td align="left">說明測試應該使用的語系，不會直接修改語系</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Datapoint]</td>
+<td align="left">n/a</td>
+<td align="left">為 theory 方法提供測試資料</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[DatapointSource]</td>
+<td align="left">n/a</td>
+<td align="left">為 theory 方法提供測試資料，資料為集合或是陣列(ienumerable)</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Explicit]</td>
+<td align="left">n/a</td>
+<td align="left">如果沒有特別選定執行，預設為不執行</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[LevelOfParallelism]</td>
+<td align="left">n/a</td>
+<td align="left">平行測試的 thread 數，組件層級的 attribute，預設值是 cpu 核心數或是2(看哪個比較大)</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Maxtime]</td>
+<td align="left">n/a</td>
+<td align="left">指定測試最大可以執行時間(單位：毫秒)，超出時間即為失敗，仍會執行結束</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Pairwise]</td>
+<td align="left">n/a</td>
+<td align="left">會產生所有參數的兩兩對應測試組合;combinatorial 適用於兩組參數,PairwiseAttribute 則適用於兩組以上</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Parallelizable]</td>
+<td align="left">n/a</td>
+<td align="left">用來標示哪些測試要平行執行(會影響下層),可以指定影響範圍 (None-不使用平行執行;Self-自己與其他測試使用平行執行;Choldren-所屬下層測試使用平行測試;Fixture-使用平行測試);ParallelScope.Self 是預設值;並未實作於 method 這層(ParallelizableAttribute 套用在 method 上會被忽略);ParallelScope.Children 與 ParallelScope.Fixtures 功能相同</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Platform]</td>
+<td align="left">n/a</td>
+<td align="left">用來指定測試的平台，詳細清單可以參考 <a href="https://github.com/nunit/docs/wiki/Platform-Attribute" target="_blank">https://github.com/nunit/docs/wiki/Platform-Attribute</a></td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Random]</td>
+<td align="left">n/a</td>
+<td align="left">產生隨機參數來測試</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Range]</td>
+<td align="left">n/a</td>
+<td align="left">將範圍內所有可能參數代入測試</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[RequiresThread]</td>
+<td align="left">n/a</td>
+<td align="left">以獨立的 thread 來執行測試</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Retry]</td>
+<td align="left">n/a</td>
+<td align="left">失敗重試</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Sequential]</td>
+<td align="left">n/a</td>
+<td align="left">將參數組合依序執行，而不是對所有組合執行 e.g. [a,b,c]*[1,2,3] &ndash;&gt; a-1,b-2,c-3</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[SetCulture]</td>
+<td align="left">n/a</td>
+<td align="left">指定語言</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[SetUICulture]</td>
+<td align="left">n/a</td>
+<td align="left">指定 UI 顯示語言</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[SetUpFixture]</td>
+<td align="left">n/a</td>
+<td align="left">讓 class 在同一個 namespace 中有一次性的統一起始(setup)或是結束(teardown)行為</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[SingleThreaded]</td>
+<td align="left">n/a</td>
+<td align="left">用來將 class 中的測試方法在同個 thread 中執行，Nunit 3.6 才加入</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[TestCase]</td>
+<td align="left">n/a</td>
+<td align="left">給定測試案例參數來進行測試</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[TestCaseSource]</td>
+<td align="left">n/a</td>
+<td align="left">先定義測試案例參數，然後將參數指定給 method 來測試</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[TestOf]</td>
+<td align="left">n/a</td>
+<td align="left">用來標示是哪個 class 的測試</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[Values]</td>
+<td align="left">n/a</td>
+<td align="left">為測試方法指定參數-用在描述 method 的參數</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">[ValueSource]</td>
+<td align="left">n/a</td>
+<td align="left">先定義參數資料，再指定給 method 來進行測試，可以給自訂型別 - 用在描述 method 的參數</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="語法比較-assertions">語法比較 - Assertions</h2>
+
+<p><span style="color:red">我自己整理的比較表如下，如果有錯誤，還請各位大大指導，謝謝</span></p>
+
+<table>
+<thead>
+<tr>
+<th align="left">MSTest (v1)</th>
+<th align="left">NUnit 3</th>
+<th align="left">xUnit.net 2.x</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">AreEqual</td>
+<td align="left">AreEqual</td>
+<td align="left">Equal</td>
+</tr>
+
+<tr>
+<td align="left">AreNotEqual</td>
+<td align="left">AreNotEqual</td>
+<td align="left">NotEqual</td>
+</tr>
+
+<tr>
+<td align="left">AreNotSame</td>
+<td align="left">AreNotSame</td>
+<td align="left">NotSame</td>
+</tr>
+
+<tr>
+<td align="left">AreSame</td>
+<td align="left">AreSame</td>
+<td align="left">Same</td>
+</tr>
+
+<tr>
+<td align="left">Equals</td>
+<td align="left">n/a</td>
+<td align="left">Equals</td>
+</tr>
+
+<tr>
+<td align="left">Fail</td>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">Inconclusive</td>
+<td align="left">Inconclusive</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">IsFalse</td>
+<td align="left">False</td>
+<td align="left">False</td>
+</tr>
+
+<tr>
+<td align="left">IsInstanceOfType</td>
+<td align="left">IsInstanceOf</td>
+<td align="left">IsType</td>
+</tr>
+
+<tr>
+<td align="left">IsNotInstanceOfType</td>
+<td align="left">IsNotInstanceOf</td>
+<td align="left">IsNotType</td>
+</tr>
+
+<tr>
+<td align="left">IsNotNull</td>
+<td align="left">NotNull</td>
+<td align="left">NotNull</td>
+</tr>
+
+<tr>
+<td align="left">IsNull</td>
+<td align="left">Null</td>
+<td align="left">Null</td>
+</tr>
+
+<tr>
+<td align="left">IsTrue</td>
+<td align="left">True</td>
+<td align="left">True</td>
+</tr>
+
+<tr>
+<td align="left">ReplaceNullChars</td>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">Catch</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">CatchAsync</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">Contains</td>
+<td align="left">Contains</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">DoesNotThrow</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">DoesNotThrowAsync</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">Fail</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">Greater</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">GreaterOrEqual</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">Ignore</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">IsAssignableFrom</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">IsEmpty</td>
+<td align="left">Empty</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">IsNaN</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">IsNotAssignableFrom</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">IsNotEmpty</td>
+<td align="left">NotEmpty</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">Less</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">LessOrEqual</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">Pass</td>
+<td align="left">n/a</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">Throws</td>
+<td align="left">Throws</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">ThrowsAsync</td>
+<td align="left">ThrowsAsync</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">All</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">Collection</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">DoesNotContain</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">DoesNotMatch</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">EndsWith</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">InRange</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">IsAssignableFrom</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">Matches</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">NotInRange</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">NotStrictEqual</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">ProperSubset</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">ProperSuperset</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">PropertyChanged</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">ReferenceEquals</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">Single</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">StartsWith</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">StrictEqual</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">Subset</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">Superset</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">ThrowsAny</td>
+</tr>
+
+<tr>
+<td align="left">n/a</td>
+<td align="left">n/a</td>
+<td align="left">ThrowsAnyAsync</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="執行速度">執行速度</h2>
+
+<p>使用微軟官方範例，利用三個 test framewrok 進行兩個測試
+1. 直接丟出驗證失敗
+2. 驗證值是否與預期相符</p>
+
+<ul>
+<li><p>測試 source code 請參考 <a href="https://github.com/yowko/MStest_NUnit_xUnit.net_Compare" target="_blank">GitHub</a></p></li>
+
+<li><p>測試結果如下</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/22892853/ec8c16e2-f24e-11e6-8b30-2cf20682a861.png" alt="speedcompare" /></p></li>
+</ul>
+
+<h2 id="其他功能">其他功能</h2>
+
+<ul>
+<li>有些網路文章都提到 NUnit 及 xUnit 的功能比較多，但我沒真的用過，實在無法比較，就請各位大大指導了</li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>NUnit 功能明顯多上不少，xUnit.net 的文件非常難找而且速度與 Test Explorer 的顯示都相對比較弱些，最後我選了 MSTest ，功能面透過 Visual Studio 的強化再加上套件的輔助已經足夠，但如同我前面提到的，我用到的功能不多就是了</p>
+
+<p>上面整理的比較表也整理上 GitHub , 請參考 <a href="https://github.com/yowko/MStest_NUnit_xUnit.net_Compare" target="_blank">MStest_NUnit_xUnit.net_Compare</a></p>
+
+<h1 id="參考資料">參考資料</h1>
+
+<ol>
+<li><a href="http://xunit.github.io/docs/comparisons.html" target="_blank">Comparing xUnit.net to other frameworks</a></li>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/microsoft.visualstudio.testtools.unittesting.aspx" target="_blank">Microsoft.VisualStudio.TestTools.UnitTesting 命名空間</a></li>
+<li><a href="https://github.com/nunit/docs/wiki/Attributes" target="_blank">NUnit Attibutes</a></li>
+<li><a href="https://github.com/yowko/MStest_NUnit_xUnit.net_Compare" target="_blank">MStest_NUnit_xUnit.net_Compare</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-12</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/unit-test/">Unit Test</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/mstest/">MSTest</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/nunit/">NUnit</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/xunit/">xUnit</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/net-framework-memorycache-3/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 3 隱藏的效能瓶頸</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/csharp-break-continue-goto-return/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">C# 的跳躍語法( break continue goto 與 return)</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/mstest-nunit-xunit\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

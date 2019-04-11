@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ASP.NET Core on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/asp.net-core/</link>
+    <description>Recent content in ASP.NET Core on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 10 Mar 2019 21:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/asp.net-core/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog</title>
+      <link>https://blog.yowko.com/asp-net-core-default-log-nlog-serilog/</link>
+      <pubDate>Sun, 10 Mar 2019 21:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/asp-net-core-default-log-nlog-serilog/</guid>
+      <description>將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog ASP.NET Core 預設會將 WebHost 執行細節透過 stdout 輸出至 console 上，application 的所有動作都一目暸然，這在 debug 時很方便，不過部署在一般</description>
+    </item>
+    
+    <item>
+      <title>讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded</title>
+      <link>https://blog.yowko.com/aspnet-core-x-www-form-urlencoded/</link>
+      <pubDate>Mon, 01 Oct 2018 02:44:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspnet-core-x-www-form-urlencoded/</guid>
+      <description>讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded 最近某個專案需要將資料(前端)傳送至其他平台 API 進行處理，跟一般需求相同，只是資料傳輸格式不是使用過去較熟悉的 application/json 而是使</description>
+    </item>
+    
+  </channel>
+</rss>

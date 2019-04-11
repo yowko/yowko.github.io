@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教" />
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/" />
+<link href="https://blog.yowko.com/index.xml" rel="alternate" type="application/rss+xml" title="Yowko&#39;s Notes" />
+  <link href="https://blog.yowko.com/index.xml" rel="feed" type="application/rss+xml" title="Yowko&#39;s Notes" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="Yowko&#39;s Notes" />
+<meta property="og:description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://blog.yowko.com/" />
+<meta property="og:updated_time" content="2018-01-13T23:57:00&#43;08:00"/>
+
+<meta itemprop="name" content="Yowko&#39;s Notes">
+<meta itemprop="description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Yowko&#39;s Notes"/>
+<meta name="twitter:description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          
+  <section id="posts" class="posts">
+    
+    
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/proget-nuget-connector/">透過 ProGet 取得官方 NuGet 套件</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-01-13 </span>
+      
+      <span class="more-meta"> 約 419 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      透過 ProGet 取得官方 NuGet 套件 之前筆記 將 NuGet Package 發行至 ProGet 曾經介紹到如何將內部使用的 NuGet package 發行至內部 NuGet server：ProGet 上，在試行一段時間後決定擴大範
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/proget-nuget-connector/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspnet-identity-change-cookiename/">ASP.NET Identity 修改預設 Cookie 名稱</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-01-13 </span>
+      
+      <span class="more-meta"> 約 468 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      ASP.NET Identity 修改預設 Cookie 名稱 最近專案同時有前台與後台在進行開發，過去習慣的做法是將前後台使用同一個 VS 專案 (project) 進行開發，再透過 ASP.NET MVC Area 的功能來切分，但因為這
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/aspnet-identity-change-cookiename/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/pure-css-html-table-rwd/">利用 Pure CSS 讓 HTML Table 也能有 RWD 效果</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-01-09 </span>
+      
+      <span class="more-meta"> 約 776 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      這是最近專案 user 提出的需求：所有對外服務的頁面都要有 RWD 顯示。這是現代化網站基本條件並不算特殊需求。雖然透過 grid system 的排版可以快速達成 RWD 的效果，但資
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/pure-css-html-table-rwd/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/javascript-detect-request-from-go-back/">JavaScript 偵測 Request 來自瀏覽器的 Go Back (回到上一頁)</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-01-08 </span>
+      
+      <span class="more-meta"> 約 428 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      JavaScript 偵測 Request 來自瀏覽器的 Go Back (回到上一頁) 這是自己寫的 bug 所衍生出來的需求，大意是如果 user 在某個頁面執行 submit 動作後會 redirect 到新頁面，但如果 user 此時按下 go back 再
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/javascript-detect-request-from-go-back/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspnet-mvc-ajax-not-only-once/">ASP.NET MVC 上的 Ajax 動作都被觸發多次？！</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-01-07 </span>
+      
+      <span class="more-meta"> 約 718 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      ASP.NET MVC 上的 Ajax 動作都被觸發多次？！ 幫同事調整程式的過程中發現，View 的 Ajax 功能都會被觸發不止一次，本來以為是手殘按了兩次，特別留意後發現問題仍然
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/aspnet-mvc-ajax-not-only-once/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/c-sharp-word-to-pdf/">使用 C# 將 Word 檔(.docx .doc) 轉換為 PDF</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-01-04 </span>
+      
+      <span class="more-meta"> 約 641 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      使用 C# 將 Word 檔(.docx .doc) 轉換為 PDF 同事想要將 user 上傳的 word 檔轉換為 pdf，降低內容被篡改的機會，記憶中 word 轉存成 PDF 功能的程式碼並不多，但印象模糊，
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/c-sharp-word-to-pdf/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspnet-web-api-415-unsupported-media/">ASP.NET Web API 上傳檔案出現 415 Unsupported Media Type 錯誤</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-12-25 </span>
+      
+      <span class="more-meta"> 約 789 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      ASP.NET Web API 上傳檔案出現 415 Unsupported Media Type 錯誤 最近專案前端高互動性的頁面採用 Vue.js 來呈現，讓原本習慣的開發流程跟方式都需求做些調整，像是 Vue.js 存取資料部份因為沒有 server
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/aspnet-web-api-415-unsupported-media/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/javascript-firstordefault/">JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-12-25 </span>
+      
+      <span class="more-meta"> 約 656 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault) 之前筆記 JavaScript 依屬性值過濾陣列取得完整物件 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/javascript-firstordefault/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/javascript-filter-array-by-value/">JavaScript 依屬性值過濾陣列取得完整物件</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-12-24 </span>
+      
+      <span class="more-meta"> 約 548 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      JavaScript 依屬性值過濾陣列取得完整物件 之前筆記 JavaScript 在遞迴陣列中取得特定屬性值 紀錄到如何將依屬性名稱取出陣列物件屬性值，當時需求是為了取得物件內包含的所
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/javascript-filter-array-by-value/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/javascript-recursive-map/">JavaScript 在遞迴陣列中取得特定屬性值</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-12-24 </span>
+      
+      <span class="more-meta"> 約 555 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      JavaScript 在遞迴陣列中取得特定屬性值 之前筆記 JavaScript Array 的加總 紀錄到 int Array 的加總及 object Array 依屬性名稱加總內容的做法，今天則是要來紀錄如何將遞迴陣列中的特定屬性取出
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/javascript-recursive-map/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/javascript-array-sum/">JavaScript Array 的加總</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-12-22 </span>
+      
+      <span class="more-meta"> 約 621 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      JavaScript Array 的加總 最近的專案中因為前端互動性強，採用了較多的 JavaScript 來處理畫面互動性，雖然身為一名網站開發工程師，JS 並不算陌生，但實際開發時還是經常需要
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/javascript-array-sum/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspnet-identity-2-timespan/">關於 ASP.NET Identity 2 時效設定</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-12-18 </span>
+      
+      <span class="more-meta"> 約 823 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      關於 ASP.NET Identity 2 時效設定 之前筆記 ASP.NET Identity 2 啟用自動鎖定機制 與 改 ASP.NET Identity 2 的 Token 時效，分別介紹到如何修改自動鎖定的結束時間以及產生 token 的預設時效，雖然兩者作用不
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/aspnet-identity-2-timespan/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspnet-identity-2-verify-token/">ASP.NET Identity 2 手動檢查 Token 有效性</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-12-16 </span>
+      
+      <span class="more-meta"> 約 506 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      ASP.NET Identity 2 手動檢查 Token 有效性 之前筆記 改 ASP.NET Identity 2 的 Token 時效 紀錄到可以調整 ASP.NET Identity 產生出 Token 的有效時間，而其中也提到可以參考 ForgotPassword 的寫法 (Forgotpasswrod &ndash;&gt; 產生含有 token 的 reset password 連結 &ndash;&gt; 使
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/aspnet-identity-2-verify-token/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspnet-identity-2-token-lifetime/">改 ASP.NET Identity 2 的 Token 時效</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-12-15 </span>
+      
+      <span class="more-meta"> 約 623 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      改 ASP.NET Identity 2 的 Token 時效 專案對於系統發出給 user 的專用連結(重設密碼、promotion link)有個共通的要求：需要可以指定過期時間。為連結加入時效限
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/aspnet-identity-2-token-lifetime/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/entityframework-oracle-view/">Entity Framework 無法匯入 Oracle View？！</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-12-13 </span>
+      
+      <span class="more-meta"> 約 887 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Entity Framework 無法匯入 Oracle View？！ 同事反應在使用 Entity Framework EDMX 更新 Model 時一直無法將 View 加入(未看先猜是 primary key 所造成的問題，果不其然真的猜中XD) DB View 的 priamry key 問題在 Entity
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/entityframework-oracle-view/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+  </section>
+  
+  <nav class="pagination">
+    
+      <a class="prev" href="https://blog.yowko.com/page/8/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text">上一頁</span>
+      </a>
+    
+      <a class="next" href="https://blog.yowko.com/page/10/">
+        <span class="next-text">下一頁</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+  </nav>
+
+        </div>
+        
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

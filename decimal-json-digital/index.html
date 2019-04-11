@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>decimal 屬性輸出 JSON 時指定的格式問題 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="decimal 屬性輸出 JSON 時指定的格式問題 這是之前專案遇到的狀況：輸出 金額 時只需處理到小數點下二位。既然是 金額，為了避免精準度造成的誤差都會選用 deciaml 資料類型" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/decimal-json-digital/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="decimal 屬性輸出 JSON 時指定的格式問題" />
+<meta property="og:description" content="decimal 屬性輸出 JSON 時指定的格式問題 這是之前專案遇到的狀況：輸出 金額 時只需處理到小數點下二位。既然是 金額，為了避免精準度造成的誤差都會選用 deciaml 資料類型" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/decimal-json-digital/" /><meta property="article:published_time" content="2018-04-21T00:14:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-04T00:14:25&#43;08:00"/>
+
+<meta itemprop="name" content="decimal 屬性輸出 JSON 時指定的格式問題">
+<meta itemprop="description" content="decimal 屬性輸出 JSON 時指定的格式問題 這是之前專案遇到的狀況：輸出 金額 時只需處理到小數點下二位。既然是 金額，為了避免精準度造成的誤差都會選用 deciaml 資料類型">
+
+
+<meta itemprop="datePublished" content="2018-04-21T00:14:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-04T00:14:25&#43;08:00" />
+<meta itemprop="wordCount" content="1054">
+
+
+
+<meta itemprop="keywords" content="套件,C#," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="decimal 屬性輸出 JSON 時指定的格式問題"/>
+<meta name="twitter:description" content="decimal 屬性輸出 JSON 時指定的格式問題 這是之前專案遇到的狀況：輸出 金額 時只需處理到小數點下二位。既然是 金額，為了避免精準度造成的誤差都會選用 deciaml 資料類型"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-21 </span>
+        
+        <span class="more-meta"> 約 1054 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#decimal-屬性輸出-json-時指定的格式問題">decimal 屬性輸出 JSON 時指定的格式問題</a>
+<ul>
+<li><a href="#前提設定">前提設定</a></li>
+<li><a href="#使用私有欄位儲存-在-get-時格式化">使用私有欄位儲存，在 get 時格式化</a></li>
+<li><a href="#客製-json-net-的-jsonconverter">客製 Json.Net 的 JsonConverter</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="decimal-屬性輸出-json-時指定的格式問題">decimal 屬性輸出 JSON 時指定的格式問題</h1>
+
+<p>這是之前專案遇到的狀況：輸出 <code>金額</code> 時只需處理到小數點下二位。既然是 <code>金額</code>，為了避免精準度造成的誤差都會選用 <code>deciaml</code> 資料類型，而在 db 中使用 <code>money</code> 儲存(因為業務需求面沒有運算需求可以使用，如果會有運算 <code>money</code> 有失真的風險，詳細內容請參考 <a href="https://dotblogs.com.tw/henryli/2015/06/13/151557" target="_blank">欄位開立(2) - decimal, numeric, float, real, money 的抉擇</a>)，預設精準度為小數點下四位，為了符合目前系統的要求(小數點下二位)，就需要調整輸出，來看看可以怎麼做吧</p>
+
+<h2 id="前提設定">前提設定</h2>
+
+<ol>
+<li><p>自訂 model 中的 decimal 屬性</p>
+
+<pre><code class="language-cs">public class TestData
+{
+    public decimal Salary { get; set; }
+}
+</code></pre></li>
+
+<li><p>可能存在不同小數點位數的值</p>
+
+<pre><code class="language-cs">var test = new TestData() { Salary = 1.03355M };
+var test2 = new TestData() { Salary = 2.0000M };
+var test3 = new TestData() { Salary = 3M };
+var test4 = new TestData() { Salary = 4.115M };
+</code></pre></li>
+
+<li><p>原始輸出</p>
+
+<pre><code class="language-cs">#region - data1 -
+var test = new TestData() { Salary = 1.03355M };
+test.Dump();
+JsonConvert.SerializeObject(test).Dump();
+#endregion
+             
+#region - data2 -
+var test2 = new TestData() { Salary = 2.0000M };
+test2.Dump();
+JsonConvert.SerializeObject(test2).Dump();
+#endregion
+    
+#region - data3 -
+var test3 = new TestData() { Salary = 3M };
+test3.Dump();
+JsonConvert.SerializeObject(test3).Dump();
+#endregion
+             
+#region - data4 -
+var test4 = new TestData() { Salary = 4.115M };
+test4.Dump();
+JsonConvert.SerializeObject(test4).Dump();
+#endregion
+</code></pre>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39060398-d777fb88-44f3-11e8-8c84-43cd2dc09721.png" alt="1original" /></p>
+</blockquote>
+
+<p>可以看到除了整數(3)被加上一個小數位(3.0)之外，其他數值都會完整輸出</p></li>
+</ol>
+
+<h2 id="使用私有欄位儲存-在-get-時格式化">使用私有欄位儲存，在 get 時格式化</h2>
+
+<ul>
+<li><p>加上私有欄位並格式化輸出</p>
+
+<pre><code class="language-cs">public class TestData
+{
+    private decimal _salary;
+    public decimal Salary
+    {
+        get { return Math.Round(_salary, 2); }
+        set { _salary = value; }
+    }
+}
+</code></pre></li>
+
+<li><p>結果</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39060399-d79e3820-44f3-11e8-85f4-a5eb6457b3f0.png" alt="2fieldformat" /></p>
+</blockquote></li>
+
+<li><p>缺點</p>
+
+<p><code>可以看到整數儲存與輸出 json 不符合，這個是 json.net 的特性，另外不一定可以完全符合指定小數位數</code></p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39060401-d7ed1b66-44f3-11e8-9d51-d9017b392cb9.png" alt="4fieldissue" /></p>
+</blockquote></li>
+
+<li><p>改善</p>
+
+<blockquote>
+<p>如果有強烈的需求還是可以強制調整特定輸出，但這樣會有執行效率不佳的問題要特別留意</p>
+</blockquote>
+
+<pre><code class="language-cs">public class TestData
+{
+    private decimal _salary;
+    public decimal Salary
+    {
+        get { return decimal.Parse(Math.Round((double)_salary, 2).ToString(&quot;0.00&quot;)); }
+        set { _salary = value; }
+    }
+}
+</code></pre>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39060400-d7c4f5c8-44f3-11e8-8292-f4599b4d7bb2.png" alt="3fieldboxing" /></p>
+</blockquote></li>
+</ul>
+
+<h2 id="客製-json-net-的-jsonconverter">客製 Json.Net 的 JsonConverter</h2>
+
+<ol>
+<li><p>加入自訂 JsonConverter 並繼承 JsonConverter</p>
+
+<pre><code class="language-cs">public class RoundingJsonConverter : JsonConverter
+{
+    //指定精準度
+    int _precision;
+    //指定四捨五入的傾向
+    MidpointRounding _rounding;
+        
+    //預設精準度小數點下 4 位
+    public RoundingJsonConverter(): this(4)
+    {
+    }
+        
+    public RoundingJsonConverter(int precision) : this(precision, MidpointRounding.AwayFromZero)
+    {
+    }
+                    
+    public RoundingJsonConverter(int precision, MidpointRounding rounding)
+    {
+        _precision = precision;
+        _rounding = rounding;
+    }
+                    
+    public override bool CanRead
+    {
+        get { return false; }
+    }
+                    
+    public override bool CanConvert(Type objectType)
+    {
+        return objectType == typeof(decimal);
+    }
+                    
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+        throw new NotImplementedException();
+    }
+                    
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        decimal _value=(decimal)value;
+        writer.WriteValue(Math.Round(_value, _precision, _rounding));
+    }
+}
+</code></pre></li>
+
+<li><p>在欲指定精準度的屬性上加入 attribute</p>
+
+<pre><code class="language-cs">public class TestData
+{
+    [JsonConverter(typeof(RoundingJsonConverter),2)]
+    public decimal Salary { get; set; }
+}
+</code></pre></li>
+</ol>
+
+<ul>
+<li><p>結果</p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39060402-d814b5ae-44f3-11e8-854d-ddc66ffd2553.png" alt="4jsonconverter" /></p>
+</blockquote></li>
+
+<li><p>缺點</p>
+
+<p><code>一樣有指定小數位數未生效的狀況，以下指定小數四位為例</code></p>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39060403-d8454aa2-44f3-11e8-89c8-8fdd1ab7bdc8.png" alt="5jsonissue" /></p>
+</blockquote></li>
+
+<li><p>改善</p>
+
+<blockquote>
+<p>一樣會有效能問題</p>
+</blockquote>
+
+<pre><code class="language-cs">public class RoundingJsonConverter : JsonConverter
+{
+    //指定精準度
+    int _precision;
+    //指定四捨五入的傾向
+    MidpointRounding _rounding;
+        
+    //預設精準度小數點下 4 位
+    public RoundingJsonConverter() : this(4)
+    {
+    }
+        
+    public RoundingJsonConverter(int precision) : this(precision, MidpointRounding.AwayFromZero)
+    {
+    }
+                    
+    public RoundingJsonConverter(int precision, MidpointRounding rounding)
+    {
+        _precision = precision;
+        _rounding = rounding;
+    }
+        
+    public override bool CanRead
+    {
+        get { return false; }
+    }
+        
+    public override bool CanConvert(Type objectType)
+    {
+        return objectType == typeof(decimal);
+    }
+        
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+        throw new NotImplementedException();
+    }
+        
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        decimal _value = (decimal)value;
+        //為值補 0
+        writer.WriteValue(decimal.Parse(Math.Round(_value, _precision, _rounding).ToString(&quot;0.&quot;.PadRight(2 + _precision, '0'))));
+    }
+}
+</code></pre>
+
+<blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/39060404-d86de20a-44f3-11e8-9a29-6c08c60cfc29.png" alt="6josnconvertboxing" /></p>
+</blockquote></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>事實上專案中的介接目標系統沒有強制要求所有有數字都需精準至小數下二位，只是調整過程中潔癖發作，一直想要調整到人眼看也是很整齊，不過實在很難，最後還是選了個不漂亮的做法，當然主因就是找不到更好的方式XD，學藝不精，只好先紀錄一下日後有能力或是緣份到了再來改寫</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://dotblogs.com.tw/henryli/2015/06/13/151557" target="_blank">欄位開立(2) - decimal, numeric, float, real, money 的抉擇</a></li>
+<li><a href="https://stackoverflow.com/questions/21153381/json-net-serializing-float-double-with-minimal-decimal-places-i-e-no-redundant" target="_blank">Json.NET serializing float/double with minimal decimal places, i.e. no redundant “.0”?</a></li>
+<li><a href="http://blog.darkthread.net/post-2014-06-13-trim-json-trail-zero.aspx" target="_blank">JSON轉換時去除小數字尾零</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-10-04</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/%E5%A5%97%E4%BB%B6/">套件</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/decimal-double-float-json-format/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">decimal , double , float 輸出 json 的格式問題</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/clear-windows-credential/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">清除 Windows 上的 git 驗證資訊(Credential)</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/decimal-json-digital\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

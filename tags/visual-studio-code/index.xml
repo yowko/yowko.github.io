@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Visual Studio Code on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/visual-studio-code/</link>
+    <description>Recent content in Visual Studio Code on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 07 Jan 2017 00:42:34 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/visual-studio-code/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>為 Visual Studio Code (VSC) 設定需驗證的 proxy</title>
+      <link>https://blog.yowko.com/visual-studio-code-proxy/</link>
+      <pubDate>Sat, 07 Jan 2017 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/visual-studio-code-proxy/</guid>
+      <description>為 Visual Studio Code (VSC) 設定需驗證的 proxy Visual Studio Code 自發佈以來，受到不少開發人員的喜愛，更難能可貴的是非微軟的開發人員也給予不錯的評價，也逐漸成為大家開發時不可或</description>
+    </item>
+    
+  </channel>
+</rss>

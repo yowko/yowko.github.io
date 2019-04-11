@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教" />
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/" />
+<link href="https://blog.yowko.com/index.xml" rel="alternate" type="application/rss+xml" title="Yowko&#39;s Notes" />
+  <link href="https://blog.yowko.com/index.xml" rel="feed" type="application/rss+xml" title="Yowko&#39;s Notes" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="Yowko&#39;s Notes" />
+<meta property="og:description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://blog.yowko.com/" />
+<meta property="og:updated_time" content="2018-05-27T02:02:00&#43;08:00"/>
+
+<meta itemprop="name" content="Yowko&#39;s Notes">
+<meta itemprop="description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Yowko&#39;s Notes"/>
+<meta name="twitter:description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          
+  <section id="posts" class="posts">
+    
+    
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/log4net-mail/">讓 log4net 收到指定錯誤 Level 發送 mail</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-05-27 </span>
+      
+      <span class="more-meta"> 約 1390 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      讓 log4net 收到指定錯誤 Level 發送 mail 平常我自己本身慣用的 log 套件是 nlog，主要原因是因為設定相對較簡潔，加上多年前看過的效能比較 - Benchmarking 5 popular .NET logging libraries 結果是 nlog 效
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/log4net-mail/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/pdb-from-dll/">從 DLL 中建立 PDB 檔</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-05-20 </span>
+      
+      <span class="more-meta"> 約 536 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      從 DLL 中建立 PDB 檔 這是在追查某個 dll 可能的潛在效能問題時，延伸出的問題，一般情況下我們透過 NuGet 下載套件時大多都沒有包含 PDB - Program DataBase file 檔，讓追查錯誤時少了
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/pdb-from-dll/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/centos-kubeadm-kubernetes/">Windows 慣用者如何在 Red Hat Enterprise Linux 7.5 (CentOS ) 上使用 kubeadm 架設 Kubernetes (K8s)</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-05-20 </span>
+      
+      <span class="more-meta"> 約 1088 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Windows 慣用者如何在 Red Hat Enterprise Linux 7.5 (CentOS ) 上使用 kubeadm 架設 Kubernetes (K8s) 之前筆記 Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s) 紀錄到如何在 Ubuntu 上使用 kubeadm 建立 Kubernetes cluster，考量到
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/centos-kubeadm-kubernetes/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/entityframework-bulk-insert/">使用 Entity Framework Insert 大量資料</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-05-19 </span>
+      
+      <span class="more-meta"> 約 1217 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      使用 Entity Framework Insert 大量資料 這是參加 黃忠成老師的 Entity Framework 全線開發 課程時他提出讓學員思考的問題：如何使用 Entity Framework Insert 大量資料，我當下立馬想起印象中以前同事也被這個
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/entityframework-bulk-insert/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/linqpad-nlog/">在 LINQPad 中使用 NLog</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-05-18 </span>
+      
+      <span class="more-meta"> 約 1015 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      在 LINQPad 中使用 NLog LINQPad 的便利性我想不必我多提，而我自己常常在 LINQPad 上進行主要核心流程功能的 poc 開發，或是將特定功能從原系統抽離以加速功能驗證，今天遇到的情
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/linqpad-nlog/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/ubuntu-kubeadm-kubernetes/">Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-05-14 </span>
+      
+      <span class="more-meta"> 約 1242 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s) 原本是想將 Kubernetes 架設在 Ubuntu Server 17.10 上，但需要透過一些小手法才能順利執行 container，為了避免忘記如何架設，
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/ubuntu-kubeadm-kubernetes/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/elk-mongodb-monitor/">使用 Elastic Stack (ELK) 來監控 MongoDB</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-05-12 </span>
+      
+      <span class="more-meta"> 約 1058 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      使用 Elastic Stack (ELK) 來監控 MongoDB 之前筆記 Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana) 提到因為想要將部份系統資料餵進 ELK 用來監控及除錯，順手紀錄 Windows 平台上架設 Elastic Stack (ELK - Elasticsearch , Logstash ,
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/elk-mongodb-monitor/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/iis-50019-0x8007000d/">IIS 上的 ASP.NET 程式出現 500.19 (0x8007000d) 錯誤？！</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-05-09 </span>
+      
+      <span class="more-meta"> 約 573 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      IIS 上的 ASP.NET 程式出現 500.19 (0x8007000d) 錯誤？！ 這是同事在處理 IIS 上的 application 改用 64-bit (不啟用 32-bit) 時遇到的狀況，之前筆記 IIS Express 出現 500.19 - 0x800700b7 錯誤？！ 有紀錄到類似的錯誤，也是一樣出
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/iis-50019-0x8007000d/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/detect-dll-require-32bit/">如何知道使用的 dll 是否需以 32 位元模式執行</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-05-08 </span>
+      
+      <span class="more-meta"> 約 2619 字 </span>
+        <span class="more-meta"> 預計閱讀 6 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      如何知道使用的 dll 是否需以 32 位元模式執行 最近因為年度計畫預計做些 Windows server OS 的升級作業，將大部份 OS 升級為 Windows Server 2016，也順便整理 server 上的 applica
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/detect-dll-require-32bit/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/elastic-stack-elk-windows/">Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana)</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-05-02 </span>
+      
+      <span class="more-meta"> 約 613 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana) Elastic Stack (ELK - Elasticsearch , Logstash , Kibana) 建議執行在 Linux 平台上效能較佳 ELK Stack 在 5.0 版本加入 Beats 套件後更名為 Elastic Stack，在還沒搞清楚 Beats 反而是 5.5
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/elastic-stack-elk-windows/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspnet-mvc-httpantiforgeryexception-redirect/">在 ASP.NET MVC 出現 HttpAntiForgeryException 錯誤時 Redirect 至指定 Controller、Action</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-05-01 </span>
+      
+      <span class="more-meta"> 約 1572 字 </span>
+        <span class="more-meta"> 預計閱讀 4 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      ASP.NET MVC 的 System.Web.Mvc.HttpAntiForgeryException 錯誤 user 反應在操作系統時出現 System.Web.Mvc.HttpAntiForgeryException錯誤，而 System.Web.Mvc.HttpAntiForgeryException 的錯誤在 ASP.NET MVC 上並不
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/aspnet-mvc-httpantiforgeryexception-redirect/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/http-error-503-event-id-5051/">IIS 出現 Service Unavailable HTTP Error 503 - Windows Process Activation Service (WAS) Error</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-04-23 </span>
+      
+      <span class="more-meta"> 約 831 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      這個問題遇到第二次了，照以往的習慣：問題遇到二次以上就要來筆記一下，避免下次再遇到又要花好多時間追查。之前沒有紀錄的原因：一來是覺得狀況特殊
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/http-error-503-event-id-5051/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/dapper-timeout/">C# 使用 Dapper 連線 DB 時指定逾時時間 (timeout)：0x80004005</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-04-22 </span>
+      
+      <span class="more-meta"> 約 1028 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      C# 使用 Dapper 連線 DB 時指定逾時時間 (timeout)：0x80004005 最近專案在 production 環境執行時常常遇到 [Win32Exception (0x80004005): The wait operation timed out]，造成程式未完整執行，
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/dapper-timeout/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/decimal-double-float-json-format/">decimal , double , float 輸出 json 的格式問題</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-04-22 </span>
+      
+      <span class="more-meta"> 約 1307 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      decimal , double , float 輸出 json 的格式問題 之前筆記 decimal 屬性輸出 JSON 時指定的格式問題 提到在專案中因為系統介接需要統一 decimal 小數位數，過程中也才發現 json.net 在輸出沒有小數的 decimal
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/decimal-double-float-json-format/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/decimal-json-digital/">decimal 屬性輸出 JSON 時指定的格式問題</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-04-21 </span>
+      
+      <span class="more-meta"> 約 1054 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      decimal 屬性輸出 JSON 時指定的格式問題 這是之前專案遇到的狀況：輸出 金額 時只需處理到小數點下二位。既然是 金額，為了避免精準度造成的誤差都會選用 deciaml 資料類型
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/decimal-json-digital/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+  </section>
+  
+  <nav class="pagination">
+    
+      <a class="prev" href="https://blog.yowko.com/page/5/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text">上一頁</span>
+      </a>
+    
+      <a class="next" href="https://blog.yowko.com/page/7/">
+        <span class="next-text">下一頁</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+  </nav>
+
+        </div>
+        
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

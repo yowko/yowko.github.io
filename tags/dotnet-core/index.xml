@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dotnet core on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/dotnet-core/</link>
+    <description>Recent content in dotnet core on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 13 Mar 2019 21:30:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/dotnet-core/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫</title>
+      <link>https://blog.yowko.com/dotnet-core-jaeger-grpc/</link>
+      <pubDate>Wed, 13 Mar 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-core-jaeger-grpc/</guid>
+      <description>.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 隨著系統使用人數愈來愈多，架構也跟著愈來愈複雜，各種技術為了解決既有問題或是加快反應速度不斷推陳出新，服務的架構也從單</description>
+    </item>
+    
+    <item>
+      <title>讓 .NET Core 的 HttpClientFactory 不驗證 Https 憑證</title>
+      <link>https://blog.yowko.com/dotnet-core-httpclientfactory-invalid-certificate/</link>
+      <pubDate>Wed, 06 Mar 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-core-httpclientfactory-invalid-certificate/</guid>
+      <description>讓 .NET Core 的 HttpClientFactory 不驗證 Https 憑證 Https 幾乎已成為了現在網站的基本配備，從過去只有敏感交易網站才需要，到現在瀏覽器還會把非 Https 網站標記為 不安全，而 .NET Core 程式在預</description>
+    </item>
+    
+    <item>
+      <title>使用 C# (.NET Core) 傳訊息至 Slack</title>
+      <link>https://blog.yowko.com/csharp-message-slack/</link>
+      <pubDate>Wed, 06 Feb 2019 23:45:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/csharp-message-slack/</guid>
+      <description>使用 C# (.NET Core) 傳訊息至 Slack 公司有個臨時性需求：某個重要功能開啟或是關閉時，立即通知營運團隊及各級主管知道，讓大家在討論 production issue 有共同的討論基準。 經過一</description>
+    </item>
+    
+    <item>
+      <title>在 .NET Core 與 .NET Framework 上使用 HttpClientFactory</title>
+      <link>https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/</link>
+      <pubDate>Wed, 16 Jan 2019 23:45:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/</guid>
+      <description>在 .NET Core 與 .NET Framework 上使用 HttpClientFactory 之前筆記 探討 HttpClient 可能的問題 與 HttpClient 無法反應 DNS 異動的解決方式 的出現是因為工作任務需要將一些重要訊息傳送至 Slack 而留意到 .NET Core 使用的 HttpClientFactory 是</description>
+    </item>
+    
+    <item>
+      <title>在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory</title>
+      <link>https://blog.yowko.com/aspnet-core-di-httpclientfactory-in-aspnet-mvc-5/</link>
+      <pubDate>Mon, 14 Jan 2019 23:45:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspnet-core-di-httpclientfactory-in-aspnet-mvc-5/</guid>
+      <description>在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory 習慣了 ASP.NET Core DI 的寫法後，回到 ASP.NET MVC 5 後突然覺得不太適應，沒有 HttpClientFactory 都覺得 HttpClient 好像很容易出錯，於是試著研究研究，順手紀錄一下，</description>
+    </item>
+    
+    <item>
+      <title>在 .NET Core console 上使用 Dependency Injection - DI</title>
+      <link>https://blog.yowko.com/dotnet-core-console-di/</link>
+      <pubDate>Wed, 28 Nov 2018 23:45:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-core-console-di/</guid>
+      <description>在 .NET Core console 上使用 Dependency Injection - DI 開始撰寫 ASP.NET Core 後，對於整個開發流程雖然不至於陌生卻也一直覺得掌握度不足，尤其在習慣 ASP.NET Core 註冊及啟動流程後，突然要寫 .NET Core console application</description>
+    </item>
+    
+    <item>
+      <title>Visual Studio 2017 啟動 Azure Function 偵錯出現 Fatal Error ？！</title>
+      <link>https://blog.yowko.com/visualstudio-0x8000ffff/</link>
+      <pubDate>Thu, 22 Nov 2018 23:45:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/visualstudio-0x8000ffff/</guid>
+      <description>Visual Studio 2017 啟動 Azure Function 偵錯出現 Fatal Error ？！ 因緣際會下，剛好有個很趕但很小的功能可以透過 Azure Function 來完成，過去 Azure Function 1.x 我來不及參與，直接使用 Azure Function 2.x 似乎也沒什麼違和</description>
+    </item>
+    
+    <item>
+      <title>列出當下環境可以使用的 .NET Core 專案範本</title>
+      <link>https://blog.yowko.com/dotnet-template-list/</link>
+      <pubDate>Sun, 18 Nov 2018 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-template-list/</guid>
+      <description>列出當下環境可以使用的 .NET Core 專案範本 .NET Core 問世以來，跨平台的特性帶來了許多的改變，其中一個就是開發模式，過去 .Net 開發人員只能透過 Visual Studio 這類的 IDE 工具進</description>
+    </item>
+    
+  </channel>
+</rss>

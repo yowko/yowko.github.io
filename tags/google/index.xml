@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Google on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/google/</link>
+    <description>Recent content in Google on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 14 Oct 2018 00:10:10 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/google/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>將 Google自訂搜尋引擎 (Google Custom Search) 搭配 OpenSearch 加至 Hugo 網站中</title>
+      <link>https://blog.yowko.com/google-search-in-hugo/</link>
+      <pubDate>Sun, 14 Oct 2018 00:10:10 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/google-search-in-hugo/</guid>
+      <description>將 Google自訂搜尋引擎 (Google Custom Search) 搭配 OpenSearch 加至 Hugo 網站中 之前曾在筆記 如何使用 Blogger APIs Client Library for .NET 匯出 Blogger 文章 中提到過去選擇使用 Blogger 當做筆記平台就是看中 Blogger 支援 opensearch</description>
+    </item>
+    
+  </channel>
+</rss>

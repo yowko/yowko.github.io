@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 Pure CSS 製作 Treeview (樹狀圖) - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="使用 Pure CSS 製作 Treeview (樹狀圖) 新專案有個功能需要用到樹狀圖 (Treeview)，算是個常見需求，難度也不算高，但更仔細了解細節後，發現似乎又有點不" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/pure-css-treeview/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="使用 Pure CSS 製作 Treeview (樹狀圖)" />
+<meta property="og:description" content="使用 Pure CSS 製作 Treeview (樹狀圖) 新專案有個功能需要用到樹狀圖 (Treeview)，算是個常見需求，難度也不算高，但更仔細了解細節後，發現似乎又有點不" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/pure-css-treeview/" /><meta property="article:published_time" content="2017-12-10T16:42:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-30T16:42:03&#43;08:00"/>
+
+<meta itemprop="name" content="使用 Pure CSS 製作 Treeview (樹狀圖)">
+<meta itemprop="description" content="使用 Pure CSS 製作 Treeview (樹狀圖) 新專案有個功能需要用到樹狀圖 (Treeview)，算是個常見需求，難度也不算高，但更仔細了解細節後，發現似乎又有點不">
+
+
+<meta itemprop="datePublished" content="2017-12-10T16:42:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-30T16:42:03&#43;08:00" />
+<meta itemprop="wordCount" content="670">
+
+
+
+<meta itemprop="keywords" content="Frontend," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Pure CSS 製作 Treeview (樹狀圖)"/>
+<meta name="twitter:description" content="使用 Pure CSS 製作 Treeview (樹狀圖) 新專案有個功能需要用到樹狀圖 (Treeview)，算是個常見需求，難度也不算高，但更仔細了解細節後，發現似乎又有點不"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-12-10 </span>
+        
+        <span class="more-meta"> 約 670 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#使用-pure-css-製作-treeview-樹狀圖">使用 Pure CSS 製作 Treeview (樹狀圖)</a>
+<ul>
+<li><a href="#需求">需求</a></li>
+<li><a href="#實際製作">實際製作</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="使用-pure-css-製作-treeview-樹狀圖">使用 Pure CSS 製作 Treeview (樹狀圖)</h1>
+
+<p>新專案有個功能需要用到樹狀圖 (Treeview)，算是個常見需求，難度也不算高，但更仔細了解細節後，發現似乎又有點不同，加上之前並沒有筆記跟備份專案的習慣，完成的 treeview 功能已經忘記做法，於是就趁著這個機會再來做一個，順便筆記一下，以節省日後開發的時間，順便讓以後的自己在檢視過往做法時可以多個依據</p>
+
+<h2 id="需求">需求</h2>
+
+<ol>
+<li>階層間縮排要明確</li>
+<li>上下左右階層間需要有導引線</li>
+<li>階層數目不定</li>
+
+<li><p>僅使用 CSS 不使用 Javascript</p>
+
+<ul>
+<li><p>效果示意圖</p>
+
+<p><img src="https://www.jqueryscript.net/images/Animated-Tree-View-Plugin-For-jQuery-Bootstrap-3-MultiNestedLists.jpg" alt="" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="實際製作">實際製作</h2>
+
+<ul>
+<li>基於 Bootstrap css 撰寫</li>
+
+<li><p>線上範例請參考 <a href="https://jsfiddle.net/r1qdpx3w/1/" target="_blank">jsfiddle 線上範例</a></p></li>
+
+<li><p>Html</p>
+
+<pre><code class="language-html">&lt;li class=&quot;root&quot;&gt;執行長
+&lt;ul&gt;
+    &lt;li&gt;研發部
+    &lt;ul&gt;
+        &lt;li&gt;產品團隊
+        &lt;ul&gt;
+        &lt;li&gt;專案經理&lt;/li&gt;
+        &lt;li&gt;系統分析&lt;/li&gt;
+        &lt;li&gt;開發工程師&lt;/li&gt;
+        &lt;/ul&gt;
+
+                &lt;/li&gt;
+        &lt;li&gt;專案團隊
+        &lt;ul&gt;
+            &lt;li&gt;專案一部
+            &lt;ul&gt;
+                &lt;li&gt;PM&lt;/li&gt;
+                &lt;li&gt;RD&lt;/li&gt;  
+            &lt;/ul&gt;
+            &lt;/li&gt;
+            &lt;li&gt;專案二部
+            &lt;ul&gt;
+                &lt;li&gt;PM&lt;/li&gt;
+                &lt;li&gt;RD&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;訓練團隊
+        &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;業務團隊&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre></li>
+
+<li><p>CSS (使用 SCSS)</p>
+
+<pre><code class="language-scss">ul {
+margin: 0px 0px 0px 5px;
+list-style: none;
+line-height: 2em;
+font-family: Arial;
+
+    li {
+        font-size: 16px;
+        position: relative;
+
+        &amp;:before {
+            position: absolute;
+            left: -15px;
+            top: 0px;
+            content: '';
+            display: block;
+            border-left: 1px solid #ddd;
+            height: 1em;
+            border-bottom: 1px solid #ddd;
+            width: 10px;
+        }
+
+        &amp;:after {
+            position: absolute;
+            left: -15px;
+            bottom: -7px;
+            content: '';
+            display: block;
+            border-left: 1px solid #ddd;
+            height: 100%;
+        }
+
+        &amp;.root {
+            margin: 0px 0px 0px -5px;
+
+            &amp;:before {
+                display: none;
+            }
+
+            &amp;:after {
+                display: none;
+            }
+        }
+
+        
+        &amp;:last-child {
+            &amp;:after {
+                display: none;
+            }
+        }
+    }
+}
+</code></pre></li>
+
+<li><p>實際效果</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/33803340-bd3a7e9a-ddc8-11e7-9c6f-2f7930a43aeb.png" alt="1result" /></p></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<p>因為使用該 treeview 的畫面會套用 Vue.js 所以不打算再為了 treeview 功能使用 JQuery 套件，一時找不到合適的寫法最後決定參考網上範例改成自訂樣式，修修改改好久終於達成目標，特以此紀錄懷念團隊有專業前端工程師配合的日子</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="http://cssdeck.com/labs/pure-css-tree-menu-framework" target="_blank">Pure CSS Tree Menu Framework</a></li>
+<li><a href="http://www.designerslib.com/pure-css-treeview-menu/" target="_blank">5 Pure CSS Treeview Menu Examples</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-30</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/frontend/">Frontend</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/aspnet-identity-2-lockout/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">ASP.NET Identity 2 啟用自動鎖定機制</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/scss/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">網站畫面吃到 SCSS 樣式 ？！</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/pure-css-treeview\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

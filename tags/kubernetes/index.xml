@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/kubernetes/</link>
+    <description>Recent content in Kubernetes on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 20 May 2018 10:16:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Windows 慣用者如何在 Red Hat Enterprise Linux 7.5 (CentOS ) 上使用 kubeadm 架設 Kubernetes (K8s)</title>
+      <link>https://blog.yowko.com/centos-kubeadm-kubernetes/</link>
+      <pubDate>Sun, 20 May 2018 10:16:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/centos-kubeadm-kubernetes/</guid>
+      <description>Windows 慣用者如何在 Red Hat Enterprise Linux 7.5 (CentOS ) 上使用 kubeadm 架設 Kubernetes (K8s) 之前筆記 Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s) 紀錄到如何在 Ubuntu 上使用 kubeadm 建立 Kubernetes cluster，考量到</description>
+    </item>
+    
+    <item>
+      <title>Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)</title>
+      <link>https://blog.yowko.com/ubuntu-kubeadm-kubernetes/</link>
+      <pubDate>Mon, 14 May 2018 02:15:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ubuntu-kubeadm-kubernetes/</guid>
+      <description>Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s) 原本是想將 Kubernetes 架設在 Ubuntu Server 17.10 上，但需要透過一些小手法才能順利執行 container，為了避免忘記如何架設，</description>
+    </item>
+    
+  </channel>
+</rss>

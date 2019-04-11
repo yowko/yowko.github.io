@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/python/</link>
+    <description>Recent content in Python on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 16 Jun 2018 12:27:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>解決 Docker build pip install fail</title>
+      <link>https://blog.yowko.com/docker-build-pip-install-fail/</link>
+      <pubDate>Sat, 16 Jun 2018 12:27:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-build-pip-install-fail/</guid>
+      <description>解決 Docker build pip install fail 近期工作之餘將部份時間花在學習 Kubernetes 上，過程中嘗試透過 Dockerfile 建立 pyhon application 的 image 來部署至 Kubernetes 中打算用來做一些實際應用情境的演練，原以為會卡在 Kubernetes 的</description>
+    </item>
+    
+  </channel>
+</rss>

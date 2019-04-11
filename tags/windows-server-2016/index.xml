@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows Server 2016 on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/windows-server-2016/</link>
+    <description>Recent content in Windows Server 2016 on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 09 Aug 2018 02:40:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/windows-server-2016/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>RDO (Remote Desktop Organizer) 連線時出現需要 Network Level Authentication</title>
+      <link>https://blog.yowko.com/rdo-network-level-authentication/</link>
+      <pubDate>Thu, 09 Aug 2018 02:40:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/rdo-network-level-authentication/</guid>
+      <description>RDO (Remote Desktop Organizer) 連線時出現需要 Network Level Authentication 最近的專案需要整合外部廠商的相關功能，為避免影響其他服務就建立了一個全新的 Windows Server 2016 VM 來進行整合開發及測試，但 VM 建立</description>
+    </item>
+    
+    <item>
+      <title>解決無法使用 IIS Manager 及 AppCmd.exe 列出 Worker Processes 的 Request</title>
+      <link>https://blog.yowko.com/hresult-80004001-not-implemented/</link>
+      <pubDate>Mon, 25 Jun 2018 01:25:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/hresult-80004001-not-implemented/</guid>
+      <description>解決無法使用 IIS Manager 及 AppCmd.exe 列出 Worker Processes 的 Request 最近監控 IIS 上的 application 時發現部份 server 無法列出 request queue，以我的經驗一般情況下並不會特別去看 request queue 的內容，一旦需要看就</description>
+    </item>
+    
+    <item>
+      <title>Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana)</title>
+      <link>https://blog.yowko.com/elastic-stack-elk-windows/</link>
+      <pubDate>Wed, 02 May 2018 02:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/elastic-stack-elk-windows/</guid>
+      <description>Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana) Elastic Stack (ELK - Elasticsearch , Logstash , Kibana) 建議執行在 Linux 平台上效能較佳 ELK Stack 在 5.0 版本加入 Beats 套件後更名為 Elastic Stack，在還沒搞清楚 Beats 反而是 5.5</description>
+    </item>
+    
+    <item>
+      <title>IIS 10.0 開啟 ASP.NET 應用程式出現 403.14 錯誤</title>
+      <link>https://blog.yowko.com/iis-10-aspnet-40314-error/</link>
+      <pubDate>Thu, 08 Feb 2018 02:04:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/iis-10-aspnet-40314-error/</guid>
+      <description>IIS 10.0 開啟 ASP.NET 應用程式出現 403.14 錯誤 最近一兩周嘗試找出同事提出的問題背後所隱含的根本原因，同事遇到的狀況已經解決，但遲遲沒有找出自己可以接受的答案實</description>
+    </item>
+    
+    <item>
+      <title>Windows Server 2016 docker 執行身份</title>
+      <link>https://blog.yowko.com/windows-server-2016-docker-users/</link>
+      <pubDate>Sun, 14 Jan 2018 23:47:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-server-2016-docker-users/</guid>
+      <description>Windows Server 2016 docker 執行身份 最近重新安裝幾台了電腦，一開始都沒有 docker 的執行權限，原因就是執行 docker for windows 需要有特殊權限：docker-users，而 docker-users 預設僅加入</description>
+    </item>
+    
+    <item>
+      <title>在 Windows Container 使用 tns 連線 Oracle</title>
+      <link>https://blog.yowko.com/windows-container-tns-oracle/</link>
+      <pubDate>Wed, 22 Nov 2017 00:07:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-container-tns-oracle/</guid>
+      <description>在 Windows Container 使用 tns 連線 Oracle 之前筆記 不用安裝 Oracle Client 使用 C# 透過 tnsnamses.ora 連結 Oracle 介紹到如何讓 server 不用安裝 Oracle Client 就可以使用 tns 存取 Oracle，其實最終目的就是想要在 Windows Container 透</description>
+    </item>
+    
+    <item>
+      <title>Windows Container 使用固定 IP</title>
+      <link>https://blog.yowko.com/windows-container-static-ip/</link>
+      <pubDate>Thu, 16 Nov 2017 00:47:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-container-static-ip/</guid>
+      <description>Windows Container 使用固定 IP 有時候服務主機本身沒有綁定 FQDN，只透過 IP 來連線存取，這個時候動態分配 ip 就會造成其他服務需要調整連線資訊，相當不方便，所以會</description>
+    </item>
+    
+    <item>
+      <title>修改 Windows 上 Linux Container (MobyLinuxVM) 的 bip 設定</title>
+      <link>https://blog.yowko.com/windows-linux-container-mobylinuxvm-bip/</link>
+      <pubDate>Mon, 04 Sep 2017 00:51:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-linux-container-mobylinuxvm-bip/</guid>
+      <description>修改 Windows 上 Linux Container (MobyLinuxVM) 的 bip 設定 最近幾篇筆記都是跟 ip 設定有關，主要是因為 docker 預設分配 container 使用的 ip 區段與公司測試環境衝突，造成 docker host 與 container 無法存取測試環境的 server (</description>
+    </item>
+    
+    <item>
+      <title>修改 Windows container 的預設 IP</title>
+      <link>https://blog.yowko.com/windows-container-ip-prefix/</link>
+      <pubDate>Sun, 03 Sep 2017 23:06:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-container-ip-prefix/</guid>
+      <description>之前文章 docker 無法連線至特定網段 (172.17.x.x) 分享了 docker 的 linux container bridge 會將特定 IP (172.17..) 的 request 導向 container 內部而造成無法存取特定 IP (172.17..) 問題，也介紹如何修改預設分配 IP 規則避免出現 172.17.. 的</description>
+    </item>
+    
+    <item>
+      <title>在 Windows Server 2016 上使用 Linux Container</title>
+      <link>https://blog.yowko.com/windows-server-2016-linux-container/</link>
+      <pubDate>Fri, 01 Sep 2017 01:40:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-server-2016-linux-container/</guid>
+      <description>在 Windows Server 2016 上使用 Linux Container 想必大家對於 Windows 10 透過簡易的 GUI 就可達到快速切換 Windows container 與 Linux container 的功能非常有印象(詳細內容可以參考 Windows 10 如何啟用 docker 功能)，原本在 Windows Server 2016</description>
+    </item>
+    
+    <item>
+      <title>將 Jenkins 建立在 Windows Container 上</title>
+      <link>https://blog.yowko.com/jenkins-windows-container/</link>
+      <pubDate>Sun, 27 Aug 2017 20:17:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jenkins-windows-container/</guid>
+      <description>將 Jenkins 建立在 Windows Container 上 公司服務有逐步採用 container 技術的打算，首先第一步就是將 CI Server 給搬進 container，而這個想法老早就有人實際應用了，只是大多應用在</description>
+    </item>
+    
+    <item>
+      <title>解決無法刪除 dcoker 在 Windows 下的 image 預設目錄 windowsfilter</title>
+      <link>https://blog.yowko.com/remove-windowsfilter/</link>
+      <pubDate>Thu, 24 Aug 2017 00:13:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/remove-windowsfilter/</guid>
+      <description>解決無法刪除 dcoker 在 Windows 下的 image 預設目錄 windowsfilter 之前文章 Widnows 環境中修改 Docker image 的儲存位置 介紹如何修改 Windows 環境中的 docker image 儲存位置，讓 image 可以不需佔用系統槽空間 今天同事反</description>
+    </item>
+    
+    <item>
+      <title>Widnows 環境中修改 Docker image 的儲存位置</title>
+      <link>https://blog.yowko.com/windows-docker-image-location/</link>
+      <pubDate>Fri, 18 Aug 2017 00:06:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-docker-image-location/</guid>
+      <description>Widnows 環境中修改 Docker image 的儲存位置 同事在 pull asp-net image 時，發現系統磁碟空間不足，無法取得 image，所以想修改 image 的預設儲存位置，讓 image 可以不必佔用系統磁碟槽 這</description>
+    </item>
+    
+    <item>
+      <title>無法啟動 Hyper-V 虛擬機器 - Hypervisor 未執行</title>
+      <link>https://blog.yowko.com/hypervisor-not-started/</link>
+      <pubDate>Wed, 16 Aug 2017 23:23:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/hypervisor-not-started/</guid>
+      <description>無法啟動 Hyper-V 虛擬機器 - Hypervisor 未執行 之前為了測試 Windows Container 功能，在筆電上安裝 Windows Server 2016，加上需要 Linux 環境，也啟用了 Hyper-V 功能安裝了 CentOS 7，測試靠一段落後有陣子沒</description>
+    </item>
+    
+    <item>
+      <title>在 Windows 7、Winodws 10、Windows Server 2016 上安裝 RabbitMQ</title>
+      <link>https://blog.yowko.com/install-rabbitmq-on-windows7-windows10-windows2016/</link>
+      <pubDate>Tue, 16 May 2017 23:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/install-rabbitmq-on-windows7-windows10-windows2016/</guid>
+      <description>在 Windows 7、Winodws 10、Windows Server 2016 上安裝 RabbitMQ 公司既有專案在實際 production 環境上有效能瓶頸，雖然有 load balance 搭配 cluster 架構，但 load balance 設定方式使得 cluster 中的各</description>
+    </item>
+    
+    <item>
+      <title>Windows Server 2016 中 Windows Container 的 docker 指令介紹</title>
+      <link>https://blog.yowko.com/docker-command-8n-windows/</link>
+      <pubDate>Wed, 10 May 2017 23:29:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-command-8n-windows/</guid>
+      <description>Windows Server 2016 中 Windows Container 的 docker 指令介紹 經過幾天筆記加深印象後，大致上對於 container 與 docker 有些基本了解，接著就來看看該如何在 Windows Server 2016 中使用 docker 及 docker 相關指令 Container 生命周期相關語</description>
+    </item>
+    
+    <item>
+      <title>如何在 Windows Server 2016 安裝 Docker</title>
+      <link>https://blog.yowko.com/windows-server-2016-docker/</link>
+      <pubDate>Thu, 04 May 2017 01:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-server-2016-docker/</guid>
+      <description>如何在 Windows Server 2016 安裝 Docker Windows Server 2016 是第一個原生支援 Docker 的 Windows 作業系統，雖然 windows container 的 image 數量遠遠比不上 linux container，但 MicroSoft 自家出品的 windows 原生相關產品與工具還</description>
+    </item>
+    
+    <item>
+      <title>如何在 Windows Server 2016 的 Hyper-V 上安裝 Centos 7</title>
+      <link>https://blog.yowko.com/windows-server-2016-hyperv-centos7/</link>
+      <pubDate>Wed, 03 May 2017 01:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-server-2016-hyperv-centos7/</guid>
+      <description>如何在 Windows Server 2016 的 Hyper-V 上安裝 Centos 7 之前文章 如何在 Windows Server 2016 上安裝 Hyper-V 提到為了想體驗 linux container 所以在 Windows Server 2016 上安裝了 Hyper-V 打算安裝 linux，Windows Server 2016 跟 Hyper-V 都已</description>
+    </item>
+    
+    <item>
+      <title>如何在 Windows Server 2016 上安裝 Hyper-V</title>
+      <link>https://blog.yowko.com/windows-server-2016-hyper-v/</link>
+      <pubDate>Tue, 02 May 2017 01:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-server-2016-hyper-v/</guid>
+      <description>如何在 Windows Server 2016 上安裝 Hyper-V Windows Server 2016 經過與 dcoker 公司共同重新設計架構，已經支援使用原生的 Windows container ，但市面上多數的軟體仍然以 Linux container 為大宗，現階段要在 Windows Server 2016 上使用 linux</description>
+    </item>
+    
+    <item>
+      <title>如何開啟 Windows Server 2016 遠端桌面</title>
+      <link>https://blog.yowko.com/windows-server-2016-enable-remote-desktop/</link>
+      <pubDate>Sun, 30 Apr 2017 09:49:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-server-2016-enable-remote-desktop/</guid>
+      <description>如何開啟 Windows Server 2016 遠端桌面 為了體驗 Windows Server 2016 的威力, 從安裝 Windows Server 2016 開始，都是直接操作實體機器，只是這樣不僅常常用錯滑鼠鍵盤，有的軟體授權方式是綁機器的</description>
+    </item>
+    
+    <item>
+      <title>Windows Server 2016 無法安裝 Azure Service Fabric - Runtime 及 SDK</title>
+      <link>https://blog.yowko.com/windows-server-2016-install-azure-service-fabric-runtime/</link>
+      <pubDate>Thu, 26 Jan 2017 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-server-2016-install-azure-service-fabric-runtime/</guid>
+      <description>Windows Server 2016 無法安裝 Azure Service Fabric - Runtime 及 SDK 最近看了不少 Azure 服務的介紹以及應用，其中有一些內容提到 Azure Service Fabric，所以想要實際使用並測試看看，結果發現 Windows Server 2016</description>
+    </item>
+    
+    <item>
+      <title>啟用 Windows Server 2016 的無線網路</title>
+      <link>https://blog.yowko.com/windows-server-2016-enable-wifi/</link>
+      <pubDate>Wed, 28 Dec 2016 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-server-2016-enable-wifi/</guid>
+      <description>啟用 Windows Server 2016 的無線網路 Windows Server 2016 安裝好了，但卻沒有網路，原本以為新的作業系統都會內建網路卡驅動程式的，想不到竟然來了個網路無法用的狀況，只好從別台</description>
+    </item>
+    
+    <item>
+      <title>建立支援 UEFI 開機的 Windows Server 2016 安裝 USB</title>
+      <link>https://blog.yowko.com/windows-server-2016-uefi-usb/</link>
+      <pubDate>Sun, 18 Dec 2016 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-server-2016-uefi-usb/</guid>
+      <description>建立支援 UEFI 開機的 Windows Server 2016 安裝 USB 之前的筆記 建立可開機的 Windows Server 2016 安裝 USB，我們看了如何建立可開機的 USB。 而我自己在安裝 Windows Server 2016 過程中，卻是一開機就</description>
+    </item>
+    
+    <item>
+      <title>建立可開機的 Windows Server 2016 安裝 USB</title>
+      <link>https://blog.yowko.com/windows-server-2016-bootable-usb/</link>
+      <pubDate>Tue, 06 Dec 2016 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-server-2016-bootable-usb/</guid>
+      <description>建立可開機的 Windows Server 2016 安裝 USB Windows Server 2016 有好多新功能想要試試(ex:docker、Nano Server、Web Proxy )，於是打算透過 USB 利用舊筆電來安裝測試</description>
+    </item>
+    
+  </channel>
+</rss>

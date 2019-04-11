@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ASP.NET Identity 如何依據不同用途設定個別 Token 時效 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="ASP.NET Identity 如何依據不同用途設定個別 Token 時效 之前曾經筆記中 改 ASP.NET Identity 2 的 Token 時效 紀錄到 ASP.NET Identity 預設的 token 時效及調整方式。在專案實際使用時，user 提出其他需求：依" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/multiple-tokenlifespan/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="ASP.NET Identity 如何依據不同用途設定個別 Token 時效" />
+<meta property="og:description" content="ASP.NET Identity 如何依據不同用途設定個別 Token 時效 之前曾經筆記中 改 ASP.NET Identity 2 的 Token 時效 紀錄到 ASP.NET Identity 預設的 token 時效及調整方式。在專案實際使用時，user 提出其他需求：依" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/multiple-tokenlifespan/" /><meta property="article:published_time" content="2018-04-03T01:04:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-04T01:04:26&#43;08:00"/>
+
+<meta itemprop="name" content="ASP.NET Identity 如何依據不同用途設定個別 Token 時效">
+<meta itemprop="description" content="ASP.NET Identity 如何依據不同用途設定個別 Token 時效 之前曾經筆記中 改 ASP.NET Identity 2 的 Token 時效 紀錄到 ASP.NET Identity 預設的 token 時效及調整方式。在專案實際使用時，user 提出其他需求：依">
+
+
+<meta itemprop="datePublished" content="2018-04-03T01:04:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-04T01:04:26&#43;08:00" />
+<meta itemprop="wordCount" content="2734">
+
+
+
+<meta itemprop="keywords" content="ASP.NET Identity," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ASP.NET Identity 如何依據不同用途設定個別 Token 時效"/>
+<meta name="twitter:description" content="ASP.NET Identity 如何依據不同用途設定個別 Token 時效 之前曾經筆記中 改 ASP.NET Identity 2 的 Token 時效 紀錄到 ASP.NET Identity 預設的 token 時效及調整方式。在專案實際使用時，user 提出其他需求：依"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-03 </span>
+        
+        <span class="more-meta"> 約 2734 字 </span>
+          <span class="more-meta"> 預計閱讀 6 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#asp-net-identity-如何依據不同用途設定個別-token-時效">ASP.NET Identity 如何依據不同用途設定個別 Token 時效</a>
+<ul>
+<li><a href="#solution-1-建立不同的-usermanager">Solution 1：建立不同的 UserManager</a></li>
+<li><a href="#solution-2-擴充-usermanager-方法">Solution 2：擴充 UserManager 方法</a></li>
+<li><a href="#solution-3-自訂-dataprotectortokenprovider">Solution 3：自訂 DataProtectorTokenProvider</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="asp-net-identity-如何依據不同用途設定個別-token-時效">ASP.NET Identity 如何依據不同用途設定個別 Token 時效</h1>
+
+<p>之前曾經筆記中 <a href="https://blog.yowko.com/2017/12/aspnet-identity-2-token-lifetime.html" target="_blank">改 ASP.NET Identity 2 的 Token 時效</a> 紀錄到 ASP.NET Identity 預設的 token 時效及調整方式。在專案實際使用時，user 提出其他需求：依不同功能別而有不同的 token 時效，例：註冊新帳號 - 確認 E-mail 的時效為 24 小時；忘記密碼 - 重設密碼的時效為 15 分鐘</p>
+
+<p>針對這個需求，有好幾個可行方案閃過，但沒有實際驗證過誰也說不準能不能用，所以立馬來試試看囉</p>
+
+<h2 id="solution-1-建立不同的-usermanager">Solution 1：建立不同的 UserManager</h2>
+
+<ol>
+<li><p>IdentityConfig.cs 新增 UserManager</p>
+
+<ul>
+<li><p>新增內容 (與預設的 ApplicationUserManager 同級)</p>
+
+<pre><code class="language-cs">public class MailUserManager : UserManager&lt;ApplicationUser&gt;
+{
+    public MailUserManager(IUserStore&lt;ApplicationUser&gt; store) : base(store)
+    {
+    }
+                        
+    public static MailUserManager Create(IdentityFactoryOptions&lt;MailUserManager&gt; options, IOwinContext context)
+    {
+        var manager = new MailUserManager(new UserStore&lt;ApplicationUser&gt;(context.Get&lt;ApplicationDbContext&gt;()));
+        manager.EmailService = new EmailService();
+        var dataProtectionProvider = options.DataProtectionProvider;
+        if (dataProtectionProvider != null)
+        {
+            manager.UserTokenProvider =
+                new DataProtectorTokenProvider&lt;ApplicationUser&gt;(dataProtectionProvider.Create(&quot;ASP.NET Identity&quot;))
+                {
+                    TokenLifespan = TimeSpan.FromMinutes(15)
+                };
+        }
+        return manager;
+    }
+}
+</code></pre></li>
+
+<li><p>完整檔案內容</p>
+
+<pre><code class="language-cs">using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using DemoIdentity.Models;
+        
+namespace DemoIdentity
+{
+    public class EmailService : IIdentityMessageService
+    {
+        public Task SendAsync(IdentityMessage message)
+        {
+            // Plug in your email service here to send an email.
+            System.Net.Mail.SmtpClient MySmtp = new System.Net.Mail.SmtpClient(&quot;127.0.0.1&quot;, 25);
+            return MySmtp.SendMailAsync(&quot;service@yowko.com&quot;, message.Destination, message.Subject, message.Body);
+        }
+    }
+            
+    public class SmsService : IIdentityMessageService
+    {
+        public Task SendAsync(IdentityMessage message)
+        {
+            // Plug in your SMS service here to send a text message.
+            return Task.FromResult(0);
+        }
+    }
+                        
+    // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
+    public class ApplicationUserManager : UserManager&lt;ApplicationUser&gt;
+    {
+        public ApplicationUserManager(IUserStore&lt;ApplicationUser&gt; store) : base(store)
+        {
+        }
+                
+        public static ApplicationUserManager Create(IdentityFactoryOptions&lt;ApplicationUserManager&gt; options, IOwinContext context) 
+        {
+            var manager = new ApplicationUserManager(new UserStore&lt;ApplicationUser&gt;(context.Get&lt;ApplicationDbContext&gt;()));
+            // Configure validation logic for usernames
+            manager.UserValidator = new UserValidator&lt;ApplicationUser&gt;(manager)
+            {
+                AllowOnlyAlphanumericUserNames = false,
+                RequireUniqueEmail = true
+            };
+                    
+            // Configure validation logic for passwords
+            manager.PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 6,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false,
+            };
+                    
+            // Configure user lockout defaults
+            manager.UserLockoutEnabledByDefault = true;
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+                    
+            // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
+            // You can write your own provider and plug it in here.
+            manager.RegisterTwoFactorProvider(&quot;Phone Code&quot;, new PhoneNumberTokenProvider&lt;ApplicationUser&gt;
+            {
+                MessageFormat = &quot;Your security code is {0}&quot;
+            });
+            manager.RegisterTwoFactorProvider(&quot;Email Code&quot;, new EmailTokenProvider&lt;ApplicationUser&gt;
+            {
+                Subject = &quot;Security Code&quot;,
+                BodyFormat = &quot;Your security code is {0}&quot;
+            });
+            manager.EmailService = new EmailService();
+            manager.SmsService = new SmsService();
+            var dataProtectionProvider = options.DataProtectionProvider;
+            if (dataProtectionProvider != null)
+            {
+                manager.UserTokenProvider = 
+                    new DataProtectorTokenProvider&lt;ApplicationUser&gt;(dataProtectionProvider.Create(&quot;ASP.NET Identity&quot;));
+            }
+            return manager;
+        }
+    }
+            
+    public class MailUserManager : UserManager&lt;ApplicationUser&gt;
+    {
+        public MailUserManager(IUserStore&lt;ApplicationUser&gt; store) : base(store)
+        {
+        }
+                            
+        public static MailUserManager Create(IdentityFactoryOptions&lt;MailUserManager&gt; options, IOwinContext context)
+        {
+            var manager = new MailUserManager(new UserStore&lt;ApplicationUser&gt;(context.Get&lt;ApplicationDbContext&gt;()));
+            manager.EmailService = new EmailService();
+            var dataProtectionProvider = options.DataProtectionProvider;
+            if (dataProtectionProvider != null)
+            {
+                manager.UserTokenProvider =
+                    new DataProtectorTokenProvider&lt;ApplicationUser&gt;(dataProtectionProvider.Create(&quot;ASP.NET Identity&quot;))
+                    {
+                        TokenLifespan = TimeSpan.FromMinutes(15)
+                    };
+            }
+            return manager;
+        }
+    }
+            
+    // Configure the application sign-in manager which is used in this application.
+    public class ApplicationSignInManager : SignInManager&lt;ApplicationUser, string&gt;
+    {
+        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
+            : base(userManager, authenticationManager)
+        {
+        }
+                    public override Task&lt;ClaimsIdentity&gt; CreateUserIdentityAsync(ApplicationUser user)
+        {
+            return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
+        }
+                    public static ApplicationSignInManager Create(IdentityFactoryOptions&lt;ApplicationSignInManager&gt; options, IOwinContext context)
+        {
+            return new ApplicationSignInManager(context.GetUserManager&lt;ApplicationUserManager&gt;(), context.Authentication);
+        }
+    }
+}
+</code></pre></li>
+</ul></li>
+
+<li><p>Startup.Auth.cs 設定建立上述新增的 UserManager</p>
+
+<ul>
+<li><p>新增內容 (新增至 <code>ConfigureAuth</code> 方法中)</p>
+
+<pre><code class="language-cs">app.CreatePerOwinContext&lt;MailUserManager&gt;(MailUserManager.Create);
+</code></pre></li>
+
+<li><p>完整檔案內容</p>
+
+<pre><code class="language-cs">using System;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.Cookies;
+using Owin;
+using DemoIdentity.Models;
+        
+namespace DemoIdentity
+{
+    public partial class Startup
+    {
+        // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
+        public void ConfigureAuth(IAppBuilder app)
+        {
+            // Configure the db context, user manager and signin manager to use a single instance per request
+            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext&lt;ApplicationUserManager&gt;(ApplicationUserManager.Create);
+            app.CreatePerOwinContext&lt;MailUserManager&gt;(MailUserManager.Create);
+            app.CreatePerOwinContext&lt;ApplicationSignInManager&gt;(ApplicationSignInManager.Create);
+                    
+            // Enable the application to use a cookie to store information for the signed in user
+            // and to use a cookie to temporarily store information about a user logging in with a third party login provider
+            // Configure the sign in cookie
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString(&quot;/Account/Login&quot;),
+                Provider = new CookieAuthenticationProvider
+                {
+                    // Enables the application to validate the security stamp when the user logs in.
+                    // This is a security feature which is used when you change a password or add an external login to your account.  
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity&lt;ApplicationUserManager, ApplicationUser&gt;(
+                        validateInterval: TimeSpan.FromMinutes(30),
+                        regenerateIdentity: (manager, user) =&gt; user.GenerateUserIdentityAsync(manager))
+                }
+            });            
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+                    
+            // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
+            app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
+                    
+            // Enables the application to remember the second login verification factor such as phone or email.
+            // Once you check this option, your second step of verification during the login process will be remembered on the device where you logged in from.
+            // This is similar to the RememberMe option when you log in.
+            app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
+                    
+            // Uncomment the following lines to enable logging in with third party login providers
+            //app.UseMicrosoftAccountAuthentication(
+            //    clientId: &quot;&quot;,
+            //    clientSecret: &quot;&quot;);
+                        //app.UseTwitterAuthentication(
+            //   consumerKey: &quot;&quot;,
+            //   consumerSecret: &quot;&quot;);
+                        //app.UseFacebookAuthentication(
+            //   appId: &quot;&quot;,
+            //   appSecret: &quot;&quot;);
+                        //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            //{
+            //    ClientId = &quot;&quot;,
+            //    ClientSecret = &quot;&quot;
+            //});
+        }
+    }
+}
+</code></pre></li>
+</ul></li>
+
+<li><p>在 controller 中建立新增的 UserManager</p>
+
+<ul>
+<li><p>新增內容</p>
+
+<pre><code class="language-cs">private MailUserManager _mailUserManager;
+public MailUserManager MailUserManager
+{
+    get
+    {
+        return _mailUserManager ?? HttpContext.GetOwinContext().GetUserManager&lt;MailUserManager&gt;();
+    }
+    private set
+    {
+        _mailUserManager = value;
+    }
+}
+public AccountController(MailUserManager mailUserManager, ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+{
+    UserManager = userManager;
+    SignInManager = signInManager;
+    MailUserManager = mailUserManager;
+}
+</code></pre></li>
+</ul></li>
+
+<li><p>使用新增的 UserManager 做為產生 token 的物件</p>
+
+<ul>
+<li><p>以 <code>Register</code> 為例</p>
+
+<pre><code class="language-cs">[HttpPost]
+[AllowAnonymous]
+[ValidateAntiForgeryToken]
+public async Task&lt;ActionResult&gt; Register(RegisterViewModel model)
+{
+    if (ModelState.IsValid)
+    {
+        var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+        var result = await UserManager.CreateAsync(user, model.Password);
+        if (result.Succeeded)
+        {
+            await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    
+            // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+            // Send an email with this link
+            string code = await MailUserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            var callbackUrl = Url.Action(&quot;ConfirmEmail&quot;, &quot;Account&quot;, new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+            await MailUserManager.SendEmailAsync(user.Id, &quot;Confirm your account&quot;, &quot;Please confirm your account by clicking &lt;a href=\&quot;&quot; + callbackUrl + &quot;\&quot;&gt;here&lt;/a&gt;&quot;);
+                    
+            return RedirectToAction(&quot;Index&quot;, &quot;Home&quot;);
+        }
+        AddErrors(result);
+    }
+            
+    // If we got this far, something failed, redisplay form
+    return View(model);
+}
+</code></pre></li>
+
+<li><p>對應的 <code>ConfirmEmail</code> 也需調整</p>
+
+<pre><code class="language-cs">[AllowAnonymous]
+public async Task&lt;ActionResult&gt; ConfirmEmail(string userId, string code)
+{
+    if (userId == null || code == null)
+    {
+        return View(&quot;Error&quot;);
+    }
+    var result = await MailUserManager.ConfirmEmailAsync(userId, code);
+    return View(result.Succeeded ? &quot;ConfirmEmail&quot; : &quot;Error&quot;);
+}
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="solution-2-擴充-usermanager-方法">Solution 2：擴充 UserManager 方法</h2>
+
+<ol>
+<li><p>IdentityConfig.cs 加入不同 <code>DataProtectorTokenProvider</code> 並新增自訂方法用來存取 token</p>
+
+<ul>
+<li><p>新增內容至 <code>ApplicationUserManager</code> class 中</p>
+
+<pre><code class="language-cs">private static Microsoft.AspNet.Identity.Owin.DataProtectorTokenProvider&lt;ApplicationUser&gt; tokenprovider;
+/// &lt;summary&gt;Get a user token for a specific purpose&lt;/summary&gt;
+/// &lt;param name=&quot;purpose&quot;&gt;&lt;/param&gt;
+/// &lt;param name=&quot;userId&quot;&gt;&lt;/param&gt;
+/// &lt;returns&gt;&lt;/returns&gt;
+public virtual async Task&lt;string&gt; GenerateUserResetTokenAsync(string purpose, string userId)
+{
+    ApplicationUser user = await FindByIdAsync(userId).WithCurrentCulture&lt;ApplicationUser&gt;();
+    if (user==null)
+    {
+        return string.Empty;
+    }
+    return await tokenprovider.GenerateAsync(purpose, this, user).WithCurrentCulture&lt;string&gt;();
+}
+/// &lt;summary&gt;Get a user token for a specific purpose&lt;/summary&gt;
+/// &lt;param name=&quot;purpose&quot;&gt;&lt;/param&gt;
+/// &lt;param name=&quot;userId&quot;&gt;&lt;/param&gt;
+/// &lt;returns&gt;&lt;/returns&gt;
+public virtual async Task&lt;bool&gt; VerifyEmailResetTokenAsync(string purpose, string userId, string token)
+{
+    ApplicationUser user = await this.FindByIdAsync(userId).WithCurrentCulture&lt;ApplicationUser&gt;();
+    if (user == null)
+    {
+        return false;
+    }
+    return await tokenprovider.ValidateAsync(purpose, token, this, user).WithCurrentCulture&lt;bool&gt;();
+}
+</code></pre></li>
+
+<li><p>修改 <code>Create</code> 方法，加入以下程式碼</p>
+
+<pre><code class="language-cs">tokenprovider = new Microsoft.AspNet.Identity.Owin.DataProtectorTokenProvider&lt;ApplicationUser&gt;(options.DataProtectionProvider.Create(&quot;ASP.NET Identity&quot;))
+{
+    TokenLifespan = TimeSpan.FromMinutes(5)
+};
+</code></pre></li>
+
+<li><p>完整檔案內容</p>
+
+<pre><code class="language-cs">using System;
+using System.Data.Entity.Utilities;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using DemoIdentity.Models;
+        
+namespace DemoIdentity
+{
+    public class EmailService : IIdentityMessageService
+    {
+        public Task SendAsync(IdentityMessage message)
+        {
+            // Plug in your email service here to send an email.
+            System.Net.Mail.SmtpClient MySmtp = new System.Net.Mail.SmtpClient(&quot;127.0.0.1&quot;, 25);
+            return MySmtp.SendMailAsync(&quot;service@yowko.com&quot;, message.Destination, message.Subject, message.Body);
+        }
+    }
+            
+    public class SmsService : IIdentityMessageService
+    {
+        public Task SendAsync(IdentityMessage message)
+        {
+            // Plug in your SMS service here to send a text message.
+            return Task.FromResult(0);
+        }
+    }
+            
+    // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
+    public class ApplicationUserManager : UserManager&lt;ApplicationUser&gt;
+    {
+        private static Microsoft.AspNet.Identity.Owin.DataProtectorTokenProvider&lt;ApplicationUser&gt; tokenprovider;
+        /// &lt;summary&gt;Get a user token for a specific purpose&lt;/summary&gt;
+        /// &lt;param name=&quot;purpose&quot;&gt;&lt;/param&gt;
+        /// &lt;param name=&quot;userId&quot;&gt;&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public virtual async Task&lt;string&gt; GenerateUserResetTokenAsync(string purpose, string userId)
+        {
+            ApplicationUser user = await FindByIdAsync(userId).WithCurrentCulture&lt;ApplicationUser&gt;();
+            if (user==null)
+            {
+                return string.Empty;
+            }
+            return await tokenprovider.GenerateAsync(purpose, this, user).WithCurrentCulture&lt;string&gt;();
+        }
+        /// &lt;summary&gt;Get a user token for a specific purpose&lt;/summary&gt;
+        /// &lt;param name=&quot;purpose&quot;&gt;&lt;/param&gt;
+        /// &lt;param name=&quot;userId&quot;&gt;&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public virtual async Task&lt;bool&gt; VerifyEmailResetTokenAsync(string purpose, string userId, string token)
+        {
+            ApplicationUser user = await this.FindByIdAsync(userId).WithCurrentCulture&lt;ApplicationUser&gt;();
+            if (user == null)
+            {
+                return false;
+            }
+            return await tokenprovider.ValidateAsync(purpose, token, this, user).WithCurrentCulture&lt;bool&gt;();
+        }
+        public ApplicationUserManager(IUserStore&lt;ApplicationUser&gt; store) : base(store)
+        {
+        }
+                
+        public static ApplicationUserManager Create(IdentityFactoryOptions&lt;ApplicationUserManager&gt; options, IOwinContext context) 
+        {
+            var manager = new ApplicationUserManager(new UserStore&lt;ApplicationUser&gt;(context.Get&lt;ApplicationDbContext&gt;()));
+            // Configure validation logic for usernames
+            manager.UserValidator = new UserValidator&lt;ApplicationUser&gt;(manager)
+            {
+                AllowOnlyAlphanumericUserNames = false,
+                RequireUniqueEmail = true
+            };
+                    
+            // Configure validation logic for passwords
+            manager.PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 6,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false,
+            };
+                    
+            // Configure user lockout defaults
+            manager.UserLockoutEnabledByDefault = true;
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+                    
+            // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
+            // You can write your own provider and plug it in here.
+            manager.RegisterTwoFactorProvider(&quot;Phone Code&quot;, new PhoneNumberTokenProvider&lt;ApplicationUser&gt;
+            {
+                MessageFormat = &quot;Your security code is {0}&quot;
+            });
+            manager.RegisterTwoFactorProvider(&quot;Email Code&quot;, new EmailTokenProvider&lt;ApplicationUser&gt;
+            {
+                Subject = &quot;Security Code&quot;,
+                BodyFormat = &quot;Your security code is {0}&quot;
+            });
+            manager.EmailService = new EmailService();
+            manager.SmsService = new SmsService();
+            var dataProtectionProvider = options.DataProtectionProvider;
+            if (dataProtectionProvider != null)
+            {
+                manager.UserTokenProvider = 
+                    new DataProtectorTokenProvider&lt;ApplicationUser&gt;(dataProtectionProvider.Create(&quot;ASP.NET Identity&quot;));
+                tokenprovider = new Microsoft.AspNet.Identity.Owin.DataProtectorTokenProvider&lt;ApplicationUser&gt;(options.DataProtectionProvider.Create(&quot;ASP.NET Identity&quot;))
+                {
+                    TokenLifespan = TimeSpan.FromMinutes(1)
+                };
+            }
+            return manager;
+        }
+    }
+            
+    // Configure the application sign-in manager which is used in this application.
+    public class ApplicationSignInManager : SignInManager&lt;ApplicationUser, string&gt;
+    {
+        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager) : base(userManager, authenticationManager)
+        {
+        }
+                
+        public override Task&lt;ClaimsIdentity&gt; CreateUserIdentityAsync(ApplicationUser user)
+        {
+            return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
+        }
+                
+        public static ApplicationSignInManager Create(IdentityFactoryOptions&lt;ApplicationSignInManager&gt; options, IOwinContext context)
+        {
+            return new ApplicationSignInManager(context.GetUserManager&lt;ApplicationUserManager&gt;(), context.Authentication);
+        }
+    }
+}
+</code></pre></li>
+</ul></li>
+
+<li><p>調整 AccountController</p>
+
+<ul>
+<li><p>以 ForgotPassword 為例</p>
+
+<pre><code class="language-cs">[HttpPost]
+[AllowAnonymous]
+[ValidateAntiForgeryToken]
+public async Task&lt;ActionResult&gt; ForgotPassword(ForgotPasswordViewModel model)
+{
+    if (ModelState.IsValid)
+    {
+        var user = await UserManager.FindByNameAsync(model.Email);
+        if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+        {
+            // Don't reveal that the user does not exist or is not confirmed
+            return View(&quot;ForgotPasswordConfirmation&quot;);
+        }
+                
+        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+        // Send an email with this link
+        string code = await UserManager.GenerateUserResetTokenAsync(&quot;ResetPassword&quot;, user.Id);
+        var callbackUrl = Url.Action(&quot;ResetPassword&quot;, &quot;Account&quot;, new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+        await UserManager.SendEmailAsync(user.Id, &quot;Reset Password&quot;, &quot;Please reset your password by clicking &lt;a href=\&quot;&quot; + callbackUrl + &quot;\&quot;&gt;here&lt;/a&gt;&quot;);
+        return RedirectToAction(&quot;ForgotPasswordConfirmation&quot;, &quot;Account&quot;);
+    }
+            
+    // If we got this far, something failed, redisplay form
+    return View(model);
+}
+</code></pre></li>
+
+<li><p>實際 ResetPassword 也需要調整</p>
+
+<pre><code class="language-cs">[AllowAnonymous]
+public ActionResult ResetPassword(string code, string userId)
+{
+    if (string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(userId) || !UserManager.VerifyEmailResetTokenAsync(&quot;ResetPassword&quot;, userId, code).Result)
+    {
+        return View(&quot;Error&quot;);
+    }
+    return View();
+}
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="solution-3-自訂-dataprotectortokenprovider">Solution 3：自訂 DataProtectorTokenProvider</h2>
+
+<ol>
+<li><p>新增 <code>DataProtectorTokenProviderEx.cs</code></p>
+
+<pre><code class="language-cs">using System;
+using System.Data.Entity.Utilities;
+using System.Globalization;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security.DataProtection;
+    
+namespace DemoIdentity.Extension
+{
+    /// &lt;summary&gt;
+    /// Token provider that uses an IDataProtector to generate encrypted tokens based off of the security stamp
+    /// &lt;/summary&gt;
+    public class DataProtectorTokenProviderEx&lt;TUser, TKey&gt; : IUserTokenProvider&lt;TUser, TKey&gt;
+        where TUser : class, IUser&lt;TKey&gt;
+        where TKey : IEquatable&lt;TKey&gt;
+    {
+        /// &lt;summary&gt;
+        /// Constructor
+        /// &lt;/summary&gt;
+        public DataProtectorTokenProviderEx(IDataProtector protector)
+        {
+            if (protector == null)
+            {
+                throw new ArgumentNullException(&quot;protector&quot;);
+            }
+                
+            Protector = protector;
+            TokenLifespan = TimeSpan.FromDays(1.0);
+        }
+            
+        /// &lt;summary&gt;
+        /// IDataProtector for the token
+        /// &lt;/summary&gt;
+        public IDataProtector Protector { get; private set; }
+            
+        /// &lt;summary&gt;
+        /// Lifespan after which the token is considered expired
+        /// &lt;/summary&gt;
+        public TimeSpan TokenLifespan { get; set; }
+            
+        /// &lt;summary&gt;
+        /// Generate a protected string for a user
+        /// &lt;/summary&gt;
+        public async Task&lt;string&gt; GenerateAsync(string purpose, UserManager&lt;TUser, TKey&gt; manager, TUser user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(&quot;user&quot;);
+            }
+                
+            var memoryStream = new MemoryStream();
+            using (var binaryWriter = new BinaryWriter(memoryStream, new UTF8Encoding(false, true), true))
+            {
+                binaryWriter.Write(DateTimeOffset.UtcNow.UtcTicks);
+                binaryWriter.Write(Convert.ToString(user.Id, CultureInfo.InvariantCulture));
+                binaryWriter.Write(purpose ?? &quot;&quot;);
+                string stamp = null;
+                if (manager.SupportsUserSecurityStamp)
+                {
+                    stamp = await manager.GetSecurityStampAsync(user.Id);
+                }
+                    
+                binaryWriter.Write(stamp ?? &quot;&quot;);
+            }
+                
+            byte[] token = this.Protector.Protect(memoryStream.ToArray());
+            return Convert.ToBase64String(token);
+        }
+            
+        /// &lt;summary&gt;
+        /// Return false if the token is not valid
+        /// &lt;/summary&gt;
+        public async Task&lt;bool&gt; ValidateAsync(string purpose, string token, UserManager&lt;TUser, TKey&gt; manager, TUser user)
+        {
+            try
+            {
+                var unprotectedData = Protector.Unprotect(Convert.FromBase64String(token));
+                var ms = new MemoryStream(unprotectedData);
+                    
+                using (var reader = new BinaryReader(ms, new UTF8Encoding(false, true), true))
+                {
+                    var creationTime = new DateTimeOffset(reader.ReadInt64(), TimeSpan.Zero);
+                    var tokenLifespan = TokenLifespan;
+                    //加上如果特定目的就使用不同時效
+                    if (purpose == &quot;ResetPassword&quot;)
+                    {
+                        tokenLifespan = TimeSpan.FromMinutes(15);
+                    }
+                        
+                    var expirationTime = creationTime + tokenLifespan;
+                    if (expirationTime &lt; DateTimeOffset.UtcNow)
+                    {
+                        return false;
+                    }
+                        
+                    var userId = reader.ReadString();
+                    if (!String.Equals(userId, Convert.ToString(user.Id, CultureInfo.InvariantCulture)))
+                    {
+                        return false;
+                    }
+                        
+                    var purp = reader.ReadString();
+                    if (!String.Equals(purp, purpose))
+                    {
+                        return false;
+                    }
+                        
+                    var stamp = reader.ReadString();
+                    if (reader.PeekChar() != -1)
+                    {
+                        return false;
+                    }
+                        
+                    if (manager.SupportsUserSecurityStamp)
+                    {
+                        var expectedStamp = await manager.GetSecurityStampAsync(user.Id).WithCurrentCulture();
+                        return stamp == expectedStamp;
+                    }
+                        
+                    return stamp == &quot;&quot;;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+            
+        /// &lt;summary&gt;
+        /// Returns true if the provider can be used to generate tokens for this user
+        /// &lt;/summary&gt;
+        public Task&lt;bool&gt; IsValidProviderForUserAsync(UserManager&lt;TUser, TKey&gt; manager, TUser user)
+        {
+            return Task.FromResult(true);
+        }
+            
+        /// &lt;summary&gt;
+        /// This provider no-ops by default when asked to notify a user
+        /// &lt;/summary&gt;
+        public Task NotifyAsync(string token, UserManager&lt;TUser, TKey&gt; manager, TUser user)
+        {
+            return Task.FromResult(0);
+        }
+    }
+}
+</code></pre></li>
+
+<li><p>IdentityConfig.cs 使用自訂 DataProtectorTokenProvider - <code>DataProtectorTokenProviderEx</code></p>
+
+<pre><code class="language-cs">if (dataProtectionProvider != null)
+{
+    manager.UserTokenProvider = 
+        new DataProtectorTokenProviderEx&lt;ApplicationUser,string&gt;(dataProtectionProvider.Create(&quot;ASP.NET Identity&quot;));
+}
+</code></pre></li>
+
+<li><p>AccountController 使用無需任何調整</p></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>上述三種方式都可以達到針對不同目的設定個別的 token 時效，只是選擇上各有優缺點</p>
+
+<ol>
+<li><p>Solution 1：建立不同的 UserManager</p>
+
+<ul>
+<li>優點：最直覺</li>
+<li>缺點：相同的 code 太多</li>
+</ul></li>
+
+<li><p>Solution 2：擴充 UserManager 方法</p>
+
+<ul>
+<li>優點：Identity 底層升級不易受到影響</li>
+<li>缺點：使用上容易出現混淆</li>
+</ul></li>
+
+<li><p>Solution 3：自訂 DataProtectorTokenProvider</p>
+
+<ul>
+<li>優點：使用角度完全不需調整</li>
+<li>缺點：可能會與 Identity 核心脫鉤</li>
+</ul></li>
+</ol>
+
+<p>第一種做法冗贅的 code 太多直接排除，而在 <code>擴充 UserManager</code> 與 <code>自訂 DataProtectorTokenProvider</code> 間，我個人選擇 <code>擴充 UserManager</code>，原因是讓專案變動的範圍限縮，UserManager 跟 AccountController 都是專案內容的一部份，本來就會異動及修改，而不另外自訂 <code>DataProtectorTokenProvider</code>，避免日後如果遇到需要 update Identity 版本時，得手動將異動內容套用到自訂的 DataProtectorTokenProvider 上，也可以降低團隊成員額外理解 <code>DataProtectorTokenProvider</code> 的難度</p>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://gist.github.com/ArtemAvramenko/8f34ec8aac5c0fb6380871a18e69ffd8#file-dataprotectortokenproviderex-cs" target="_blank">ArtemAvramenko/DataProtectorTokenProviderEx.cs</a></li>
+<li><a href="https://github.com/aspnet/AspNetIdentity/blob/9c48993a446288032f9824633e6dae81257da06e/src/Microsoft.AspNet.Identity.Owin/DataProtectorTokenProvider.cs" target="_blank">AspNetIdentity/src/Microsoft.AspNet.Identity.Owin/DataProtectorTokenProvider.cs</a></li>
+<li><a href="https://blog.yowko.com/2017/12/aspnet-identity-2-token-lifetime.html" target="_blank">改 ASP.NET Identity 2 的 Token 時效</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-10-04</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/asp.net-identity/">ASP.NET Identity</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/list-to-csv/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">使用 C# 將資料匯出為 CSV</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/ppt-to-pdf/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">用 C# 將 PowerPoint 檔(.pptx .ppt) 轉換為 PDF</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/multiple-tokenlifespan\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

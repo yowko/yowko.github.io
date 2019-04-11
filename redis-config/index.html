@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Redis 3.2.8 與 Redis-Windows 3.2.1 config 解析 - part 1 (INCLUDES,NETWORK,GENERAL) - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="Redis 3.2.8 與 Redis-Windows 3.2.1 config 解析 - part 1 (INCLUDES,NETWORK,GENERAL) 前幾天在進行 Redis Server HA 設定時，發現有好幾個設定自己沒有實際使用過，更重要的是還有個設定我之前根本就誤會使用方式了，身為一" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/redis-config/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="Redis 3.2.8 與 Redis-Windows 3.2.1 config 解析 - part 1 (INCLUDES,NETWORK,GENERAL)" />
+<meta property="og:description" content="Redis 3.2.8 與 Redis-Windows 3.2.1 config 解析 - part 1 (INCLUDES,NETWORK,GENERAL) 前幾天在進行 Redis Server HA 設定時，發現有好幾個設定自己沒有實際使用過，更重要的是還有個設定我之前根本就誤會使用方式了，身為一" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/redis-config/" /><meta property="article:published_time" content="2017-04-01T02:16:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-16T11:08:29&#43;08:00"/>
+
+<meta itemprop="name" content="Redis 3.2.8 與 Redis-Windows 3.2.1 config 解析 - part 1 (INCLUDES,NETWORK,GENERAL)">
+<meta itemprop="description" content="Redis 3.2.8 與 Redis-Windows 3.2.1 config 解析 - part 1 (INCLUDES,NETWORK,GENERAL) 前幾天在進行 Redis Server HA 設定時，發現有好幾個設定自己沒有實際使用過，更重要的是還有個設定我之前根本就誤會使用方式了，身為一">
+
+
+<meta itemprop="datePublished" content="2017-04-01T02:16:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-16T11:08:29&#43;08:00" />
+<meta itemprop="wordCount" content="1358">
+
+
+
+<meta itemprop="keywords" content="Redis," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Redis 3.2.8 與 Redis-Windows 3.2.1 config 解析 - part 1 (INCLUDES,NETWORK,GENERAL)"/>
+<meta name="twitter:description" content="Redis 3.2.8 與 Redis-Windows 3.2.1 config 解析 - part 1 (INCLUDES,NETWORK,GENERAL) 前幾天在進行 Redis Server HA 設定時，發現有好幾個設定自己沒有實際使用過，更重要的是還有個設定我之前根本就誤會使用方式了，身為一"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-01 </span>
+        
+        <span class="more-meta"> 約 1358 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#redis-3-2-8-與-redis-windows-3-2-1-config-解析-part-1-includes-network-general">Redis 3.2.8 與 Redis-Windows 3.2.1 config 解析 - part 1 (INCLUDES,NETWORK,GENERAL)</a>
+<ul>
+<li><a href="#關於單位-units">關於單位(units)</a></li>
+<li><a href="#關於引用-includes">關於引用(INCLUDES)</a></li>
+<li><a href="#關於網路-network">關於網路(NETWORK)</a></li>
+<li><a href="#關於一般設定-general">關於一般設定(GENERAL)</a></li>
+</ul></li>
+<li><a href="#參考資料">參考資料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="redis-3-2-8-與-redis-windows-3-2-1-config-解析-part-1-includes-network-general">Redis 3.2.8 與 Redis-Windows 3.2.1 config 解析 - part 1 (INCLUDES,NETWORK,GENERAL)</h1>
+
+<p>前幾天在進行 Redis Server HA 設定時，發現有好幾個設定自己沒有實際使用過，更重要的是還有個設定我之前根本就誤會使用方式了，身為一個期望自己更好的工程師，一定要立馬來好好搞清楚才行，不然鬧了笑話事小，產生 bug 可就嚴重了</p>
+
+<h2 id="關於單位-units">關於單位(units)</h2>
+
+<blockquote>
+<p>config 範例一開始指出關於 Redis 使用 memory 容量的單位說明</p>
+</blockquote>
+
+<ol>
+<li>單位量詞無大小寫之分</li>
+<li>單位用法
+
+<ul>
+<li>1k =&gt; 1000 bytes</li>
+<li>1kb =&gt; 1024 bytes</li>
+<li>1m =&gt; 1000000 bytes</li>
+<li>1mb =&gt; 1024*1024 bytes</li>
+<li>1g =&gt; 1000000000 bytes</li>
+<li>1gb =&gt; 1024*1024*1024 bytes</li>
+</ul></li>
+</ol>
+
+<h2 id="關於引用-includes">關於引用(INCLUDES)</h2>
+
+<ol>
+<li>可以引用一個或多個 config template 來標準化管理 Redis</li>
+<li>被引用的檔案需要被設定成可被引用</li>
+<li><code>include</code> 選項無法被 admin 或是 sentinel 的 <code>config rewrite</code> 指令覆寫</li>
+<li>將 include 寫在 config 開頭可以避免在執行時期被其他指令覆寫</li>
+<li>如果需要覆寫 include，就將指令寫在文件結尾，確保會被當做最後的值</li>
+<li>範例：
+
+<ul>
+<li><code>include .\path\to\local.conf</code></li>
+<li><code>include c:\path\to\other.conf</code></li>
+</ul></li>
+</ol>
+
+<h2 id="關於網路-network">關於網路(NETWORK)</h2>
+
+<ul>
+<li><p>關於 bind</p>
+
+<ul>
+<li><p>如果沒有使用 <code>bind</code> 指令來設定， Redis 預設會監聽 server 上的可用網路 IP</p>
+
+<blockquote>
+<p>我搞錯的設定就是這個，<del>我原以為是白名單的概念，僅接受設定者的連線</del></p>
+</blockquote></li>
+</ul>
+
+<ol>
+<li>可以使用 <code>bind</code> 指定監聽一個或多個 ip</li>
+<li>如果 Redis 直接對外，監聽所有可用 IP 是非常危險的</li>
+
+<li><p>範例</p>
+
+<ul>
+<li><p>只允許透過 <code>127.0.0.1</code> 進行連線</p>
+
+<blockquote>
+<p><code>bind 127.0.0.1</code></p>
+</blockquote></li>
+
+<li><p>允許透過 192.16.1.100 及 10.0.01 的連線</p>
+
+<blockquote>
+<p><code>bind 192.168.1.100 10.0.0.1</code></p>
+</blockquote></li>
+</ul></li>
+</ol></li>
+
+<li><p>關於 protected-mode</p>
+
+<blockquote>
+<p>為了避免 Redis 直接曝露在網路，預設啟用保護模式。
+保護模式啟用下，如果同時滿足以下兩個條件， Redis 只能接受 127.0.0.1 與 ::1 或是 unix socket 的連線 ：</p>
+</blockquote>
+
+<ol>
+<li>沒有使用 <code>bind</code> 指令明確指定監聽接口</li>
+<li>沒有使用 <code>requirepass</code> 設定密碼</li>
+<li>範例
+
+<ul>
+<li><code>protected-mode yes #啟用保護模式</code></li>
+<li><code>protected-mode no #停用保護模式</code></li>
+</ul></li>
+</ol></li>
+
+<li><p>關於 port</p>
+
+<ol>
+<li>指定 Redis 接受連線的 port (預設 6379)</li>
+<li>若設為 0，會停用 TCP socket</li>
+
+<li><p>範例：</p>
+
+<blockquote>
+<p><code>port 6379</code></p>
+</blockquote></li>
+</ol></li>
+
+<li><p>關於 TCP listen() backlog</p>
+
+<blockquote>
+<p>這個部份我看不懂，以下僅提供個人理解用</p>
+</blockquote>
+
+<ol>
+<li>屬於 linux kernel 的部份，TCP listen() 可以設定 handshake 處理的 queue 大小</li>
+<li>在高用量的環境，建議將 backlog 設大，以避免 client 連線緩慢</li>
+<li>相關資訊可以參考 <a href="http://www.jianshu.com/p/fe2228a77429" target="_blank">Linux TCP socket 開發中 listen backlog 的含義</a>,<a href="http://blog.clanzx.net/2014/05/17/listen-backlog.html" target="_blank">listen() 的 backlog 及 TCP 相關參數</a></li>
+</ol>
+
+<ul>
+<li><p>範例</p>
+
+<blockquote>
+<p><code>tcp-backlog 511</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>關於 Unix socket</p>
+
+<ul>
+<li>用來指定 unix socket 的連線路徑，預設不啟用監聽 unix socket</li>
+
+<li><p>範例</p>
+
+<blockquote>
+<p><code>unixsocket /tmp/redis.sock</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>關於 timeout</p>
+
+<ul>
+<li>指定秒數關閉閒置的連線，預設為 0 (不啟用)</li>
+
+<li><p>範例</p>
+
+<blockquote>
+<p><code>timeout 0</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>關於 TCP keepalive</p>
+
+<ul>
+<li><p>如果值不為 0 則設定 TCP 的 SO_KEEPALIVE 值，主要有兩個好處：</p>
+
+<ol>
+<li>檢測失效的連線</li>
+<li>避免連接兩端的網路設備有問題而出現正常連線的假象</li>
+</ol></li>
+
+<li><p>指定秒數發送 TCP ACK  訊號來進行確認</p></li>
+
+<li><p>偵測到關閉連線需耗費兩倍設定值的時間</p></li>
+
+<li><p>Redis 3.2.1 開始預設值為 300 秒</p></li>
+
+<li><p>範例</p>
+
+<blockquote>
+<p><code>tcp-keepalive 300</code></p>
+</blockquote></li>
+</ul></li>
+</ul>
+
+<h2 id="關於一般設定-general">關於一般設定(GENERAL)</h2>
+
+<ul>
+<li><p>關於 daemon</p>
+
+<ul>
+<li>預設不以 daemon(背景 service) 執行，以 command 方式啟動時會令 command prompt 進入互動模式</li>
+<li>如果啟用 daemon，會將資料寫入 pid file</li>
+<li>windows - Redis 3.2.1 版不支援這個設定</li>
+
+<li><p>範例</p>
+
+<p><code>daemonize no</code></p></li>
+</ul></li>
+
+<li><p>關於 supervised</p>
+
+<blockquote>
+<p>這個選項我看不懂用途，以下提供個人理解用</p>
+</blockquote>
+
+<ul>
+<li>透過 <code>upstart</code> 和 <code>systemd</code> 指令來管理 daemon 用</li>
+<li>可以用來確保 Redis 會自動重啟</li>
+<li>windows - Redis 3.2.1 版不支援這個設定</li>
+
+<li><p>範例</p>
+
+<blockquote>
+<p><code>supervised no</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>關於 pidfile</p>
+
+<ul>
+<li>用來指定 pid 路徑，會在啟動時寫入(建立檔案)，結束時移除(檔案)</li>
+<li>如果不是在 daemon 模式下<code>且</code>未指定 pid 路徑就不會建立 pid 檔</li>
+<li>在daemon 模式下，需要使用 pid 檔，此時會使用預設路徑 <code>/var/run/redis_6379.pid</code></li>
+<li>windows - Redis 3.2.1 版不支援這個設定</li>
+
+<li><p>範例</p>
+
+<blockquote>
+<p><code>pidfile /var/run/redis_6379.pid</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>關於 loglevel</p>
+
+<ul>
+<li><p>指定 log 級別</p>
+
+<ul>
+<li>debug:最大量 log，適用於開發、測試階段</li>
+<li>verbose:次多 log</li>
+<li>notice:適量 log，適合 production</li>
+<li>warning:僅重要、關鍵 log</li>
+</ul></li>
+
+<li><p>範例</p>
+
+<blockquote>
+<p><code>loglevel notice</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>關於 logfile</p>
+
+<ul>
+<li>指定 log 位置及檔名</li>
+<li>如果是空字串，就會使用 stdout(standard output) - windows 版 3.2.1 則是要指定 <code>stdout</code></li>
+<li>使用 daemon 且使用 standard output 時，log 會寫至 <code>dev/null</code></li>
+
+<li><p>範例</p>
+
+<blockquote>
+<p><code>logfile &quot;&quot;</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>關於 syslog-enabled</p>
+
+<ul>
+<li>將 log 寫至系統 log 中</li>
+<li>windows 環境下，使用 service 執行，會自動啟用</li>
+
+<li><p>範例</p>
+
+<blockquote>
+<p><code>syslog-enabled no</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>關於 syslog-ident</p>
+
+<ul>
+<li>設定 系統 log 名稱</li>
+
+<li><p>範例</p>
+
+<blockquote>
+<p><code>syslog-enabled no</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>關於 syslog-facility</p>
+
+<ul>
+<li>設定 syslog 設備</li>
+<li>必需是 USER 或者 LOCAL0 到 LOCAL7</li>
+<li>windows 版 3.2.1 不支援這個設定</li>
+
+<li><p>範例</p>
+
+<blockquote>
+<p><code>syslog-facility local0</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>關於 databases</p>
+
+<ul>
+<li>指定 redis instance db 數量</li>
+<li>連線時未指定 db id ，預設使用 db 0</li>
+
+<li><p>範例</p>
+
+<blockquote>
+<p><code>databases 16</code></p>
+</blockquote></li>
+</ul></li>
+</ul>
+
+<h1 id="參考資料">參考資料</h1>
+
+<ol>
+<li><a href="https://github.com/MSOpenTech/redis/blob/3.0/redis.conf" target="_blank">redis/redis.conf</a></li>
+<li><a href="https://iyaozhen.com/systemd-service-for-redis.html" target="_blank">創建 redis systemd 服務</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-16</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/sql-server-database-diagram/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">SQL Server 無法新增資料庫圖表(database diagram)</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/kafka-on-windows/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">如何在 Windows OS 安裝 Apache Kafka</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/redis-config\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>
