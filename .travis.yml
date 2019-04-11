@@ -7,7 +7,7 @@ go:
 # 分支白名單限制: 只有hugo分支的提交才會觸發構建
 branches:
   only:
-    - hugo 
+    - sourcecode 
 
 install:
 # 安裝最新的hugo
