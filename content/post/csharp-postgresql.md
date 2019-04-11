@@ -170,7 +170,7 @@ docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=pass.123 postgres
 ## 心得
 PostgreSQL 在普遍印象中是套 RDBMS - 關聯式資料庫管理系統，但因為 open source 的特性，讓許多社群及貢獻者得以持續改善，所以在儲存 json 的功能上有著不輸其他 NoSQL 的表現
 
-但就 C# client - Npgsql 的使用上來看，api 的操作上非常接近 ADP.NET：自行連線控制、手動準備 sql 指令及實際執行都非常相似，但近幾年多數 .NET 開發人員比較習慣的 LINQ 式操作在 Npgsql 上表現並不好
+但就 C# client - Npgsql 的使用上來看，api 的操作上非常接近 ADO.NET：自行連線控制、手動準備 sql 指令及實際執行都非常相似，但近幾年多數 .NET 開發人員比較習慣的 LINQ 式操作在 Npgsql 上表現並不好
 
 # 參考資訊
 1. [PostgreSQL Driver Quick Tour](http://PostgreSQL.github.io/mongo-csharp-driver/2.7/getting_started/quick_tour/)
