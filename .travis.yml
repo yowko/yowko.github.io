@@ -11,7 +11,7 @@ branches:
 
 install:
 # 安裝最新的hugo
-  - go get github.com/spf13/hugo 
+  - go get -v github.com/gohugoio/hugo 
 
 script:
 # 運行hugo命令
