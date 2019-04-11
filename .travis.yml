@@ -1,29 +1,42 @@
-language: go
+# https://docs.travis-ci.com/user/deployment/pages/
+# https://docs.travis-ci.com/user/reference/xenial/
+# https://docs.travis-ci.com/user/languages/python/
+# https://docs.travis-ci.com/user/customizing-the-build/
 
-go:
-  - "1.8"  # 指定Golang 1.8
+dist: xenial
+language: python
+python:
+  - "3.7"
 
-# Specify which branches to build using a safelist
-# 分支白名單限制: 只有hugo分支的提交才會觸發構建
-branches:
-  only:
-    - sourcecode 
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get -yq install apt-transport-https tor curl
 
+# install - install any dependencies required
 install:
-# 安裝最新的hugo
-  - go get -v github.com/gohugoio/hugo 
+    # install latest release version
+    # Github may forbid request from travis container, so use tor proxy
+    - sudo systemctl start tor
+    # - curl -fsL --socks5-hostname 127.0.0.1:9050 https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p;q}}' | xargs wget
+    - download_command='curl -fsSL -x socks5h://127.0.0.1:9050' # --socks5-hostname
+    - $download_command -O $($download_command https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p;q}}')
+    - sudo dpkg -i hugo*.deb
+    - rm -rf public 2> /dev/null
 
+# script - run the build script
 script:
-# 運行hugo命令
-  - hugo
+    - hugo
+    - echo 'blog.yowko.com' > public/CNAME
 
 deploy:
-  provider: pages # 重要，指定這是一份github pages的部署配置
-  skip-cleanup: true # 重要，不能省略
-  local-dir: public # 靜態站點文件所在目錄
-  target-branch: master # 要將靜態站點文件發佈到哪個分支
-  github-token: $GITHUB_TOKEN # 重要，$GITHUB_TOKEN是變量，需要在GitHub上申請、再到配置到Travis
-  fqdn: blog.yowko.com # 如果是自定義域名，此處要填
-  keep-history: true # 是否保持target-branch分支的提交記錄
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  email: $GITHUB_EMAIL
+  name: $GITHUB_USERNAME
+  verbose: true
+  keep-history: true
+  local-dir: public
+  target_branch: master  # branch contains blog content
   on:
-    branch: sourcecode # 博客源碼的分支
+    branch: sourcecode  # branch contains Hugo generator code
