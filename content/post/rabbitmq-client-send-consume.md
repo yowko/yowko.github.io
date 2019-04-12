@@ -7,6 +7,7 @@ tags: ["RabbitMQ","C#","套件"]
 slug: "rabbitmq-client-send-consume"
 aliases:
     - /2017/05/rabbitmq-client-send-consume.html
+    - /2017/may/rabbitmq-client-send-consume/
 ---
 # 使用 .Net client 連線至 RabbitMQ 收發訊息
 繼之前 [使用 RabbitMQ.Client 連線至 RabbitMQ 出現 BrokerUnreachableException](//blog.yowko.com/2017/05/rabbitmq-client-brokerunreachableexception.html) 問題解決後，終於又可以繼續測試 RabbitMQ 了，要比較的不僅僅是 mq 的能力，也要比較使用上的便利性及周邊管理功能或是其他套件的完整度，今天就先紀錄一下 RabbitMQ 的基本操作：收發訊息

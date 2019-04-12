@@ -7,6 +7,7 @@ tags: ["套件","MSTest","Unit Test"]
 slug: "moq-mock-protected-method"
 aliases:
     - /2017/07/moq-mock-protected-method.html
+    - /2017/07/moq-mock-protected-method/
 ---
 # 使用 Moq 來 Mock protected Method
 跟同事討論到在進行單元測試時，目標方法使用到其他非 public 方法，而且想要 mock 這個方法的回傳值該怎麼做？

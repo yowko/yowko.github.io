@@ -5,6 +5,8 @@ lastmod: 2018-08-22T02:40:52+08:00
 draft: false
 tags: ["Windows 10"]
 slug: "windows10-shutdown-recent-files"
+aliases:
+    - /2018/08/windows10-shutdown-recent-files/
 ---
 # Windows 10 關閉最近開啟檔案 (Recent files) 功能
 最近公司電腦的作業系統改為 Windows 10，儘管我個人電腦上一直使用 Windows 10 但兩者用途還是有些根本上的不同：公司電腦大部份的設定都是為了增加工作效率，而個人電腦除了個人興趣或是學習目的外還包含了一大部份的娛樂目的加上普遍使用時間較短，不少細微設定就沒有刻意去調整，像是 Recent files 這個就是其一，保留 Recent files 雖不至於造成問題，不過使得畫面看起來雜亂不少連帶影響工作情緒呀

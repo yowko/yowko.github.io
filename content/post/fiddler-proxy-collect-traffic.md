@@ -7,6 +7,7 @@ tags: ["Tools"]
 slug: "fiddler-proxy-collect-traffic"
 aliases:
     - /2017/03/use-fiddler-proxy-gather-traffic.html
+    - /2017/03/fiddler-proxy-collect-traffic/
 ---
 # 使用 fiddler 內建 proxy 來截錄手機或是程式封包
 某些情境下我們會使用 fiddler 來監控對外網路的 request 狀況，但有些情境下對外的 resource 是由程式或是 app 發動，fiddler 就無法直接取得相關資訊，今天就來紀錄一下平常我用來偵錯的方式：使用 fiddler 內建的 proxy 功能來蒐集並轉傳資訊
