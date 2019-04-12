@@ -1479,6 +1479,15 @@
     </item>
     
     <item>
+      <title>Visual Studio 無法使用 Yarn 安裝套件</title>
+      <link>https://blog.yowko.com/visual-studio-yarn/</link>
+      <pubDate>Fri, 27 Oct 2017 00:42:34 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/visual-studio-yarn/</guid>
+      <description>Visual Studio 無法使用 Yarn 安裝套件 最近新專案開發，不像以前有專責的前端工程師協助前端頁面處理，一切都要自己來，所以就出現需要在 Visual Studio 安裝前端套件的現象，今</description>
+    </item>
+    
+    <item>
       <title>使用指令 (jenkins cli) 來執行 Jenkins 動作：安裝 plugin、重新啟動...</title>
       <link>https://blog.yowko.com/jenkins-cli/</link>
       <pubDate>Thu, 26 Oct 2017 08:53:00 +0800</pubDate>

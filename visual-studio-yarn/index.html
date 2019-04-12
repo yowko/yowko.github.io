@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>將 IIS 站台離線做法 - 使用 App_offline.htm - Yowko&#39;s Notes</title>
+  <title>Visual Studio 無法使用 Yarn 安裝套件 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="將 IIS 站台離線做法 - 使用 App_offline.htm 同事問到 App_offline.htm 的功用，一時之間沒意會過來，只覺得應該沒用過，直到同事提到是用來將 iis 站台下線用，才想起原來是它！！ 既然忘記" />
+  <meta name="description" content="Visual Studio 無法使用 Yarn 安裝套件 最近新專案開發，不像以前有專責的前端工程師協助前端頁面處理，一切都要自己來，所以就出現需要在 Visual Studio 安裝前端套件的現象，今" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/iis-app-offline/" />
+<link rel="canonical" href="https://blog.yowko.com/visual-studio-yarn/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,27 +54,27 @@
 
 
 
-<meta property="og:title" content="將 IIS 站台離線做法 - 使用 App_offline.htm" />
-<meta property="og:description" content="將 IIS 站台離線做法 - 使用 App_offline.htm 同事問到 App_offline.htm 的功用，一時之間沒意會過來，只覺得應該沒用過，直到同事提到是用來將 iis 站台下線用，才想起原來是它！！ 既然忘記" />
+<meta property="og:title" content="Visual Studio 無法使用 Yarn 安裝套件" />
+<meta property="og:description" content="Visual Studio 無法使用 Yarn 安裝套件 最近新專案開發，不像以前有專責的前端工程師協助前端頁面處理，一切都要自己來，所以就出現需要在 Visual Studio 安裝前端套件的現象，今" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/iis-app-offline/" />
-<meta property="article:published_time" content="2017-10-27T00:45:00&#43;08:00"/>
-<meta property="article:modified_time" content="2018-09-27T00:45:41&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/visual-studio-yarn/" />
+<meta property="article:published_time" content="2017-10-27T00:42:34&#43;08:00"/>
+<meta property="article:modified_time" content="2017-10-27T00:42:34&#43;08:00"/>
 
-<meta itemprop="name" content="將 IIS 站台離線做法 - 使用 App_offline.htm">
-<meta itemprop="description" content="將 IIS 站台離線做法 - 使用 App_offline.htm 同事問到 App_offline.htm 的功用，一時之間沒意會過來，只覺得應該沒用過，直到同事提到是用來將 iis 站台下線用，才想起原來是它！！ 既然忘記">
-
-
-<meta itemprop="datePublished" content="2017-10-27T00:45:00&#43;08:00" />
-<meta itemprop="dateModified" content="2018-09-27T00:45:41&#43;08:00" />
-<meta itemprop="wordCount" content="395">
+<meta itemprop="name" content="Visual Studio 無法使用 Yarn 安裝套件">
+<meta itemprop="description" content="Visual Studio 無法使用 Yarn 安裝套件 最近新專案開發，不像以前有專責的前端工程師協助前端頁面處理，一切都要自己來，所以就出現需要在 Visual Studio 安裝前端套件的現象，今">
 
 
+<meta itemprop="datePublished" content="2017-10-27T00:42:34&#43;08:00" />
+<meta itemprop="dateModified" content="2017-10-27T00:42:34&#43;08:00" />
+<meta itemprop="wordCount" content="565">
 
-<meta itemprop="keywords" content="IIS," />
+
+
+<meta itemprop="keywords" content="Visual Studio,Tools," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="將 IIS 站台離線做法 - 使用 App_offline.htm"/>
-<meta name="twitter:description" content="將 IIS 站台離線做法 - 使用 App_offline.htm 同事問到 App_offline.htm 的功用，一時之間沒意會過來，只覺得應該沒用過，直到同事提到是用來將 iis 站台下線用，才想起原來是它！！ 既然忘記"/>
+<meta name="twitter:title" content="Visual Studio 無法使用 Yarn 安裝套件"/>
+<meta name="twitter:description" content="Visual Studio 無法使用 Yarn 安裝套件 最近新專案開發，不像以前有專責的前端工程師協助前端頁面處理，一切都要自己來，所以就出現需要在 Visual Studio 安裝前端套件的現象，今"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -147,8 +147,8 @@
       <div class="post-meta">
         <span class="post-time"> 2017-10-27 </span>
         
-        <span class="more-meta"> 約 395 字 </span>
-          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+        <span class="more-meta"> 約 565 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
     </header>
@@ -161,11 +161,12 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#將-iis-站台離線做法-使用-app-offline-htm">將 IIS 站台離線做法 - 使用 App_offline.htm</a>
+<li><a href="#visual-studio-無法使用-yarn-安裝套件">Visual Studio 無法使用 Yarn 安裝套件</a>
 <ul>
-<li><a href="#app-offline-htm-簡介"><code>App_offline.htm</code> 簡介</a></li>
-<li><a href="#使用方式">使用方式</a></li>
-<li><a href="#實際使用">實際使用</a></li>
+<li><a href="#操作步驟">操作步驟</a></li>
+<li><a href="#錯誤訊息">錯誤訊息</a></li>
+<li><a href="#問題確認">問題確認</a></li>
+<li><a href="#解決方式">解決方式</a></li>
 <li><a href="#心得">心得</a></li>
 </ul></li>
 <li><a href="#參考資訊">參考資訊</a></li>
@@ -181,82 +182,128 @@
     <div class="post-content">
       
 
-<h1 id="將-iis-站台離線做法-使用-app-offline-htm">將 IIS 站台離線做法 - 使用 App_offline.htm</h1>
+<h1 id="visual-studio-無法使用-yarn-安裝套件">Visual Studio 無法使用 Yarn 安裝套件</h1>
 
-<p>同事問到 <code>App_offline.htm</code> 的功用，一時之間沒意會過來，只覺得應該沒用過，直到同事提到是用來將 iis 站台下線用，才想起原來是它！！ 既然忘記當然就要紀錄一下囉</p>
+<p>最近新專案開發，不像以前有專責的前端工程師協助前端頁面處理，一切都要自己來，所以就出現需要在 Visual Studio 安裝前端套件的現象，今天遇到的問題是透過 Visual Studio 2015 使用 yarn 要安裝 vue.js 套件無法正確執行，就來看看該如何解決吧</p>
 
-<h2 id="app-offline-htm-簡介"><code>App_offline.htm</code> 簡介</h2>
-
-<ul>
-<li><p>功能</p>
-
-<blockquote>
-<p>用來將網站離線，可自訂訊息內容提供存取網站的使用者充份資訊，以改善使用者體驗，不致於看到錯誤畫面</p>
-</blockquote></li>
-
-<li><p>支援情況</p>
-
-<blockquote>
-<p>從 ASP.NET 2.0 開始支援，經測試 IIS 6.0 至 IIS 10.0 都可以正常使用，ASP.NET MVC、ASP.NET Core 皆可正常支援</p>
-</blockquote></li>
-</ul>
-
-<h2 id="使用方式">使用方式</h2>
+<h2 id="操作步驟">操作步驟</h2>
 
 <ol>
-<li><p>在網站根目錄中建立 <code>App_offline.htm</code></p>
+<li><p>專案按右鍵 &ndash;&gt; Quick Install Package&hellip;</p>
 
-<blockquote>
-<p><code>App_offline.htm</code> 內容以 html 語法編輯</p>
-</blockquote></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/32112595-42b0d59a-bb70-11e7-8802-69104964fda0.png" alt="0install1" /></p></li>
 
-<li><p>更新網站內容</p></li>
+<li><p>選擇 <code>Yarn</code> &ndash;&gt; 輸入套件名稱</p>
 
-<li><p>移除 <code>App_offline.htm</code></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/32112596-42d7954a-bb70-11e7-9191-f6c84f76d891.png" alt="0install2" /></p></li>
 </ol>
 
-<h2 id="實際使用">實際使用</h2>
+<h2 id="錯誤訊息">錯誤訊息</h2>
+
+<ul>
+<li><p>訊息內容</p>
+
+<pre><code>Installing pure-vue-select package from Yarn...
+'yarn' is not recognized as an internal or external command,operable program or batch file.
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32112597-42fd72d8-bb70-11e7-8e68-7c77077dd957.png" alt="1error" /></p></li>
+</ul>
+
+<h2 id="問題確認">問題確認</h2>
 
 <ol>
-<li><p>MVC 站台</p>
+<li><p>開啟 Package Manager Console</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32112598-4323403a-bb70-11e7-906f-3769288b8b9f.png" alt="2pmc" /></p></li>
+
+<li><p>確認 Yarn 指令是否可以正確使用</p>
 
 <ul>
-<li><p>正常服務</p>
+<li>執行 <code>yarn --version</code></li>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/32065529-92b0dbec-baaf-11e7-9d97-bd8e579ba29e.png" alt="1mvcnormal" /></p></li>
-
-<li><p>加上 <code>App_offline.htm</code></p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32065531-92ff4e26-baaf-11e7-99cf-b96a67b688f9.png" alt="2mvcoffline" /></p></li>
-</ul></li>
-
-<li><p>靜態網頁站台</p>
+<li><p>出現錯誤訊息</p>
 
 <ul>
-<li><p>正常服務</p>
+<li>訊息內容</li>
+</ul>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/32065533-93412526-baaf-11e7-88b7-9995e97e48ce.png" alt="3htmlnoramal" /></p></li>
+<pre><code>The term 'yarn' is not recognized as the name of a cmdlet, function, script file, or operable  program. Check the spelling of the name, or if a path was included, verify that the path is correct  and try again.At line:1 char:1
+yarn --version
+        
++ yarn --version
++ ~~~~
+    + CategoryInfo          : ObjectNotFound: (yarn:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+</code></pre>
 
-<li><p>加上 <code>App_offline.htm</code></p>
+<ul>
+<li><p>錯誤截圖</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/32065535-9373bbda-baaf-11e7-9741-c04ce94169d2.png" alt="4htmloffline" /></p></li>
-
-<li><p>仍然可以直接存取特定網頁</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32065536-939e5a20-baaf-11e7-8cf4-d8754b576ff8.png" alt="5htmlpass" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/32112599-43547592-bb70-11e7-8085-b9f704214dd6.png" alt="3yarnerror" /></p></li>
 </ul></li>
+</ul></li>
+
+<li><p>開啟 command prompt 執行 <code>yarn --version</code></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32112600-437a29e0-bb70-11e7-809b-340d2ef698e3.png" alt="4cmdyarn" /></p></li>
+</ol>
+
+<h2 id="解決方式">解決方式</h2>
+
+<p>看到上述錯誤後可以確認問題是 Visual Studio 找不到 <code>yarn.cmd</code> 檔案位置造成的，但在 command prompt 中指令又可以正確執行，這是因為 command prompt 使用的環境變數包含 <code>System Variables</code> 與 <code>User Variables</code> 的 <code>Path</code> 的內容，而 Visual Studio 則是使用環境變數中 <code>System Variables</code> 的 <code>Path</code> 內容</p>
+
+<ol>
+<li><p>將 Yarn.cmd 所在資料夾加入環境變數中 <code>System Variables</code> 的 <code>Path</code></p>
+
+<blockquote>
+<p>使用 PowerShell 執行加入指令</p>
+</blockquote>
+
+<ul>
+<li><p>格式
+&gt; <code>{username}</code> 請換成正確使用者名稱</p>
+
+<pre><code>$AddedLocation =&quot;;C:\Users\{username}\AppData\Roaming\npm&quot;
+$Reg = &quot;Registry::HKLM\System\CurrentControlSet\Control\Session Manager\Environment&quot;
+$OldPath = (Get-ItemProperty -Path &quot;$Reg&quot; -Name PATH).Path
+$NewPath= $OldPath + $AddedLocation
+Set-ItemProperty -Path &quot;$Reg&quot; -Name PATH –Value $NewPath
+</code></pre></li>
+
+<li><p>實例</p>
+
+<pre><code>$AddedLocation =&quot;;C:\Users\yowko.tsai\AppData\Roaming\npm&quot;
+$Reg = &quot;Registry::HKLM\System\CurrentControlSet\Control\Session Manager\Environment&quot;
+$OldPath = (Get-ItemProperty -Path &quot;$Reg&quot; -Name PATH).Path
+$NewPath= $OldPath + $AddedLocation
+Set-ItemProperty -Path &quot;$Reg&quot; -Name PATH –Value $NewPath
+</code></pre></li>
+</ul></li>
+
+<li><p>重啟 Visual Studio</p>
+
+<blockquote>
+<p>重啟 Visual Studio 才能吃到新的環境變數設定</p>
+</blockquote></li>
+
+<li><p>正常使用</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32112601-43a04242-bb70-11e7-9ff6-88a2f4be56e0.png" alt="5yarnok" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32112603-43c65720-bb70-11e7-88d0-0a7c1c8e6e4b.png" alt="6yarninstalled" /></p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p><code>App_offline.htm</code> 用法如果不是經同事一問，我想可能會一直遺忘下去，剛好趁這個機會順便測試了 IIS 8 以上版本，確認一樣可行，只是有點美中不足的是在靜態網頁站台，如果直接使用特定頁面存取可以 bypass <code>App_offline.htm</code> 的設定，這點要特別留意</p>
+<p>問題解決方式很普遍，發生原因也很容易猜想的到，主要是想紀錄一下一般 command prompt 使用環境變數與 Visual Studio 使用環境變數的不同，另外就是使用 PowerShell 修改環境變數的語法</p>
 
 <h1 id="參考資訊">參考資訊</h1>
 
 <ol>
-<li><a href="https://msdn.microsoft.com/zh-tw/library/f735abw9%28v=vs.100%29.aspx" target="_blank">逐步解說：使用 XCOPY 部署 ASP.NET Web 應用程式</a></li>
-<li><a href="https://msdn.microsoft.com/zh-tw/library/ff925031%28v=vs.100%29.aspx" target="_blank">HOW TO：準備部署 Web 專案</a></li>
-<li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/hosting/aspnet-core-module" target="_blank">ASP.NET 核心模組的組態參考</a></li>
+<li><a href="http://www.computerperformance.co.uk/powershell/powershell_env_path.htm" target="_blank">PowerShell&rsquo;s Path Environmental Variable</a></li>
 </ol>
 
     </div>
@@ -269,7 +316,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-09-27</span>
+    <span class="item-content">2017-10-27</span>
   </p>
   
   <p class="copyright-item">
@@ -291,7 +338,11 @@
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/iis/">IIS</a>
+            <a href="https://blog.yowko.com/tags/visual-studio/">Visual Studio</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
           
         </div>
 
@@ -299,18 +350,18 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/visual-studio-ecmascript-level/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/iis-app-offline/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">Visual Studio JavaScript 編輯視窗出現 ECMAScript 錯誤提示</span>			
+            <span class="next-text nav-default">將 IIS 站台離線做法 - 使用 App_offline.htm</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/visual-studio-yarn/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/jenkins-cli/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">Visual Studio 無法使用 Yarn 安裝套件</span>			
+            <span class="prev-text nav-default">使用指令 (jenkins cli) 來執行 Jenkins 動作：安裝 plugin、重新啟動...</span>			
           </a>
 		  </div>
       </nav>
@@ -321,7 +372,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/iis-app-offline\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/visual-studio-yarn\/';  
       
     };
 

@@ -2,12 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.yowko.com/tags/docker/</loc>
-    <lastmod>2019-03-17T21:30:31+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.yowko.com/tags/mac/</loc>
     <lastmod>2019-03-17T21:30:31+08:00</lastmod>
     <priority>0</priority>
@@ -35,6 +29,12 @@
   <url>
     <loc>https://blog.yowko.com/</loc>
     <lastmod>2019-07-23T22:53:29+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/tags/docker/</loc>
+    <lastmod>2019-03-17T21:30:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1547,6 +1547,13 @@
   <url>
     <loc>https://blog.yowko.com/iis-app-offline/</loc>
     <lastmod>2018-09-27T00:45:41+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/visual-studio-yarn/</loc>
+    <lastmod>2017-10-27T00:42:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
