@@ -6,10 +6,19 @@
     <description>Recent content in dotnet core on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 13 Mar 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 13 Apr 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/dotnet-core/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Jaeger 追蹤 ASP.NET Core 呼叫</title>
+      <link>https://blog.yowko.com/jaeger-trace-aspdotnet-core/</link>
+      <pubDate>Sat, 13 Apr 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jaeger-trace-aspdotnet-core/</guid>
+      <description>使用 Jaeger 追蹤 ASP.NET Core 呼叫 之前筆記 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 紀錄到如何使用 Jaeger 來追蹤 .NET Core Console project 中 gRPC 的呼叫歷程，不過想必未來應該免不了還是需要使用 REST api 的專案，</description>
+    </item>
     
     <item>
       <title>.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫</title>

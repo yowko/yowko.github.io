@@ -2,16 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.yowko.com/tags/mac/</loc>
-    <lastmod>2019-03-17T21:30:31+08:00</lastmod>
+    <loc>https://blog.yowko.com/tags/asp.net-core/</loc>
+    <lastmod>2019-04-13T21:30:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.yowko.com/macbook-bootcamp-enable-virtualization/</loc>
-    <lastmod>2019-03-17T21:30:31+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <loc>https://blog.yowko.com/tags/jaeger/</loc>
+    <lastmod>2019-04-13T21:30:31+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -33,9 +32,35 @@
   </url>
   
   <url>
+    <loc>https://blog.yowko.com/tags/dotnet-core/</loc>
+    <lastmod>2019-04-13T21:30:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/jaeger-trace-aspdotnet-core/</loc>
+    <lastmod>2019-04-13T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/tags/docker/</loc>
     <lastmod>2019-03-17T21:30:31+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/tags/mac/</loc>
+    <lastmod>2019-03-17T21:30:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/macbook-bootcamp-enable-virtualization/</loc>
+    <lastmod>2019-03-17T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
@@ -71,18 +96,6 @@
   </url>
   
   <url>
-    <loc>https://blog.yowko.com/tags/jaeger/</loc>
-    <lastmod>2019-03-13T21:30:31+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.yowko.com/tags/dotnet-core/</loc>
-    <lastmod>2019-03-13T21:30:31+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.yowko.com/protobuf-datetime-timestamp/</loc>
     <lastmod>2019-03-12T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -106,12 +119,6 @@
     <lastmod>2019-03-10T23:00:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.yowko.com/tags/asp.net-core/</loc>
-    <lastmod>2019-03-10T21:00:31+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
