@@ -190,7 +190,7 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
         {
             public override Task<Response> SayHello(HelloRequest request, ServerCallContext context)
             {
-                return new Task<Response>(() =>
+                return Task.Run(() =>
                 {
                     return new Response
                     {
@@ -202,7 +202,7 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
 
             public override Task<Response> SayGoodbye(GoodByeRequest request, ServerCallContext context)
             {
-                return new Task<Response>(() =>
+                return Task.Run(() =>
                 {
                     return new Response
                     {
