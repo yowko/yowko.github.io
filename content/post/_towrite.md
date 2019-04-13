@@ -252,3 +252,22 @@ https://stackoverflow.com/a/48171460
 
 
 # launchsetting ? 用途
+
+
+# remove sunmodule
+https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule
+https://www.jianshu.com/p/ed0cb6c75e25
+https://blog.csdn.net/pcjustin/article/details/79350987
+
+
+# jaeger span trace
+https://www.one-tab.com/page/WKmyH1KiRt6oH1o59MQcnw
+
+
+# 程式關閉 .net core 
+http://www.dalbll.com/Group/Topic/ASP.NET/7315
+https://thinkrethink.net/2017/03/09/application-shutdown-in-asp-net-core/
+
+
+# docker-compose pass env
+https://stackoverflow.com/questions/49293967/how-to-pass-environment-variable-to-docker-compose-up
