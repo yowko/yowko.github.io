@@ -7,6 +7,7 @@ tags: ["Visual Studio","MSBuild"]
 slug: "visual-studio-pre-build-event-post-build-event"
 aliases:
     - /2017/01/visual-studio-pre-build-event-post-build-event.html
+    - /2017/01/visual-studio-pre-build-event-post-build-event/
 ---
 # Visual Studio 建置前事件( Pre-build Event ) / 建置後事件( Post-build Event)
 同事在`被`參考的專案中新增一個 config 檔案，並且設為 `Copy always`，設定後 config 檔案會在發行時自動加入 bin 資料夾，但考慮到可能日後會直接修改線上設定，不想直接修改位於 bin 資料夾內的 config 檔案而引發 IIS recycle，所以希望可以把 config 搬離 bin 資料夾，所以打算透過 Visual Studio 的 Build Events 來將 config 檔案移出 bin 資料夾，需要讀取該檔案的位置再透過相對路徑來讀取
