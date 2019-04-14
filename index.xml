@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 13 Apr 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 14 Apr 2019 15:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Jaeger 追蹤 ASP.NET Core 中的 class 呼叫</title>
+      <link>https://blog.yowko.com/jaeger-trace-aspdotnet-core-class-call/</link>
+      <pubDate>Sun, 14 Apr 2019 15:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jaeger-trace-aspdotnet-core-class-call/</guid>
+      <description>使用 Jaeger 追蹤 ASP.NET Core 中的 class 呼叫 之前筆記 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 與 使用 Jaeger 追蹤 ASP.NET Core 呼叫 分別紀錄到使用 Jaeger 來紀錄 gRPC call 與 ASP.NET Core Web API 的呼叫歷程內容，接著紀錄另個常</description>
+    </item>
     
     <item>
       <title>使用 Jaeger 追蹤 ASP.NET Core 呼叫</title>

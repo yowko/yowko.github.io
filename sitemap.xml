@@ -3,13 +3,13 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/asp.net-core/</loc>
-    <lastmod>2019-04-13T21:30:31+08:00</lastmod>
+    <lastmod>2019-04-14T15:30:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/tags/jaeger/</loc>
-    <lastmod>2019-04-13T21:30:31+08:00</lastmod>
+    <lastmod>2019-04-14T15:30:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -33,8 +33,15 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/dotnet-core/</loc>
-    <lastmod>2019-04-13T21:30:31+08:00</lastmod>
+    <lastmod>2019-04-14T15:30:31+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/jaeger-trace-aspdotnet-core-class-call/</loc>
+    <lastmod>2019-04-14T15:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
