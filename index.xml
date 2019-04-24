@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 14 Apr 2019 15:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 24 Apr 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>將 ASP.NET Core 部署至 Docker 中</title>
+      <link>https://blog.yowko.com/aspnet-core-docker/</link>
+      <pubDate>Wed, 24 Apr 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspnet-core-docker/</guid>
+      <description>將 ASP.NET Core 部署至 Docker 中 最近專案在 macOS 上開發 ASP.NET Core 的 Web API，完成後再透過 Docker 包成 image 準備建立 container，流程很直覺，加上 CI CD 同事都已經準備好了，所</description>
+    </item>
     
     <item>
       <title>使用 Jaeger 追蹤 ASP.NET Core 中的 class 呼叫</title>
