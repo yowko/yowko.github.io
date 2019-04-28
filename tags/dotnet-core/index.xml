@@ -6,10 +6,19 @@
     <description>Recent content in dotnet core on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 14 Apr 2019 15:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 28 Apr 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/dotnet-core/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>為 .NET Core Middleware 加上 Unit Test</title>
+      <link>https://blog.yowko.com/dotnet-core-middieware-unit-test/</link>
+      <pubDate>Sun, 28 Apr 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-core-middieware-unit-test/</guid>
+      <description>為 .NET Core Middleware 加上 Unit Test .NET Core 的 Middleware 在 .NET Core 的 pipeline 中扮演了非常重要的角色，因此在實際應用上更需要確保功能與結果符合預期。第一次寫 middleware 的 unit test 順手紀錄過程，看看在</description>
+    </item>
     
     <item>
       <title>使用 Jaeger 追蹤 ASP.NET Core 中的 class 呼叫</title>

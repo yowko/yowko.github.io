@@ -6,10 +6,28 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 24 Apr 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 28 Apr 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>為 .NET Core Middleware 加上 Unit Test</title>
+      <link>https://blog.yowko.com/dotnet-core-middieware-unit-test/</link>
+      <pubDate>Sun, 28 Apr 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-core-middieware-unit-test/</guid>
+      <description>為 .NET Core Middleware 加上 Unit Test .NET Core 的 Middleware 在 .NET Core 的 pipeline 中扮演了非常重要的角色，因此在實際應用上更需要確保功能與結果符合預期。第一次寫 middleware 的 unit test 順手紀錄過程，看看在</description>
+    </item>
+    
+    <item>
+      <title>使用 Play-With-Kubernetes 服務建立 Kubernetes Cluster</title>
+      <link>https://blog.yowko.com/play-with-kubernetes-cluster/</link>
+      <pubDate>Fri, 26 Apr 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/play-with-kubernetes-cluster/</guid>
+      <description>使用 Play-With-Kubernetes 服務建立 Kubernetes Cluster 之前都是透過 Azure VM 來建立 Kubernetes 環境，使用上沒什麼問題，唯一缺點就是勞民傷財，想測個功能才來架整個 Kubernetes cluster 有點緩不濟急，但常態保留 Kubernetes Cluster</description>
+    </item>
     
     <item>
       <title>將 ASP.NET Core 部署至 Docker 中</title>

@@ -6,10 +6,19 @@
     <description>Recent content in Kubernetes on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 20 May 2018 10:16:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 26 Apr 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Play-With-Kubernetes 服務建立 Kubernetes Cluster</title>
+      <link>https://blog.yowko.com/play-with-kubernetes-cluster/</link>
+      <pubDate>Fri, 26 Apr 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/play-with-kubernetes-cluster/</guid>
+      <description>使用 Play-With-Kubernetes 服務建立 Kubernetes Cluster 之前都是透過 Azure VM 來建立 Kubernetes 環境，使用上沒什麼問題，唯一缺點就是勞民傷財，想測個功能才來架整個 Kubernetes cluster 有點緩不濟急，但常態保留 Kubernetes Cluster</description>
+    </item>
     
     <item>
       <title>Windows 慣用者如何在 Red Hat Enterprise Linux 7.5 (CentOS ) 上使用 kubeadm 架設 Kubernetes (K8s)</title>
