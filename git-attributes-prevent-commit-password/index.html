@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -236,8 +236,7 @@ Param([string]$filePath)
 $Config.configuration.connectionStrings.add| foreach {$_.connectionString=$_.connectionString -replace '(data source|user id|password)=(.*?);','$1= - ;'}
 # 將取代完成的內容存檔
 $Config.Save($filePath)
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="設定-git-attributes">設定 Git Attributes</h2>
 
@@ -266,7 +265,8 @@ git commit -m &quot;clean connectionstring data via gitattributes&quot;
 <h2 id="修改效果">修改效果</h2>
 
 <ol>
-<li><p>在 web.config 新增一組有連線字串、帳號、密碼的 connectionstring</p>
+<li>在 web.config 新增一組有連線字串、帳號、密碼的 connectionstring</li>
+</ol>
 
 <pre><code class="language-xml">&lt;add name=&quot;TestEntities&quot; connectionString=&quot;metadata=res://*/Models.sn.csdl|res://*/Models.sn.ssdl|res://*/Models.sn.msl;provider=System.Data.SqlClient;provider connection string=&amp;quot;data source=YOWKOMAC-WIN10\SQLEXPRESS;Initial Catalog=Test;Persist Security Info=True;User ID=TestUser;Password=TestPwd;Pooling=False;MultipleActiveResultSets=False;App=EntityFramework&amp;quot;&quot; providerName=&quot;System.Data.EntityClient&quot; /&gt;
 </code></pre></li>
@@ -276,9 +276,11 @@ git commit -m &quot;clean connectionstring data via gitattributes&quot;
 <pre><code class="language-xml">&lt;appSettings&gt;
     &lt;add key=&quot;eee&quot; value=&quot;jjjj&quot; /&gt;
 &lt;/appSettings&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>在將變更加入 index (列入準備 commit) 時會觸發清除動作</p>
+<ol>
+<li>在將變更加入 index (列入準備 commit) 時會觸發清除動作</li>
+</ol>
 
 <ul>
 <li><p>connrection 的機敏資訊已被清楚</p>
@@ -288,8 +290,7 @@ git commit -m &quot;clean connectionstring data via gitattributes&quot;
 <li><p>其他設定未受影響</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/26033978/e83f9534-38e7-11e7-9312-912956dfbc26.png" alt="2others" /></p></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="注意事項">注意事項</h2>
 
@@ -310,6 +311,7 @@ git commit -m &quot;clean connectionstring data via gitattributes&quot;
 <li><a href="http://stackoverflow.com/questions/5629261/running-powershell-scripts-as-git-hooks" target="_blank">Running PowerShell scripts as git hooks</a></li>
 <li><a href="http://stackoverflow.com/questions/871549/how-do-i-read-write-app-config-settings-with-powershell" target="_blank">How do I read/write App.config settings with PowerShell?</a></li>
 <li><a href="http://stackoverflow.com/questions/32427730/replace-only-first-occurence-of-a-character-in-filenames" target="_blank">Replace only first occurence of a character in filenames</a></li>
+</ol></li>
 </ol>
 
     </div>

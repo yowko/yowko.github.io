@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2018-05-18T00:45:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-06T11:17:03&#43;08:00" />
-<meta itemprop="wordCount" content="1015">
+<meta itemprop="wordCount" content="1016">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-05-18 </span>
         
-        <span class="more-meta"> 約 1015 字 </span>
+        <span class="more-meta"> 約 1016 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -221,9 +221,12 @@
 
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>實際使用</p>
+<ul>
+<li>實際使用
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">//設定 config
 NLogLINQPadExtensions.ConfigureLogging();
@@ -272,8 +275,7 @@ public static class NLogLINQPadExtensions
 
     }
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="方法二-將-nlog-config-跟-linqpad-exe-放一起">方法二： 將 Nlog.config 跟 LINQPad.exe 放一起</h2>
 
@@ -282,7 +284,9 @@ public static class NLogLINQPadExtensions
 </blockquote>
 
 <ol>
-<li><p>準備 <code>Nlog.config</code></p>
+<li>準備 <code>Nlog.config</code>
+<br /></li>
+</ol>
 
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
 &lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;
@@ -299,7 +303,9 @@ public static class NLogLINQPadExtensions
 &lt;/rules&gt;
 &lt;/nlog&gt;
 </code></pre></li>
+</ul>
 
+<ol>
 <li><p>將 <code>Nlog.exe</code> 與 LINQPad.exe 放在一起</p>
 
 <blockquote>
@@ -313,21 +319,21 @@ public static class NLogLINQPadExtensions
     var logger = LogManager.GetCurrentClassLogger();
     logger.Debug(&quot;Yowko Test&quot;);
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="方法三-透過-linqpad-設定-nlog-config">方法三： 透過 LINQPad 設定 nlog.config</h2>
 
 <ol>
-<li><p>開啟 app.config</p>
+<li>開啟 app.config
+<br /></li>
+</ol>
 
 <blockquote>
 <p>空白處 按右鍵 &ndash;&gt;  app.config</p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/40189133-37448e06-5a2e-11e8-9db7-24f69f326324.png" alt="1openappconfig" /></p></li>
-
-<li><p>將 nlog.config 內容填入</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/40189133-37448e06-5a2e-11e8-9db7-24f69f326324.png" alt="1openappconfig" />
+2. 將 nlog.config 內容填入</p>
 
 <blockquote>
 <p>記得指定 <code>configSections</code></p>
@@ -357,8 +363,7 @@ public static class NLogLINQPadExtensions
     var logger = LogManager.GetCurrentClassLogger();
     logger.Debug(&quot;Yowko Test&quot;);
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="心得">心得</h2>
 
@@ -373,6 +378,7 @@ public static class NLogLINQPadExtensions
 <ol>
 <li><a href="https://stackoverflow.com/questions/24024336/nlog-via-linqpad-where-to-put-config-file" target="_blank">NLog via LINQPad - Where to put config file?</a></li>
 <li><a href="https://gist.github.com/yoeun/3353036" target="_blank">yoeun/app.config.xml</a></li>
+</ol></li>
 </ol>
 
     </div>

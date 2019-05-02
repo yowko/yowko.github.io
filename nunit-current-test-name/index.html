@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -280,16 +280,19 @@
         return db.KeyDelete(key);
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>平行執行會出錯</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/54087643-c79f4900-438f-11e9-8e44-ea29a918415d.png" alt="1parallelfail" /></p></li>
-
-<li><p>單獨測試則正常</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/54087644-c79f4900-438f-11e9-974c-91783f8fa12d.png" alt="2singlepass" /></p></li>
+<ol>
+<li>平行執行會出錯</li>
 </ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/54087643-c79f4900-438f-11e9-8e44-ea29a918415d.png" alt="1parallelfail" /></p>
+
+<ol>
+<li>單獨測試則正常</li>
+</ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/54087644-c79f4900-438f-11e9-974c-91783f8fa12d.png" alt="2singlepass" /></p>
 
 <h2 id="解決方式-使用當前測試方法名稱當做測試變數">解決方式：使用當前測試方法名稱當做測試變數</h2>
 
@@ -299,74 +302,75 @@
 
 <pre><code class="language-cs">public class Tests
 {
-    private static ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(&quot;localhost&quot;);
-    private static IDatabase db = redis.GetDatabase();
-    private string key;
-    private string value;
-    [SetUp]
-    public void InitData() {
-        key = &quot;Name&quot;;
-        value = &quot;Yowko&quot;;
-    }
-    [Test]
-    [Parallelizable]
-    public void AddData()
-    {
-        //arrange
-        var expect = true;
-        var key = TestContext.CurrentContext.Test.Name;
-        
-        //act
-        var actual = SetDataToRedis(key, value);
-        #region - Remove Data -
-        var deleteActual = DeleteDataFromRedis(key);
-        #endregion
-        //assert
-        actual.Should().Be(expect);
-        deleteActual.Should().Be(expect);
-    }
-    [Test]
-    [Parallelizable]
-    public void UpdateData()
-    {
-        //arrange
-        var expect = &quot;Yowko_update&quot;;
-        var key = TestContext.CurrentContext.Test.Name;
-        SetDataToRedis(key,value);
-        SetDataToRedis(key, expect);
-        //act
-        var actual = db.StringGet(key);
-        #region - Remove Data -
-        var deleteActual = DeleteDataFromRedis(key);
-        #endregion
-        //assert
-        actual.Should().Be(expect);
-        deleteActual.Should().BeTrue();
-    }
-    [Test]
-    [Parallelizable]
-    public void DeleteData()
-    {
-        //arrange
-        var expect = true;
-        var key = TestContext.CurrentContext.Test.Name;
-        SetDataToRedis(key, value);
-        //act
-        var actual = DeleteDataFromRedis(key);
-        
-        //assert
-        actual.Should().Be(expect);
-    }
-    private bool SetDataToRedis(string key, string value)
-    {
-        return db.StringSet(key, value);
-    }
-    private bool DeleteDataFromRedis(string key)
-    {
-        return db.KeyDelete(key);
-    }
+private static ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(&quot;localhost&quot;);
+private static IDatabase db = redis.GetDatabase();
+private string key;
+private string value;
+[SetUp]
+public void InitData() {
+    key = &quot;Name&quot;;
+    value = &quot;Yowko&quot;;
 }
-</code></pre>
+[Test]
+[Parallelizable]
+public void AddData()
+{
+    //arrange
+    var expect = true;
+    var key = TestContext.CurrentContext.Test.Name;
+        
+    //act
+    var actual = SetDataToRedis(key, value);
+    #region - Remove Data -
+    var deleteActual = DeleteDataFromRedis(key);
+    #endregion
+    //assert
+    actual.Should().Be(expect);
+    deleteActual.Should().Be(expect);
+}
+[Test]
+[Parallelizable]
+public void UpdateData()
+{
+    //arrange
+    var expect = &quot;Yowko_update&quot;;
+    var key = TestContext.CurrentContext.Test.Name;
+    SetDataToRedis(key,value);
+    SetDataToRedis(key, expect);
+    //act
+    var actual = db.StringGet(key);
+    #region - Remove Data -
+    var deleteActual = DeleteDataFromRedis(key);
+    #endregion
+    //assert
+    actual.Should().Be(expect);
+    deleteActual.Should().BeTrue();
+}
+[Test]
+[Parallelizable]
+public void DeleteData()
+{
+    //arrange
+    var expect = true;
+    var key = TestContext.CurrentContext.Test.Name;
+    SetDataToRedis(key, value);
+    //act
+    var actual = DeleteDataFromRedis(key);
+        
+    //assert
+    actual.Should().Be(expect);
+}
+private bool SetDataToRedis(string key, string value)
+{
+    return db.StringSet(key, value);
+}
+private bool DeleteDataFromRedis(string key)
+{
+    return db.KeyDelete(key);
+}
+}
+</code></pre></li>
+</ol>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/54087645-c79f4900-438f-11e9-833b-b2f41426690f.png" alt="3allsuccess" /></p>
 

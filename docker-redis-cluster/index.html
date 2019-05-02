@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -459,9 +459,11 @@ networks:
 <li><p>進入 <code>docker-redis-cluster</code> 資料夾中</p>
 
 <pre><code class="language-bash">cd docker-redis-cluster
-</code></pre></li>
+</code></pre>
 
-<li><p>啟動 Redis Cluster</p>
+<ol>
+<li>啟動 Redis Cluster</li>
+</ol>
 
 <pre><code class="language-bash">docker-compose up -d --build
 </code></pre></li>
@@ -475,8 +477,7 @@ networks:
 <pre><code class="language-bash">docker exec -it redis-master1 redis-cli -a pass.123 -c cluster info
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/53691578-dbf5ab80-3dbb-11e9-90af-026926abc619.png" alt="2clusterinfo" /></p></li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/53691578-dbf5ab80-3dbb-11e9-90af-026926abc619.png" alt="2clusterinfo" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -496,6 +497,7 @@ networks:
 <li><a href="https://stackoverflow.com/questions/52257866/how-to-answer-install-question-in-dockerfile" target="_blank">How to answer install question in dockerfile?</a></li>
 <li><a href="https://blog.csdn.net/hechaojie_com/article/details/83625265" target="_blank">docker-compose自定義網絡，固定容器ip地址</a></li>
 <li><a href="https://redis.io/topics/cluster-tutorial" target="_blank">Redis cluster tutorial</a></li>
+</ol></li>
 </ol>
 
     </div>

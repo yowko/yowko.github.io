@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2018-11-25T23:45:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-11-25T23:44:30&#43;08:00" />
-<meta itemprop="wordCount" content="623">
+<meta itemprop="wordCount" content="624">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-11-25 </span>
         
-        <span class="more-meta"> 約 623 字 </span>
+        <span class="more-meta"> 約 624 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -202,9 +202,11 @@
         Delete
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>管理系統參考該 dll 並使用其中的 StatusEnum 做為 Order 的狀態</p>
+<ol>
+<li>管理系統參考該 dll 並使用其中的 StatusEnum 做為 Order 的狀態</li>
+</ol>
 
 <pre><code class="language-cs">namespace ManagementTool.Models
 {
@@ -249,13 +251,14 @@
         DeleteToApprove
     }
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="如何使用">如何使用</h2>
 
 <ol>
-<li><p>兩個 enum 皆存在的值</p>
+<li>兩個 enum 皆存在的值
+<br /></li>
+</ol>
 
 <blockquote>
 <p>直接轉型即可對應</p>
@@ -279,11 +282,11 @@ StatusEnum status2 = (StatusEnum)StatusExtendEnum.Create;
 StatusEnum status2 = (StatusEnum)StatusExtendEnum.CreateToApprove;
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/49029106-d138e280-f1de-11e8-996a-c6e3e8893152.png" alt="2diffcontent" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/49029106-d138e280-f1de-11e8-996a-c6e3e8893152.png" alt="2diffcontent" /></p>
 
-<li><p>在參數傳遞或是物件指派上也沒有問題</p>
+<ol>
+<li>在參數傳遞或是物件指派上也沒有問題</li>
 
-<ul>
 <li><p>參數傳遞</p>
 
 <pre><code class="language-cs">void Main()
@@ -299,9 +302,8 @@ void DumpStatus(StatusEnum status)
 }
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/49029107-d1d17900-f1de-11e8-87e5-d0bc9e55f22f.png" alt="3passparam" /></p></li>
-
-<li><p>物件指派</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/49029107-d1d17900-f1de-11e8-87e5-d0bc9e55f22f.png" alt="3passparam" />
+- 物件指派</p>
 
 <pre><code class="language-cs">Order order = new Order { Id = 1, Status = (StatusEnum)StatusExtendEnum.UpdateToApprove };
     
@@ -309,7 +311,6 @@ order.Dump();
 </code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/49029108-d1d17900-f1de-11e8-9796-c68e481f77b2.png" alt="4objectinit" /></p></li>
-</ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>
@@ -322,6 +323,7 @@ order.Dump();
 
 <ol>
 <li><a href="https://social.msdn.microsoft.com/Forums/en-US/b8a3b217-21a8-4f1c-9fc6-0cf4243d6958/how-to-extend-existing-enum-or-what-to-do-when-i-cant-cast?forum=csharplanguage" target="_blank">How to extend existing enum (or what to do when I can&rsquo;t cast?)</a></li>
+</ol></li>
 </ol>
 
     </div>

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -278,8 +278,7 @@ Get-Service WinRm
 
 <li><p>英文錯誤訊息</p>
 
-<p><img src="https://trello-attachments.s3.amazonaws.com/58565d13cc3c5798c4ee263b/1200x403/331dc79316547acadd6e3e5fd5d659e9/_output_3ox8009090e.png" alt="3ox8009090e" /></p></li>
-</ul>
+<p><img src="https://trello-attachments.s3.amazonaws.com/58565d13cc3c5798c4ee263b/1200x403/331dc79316547acadd6e3e5fd5d659e9/_output_3ox8009090e.png" alt="3ox8009090e" /></p>
 
 <pre><code>New-PSSession : [Yowko-Server2016] Connecting to remote server Yowko-Server2016 failed with the            llowing error message : WinRM cannot process the request. The following error with errorcode    009030e    occurred while using Negotiate authentication:
 A specified logon session does not exist. It may already have been terminated.
@@ -301,6 +300,7 @@ At line:1 char:1
 + CategoryInfo          : OpenError: (System.Manageme....RemoteRunspace:RemoteRunspace) [New-PSSession],          PSRemotingTran sportException
 + FullyQualifiedErrorId : 1312,PSSessionOpenFailed
 </code></pre></li>
+</ul></li>
 
 <li><p>Access is denied.</p>
 
@@ -328,8 +328,7 @@ At line:1 char:1
 
 <li><p>英文錯誤訊息</p>
 
-<p><img src="https://trello-attachments.s3.amazonaws.com/58565d13cc3c5798c4ee263b/1200x179/f55cbea1f5803d06f334f4c40f8d227d/_output_4accessdenied.png" alt="4accessdenied" /></p></li>
-</ul>
+<p><img src="https://trello-attachments.s3.amazonaws.com/58565d13cc3c5798c4ee263b/1200x179/f55cbea1f5803d06f334f4c40f8d227d/_output_4accessdenied.png" alt="4accessdenied" /></p>
 
 <pre><code>New-PSSession : [Yowko-Server2016] Connecting to remote server Yowko-Server2016 failed with the ollowing error message : Access is denied. For more information, see the about_Remote_Troubleshooting elp topic.    
 At line:1 char:1    
@@ -338,6 +337,7 @@ At line:1 char:1
 + CategoryInfo          : OpenError: (System.Manageme....RemoteRunspace:RemoteRunspace) [New-PSSession],PSRemotingTran sportException        
 + FullyQualifiedErrorId : AccessDenied,PSSessionOpenFailed
 </code></pre></li>
+</ul></li>
 
 <li><p>The WinRM client cannot process the request</p>
 
@@ -346,8 +346,7 @@ At line:1 char:1
 
 <li><p>中文錯誤訊息</p>
 
-<p><img src="https://trello-attachments.s3.amazonaws.com/58565d13cc3c5798c4ee263b/1175x187/68c3177160b3cbfe9022c506553e1bed/_output_3htrustedhost.png" alt="3htrustedhost" /></p></li>
-</ul>
+<p><img src="https://trello-attachments.s3.amazonaws.com/58565d13cc3c5798c4ee263b/1175x187/68c3177160b3cbfe9022c506553e1bed/_output_3htrustedhost.png" alt="3htrustedhost" /></p>
 
 <pre><code>New-PSSession : [192.168.31.102] 連線到遠端伺服器 192.168.31.102 失敗，傳回下列錯誤訊息: WinRM 用戶端無法處該要求。若驗證配置與 Kerberos 不同，或是用戶端電腦沒有加入網域， 則必須使用 HTTPS 傳輸，或是將目標電腦新增到 rustedHosts 組態設定中。 請使用 winrm.cmd 來設定 TrustedHosts。請注意，可能不會驗證在 TrustedHosts 清單中的腦。 您可以執行下列命令，以取得相關的詳細資訊: winrm help config。 如需詳細資訊，請參閱 bout_Remote_Troubleshooting 說明主題。
 位於 線路:1 字元:1    
@@ -355,13 +354,11 @@ At line:1 char:1
 + ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    
 + CategoryInfo          : OpenError: (System.Manageme....RemoteRunspace:RemoteRunspace) [New-PSSession],    PSRemotingTransportException    
 + FullyQualifiedErrorId : ServerNotTrusted,PSSessionOpenFailed
-</code></pre>
+</code></pre></li>
 
-<ul>
 <li><p>英文錯誤訊息</p>
 
-<p><img src="https://trello-attachments.s3.amazonaws.com/58565d13cc3c5798c4ee263b/1200x239/917c1de02dc4db61b0ebe0c2412d0e2b/_output_5trustedhost.png" alt="5trustedhost" /></p></li>
-</ul>
+<p><img src="https://trello-attachments.s3.amazonaws.com/58565d13cc3c5798c4ee263b/1200x239/917c1de02dc4db61b0ebe0c2412d0e2b/_output_5trustedhost.png" alt="5trustedhost" /></p>
 
 <pre><code>New-PSSession : [Yowko-Server2016] Connecting to remote server Yowko-Server2016 failed with the ollowing error message : The WinRM client cannot process the request. If the authentication scheme is ifferent from Kerberos, or if the client computer is not joined to a domain, then HTTPS transport must e used or the destination machine must be added to the TrustedHosts configuration setting. Use inrm.cmd to configure TrustedHosts. Note that computers in the TrustedHosts list might not be uthenticated. You can get more information about that by running the following command: winrm help onfig. For more information, see the about_Remote_Troubleshooting Help topic.
 At line:1 char:1    
@@ -370,6 +367,7 @@ At line:1 char:1
 + CategoryInfo          : OpenError: (System.Manageme....RemoteRunspace:RemoteRunspace) [New-PSSession],PSRemotingTran    sportException        
 + FullyQualifiedErrorId : ServerNotTrusted,PSSessionOpenFailed
 </code></pre></li>
+</ul></li>
 
 <li><p>WinRM cannot complete the operation.</p>
 
@@ -384,8 +382,7 @@ At line:1 char:1
 
 <li><p>中文錯誤訊息</p>
 
-<p><img src="https://trello-attachments.s3.amazonaws.com/58565d13cc3c5798c4ee263b/1179x176/545feb9158264647375efb60f5d11f08/_output_6firewall.png" alt="6firewall" /></p></li>
-</ul>
+<p><img src="https://trello-attachments.s3.amazonaws.com/58565d13cc3c5798c4ee263b/1179x176/545feb9158264647375efb60f5d11f08/_output_6firewall.png" alt="6firewall" /></p>
 
 <pre><code>New-PSSession : [YowkoMac-WIN10] 連線到遠端伺服器 YowkoMac-WIN10 失敗，傳回下列錯誤訊息: WinRM 無法完成作。
 請確認指定的電腦名稱有效、可經由網路連接電腦，而且 WinRM 服務的防火牆例外已啟用且可從這部電腦存取。
@@ -396,13 +393,11 @@ At line:1 char:1
 + ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   
 + CategoryInfo          : OpenError: (System.Manageme....RemoteRunspace:RemoteRunspace) [New-PSSession],PSRemotingTran    sportException    
 + FullyQualifiedErrorId : WinRMOperationTimeout,PSSessionOpenFailed
-</code></pre>
+</code></pre></li>
 
-<ul>
 <li><p>英文錯誤訊息</p>
 
-<p><img src="https://trello-attachments.s3.amazonaws.com/58565d13cc3c5798c4ee263b/1200x241/51c5c70d1cab410c0fda8ec8ad9d34a7/_output_7firewall.png" alt="7firewall" /></p></li>
-</ul>
+<p><img src="https://trello-attachments.s3.amazonaws.com/58565d13cc3c5798c4ee263b/1200x241/51c5c70d1cab410c0fda8ec8ad9d34a7/_output_7firewall.png" alt="7firewall" /></p>
 
 <pre><code>New-PSSession : [192.168.31.247] Connecting to remote server 192.168.31.247 failed with the following rror message : WinRM cannot complete the operation. 
 Verify that the specified computer name is valid, that the computer is accessible over the network, and hat a firewall exception for the WinRM service is enabled and allows access from this computer. 
@@ -413,6 +408,7 @@ At line:1 char:1
 + CategoryInfo          : OpenError: (System.Manageme....RemoteRunspace:RemoteRunspace) [New-PSSession],PSRemotingTran    sportException    
 + FullyQualifiedErrorId : WinRMOperationTimeout,PSSessionOpenFailed
 </code></pre></li>
+</ul></li>
 </ul>
 
 <h1 id="心得">心得</h1>

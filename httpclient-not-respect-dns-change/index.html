@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -204,17 +204,18 @@
 
     public HttpClient HttpclientInstance = _httpClient;
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>透過修改 hosts 檔案來模擬 DNS 修改</p>
+<ol>
+<li>透過修改 hosts 檔案來模擬 DNS 修改</li>
+</ol>
 
 <blockquote>
 <p>修改方式請參考 <a href="https://blog.yowko.com/windows-host-file" target="_blank">在 Windows 環境將特定網址指向不同 IP</a></p>
-</blockquote></li>
+</blockquote>
 
-<li><p>使用環境</p>
-
-<ul>
+<ol>
+<li>使用環境</li>
 <li>Visual Studio 2017  15.9.4</li>
 <li>.NET Framework 4.7.2</li>
 
@@ -223,13 +224,13 @@
 <blockquote>
 <p>為避免外部網路干擾，透過修改 hosts file 將 <code>blog.yowko.com</code> 指向 127.0.0.1</p>
 </blockquote></li>
-</ul></li>
 </ol>
 
 <h2 id="解決方式">解決方式</h2>
 
 <ol>
-<li><p>dispose HttpClient</p>
+<li>dispose HttpClient</li>
+</ol>
 
 <blockquote>
 <p>每次 request 結束即 dispose 的做法存在與 TCP 協定及 OS 層實作的效能問題，應重複使用 HttpClient 並自行管理 dispose 時間</p>
@@ -284,9 +285,11 @@
 
     public HttpClient HttpclientInstance = _httpClient;
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>設定釋放 socket 連線時間</p>
+<ol>
+<li>設定釋放 socket 連線時間</li>
+</ol>
 
 <blockquote>
 <p>避免每次皆關閉 socket 而造成無謂的效能損耗

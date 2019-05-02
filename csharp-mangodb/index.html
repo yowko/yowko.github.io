@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -248,9 +248,11 @@ var db = client.GetDatabase(&quot;benchmark&quot;);
 var collection = db.GetCollection&lt;User&gt;(&quot;user&quot;);
 //針對 collection 插入單筆資料
 collection.InsertOneAsync(_user);
-</code></pre></li>
+</code></pre>
 
-<li><p>Select</p>
+<ul>
+<li>Select</li>
+</ul>
 
 <pre><code class="language-cs">// mongodb 連線字串
 var connString = &quot;mongodb://127.0.0.1:27017&quot;;
@@ -282,9 +284,11 @@ var filter = Builders&lt;User&gt;.Filter.Eq(a =&gt; a.Name, &quot;name&quot;);
 var update = Builders&lt;User&gt;.Update.Set(a =&gt; a.Name, &quot;Yowko&quot;);
 //將過濾條件與設定值傳入 collection 進行更新
 collection.UpdateOne(filter, update);
-</code></pre></li>
+</code></pre>
 
-<li><p>Delete</p>
+<ul>
+<li>Delete</li>
+</ul>
 
 <pre><code class="language-cs">// mongodb 連線字串
 var connString = &quot;mongodb://127.0.0.1:27017&quot;;

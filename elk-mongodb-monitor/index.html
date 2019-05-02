@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2018-05-12T00:23:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-06T00:23:54&#43;08:00" />
-<meta itemprop="wordCount" content="1058">
+<meta itemprop="wordCount" content="1059">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-05-12 </span>
         
-        <span class="more-meta"> 約 1058 字 </span>
+        <span class="more-meta"> 約 1059 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -232,16 +232,18 @@
     setup.template.fields: &quot;${path.config}/fields.yml&quot;
     # 複寫已存在的 template
     setup.template.overwrite: true
-</code></pre></li>
+</code></pre>
 
-<li><p>啟動 Metricbeat</p>
+<ol>
+<li>啟動 Metricbeat</li>
 
-<ul>
 <li><p>語法</p>
 
 <pre><code>{metricbeat.exe path} -e -c {mongodb yaml path}
 </code></pre></li>
+</ol>
 
+<ul>
 <li><p>範例</p>
 
 <pre><code>metricbeat.exe -e -c mongodb.yml
@@ -250,8 +252,7 @@
 <li><p>成功啟動並開始餵資料至 Elasticsearch</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/39933636-229e2776-5576-11e8-82f0-9f254ff233a1.png" alt="1metricbeatstart" /></p></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="修改-metricbeat-中預設的-index-template-與-dashboard">修改 Metricbeat 中預設的 index template 與 dashboard</h2>
 
@@ -262,9 +263,7 @@
 </blockquote>
 
 <ol>
-<li><p>修改 index template ：<code>metricbeat.json</code></p>
-
-<ul>
+<li>修改 index template ：<code>metricbeat.json</code></li>
 <li>預設路徑 ：<code>{metricbeat folder}\kibana\6\index-pattern\metricbeat.json</code></li>
 
 <li><p>將 <code>title</code> 與 <code>id</code> 的改為之前的 template pattern</p>
@@ -278,12 +277,10 @@
 
 <p><img src="https://user-images.githubusercontent.com/3851540/39933639-2317e1d8-5576-11e8-8628-217b09ceb74a.png" alt="4templateafter" /></p></li>
 </ul></li>
-</ul></li>
 
-<li><p>修改 dashboard ：<code>Metricbeat-mongodb-overview.json</code></p>
+<li><p>修改 dashboard ：<code>Metricbeat-mongodb-overview.json</code></p></li>
 
-<ul>
-<li>預設路徑：<code>{metricbeat folder}\kibana\6\dashboard\Metricbeat-mongodb-overview.json</code></li>
+<li><p>預設路徑：<code>{metricbeat folder}\kibana\6\dashboard\Metricbeat-mongodb-overview.json</code></p></li>
 
 <li><p>修改 <code>searchSourceJSON</code> 的 index 名稱</p>
 
@@ -296,7 +293,6 @@
 
 <p><img src="https://user-images.githubusercontent.com/3851540/39933641-236c7e46-5576-11e8-9b44-ae3679a149b2.png" alt="6dashnoardafter" /></p></li>
 </ul></li>
-</ul></li>
 
 <li><p>如果用不到其他 modudule 建議可以刪除其他 dashboard</p></li>
 </ol>
@@ -307,15 +303,17 @@
 <li><p>使用 <code>setup</code> 指令匯入 index template 與 dashboards</p>
 
 <pre><code>metricbeat.exe setup
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/39933637-22c81a36-5576-11e8-93cb-9922f1ac5048.png" alt="2metricbeatsetup" /></p></li>
+</code></pre></li>
 </ul>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39933637-22c81a36-5576-11e8-93cb-9922f1ac5048.png" alt="2metricbeatsetup" /></p>
 
 <h2 id="完成設定">完成設定</h2>
 
 <ol>
-<li><p>將匯入的 index pattern 設為預設 index pattern</p>
+<li>將匯入的 index pattern 設為預設 index pattern
+<br /></li>
+</ol>
 
 <blockquote>
 <p>這個步驟可略過，但沒設定會一直有 warning</p>
@@ -323,14 +321,12 @@
 
 <p><img src="https://user-images.githubusercontent.com/3851540/39933642-2393a534-5576-11e8-8e58-04067be679fa.png" alt="7indexpattern1" /></p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/39933644-23bdb2fc-5576-11e8-9c41-f15317d53cf9.png" alt="8indexpattern2" /></p></li>
-
-<li><p>開啟 Dashboard</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/39933644-23bdb2fc-5576-11e8-9c41-f15317d53cf9.png" alt="8indexpattern2" />
+2. 開啟 Dashboard</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/39933645-23e889d2-5576-11e8-8221-5b89994881cf.png" alt="9dashborad1" /></p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/39933646-2413bae4-5576-11e8-9967-9967ff9a5bd6.png" alt="10dashboard2" /></p></li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/39933646-2413bae4-5576-11e8-9967-9967ff9a5bd6.png" alt="10dashboard2" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -346,6 +342,7 @@
 <li><a href="https://www.elastic.co/guide/en/beats/devguide/current/import-dashboards.htm" target="_blank">Importing Existing Beat Dashboards</a></li>
 <li><a href="https://dzone.com/articles/mongodb-performance-monitoring-using-the-elk-stack" target="_blank">MongoDB Performance Monitoring Using the ELK Stack</a></li>
 <li><a href="https://www.elastic.co/guide/en/beats/libbeat/current/config-file-format-type.html" target="_blank">Config file data types</a></li>
+</ol></li>
 </ol>
 
     </div>

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -229,21 +229,21 @@ public class ValuesControllerTests
         Assert.AreEqual($&quot;{name}:{length}&quot;, result);
     }
 }
-</code></pre></li>
-
-<li><p>測試結果</p>
+</code></pre>
 
 <ul>
+<li>測試結果</li>
+
 <li><p>Test Explorer 會將測試方法代入測試參數全部列出來，一目了然</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/25095623/0ab3431e-23cf-11e7-9123-ea5a0e864575.png" alt="1testcaseresult" /></p></li>
-</ul></li>
 </ul>
 
 <h2 id="使用-testfixture-改寫">使用 TestFixture 改寫</h2>
 
 <ul>
-<li><p>測試程式</p>
+<li>測試程式</li>
+</ul>
 
 <pre><code class="language-CS">[TestFixture(&quot;YowkoTsai&quot;,9)]
 [TestFixture(&quot;SuperAdmin&quot;,10)]
@@ -306,17 +306,20 @@ public class ValuesControllerTests
         Assert.AreEqual($&quot;{name}:{length}&quot;, result);
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>改寫結果</p>
-
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25095627/0af0b28a-23cf-11e7-8b97-d7a361a74997.png" alt="3testcasesource" /></p></li>
+<ul>
+<li>改寫結果
+<br /></li>
 </ul>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25095627/0af0b28a-23cf-11e7-8b97-d7a361a74997.png" alt="3testcasesource" /></p>
 
 <h2 id="使用-values-改寫">使用 Values 改寫</h2>
 
 <ul>
-<li><p>測試程式</p>
+<li>測試程式</li>
+</ul>
 
 <pre><code class="language-cs">[TestFixture()]
 public class ValuesControllerTests
@@ -358,17 +361,19 @@ public class ValuesControllerTests
         Assert.AreEqual($&quot;{name}:{length}&quot;, result);
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>測試結果</p>
-
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25095629/0af6c0da-23cf-11e7-829a-0e5c38709762.png" alt="5valueresult" /></p></li>
+<ul>
+<li>測試結果</li>
 </ul>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25095629/0af6c0da-23cf-11e7-829a-0e5c38709762.png" alt="5valueresult" /></p>
 
 <h2 id="使用-valuesource-改寫">使用 ValueSource 改寫</h2>
 
 <ul>
-<li><p>測試程式</p>
+<li>測試程式</li>
+</ul>
 
 <pre><code class="language-cs">[TestFixture()]
 public class ValuesControllerTests
@@ -424,12 +429,13 @@ public class ValuesControllerTests
         Assert.AreEqual($&quot;{name}:{length}&quot;, result);
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>測試結果</p>
-
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25095628/0af6b54a-23cf-11e7-9e86-17eabce13fc6.png" alt="7valuesourceresult" /></p></li>
+<ul>
+<li>測試結果</li>
 </ul>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25095628/0af6b54a-23cf-11e7-9e86-17eabce13fc6.png" alt="7valuesourceresult" /></p>
 
 <h1 id="參考資訊">參考資訊</h1>
 
@@ -437,7 +443,8 @@ public class ValuesControllerTests
 <li><a href="http://www.smaclellan.com/posts/parameterized-tests-made-simple/" target="_blank">Parameterized Tests Made Simple</a></li>
 <li><a href="http://www.c-sharpcorner.com/UploadFile/0f29c1/nunit-test-case-source/" target="_blank">NUnit&rsquo;s Test Case Source</a></li>
 <li><a href="http://stackoverflow.com/questions/16276278/nunit-test-setup-method-with-argument" target="_blank">Nunit test setup method with argument</a></li>
-</ol>
+</ol></li>
+</ul>
 
     </div>
 

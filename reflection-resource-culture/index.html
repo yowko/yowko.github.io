@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -255,9 +255,12 @@
 <li><p>範本</p>
 
 <pre><code class="language-cs">Resource.ResourceManager.GetString({resource key}, {target CultureInfo};
-</code></pre></li>
+</code></pre>
 
-<li><p>實例</p>
+<ul>
+<li>實例
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">Resource.ResourceManager.GetString(&quot;Name&quot;, new CultureInfo(&quot;zh-TW&quot;));
 </code></pre></li>
@@ -281,9 +284,12 @@ public XSLXHelper(ResourceManager rm, CultureInfo ci)
     _rm = rm;
     _ci = ci;
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>調整取欄位邏輯</p>
+<ul>
+<li>調整取欄位邏輯
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">if (_rm != null)
 {
@@ -299,9 +305,12 @@ else
 <li><p>程式呼叫</p>
 
 <pre><code class="language-cs">XSLXHelper helper = new XSLXHelper(new System.Resources.ResourceManager(typeof(Resource)), new CultureInfo(&quot;zh-TW&quot;));
-</code></pre></li>
+</code></pre>
 
-<li><p>完整程式碼</p>
+<ul>
+<li>完整程式碼
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">using ClosedXML.Excel;
 using System;

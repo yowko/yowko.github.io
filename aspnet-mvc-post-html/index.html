@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -222,9 +222,11 @@ Source Error:
 {
     return Content($&quot;{id}-{value}&quot;);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>網頁</p>
+<ol>
+<li>網頁</li>
+</ol>
 
 <pre><code class="language-cs">@using (Html.BeginForm(&quot;values&quot;, &quot;Home&quot;, FormMethod.Post))
 {
@@ -249,23 +251,23 @@ public ActionResult Values(string value, int id)
 {
     return Content($&quot;{id}-{value}&quot;);
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="如何優化">如何優化</h2>
 
 <p>直接在 action 上套用 <code>[ValidateInput(false)]</code> 是快速又有效的，只是套用 <code>[ValidateInput(false)]</code> 後會讓整個 Action 都不做 XSS 的 HTML tag 檢查，這樣是有風險的，正確的做法：<span style="color:red">僅針對需要的欄位屬性開放</span>，不該是無差別式地全部開放</p>
 
 <ul>
-<li><p>修改方式</p>
+<li>修改方式</li>
 
-<ul>
 <li><p>將所有傳遞參數統整為一個 class</p>
 
 <pre><code class="language-cs">public ActionResult Values(string value, int id)
-</code></pre></li>
+</code></pre>
 
-<li><p>改為下列寫法</p>
+<ul>
+<li>改為下列寫法</li>
+</ul>
 
 <pre><code class="language-cs">public ActionResult Values(PstData model)
 public class PstData
@@ -283,9 +285,7 @@ public class PstData
     [AllowHtml]
     public string value { get; set; }
 }
-</code></pre></li>
-</ul></li>
-</ul>
+</code></pre>
 
 <h2 id="心得">心得</h2>
 
@@ -297,7 +297,9 @@ public class PstData
 
 <ol>
 <li><a href="https://msdn.microsoft.com/en-us/library/hh882339.aspx" target="_blank">Request Validation in ASP.NET</a></li>
-</ol>
+</ol></li>
+</ul></li>
+</ul>
 
     </div>
 

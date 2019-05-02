@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -248,9 +248,11 @@
 <pre><code class="language-xml">&lt;logger name=&quot;db&quot; minlevel=&quot;Debug&quot; writeTo=&quot;db&quot; /&gt;
 &lt;logger name=&quot;audit&quot; minlevel=&quot;Debug&quot; writeTo=&quot;audit&quot; /&gt;
 &lt;logger name=&quot;normal&quot; minlevel=&quot;Debug&quot; writeTo=&quot;normal&quot; /&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>將需要結合的 log 組合</p>
+<ul>
+<li>將需要結合的 log 組合</li>
+</ul>
 
 <pre><code class="language-xml">&lt;logger name=&quot;*&quot; minlevel=&quot;Debug&quot; writeTo=&quot;f&quot; /&gt;
 </code></pre></li>
@@ -258,9 +260,11 @@
 <li><p>指定排除不需結合的 log：加上 <code>final</code></p>
 
 <pre><code class="language-xml">&lt;logger name=&quot;db&quot; minlevel=&quot;Debug&quot; writeTo=&quot;db&quot; final=&quot;true&quot;/&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>測試程式</p>
+<ul>
+<li>測試程式</li>
+</ul>
 
 <pre><code class="language-cs">private static ILogger dblogger = LogManager.GetLogger(&quot;db&quot;);
 private static ILogger auditlogger = LogManager.GetLogger(&quot;audit&quot;);
@@ -323,9 +327,11 @@ static void Main(string[] args)
 <pre><code class="language-xml">&lt;logger name=&quot;db&quot; minlevel=&quot;Debug&quot; writeTo=&quot;db&quot; /&gt;
 &lt;logger name=&quot;main.audit&quot; minlevel=&quot;Debug&quot; writeTo=&quot;audit&quot; /&gt;
 &lt;logger name=&quot;main.normal&quot; minlevel=&quot;Debug&quot; writeTo=&quot;normal&quot; /&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>透過 logger name 將需要結合的 log 組合</p>
+<ul>
+<li>透過 logger name 將需要結合的 log 組合</li>
+</ul>
 
 <pre><code class="language-xml">&lt;logger name=&quot;main.*&quot; minlevel=&quot;Debug&quot; /&gt;
 </code></pre></li>
@@ -341,11 +347,11 @@ static void Main(string[] args)
     auditlogger.Debug(&quot;audit&quot;);
     normallogger.Debug(&quot;normal&quot;);
 }
-</code></pre></li>
-
-<li><p>實際效果</p>
+</code></pre>
 
 <ul>
+<li><p>實際效果</p></li>
+
 <li><p>個別 log 及 整合 log</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/35197290-15288c9e-ff18-11e7-9db3-30936fde6f85.png" alt="3loggername" /></p></li>
@@ -353,9 +359,9 @@ static void Main(string[] args)
 <li><p>db log 未寫至 all log 中</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/35197291-15738082-ff18-11e7-903c-6b2fecedc046.png" alt="4partlog" /></p></li>
-</ul></li>
 
-<li><p>完整 nlog.config</p>
+<li><p>完整 nlog.config</p></li>
+</ul>
 
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
 &lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;

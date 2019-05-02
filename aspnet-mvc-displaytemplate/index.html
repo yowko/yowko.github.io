@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2017-06-21T23:16:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-12-09T23:16:03&#43;08:00" />
-<meta itemprop="wordCount" content="1062">
+<meta itemprop="wordCount" content="1064">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2017-06-21 </span>
         
-        <span class="more-meta"> 約 1062 字 </span>
+        <span class="more-meta"> 約 1064 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -222,9 +222,9 @@ DisplayTemplate 就可以秒殺搞定，結果我忘記語法，新增 template 
 </code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34167976-3f3279dc-e51e-11e7-8782-89691eb869b9.png" alt="3-1nullerror" /></p></li>
-</ul></li>
 
-<li><p>依實際需求客製輸出格式</p>
+<li><p>依實際需求客製輸出格式</p></li>
+</ul>
 
 <pre><code class="language-cs">@if (Model == null)
 {
@@ -247,11 +247,11 @@ else
 {
     &lt;span&gt;@(((DateTime)Model).ToString(&quot;MM/dd/yyyy HH:mm:ss&quot;))&lt;/span&gt;
 }
-</code></pre></li>
-
-<li><p>前後差異</p>
+</code></pre>
 
 <ul>
+<li>前後差異</li>
+
 <li><p>修改前</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34167978-3f8eef6e-e51e-11e7-9b09-5860e80a326e.png" alt="4before" /></p></li>
@@ -288,20 +288,19 @@ else
 <pre><code class="language-cs">The model item passed into the dictionary is null, but this dictionary requires a non-null model item of type 'System.Decimal'.
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34167966-3daffbf2-e51e-11e7-9dba-dd4e3725a29b.png" alt="9decimalnullerror" /></p></li>
-</ul></li>
-
-<li><p>依實際需求客製輸出格式</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/34167966-3daffbf2-e51e-11e7-9dba-dd4e3725a29b.png" alt="9decimalnullerror" />
+- 依實際需求客製輸出格式</p>
 
 <pre><code class="language-cs">@if (Model == null)
 {
-    &lt;span class=&quot;text-danger&quot;&gt;No Decimal Data!!&lt;/span&gt;
+&lt;span class=&quot;text-danger&quot;&gt;No Decimal Data!!&lt;/span&gt;
 }
 else
 {
-    &lt;span&gt;@(((decimal)Model).ToString(&quot;N&quot;))&lt;/span&gt;
+&lt;span&gt;@(((decimal)Model).ToString(&quot;N&quot;))&lt;/span&gt;
 }
 </code></pre></li>
+</ul></li>
 
 <li><p>完整程式碼</p>
 
@@ -315,11 +314,11 @@ else
 {
     &lt;span&gt;@(((decimal)Model).ToString(&quot;N&quot;))&lt;/span&gt;
 }
-</code></pre></li>
-
-<li><p>前後差異</p>
+</code></pre>
 
 <ul>
+<li>前後差異</li>
+
 <li><p>修改前</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34167968-3ddf6cca-e51e-11e7-85db-49f37e4e332e.png" alt="10before" /></p></li>
@@ -366,9 +365,12 @@ else
 <li><p>格式</p>
 
 <pre><code class="language-cs">@Html.DisplayFor(modelItem =&gt; modelItem.{欄位},&quot;{自訂 View 名稱}&quot;)
-</code></pre></li>
+</code></pre>
 
-<li><p>實例</p>
+<ul>
+<li>實例
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">@Html.DisplayFor(modelItem =&gt; item.ShowDateTime,&quot;YowkoDateTime&quot;)
 </code></pre></li>
@@ -384,9 +386,12 @@ else
 {
     &lt;span&gt;Yowko:@(((DateTime)Model).ToString(&quot;MM/dd/yyyy HH:mm:ss&quot;))&lt;/span&gt;
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>效果</p>
+<ul>
+<li>效果
+<br /></li>
+</ul>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34167972-3e5b0646-e51e-11e7-8c4d-3192d9754d90.png" alt="13yowkoview" /></p></li>
 </ul></li>
@@ -398,9 +403,12 @@ else
 
 <pre><code class="language-cs">[UIHint(&quot;{自訂 View 名稱}&quot;)]
 public type name { get; set; }
-</code></pre></li>
+</code></pre>
 
-<li><p>實例</p>
+<ul>
+<li>實例
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">[UIHint(&quot;YowkoDecimal&quot;)]
 public Nullable&lt;decimal&gt; ShowDecimal { get; set; }
@@ -418,13 +426,15 @@ else
 {
     &lt;span&gt;Yowko:@(((decimal)Model).ToString(&quot;N&quot;))&lt;/span&gt;
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>效果</p>
+<ul>
+<li>效果
+<br /></li>
+</ul>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34167973-3e8a766a-e51e-11e7-9e6a-50f215a635ef.png" alt="14yowkodecimal" /></p></li>
-
-<li><p>缺點：因為改到 .cs 需要 compile</p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/34167973-3e8a766a-e51e-11e7-9e6a-50f215a635ef.png" alt="14yowkodecimal" />
+- 缺點：因為改到 .cs 需要 compile</p></li>
 </ul></li>
 </ol>
 

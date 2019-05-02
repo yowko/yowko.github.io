@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -229,9 +229,11 @@ Main exception &amp; its inner exception Log end
     public static ConnectionMultiplexer GetConnection =&gt; Connection.Value;
     public static IDatabase RedisDB =&gt; GetConnection.GetDatabase();
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>修改後</p>
+<ol>
+<li>修改後</li>
+</ol>
 
 <pre><code class="language-cs">public static class RedisConnectionFactory
 {

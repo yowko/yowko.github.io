@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -214,9 +214,11 @@
 <li><p>建立 Database</p>
 
 <pre><code class="language-sql">create database benchmark;
-</code></pre></li>
+</code></pre>
 
-<li><p>建立 Schema</p>
+<ol>
+<li>建立 Schema</li>
+</ol>
 
 <pre><code class="language-sql">create schema test;
 </code></pre></li>
@@ -239,9 +241,11 @@ create unique index Users_Uid_uindex
 alter table test.Users
     add constraint Users_pk
         primary key (Uid);
-</code></pre></li>
+</code></pre>
 
-<li><p>安裝 <code>Npgsql</code> NuGet 套件 : <a href="http://www.npgsql.org/" target="_blank">Npgsql - .NET Access to PostgreSQL</a></p>
+<ol>
+<li>安裝 <code>Npgsql</code> NuGet 套件 : <a href="http://www.npgsql.org/" target="_blank">Npgsql - .NET Access to PostgreSQL</a></li>
+</ol>
 
 <blockquote>
 <p>本次測試使用 Npgsql  版本為 <code>4.0.4</code></p>
@@ -257,9 +261,11 @@ alter table test.Users
 
 <pre><code>dotnet add package Npgsql
 </code></pre></li>
-</ul></li>
+</ul>
 
-<li><p>實際存取 PostgreSQL</p>
+<ol>
+<li>實際存取 PostgreSQL</li>
+</ol>
 
 <ul>
 <li><p>Insert</p>
@@ -284,9 +290,11 @@ using (var conn = new NpgsqlConnection(connString))
         writer.Complete();
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>Select</p>
+<ul>
+<li>Select</li>
+</ul>
 
 <pre><code class="language-cs">//準備連線字串
 var connString = &quot;Host=localhost;Port=5432;Username=postgres;Password=pass.123;Database=benchmark&quot;;
@@ -325,9 +333,11 @@ using (var conn = new NpgsqlConnection(connString))
         cmd.ExecuteNonQuery();
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>Delete</p>
+<ul>
+<li>Delete</li>
+</ul>
 
 <pre><code class="language-cs">//準備連線字串
 var connString = &quot;Host=localhost;Port=5432;Username=postgres;Password=pass.123;Database=benchmark&quot;;
@@ -348,8 +358,7 @@ using (var conn = new NpgsqlConnection(connString))
     }
 }
 </code></pre></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="心得">心得</h2>
 
@@ -363,6 +372,7 @@ using (var conn = new NpgsqlConnection(connString))
 <li><a href="http://PostgreSQL.github.io/mongo-csharp-driver/2.7/getting_started/quick_tour/" target="_blank">PostgreSQL Driver Quick Tour</a></li>
 <li><a href="https://github.com/PostgreSQL/mongo-csharp-driver" target="_blank">PostgreSQL/mongo-csharp-driver</a></li>
 <li><a href="https://www.npgsql.org/doc/index.html" target="_blank">Getting Started</a></li>
+</ol></li>
 </ol>
 
     </div>

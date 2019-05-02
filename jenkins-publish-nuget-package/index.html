@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -259,9 +259,11 @@
 <pre><code class="language-xml">&lt;packageSources&gt;
     &lt;add key=&quot;YowkoTest&quot; value=&quot;http://localhost:4958/api/v2/package&quot;/&gt;
 &lt;/packageSources&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>apikeys 不用填</p>
+<ul>
+<li>apikeys 不用填</li>
+</ul>
 
 <blockquote>
 <p>NuGet 使用的 apikey 會利用使用者相關資訊來 hash 加密，如果 jenkins 的執行身份現在電腦登入身份一樣，這邊填了才有用，否則還是會出現 apikey 錯誤的異常</p>
@@ -286,9 +288,11 @@
 <li><p>原始程式碼</p>
 
 <pre><code class="language-ps1">$publishTask = Create-Process .\NuGet.exe (&quot;push &quot; + $_.Name + &quot; -Source &quot; + $url)
-</code></pre></li>
+</code></pre>
 
-<li><p>修改後程式碼(<code>{實際的 apikey}</code> 請換成正確 apikey)</p>
+<ul>
+<li>修改後程式碼(<code>{實際的 apikey}</code> 請換成正確 apikey)</li>
+</ul>
 
 <blockquote>
 <p>在最後加上 <code>-ApiKey</code> 參數與實際的 apikey</p>
@@ -304,9 +308,11 @@
 <li><p>原始程式碼</p>
 
 <pre><code class="language-ps1">$task = Create-Process .\NuGet.exe (&quot;push &quot; + $_.Name + &quot; -Source &quot; + $url
-</code></pre></li>
+</code></pre>
 
-<li><p>修改後程式碼(<code>{實際的 apikey}</code> 請換成正確 apikey)</p>
+<ul>
+<li>修改後程式碼(<code>{實際的 apikey}</code> 請換成正確 apikey)</li>
+</ul>
 
 <blockquote>
 <p>在最後加上 <code>-ApiKey</code> 參數與實際的 apikey</p>

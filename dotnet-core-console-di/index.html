@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2018-11-28T23:45:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-11-28T23:44:30&#43;08:00" />
-<meta itemprop="wordCount" content="969">
+<meta itemprop="wordCount" content="970">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-11-28 </span>
         
-        <span class="more-meta"> 約 969 字 </span>
+        <span class="more-meta"> 約 970 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -245,8 +245,7 @@ public class YowkoRunner : IRunner
         Console.WriteLine($&quot;YowkoRunner : Doing hard work! {name}&quot;);
     }
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="b-可能是-未來主要-di">B.(可能是)未來主要 DI</h2>
 
@@ -255,25 +254,21 @@ public class YowkoRunner : IRunner
 <p>查了文件 <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/index" target="_blank">Host in ASP.NET Core</a> 有提到 host 有兩種 API 負責應用程式啟動及 lifetime 管理</p>
 
 <ul>
-<li><p><code>Web Host</code></p>
+<li><code>Web Host</code></li>
+</ul>
 
 <blockquote>
-<p>主要用來 host web application</p>
-</blockquote></li>
+<p>主要用來 host web application
+* <code>Generic Host</code></p>
 
-<li><p><code>Generic Host</code></p>
-
-<blockquote>
 <p>目前版本主要用來 host 非 web application (e.g. 背景執行的工作)，之後預計發展成可以同時 host 任何類型的應用程式，包含 web，也預計徹底取代 Web Host</p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/49169687-4f2ef200-f375-11e8-9a90-1c74dc70b09b.png" alt="1generichost" /></p></li>
-</ul>
+<p><img src="https://user-images.githubusercontent.com/3851540/49169687-4f2ef200-f375-11e8-9a90-1c74dc70b09b.png" alt="1generichost" /></p>
 
 <ol>
-<li><p>安裝套件</p>
+<li>安裝套件</li>
 
-<ul>
 <li><p><code>Microsoft.Extensions.Hosting</code></p>
 
 <ul>
@@ -301,7 +296,9 @@ public class YowkoRunner : IRunner
 <pre><code>dotnet add package Microsoft.Extensions.DependencyInjection
 </code></pre></li>
 </ul></li>
+</ol>
 
+<ul>
 <li><p>相依套件(理論上會自動安裝，曾經遇過需手動安裝)</p>
 
 <ul>
@@ -313,9 +310,11 @@ public class YowkoRunner : IRunner
 </ul>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/49169688-4fc78880-f375-11e8-9bcf-7724db826571.png" alt="2dependency" /></p></li>
-</ul></li>
+</ul>
 
-<li><p>程式碼</p>
+<ol>
+<li>程式碼</li>
+</ol>
 
 <pre><code class="language-cs">class Program
 {

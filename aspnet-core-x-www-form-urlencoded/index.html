@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -200,9 +200,11 @@
     public string password { get; set; }
     public string type { get; set; }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>使用 postman 進行測試</p>
+<ol>
+<li>使用 postman 進行測試</li>
+</ol>
 
 <blockquote>
 <p>以下為 postman 產出的 curl 內容，url 記得換為目標 api url</p>
@@ -212,8 +214,7 @@
 {url} \
 -H 'Content-Type: application/x-www-form-urlencoded' \
 -d 'username=yowko&amp;password=password&amp;type=basic'
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="asp-net-web-api">ASP.NET Web API</h2>
 
@@ -222,7 +223,8 @@
 </blockquote>
 
 <ol>
-<li><p>程式碼</p>
+<li>程式碼</li>
+</ol>
 
 <blockquote>
 <p>參數屬性 <code>[FromBody]</code> 加不加都可以正確 binding</p>
@@ -285,11 +287,11 @@ public class ValuesController : ControllerBase
         return $&quot;{Request.Headers[&quot;Content-Type&quot;]}_{data.username}_{data.password}_{data.type}&quot;;
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>實際結果</p>
+<ol>
+<li>實際結果</li>
 
-<ul>
 <li><p>使用 <code>application/json</code> 且未加上 <code>[Consumes(&quot;application/x-www-form-urlencoded&quot;)]</code></p>
 
 <blockquote>
@@ -297,7 +299,9 @@ public class ValuesController : ControllerBase
 </blockquote>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/46751632-ab6a8380-cced-11e8-8cd7-9c0dc3377a87.png" alt="3corejosnempty" /></p></li>
+</ol>
 
+<ul>
 <li><p>使用 <code>application/json</code> 並加上 <code>[Consumes(&quot;application/x-www-form-urlencoded&quot;)]</code></p>
 
 <blockquote>
@@ -313,8 +317,7 @@ public class ValuesController : ControllerBase
 </blockquote>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/46751634-ac031a00-cced-11e8-9dd5-574c7ab37d9d.png" alt="5coreurlencoded" /></p></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="心得">心得</h2>
 
@@ -334,6 +337,7 @@ public class ValuesController : ControllerBase
 <ol>
 <li><a href="https://stackoverflow.com/a/49042444/3600583" target="_blank">Accept x-www-form-urlencoded in Web API .Net Core</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/aspnet/web-api/overview/advanced/sending-html-form-data-part-1" target="_blank">ASP.NET Web API 中傳送 HTML 表單資料： form-urlencoded 資料</a></li>
+</ol></li>
 </ol>
 
     </div>

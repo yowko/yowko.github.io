@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -204,9 +204,12 @@ begin
     open p_cursor for
         select * from USERS;
 end;
-</code></pre></li>
+</code></pre>
 
-<li><p>C# 程式碼</p>
+<ol>
+<li>C# 程式碼
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">//建立 oracle connection 物件
 using (OracleConnection oracleConnection = new OracleConnection(&quot;DATA SOURCE=localhost:1521/xe;PASSWORD=password;PERSIST SECURITY INFO=True;USER ID=TEST&quot;))
@@ -294,9 +297,12 @@ and b.name = 'opened cursors current'
 and s.username = 'TEST'
 --and s.machine like '%Yowko%'
 order by a.value desc;
-</code></pre></li>
+</code></pre>
 
-<li><p>列出 cursor 相關資訊</p>
+<ol>
+<li>列出 cursor 相關資訊
+<br /></li>
+</ol>
 
 <pre><code class="language-sql">select sid,sql_text,cursor_type  from v$open_cursor where saddr in (
 select saddr
@@ -375,8 +381,7 @@ using (OracleCommand oracleCommand = oracleConnection.CreateCommand())
 
 <h2 id="心得">心得</h2>
 
-<p>感謝 DBA 大大強力支援，不僅提供許多 Oracle 相關知識，還幫忙寫模擬用 StoredProcedure，甚至過程中一度推測是 <code>Oracle.DataAccess.Client</code> 用到的 unmanaged dll 偷偷塞了什麼指令造成問題，還請 DBA 大大協助側錄程式執行當下 db 實際收到的 script 來進行確認，也因此最後得以排除異常指令的疑慮</p></li>
-</ol>
+<p>感謝 DBA 大大強力支援，不僅提供許多 Oracle 相關知識，還幫忙寫模擬用 StoredProcedure，甚至過程中一度推測是 <code>Oracle.DataAccess.Client</code> 用到的 unmanaged dll 偷偷塞了什麼指令造成問題，還請 DBA 大大協助側錄程式執行當下 db 實際收到的 script 來進行確認，也因此最後得以排除異常指令的疑慮</p>
 
 <p>以結果來推敲，可能是當時候寫該段功能的工程師東抄西抄，看到有人用 <code>oracleCommand.ExecuteNonQuery();</code> 取資料但發現多筆資料不適用時而改用 <code>oracleCommand.ExecuteReader()</code> 後卻忘記刪除 <code>oracleCommand.ExecuteNonQuery()</code> 恰巧測試開發階段也沒有出現錯誤，連帶造成後面維護人員不敢主動去刪除，直到出現問題後才重新認真檢驗程式碼</p>
 
@@ -388,6 +393,7 @@ using (OracleCommand oracleCommand = oracleConnection.CreateCommand())
 <li><a href="https://stackoverflow.com/questions/9759697/reading-a-file-used-by-another-process" target="_blank">Oracle ODP.NET Cursor Leak?</a></li>
 <li><a href="https://www.c-sharpcorner.com/article/calling-oracle-stored-procedures-from-microsoft-net/" target="_blank">Calling Oracle stored procedures from Microsoft.NET</a></li>
 <li><a href="https://blogs.msdn.microsoft.com/paullou/2011/06/28/debugging-managed-code-memory-leak-with-memory-dump-using-windbg/" target="_blank">Debugging managed code memory leak with memory dump using windbg</a></li>
+</ol></li>
 </ol>
 
     </div>

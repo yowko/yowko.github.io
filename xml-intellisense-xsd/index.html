@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -235,9 +235,11 @@
     xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;
 &gt;
 &lt;/xs:schema&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>將 <code>id</code>、<code>targetNamespace</code>、<code>xmlns</code>、<code>xmlns:mstns</code> 修改易於識別的內容</p>
+<ol>
+<li>將 <code>id</code>、<code>targetNamespace</code>、<code>xmlns</code>、<code>xmlns:mstns</code> 修改易於識別的內容</li>
+</ol>
 
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;xs:schema id=&quot;YowkoSchema&quot;
@@ -272,9 +274,11 @@
     &lt;xs:enumeration value=&quot;11&quot;&gt;&lt;/xs:enumeration&gt;
     &lt;/xs:restriction&gt;
 &lt;/xs:simpleType&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>定義 intellisense 選單使用方式</p>
+<ul>
+<li>定義 intellisense 選單使用方式</li>
+</ul>
 
 <blockquote>
 <p>定義為 <code>YowkoElement</code> 中的 <code>YowkoCloth</code> attribute</p>
@@ -299,9 +303,11 @@
     &lt;/xs:sequence&gt;
     &lt;/xs:complexType&gt;
 &lt;/xs:element&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>完整 XSD</p>
+<ul>
+<li>完整 XSD</li>
+</ul>
 
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;xs:schema id=&quot;YowkoSchema&quot;
@@ -344,9 +350,11 @@
 <li><p>在根 element 加上 namesspace 引用</p>
 
 <pre><code class="language-xml">xmlns=&quot;http://yowko.com/YowkoSchema.xsd&quot;
-</code></pre></li>
+</code></pre>
 
-<li><p>完整 XML</p>
+<ol>
+<li>完整 XML</li>
+</ol>
 
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
 &lt;YowkoList xmlns=&quot;http://yowko.com/YowkoSchema.xsd&quot;&gt;

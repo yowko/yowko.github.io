@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -256,15 +256,12 @@
         }
     }
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="修改開始">修改開始</h2>
 
 <ol>
-<li><p>CacheHelper</p>
-
-<ul>
+<li>CacheHelper</li>
 <li>刪掉 property 及 原本取資料方法</li>
 
 <li><p>加上新的泛型方法</p>
@@ -306,9 +303,12 @@ public static List&lt;T&gt; GetCacheData&lt;T&gt;(string key, bool refresh = fal
         return cacheData;
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>完整範例</p>
+<ul>
+<li>完整範例
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">public static class CacheHelper
 {
@@ -367,17 +367,17 @@ public static List&lt;T&gt; GetCacheData&lt;T&gt;(string key, bool refresh = fal
     }
 }
 </code></pre></li>
-</ul></li>
 
-<li><p>實際使用</p>
+<li><p>實際使用</p></li>
 
-<ul>
-<li>使用新方法
-<code>CacheHelper.GetCacheData&lt;{modelType}&gt;(&quot;{cacheKey}&quot;,{refresh=false});</code></li>
-<li><code>List&lt;Table&gt;</code> 是 caceh 存放型別</li>
-<li>第一個參數 <code>cacheKey</code> 是用來區隔多組 cache data 的 key (如需多個相同 table 不同 cache ，可藉由 cache 區隔)</li>
-<li>第二個參數 <code>refresh</code> 是用來強制更新 cache 的</li>
-</ul></li>
+<li><p>使用新方法
+<code>CacheHelper.GetCacheData&lt;{modelType}&gt;(&quot;{cacheKey}&quot;,{refresh=false});</code></p></li>
+
+<li><p><code>List&lt;Table&gt;</code> 是 caceh 存放型別</p></li>
+
+<li><p>第一個參數 <code>cacheKey</code> 是用來區隔多組 cache data 的 key (如需多個相同 table 不同 cache ，可藉由 cache 區隔)</p></li>
+
+<li><p>第二個參數 <code>refresh</code> 是用來強制更新 cache 的</p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
@@ -389,7 +389,8 @@ public static List&lt;T&gt; GetCacheData&lt;T&gt;(string key, bool refresh = fal
 <ol>
 <li><a href="http://blog.darkthread.net/post-2016-04-12-improved-getcachabledata.aspx" target="_blank">改良式GetCachableData可快取查詢函式</a></li>
 <li><a href="http://stackoverflow.com/questions/31033055/dynamic-table-names-in-entity-framework-linq" target="_blank">Dynamic table names in Entity Framework linq</a></li>
-</ol>
+</ol></li>
+</ul>
 
     </div>
 

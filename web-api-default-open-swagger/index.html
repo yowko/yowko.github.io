@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -257,13 +257,17 @@
 <ul>
 <li>route template 完全沒有 request 參數時導向 <code>\swagger</code></li>
 <li>想了解如何轉導，請參考 <a href="https://github.com/domaindrivendev/Swashbuckle/blob/e0053e1864defa3c4f73ca2a960eb876e257cc9e/Swashbuckle.Core/Application/RedirectHandler.cs" target="_blank">RedirectHandler.cs</a></li>
-</ul></li>
+</ul>
 
-<li><p>Redirect</p>
+<ol>
+<li>Redirect</li>
+</ol>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/28527624-ade2c2a4-70bd-11e7-8b4f-e756cfe69ca2.png" alt="4redirect" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/28527624-ade2c2a4-70bd-11e7-8b4f-e756cfe69ca2.png" alt="4redirect" /></p>
 
-<li><p>優化</p>
+<ol>
+<li>優化</li>
+</ol>
 
 <ul>
 <li>從上面的 redirect 流程來看，我們可以發現 <code>/</code> 會 redirect 至 <code>/swagger</code> 再 redirect 至 <code>/swagger/ui/index</code></li>
@@ -279,9 +283,7 @@
 );
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/28527625-ade44372-70bd-11e7-81bb-55c2e65d8b5d.png" alt="5lessredirect" /></p></li>
-</ul></li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/28527625-ade44372-70bd-11e7-81bb-55c2e65d8b5d.png" alt="5lessredirect" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -294,6 +296,8 @@
 <ol>
 <li><a href="https://stackoverflow.com/questions/30028736/how-to-use-swagger-as-welcome-page-of-iappbuilder-in-webapi" target="_blank">How to use Swagger as Welcome Page of IAppBuilder in WebAPI</a></li>
 <li><a href="https://github.com/domaindrivendev/Swashbuckle/blob/e0053e1864defa3c4f73ca2a960eb876e257cc9e/Swashbuckle.Core/Application/RedirectHandler.cs" target="_blank">RedirectHandler.cs</a></li>
+</ol></li>
+</ul></li>
 </ol>
 
     </div>

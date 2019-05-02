@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -195,9 +195,11 @@
 <li><p>在 web.config 加入一個 appsetting</p>
 
 <pre><code class="language-xml">&lt;add key=&quot;yowko&quot; value=&quot;yowko&quot;/
-</code></pre></li>
+</code></pre>
 
-<li><p>分別修改不同組態時 web.config 的設定內容</p>
+<ol>
+<li>分別修改不同組態時 web.config 的設定內容</li>
+</ol>
 
 <ul>
 <li><p><code>Web.Debug.config</code></p>
@@ -205,17 +207,21 @@
 <pre><code class="language-xml">&lt;appSettings&gt;
     &lt;add key=&quot;yowko&quot; value=&quot;Debug&quot; xdt:Transform=&quot;Replace&quot; xdt:Locator=&quot;Match(key)&quot;/&gt;
 &lt;/appSettings&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p><code>Web.Release.config</code></p>
+<ul>
+<li><code>Web.Release.config</code></li>
+</ul>
 
 <pre><code class="language-xml">&lt;appSettings&gt;
     &lt;add key=&quot;yowko&quot; value=&quot;Release&quot; xdt:Transform=&quot;Replace&quot; xdt:Locator=&quot;Match(key)&quot;/&gt;
 &lt;/appSettings&gt;
 </code></pre></li>
-</ul></li>
+</ul>
 
-<li><p>修改 HomeController</p>
+<ol>
+<li>修改 HomeController</li>
+</ol>
 
 <pre><code class="language-cs">public ActionResult Index()
 {
@@ -232,8 +238,7 @@
 @ViewBag.Message
 </code></pre>
 
-<h2 id="實際問題">實際問題</h2></li>
-</ol>
+<h2 id="實際問題">實際問題</h2>
 
 <blockquote>
 <p>切換不同 configuration 仍顯示預設 web.config 的設定</p>
@@ -244,25 +249,26 @@
 <h2 id="預覽對應組態的-config-結果">預覽對應組態的 config 結果</h2>
 
 <ol>
-<li><p>在想要預覽的組態 config 上按右鍵 &ndash;&gt; Preview Transform</p>
+<li>在想要預覽的組態 config 上按右鍵 &ndash;&gt; Preview Transform</li>
+</ol>
 
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25305071/4531f5fe-27a7-11e7-8659-39ffbd9e6070.png" alt="1preview" /></p></li>
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25305071/4531f5fe-27a7-11e7-8659-39ffbd9e6070.png" alt="1preview" /></p>
 
-<li><p>預覽結果</p>
+<ol>
+<li>預覽結果</li>
+</ol>
 
 <blockquote>
 <p>分割視窗左邊是原本的 web.config，右邊是轉換後的 web.config，畫面上會用紅色表示被修改前的內容，綠色表示修改後的內容</p>
 </blockquote>
 
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25305072/453a9c5e-27a7-11e7-84b0-414dbd4fb178.png" alt="2previewresult" /></p></li>
-</ol>
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25305072/453a9c5e-27a7-11e7-84b0-414dbd4fb178.png" alt="2previewresult" /></p>
 
 <h2 id="設定-build-即觸發-web-config-transform">設定 build 即觸發 web.config transform</h2>
 
 <ul>
-<li><p>修改 .csproj 檔</p>
+<li>修改 .csproj 檔</li>
 
-<ol>
 <li><p>Upload Project(卸載專案)</p>
 
 <ul>
@@ -270,7 +276,9 @@
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/25305073/455d6ab8-27a7-11e7-9cc5-a13dd6e1e07a.png" alt="3unloadproject" /></p></li>
 </ul></li>
+</ul>
 
+<ol>
 <li><p>Edit .csproj</p>
 
 <ul>
@@ -288,9 +296,11 @@
 &lt;Target Name=&quot;BeforeBuild&quot;&gt;
     &lt;TransformXml Source=&quot;Web.template.config&quot; Transform=&quot;Web.$(Configuration).config&quot; Destination=&quot;Web.config&quot; /&gt;
 &lt;/Target&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>VS 2017</p>
+<ul>
+<li>VS 2017</li>
+</ul>
 
 <pre><code class="language-xml">&lt;Import Project=&quot;$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(MSBuildToolsVersion)\WebApplications\Microsoft.WebApplication.targets&quot; /&gt;
 &lt;Target Name=&quot;BeforeBuild&quot;&gt;
@@ -324,11 +334,11 @@
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/25305076/457f6cc6-27a7-11e7-879e-6a90e62070b7.png" alt="6reloadfile" /></p></li>
 </ul></li>
-</ol></li>
-
-<li><p>使用套件</p>
+</ol>
 
 <ul>
+<li><p>使用套件</p></li>
+
 <li><p>安裝 <code>Configuration Transform</code></p>
 
 <ol>
@@ -354,23 +364,21 @@
 </ul></li>
 
 <li><p><span style="color:red">VS 2017 暫無法使用</span> (2017/04/22)</p></li>
-</ul></li>
 </ul>
 
 <h2 id="實際效果">實際效果</h2>
 
 <ul>
-<li><p>可以依不同的 configuration 顯示對應設定內容</p>
-
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25305230/0fad1492-27aa-11e7-83ef-17fcc35fd3ea.png" alt="12result" /></p></li>
+<li>可以依不同的 configuration 顯示對應設定內容</li>
 </ul>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25305230/0fad1492-27aa-11e7-83ef-17fcc35fd3ea.png" alt="12result" /></p>
 
 <h2 id="心得">心得</h2>
 
 <ul>
-<li><p>使用 .csproj 檔</p>
+<li>使用 .csproj 檔</li>
 
-<ul>
 <li><p>優點：</p>
 
 <ol>
@@ -383,11 +391,9 @@
 <li>多了一個 template 檔案，容易造成新進人員混淆</li>
 <li>每次 build 都會執行，會影響開發節奏</li>
 </ol></li>
-</ul></li>
 
-<li><p>使用套件</p>
+<li><p>使用套件</p></li>
 
-<ul>
 <li><p>優點：</p>
 
 <ol>
@@ -400,7 +406,6 @@
 <ol>
 <li>需要安裝套件，套件目前仍無法於 vs2017 中使用</li>
 </ol></li>
-</ul></li>
 </ul>
 
 <h1 id="參考資訊">參考資訊</h1>
@@ -409,6 +414,7 @@
 <li><a href="https://msdn.microsoft.com/en-us/library/dd465326.aspx" target="_blank">Web.config Transformation Syntax for Web Project Deployment Using Visual Studio</a></li>
 <li><a href="https://gist.github.com/EdCharbeneau/9135216" target="_blank">How to enable transformations on build with Visual Studio</a></li>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=GolanAvraham.ConfigurationTransform" target="_blank">Configuration Transform</a></li>
+</ol></li>
 </ol>
 
     </div>

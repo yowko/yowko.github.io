@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -207,9 +207,11 @@
 <li><p>原語法</p>
 
 <pre><code class="language-cs">using System.Web.Http.OData;
-</code></pre></li>
+</code></pre>
 
-<li><p>新語法</p>
+<ul>
+<li>新語法</li>
+</ul>
 
 <pre><code class="language-cs">using System.Web.OData;
 </code></pre></li>
@@ -225,9 +227,11 @@
 </blockquote>
 
 <pre><code class="language-cs">Validate(patch.GetEntity());
-</code></pre></li>
+</code></pre>
 
-<li><p>新語法</p>
+<ul>
+<li>新語法</li>
+</ul>
 
 <pre><code class="language-cs">Validate(patch);
 </code></pre></li>
@@ -244,9 +248,11 @@
 
 <pre><code class="language-cs">using System.Web.Http.OData.Builder;
 using System.Web.Http.OData.Extensions;
-</code></pre></li>
+</code></pre>
 
-<li><p>新語法</p>
+<ul>
+<li>新語法</li>
+</ul>
 
 <pre><code class="language-cs">using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
@@ -259,9 +265,11 @@ using System.Web.OData.Extensions;
 <li><p>原語法</p>
 
 <pre><code class="language-cs">config.Routes.MapODataServiceRoute(&quot;odata&quot;, &quot;odata&quot;, builder.GetEdmModel());
-</code></pre></li>
+</code></pre>
 
-<li><p>新語法</p>
+<ul>
+<li>新語法</li>
+</ul>
 
 <pre><code class="language-cs">config.MapODataServiceRoute(&quot;odata&quot;, &quot;odata&quot;, builder.GetEdmModel());
 </code></pre></li>

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2018-12-10T23:45:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-12-31T23:44:30&#43;08:00" />
-<meta itemprop="wordCount" content="1752">
+<meta itemprop="wordCount" content="1755">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-12-10 </span>
         
-        <span class="more-meta"> 約 1752 字 </span>
+        <span class="more-meta"> 約 1755 字 </span>
           <span class="more-meta"> 預計閱讀 4 分鐘 </span>
         
       </div>
@@ -211,12 +211,13 @@
     }
     &quot;Connections done&quot;.Dump();
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>執行結果</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/49747856-4af0c600-fcdf-11e8-815d-280b2f4b6afd.png" alt="1sourceresult" /></p></li>
+<ol>
+<li>執行結果</li>
 </ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/49747856-4af0c600-fcdf-11e8-815d-280b2f4b6afd.png" alt="1sourceresult" /></p>
 
 <h2 id="可能問題與解決方式">可能問題與解決方式</h2>
 
@@ -229,10 +230,8 @@
 <ul>
 <li>已完成 web call ，透過 <code>netstat</code> 確認狀態仍為 <code>TIME-WAIT</code>
 <img src="https://user-images.githubusercontent.com/3851540/49747858-4b895c80-fcdf-11e8-9b6c-69b79e1bed69.png" alt="2state" /></li>
+<li>模擬耗盡 sockets</li>
 
-<li><p>模擬耗盡 sockets</p>
-
-<ul>
 <li><p>程式碼</p>
 
 <pre><code class="language-cs">void Main()
@@ -251,54 +250,51 @@
     }
     &quot;Connections done&quot;.Dump();
 }
-</code></pre></li>
+</code></pre>
 
+<ul>
 <li><p>錯誤訊息</p>
 
 <pre><code>Unable to connect to the remote server
 InnerException
 Only one usage of each socket address (protocol/network address/port) is normally permitted 127.0.0.1:80 
 </code></pre></li>
-</ul></li>
 
-<li><p>解決方式：使用 Singleton 或 static 方式建立 HttpClient 物件</p>
+<li><p>解決方式：使用 Singleton 或 static 方式建立 HttpClient 物件</p></li>
+</ul>
 
 <blockquote>
-<p>官方建議針對一個 domain 建立一個 HttpClient instance</p>
+<p>官方建議針對一個 domain 建立一個 HttpClient instance
+- Singleton
+- <del>double-check locking</del></p>
 </blockquote>
 
-<ul>
-<li><p>Singleton</p>
+<pre><code>~~public class HttpClientServiceA~~
+~~{~~
+    ~~private HttpClientServiceA() { }~~
+    ~~private static HttpClient httpClient;~~
+    ~~private static readonly object alock = new object();~~
+    ~~public static HttpClient GetHttpClient()~~
+    ~~{~~
+        ~~if (httpClient == null)~~
+        ~~{~~
+            ~~lock (alock)~~
+            ~~{~~
+                ~~if (httpClient == null)~~
+                ~~{~~
+                    ~~httpClient = new HttpClient();~~
+                    ~~httpClient.BaseAddress = new Uri(&quot;https://blog.yowko.com/&quot;);~~
+                ~~}~~
+            ~~}~~
+        ~~}~~
+        ~~return httpClient;~~
+    ~~}~~
+~~}~~
+
+&gt; 經黑大提醒，重新閱讀 [Implementing the Singleton Pattern in C#](http://csharpindepth.com/articles/general/singleton.aspx) : 作者建議不要使用 `double-check locking` ，建議作法使用 `Lazy&lt;T&gt;`
+</code></pre>
 
 <ul>
-<li><p><del>double-check locking</del></p>
-
-<p><del>public class HttpClientServiceA</del>
-<del>{</del>
-    <del>private HttpClientServiceA() { }</del>
-    <del>private static HttpClient httpClient;</del>
-    <del>private static readonly object alock = new object();</del>
-    <del>public static HttpClient GetHttpClient()</del>
-    <del>{</del>
-        <del>if (httpClient == null)</del>
-        <del>{</del>
-            <del>lock (alock)</del>
-            <del>{</del>
-                <del>if (httpClient == null)</del>
-                <del>{</del>
-                    <del>httpClient = new HttpClient();</del>
-                    <del>httpClient.BaseAddress = new Uri(&ldquo;<a href="https://blog.yowko.com/&quot;" target="_blank">https://blog.yowko.com/&quot;</a>);</del>
-                <del>}</del>
-            <del>}</del>
-        <del>}</del>
-        <del>return httpClient;</del>
-    <del>}</del>
-<del>}</del></p>
-
-<blockquote>
-<p>經黑大提醒，重新閱讀 <a href="http://csharpindepth.com/articles/general/singleton.aspx" target="_blank">Implementing the Singleton Pattern in C#</a> : 作者建議不要使用 <code>double-check locking</code> ，建議作法使用 <code>Lazy&lt;T&gt;</code></p>
-</blockquote></li>
-
 <li><p>Safety through initialization</p>
 
 <blockquote>
@@ -327,9 +323,12 @@ Only one usage of each socket address (protocol/network address/port) is normall
         }
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>Lazy<T></p>
+<ul>
+<li>Lazy<T>
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">public sealed class HttpClientServiceA
 {
@@ -343,9 +342,9 @@ Only one usage of each socket address (protocol/network address/port) is normall
     private HttpClientServiceA() {}
 }
 </code></pre></li>
-</ul></li>
 
-<li><p>static</p>
+<li><p>static</p></li>
+</ul>
 
 <pre><code class="language-cs">class HttpClientServiceA
 {
@@ -366,31 +365,28 @@ Only one usage of each socket address (protocol/network address/port) is normall
 
 <pre><code class="language-cs">var httpclient = HttpClientServiceA.Instance;
 var result = httpclient.GetAsync(&quot;&quot;).GetAwaiter().GetResult();
-</code></pre></li>
+</code></pre>
 
-<li><p>static</p>
+<ul>
+<li>static
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">HttpClientServiceA httpclient = new HttpClientServiceA();
 var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().GetResult();
 </code></pre></li>
-</ul></li>
 </ul></li>
 </ul>
 
 <h3 id="2-共用的-httpclient-可能會無法即時反應-dns-的異動">2. 共用的 HttpClient 可能會無法即時反應 DNS 的異動</h3>
 
 <ul>
-<li>重現問題流程
-
-<ul>
+<li>重現問題流程</li>
 <li>分別透過 using 與 singleton HttpClient 取得 <code>https://blog.yowko.com/</code> 內容</li>
 <li>修改 hosts file 將 <code>blog.yowko.com</code> 主機 ip 指向本機 (原理與修改方式可以參考之前筆記 <a href="https://blog.yowko.com/windows-host-file" target="_blank">在 Windows 環境將特定網址指向不同 IP</a>)</li>
 <li>重新透過 using 與 singleton HttpClient 取得 <code>https://blog.yowko.com/</code> 內容</li>
-</ul></li>
+<li>程式碼</li>
 
-<li><p>程式碼</p>
-
-<ul>
 <li><p>使用 singleton HttpClient</p>
 
 <pre><code class="language-cs">public IActionResult About()
@@ -400,9 +396,12 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
     ViewData[&quot;Message&quot;] = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
     return View();
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>使用 using HtttpClient</p>
+<ul>
+<li>使用 using HtttpClient
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">public IActionResult Contact()
 {
@@ -415,11 +414,9 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
     return View();
 }
 </code></pre></li>
-</ul></li>
 
-<li><p>未修改 hosts file : <code>兩者行為相同</code></p>
+<li><p>未修改 hosts file : <code>兩者行為相同</code></p></li>
 
-<ul>
 <li><p>使用 singleton HttpClient</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/49747860-4b895c80-fcdf-11e8-9e10-505e7544a5f3.png" alt="4singletonbefore" /></p></li>
@@ -427,11 +424,9 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
 <li><p>使用 using HtttpClient</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/49747861-4c21f300-fcdf-11e8-88f3-5559d37ae4b2.png" alt="5usingbefore" /></p></li>
-</ul></li>
 
-<li><p>修改 hosts file : <code>singleton HttpClient 未能即時反應 DNS 異動</code></p>
+<li><p>修改 hosts file : <code>singleton HttpClient 未能即時反應 DNS 異動</code></p></li>
 
-<ul>
 <li><p>使用 singleton HttpClient</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/49747863-4c21f300-fcdf-11e8-960c-a34ece6a1455.png" alt="6singletonafter" /></p></li>
@@ -439,9 +434,9 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
 <li><p>使用 using HtttpClient</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/49747864-4c21f300-fcdf-11e8-9f39-c1e3ebf5dcd9.png" alt="7usingafter" /></p></li>
-</ul></li>
 
-<li><p>解決方式</p>
+<li><p>解決方式</p></li>
+</ul>
 
 <blockquote>
 <p>將 HttpClient 的 <code>DefaultRequestHeaders.ConnectionClose</code> 屬性設定為 <code>true</code>，也就是將 HTTP 的 keep-alive header 設為 <code>false</code>，讓 socket 在每次處理完 request 即關閉</p>
@@ -462,9 +457,12 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
     public static HttpClient Instance { get { return lazy.Value; } }
     private HttpClientServiceB() { }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>static</p>
+<ul>
+<li>static
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">public class HttpClientServiceA
 {
@@ -510,9 +508,12 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
     public static HttpClient Instance { get { return lazy.Value; } }
     private HttpClientServiceB() { }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>static</p>
+<ul>
+<li>static
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">public class HttpClientServiceA
 {
@@ -530,13 +531,13 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
     public HttpClient HttpclientInstance = _httpClient;
 }
 </code></pre></li>
-</ul></li>
 </ul>
 
 <h2 id="其他延伸現象">其他延伸現象</h2>
 
 <ol>
-<li><p>未耗盡 65536 ports ？！</p>
+<li>未耗盡 65536 ports ？！</li>
+</ol>
 
 <blockquote>
 <p>Windows 可使用的 port 設定可以查詢 <code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\MaxUserPort</code>，以我的 Windows 10 環境而言，預設值為 <code>15000</code></p>

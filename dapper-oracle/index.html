@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -231,19 +231,21 @@ using (var cn = new System.Data.OracleClient.OracleConnection(cnstr))
 <li><p>namespace 與 x86 不同，要留意</p>
 
 <pre><code class="language-cs">using (var cn = new Oracle.ManagedDataAccess.Client.OracleConnection(cnstr))
-</code></pre></li>
+</code></pre>
 
-<li><p>錯誤訊息：<code>ORA-12154: TNS: 無法解析指定的連線 ID</code></p>
+<ul>
+<li>錯誤訊息：<code>ORA-12154: TNS: 無法解析指定的連線 ID</code></li>
+</ul>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/27827702-29a71b20-60eb-11e7-92b1-01373d547b8b.png" alt="4error" /></p>
 
 <ul>
 <li>當時未能查明原因，推估應是測試當下 tns.ora 設定有誤造成</li>
-</ul></li>
 
 <li><p></del><span style="color:red"> 2017/11/18 重新 review 後，發現內文有錯，正確用法連結：</span> <a href="//blog.yowko.com/2018/01/dapper-oracle-manageddataaccess.html" target="_blank">Dapper 讀取 Oracle 資料 - 更新版 (使用 Oracle.ManagedDataAccess )</a></p></li>
 
-<li><p>完整程式碼</p>
+<li><p>完整程式碼</p></li>
+</ul>
 
 <pre><code class="language-cs">string cnstr = &quot;Data source=YowkoOracle;User id=YowkoOracle_WRITE;Password=password;&quot;;
 using (var cn = new Oracle.DataAccess.Client.OracleConnection(cnstr))
@@ -264,9 +266,11 @@ using (var cn = new Oracle.DataAccess.Client.OracleConnection(cnstr))
 <li><p>Oracle 寫法為 <code>:Variable</code></p>
 
 <pre><code class="language-cs">var result = cn.Query&lt;string&gt;(@&quot;select TOKEN from TRIGGERTOKEN where ISACTIVE=1 and TOKEN=:token&quot;, new { token = &quot;3D5998FASDF4531FDSAF64A4E&quot; }).FirstOrDefault();
-</code></pre></li>
+</code></pre>
 
-<li><p>SQL Server 寫法為 <code>@Variable</code></p>
+<ol>
+<li>SQL Server 寫法為 <code>@Variable</code></li>
+</ol>
 
 <pre><code class="language-cs">var list = cn.Query&lt;Guid&gt;(&quot;SELECT TOKEN FROM [TRIGGERTOKEN] where isActive=1 and token=@token&quot;, new { token = &quot;3D5998FASDF4531FDSAF64A4E&quot; }).FirstOrDefault();
 </code></pre></li>

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -248,27 +248,29 @@
 <li><p>加入引用</p>
 
 <pre><code class="language-cs">using System.Diagnostics;
-</code></pre></li>
+</code></pre>
 
-<li><p>加上所需 log</p>
+<ol>
+<li>加上所需 log</li>
 
-<ul>
 <li><p>Debug</p>
 
 <pre><code class="language-cs">Debug.WriteLine(&quot;Test&quot;);
-</code></pre></li>
+</code></pre>
 
-<li><p>Trace</p>
+<ul>
+<li>Trace</li>
+</ul>
 
 <pre><code class="language-cs">Trace.WriteLine(&quot;Test&quot;);
 </code></pre></li>
-</ul></li>
 </ol>
 
 <h2 id="檢查相關設定">檢查相關設定</h2>
 
 <ol>
-<li><p>檢查訊息是輸出至 Output 視窗還是即時運算視窗</p>
+<li>檢查訊息是輸出至 Output 視窗還是即時運算視窗</li>
+</ol>
 
 <ul>
 <li><p>Visual Studio 主選單 Tools &ndash;&gt; Options&hellip;</p>
@@ -282,9 +284,11 @@
 <ul>
 <li>想要在 Output 視窗看到訊息，請保持未選取的狀態</li>
 </ul></li>
-</ul></li>
+</ul>
 
-<li><p>檢查專案設定</p>
+<ol>
+<li>檢查專案設定</li>
+</ol>
 
 <ul>
 <li><p>專案 上按右鍵 &ndash;&gt; Properties</p>
@@ -308,9 +312,11 @@
 <p>才可以使用 <code>Trace</code> 輸出訊息</p>
 </blockquote></li>
 </ul></li>
-</ul></li>
+</ul>
 
-<li><p>檢查 Output 視窗設定</p>
+<ol>
+<li>檢查 Output 視窗設定</li>
+</ol>
 
 <ul>
 <li><p>Output 視窗 &ndash;&gt; Show output from：Debug</p>
@@ -326,15 +332,15 @@
 
 <p><img src="https://user-images.githubusercontent.com/3851540/27722856-a66005a2-5d9c-11e7-84bf-e3032d99a731.png" alt="8allprogramoutput" /></p></li>
 </ul></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="其他原因">其他原因？</h2>
 
 <p>經過一番檢查確認後，同事還是無法正確地輸出訊息到 output 視窗，後來看到 web.config 有用了 <a href="http://nlog-project.org/2010/09/02/routing-system-diagnostics-trace-and-system-diagnostics-tracesource-logs-through-nlog.html" target="_blank">NLogTraceListener</a>，猜測可能是 nlog 的設定問題，檢查 web.config</p>
 
 <ul>
-<li><p>原始 web.config</p>
+<li>原始 web.config</li>
+</ul>
 
 <pre><code class="language-xml">&lt;system.diagnostics&gt;
     &lt;sharedListeners&gt;
@@ -348,7 +354,9 @@
     &lt;/trace&gt;
 &lt;/system.diagnostics&gt;
 </code></pre></li>
+</ol>
 
+<ul>
 <li><p>需要移除 <code>&lt;remove name=&quot;Default&quot; /&gt;</code></p>
 
 <blockquote>
@@ -365,8 +373,7 @@
     &lt;/listeners&gt;
     &lt;/trace&gt;
 &lt;/system.diagnostics&gt;
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="心得">心得</h2>
 
@@ -378,7 +385,8 @@
 <li><a href="https://support.microsoft.com/zh-tw/help/815788/how-to-trace-and-debug-in-visual-c" target="_blank">HOW TO： Visual C# .NET 中的 Trace 和 Debug 類別</a></li>
 <li><a href="https://stackoverflow.com/questions/9369820/debug-writeline-shows-nothing" target="_blank">Debug.WriteLine shows nothing</a></li>
 <li><a href="http://nlog-project.org/2010/09/02/routing-system-diagnostics-trace-and-system-diagnostics-tracesource-logs-through-nlog.html" target="_blank">NLogTraceListener</a></li>
-</ol>
+</ol></li>
+</ul>
 
     </div>
 

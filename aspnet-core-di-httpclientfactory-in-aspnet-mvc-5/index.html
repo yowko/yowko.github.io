@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -258,9 +258,11 @@
 {
     ConfigureAuth(app);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>修改後</p>
+<ul>
+<li>修改後</li>
+</ul>
 
 <pre><code class="language-cs">public void Configuration(IAppBuilder app)
 {
@@ -326,9 +328,11 @@
 <li><p>在 <code>ConfigureServices</code> 方法中註冊 HttpClient</p>
 
 <pre><code class="language-cs">services.AddHttpClient();
-</code></pre></li>
+</code></pre>
 
-<li><p>在使用處的 constructor 加入 <code>IHttpClientFactory</code></p>
+<ol>
+<li>在使用處的 constructor 加入 <code>IHttpClientFactory</code></li>
+</ol>
 
 <pre><code class="language-cs">private readonly IHttpClientFactory _clientFactory;
 
@@ -344,8 +348,7 @@ public HomeController(IHttpClientFactory clientFactory)
 client.BaseAddress = new Uri(&quot;https://blog.yowko.com&quot;);
 var result = await client.GetAsync(&quot;/&quot;);
 ViewBag.BlogContent = await result.Content.ReadAsStringAsync();
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="心得">心得</h2>
 
@@ -355,6 +358,7 @@ ViewBag.BlogContent = await result.Content.ReadAsStringAsync();
 
 <ol>
 <li><a href="https://scottdorman.github.io/2016/03/17/integrating-asp.net-core-dependency-injection-in-mvc-4/" target="_blank">Integrating ASP.NET Core Dependency Injection in MVC 4</a></li>
+</ol></li>
 </ol>
 
     </div>

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -278,9 +278,11 @@ var statement = userttemplate.Bind(_user.UserId, _user.Name, _user.Birthday, _us
 
 //實際執行指令
 await session.ExecuteAsync(statement);
-</code></pre></li>
+</code></pre>
 
-<li><p>Select</p>
+<ul>
+<li>Select</li>
+</ul>
 
 <pre><code class="language-cs">//準備 cassandra 的連線資訊
 var cluster = Cluster.Builder()
@@ -318,9 +320,11 @@ var statement = userUpdateTemplate.Bind(&quot;yowko&quot;,Guid.Parse(&quot;useri
 
 //實際執行指令
 await session.ExecuteAsync(statement);
-</code></pre></li>
+</code></pre>
 
-<li><p>Delete</p>
+<ul>
+<li>Delete</li>
+</ul>
 
 <pre><code class="language-cs">//準備 cassandra 的連線資訊
 var cluster = Cluster.Builder()

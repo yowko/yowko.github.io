@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -201,9 +201,12 @@
 <li><p>使用預設連線 (localhost:27017)</p>
 
 <pre><code class="language-cs">MongoClient client = new MongoClient();
-</code></pre></li>
+</code></pre>
 
-<li><p>使用連線字串</p>
+<ol>
+<li>使用連線字串
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">MongoClient client = new MongoClient(&quot;mongodb://localhost:27017&quot;);
 </code></pre></li>
@@ -215,9 +218,12 @@
     {
         Server = new MongoServerAddress(&quot;localhost&quot;,27017)
     });
-</code></pre></li>
+</code></pre>
 
-<li><p>使用 MongoUrl</p>
+<ol>
+<li>使用 MongoUrl
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">MongoClient client = new MongoClient(
     MongoUrl.Create(&quot;mongodb://localhost:27017&quot;));
@@ -239,9 +245,12 @@
 <li><p>語法</p>
 
 <pre><code class="language-cs">MongoClient client= new MongoClient(&quot;mongodb://{username}:{password}@{host}:{port}/{Database}&quot;);
-</code></pre></li>
+</code></pre>
 
-<li><p>實際範例</p>
+<ul>
+<li>實際範例
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">MongoClient client= new MongoClient(&quot;mongodb://yowkoTest:passwordTest@127.0.0.1:27017/test&quot;);
 </code></pre></li>
@@ -262,9 +271,12 @@ new MongoClientSettings
     Credential = credential,
     Server = new MongoServerAddress(&quot;{host}&quot;, {port}),
 });
-</code></pre></li>
+</code></pre>
 
-<li><p>實際範例</p>
+<ul>
+<li>實際範例
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">var credential = MongoCredential.CreateCredential(&quot;test&quot;, &quot;yowkoTest&quot;, &quot;passwordTest&quot;);
 MongoClient client = new MongoClient(
@@ -289,9 +301,12 @@ new MongoClientSettings
     Credential = new MongoCredential(null, identity, evidence),
     Server = new MongoServerAddress(&quot;{host}&quot;, {port}),
 });
-</code></pre></li>
+</code></pre>
 
-<li><p>實際範例</p>
+<ul>
+<li>實際範例
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">MongoIdentity identity = new MongoInternalIdentity(&quot;test&quot;, &quot;yowkoTest&quot;);
 MongoIdentityEvidence evidence = new PasswordEvidence(&quot;passwordTest&quot;);
@@ -312,9 +327,12 @@ new MongoClientSettings
 
 <pre><code class="language-cs">MongoClient client = new MongoClient(
         MongoUrl.Create(&quot;mongodb://{username}:{password}@{host}:{port}/{Database}&quot;));
-</code></pre></li>
+</code></pre>
 
-<li><p>實際範例</p>
+<ul>
+<li>實際範例
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">MongoClient client = new MongoClient(
         MongoUrl.Create(&quot;mongodb://yowkoTest:passwordTest@localhost:27017/test&quot;));
@@ -337,9 +355,12 @@ new MongoClientSettings
 <li><p>語法</p>
 
 <pre><code class="language-cs">MongoClient client= new MongoClient(&quot;mongodb://{username}:{password}@{host1}:{port1},{host2}:{port2},{host3}:{port3}/?replicaSet={replicaSet Name}&quot;);
-</code></pre></li>
+</code></pre>
 
-<li><p>實際範例</p>
+<ul>
+<li>實際範例
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">MongoClient client= new MongoClient(&quot;mongodb://yowkoTest:passwordTest@127.0.0.1:27017,127.0.0.1:27027,127.0.0.1:27037/?replicaSet=TestReplicaSet&quot;);
 </code></pre></li>
@@ -365,9 +386,12 @@ new MongoClientSettings
     },
     ReplicaSetName=&quot;{replicaSet Name}&quot;
 });
-</code></pre></li>
+</code></pre>
 
-<li><p>實際範例</p>
+<ul>
+<li>實際範例
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">var credential = MongoCredential.CreateCredential(null, &quot;yowkoTest&quot;, &quot;passwordTest&quot;);
 MongoClient client = new MongoClient(
@@ -402,9 +426,12 @@ new MongoClientSettings
     },
     ReplicaSetName=&quot;{replicaSet Name}&quot;
 });
-</code></pre></li>
+</code></pre>
 
-<li><p>實際範例</p>
+<ul>
+<li>實際範例
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">MongoIdentity identity = new MongoInternalIdentity(&quot;test&quot;, &quot;yowkoTest&quot;);
 MongoIdentityEvidence evidence = new PasswordEvidence(&quot;passwordTest&quot;);
@@ -430,18 +457,21 @@ new MongoClientSettings
 
 <pre><code class="language-cs">MongoClient client = new MongoClient(
         MongoUrl.Create(&quot;mongodb://{username}:{password}@{host1}:{port1},{host2}:{port2},{host3}:{port3}/?replicaSet={replicaSet Name}&quot;));
-</code></pre></li>
+</code></pre>
 
-<li><p>實際範例</p>
+<ul>
+<li>實際範例
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">MongoClient client = new MongoClient(
         MongoUrl.Create(&quot;mongodb://yowko:pass.123@127.0.0.1:27017,127.0.0.1:27027,127.0.0.1:27037/?replicaSet=TestReplicaSet&quot;));
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="心得">心得</h2>
 
 <p>原本只是沒營養地紀錄一下原本預估一 ~ 二小時可以搞定，出乎意料地花了一整天的時間，之前我就有一樣的感覺：對於 MongoDB 常常覺得不用紀錄的東西，但下次真的要用時又要花不少時間摸索，希望再加上這次經驗後 下次使用起來會順手些</p></li>
-</ul></li>
 </ol>
 
 <h1 id="參考資訊">參考資訊</h1>

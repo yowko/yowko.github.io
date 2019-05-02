@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -219,9 +219,12 @@
 <li><p>將 Settings 改成可以吃多筆</p>
 
 <pre><code class="language-cs">public IEnumerable&lt;TSettings&gt; Settings { get; protected set; }
-</code></pre></li>
+</code></pre>
 
-<li><p><code>DashboardDataProvider</code> 建構式參數改成可吃多筆</p>
+<ul>
+<li><code>DashboardDataProvider</code> 建構式參數改成可吃多筆
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">protected DashboardDataProvider(TSettings settings) : base(settings)
 </code></pre></li>
@@ -266,9 +269,11 @@
         }   
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>將使用到 <code>bosun</code> 與 <code>orion</code> 部份移除</p>
+<ul>
+<li>將使用到 <code>bosun</code> 與 <code>orion</code> 部份移除</li>
+</ul>
 
 <pre><code class="language-cs">//if (providers.Bosun != null)
 //    Providers.Add(new BosunDataProvider(providers.Bosun));
@@ -332,19 +337,22 @@
     }
     ]
 },
-</code></pre></li>
+</code></pre>
 
-<li><p>監控結果</p>
-
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/22058136/d8f37fc8-dda2-11e6-996b-dd3a9319c193.png" alt="1RESULT" /></p></li>
+<ul>
+<li>監控結果
+<br /></li>
 </ul>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/22058136/d8f37fc8-dda2-11e6-996b-dd3a9319c193.png" alt="1RESULT" /></p>
 
 <h1 id="參考資料">參考資料</h1>
 
 <ol>
 <li><a href="https://github.com/opserver/Opserver" target="_blank">Opserver GitHub</a></li>
 <li><a href="https://github.com/yowko/Opserver" target="_blank">Yowko&rsquo;s Repository(GitHub)</a></li>
-</ol>
+</ol></li>
+</ul>
 
     </div>
 

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -326,9 +326,11 @@ GO
 
 <blockquote>
 <p>為了避免用來紀錄錯誤訊息的 stored procedure 也出現錯誤，另外加上一支只顯示錯誤資訊的 stored procedure</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>uspPrintError</p>
+<ul>
+<li>uspPrintError</li>
+</ul>
 
 <pre><code class="language-sql">SET ANSI_NULLS ON
 GO
@@ -362,9 +364,11 @@ END TRY
 BEGIN CATCH
     EXECUTE [dbo].[uspLogErrors];
 END CATCH;
-</code></pre></li>
+</code></pre>
 
-<li><p>stored procedure</p>
+<ul>
+<li>stored procedure</li>
+</ul>
 
 <pre><code class="language-sql">CREATE PROCEDURE [dbo].[uspSelectSalesCurrency]
 AS

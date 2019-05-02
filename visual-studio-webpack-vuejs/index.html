@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -259,9 +259,11 @@
 &lt;script src=&quot;~/Scripts/dist/build.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>在 <code>Scripts/src</code> 資料夾中加入 <code>msg.vue</code></p>
+<ol>
+<li>在 <code>Scripts/src</code> 資料夾中加入 <code>msg.vue</code></li>
+</ol>
 
 <pre><code class="language-html">&lt;template lang=&quot;html&quot;&gt;
     &lt;div class=&quot;message&quot;&gt;
@@ -294,25 +296,27 @@ new Vue({
     el: '#app',
     components: { Msg }
 })
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="設定-webpack">設定 WebPack</h2>
 
 <ol>
-<li><p>在網站根目錄加入 <code>webpack.config.js</code></p>
+<li>在網站根目錄加入 <code>webpack.config.js</code></li>
 
-<ul>
 <li><p>專案上按右鍵 &ndash;&gt; Add &ndash;&gt; New Item&hellip;</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/32702060-c83635ea-c81b-11e7-9c01-7aac44a44ec8.png" alt="8newitem" /></p></li>
+</ol>
 
+<ul>
 <li><p>Web &ndash;&gt; 選擇 WebPack Configuration File</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/32702062-c8831b58-c81b-11e7-9101-5cc0625b386e.png" alt="9addwebpackconfig" /></p></li>
-</ul></li>
+</ul>
 
-<li><p>設定 <code>webpack.config.js</code> 編譯內容</p>
+<ol>
+<li>設定 <code>webpack.config.js</code> 編譯內容</li>
+</ol>
 
 <pre><code class="language-js">&quot;use strict&quot;;
     

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -212,41 +212,49 @@
             return Ok();
     }
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="使用-privatetype-與-privateobject-來測試-private-method">使用 PrivateType 與 PrivateObject 來測試 private method</h2>
 
 <ol>
-<li><p>使用 NSubstitute 模擬 ILogger</p>
+<li>使用 NSubstitute 模擬 ILogger</li>
+</ol>
 
 <pre><code class="language-cs">var logger = Substitute.For&lt;ILogger&gt;();
 </code></pre></li>
+</ul>
 
+<ol>
 <li><p>使用 PrivateType 將模擬的 PrivateType 設定為測試目標程式的 field</p>
 
 <pre><code class="language-cs">//建立測試目標程式的 PrivateType
 PrivateType pt = new PrivateType(typeof(ValuesController));
 // 指定 PrivateType 的 logger
 pt.SetStaticFieldOrProperty(&quot;logger&quot;, logger);
-</code></pre></li>
+</code></pre>
 
-<li><p>使用 測試目標程式的 PrivateType 來建立測試目標的 PrivateObject</p>
+<ol>
+<li>使用 測試目標程式的 PrivateType 來建立測試目標的 PrivateObject</li>
+</ol>
 
 <ul>
 <li><p>使用新增測試目標實體來建立 PrivateObject</p>
 
 <pre><code class="language-cs">PrivateObject target = new PrivateObject(new ValuesController(), pt);
-</code></pre></li>
+</code></pre>
 
-<li><p>使用既有測試目標來建立 PrivateObject</p>
+<ul>
+<li>使用既有測試目標來建立 PrivateObject</li>
+</ul>
 
 <pre><code class="language-cs">var valuesController = new ValuesController();
 PrivateObject target = new PrivateObject(valuesController, pt);
 </code></pre></li>
-</ul></li>
+</ul>
 
-<li><p>完整測試程式</p>
+<ol>
+<li>完整測試程式</li>
+</ol>
 
 <pre><code class="language-cs">[TestMethod()]
 public void PostTest()

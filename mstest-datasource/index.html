@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2017-08-01T23:52:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-24T10:52:52&#43;08:00" />
-<meta itemprop="wordCount" content="952">
+<meta itemprop="wordCount" content="953">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2017-08-01 </span>
         
-        <span class="more-meta"> 約 952 字 </span>
+        <span class="more-meta"> 約 953 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -211,9 +211,11 @@
 <li><p>引用 namesapce</p>
 
 <pre><code class="language-cs">using MSTestHacks;
-</code></pre></li>
+</code></pre>
 
-<li><p>讓測試 class 繼承 <code>TestBase</code></p>
+<ol>
+<li>讓測試 class 繼承 <code>TestBase</code></li>
+</ol>
 
 <pre><code class="language-cs">[TestClass]
 public class UnitTest1 : TestBase
@@ -236,9 +238,11 @@ public class UnitTest1 : TestBase
         return new List&lt;string&gt; { &quot;Yowko Test&quot;, &quot;Unit Test&quot;, &quot;Yowko Demo&quot; };
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>Method</p>
+<ul>
+<li>Method</li>
+</ul>
 
 <pre><code class="language-cs">private IEnumerable&lt;int&gt; GetAges()
 {
@@ -264,9 +268,11 @@ public class UnitTest1 : TestBase
 public void TestMethod2()
 {
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>Method</p>
+<ul>
+<li>Method</li>
+</ul>
 
 <pre><code class="language-cs">[TestMethod]
 [DataSource(&quot;DemoMSTest.Tests.UnitTest1.GetAges&quot;)]
@@ -293,9 +299,11 @@ public void TestMethod2()
     Console.WriteLine(project);
     Assert.IsTrue(project.Contains(&quot;Test&quot;));
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>Method</p>
+<ul>
+<li>Method</li>
+</ul>
 
 <pre><code class="language-cs">[TestMethod]
 [DataSource(&quot;DemoMSTest.Tests.UnitTest1.GetAges&quot;)]
@@ -332,13 +340,14 @@ public void TestMethod1()
 <ol>
 <li><p>僅驗證特定的 exception</p>
 
-<p><code>cs
-ExceptionAssert.Throws&lt;ArgumentNullException&gt;(()=&gt;target.Get());
-</code>`</p></li>
+<p>``cs
+ExceptionAssert.Throws<ArgumentNullException>(()=&gt;target.Get());</p>
 
-<li><p>驗證 exception 及錯誤訊息</p>
+<pre><code>
+2.  驗證 exception 及錯誤訊息
 
-<pre><code class="language-cs">ExceptionAssert.Throws&lt;ArgumentException&gt;(() =&gt; target.Post(),expectedMessage);
+```cs
+ExceptionAssert.Throws&lt;ArgumentException&gt;(() =&gt; target.Post(),expectedMessage);
 </code></pre></li>
 </ol>
 

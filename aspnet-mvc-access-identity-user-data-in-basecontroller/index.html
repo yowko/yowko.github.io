@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -218,9 +218,11 @@
 
 <pre><code class="language-cs">[Authorize]
 public class BaseController : Controller
-</code></pre></li>
+</code></pre>
 
-<li><p>新增 User property</p>
+<ol>
+<li>新增 User property</li>
+</ol>
 
 <pre><code class="language-cs">IUser _UserData;
 public IUser UserData
@@ -276,20 +278,20 @@ public class BaseController : Controller
 
 
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="3-建立-asp-net-identity-資料服務">3. 建立 ASP.NET Identity 資料服務</h2>
 
 <pre><code class="language-cs">public static class UserRepository
 {
-    public  static IUser GetUser(string username)
-    {
-        var UserManager = HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;();
-        return UserManager.FindByName(username);
-    }
+public  static IUser GetUser(string username)
+{
+    var UserManager = HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;();
+    return UserManager.FindByName(username);
 }
-</code></pre>
+}
+</code></pre></li>
+</ol>
 
 <h2 id="4-其他-controller-實際使用">4. 其他 Controller 實際使用</h2>
 
@@ -297,9 +299,12 @@ public class BaseController : Controller
 <li><p>繼承 BaseController</p>
 
 <pre><code class="language-cs">public class HomeController : BaseController
-</code></pre></li>
+</code></pre>
 
-<li><p>自訂 property</p>
+<ol>
+<li>自訂 property
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">private string userID;
 </code></pre></li>
@@ -310,15 +315,16 @@ public class BaseController : Controller
 {
     userID = UserData.Id;
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="5-web-api-下的作法">5. Web API 下的作法</h2>
 
 <p>相關做法請參考 <a href="http://stackoverflow.com/questions/25908209/identity-2-0-user-identity-is-null-in-mvc-5-controller-initializer" target="_blank">Identity 2.0 User Identity is null in MVC 5 controller initializer</a></p>
 
 <ol>
-<li><p>加入自訂 Authorize attibute</p>
+<li>加入自訂 Authorize attibute
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public class MyAuthorizeAttribute : AuthorizeAttribute 
 {
@@ -349,9 +355,12 @@ public class BaseController : Controller
     WebApiConfig.Register(config);
     config.Filters.Add(new MyAuthorizeAttribute());
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>使用 ActionContext 取得 userId</p>
+<ol>
+<li>使用 ActionContext 取得 userId
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">Guid userId = (Guid) ActionContext.Request.Properties[&quot;userId&quot;];
 </code></pre></li>

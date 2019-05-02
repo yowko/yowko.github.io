@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -247,11 +247,11 @@
 <pre><code class="language-xml">&lt;system.web&gt;
     &lt;httpRuntime fcnMode=&quot;Disabled&quot;/&gt;
 &lt;/system.web&gt;
-</code></pre></li>
-
-<li><p><code>waitChangeNotification</code> 與 <code>maxWaitChangeNotification</code></p>
+</code></pre>
 
 <ul>
+<li><code>waitChangeNotification</code> 與 <code>maxWaitChangeNotification</code></li>
+
 <li><p>waitChangeNotification</p>
 
 <ul>
@@ -293,9 +293,11 @@
 <li><p>使用 <code>PowerShell</code></p>
 
 <pre><code class="language-ps1">New-ItemProperty -Path &quot;hklm:\SOFTWARE\WOW6432Node\Microsoft\ASP.NET&quot; -Name &quot;FCNMode&quot; -Value 1 -PropertyType DWORD
-</code></pre></li>
+</code></pre>
 
-<li><p>完成設定可以透過 <code>iisreset /restart</code> 或是 <code>重新開機</code> 來套用設定</p></li>
+<ul>
+<li>完成設定可以透過 <code>iisreset /restart</code> 或是 <code>重新開機</code> 來套用設定</li>
+</ul></li>
 </ul></li>
 
 <li><p>修改 IIS - ApplicationPool 設定</p>

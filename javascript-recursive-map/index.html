@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -196,9 +196,11 @@
     { id: 3, name: 'Almost There', otherProp: '046' },
     { id: 4, name: 'Last Obj', otherProp: '984' }
 ];
-</code></pre></li>
+</code></pre>
 
-<li><p>使用 <code>map</code></p>
+<ul>
+<li>使用 <code>map</code></li>
+</ul>
 
 <pre><code class="language-js">objArray.map(el=&gt;el.id)
 </code></pre></li>
@@ -270,9 +272,11 @@
     SubTeam:[]
   }
   ];
-</code></pre></li>
+</code></pre>
 
-<li><p>使用 <code>map</code> 僅能取得第一層內容</p>
+<ul>
+<li>使用 <code>map</code> 僅能取得第一層內容</li>
+</ul>
 
 <pre><code class="language-js">bues.map(el=&gt;el.Id)
 </code></pre>
@@ -291,9 +295,11 @@ JSON.stringify(bues, function(k, v) {
 });
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34321221-9f93ade0-e844-11e7-8b55-e0f83b534b1c.png" alt="3anonymous" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/34321221-9f93ade0-e844-11e7-8b55-e0f83b534b1c.png" alt="3anonymous" /></p>
 
-<li><p>arrow function</p>
+<ol>
+<li>arrow function</li>
+</ol>
 
 <pre><code class="language-js">var allbuid=[];
 JSON.stringify(bues,(k,v)=&gt;{if(k==='Id')allbuid.push(v);return v;});
@@ -327,13 +333,13 @@ JSON.stringify(bues,(k,v)=&gt;{if(k==='Id')allbuid.push(v);return v;});
 <li><p>實際使用</p>
 
 <pre><code class="language-js">deepmap(bues,&quot;Id&quot;)
-</code></pre></li>
+</code></pre>
 
-<li><p>結果</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/34321223-9ffd2392-e844-11e7-86fd-74f4305251ed.png" alt="5deepmap" /></p></li>
-</ul></li>
+<ul>
+<li>結果</li>
 </ul>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/34321223-9ffd2392-e844-11e7-86fd-74f4305251ed.png" alt="5deepmap" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -347,7 +353,9 @@ JSON.stringify(bues,(k,v)=&gt;{if(k==='Id')allbuid.push(v);return v;});
 <li><a href="https://blog.yowko.com/2017/12/javascript-array-sum.html" target="_blank">JavaScript Array 的加總</a></li>
 <li><a href="https://stackoverflow.com/questions/4775722/check-if-object-is-array" target="_blank">Check if object is array?</a></li>
 <li><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Object/keys" target="_blank">Object.keys()</a></li>
-</ol>
+</ol></li>
+</ul></li>
+</ul>
 
     </div>
 

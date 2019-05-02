@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -254,9 +254,11 @@
 
 <blockquote>
 <p><code>bip</code> 範圍請依實際情況調整，詳細設定請參考官方文件 <a href="https://docs.docker.com/engine/reference/commandline/dockerd/" target="_blank">dockerd</a></p>
-</blockquote></li>
+</blockquote>
 
-<li><p>重啟 docker service 以套用設定</p>
+<ol>
+<li>重啟 docker service 以套用設定</li>
+</ol>
 
 <blockquote>
 <p>只重啟 container 沒有作用。<span style="color:red">注意：重啟 dcoker service 會 shutdown 所有 container</span></p>
@@ -265,9 +267,11 @@
 <pre><code>service docker restart
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/29993765-0ada6bc0-8ff3-11e7-8852-d05b64154e49.png" alt="6dockerrestart" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/29993765-0ada6bc0-8ff3-11e7-8852-d05b64154e49.png" alt="6dockerrestart" /></p>
 
-<li><p>效果</p>
+<ol>
+<li>效果</li>
+</ol>
 
 <blockquote>
 <p>使用 <code>docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id</code> 來確認 container 使用的 ip，詳細介紹可以參考 <a href="https://blog.yowko.com/2017/09/container-ip.html" target="_blank">如何取得 Container 所使用的 Ip</a></p>
@@ -285,8 +289,7 @@
 <li><p>已可正常存取 <code>172.17.x.x</code> 網段 server</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/29993763-0ad31eb0-8ff3-11e7-94fc-0d83d1d0355c.png" alt="4downping" /></p></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="心得">心得</h2>
 
@@ -300,6 +303,7 @@
 <li><a href="https://docs.docker.com/engine/userguide/networking/default_network/custom-docker0/" target="_blank">Customize the docker0 bridge</a></li>
 <li><a href="https://blog.yowko.com/2017/09/container-ip.html" target="_blank">如何取得 Container 所使用的 Ip</a></li>
 <li><a href="https://docs.docker.com/engine/reference/commandline/dockerd/" target="_blank">dockerd</a></li>
+</ol></li>
 </ol>
 
     </div>

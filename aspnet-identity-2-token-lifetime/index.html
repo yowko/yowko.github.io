@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -216,8 +216,7 @@ public class DataProtectorTokenProvider&lt;TUser, TKey&gt; : IUserTokenProvider&
 ....
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34002943-f3228c8c-e12e-11e7-9343-2ea3abff77d4.png" alt="1oneday" /></p></li>
-</ul>
+<p><img src="https://user-images.githubusercontent.com/3851540/34002943-f3228c8c-e12e-11e7-9343-2ea3abff77d4.png" alt="1oneday" /></p>
 
 <h2 id="修改方式">修改方式</h2>
 
@@ -226,17 +225,20 @@ public class DataProtectorTokenProvider&lt;TUser, TKey&gt; : IUserTokenProvider&
 </blockquote>
 
 <ol>
-<li><p>開啟 App_Start &ndash;&gt; IdentityConfig.cs</p>
+<li>開啟 App_Start &ndash;&gt; IdentityConfig.cs</li>
+</ol>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34002944-f351739e-e12e-11e7-950a-3131a4b97c38.png" alt="2identityconfig" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/34002944-f351739e-e12e-11e7-950a-3131a4b97c38.png" alt="2identityconfig" /></p>
 
-<li><p>修改 ApplicationUserManager class 的 Create 方法：指定 DataProtectionProvider 的 TokenLifespan</p>
+<ol>
+<li>修改 ApplicationUserManager class 的 Create 方法：指定 DataProtectionProvider 的 TokenLifespan</li>
 
-<ul>
 <li><p>修改前</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34002946-f37d43b6-e12e-11e7-851d-c080af6e89c2.png" alt="3beforechange" /></p></li>
+</ol>
 
+<ul>
 <li><p>修改後：指定 Token 時效為 <code>一個小時</code></p>
 
 <pre><code class="language-cs">if (dataProtectionProvider != null)
@@ -250,9 +252,7 @@ public class DataProtectorTokenProvider&lt;TUser, TKey&gt; : IUserTokenProvider&
 }
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34002947-f3a89cdc-e12e-11e7-8b1e-d1ae55b2654c.png" alt="4after" /></p></li>
-</ul></li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/34002947-f3a89cdc-e12e-11e7-8b1e-d1ae55b2654c.png" alt="4after" /></p>
 
 <h2 id="實際用法">實際用法</h2>
 
@@ -261,18 +261,21 @@ public class DataProtectorTokenProvider&lt;TUser, TKey&gt; : IUserTokenProvider&
 </blockquote>
 
 <ol>
-<li><p>Controllers &ndash;&gt; AccountController.cs</p>
+<li>Controllers &ndash;&gt; AccountController.cs</li>
+</ol>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34002949-f3d5674e-e12e-11e7-9341-067731370b81.png" alt="5accountcontroller" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/34002949-f3d5674e-e12e-11e7-9341-067731370b81.png" alt="5accountcontroller" /></p>
 
-<li><p>ForgotPassword 中有使用方式介紹</p>
+<ol>
+<li>ForgotPassword 中有使用方式介紹</li>
+<li>預設未啟用</li>
+</ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/34002950-f3ffa93c-e12e-11e7-9862-e14dce903ba9.png" alt="6disable" /></p>
 
 <ul>
-<li><p>預設未啟用</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/34002950-f3ffa93c-e12e-11e7-9862-e14dce903ba9.png" alt="6disable" /></p></li>
-
-<li><p>使用說明</p>
+<li>使用說明</li>
+</ul>
 
 <pre><code class="language-cs">//依 user id 產生專屬 token
 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
@@ -286,12 +289,13 @@ await UserManager.SendEmailAsync(user.Id,
 </code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34002951-f42decca-e12e-11e7-8675-25d033135eb8.png" alt="7enable" /></p></li>
-</ul></li>
+</ul>
 
-<li><p>實際收到的 mail 內容</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/34002953-f45a72d6-e12e-11e7-9f82-bf17b2c9624a.png" alt="8actual" /></p></li>
+<ol>
+<li>實際收到的 mail 內容</li>
 </ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/34002953-f45a72d6-e12e-11e7-9f82-bf17b2c9624a.png" alt="8actual" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -304,7 +308,8 @@ await UserManager.SendEmailAsync(user.Id,
 <ol>
 <li><a href="https://stackoverflow.com/questions/27152612/email-token-expiring-after-15-mins-asp-identity-2-0-api" target="_blank">Email Token Expiring After 15 mins - Asp Identity 2.0 API</a></li>
 <li><a href="https://docs.microsoft.com/en-us/aspnet/identity/overview/features-api/account-confirmation-and-password-recovery-with-aspnet-identity" target="_blank">ccount Confirmation and Password Recovery with ASP.NET Identity (C#)</a></li>
-</ol>
+</ol></li>
+</ul>
 
     </div>
 

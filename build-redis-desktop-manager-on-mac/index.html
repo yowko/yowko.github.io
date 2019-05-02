@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2019-01-27T21:30:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-01-27T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="996">
+<meta itemprop="wordCount" content="997">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-01-27 </span>
         
-        <span class="more-meta"> 約 996 字 </span>
+        <span class="more-meta"> 約 997 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -214,9 +214,11 @@
 <pre><code class="language-bash">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/51802960-56e21880-228a-11e9-9adc-dc59040fb83c.png" alt="2installhomebrew" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/51802960-56e21880-228a-11e9-9adc-dc59040fb83c.png" alt="2installhomebrew" /></p>
 
-<li><p>透過 homebrew 安裝 git</p>
+<ol>
+<li>透過 homebrew 安裝 git</li>
+</ol>
 
 <pre><code class="language-bash">brew install git
 </code></pre></li>
@@ -229,25 +231,25 @@
 <li><p>透過 homebrew 安裝 qt-creator</p>
 
 <pre><code class="language-bash">brew cask install qt-creator
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="編譯-redis-desktop-manager">編譯 Redis Desktop Manager</h2>
 
 <ol>
-<li><p>下載 source code</p>
+<li>下載 source code</li>
+</ol>
 
 <blockquote>
 <p>下載 Redis Desktop Manager 及相關 submodule 至 <code>rdm</code> 資料夾並切換工作目錄至 <code>rdm</code></p>
 </blockquote>
 
-<p><code>bash
-git clone --recursive https://github.com/uglide/RedisDesktopManager.git -b 0.9 rdm &amp;&amp; cd ./rdm
-</code>`</p></li>
+<pre><code class="language-bash">git clone --recursive https://github.com/uglide/RedisDesktopManager.git -b 0.9 rdm &amp;&amp; cd ./rdm
+````
 
-<li><p>透過 Info.plist.sample 建立 <code>Info.plist</code></p>
+2. 透過 Info.plist.sample 建立 `Info.plist`
 
-<pre><code class="language-bash">cd ./src &amp;&amp; cp ./resources/Info.plist.sample ./resources/Info.plist
+```bash
+cd ./src &amp;&amp; cp ./resources/Info.plist.sample ./resources/Info.plist
 </code></pre></li>
 
 <li><p>build</p>
@@ -281,10 +283,10 @@ git clone --recursive https://github.com/uglide/RedisDesktopManager.git -b 0.9 r
 <li><p>錯誤 二：不再支援 macOS 10.6 之前版本</p>
 
 <ul>
-<li>錯誤訊息
-<code>
-error 3rdparty/gbreakpad/src/client/mac/sender/Breakpad.xib:global: error: Compiling for earlier than macOS 10.6 is no longer supported.
-</code></li>
+<li><p>錯誤訊息</p>
+
+<pre><code>error 3rdparty/gbreakpad/src/client/mac/sender/Breakpad.xib:global: error: Compiling for earlier than macOS 10.6 is no longer supported.
+</code></pre></li>
 
 <li><p>錯誤截圖</p>
 
@@ -367,16 +369,19 @@ To reinstall 1.0.2q, run `brew reinstall openssl`
 
 <blockquote>
 <p>將會產生 <code>rdm.app</code> 在 ⁨<code>/rdm⁩/bin⁩/osx⁩/debug/⁩</code> 中</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>將所有 debug 內容與 crashreporter 內容都註解掉</p>
+<ul>
+<li>將所有 debug 內容與 crashreporter 內容都註解掉
+<br /></li>
+</ul>
 
 <blockquote>
 <p>將會產生 <code>rdm.app</code> 在 ⁨<code>/rdm⁩/bin⁩/osx⁩/release/⁩</code> 中</p>
-</blockquote></li>
-</ul>
+</blockquote>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/51802965-58134580-228a-11e9-907e-f0b1e5f094bb.png" alt="7editedm" /></p></li>
+</ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>

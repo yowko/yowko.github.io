@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -226,13 +226,11 @@
         headcount:8
       }
     ];
-</code></pre></li>
-</ul>
+</code></pre>
 
 <ol>
-<li><p>使用自定 function</p>
+<li>使用自定 function</li>
 
-<ul>
 <li><p>anonymous function</p>
 
 <pre><code class="language-js">function findObjectByProporigin(arr, prop, val) {
@@ -247,9 +245,11 @@
 findObjectByProporigin(dataobj,&quot;type&quot;,3)
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34325037-17de8898-e8c1-11e7-9265-d12ba71f8581.png" alt="1anonymou" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/34325037-17de8898-e8c1-11e7-9265-d12ba71f8581.png" alt="1anonymou" /></p>
 
-<li><p>arrow function</p>
+<ul>
+<li>arrow function</li>
+</ul>
 
 <pre><code class="language-js">function findObjectByProp(arr, prop, val) {
     let result=[];
@@ -264,23 +264,27 @@ findObjectByProp(dataobj,&quot;type&quot;,2)
 </code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34325038-1808ee4e-e8c1-11e7-801d-3e72610f1771.png" alt="2arrow" /></p></li>
-</ul></li>
 
-<li><p>使用 ES6 - <code>filter</code></p>
+<li><p>使用 ES6 - <code>filter</code></p></li>
+</ol>
 
 <pre><code class="language-js">dataobj.filter(obj =&gt;obj.type === 3)
 </code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34325041-1884322a-e8c1-11e7-9366-99ced829e7f5.png" alt="5filter" /></p></li>
+</ul>
 
+<ol>
 <li><p>使用 lodash - <code>filter</code></p>
 
 <pre><code class="language-js">_.filter(dataobj, (obj)=&gt;obj.type === 2)
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34325042-18af282c-e8c1-11e7-8a73-d8ad4bff05d6.png" alt="6lodashfilter" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/34325042-18af282c-e8c1-11e7-8a73-d8ad4bff05d6.png" alt="6lodashfilter" /></p>
 
-<li><p>使用 Ramda - <code>filter</code></p>
+<ol>
+<li>使用 Ramda - <code>filter</code></li>
+</ol>
 
 <pre><code class="language-js">R.filter(obj=&gt;obj.type===1, dataobj)
 </code></pre>

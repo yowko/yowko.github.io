@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -298,9 +298,12 @@
 <li><p>在 web.config 加入 apiKey 及 url</p>
 
 <pre><code class="language-xml">&lt;exceptionless apiKey=&quot;API_KEY_HERE&quot; serverUrl=&quot;http://localhost:50000&quot;/&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>手動拋出錯誤</p>
+<ol>
+<li>手動拋出錯誤
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">ex.ToExceptionless().Submit()
 </code></pre></li>
@@ -322,9 +325,12 @@
 <pre><code class="language-xml">&lt;extensions&gt;
     &lt;add assembly=&quot;Exceptionless.NLog&quot;/&gt;  
 &lt;/extensions&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>在 nlog 的 config 加上 exceptionless 的 target 設定</p>
+<ul>
+<li>在 nlog 的 config 加上 exceptionless 的 target 設定
+<br /></li>
+</ul>
 
 <pre><code class="language-xml">&lt;target name=&quot;exceptionless&quot; apiKey=&quot;API_KEY_HERE&quot; serverUrl=&quot;http://localhost:50000&quot; xsi:type=&quot;Exceptionless&quot;&gt;
         &lt;field name=&quot;host&quot; layout=&quot;${machinename}&quot; /&gt;
@@ -337,9 +343,12 @@
 <li><p>在 nlog 的 config 加上 exceptionless 的 rules 設定</p>
 
 <pre><code class="language-xml">&lt;logger name=&quot;*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;exceptionless&quot; /&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>程式使用方式</p>
+<ul>
+<li>程式使用方式
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">private Logger logger = LogManager.GetCurrentClassLogger();
 logger.Debug(&quot;test123&quot;);

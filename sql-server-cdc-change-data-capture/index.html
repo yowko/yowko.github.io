@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -230,9 +230,11 @@ USE &lt;Database_Name,sysname,Database_Name&gt;
 GO
     EXEC sys.sp_cdc_enable_db
 GO
-</code></pre></li>
+</code></pre>
 
-<li><p>範例</p>
+<ol>
+<li>範例</li>
+</ol>
 
 <pre><code class="language-sql">-- ================================
 -- Enable Database for CDC Template
@@ -293,9 +295,11 @@ GO
     SELECT is_cdc_enabled FROM sys.databases
     WHERE name = N'&lt;Database_Name,sysname,Database_Name&gt;'
 GO
-</code></pre></li>
+</code></pre>
 
-<li><p>範例</p>
+<ol>
+<li>範例</li>
+</ol>
 
 <pre><code class="language-sql">-- ========================================================
 -- Determine Whether a Database is Enabled for CDC Template
@@ -324,9 +328,11 @@ GO
     @role_name     = N'&lt;role_name,sysname,role_name&gt;',
     @supports_net_changes = 0
 GO
-</code></pre></li>
+</code></pre>
 
-<li><p>範例</p>
+<ol>
+<li>範例</li>
+</ol>
 
 <pre><code class="language-sql">-- ===============================================
 -- Enable a Table for All Changes Queries Template
@@ -359,9 +365,11 @@ GO
     SELECT is_tracked_by_cdc FROM sys.tables
     WHERE object_id = object_id(N'&lt;source_schema,sysname,source_schema&gt;.&lt;source_name,sysname,source_name&gt;')
 GO
-</code></pre></li>
+</code></pre>
 
-<li><p>範例</p>
+<ol>
+<li>範例</li>
+</ol>
 
 <pre><code class="language-sql">-- =====================================================
 -- Determine Whether a Table is Enabled for CDC Template
@@ -402,9 +410,11 @@ GO
     @source_name   = N'&lt;source_name,sysname,source_name&gt;',
     @capture_instance = N'&lt;capture_instance,sysname,capture_instance&gt;'
 GO
-</code></pre></li>
+</code></pre>
 
-<li><p>範例</p>
+<ol>
+<li>範例</li>
+</ol>
 
 <pre><code class="language-sql">-- ===============================================
 -- Disable a Capture Instance for a Table Template
@@ -433,9 +443,11 @@ USE &lt;Database_Name,sysname,Database_Name&gt;
 GO
     EXEC sys.sp_cdc_disable_db
 GO
-</code></pre></li>
+</code></pre>
 
-<li><p>範例：</p>
+<ol>
+<li>範例：</li>
+</ol>
 
 <pre><code class="language-sql">-- =================================
 -- Disable Database for CDC Template

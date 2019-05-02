@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -197,9 +197,11 @@
     public int Salary { get; set; }
     public DateTime Birth { get; set; }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>製造假資料</p>
+<ol>
+<li>製造假資料</li>
+</ol>
 
 <pre><code class="language-cs">List&lt;UserData&gt; users = new List&lt;UserQuery.UserData&gt;() {
     new UserData(){Name=&quot;Test&quot;,Salary=100,Birth=new DateTime(2000,1,1)},
@@ -226,9 +228,11 @@
         }
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>呼叫方式</p>
+<ul>
+<li>呼叫方式</li>
+</ul>
 
 <pre><code class="language-cs">string filepath = @&quot;D:\tmp\write.csv&quot;;
 WriteToCSV(filepath,users);
@@ -250,9 +254,11 @@ WriteToCSV(filepath,users);
         return $&quot;{this.Name},{this.Salary},{this.Birth}&quot;;
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>寫入檔案時直接將 object ToString 即可</p>
+<ul>
+<li>寫入檔案時直接將 object ToString 即可</li>
+</ul>
 
 <pre><code class="language-cs">void ModelToCSV(string FilePath, List&lt;UserData&gt; data)
 {
@@ -301,9 +307,11 @@ void CSVGenerator&lt;T&gt;(bool genColumn, string FilePath, List&lt;T&gt; data)
         }
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>呼叫方式</p>
+<ul>
+<li>呼叫方式</li>
+</ul>
 
 <pre><code class="language-cs">string filepath = @&quot;D:\tmp\helper.csv&quot;;
 CSVGenerator&lt;UserData&gt;(true, filepath, users);

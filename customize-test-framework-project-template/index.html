@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -379,9 +379,11 @@
 <pre><code class="language-cs">using System;
 using EnvDTE;
 using Microsoft.VisualStudio.TestPlatform.TestGeneration.Model;
-</code></pre></li>
+</code></pre>
 
-<li><p>繼承 <code>UnitTestProjectManagerBase</code></p>
+<ul>
+<li>繼承 <code>UnitTestProjectManagerBase</code></li>
+</ul>
 
 <pre><code class="language-cs">/// &lt;summary&gt;
 /// A unit test project for NUnit3 unit tests.
@@ -417,9 +419,11 @@ public class NUnit3UnitTestProjectManager : UnitTestProjectManagerBase
 
 <pre><code class="language-cs">using Microsoft.VisualStudio.TestPlatform.TestGeneration.Data;
 using Microsoft.VisualStudio.TestPlatform.TestGeneration.Model;
-</code></pre></li>
+</code></pre>
 
-<li><p>繼承 <code>UnitTestClassManagerBase</code></p>
+<ul>
+<li>繼承 <code>UnitTestClassManagerBase</code></li>
+</ul>
 
 <pre><code class="language-cs">/// &lt;summary&gt;
 /// A unit test class for NUnit unit tests.
@@ -467,9 +471,11 @@ using Microsoft.VisualStudio.TestPlatform.TestGeneration.Data;
 using Microsoft.VisualStudio.TestPlatform.TestGeneration.Logging;
 using Microsoft.VisualStudio.TestPlatform.TestGeneration.Model;
 using VSLangProj80;
-</code></pre></li>
+</code></pre>
 
-<li><p>繼承 <code>SolutionManagerBase</code></p>
+<ul>
+<li>繼承 <code>SolutionManagerBase</code></li>
+</ul>
 
 <pre><code class="language-cs">public class NUnit3SolutionManager : SolutionManagerBase
 {
@@ -523,9 +529,11 @@ using VSLangProj80;
 using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.TestPlatform.TestGeneration.Data;
 using Microsoft.VisualStudio.TestPlatform.TestGeneration.Model;
-</code></pre></li>
+</code></pre>
 
-<li><p>繼承 <code>FrameworkProviderBase</code></p>
+<ul>
+<li>繼承 <code>FrameworkProviderBase</code></li>
+</ul>
 
 <pre><code class="language-cs">/// &lt;summary&gt;
 /// The provider for the NUnit 3 unit test framework.

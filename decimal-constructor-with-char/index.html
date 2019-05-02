@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -199,11 +199,10 @@
 <pre><code class="language-cs">string a=&quot;500000&quot;;
 var b =new Decimal(a[0]);
 Console.WriteLine(b);//53
-</code></pre></li>
+</code></pre>
 
-<li><p>程式碼說明</p>
-
-<ul>
+<ol>
+<li>程式碼說明</li>
 <li>a[0] 會將 <code>a</code> 這個 string 轉為 char[]，接著取第 0 個位子也就是第一個數字 <code>5</code></li>
 
 <li><p><code>5</code> 可以理解，但 <code>53</code> 哪來的?</p>
@@ -211,31 +210,38 @@ Console.WriteLine(b);//53
 <blockquote>
 <p><strong><em>果然就是自己對 decimal 瞭解太少造成的</em></strong></p>
 </blockquote></li>
-</ul></li>
 
-<li><p>decimal 的建構子有下列幾種 (可參考  <a href="https://msdn.microsoft.com/zh-tw/library/system.decimal.decimal.aspx" target="_blank">MSDN</a>)</p>
+<li><p>decimal 的建構子有下列幾種 (可參考  <a href="https://msdn.microsoft.com/zh-tw/library/system.decimal.decimal.aspx" target="_blank">MSDN</a>)</p></li>
 
-<ul>
-<li>a. Decimal(Double)<br /></li>
-<li>b. Decimal(Int32)<br /></li>
-<li>C. Decimal(Int32, Int32, Int32, Boolean, Byte)<br /></li>
-<li>d. Decimal(Int32[])<br /></li>
-<li>e. Decimal(Int64)<br /></li>
-<li>f. Decimal(Single)<br /></li>
-<li>g. Decimal(UInt32)<br /></li>
-<li>h. Decimal(UInt64)</li>
-</ul>
+<li><p>a. Decimal(Double)</p></li>
 
-<p><strong>發現了嗎？沒有一個是接受 <code>char</code> 的呀？！</strong></p></li>
+<li><p>b. Decimal(Int32)</p></li>
 
-<li><p>魔鬼就在細節裡，<code>Decimal 隱含轉換</code></p>
+<li><p>C. Decimal(Int32, Int32, Int32, Boolean, Byte)</p></li>
 
-<ul>
+<li><p>d. Decimal(Int32[])</p></li>
+
+<li><p>e. Decimal(Int64)</p></li>
+
+<li><p>f. Decimal(Single)</p></li>
+
+<li><p>g. Decimal(UInt32)</p></li>
+
+<li><p>h. Decimal(UInt64)</p></li>
+</ol>
+
+<p><strong>發現了嗎？沒有一個是接受 <code>char</code> 的呀？！</strong></p>
+
+<ol>
+<li>魔鬼就在細節裡，<code>Decimal 隱含轉換</code></li>
+
 <li><p>5 的 ascii code 就是 53</p>
 
 <p><img src="https://trello-attachments.s3.amazonaws.com/5801867431e3c7c7a302c2a4/572x291/4f41ccd4775b98b8e7f96b8aa0d751e9/_output_ascii.png" alt="ascii" /></p></li>
+</ol>
 
-<li><p>詳細資料請看 <a href="https://msdn.microsoft.com/zh-tw/library/system.decimal.op_implicit.aspx" target="_blank">Decimal Implicit 轉換 運算子</a></p></li>
+<ul>
+<li>詳細資料請看 <a href="https://msdn.microsoft.com/zh-tw/library/system.decimal.op_implicit.aspx" target="_blank">Decimal Implicit 轉換 運算子</a></li>
 
 <li><p>整理如下</p>
 
@@ -294,20 +300,18 @@ Console.WriteLine(b);//53
 </tr>
 </tbody>
 </table></li>
-</ul></li>
-</ol>
 
-<ul>
-<li><p>原始程式碼在這</p>
-
-<p><img src="https://az787680.vo.msecnd.net/user/yowko/e9e0247b-6b97-4d90-a034-27d4cb4a7005/1476376529_81666.png" alt="sourcecode" /></p></li>
+<li><p>原始程式碼在這</p></li>
 </ul>
+
+<p><img src="https://az787680.vo.msecnd.net/user/yowko/e9e0247b-6b97-4d90-a034-27d4cb4a7005/1476376529_81666.png" alt="sourcecode" /></p>
 
 <h1 id="參考資料">參考資料</h1>
 
 <ol>
 <li><a href="https://msdn.microsoft.com/zh-tw/library/system.decimal.decimal.aspx" target="_blank">Decimal 建構函式</a></li>
 <li><a href="https://msdn.microsoft.com/zh-tw/library/system.decimal.op_implicit.aspx" target="_blank">Decimal Implicit 轉換 運算子</a></li>
+</ol></li>
 </ol>
 
     </div>

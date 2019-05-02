@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -252,29 +252,33 @@
     &quot;ROWVERSION&quot; NUMBER(*,0) NOT NULL ENABLE,  
     CONSTRAINT &quot;ID_PK&quot; PRIMARY KEY (&quot;ID&quot;)
 );
-</code></pre></li>
+</code></pre>
 
-<li><p>建立 <code>SEQUENCE</code> for <code>ID</code> 跟 <code>ROWVERSION</code></p>
+<ul>
+<li>建立 <code>SEQUENCE</code> for <code>ID</code> 跟 <code>ROWVERSION</code>
+<br /></li>
+</ul>
 
 <blockquote>
 <p>似 SQL Server 自動序號</p>
 </blockquote>
 
 <ul>
-<li>ID
-<code>sql
-CREATE SEQUENCE &quot;TEST&quot;.&quot;SQ_USERSID&quot;  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
-</code></li>
+<li><p>ID</p>
 
-<li><p>ROWVERSION</p>
+<pre><code class="language-sql">CREATE SEQUENCE &quot;TEST&quot;.&quot;SQ_USERSID&quot;  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+</code></pre>
+
+<ul>
+<li>ROWVERSION
+<br /></li>
+</ul>
 
 <pre><code class="language-sql">CREATE SEQUENCE &quot;TEST&quot;.&quot;SQ_USERSROWVERSION&quot;  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
 </code></pre></li>
-</ul></li>
 
-<li><p>建立 trigger for <code>ID</code> 跟 <code>ROWVERSION</code></p>
+<li><p>建立 trigger for <code>ID</code> 跟 <code>ROWVERSION</code></p></li>
 
-<ul>
 <li><p>ID</p>
 
 <blockquote>
@@ -287,9 +291,12 @@ CREATE SEQUENCE &quot;TEST&quot;.&quot;SQ_USERSID&quot;  MINVALUE 1 MAXVALUE 999
 begin
     select TEST.SQ_USERSID.nextval into :new.Id from dual;
 end;
-</code></pre></li>
+</code></pre>
 
-<li><p>ROWVERSION</p>
+<ul>
+<li>ROWVERSION
+<br /></li>
+</ul>
 
 <blockquote>
 <p>使用 trigger 在 insert 及 update 資料時取得自動序號修改值</p>
@@ -302,11 +309,9 @@ begin
     :NEW.ROWVERSION := TEST.SQ_USERSROWVERSION.NEXTVAL;
 end;
 </code></pre></li>
-</ul></li>
 
-<li><p>為什麼不使用 <code>ORA_ROWSCN</code></p>
+<li><p>為什麼不使用 <code>ORA_ROWSCN</code></p></li>
 
-<ul>
 <li><p>建立 table 時加上 <code>ROWDEPENDENCIES</code></p>
 
 <blockquote>
@@ -325,12 +330,9 @@ ROWDEPENDENCIES
 </code></pre>
 
 <blockquote>
-<p>11 g 尚未支援 alter 方式改追蹤 row</p>
-</blockquote></li>
+<p>11 g 尚未支援 alter 方式改追蹤 row
+* <code>ORA_ROWSCN</code> 並非欄位屬性，需要直接從 script 動手才能取得</p>
 
-<li><p><code>ORA_ROWSCN</code> 並非欄位屬性，需要直接從 script 動手才能取得</p>
-
-<blockquote>
 <p>與 Entity Framework db first 不好整合，需要手動加入 <code>DefiningQuery</code> 與 <code>ModificationFunctionMapping</code>，使用上討不到便利</p>
 </blockquote>
 
@@ -363,9 +365,12 @@ ROWDEPENDENCIES
 </blockquote>
 
 <pre><code class="language-cs">@Html.HiddenFor(model=&gt;model.ROWVERSION)
-</code></pre></li>
+</code></pre>
 
-<li><p>針對資料過時錯誤做特別處理</p>
+<ol>
+<li>針對資料過時錯誤做特別處理
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">try
 {

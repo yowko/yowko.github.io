@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -215,20 +215,25 @@
 <li><p>我們一眼已經看到 ID 是 key，取得其他 property 就是這樣</p>
 
 <pre><code class="language-cs">var props = GetType().GetProperties().Where(d =&gt; d.Name != &quot;ID&quot;);
-</code></pre></li>
+</code></pre>
 
-<li><p>只是這樣 <code>ID</code> 就是一個 magic string，有天 ID rename 就會出現問題，所以希望用 attribute 來標示</p></li>
+<ul>
+<li>只是這樣 <code>ID</code> 就是一個 magic string，有天 ID rename 就會出現問題，所以希望用 attribute 來標示</li>
 </ul>
 
 <h2 id="改善作法">改善作法</h2>
 
 <ol>
-<li><p>把 ID 加上 [KeyAttribute]</p>
+<li>把 ID 加上 [KeyAttribute]
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">[Key]
 public Guid ID { get; set; }
 </code></pre></li>
+</ul>
 
+<ol>
 <li><p>透過指定 <code>KeyAttribute</code> 來找 property name</p>
 
 <pre><code class="language-cs">var key = GetType().GetProperties().FirstOrDefault(gt =&gt; gt.GetCustomAttributes().Any(a =&gt; ((KeyAttribute)a) != null));
@@ -244,9 +249,9 @@ public Guid ID { get; set; }
 <li>gt.GetCustomAttributes().Any(a =&gt; ((KeyAttribute)a) != null) 檢查 attribute 是否有 KeyAttribute</li>
 <li>GetType().GetProperties().FirstOrDefault(gt =&gt; gt.GetCustomAttributes().Any(a =&gt; ((KeyAttribute)a) != null)) 取得所有 peroperty 中有被標記 KeyAttribute 的第一個</li>
 </ul></li>
-</ul></li>
-
-<li><p>取得其他 property 就變這樣</p>
+<li>取得其他 property 就變這樣
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">var props = GetType().GetProperties().Where(d =&gt; d.Name != key.Name);
 </code></pre></li>
@@ -260,15 +265,18 @@ public Guid ID { get; set; }
 <li><p>經過搜尋解法後，找到下面的做法</p>
 
 <pre><code class="language-cs">var key = GetType().GetProperties().FirstOrDefault(prop =&gt; prop.IsDefined(typeof(KeyAttribute), false));
-</code></pre></li>
+</code></pre>
 
-<li><p>直接檢查是否有 KeyAttribute 的定義，而且不是繼承而來的 ( IsDefined 第二個參數 false 表不是繼承)</p></li>
+<ul>
+<li>直接檢查是否有 KeyAttribute 的定義，而且不是繼承而來的 ( IsDefined 第二個參數 false 表不是繼承)</li>
 </ul>
 
 <h2 id="完整程式碼">完整程式碼</h2>
 
 <ol>
-<li><p>class</p>
+<li>class
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public class PersonInfo
 {
@@ -294,18 +302,20 @@ public Guid ID { get; set; }
     }
 }
 </code></pre></li>
+</ul>
 
+<ol>
 <li><p>實際使用</p>
 
 <pre><code class="language-cs">var yowkoinfo = new PersonInfo() { ID = Guid.NewGuid(), Name = &quot;Yowko&quot;, Tel = &quot;1234567890&quot;, EMail = &quot;yowko@yowko.com&quot; };
 yowkoinfo.ToDic().Dump();
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h1 id="參考連結">參考連結</h1>
 
 <ol>
 <li><a href="http://stackoverflow.com/questions/7305787/get-all-properties-which-marked-certain-attribute" target="_blank">Get all properties which marked certain attribute</a></li>
+</ol></li>
 </ol>
 
     </div>

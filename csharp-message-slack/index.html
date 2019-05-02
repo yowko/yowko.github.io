@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -326,9 +326,11 @@ var client = clientFactory.CreateClient(&quot;yowkoslacksender&quot;);
     
 var token = &quot;xoxb-xxxx&quot;;//access token
 var channel = &quot;xxxx&quot;;//channelId
-</code></pre></li>
+</code></pre>
 
-<li><p>簡易內容 (僅文字)</p>
+<ol>
+<li>簡易內容 (僅文字)</li>
+</ol>
 
 <pre><code class="language-cs">var text = System.Web.HttpUtility.UrlEncode(&quot;yowko 測試&quot;);//實際內容
 //透過 Get 傳送至 slack
@@ -371,8 +373,7 @@ client.GetAsync($&quot;chat.postMessage?token={token}&amp;channel={channel}&amp;
 
 <blockquote>
 <p>格式化內容相關設定可以參考 <a href="https://api.slack.com/docs/message-formatting" target="_blank">Basic message formatting</a></p>
-</blockquote></li>
-</ol>
+</blockquote>
 
 <h2 id="心得">心得</h2>
 
@@ -391,6 +392,7 @@ client.GetAsync($&quot;chat.postMessage?token={token}&amp;channel={channel}&amp;
 <li><a href="https://blog.yowko.com/dotnet-core-console-di/" target="_blank">在 .NET Core console 上使用 Dependency Injection - DI</a></li>
 <li><a href="https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/" target="_blank">在 .NET Core 與 .NET Framework 上使用 HttpClientFactory</a></li>
 <li><a href="https://api.slack.com/docs/message-formatting" target="_blank">Basic message formatting</a></li>
+</ol></li>
 </ol>
 
     </div>

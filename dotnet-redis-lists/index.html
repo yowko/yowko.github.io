@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -218,9 +218,12 @@
     
     public string Tel { get; set; }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>存取 redis 用的 object</p>
+<ol>
+<li>存取 redis 用的 object
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">IDatabase _db = RedisConnectionFactory.RedisDB;
 </code></pre></li>
@@ -238,9 +241,12 @@ for (int i = 0; i &lt; 3; i++)
     }
     peopleDic.Add(_id, people);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>使用 batch 來批次處理指令</p>
+<ol>
+<li>使用 batch 來批次處理指令
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">var batch = _db.CreateBatch();
 </code></pre></li>
@@ -396,12 +402,14 @@ foreach (var item in peopleDic)
     }
 }
 batch.Execute();
-</code></pre></li>
+</code></pre>
 
-<li><p>儲存狀況</p>
-
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/23221107/1693335a-f95f-11e6-8bda-476483591d18.png" alt="1result" /></p></li>
+<ul>
+<li>儲存狀況
+<br /></li>
 </ul>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/23221107/1693335a-f95f-11e6-8bda-476483591d18.png" alt="1result" /></p>
 
 <h2 id="完整程式碼">完整程式碼</h2>
 
@@ -451,7 +459,8 @@ public static class RedisConnectionFactory
 	public static ConnectionMultiplexer GetConnection =&gt; Connection.Value;
 	public static IDatabase RedisDB =&gt; GetConnection.GetDatabase();
 }
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h1 id="參考資料">參考資料</h1>
 

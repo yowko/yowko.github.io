@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2016-12-20T00:42:34&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-07T00:42:34&#43;08:00" />
-<meta itemprop="wordCount" content="551">
+<meta itemprop="wordCount" content="553">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2016-12-20 </span>
         
-        <span class="more-meta"> 約 551 字 </span>
+        <span class="more-meta"> 約 553 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -249,9 +249,12 @@
 <pre><code class="language-cs">var reader = new StringReader(xmlstring);//xmlstring 是傳入 XML 格式的 string
 var serializer = new XmlSerializer(typeof(documents));//documents 是 paste xml as class 來的類別
 var instance = (documents)serializer.Deserialize(reader);
-</code></pre></li>
+</code></pre>
 
-<li><p>實際使用：</p>
+<ul>
+<li>實際使用：
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">string xml = &quot;\t\t\t\t\t\t\t\t\t\t\t\t&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;&lt;documents&gt;&lt;Resp&gt;&lt;Id&gt;486441f5-7fa6-4676-b37d-ef29cfbdb1fe&lt;/Id&gt;&lt;accountId&gt;yowko&lt;/accountId&gt;&lt;orderNo&gt;Yowko16111800018&lt;/orderNo&gt;&lt;mtaTransId&gt;8800000006293669&lt;/mtaTransId&gt;&lt;transAmt&gt;3&lt;/transAmt&gt;&lt;result&gt;0000&lt;/result&gt;&lt;respCode&gt;0&lt;/respCode&gt;&lt;transTime&gt;20161118143324&lt;/transTime&gt;&lt;completeTime&gt;20161118150716&lt;/completeTime&gt;&lt;/Resp&gt;&lt;/documents&gt;&quot;;
 var reader = new StringReader(HttpUtility.HtmlDecode(xml).Trim());
@@ -275,9 +278,11 @@ var instance = (documents)serializer.Deserialize(reader);
 <pre><code class="language-cs">XmlDocument doc = new XmlDocument();
 doc.LoadXml(xmlstring);//xmlstring 是傳入 XML 格式的 string
 doc.GetElementsByTagName(&quot;result&quot;)[0]?.InnerText;//取得第一個 result 節點內的值
-</code></pre></li>
+</code></pre>
 
-<li><p>實際使用：</p>
+<ul>
+<li>實際使用：</li>
+</ul>
 
 <pre><code class="language-cs">string xml = &quot;\t\t\t\t\t\t\t\t\t\t\t\t&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;&lt;documents&gt;&lt;Resp&gt;&lt;Id&gt;486441f5-7fa6-4676-b37d-ef29cfbdb1fe&lt;/Id&gt;&lt;accountId&gt;yowko&lt;/accountId&gt;&lt;orderNo&gt;Yowko16111800018&lt;/orderNo&gt;&lt;mtaTransId&gt;8800000006293669&lt;/mtaTransId&gt;&lt;transAmt&gt;3&lt;/transAmt&gt;&lt;result&gt;0000&lt;/result&gt;&lt;respCode&gt;0&lt;/respCode&gt;&lt;transTime&gt;20161118143324&lt;/transTime&gt;&lt;completeTime&gt;20161118150716&lt;/completeTime&gt;&lt;/Resp&gt;&lt;/documents&gt;&quot;;
 
@@ -298,15 +303,17 @@ doc.GetElementsByTagName(&quot;result&quot;)[0]?.InnerText;
 
 <pre><code class="language-cs">XDocument doc = XDocument.Parse(xmlstring);//xmlstring 是傳入 XML 格式的 string
 doc.Descendants().FirstOrDefault(e =&gt; e.Name.ToString().ToLower().Contains(&quot;result&quot;))?.Value;//取得第一個 result 節點內的值
-</code></pre></li>
-
-<li><p>實際使用：</p>
-
-<pre><code class="language-cs">string xml = &quot;\t\t\t\t\t\t\t\t\t\t\t\t&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;&lt;documents&gt;&lt;Resp&gt;&lt;Id&gt;486441f5-7fa6-4676-b37d-ef29cfbdb1fe&lt;/Id&gt;&lt;accountId&gt;yowko&lt;/accountId&gt;&lt;orderNo&gt;Yowko16111800018&lt;/orderNo&gt;&lt;mtaTransId&gt;8800000006293669&lt;/mtaTransId&gt;&lt;transAmt&gt;3&lt;/transAmt&gt;&lt;result&gt;0000&lt;/result&gt;&lt;respCode&gt;0&lt;/respCode&gt;&lt;transTime&gt;20161118143324&lt;/transTime&gt;&lt;completeTime&gt;20161118150716&lt;/completeTime&gt;&lt;/Resp&gt;&lt;/documents&gt;&quot;;
-
-XDocument doc = XDocument.Parse(HttpUtility.HtmlDecode(xml).Trim());
-DOC.Descendants().FirstOrDefault(e =&gt; e.Name.ToString().ToLower().Contains(&quot;result&quot;))?.Value;
 </code></pre>
+
+<ul>
+<li>實際使用：
+```cs
+string xml = &ldquo;\t\t\t\t\t\t\t\t\t\t\t\t&lt;?xml version=\&ldquo;1.0\&rdquo; encoding=\&ldquo;UTF-8\&ldquo;?&gt;<documents><Resp><Id>486441f5-7fa6-4676-b37d-ef29cfbdb1fe</Id><accountId>yowko</accountId><orderNo>Yowko16111800018</orderNo><mtaTransId>8800000006293669</mtaTransId><transAmt>3</transAmt><result>0000</result><respCode>0</respCode><transTime>20161118143324</transTime><completeTime>20161118150716</completeTime></Resp></documents>&rdquo;;</li>
+</ul>
+
+<p>XDocument doc = XDocument.Parse(HttpUtility.HtmlDecode(xml).Trim());
+DOC.Descendants().FirstOrDefault(e =&gt; e.Name.ToString().ToLower().Contains(&ldquo;result&rdquo;))?.Value;
+```</p>
 
 <p><img src="https://trello-attachments.s3.amazonaws.com/582ee075a22645f48fd4fd8f/1200x405/2101bbdca4bdbe52a452490eef175891/output_xdoc_ok.png" alt="xdoc_ok" /></p></li>
 </ul></li>

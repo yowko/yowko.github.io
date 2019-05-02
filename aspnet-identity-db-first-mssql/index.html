@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -230,9 +230,11 @@ CONSTRAINT [PK_dbo.CustomRoles] PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-</code></pre></li>
+</code></pre>
 
-<li><p>AspNetUserClaims &ndash;&gt; CustomUserClaims</p>
+<ul>
+<li>AspNetUserClaims &ndash;&gt; CustomUserClaims</li>
+</ul>
 
 <pre><code class="language-sql">SET ANSI_NULLS ON
 GO
@@ -269,9 +271,11 @@ CONSTRAINT [PK_dbo.CustomUserLogins] PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-</code></pre></li>
+</code></pre>
 
-<li><p>AspNetUserRoles &ndash;&gt; CustomUserRoles</p>
+<ul>
+<li>AspNetUserRoles &ndash;&gt; CustomUserRoles</li>
+</ul>
 
 <pre><code class="language-sql">SET ANSI_NULLS ON
 GO
@@ -314,8 +318,9 @@ CONSTRAINT [PK_dbo.CustomUsers] PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-</code></pre></li>
+</code></pre>
 
+<ul>
 <li><p>其他相關的 constraint</p>
 
 <pre><code>ALTER TABLE [dbo].[CustomUserClaims]  WITH CHECK ADD  CONSTRAINT [FK_dbo.CustomUserClaims_dbo.CustomUsers_UserId] FOREIGN KEY([UserId])
@@ -343,6 +348,7 @@ GO
 ALTER TABLE [dbo].[CustomUserRoles] CHECK CONSTRAINT [FK_dbo.CustomUserRoles_dbo.CustomUsers_UserId]
 GO
 </code></pre></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -397,9 +403,11 @@ GO
     modelBuilder.Entity&lt;IdentityUserClaim&gt;().ToTable(&quot;CustomUserClaims&quot;);
     modelBuilder.Entity&lt;IdentityUserLogin&gt;().ToTable(&quot;CustomUserLogins&quot;);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p><code>ApplicationDbContext</code> 完整程式碼</p>
+<ul>
+<li><code>ApplicationDbContext</code> 完整程式碼</li>
+</ul>
 
 <pre><code class="language-cs">public class ApplicationDbContext : IdentityDbContext&lt;ApplicationUser&gt;
 {
@@ -432,9 +440,11 @@ GO
 <li><p>預設連線為 localdb 且直接使用 attach 檔案方式掛載資料庫</p>
 
 <pre><code class="language-xml">&lt;add name=&quot;DefaultConnection&quot; connectionString=&quot;Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-Identity-20171108101321.mdf;Initial Catalog=aspnet-Identity-20171108101321;Integrated Security=True&quot; providerName=&quot;System.Data.SqlClient&quot; /&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>調整為已建立 Identity 相關 table 的 db</p>
+<ul>
+<li>調整為已建立 Identity 相關 table 的 db</li>
+</ul>
 
 <pre><code class="language-xml">&lt;add name=&quot;DefaultConnection&quot; connectionString=&quot;Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=IdentityDBFirst;Integrated Security=True&quot; providerName=&quot;System.Data.SqlClient&quot; /&gt;
 </code></pre></li>
@@ -472,16 +482,14 @@ GO
         
     public string Test { get; set; }
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <ul>
 <li>只在 db table 加欄位不會出錯，只是拿不到資料</li>
-
-<li><p>只在 class 中加 property，則會出現 table column 找不到的問題</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32558091-efebf312-c4de-11e7-86c4-9995da757e2a.png" alt="4invalidcolumn" /></p></li>
+<li>只在 class 中加 property，則會出現 table column 找不到的問題</li>
 </ul>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32558091-efebf312-c4de-11e7-86c4-9995da757e2a.png" alt="4invalidcolumn" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -492,6 +500,7 @@ GO
 <ol>
 <li><a href="https://stackoverflow.com/questions/20668328/using-asp-net-identity-database-first-approach" target="_blank">Using Asp.Net Identity DataBase first approach</a></li>
 <li><a href="https://blog.yowko.com/2017/11/add-aspnet-identity-empty-project.html" target="_blank">將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中</a></li>
+</ol></li>
 </ol>
 
     </div>

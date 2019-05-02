@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -262,9 +262,11 @@
     394806 = &quot;.NET Framework 4.6.2&quot;;
     460798 = &quot;.NET Framework 4.7&quot;;
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>取得 regedit 值</p>
+<ol>
+<li>取得 regedit 值</li>
+</ol>
 
 <pre><code class="language-ps1">$localvalue=(Get-ItemProperty  &quot;hklm:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\FUll&quot;).release
 </code></pre>
@@ -276,9 +278,11 @@
 <li><p>查表</p>
 
 <pre><code class="language-pa1">$version.Item($localvalue)
-</code></pre></li>
+</code></pre>
 
-<li><p>完整程式碼</p>
+<ol>
+<li>完整程式碼</li>
+</ol>
 
 <pre><code class="language-ps1">$version = @{378389 = &quot;.NET Framework 4.5&quot;; 
     378675 = &quot;.NET Framework 4.5.1&quot;; 

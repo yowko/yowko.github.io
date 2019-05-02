@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -204,9 +204,12 @@
     new DnsEndPoint(&quot;redis3&quot;, 6379)
 };
 var redlockFactory = RedLockFactory.Create(endPoints);
-</code></pre></li>
+</code></pre>
 
-<li><p>共用 StackExchange.Redis 連線</p>
+<ul>
+<li>共用 StackExchange.Redis 連線
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">var existingConnectionMultiplexer1 = ConnectionMultiplexer.Connect(&quot;redis1:6379&quot;);
 var existingConnectionMultiplexer2 = ConnectionMultiplexer.Connect(&quot;redis2:6379&quot;);
@@ -239,9 +242,12 @@ using (var redLock = await redlockFactory.CreateLockAsync(resource, expiry)) // 
     }
 }
 // 脫離 using 範圍自動就會解除 lock
-</code></pre></li>
+</code></pre>
 
-<li><p>lock, retry or wait to give up(取得 resource lock 權就做事，未取得就等指定 retry 時間後重試至指定 wait 時間後放棄)</p>
+<ul>
+<li>lock, retry or wait to give up(取得 resource lock 權就做事，未取得就等指定 retry 時間後重試至指定 wait 時間後放棄)
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">var resource = &quot;lock_key&quot;;//lock object
 var expiry = TimeSpan.FromSeconds(30);//lock object 失效時間
@@ -264,8 +270,7 @@ using (var redLock = await redlockFactory.CreateLockAsync(resource, expiry, wait
 <li><p>系統關閉時：Dispose RedLockFactory</p>
 
 <pre><code class="language-cs">redlockFactory.Dispose();
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="情境說明">情境說明</h2>
 
@@ -274,7 +279,9 @@ using (var redLock = await redlockFactory.CreateLockAsync(resource, expiry, wait
 </blockquote>
 
 <ul>
-<li><p>模擬程式碼</p>
+<li>模擬程式碼
+<br /></li>
+</ul>
 
 <blockquote>
 <p>原始程式碼中沒有那麼多 log 資訊，為了方便釐清狀況多加一些 log</p>
@@ -297,18 +304,18 @@ using (var redLock = await redlockFactory.CreateLockAsync(resource, expiry, wait
         Console.WriteLine($&quot;{Thread.CurrentThread.ManagedThreadId}_{membercode}: done.&quot;);
     }
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
-<h2 id="可能的問題">可能的問題</h2></li>
+<h2 id="可能的問題">可能的問題</h2>
 
+<ol>
 <li><p>該 api 被部署至多台機器上</p>
 
 <blockquote>
 <p>application 的 object lock 只限於單台機器上</p>
 </blockquote></li>
-</ul>
 
-<ol>
 <li><p>lock object 沒有加入其他參數概念</p>
 
 <blockquote>
@@ -335,9 +342,12 @@ Task.Run(() =&gt;
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/38511000-44cb0246-3c59-11e8-919a-d1d8dfb8da3c.png" alt="1objectlock" /></p>
-</blockquote></li>
+</blockquote>
 
-<li><p>需要在 lock object 加入 request 資訊，避免無差別 block 所有 request</p>
+<ul>
+<li>需要在 lock object 加入 request 資訊，避免無差別 block 所有 request
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">static class helper
 {
@@ -390,11 +400,11 @@ Task.Run(() =&gt;
         }
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>將原本的 object lock 換為 RedLock.net</p>
+<ol>
+<li>將原本的 object lock 換為 RedLock.net</li>
 
-<ul>
 <li><p>lock or give up</p>
 
 <blockquote>
@@ -430,9 +440,12 @@ Task.Run(() =&gt;
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/38511003-4539776c-3c59-11e8-9746-42b70f7621fb.png" alt="3lockorgiveup" /></p>
-</blockquote></li>
+</blockquote>
 
-<li><p>lock, retry and wait</p>
+<ul>
+<li>lock, retry and wait
+<br /></li>
+</ul>
 
 <blockquote>
 <p>取得 lock 資源;未取得 lock 之前，並依指定間隔時間 (retry) 重試，直到達到指定放棄時間 (wait)</p>
@@ -470,7 +483,6 @@ Task.Run(() =&gt;
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/38511004-4562d5e4-3c59-11e8-863d-e64903872846.png" alt="4lockwaitretry" /></p>
 </blockquote></li>
-</ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>
@@ -482,6 +494,7 @@ Task.Run(() =&gt;
 <ol>
 <li><a href="http://columns.chicken-house.net/2018/03/25/interview01-transaction/" target="_blank">架構面試題 #1, 線上交易的正確性</a></li>
 <li><a href="https://redis.io/topics/distlock" target="_blank">Distributed locks with Redis</a></li>
+</ol></li>
 </ol>
 
     </div>

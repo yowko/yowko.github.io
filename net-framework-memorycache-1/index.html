@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -217,9 +217,12 @@
 <li><p>將 class 改為 static</p>
 
 <pre><code class="language-cs">public static class CacheHelper
-</code></pre></li>
+</code></pre>
 
-<li><p>引用 <code>System.Runtime.Caching</code></p>
+<ol>
+<li>引用 <code>System.Runtime.Caching</code>
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">using System.Runtime.Caching;
 </code></pre></li>
@@ -227,11 +230,11 @@
 <li><p>定義 MemoryCache 的私有欄位 (field)</p>
 
 <pre><code class="language-cs">private static MemoryCache _cache = MemoryCache.Default;
-</code></pre></li>
+</code></pre>
 
-<li><p>定義所需資料屬性 (property)</p>
+<ol>
+<li>定義所需資料屬性 (property)</li>
 
-<ul>
 <li><p>僅需 getter</p>
 
 <pre><code class="language-cs">/// &lt;summary&gt;
@@ -246,13 +249,12 @@ public static List&lt;Table&gt; TableData
         return _cache.Get(&quot;TableData&quot;) as List&lt;Table&gt;;
     }
 }
-</code></pre></li>
-</ul></li>
+</code></pre>
 
-<li><p>加上更新方法</p>
-
-<ul>
-<li><p>取資料時只取常使用的欄位以節省資源</p>
+<ol>
+<li>加上更新方法</li>
+<li>取資料時只取常使用的欄位以節省資源</li>
+</ol>
 
 <pre><code class="language-cs">/// &lt;summary&gt;
 /// 更新 TableData
@@ -272,17 +274,18 @@ public static void RefreshTableData()
     _cache.Add(&quot;TableData&quot;, listAgency, cacheItemPolicy);
 }
 </code></pre></li>
-</ul></li>
 </ol>
 
 <h2 id="實際使用">實際使用</h2>
 
 <ul>
-<li><p>引用 CacheHelper 的 namespace 後直接使用</p>
+<li>引用 CacheHelper 的 namespace 後直接使用
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">var tableData=CacheHelper.TableData;
 </code></pre></li>
-</ul>
+</ol>
 
 <h2 id="心得與缺陷">心得與缺陷</h2>
 

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -305,9 +305,11 @@
         &lt;section name=&quot;nlog&quot; type=&quot;NLog.Config.ConfigSectionHandler, NLog&quot; /&gt;
     &lt;/configSections&gt;
 &lt;/configuration&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>使用 log4net</p>
+<ul>
+<li>使用 log4net</li>
+</ul>
 
 <blockquote>
 <p>需加上 <code>&lt;section name=&quot;log4net&quot; type=&quot;log4net.Config.log4netConfigurationSectionHandler,log4net&quot; /&gt;</code></p>
@@ -323,9 +325,11 @@
     &lt;/configSections&gt;
 &lt;/configuration&gt;
 </code></pre></li>
-</ul></li>
+</ul>
 
-<li><p>加上 logging framework 對應設定</p>
+<ol>
+<li>加上 logging framework 對應設定</li>
+</ol>
 
 <blockquote>
 <ul>
@@ -366,9 +370,11 @@
         &lt;/rules&gt;
     &lt;/nlog&gt;
 &lt;/configuration&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>以 log4net 為例 (2017/07/14 log4net 最新版為 1.2.11)</p>
+<ul>
+<li>以 log4net 為例 (2017/07/14 log4net 最新版為 1.2.11)</li>
+</ul>
 
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
 &lt;configuration&gt;
@@ -399,13 +405,13 @@
     &lt;/log4net&gt;
 &lt;/configuration&gt;
 </code></pre></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="程式碼加上-log">程式碼加上 log</h2>
 
 <ol>
-<li><p>引用 <code>Common.Logging</code></p>
+<li>引用 <code>Common.Logging</code></li>
+</ol>
 
 <pre><code class="language-cs">using Common.Logging;
 </code></pre></li>
@@ -413,9 +419,11 @@
 <li><p>定義 logger</p>
 
 <pre><code class="language-cs">private static ILog logger = LogManager.GetCurrentClassLogger();
-</code></pre></li>
+</code></pre>
 
-<li><p>加上 log</p>
+<ol>
+<li>加上 log</li>
+</ol>
 
 <pre><code class="language-cs">logger.Debug($&quot;yowko-TestLog-{DateTime.Now}&quot;);
 </code></pre>
@@ -500,9 +508,11 @@
         &lt;/logging&gt;
     &lt;/common&gt;
 &lt;/configuration&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>NLog.config</p>
+<ul>
+<li>NLog.config</li>
+</ul>
 
 <pre><code class="language-xml">&lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.nlog-project.org/schemas/NLog.xsd NLog.xsd&quot; autoReload=&quot;true&quot; throwExceptions=&quot;false&quot; internalLogLevel=&quot;Off&quot; internalLogFile=&quot;c:\temp\nlog-internal.log&quot;&gt;
     &lt;targets async=&quot;true&quot;&gt;
@@ -531,9 +541,11 @@
         &lt;/logging&gt;
     &lt;/common&gt;
 &lt;/configuration&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>log4net.config</p>
+<ul>
+<li>log4net.config</li>
+</ul>
 
 <pre><code class="language-xml">&lt;log4net&gt;
     &lt;appender name=&quot;Alllogger&quot; type=&quot;log4net.Appender.RollingFileAppender&quot;&gt;

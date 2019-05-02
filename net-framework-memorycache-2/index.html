@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -225,15 +225,16 @@
         _cache.Add(&quot;TableData&quot;, listAgency, cacheItemPolicy);
     }
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="測試程式">測試程式</h2>
 
 <p>修改自黑大文章 <a href="http://blog.darkthread.net/post-2016-04-12-improved-getcachabledata.aspx" target="_blank">改良式GetCachableData可快取查詢函式</a></p>
 
 <ul>
-<li><p>程式進入點</p>
+<li>程式進入點
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">void Main()
 {
@@ -286,8 +287,7 @@ public static void RefreshTableData()
     Console.WriteLine(&quot;OK&quot;);
 
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="加入-lock">加入 lock</h2>
 
@@ -296,21 +296,22 @@ public static void RefreshTableData()
 /// &lt;/summary&gt;
 public static List&lt;Table&gt; TableData
 {
-    get
+get
+{
+    MemoryCache _cache = MemoryCache.Default;
+    //加上 lock
+    lock (_cache)
     {
-        MemoryCache _cache = MemoryCache.Default;
-        //加上 lock
-        lock (_cache)
+        if (!_cache.Contains(&quot;TableData&quot;))
         {
-            if (!_cache.Contains(&quot;TableData&quot;))
-            {
-                RefreshTableData();
-            }
+            RefreshTableData();
         }
-        return _cache.Get(&quot;TableData&quot;) as List&lt;Table&gt;;
     }
+    return _cache.Get(&quot;TableData&quot;) as List&lt;Table&gt;;
 }
-</code></pre>
+}
+</code></pre></li>
+</ul>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/22261956/e5b501e4-e2a9-11e6-913e-5bfb279c40d6.png" alt="2runonce" /></p>
 
@@ -365,16 +366,15 @@ public static void RefreshTable2Data()
     Console.WriteLine($&quot;Thread {Thread.CurrentThread.ManagedThreadId} Stop Job,Now:{DateTime.Now}&quot;);
     Console.WriteLine(&quot;OK&quot;);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>將兩個 property sleep 時間設一長一短</p>
-
-<ul>
+<ol>
+<li>將兩個 property sleep 時間設一長一短</li>
 <li>RefreshTable2Data sleep(10000)</li>
 <li>RefreshTableData sleep(3000)</li>
-</ul></li>
-
-<li><p>先起一個 thread 執行 sleep 時間較長的 property 更新方法，再起另一個 thread 執行 sleep 時間較短的 property 更新方法</p>
+<li>先起一個 thread 執行 sleep 時間較長的 property 更新方法，再起另一個 thread 執行 sleep 時間較短的 property 更新方法
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">void Main()
 {

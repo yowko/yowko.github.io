@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -192,19 +192,24 @@
 def item = Jenkins.instance.getItem(&quot;jobname&quot;)//jobname 請換成你實際的 job name
 def  lastSuccess=item.getLastSuccessfulBuild().getTime()
 println &quot;${lastSuccess}&quot;
-</code></pre></li>
+</code></pre>
 
-<li><p>建議可以使用 build step 來進行開發及 debug</p></li>
+<ul>
+<li>建議可以使用 build step 來進行開發及 debug</li>
 </ul>
 
 <ol>
-<li><p>安裝 groovy plugin</p>
+<li>安裝 groovy plugin
+<br /></li>
+</ol>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/24797673/e0666cba-1bc4-11e7-8a5d-fc2785585ed9.png" alt="1manageplugin" /></p>
 
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/24797674/e0804ff4-1bc4-11e7-91f8-274fe6c81cb6.png" alt="2installgroovy" /></p></li>
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24797674/e0804ff4-1bc4-11e7-91f8-274fe6c81cb6.png" alt="2installgroovy" /></p>
 
-<li><p>在 build step 測試語法</p>
+<ol>
+<li>在 build step 測試語法</li>
+</ol>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/24797675/e0812ae6-1bc4-11e7-8b2f-29f4395b1443.png" alt="3buildStep" /></p>
 
@@ -213,7 +218,9 @@ def item = Jenkins.instance.getItem(&quot;A01-TestDev&quot;)
 def  lastSuccess=item.getLastSuccessfulBuild().getTime()
 println &quot;${lastSuccess}&quot;
 </code></pre></li>
+</ul>
 
+<ol>
 <li><p>結果</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/24797676/e0823b3e-1bc4-11e7-9d6a-4dd7604fd949.png" alt="4getsuccdatetime" /></p></li>
@@ -249,38 +256,42 @@ matchjobs.each {
 return result
 </code></pre>
 
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/24797770/5cf8db00-1bc5-11e7-9acf-2e4b05964822.png" alt="10defaultsetting" /></p></li>
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/24797770/5cf8db00-1bc5-11e7-9acf-2e4b05964822.png" alt="10defaultsetting" /></p>
 
-<li><p>加入 groovy 後，記得要同意執行 groovy script</p>
+<ol>
+<li>加入 groovy 後，記得要同意執行 groovy script</li>
 
-<ul>
 <li><p>Build with Parameters 會出現需要同意提示</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/24797669/e05f01d2-1bc4-11e7-800c-6da7ebc32efc.png" alt="6needapprove" /></p></li>
+</ol>
 
+<ul>
 <li><p>Approve</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/24797670/e05f5e5c-1bc4-11e7-87e2-13da794a1926.png" alt="7apporve" /></p></li>
-</ul></li>
+</ul>
 
-<li><p>前後對照</p>
+<ol>
+<li>前後對照</li>
 
-<ul>
 <li><p>設定前</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/24797672/e06622a0-1bc4-11e7-9d25-98ec3add97d1.png" alt="9BEFORE" /></p></li>
+</ol>
 
+<ul>
 <li><p>設定後</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/24797671/e05feb74-1bc4-11e7-996b-d2fdaa967247.png" alt="8AFTER" /></p></li>
-</ul></li>
-</ol>
+</ul>
 
 <h1 id="參考資訊">參考資訊</h1>
 
 <ol>
 <li><a href="http://stackoverflow.com/questions/32180785/jenkins-groovy-script-get-last-successful-build-date-in-dd-mm-yyyy-format" target="_blank">Jenkins - groovy script - get last successful build date in dd-mm-yyyy format</a></li>
 <li><a href="http://stackoverflow.com/questions/1439779/how-to-compare-two-dates-without-the-time-portion" target="_blank">How to compare two Dates without the time portion?</a></li>
+</ol></li>
 </ol>
 
     </div>

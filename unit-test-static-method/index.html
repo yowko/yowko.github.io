@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -209,8 +209,7 @@ private static string GetNowReturn(string value)
 {
     return $&quot;{DateTime.Today}-{value}&quot;;
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="如何測試">如何測試？</h2>
 
@@ -219,14 +218,17 @@ private static string GetNowReturn(string value)
 </blockquote>
 
 <ol>
-<li><p>修改 private static 為 internal</p>
+<li>修改 private static 為 internal</li>
+</ol>
 
 <pre><code class="language-cs">internal string GetNowReturn(string value)
 {
     return $&quot;{DateTime.Today}-{value}&quot;;
 }
 </code></pre></li>
+</ul>
 
+<ol>
 <li><p>修改測試目標程式的 AssemblyInfo.cs 讓測試專案可以看見 internal method</p>
 
 <ul>
@@ -250,8 +252,7 @@ public void GetNowReturn_Yowko_Return_DateTimeToday_value()
     //assert
     Assert.AreEqual(expected, actual);
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="有其他解決方式嗎-使用-privatetype">有其他解決方式嗎？ - 使用 PrivateType</h2>
 
@@ -262,7 +263,8 @@ public void GetNowReturn_Yowko_Return_DateTimeToday_value()
 </ul>
 
 <ol>
-<li><p><span style="color:red">不用修改</span> 測試目標程式</p>
+<li><span style="color:red">不用修改</span> 測試目標程式</li>
+</ol>
 
 <pre><code class="language-cs">public class ValuesController : ApiController
 {
@@ -286,9 +288,11 @@ private static string GetNowReturn(string value)
 <li><p>建立測試目標程式的 PrivateType 物件</p>
 
 <pre><code class="language-cs">PrivateType target = new PrivateType(typeof(ValuesController));
-</code></pre></li>
+</code></pre>
 
-<li><p>執行測試目標程式的 private static method</p>
+<ol>
+<li>執行測試目標程式的 private static method</li>
+</ol>
 
 <pre><code class="language-cs">var actual = target.InvokeStatic(&quot;GetNowReturn&quot;, value);
 </code></pre></li>
@@ -307,8 +311,7 @@ public void GetNowReturn_Yowko_Return_DateTimeToday_value()
     //assert
     Assert.AreEqual(expected, actual);
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="心得">心得</h2>
 
@@ -321,6 +324,7 @@ public void GetNowReturn_Yowko_Return_DateTimeToday_value()
 <ol>
 <li><a href="https://msdn.microsoft.com/en-us/library/microsoft.visualstudio.testtools.unittesting.privatetype%28v=vs.120%29.aspx" target="_blank">PrivateType Class</a></li>
 <li><a href="//blog.yowko.com/2017/06/unit-test-static-field-property.html" target="_blank">Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType</a></li>
+</ol></li>
 </ol>
 
     </div>

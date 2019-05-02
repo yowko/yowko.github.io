@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -209,9 +209,11 @@
     public IEnumerable&lt;T&gt; TestEnum { get; set; }
     public int[] Products{ get; set; }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>使用方式</p>
+<ol>
+<li>使用方式</li>
+</ol>
 
 <blockquote>
 <p>以下使用 LINQPad demo</p>
@@ -316,9 +318,11 @@ foreach (var element in propInfos)
         }
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>完整程式碼</p>
+<ol>
+<li>完整程式碼</li>
+</ol>
 
 <pre><code class="language-cs">public class InitialJsonConvert : JsonConverter
 {
@@ -426,9 +430,11 @@ JsonConvert.SerializeObject(user).Dump();
 JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented, new InitialJsonConvert(user.GetType())).Dump();
 // 輸出經過自訂 serialize 的 user (value type 已被初始化)
 user.Dump();
-</code></pre></li>
+</code></pre>
 
-<li><p>輸出結果</p>
+<ul>
+<li>輸出結果</li>
+</ul>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/27953764-9a9eb2f6-633f-11e7-88a2-a9c60a1468b3.png" alt="2result" /></p></li>
 </ul></li>

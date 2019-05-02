@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -229,9 +229,11 @@
     public DateTime Birthday { get; set; }
     public decimal CurrentSalary { get; set; }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>Bogus 套件製造假資料</p>
+<ol>
+<li>Bogus 套件製造假資料</li>
+</ol>
 
 <pre><code class="language-cs">User GetFakeUserData()
 {
@@ -262,9 +264,11 @@ var collection = db.GetCollection&lt;User&gt;(&quot;users&quot;);
 var fakesUsers = UserUtility.GetFakeUsers(Times);
 
 await collection.InsertManyAsync(fakesUsers);
-</code></pre></li>
+</code></pre>
 
-<li><p>數據</p>
+<ol>
+<li>數據</li>
+</ol>
 
 <table>
 <thead>
@@ -306,15 +310,15 @@ await collection.InsertManyAsync(fakesUsers);
 <td align="right">10,727.612 ms</td>
 </tr>
 </tbody>
-</table></li>
-</ol>
+</table>
 
 <h3 id="cassandra">Cassandra</h3>
 
 <ol>
 <li><p>環境建立流程及使用可以參考 <a href="https://blog.yowko.com/csharp-cassandra/" target="_blank">使用 C# 存取 Cassandra</a></p></li>
 
-<li><p>Insert 語法</p>
+<li><p>Insert 語法</p></li>
+</ol>
 
 <pre><code class="language-cs">var cluster = Cluster.Builder()
             .AddContactPoints(&quot;127.0.0.1&quot;)
@@ -394,9 +398,11 @@ foreach (var userList in UserUtility.SpiltBySize(fakesUsers, 10,000))
 {
     await db.BulkInsertAsync(userList.ToArray());
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>數據</p>
+<ol>
+<li>數據</li>
+</ol>
 
 <table>
 <thead>
@@ -434,15 +440,15 @@ foreach (var userList in UserUtility.SpiltBySize(fakesUsers, 10,000))
 <td align="right">1,970.259 ms</td>
 </tr>
 </tbody>
-</table></li>
-</ol>
+</table>
 
 <h3 id="ravendb">RavenDB</h3>
 
 <ol>
 <li><p>環境建立流程及使用可以參考 <a href="https://blog.yowko.com/csharp-ravendb/" target="_blank">使用 C# 存取 RavenDB</a></p></li>
 
-<li><p>Insert 語法</p>
+<li><p>Insert 語法</p></li>
+</ol>
 
 <pre><code class="language-cs">var store = new DocumentStore
         {
@@ -523,9 +529,11 @@ using (var db = ArangoDatabase.CreateWithSetting())
         db.Collection(&quot;Users&quot;).InsertMultiple(userList);
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>數據</p>
+<ol>
+<li>數據</li>
+</ol>
 
 <table>
 <thead>
@@ -567,15 +575,15 @@ using (var db = ArangoDatabase.CreateWithSetting())
 <td align="right">NA</td>
 </tr>
 </tbody>
-</table></li>
-</ol>
+</table>
 
 <h3 id="postgresql">PostgreSQL</h3>
 
 <ol>
 <li><p>環境建立流程及使用可以參考 <a href="https://blog.yowko.com/csharp-postgresql/" target="_blank">使用 C# 存取 PostgreSQL</a></p></li>
 
-<li><p>Insert 語法</p>
+<li><p>Insert 語法</p></li>
+</ol>
 
 <pre><code class="language-cs">string connString = &quot;Server=127.0.0.1; User Id=postgres; Database=benchmark; Port=5432; Password=pass.123; SSL Mode=Prefer; Trust Server Certificate=true&quot;;
 var fakeuserUSers = UserUtility.GetFakeUsers(Times).Select(a=&gt;JsonConvert.SerializeObject(a));

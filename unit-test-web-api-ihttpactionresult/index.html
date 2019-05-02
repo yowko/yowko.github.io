@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -209,8 +209,7 @@
             return Ok();
     }
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="驗證概念說明">驗證概念說明</h2>
 
@@ -219,7 +218,8 @@
 <h2 id="mstest-如何驗證">MSTest 如何驗證</h2>
 
 <ol>
-<li><p>驗證 <code>BadRequest</code></p>
+<li>驗證 <code>BadRequest</code></li>
+</ol>
 
 <pre><code class="language-cs">[TestMethod()]
 public void Post_Name_StringEmpty_Return_BadRequest()
@@ -235,7 +235,9 @@ public void Post_Name_StringEmpty_Return_BadRequest()
     Assert.IsInstanceOfType(actual, expected);
 }
 </code></pre></li>
+</ul>
 
+<ol>
 <li><p>驗證 <code>Ok</code></p>
 
 <p>```cs
@@ -270,9 +272,11 @@ public void Post_Name_StringEmpty_Return_BadRequest()
     //assert
     Assert.IsInstanceOf( expected,actual);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>驗證 <code>Ok</code></p>
+<ol>
+<li>驗證 <code>Ok</code></li>
+</ol>
 
 <pre><code class="language-cs">[Test()]
 public void Post_Name_Yowko_Return_Ok()
@@ -304,9 +308,11 @@ public void Post_Name_StringEmpty_Return_BadRequest()
     //assert
     Assert.IsType(expected, actual);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>驗證 <code>Ok</code></p>
+<ol>
+<li>驗證 <code>Ok</code></li>
+</ol>
 
 <pre><code class="language-cs">[Fact()]
 public void Post_Name_Yowko_Return_Ok()

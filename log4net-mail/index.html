@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -205,9 +205,12 @@
 <pre><code class="language-xml">&lt;configSections&gt;
     &lt;section name=&quot;log4net&quot; type=&quot;log4net.Config.Log4NetConfigurationSectionHandler, log4net&quot; /&gt;
 &lt;/configSections&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>加入 log4net 相關設定</p>
+<ol>
+<li>加入 log4net 相關設定
+<br /></li>
+</ol>
 
 <blockquote>
 <p>log4net 區段的組成內容</p>
@@ -276,15 +279,13 @@ log.Info(&quot;Test Info&quot;);
 log.Warn(&quot;Test Warn&quot;);
 log.Error(&quot;Test Error&quot;);
 log.Fatal(&quot;Test Fatal&quot;);
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="log-設定說明">log 設定說明</h2>
 
 <ol>
-<li><p>logger</p>
+<li>logger</li>
 
-<ul>
 <li><p><code>name</code> 屬性</p>
 
 <blockquote>
@@ -295,17 +296,20 @@ log.Fatal(&quot;Test Fatal&quot;);
 <li><p>手動指定 logger 名稱</p>
 
 <pre><code class="language-cs">var log = LogManager.GetLogger(&quot;UserQuery&quot;);
-</code></pre></li>
-
-<li><p>使用當前 class 的名稱</p>
+</code></pre>
 
 <ul>
+<li>使用當前 class 的名稱</li>
+
 <li><p>method 1 ：</p>
 
 <pre><code class="language-cs">var log = LogManager.GetLogger(this.GetType());
-</code></pre></li>
+</code></pre>
 
-<li><p>method 2：</p>
+<ul>
+<li>method 2：
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">var log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 </code></pre></li>
@@ -323,9 +327,9 @@ log.Fatal(&quot;Test Fatal&quot;);
 <blockquote>
 <p>指定使用的 appender</p>
 </blockquote></li>
-</ul></li>
 
-<li><p>SmtpAppender</p>
+<li><p>SmtpAppender</p></li>
+</ol>
 
 <blockquote>
 <p><code>to</code>, <code>from</code>, <code>subject</code> 與 <code>smtpHost</code> 是必要條件</p>
@@ -387,9 +391,12 @@ log.Fatal(&quot;Test Fatal&quot;);
         &lt;appender-ref ref=&quot;SmtpAppender&quot; /&gt;
     &lt;/logger&gt;
 &lt;/log4net&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>結果</p>
+<ul>
+<li>結果
+<br /></li>
+</ul>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/40578964-2f6a304a-6150-11e8-98e7-a72449483d2d.png" alt="2lossyfalse" /></p></li>
 </ul></li>
@@ -431,19 +438,23 @@ log.Fatal(&quot;Test Fatal&quot;);
         &lt;appender-ref ref=&quot;SmtpAppender&quot; /&gt;
     &lt;/logger&gt;
 &lt;/log4net&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>結果</p>
+<ul>
+<li>結果
+<br /></li>
+</ul>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/40578963-2f26e524-6150-11e8-98db-a067a820aa9f.png" alt="1evaluatorthehold" /></p></li>
 </ul></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="如何限定只處理特定-level">如何限定只處理特定 level</h2>
 
 <ol>
-<li><p>方法一： 透過 <code>filter</code> 將 <code>levelMin</code> 與 <code>levelMax</code> 都指定為 <code>ERROR</code></p>
+<li>方法一： 透過 <code>filter</code> 將 <code>levelMin</code> 與 <code>levelMax</code> 都指定為 <code>ERROR</code>
+<br /></li>
+</ol>
 
 <pre><code class="language-xml">&lt;log4net&gt;
     &lt;appender name=&quot;SmtpAppender&quot; type=&quot;log4net.Appender.SmtpAppender&quot;&gt;
@@ -497,8 +508,7 @@ log.Fatal(&quot;Test Fatal&quot;);
         &lt;appender-ref ref=&quot;SmtpAppender&quot; /&gt;
     &lt;/logger&gt;
 &lt;/log4net&gt;
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="心得">心得</h2>
 
@@ -509,6 +519,7 @@ log.Fatal(&quot;Test Fatal&quot;);
 <ol>
 <li><a href="http://logging.apache.org/log4net/release/sdk/html/T_log4net_Appender_SmtpAppender.htm" target="_blank">SmtpAppender Class</a></li>
 <li><a href="http://logging.apache.org/log4net/release/config-examples.html" target="_blank">Apache log4net™ Config Examples</a></li>
+</ol></li>
 </ol>
 
     </div>

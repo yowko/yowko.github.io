@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -332,9 +332,11 @@
 <pre><code class="language-cs">public class ShippersController : ODataController
 {
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>透過 EntityFramework 檢查資料</p>
+<ul>
+<li>透過 EntityFramework 檢查資料</li>
+</ul>
 
 <pre><code class="language-CS">NorthwindEntities db = new NorthwindEntities();
 private bool ShippersExists(int key)
@@ -350,9 +352,11 @@ private bool ShippersExists(int key)
     db.Dispose();
     base.Dispose(disposing);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>完整程式碼</p>
+<ul>
+<li>完整程式碼</li>
+</ul>
 
 <pre><code class="language-cs">using System.Linq;
 using System.Web.OData;
@@ -398,9 +402,11 @@ namespace TestOData.Controllers
         routePrefix: &quot;odata&quot;,
         model: builder.GetEdmModel());
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>完整程式碼</p>
+<ul>
+<li>完整程式碼</li>
+</ul>
 
 <pre><code class="language-cs">using System.Net.Http.Formatting;
 using System.Web.Http;
@@ -453,9 +459,11 @@ public SingleResult&lt;Shippers&gt; Get([FromODataUri] int key)
     IQueryable&lt;Shippers&gt; result = db.Shippers.Where(p =&gt; p.ShipperID == key);
     return SingleResult.Create(result);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>Post - Create</p>
+<ul>
+<li>Post - Create</li>
+</ul>
 
 <pre><code class="language-cs">public async Task&lt;IHttpActionResult&gt; Post(Shippers shippers)
 {
@@ -529,9 +537,11 @@ public async Task&lt;IHttpActionResult&gt; Put([FromODataUri] int key, Shippers 
     }
     return Updated(update);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>Delete - Delete</p>
+<ul>
+<li>Delete - Delete</li>
+</ul>
 
 <pre><code class="language-cs">public async Task&lt;IHttpActionResult&gt; Delete([FromODataUri] int key)
 {

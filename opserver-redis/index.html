@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -301,15 +301,15 @@
         }
     ]
 }
-</code></pre></li>
+</code></pre>
 
-<li><p><code>allServers</code> 與 <code>Servers</code> 搭配</p>
-
-<ul>
+<ol>
+<li><code>allServers</code> 與 <code>Servers</code> 搭配</li>
 <li><code>allServers</code> instances name 表示顯示名稱;port 為 redis port 號</li>
-<li><code>Servers</code> name 填 host ip or name
-<code>
-{
+
+<li><p><code>Servers</code> name 填 host ip or name</p>
+
+<pre><code>{
 &quot;allServers&quot;: {
 &quot;name&quot;: &quot;test&quot;,
 &quot;instances&quot;: [
@@ -322,8 +322,8 @@
 ,
 &quot;Servers&quot;: [{ &quot;name&quot;: &quot;127.0.0.1&quot; } ]
 }
-</code></li>
-</ul></li>
+</code></pre></li>
+</ol></li>
 </ol></li>
 
 <li><p>connection 邏輯可以參考 <code>\Opserver.Core\Data\Redis\RedisModule.cs</code></p></li>

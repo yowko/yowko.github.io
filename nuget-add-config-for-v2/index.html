@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -280,15 +280,14 @@
 &lt;/configuration&gt;
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/28498524-d9cb0f30-6fd1-11e7-96c2-b40ab3bbaee9.png" alt="7filecontent" /></p></li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/28498524-d9cb0f30-6fd1-11e7-96c2-b40ab3bbaee9.png" alt="7filecontent" /></p>
 
 <h2 id="注意事項">注意事項</h2>
 
 <ol>
 <li>上述範例是以 web 專案為例，如果是 windows 類型程式請將檔案改為 <code>app.config.transform</code></li>
-
-<li><p>如果是 NuGet 2.6 以後版本，需要使用 <code>.xdt</code> 轉換</p>
+<li>如果是 NuGet 2.6 以後版本，需要使用 <code>.xdt</code> 轉換</li>
+</ol>
 
 <blockquote>
 <p>上述範例使用 NuGet.Server，是基於 NuGet feed v2 ，所以需用 <code>.transform</code></p>
@@ -306,24 +305,29 @@
 <blockquote>
 <p><a href="https://www.nuget.org/api/v2" target="_blank">https://www.nuget.org/api/v2</a></p>
 </blockquote></li>
-</ul></li>
+</ul>
 
-<li><p>實測下如果版號未更新，nuspec 的內容會被 cache，會造成 config 的轉換用到舊版</p>
+<ol>
+<li>實測下如果版號未更新，nuspec 的內容會被 cache，會造成 config 的轉換用到舊版</li>
+</ol>
 
 <blockquote>
 <p>這不確定是不是 NuGet.Server 的問題，嘗試 refresh cache 也沒有效果</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>uninstall package 時會自動逆向移除加入的內容</p>
+<ol>
+<li>uninstall package 時會自動逆向移除加入的內容</li>
+</ol>
 
 <blockquote>
 <p><code>.xdt</code> 則需要自行處理移除內容</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>修改 config 時，格式會亂掉，需要自行重新排版</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/28498525-d9dc7a86-6fd1-11e7-9369-569287db7c68.png" alt="8unformat" /></p></li>
+<ol>
+<li>修改 config 時，格式會亂掉，需要自行重新排版</li>
 </ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/28498525-d9dc7a86-6fd1-11e7-9369-569287db7c68.png" alt="8unformat" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -339,6 +343,7 @@
 <li><a href="https://blog.yowko.com/2017/07/self-host-nuget-server.html" target="_blank">自建 NuGet Server</a></li>
 <li><a href="https://docs.microsoft.com/en-us/nuget/create-packages/source-and-config-file-transformations" target="_blank">Transforming source code and configuration files</a></li>
 <li><a href="https://www.nuget.org/" target="_blank">NuGet</a></li>
+</ol></li>
 </ol>
 
     </div>

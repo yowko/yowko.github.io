@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -259,25 +259,29 @@ console.log(SumDatareduce(data));
         salary:15000,
         age:25
     }];
-</code></pre></li>
+</code></pre>
 
-<li><p>使用 map 將物件屬性轉為陣列</p>
+<ol>
+<li>使用 map 將物件屬性轉為陣列</li>
+</ol>
 
 <pre><code class="language-js">var objarray=dataobj.map(el=&gt;el.salary);
 console.log(objarray);
 </code></pre></li>
+</ul>
 
+<ol>
 <li><p>再透過 reduce 加總</p>
 
 <pre><code class="language-js">function SumDatareduce(arr){
     return arr.reduce((a,b)=&gt;a+b);  
 }
 console.log(SumDatareduce(objarray));
-</code></pre></li>
-</ul>
+</code></pre>
 
 <ol>
-<li><p>簡化 function</p>
+<li>簡化 function</li>
+</ol>
 
 <pre><code class="language-js">function SumDataMapReduce(arr){
 return arr.map(el=&gt;el.salary).reduce((a,b)=&gt;a+b);
@@ -300,9 +304,11 @@ console.log(SumDataMapReduce(dataobj));
 }
 var propname='salary'
 console.log(SumDataMapReduce(dataobj,propname));
-</code></pre></li>
+</code></pre>
 
-<li><p>選擇性屬性</p>
+<ol>
+<li>選擇性屬性</li>
+</ol>
 
 <pre><code class="language-js">function SumDataMapReduce(arr,prop){
     if(prop === undefined){

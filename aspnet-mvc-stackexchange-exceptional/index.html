@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -203,9 +203,12 @@
 <pre><code class="language-xml">&lt;configSections&gt;
     &lt;section name=&quot;Exceptional&quot; type=&quot;StackExchange.Exceptional.Settings, StackExchange.Exceptional&quot;/&gt;
 &lt;/configSections&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>2-2. <code>configuration</code> 增加 <code>Exceptional</code>內容</p>
+<ul>
+<li>2-2. <code>configuration</code> 增加 <code>Exceptional</code>內容<br />
+<br /></li>
+</ul>
 
 <pre><code class="language-xml">&lt;Exceptional applicationName=&quot;Core&quot;&gt;   
     &lt;IgnoreErrors&gt;
@@ -239,10 +242,12 @@
 <pre><code class="language-xml">&lt;modules&gt;
     &lt;add name=&quot;ErrorStore&quot; type=&quot;StackExchange.Exceptional.ExceptionalModule, StackExchange.Exceptional&quot; /&gt;
 &lt;/modules&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>2-4. 畫面顯示設定(非必要)<br />
-<code>configuration</code> &ndash;&gt; <code>system.webServer</code> &ndash;&gt; <code>handlers</code> 加入新 handlers</p>
+<ul>
+<li>2-4. 畫面顯示設定(非必要)<br />
+<code>configuration</code> &ndash;&gt; <code>system.webServer</code> &ndash;&gt; <code>handlers</code> 加入新 handlers</li>
+</ul>
 
 <pre><code class="language-xml">&lt;handlers&gt;
     &lt;add name=&quot;Exceptional&quot; path=&quot;exceptions.axd&quot; verb=&quot;POST,GET,HEAD&quot; type=&quot;StackExchange.Exceptional.HandlerFactory, StackExchange.Exceptional&quot; preCondition=&quot;integratedMode&quot; /&gt;
@@ -266,9 +271,12 @@
 <li><p>設定方式：</p>
 
 <pre><code class="language-xml">&lt;ErrorStore type=&quot;Memory&quot; /&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>實際效果</p>
+<ul>
+<li>實際效果
+<br /></li>
+</ul>
 
 <blockquote>
 <p><img src="https://trello-attachments.s3.amazonaws.com/580186252406cb39e4a22eed/580c9826d814732a5fa2722a/2d3bb6552b99e421fdd6be698711c00f/memory_%E7%BB%93%E6%9E%9C.png" alt="memory" /></p>
@@ -285,9 +293,12 @@
 <li><p>設定方式：</p>
 
 <pre><code class="language-xml">&lt;ErrorStore type=&quot;JSON&quot; path=&quot;~\Errors&quot; size=&quot;200&quot; rollupSeconds=&quot;300&quot; /&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>實際效果</p>
+<ul>
+<li>實際效果
+<br /></li>
+</ul>
 
 <blockquote>
 <p><img src="https://trello-attachments.s3.amazonaws.com/580186252406cb39e4a22eed/580c9826d814732a5fa2722a/6bdc04a773e92f4940504820926a8d52/jsonfail_%E7%BB%93%E6%9E%9C.png" alt="jsonfail" /></p>
@@ -303,9 +314,12 @@
 <li><p>使用方式：</p>
 
 <pre><code class="language-xml">&lt;ErrorStore type=&quot;SQL&quot; connectionString=&quot;Data Source=.;Integrated Security=False;User ID=username;Password=password;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False&quot; /&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>實際效果</p>
+<ul>
+<li>實際效果
+<br /></li>
+</ul>
 
 <blockquote>
 <p><img src="https://trello-attachments.s3.amazonaws.com/580186252406cb39e4a22eed/580c9826d814732a5fa2722a/16350c0633d3f87c631702151ce40d3e/dbfail1_%E7%BB%93%E6%9E%9C.png" alt="dbfail" /></p>

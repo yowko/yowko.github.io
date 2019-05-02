@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -217,9 +217,11 @@
         return manager;
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>完整檔案內容</p>
+<ul>
+<li>完整檔案內容</li>
+</ul>
 
 <pre><code class="language-cs">using System;
 using System.Security.Claims;
@@ -356,9 +358,11 @@ namespace DemoIdentity
 <li><p>新增內容 (新增至 <code>ConfigureAuth</code> 方法中)</p>
 
 <pre><code class="language-cs">app.CreatePerOwinContext&lt;MailUserManager&gt;(MailUserManager.Create);
-</code></pre></li>
+</code></pre>
 
-<li><p>完整檔案內容</p>
+<ul>
+<li>完整檔案內容</li>
+</ul>
 
 <pre><code class="language-cs">using System;
 using Microsoft.AspNet.Identity;
@@ -486,9 +490,11 @@ public async Task&lt;ActionResult&gt; Register(RegisterViewModel model)
     // If we got this far, something failed, redisplay form
     return View(model);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>對應的 <code>ConfirmEmail</code> 也需調整</p>
+<ul>
+<li>對應的 <code>ConfirmEmail</code> 也需調整</li>
+</ul>
 
 <pre><code class="language-cs">[AllowAnonymous]
 public async Task&lt;ActionResult&gt; ConfirmEmail(string userId, string code)
@@ -539,9 +545,11 @@ public virtual async Task&lt;bool&gt; VerifyEmailResetTokenAsync(string purpose,
     }
     return await tokenprovider.ValidateAsync(purpose, token, this, user).WithCurrentCulture&lt;bool&gt;();
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>修改 <code>Create</code> 方法，加入以下程式碼</p>
+<ul>
+<li>修改 <code>Create</code> 方法，加入以下程式碼</li>
+</ul>
 
 <pre><code class="language-cs">tokenprovider = new Microsoft.AspNet.Identity.Owin.DataProtectorTokenProvider&lt;ApplicationUser&gt;(options.DataProtectionProvider.Create(&quot;ASP.NET Identity&quot;))
 {
@@ -720,9 +728,11 @@ public async Task&lt;ActionResult&gt; ForgotPassword(ForgotPasswordViewModel mod
     // If we got this far, something failed, redisplay form
     return View(model);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>實際 ResetPassword 也需要調整</p>
+<ul>
+<li>實際 ResetPassword 也需要調整</li>
+</ul>
 
 <pre><code class="language-cs">[AllowAnonymous]
 public ActionResult ResetPassword(string code, string userId)
@@ -889,9 +899,11 @@ namespace DemoIdentity.Extension
         }
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>IdentityConfig.cs 使用自訂 DataProtectorTokenProvider - <code>DataProtectorTokenProviderEx</code></p>
+<ol>
+<li>IdentityConfig.cs 使用自訂 DataProtectorTokenProvider - <code>DataProtectorTokenProviderEx</code></li>
+</ol>
 
 <pre><code class="language-cs">if (dataProtectionProvider != null)
 {

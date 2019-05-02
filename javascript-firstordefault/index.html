@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -231,13 +231,11 @@
         headcount:5
       }
     ];
-</code></pre></li>
-</ul>
+</code></pre>
 
 <ol>
-<li><p>使用自定 function</p>
+<li>使用自定 function</li>
 
-<ul>
 <li><p>使用 for</p>
 
 <pre><code class="language-js">function findObjectByProporigin(arr, prop, val) {
@@ -251,9 +249,11 @@
 findObjectByPropfor(dataobj,&quot;name&quot;,&quot;ASP.NET MVC&quot;)
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34333293-2316e718-e976-11e7-8983-1df65305b8c7.png" alt="1for" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/34333293-2316e718-e976-11e7-8983-1df65305b8c7.png" alt="1for" /></p>
 
-<li><p>使用 <code>for...in</code></p>
+<ul>
+<li>使用 <code>for...in</code></li>
+</ul>
 
 <pre><code class="language-js">function findObjectByPropforin(arr, prop, val) {
     for(var index in arr){
@@ -267,7 +267,9 @@ findObjectByPropforin(dataobj,'name','ASP.NET MVC')
 </code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34333297-23909612-e976-11e7-9f37-c0895cb11183.png" alt="4forin" /></p></li>
+</ol>
 
+<ul>
 <li><p>使用 <code>for...of</code></p>
 
 <pre><code class="language-js">function findObjectByPropforof(arr, prop, val) {
@@ -281,11 +283,11 @@ findObjectByPropforin(dataobj,'name','ASP.NET MVC')
 findObjectByPropforof(dataobj,'name','ASP.NET MVC')
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34333298-23b81282-e976-11e7-8df6-005eeaa20ecc.png" alt="5forof" /></p></li>
-
-<li><p>forEach 與 map 無法中途終止會造成 LastOrDefault 的效果</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/34333298-23b81282-e976-11e7-8df6-005eeaa20ecc.png" alt="5forof" /></p>
 
 <ul>
+<li><p>forEach 與 map 無法中途終止會造成 LastOrDefault 的效果</p></li>
+
 <li><p>forEach</p>
 
 <pre><code class="language-js">function findObjectByPropforEach(arr, prop, val) {
@@ -300,9 +302,11 @@ findObjectByPropforof(dataobj,'name','ASP.NET MVC')
 findObjectByPropforEach(dataobj,&quot;name&quot;,&quot;ASP.NET MVC&quot;)
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34333295-233f7e58-e976-11e7-9867-515b79f94993.png" alt="2foreach" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/34333295-233f7e58-e976-11e7-9867-515b79f94993.png" alt="2foreach" /></p>
 
-<li><p>map</p>
+<ul>
+<li>map</li>
+</ul>
 
 <pre><code class="language-js">function findObjectByPropmap(arr, prop, val) {
     var result = null;
@@ -318,24 +322,30 @@ findObjectByPropmap(dataobj,&quot;name&quot;,&quot;ASP.NET MVC&quot;)
 </code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34333296-23670fea-e976-11e7-91a3-c734ef39d2fd.png" alt="3map" /></p></li>
-</ul></li>
-</ul></li>
+</ul>
 
-<li><p>使用 ES6 - <code>find</code></p>
+<ol>
+<li>使用 ES6 - <code>find</code></li>
+</ol>
 
 <pre><code class="language-js">dataobj.find(obj=&gt;obj.name==='ASP.NET MVC')
-</code></pre>
+</code></pre></li>
+</ul>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34333299-23e23aa8-e976-11e7-904d-4337a641c2e0.png" alt="6find" /></p></li>
+</ul>
 
+<ol>
 <li><p>使用 lodash - <code>find</code></p>
 
 <pre><code class="language-js">_.find(dataobj,obj=&gt;obj.name==='ASP.NET MVC')
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34333301-240c9d02-e976-11e7-999a-55e05e1ab179.png" alt="7lodashfind" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/34333301-240c9d02-e976-11e7-999a-55e05e1ab179.png" alt="7lodashfind" /></p>
 
-<li><p>使用 Ramda - <code>find</code></p>
+<ol>
+<li>使用 Ramda - <code>find</code></li>
+</ol>
 
 <pre><code class="language-js">R.find(obj=&gt;obj.name==='ASP.NET MVC', dataobj)
 </code></pre>

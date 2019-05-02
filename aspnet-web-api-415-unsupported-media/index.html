@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -231,9 +231,11 @@
         return Request.CreateResponse(HttpStatusCode.BadRequest);
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>前端上傳內容</p>
+<ol>
+<li>前端上傳內容</li>
+</ol>
 
 <ul>
 <li>Content-Type：application/x-www-form-urlencoded</li>
@@ -241,19 +243,21 @@
 <li><p>body 夾檔</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34341094-2cb1be42-e9cb-11e7-9b59-6a738c7e47b3.png" alt="2body" /></p></li>
-</ul></li>
+</ul>
 
-<li><p>順利取得檔案內容</p>
+<ol>
+<li>順利取得檔案內容</li>
+</ol>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34341095-2ce054c8-e9cb-11e7-8a75-d6b4016f2da5.png" alt="3result1" /></p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34341096-2d0a1bb4-e9cb-11e7-818d-303d720587c4.png" alt="4result2" /></p></li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/34341096-2d0a1bb4-e9cb-11e7-818d-303d720587c4.png" alt="4result2" /></p>
 
 <h2 id="解決方式二-使用-multipartformdatastreamprovider">解決方式二：使用 MultipartFormDataStreamProvider</h2>
 
 <ol>
-<li><p>API 程式碼</p>
+<li>API 程式碼</li>
+</ol>
 
 <pre><code class="language-cs">public class UploadController : ApiController
 {

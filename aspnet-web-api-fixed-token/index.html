@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -194,9 +194,12 @@
 <li><p><code>TokenHandler.cs</code> 繼承 <code>DelegatingHandler</code></p>
 
 <pre><code class="language-cs">using System.Net.Http;
-</code></pre></li>
+</code></pre>
 
-<li><p>定義一個固定 Token</p>
+<ol>
+<li>定義一個固定 Token
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">private const string Token = &quot;3f1472de8cb345f78a826d0cc466bbbe&quot;;
 </code></pre></li>
@@ -226,13 +229,14 @@
         //回傳執行結果
     return response;
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="註冊-handler">註冊 <code>Handler</code></h2>
 
 <ul>
-<li><p>在 Global.asax.cs 中的 <code>Application_Start()</code> 註冊 <code>Handler</code></p>
+<li>在 Global.asax.cs 中的 <code>Application_Start()</code> 註冊 <code>Handler</code>
+<br /></li>
+</ul>
 
 <blockquote>
 <p>GlobalConfiguration.Configuration.MessageHandlers.Add(new TokenHandler());</p>
@@ -244,7 +248,7 @@
     GlobalConfiguration.Configuration.MessageHandlers.Add(new TokenHandler());
 }
 </code></pre></li>
-</ul>
+</ol>
 
 <h2 id="使用方式及測試結果">使用方式及測試結果</h2>
 

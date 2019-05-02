@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -262,9 +262,12 @@
     {
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>完整程式碼</p>
+<ul>
+<li>完整程式碼
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">using System;
 using System.Configuration;
@@ -329,9 +332,12 @@ namespace IdentitySample.Models
 <li><p>修改 <code>ApplicationUserManager</code> 的建立</p>
 
 <pre><code class="language-cs">var manager = new ApplicationUserManager(new UserStore&lt;ApplicationUser&gt;(context.Get&lt;ApplicationDbContext&gt;().Users));
-</code></pre></li>
+</code></pre>
 
-<li><p>完整程式碼</p>
+<ul>
+<li>完整程式碼
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">using System;
 using System.Security.Claims;
@@ -438,12 +444,12 @@ namespace IdentitySample
         }
     }
 }
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="心得">心得</h2>
 
 <p>雖然過去一直有印象可以將 ASP.NET Identity 的資料儲存至 MongoDB，但過去專案都還是透過 relation DB 來儲存資料，幸虧平常有留意相關應用讓這次臨時加入的需求不至影響到專案的時程</p></li>
-</ul></li>
 </ol>
 
 <p>至於 ASP.NET Identity 與 MongoDB 的整合，在沒有 Microsoft 官方的支持，多虧有網路上的神人願意分享，雖然文件及使用的便利性仍有很大的改進空間，但不用自己從頭處理已是大幸呀</p>

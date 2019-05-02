@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -294,11 +294,11 @@
     public static ConnectionMultiplexer GetConnection =&gt; Connection.Value;
     public static IDatabase RedisDB =&gt; GetConnection.GetDatabase();
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>寫法二：程式中指定 server</p>
+<ol>
+<li>寫法二：程式中指定 server</li>
 
-<ul>
 <li><p>redis factory</p>
 
 <pre><code class="language-cs">public static class RedisConnectionFactory
@@ -322,42 +322,54 @@
     public static ConnectionMultiplexer GetConnection =&gt; Connection.Value;
     public static IDatabase RedisDB =&gt; GetConnection.GetDatabase();
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>指定 server</p>
+<ul>
+<li>指定 server
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">//取得第一個的 Redis EndPoint
 var item = RedisConnectionFactory.GetConnection.GetEndPoints(true).FirstOrDefault();
 //透過 Redis EndPoint 取得 Redis server
 var server = RedisConnectionFactory.GetConnection.GetServer(item);
 </code></pre></li>
-</ul></li>
 
-<li><p>實際取得 keys 及筆數</p>
+<li><p>實際取得 keys 及筆數</p></li>
 
-<ul>
 <li><p>取得所有 key</p>
 
 <pre><code class="language-cs">server.Keys();
-</code></pre></li>
+</code></pre>
 
-<li><p>指定 pattern 取得所有 key</p>
+<ul>
+<li>指定 pattern 取得所有 key
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">server.Keys(pattern:&quot;urn:session:*&quot;,cursor:0);
 </code></pre></li>
+</ol>
 
+<ul>
 <li><p>指定 pattern 的 key 數量</p>
 
 <pre><code class="language-cs">server.Keys(pattern:&quot;urn:session:*&quot;,cursor:0).Count()
-</code></pre></li>
+</code></pre>
 
-<li><p>key 數量很多時記得加上 <code>pageSize</code></p>
+<ul>
+<li>key 數量很多時記得加上 <code>pageSize</code>
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">server.Keys(pattern:&quot;urn:session:*&quot;,cursor:0,pageSize:10000)
 </code></pre></li>
-</ul></li>
+</ul>
 
-<li><p>實際效果比較</p>
+<ol>
+<li>實際效果比較
+<br /></li>
+</ol>
 
 <blockquote>
 <p>約莫為 1百萬資料</p>
@@ -371,8 +383,7 @@ var server = RedisConnectionFactory.GetConnection.GetServer(item);
 <li><p>加上 <code>pageSize:10000</code>：耗時 <code>4.5</code> 秒</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/42651919-61775cd0-8643-11e8-87c1-831ca3948481.png" alt="6keys" /></p></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="心得">心得</h2>
 
@@ -389,6 +400,7 @@ var server = RedisConnectionFactory.GetConnection.GetServer(item);
 <li><a href="https://redis.io/commands/scan" target="_blank">SCAN</a></li>
 <li><a href="https://blog.yowko.com/2017/04/stackexchange-redis-get-all-keys-or-pattern.html" target="_blank">如何使用 StackExchange.Redis 取得所有 keys 值與指定 pattern 的 key</a></li>
 <li><a href="https://stackexchange.github.io/StackExchange.Redis/KeysScan" target="_blank">Where are KEYS, SCAN, FLUSHDB etc?</a></li>
+</ol></li>
 </ol>
 
     </div>

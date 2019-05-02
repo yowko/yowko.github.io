@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2018-02-05T00:17:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-03T00:17:04&#43;08:00" />
-<meta itemprop="wordCount" content="800">
+<meta itemprop="wordCount" content="811">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-02-05 </span>
         
-        <span class="more-meta"> 約 800 字 </span>
+        <span class="more-meta"> 約 811 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -213,15 +213,19 @@
 <li><p>c#</p>
 
 <pre><code class="language-cs">var _target=sourceDatetime.Subtract(new DateTime(1970,1,1,0,0,0,DateTimeKind.Utc)).TotalMilliseconds;
-</code></pre></li>
+</code></pre>
 
-<li><p>js</p>
+<ul>
+<li>js</li>
+</ul>
 
 <pre><code class="language-js">var dt = new Date(_target);
 </code></pre></li>
-</ul></li>
+</ul>
 
-<li><p>將 C# DateTime 轉為 js 可直接的格式</p>
+<ol>
+<li>將 C# DateTime 轉為 js 可直接的格式</li>
+</ol>
 
 <ul>
 <li><p>C# (下列兩者皆可)</p>
@@ -230,9 +234,11 @@
 <li><p>ToString(&ldquo;R&rdquo;) : <code>Fri, 02 Feb 2018 15:30:14 GMT</code></p>
 
 <pre><code class="language-cs">sourceDatetime.ToString(&quot;R&quot;);
-</code></pre></li>
+</code></pre>
 
-<li><p>ToString(&ldquo;u&rdquo;):<code>2018-02-02 15:30:14Z</code></p>
+<ul>
+<li>ToString(&ldquo;u&rdquo;):<code>2018-02-02 15:30:14Z</code></li>
+</ul>
 
 <pre><code class="language-cs">sourceDatetime.ToString(&quot;u&quot;);
 </code></pre></li>
@@ -240,39 +246,37 @@
 
 <li><p>js</p>
 
-<p><code>js
-var dt = new Date(targetDatetime);
-</code>`</p></li>
-</ul></li>
+<p>``js
+var dt = new Date(targetDatetime);</p>
 
-<li><p>搭配 moment.js</p>
+<pre><code>
+3.  搭配 moment.js
+*   C# (與 js 相同)
 
-<ul>
-<li><p>C# (與 js 相同)</p>
+*   ToString(&quot;R&quot;) : `Fri, 02 Feb 2018 15:30:14 GMT`
 
-<ul>
-<li><p>ToString(&ldquo;R&rdquo;) : <code>Fri, 02 Feb 2018 15:30:14 GMT</code></p>
+    ```cs
+    sourceDatetime.ToString(&quot;R&quot;);
+    ```
 
-<pre><code class="language-cs">sourceDatetime.ToString(&quot;R&quot;);
+*   ToString(&quot;u&quot;):`2018-02-02 15:30:14Z`
+
+    ```cs
+    sourceDatetime.ToString(&quot;u&quot;);
+    ```
+
+*   moment.js
+
+```js
+var dt = moment(targetDatetime);
 </code></pre></li>
-
-<li><p>ToString(&ldquo;u&rdquo;):<code>2018-02-02 15:30:14Z</code></p>
-
-<pre><code class="language-cs">sourceDatetime.ToString(&quot;u&quot;);
-</code></pre></li>
-</ul></li>
-
-<li><p>moment.js</p>
-
-<pre><code class="language-js">var dt = moment(targetDatetime);
-</code></pre></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="2-javascript-將原-datetime-轉為-user-所在時區時間">2. JavaScript 將原 DateTime 轉為 user 所在時區時間</h2>
 
 <ol>
-<li><p>js</p>
+<li>js</li>
+</ol>
 
 <pre><code class="language-js">var result=dt.toLocaleString();
 </code></pre></li>
@@ -280,13 +284,15 @@ var dt = new Date(targetDatetime);
 <li><p>moment.js</p>
 
 <pre><code class="language-js">var result=dt.local().format();
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="3-將轉換完成的時間呈現在網頁上">3. 將轉換完成的時間呈現在網頁上</h2>
 
-<pre><code> $('selector').html(result);
-</code></pre>
+<p>```</p></li>
+</ol>
+
+<p>$(&lsquo;selector&rsquo;).html(result);
+ ```</p>
 
 <h2 id="其他">其他</h2>
 
@@ -296,13 +302,13 @@ var dt = new Date(targetDatetime);
 <li><p>moment.js 格式化</p>
 
 <pre><code class="language-js">var result=dt.local().format('DD/MM/YYYY HH:mm')
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="完整程式碼">完整程式碼</h2>
 
 <ol>
-<li><p>html(cshtml)</p>
+<li>html(cshtml)</li>
+</ol>
 
 <blockquote>
 <p>由 Server render 指定的 datetime string</p>
@@ -312,17 +318,17 @@ var dt = new Date(targetDatetime);
 <li><p><code>R</code></p>
 
 <pre><code class="language-html">&lt;div id=&quot;waitchange&quot; data-val=&quot;Fri, 02 Feb 2018 15:30:14 GMT&quot;&gt;&lt;/div&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p><code>u</code></p>
+<ul>
+<li><code>u</code></li>
+</ul>
 
 <pre><code class="language-html">&lt;div id=&quot;waitchange&quot; data-val=&quot;2018-02-02 15:30:14Z&quot;&gt;&lt;/div&gt;
 </code></pre></li>
-</ul></li>
-</ol>
 
-<ul>
-<li><p>JavaScript</p>
+<li><p>JavaScript</p></li>
+</ul>
 
 <blockquote>
 <p>截圖內容說明：</p>
@@ -342,9 +348,11 @@ var result=dt.toLocaleString();
 $(_element).html(result);
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/35779555-bd6e3632-0a09-11e8-8e36-4c9aea51e649.png" alt="1purejs" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/35779555-bd6e3632-0a09-11e8-8e36-4c9aea51e649.png" alt="1purejs" /></p>
 
-<li><p>使用 moment.js</p>
+<ul>
+<li>使用 moment.js</li>
+</ul>
 
 <pre><code class="language-js">var _element = $('#waitchange');
 var dt = moment($(_element).data('val'));
@@ -362,9 +370,7 @@ var result=dt.local().format('DD/MM/YYYY HH:mm');
 $(_element).html(result);
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/35779493-d708ddd2-0a08-11e8-8bac-38d7c46bc150.png" alt="3momentjsformat" /></p></li>
-</ul></li>
-</ul>
+<p><img src="https://user-images.githubusercontent.com/3851540/35779493-d708ddd2-0a08-11e8-8bac-38d7c46bc150.png" alt="3momentjsformat" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -385,7 +391,9 @@ $(_element).html(result);
 <li><a href="https://www.w3schools.com/js/js_date_formats.asp" target="_blank">JavaScript Date Formats</a></li>
 <li><a href="https://stackoverflow.com/questions/44929926/invalid-date-in-firefox-using-tolocalestring-as-well-as-moment-js" target="_blank">Invalid Date in Firefox using .toLocaleString() as well as moment.js</a></li>
 <li><a href="https://momentjs.com/docs/" target="_blank">Moment.js Documentation</a></li>
-</ol>
+</ol></li>
+</ul></li>
+</ul>
 
     </div>
 

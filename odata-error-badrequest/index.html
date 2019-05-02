@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -265,9 +265,11 @@ config.MapODataServiceRoute(
     routePrefix: &quot;odata&quot;,
     model: builder.GetEdmModel()
 );
-</code></pre></li>
+</code></pre>
 
-<li><p>top</p>
+<ul>
+<li>top</li>
+</ul>
 
 <blockquote>
 <p>在 builder.EntitySet 後加上 <code>builder.EntityType&lt;BU&gt;().Page(100, 100);</code></p>

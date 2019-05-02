@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2019-02-18T20:40:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-02-18T20:40:30&#43;08:00" />
-<meta itemprop="wordCount" content="327">
+<meta itemprop="wordCount" content="329">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-02-18 </span>
         
-        <span class="more-meta"> 約 327 字 </span>
+        <span class="more-meta"> 約 329 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -212,16 +212,16 @@ RUN choco install git.install -y
 <li><p>格式</p>
 
 <pre><code class="language-cmd">docker build {dockerfile folder} -t {repository:tag}
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-cmd">docker build c:\WinContainerGit -t windowswithgit:v1
 </code></pre>
 
-<blockquote>
-<p><code>c:\WinContainerGit</code> 為放 <code>dockerfile</code> 檔案的資料夾</p>
-</blockquote></li>
+<ul>
+<li>範例
+<code>cmd
+docker build c:\WinContainerGit -t windowswithgit:v1
+</code>
+<br />
+&gt; <code>c:\WinContainerGit</code> 為放 <code>dockerfile</code> 檔案的資料夾</li>
+</ul></li>
 </ul></li>
 
 <li><p>建立 container 並確認成功安裝 Git</p>
@@ -229,8 +229,7 @@ RUN choco install git.install -y
 <pre><code class="language-cmd">docker run -it windowswithgit:v1 git --version
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/52961640-601c5c00-33d6-11e9-9edc-dfb6abd45704.png" alt="1gitversion" /></p></li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/52961640-601c5c00-33d6-11e9-9edc-dfb6abd45704.png" alt="1gitversion" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -246,6 +245,7 @@ RUN choco install git.install -y
 <li><a href="https://docs.docker.com/engine/reference/builder" target="_blank">Dockerfile reference</a></li>
 <li><a href="https://docs.docker.com/engine/reference/commandline/image_build/" target="_blank">docker image build</a></li>
 <li><a href="https://chocolatey.org/docs/installation" target="_blank">Installing Chocolatey</a></li>
+</ol></li>
 </ol>
 
     </div>

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -216,9 +216,11 @@ using (HttpContent content = response.Content)
     if (result != null)
         result.Dump();
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>寫法 2</p>
+<ol>
+<li>寫法 2</li>
+</ol>
 
 <pre><code class="language-cs">//建立 HttpClient
 HttpClient client = new HttpClient() { BaseAddress = new Uri(&quot;http://jsonplaceholder.typicode.com/&quot;) };
@@ -247,13 +249,13 @@ using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, &quot
         responseTask.GetAwaiter().GetResult().Content.ReadAsStringAsync().Dump();
     });
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="post">POST</h2>
 
 <ol>
-<li><p>寫法 1 - 使用 PostAsync</p>
+<li>寫法 1 - 使用 PostAsync</li>
+</ol>
 
 <pre><code class="language-cs">//建立 HttpClient
 HttpClient client = new HttpClient(){BaseAddress=new Uri(&quot;https://jsonbin.org/yowko/&quot;)};
@@ -296,8 +298,7 @@ await client.SendAsync(request)
 {
     responseTask.GetAwaiter().GetResult().Content.ReadAsStringAsync().Dump();
 });
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="put">PUT</h2>
 
@@ -306,7 +307,8 @@ await client.SendAsync(request)
 </blockquote>
 
 <ol>
-<li><p>寫法 1 - 使用 PutAsync</p>
+<li>寫法 1 - 使用 PutAsync</li>
+</ol>
 
 <pre><code class="language-cs">//建立 HttpClient
 HttpClient client = new HttpClient() {BaseAddress= new Uri(&quot;https://jsonbin.org/yowko/&quot;)};
@@ -336,8 +338,7 @@ await client.SendAsync(request)
 {
     responseTask.GetAwaiter().GetResult().Content.ReadAsStringAsync().Dump();
 });
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="delete">DELETE</h2>
 
@@ -346,7 +347,8 @@ await client.SendAsync(request)
 </blockquote>
 
 <ol>
-<li><p>寫法 1 - 使用 DeleteAsync</p>
+<li>寫法 1 - 使用 DeleteAsync</li>
+</ol>
 
 <pre><code class="language-cs">//建立 HttpClient
 HttpClient client = new HttpClient() { BaseAddress = new Uri(&quot;https://jsonbin.org/yowko/&quot;) };
@@ -375,8 +377,7 @@ await client.SendAsync(request)
 {
     responseTask.GetAwaiter().GetResult().Content.ReadAsStringAsync().Dump();
 });
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="patch">PATCH</h2>
 
@@ -415,7 +416,8 @@ await client.SendAsync(request)
 	HttpResponseMessage response = await client.PostAsync(&quot;test&quot;, contentPost);
 	// 將回應結果內容取出並轉為 string 再透過 linqpad 輸出
 	response.Content.ReadAsStringAsync().GetAwaiter().GetResult().Dump();
-</code></pre>
+</code></pre></li>
+</ol>
 
 <ul>
 <li><p>以 fiddler 為例</p>

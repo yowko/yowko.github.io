@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -206,9 +206,11 @@
             return Ok();
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>Web.config 設定</p>
+<ul>
+<li>Web.config 設定</li>
+</ul>
 
 <pre><code class="language-cs">&lt;configuration&gt;
     &lt;appSettings&gt;
@@ -227,9 +229,11 @@
 <li><p>建立測試目標程式的實體</p>
 
 <pre><code class="language-cs">var target = new ValuesController();
-</code></pre></li>
+</code></pre>
 
-<li><p>使用測試目標實體建立 PrivateObject</p>
+<ol>
+<li>使用測試目標實體建立 PrivateObject</li>
+</ol>
 
 <pre><code class="language-cs">PrivateObject valueController=new PrivateObject(target);
 </code></pre></li>
@@ -237,9 +241,11 @@
 <li><p>設定測試目標的 field or property</p>
 
 <pre><code class="language-cs">valueController.SetFieldOrProperty(&quot;connectionString&quot;, &quot;localhost&quot;);
-</code></pre></li>
+</code></pre>
 
-<li><p>呼叫測試目標方法取得回應並進行驗證</p>
+<ol>
+<li>呼叫測試目標方法取得回應並進行驗證</li>
+</ol>
 
 <pre><code class="language-cs">//act
 var actualAction = target.Get();
@@ -275,9 +281,11 @@ public void Get_connectionString_is_localhost_Return_BadRequestResult()
 <li><p>使用測試目標實體建立 PrivateObject</p>
 
 <pre><code class="language-cs">PrivateObject target = new PrivateObject(typeof(ValuesController));
-</code></pre></li>
+</code></pre>
 
-<li><p>設定測試目標的 field or property</p>
+<ol>
+<li>設定測試目標的 field or property</li>
+</ol>
 
 <pre><code class="language-cs">target.SetFieldOrProperty(&quot;connectionString&quot;, &quot;localhost&quot;);
 </code></pre></li>
@@ -290,9 +298,11 @@ var actual = actualAction as BadRequestResult;
 //assert
 Assert.IsNotNull(actual);
 Assert.IsInstanceOfType(actual, expected);
-</code></pre></li>
+</code></pre>
 
-<li><p>完整測試程式碼</p>
+<ol>
+<li>完整測試程式碼</li>
+</ol>
 
 <pre><code class="language-cs">[TestMethod()]
 public void Get_connectionString_is_localhost_Return_BadRequestResult()

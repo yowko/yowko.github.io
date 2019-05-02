@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -205,9 +205,11 @@ Task.Run( () =&gt; CacheHelper.RefreshTableData());
 
 Console.WriteLine(&quot;Done&quot;);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>並非直接測試取資料屬性，而是測試更新資料的方法</p></li>
+<ul>
+<li>並非直接測試取資料屬性，而是測試更新資料的方法</li>
+</ul></li>
 </ul></li>
 
 <li><p>lock 根物件</p>
@@ -234,11 +236,13 @@ public static List&lt;Table&gt; TableData
         return _cache.Get(&quot;TableData&quot;) as List&lt;Table&gt;;
     }
 }
-</code></pre></li>
+</code></pre>
 
+<ul>
 <li><p>lock 了整個 MemoryCache 物件</p>
 
 <h2 id="如何改善">如何改善</h2></li>
+</ul></li>
 </ul></li>
 
 <li><p>重現問題</p>
@@ -248,9 +252,12 @@ public static List&lt;Table&gt; TableData
 
 <pre><code class="language-cs">Task.Run(() =&gt; CacheHelper.Table2Data.Dump());
 Task.Run(() =&gt; CacheHelper.TableData.Dump());
-</code></pre></li>
+</code></pre>
 
-<li><p>多執行緒仍出現依序執行的現象</p>
+<ul>
+<li>多執行緒仍出現依序執行的現象
+<br /></li>
+</ul>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/23027454/38094412-f49f-11e6-9e11-808263e39921.png" alt="1error" /></p></li>
 </ul></li>
@@ -263,9 +270,11 @@ Task.Run(() =&gt; CacheHelper.TableData.Dump());
 <pre><code class="language-cs">// lock 以 key 產生的專屬 lock object，如果 object 過期或不存在時自動 new 出新的
 // 如果直接 lock cache[key] 會造成無法寫入 cache 資料
 lock (GetCacheObject(key))
-</code></pre></li>
+</code></pre>
 
-<li><p>如果 MemoryCache[key] 尚未被建立時需先建立</p>
+<ul>
+<li>如果 MemoryCache[key] 尚未被建立時需先建立</li>
+</ul>
 
 <pre><code class="language-cs">//設定一個 key 用來識別唯一的 lock
 const string LockKey = &quot;@#$%&quot;;
@@ -290,9 +299,11 @@ return _cache[_lockKey];
 {
     RefreshTableData();
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>調整後完整程式碼</p>
+<ul>
+<li>調整後完整程式碼</li>
+</ul>
 
 <pre><code class="language-cs">public class CacheHelper
 {
@@ -361,10 +372,10 @@ return _cache[_lockKey];
         }
     }
 }
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="測試結果">測試結果</h2></li>
-</ul></li>
 
 <li><p>兩個 thread 同時啟動 而不是像之前的測試出現等待前一個 thread 執行結束才啟動的現象</p>
 
@@ -499,8 +510,7 @@ public class Table
     public Guid Id{ get; set; }
     public string Name { get; set; }
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="心得">心得</h2>
 
@@ -510,7 +520,8 @@ public class Table
 
 <ol>
 <li><a href="http://blog.darkthread.net/post-2016-04-12-improved-getcachabledata.aspx" target="_blank">改良式GetCachableData可快取查詢函式</a></li>
-</ol>
+</ol></li>
+</ul>
 
     </div>
 

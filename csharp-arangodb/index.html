@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -268,9 +268,11 @@ using (var db = ArangoDatabase.CreateWithSetting())
     //將資料寫入 &quot;User&quot; collection 中
     db.Collection(&quot;User&quot;).Insert(_user);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>Select</p>
+<ul>
+<li>Select</li>
+</ul>
 
 <pre><code class="language-cs">ArangoDatabase.ChangeSetting(s =&gt;
 {
@@ -301,9 +303,11 @@ using (var db = ArangoDatabase.CreateWithSetting())
     //依 document-key 修改 Name 欄位資料內容為 &quot;Yowko&quot;
     db.UpdateById&lt;User&gt;(&quot;document-key&quot;, new { Name = &quot;Yowko&quot; });    
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>Delete</p>
+<ul>
+<li>Delete</li>
+</ul>
 
 <pre><code class="language-cs">ArangoDatabase.ChangeSetting(s =&gt;
 {

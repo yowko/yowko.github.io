@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -208,21 +208,23 @@ private bool detectStringEmpty(string value)
     else
         return false;
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="使用-privateobject-來執行-private-method">使用 PrivateObject 來執行 private method</h2>
 
 <ul>
-<li><p>寫法一：使用測試目標實體來建立 PrivateObject</p>
+<li>寫法一：使用測試目標實體來建立 PrivateObject</li>
+</ul>
 
 <ol>
 <li><p>建立測試目標實體</p>
 
 <pre><code class="language-cs">var target= new ValuesController();
-</code></pre></li>
+</code></pre>
 
-<li><p>使用測試目標實體建立 PrivateObject</p>
+<ol>
+<li>使用測試目標實體建立 PrivateObject</li>
+</ol>
 
 <pre><code class="language-cs">PrivateObject po = new PrivateObject(target);
 </code></pre></li>
@@ -230,9 +232,11 @@ private bool detectStringEmpty(string value)
 <li><p>執行測試目標的 private method</p>
 
 <pre><code class="language-cs">var actual = po.Invoke(&quot;detectStringEmpty&quot;, new object[] {string.Empty});
-</code></pre></li>
+</code></pre>
 
-<li><p>完整測試程式碼</p>
+<ol>
+<li>完整測試程式碼</li>
+</ol>
 
 <pre><code class="language-cs">[TestMethod()]
 public void detectStringEmpty_Return_True()
@@ -247,17 +251,21 @@ public void detectStringEmpty_Return_True()
     Assert.AreEqual(actual, expected);
 }
 </code></pre></li>
-</ol></li>
+</ol>
 
-<li><p>寫法二：使用型別來建立 PrivateObject</p>
+<ul>
+<li>寫法二：使用型別來建立 PrivateObject</li>
+</ul>
 
 <ol>
 <li><p>建立 PrivateObject</p>
 
 <pre><code class="language-cs">PrivateObject target = new PrivateObject(typeof(ValuesController));
-</code></pre></li>
+</code></pre>
 
-<li><p>執行測試目標的 private method</p>
+<ol>
+<li>執行測試目標的 private method</li>
+</ol>
 
 <pre><code class="language-cs">var actual = target.Invoke(&quot;detectStringEmpty&quot;, new object[] {string.Empty});
 </code></pre></li>
@@ -275,9 +283,7 @@ public void detectStringEmpty_Return_True()
     //assert
     Assert.AreEqual(actual, expected);
 }
-</code></pre></li>
-</ol></li>
-</ul>
+</code></pre>
 
 <h2 id="心得">心得</h2>
 
@@ -294,7 +300,9 @@ public void detectStringEmpty_Return_True()
 <li><a href="//blog.yowko.com/2017/06/unit-test-static-method.html" target="_blank">Unit Test 想驗證 private static method 該怎麼做？ - 使用 PrivateType</a></li>
 <li><a href="https://akurniaga.wordpress.com/tag/unit-test-privateobject-visual-studio/" target="_blank">Unit test private methods?</a></li>
 <li><a href="https://www.infragistics.com/community/blogs/dhananjay_kumar/archive/2015/07/16/how-to-unit-test-private-methods-in-ms-test.aspx" target="_blank">How to Unit Test Private Methods in MS Test</a></li>
-</ol>
+</ol></li>
+</ol></li>
+</ul>
 
     </div>
 

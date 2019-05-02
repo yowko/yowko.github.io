@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -261,9 +261,11 @@
 </blockquote>
 
 <pre><code class="language-cs">string serviceName = AppDomain.CurrentDomain.FriendlyName;
-</code></pre></li>
+</code></pre>
 
-<li><p>建立 tracer</p>
+<ol>
+<li>建立 tracer</li>
+</ol>
 
 <blockquote>
 <p>使用上面建立的 serviceName 來建立 trace</p>
@@ -277,9 +279,11 @@
 <li><p>將 OpenTracing 註冊進 ASP.NET Core</p>
 
 <pre><code class="language-cs">services.AddOpenTracing();
-</code></pre></li>
+</code></pre>
 
-<li><p>將上面建立的 trace 註冊至 OpenTracing 中</p>
+<ol>
+<li>將上面建立的 trace 註冊至 OpenTracing 中</li>
+</ol>
 
 <pre><code class="language-cs">services.AddSingleton&lt;ITracer&gt;(serviceProvider =&gt;
 {
@@ -356,8 +360,7 @@ namespace JaegerASP.NETCore
         }
     }
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="實際效果">實際效果</h2>
 
@@ -378,6 +381,7 @@ namespace JaegerASP.NETCore
 <ol>
 <li><a href="https://www.jaegertracing.io/" target="_blank">Jaeger</a></li>
 <li><a href="https://github.com/yowko/Jaeger-ASP.NET-Core" target="_blank">yowko/Jaeger-ASP.NET-Core</a></li>
+</ol></li>
 </ol>
 
     </div>

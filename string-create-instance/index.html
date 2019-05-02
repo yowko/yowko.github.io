@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -204,29 +204,34 @@
     public string Phone { get; set; }
     public int BirthMonth { get; set; }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>輸入端需要傳送 class 的 TypeName</p></li>
-
-<li><p>接收端使用 class 的 TypeName 將已轉換為 json string 的 User 進行反序列化</p></li>
+<ol>
+<li>輸入端需要傳送 class 的 TypeName</li>
+<li>接收端使用 class 的 TypeName 將已轉換為 json string 的 User 進行反序列化</li>
 </ol>
 
 <h2 id="關於-class-的-typename">關於 class 的 TypeName</h2>
 
 <ul>
-<li><p>組成</p>
+<li>組成</li>
+</ul>
 
 <blockquote>
 <p>命名空間，加上逗號，後面接著組件的顯示名稱 (<code>Namespace,AssemblyName</code>)</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>範例</p>
+<ul>
+<li>範例</li>
+</ul>
 
 <blockquote>
 <p><code>TestForNuget.User, TestForNuget, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</code></p>
-</blockquote></li>
+</blockquote>
 
-<li><p>符號含義</p>
+<ul>
+<li>符號含義</li>
+</ul>
 
 <table>
 <thead>
@@ -262,9 +267,11 @@
 <td>類型名稱後面，表示該類型的陣列<br/>-或-<br/>對於泛型類型，封入泛型型別引數清單<br/>-或-<br/>在型別引數清單中，會封裝至組件限定的類型。</td>
 </tr>
 </tbody>
-</table></li>
+</table>
 
-<li><p>取得方式</p>
+<ul>
+<li>取得方式</li>
+</ul>
 
 <blockquote>
 <p>使用 <code>AssemblyQualifiedName</code> 屬性</p>
@@ -272,7 +279,9 @@
 
 <pre><code class="language-cs">var typename=typeof(User).AssemblyQualifiedName;
 </code></pre></li>
+</ol>
 
+<ul>
 <li><p>其他方式？</p>
 
 <ul>
@@ -282,9 +291,11 @@
 asm.FullName.Dump();
 //以下為極簡寫法
 //typeof(User).Assembly.FullName.Dump();
-</code></pre></li>
+</code></pre>
 
-<li><p>取得 class 名稱</p>
+<ul>
+<li>取得 class 名稱</li>
+</ul>
 
 <pre><code class="language-cs">User dto = new User();
 dto.GetType().FullName.Dump();
@@ -295,9 +306,11 @@ dto.GetType().FullName.Dump();
 <li><p>將兩者組合</p>
 
 <pre><code class="language-cs">$&quot;{dto.GetType().FullName}, {asm.FullName}&quot;.Dump();
-</code></pre></li>
+</code></pre>
 
-<li><p>結果與直接使用 <code>AssemblyQualifiedName</code> 相同，但實際測試下，如果該 class 在建立 instance 前已被使用過就可以成功建立，但如果從未使用不使用 <code>AssemblyQualifiedName</code> 會無法建立 instance</p></li>
+<ul>
+<li>結果與直接使用 <code>AssemblyQualifiedName</code> 相同，但實際測試下，如果該 class 在建立 instance 前已被使用過就可以成功建立，但如果從未使用不使用 <code>AssemblyQualifiedName</code> 會無法建立 instance</li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -323,9 +336,11 @@ dto.GetType().FullName.Dump();
 var tempInstance = Activator.CreateInstance(asm.FullName, dto.GetType().FullName);
 //將封裝的 instance 拆封，並轉為正確 class type
 var realInstance = Convert.ChangeType(tempInstance.Unwrap(), parameterDataType);
-</code></pre></li>
+</code></pre>
 
-<li><p>寫法 二</p>
+<ul>
+<li>寫法 二</li>
+</ul>
 
 <blockquote>
 <p>直接使用 <code>AssemblyQualifiedName</code> 來建立 instance</p>
@@ -356,9 +371,11 @@ void SendObj(string typename,string jsonstr)
 {
     //web request
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>接收端</p>
+<ol>
+<li>接收端</li>
+</ol>
 
 <pre><code class="language-cs">public IHttpActionResult Post([FromBody]PstData value)
 {

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -193,15 +193,14 @@
 <li><p>建立語法：</p>
 
 <pre><code class="language-bash">sudo docker run -d -p 9122:22 -v /storage/config:/gitlab/etc/ -v /storage/logs:/gitlab/var/log/ -v /storage/data:/gitlab/var/data --name storage centos
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="一般-container-使用-data-volume-container">一般 Container 使用 Data Volume Container</h2>
 
 <ul>
 <li>使用 <code>--volumes-from</code> 來掛載 Data Volume Container</li>
-
-<li><p>掛載語法</p>
+<li>掛載語法</li>
+</ul>
 
 <pre><code class="language-bash">sudo docker run -d -p 443:443 -p 80:80 -p 22:22 --restart always --volumes-from storage --name gitlabce gitlab/gitlab-ce:latest
 </code></pre></li>

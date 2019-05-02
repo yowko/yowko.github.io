@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2017-03-15T02:43:34&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-13T00:42:34&#43;08:00" />
-<meta itemprop="wordCount" content="632">
+<meta itemprop="wordCount" content="638">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2017-03-15 </span>
         
-        <span class="more-meta"> 約 632 字 </span>
+        <span class="more-meta"> 約 638 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -222,11 +222,8 @@
 <li>NuGet 2.x 使用 packages.config</li>
 <li>NuGet 3.x 使用 project.json</li>
 </ul></li>
-</ul></li>
+<li>內建至 MSBuild 中</li>
 
-<li><p>內建至 MSBuild 中</p>
-
-<ul>
 <li><p>restore</p>
 
 <blockquote>
@@ -244,21 +241,21 @@
 
 <pre><code>nuget pack = msbuild /t:pack 
 </code></pre></li>
-</ul></li>
+</ul>
 
-<li><p>背景管理套件</p>
+<ol>
+<li>背景管理套件
+<br /></li>
+</ol>
 
-<p><code>PackageReference</code> 內容如果有異動就會背景同步處理 package，不需要像以前手動執行還原或透過 build 來還原</p></li>
+<p><code>PackageReference</code> 內容如果有異動就會背景同步處理 package，不需要像以前手動執行還原或透過 build 來還原
+4. 加入至 .NET CLI 指令中
+- dotnet nuget locals</p>
 
-<li><p>加入至 .NET CLI 指令中</p>
+<pre><code>&gt;操作 local 的 nuget cache 
+</code></pre>
 
 <ul>
-<li><p>dotnet nuget locals</p>
-
-<blockquote>
-<p>操作 local 的 nuget cache</p>
-</blockquote></li>
-
 <li><p>dotnet nuget push</p>
 
 <blockquote>
@@ -282,26 +279,25 @@
 <blockquote>
 <p>即 <code>msbuild /t:pack</code></p>
 </blockquote></li>
-</ul></li>
 
-<li><p>執行效能改善</p>
+<li><p>執行效能改善</p></li>
 
-<ul>
-<li>.NET Core 的 tool restore 從原本的一個 project restore 一次優化一個 solution restore 一次</li>
-<li>nuget update
+<li><p>.NET Core 的 tool restore 從原本的一個 project restore 一次優化一個 solution restore 一次</p></li>
+
+<li><p>nuget update</p>
 
 <ul>
 <li>使用 project.json 的專案，官方數據約是之前的 6 倍</li>
 <li>使用 packages.confg 的專案，官方數據約快了 20%</li>
 </ul></li>
-<li>nuget restore
+
+<li><p>nuget restore</p>
 
 <ul>
 <li>使用 project.json 的專案，官方數據 restore 時間從 3800ms 減少至 400ms</li>
 <li>使用 packages.confg 的專案，官方未提供數據</li>
 </ul></li>
-</ul></li>
-</ol>
+</ul>
 
 <h1 id="參考資料">參考資料</h1>
 
@@ -310,6 +306,7 @@
 <li><a href="https://docs.microsoft.com/en-us/nuget/consume-packages/dependency-resolution" target="_blank">Dependency Resolution</a></li>
 <li><a href="https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package" target="_blank">Creating a Package</a></li>
 <li><a href="https://docs.microsoft.com/en-us/nuget/release-notes/nuget-4.0-rtm" target="_blank">4.0 RTM Release Notes</a></li>
+</ol></li>
 </ol>
 
     </div>

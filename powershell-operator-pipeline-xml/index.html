@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -369,45 +369,48 @@
         &lt;/Site&gt;
     &lt;/Accounts&gt;
 &lt;/YowkoProfile&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>將檔案轉為 xml object</p>
+<ul>
+<li>將檔案轉為 xml object
+<br /></li>
+</ul>
 
 <blockquote>
 <p><code>[xml]$xmldata = get-content &quot;C:\yowkoprofile.xml&quot;</code></p>
-</blockquote></li>
-
-<li><p>依階層取值</p>
+</blockquote>
 
 <ul>
+<li>依階層取值</li>
+
 <li><p>Name</p>
 
 <pre><code class="language-ps1">$xmldata.YowkoProfile.Name
-</code></pre></li>
-</ul></li>
-
-<li><p>element 中有 <code>.</code>，使用 <code>''</code>來取值</p>
+</code></pre>
 
 <ul>
-<li><p>Yowko.Tel</p>
+<li>element 中有 <code>.</code>，使用 <code>''</code>來取值</li>
+<li>Yowko.Tel
+<br /></li>
+</ul>
 
 <pre><code class="language-ps1">$xmldata.YowkoProfile.'Yowko.Tel'
 </code></pre></li>
-</ul></li>
 
-<li><p>使用 index 來取值</p>
+<li><p>使用 index 來取值</p></li>
 
-<ul>
 <li><p>Site</p>
 
 <pre><code class="language-ps1">$xmldata.YowkoProfile.Accounts.Site[0]
-</code></pre></li>
+</code></pre>
 
-<li><p>Url</p>
+<ul>
+<li>Url
+<br /></li>
+</ul>
 
 <pre><code class="language-ps1">$xmldata.YowkoProfile.Accounts.Site[0].Url
 </code></pre></li>
-</ul></li>
 </ul>
 
 <h1 id="參考資訊">參考資訊</h1>
@@ -416,7 +419,8 @@
 <li><a href="https://ss64.com/ps/syntax-compare.html" target="_blank">Comparison Operators</a></li>
 <li><a href="http://www.thomasmaurer.ch/2010/06/powershell-parsing-xml-part-1/" target="_blank">POWERSHELL: PARSING XML PART 1</a></li>
 <li><a href="https://msdn.microsoft.com/en-us/powershell/scripting/getting-started/fundamental/understanding-the-windows-powershell-pipeline" target="_blank">Understanding the Windows PowerShell Pipeline</a></li>
-</ol>
+</ol></li>
+</ul>
 
     </div>
 

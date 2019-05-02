@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -207,9 +207,11 @@ Scenario Outline: 兩數相加
     And 第二個數字輸入 70
     When 按下 add
     Then 結果應該為 120
-</code></pre></li>
+</code></pre>
 
-<li><p>Step Definition 檔內容</p>
+<ol>
+<li>Step Definition 檔內容</li>
+</ol>
 
 <pre><code class="language-cs">[Binding]
 public class CalculatorSteps
@@ -262,13 +264,13 @@ public class CalculatorSteps
         return first + second;
     }
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="想要驗證其他值">想要驗證其他值</h2>
 
 <ol>
-<li><p>驗證 (-50) + 70 = 20</p>
+<li>驗證 (-50) + 70 = 20</li>
+</ol>
 
 <pre><code class="language-cs">@MSCalculator
 Scenario: 兩數相加-負數
@@ -310,9 +312,11 @@ Then 結果應該為 &lt;result&gt;
 | first | second | result |
 | 50    | 70     | 120    |
 | -50   | 70     | 20     |
-</code></pre></li>
+</code></pre>
 
-<li><p>完整 Feature 檔</p>
+<ol>
+<li>完整 Feature 檔</li>
+</ol>
 
 <pre><code class="language-cs">Feature: Calculator
     In order to 減少莫名其妙的錯誤

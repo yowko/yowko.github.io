@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -255,9 +255,12 @@
         return new KeyValuePair&lt;string, HashEntry[]&gt;(keystr, hashentrys.ToArray());
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>需要 cache 的 class</p>
+<ol>
+<li>需要 cache 的 class
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public class PersonInfo : RedisHashExtension
 {
@@ -281,9 +284,12 @@ static RedisConnectionFactory()
 }
 public static ConnectionMultiplexer GetConnection =&gt; Connection.Value;
 public static IDatabase RedisDB =&gt; GetConnection.GetDatabase();
-</code></pre></li>
+</code></pre>
 
-<li><p>實際使用</p>
+<ol>
+<li>實際使用
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">IDatabase _db = RedisConnectionFactory.RedisDB;
 //製造假資料
@@ -310,9 +316,12 @@ _db.HashGet(&quot;{key}&quot;,&quot;{field}&quot;)
 <li><p>建立 batch</p>
 
 <pre><code class="language-cs">var batch = _db.CreateBatch();
-</code></pre></li>
+</code></pre>
 
-<li><p>加 cache 資料逐一加入 batch 中</p>
+<ol>
+<li>加 cache 資料逐一加入 batch 中
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">batch.HashSetAsync(item.Key,item.Value);
 </code></pre></li>
@@ -320,9 +329,12 @@ _db.HashGet(&quot;{key}&quot;,&quot;{field}&quot;)
 <li><p>執行 batch</p>
 
 <pre><code class="language-cs">batch.Execute();
-</code></pre></li>
+</code></pre>
 
-<li><p>範例程式碼</p>
+<ol>
+<li>範例程式碼
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">IDatabase _db = RedisConnectionFactory.RedisDB;
 //製造假資料

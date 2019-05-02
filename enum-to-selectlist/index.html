@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -202,9 +202,11 @@
     Closed,
     Stop
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>使用 <code>@Html.EnumDropDownListFor</code></p>
+<ol>
+<li>使用 <code>@Html.EnumDropDownListFor</code></li>
+</ol>
 
 <pre><code class="language-cs">@Html.LabelFor(model =&gt; model.Status, htmlAttributes: new { @class = &quot;control-label col-md-2&quot; })
 @Html.EnumDropDownListFor(model =&gt; model.Status, htmlAttributes: new { @class = &quot;form-control&quot; })
@@ -245,9 +247,11 @@ select new SelectListItem
 };
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/35528013-74bd794e-0567-11e8-8039-c6bf581bb31d.png" alt="2querysyntax" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/35528013-74bd794e-0567-11e8-8039-c6bf581bb31d.png" alt="2querysyntax" /></p>
 
-<li><p>LINQ - Method syntax</p>
+<ol>
+<li>LINQ - Method syntax</li>
+</ol>
 
 <pre><code class="language-cs">Enum.GetValues(typeof(StatusEnum)).Cast&lt;StatusEnum&gt;()
 .Where(se =&gt; se != StatusEnum.Default).Select(se =&gt; new SelectListItem
@@ -270,8 +274,7 @@ Value = ((int)se).ToString()
 var result= new SelectList(status, &quot;value&quot;, &quot;text&quot;);
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/35528014-74ea1a30-0567-11e8-9f6c-f029839e616a.png" alt="3selectlist" /></p></li>
-</ul>
+<p><img src="https://user-images.githubusercontent.com/3851540/35528014-74ea1a30-0567-11e8-9f6c-f029839e616a.png" alt="3selectlist" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -287,7 +290,8 @@ var result= new SelectList(status, &quot;value&quot;, &quot;text&quot;);
 <li><a href="https://blog.yowko.com/2017/02/customize-asp-dot-net-mvc-enum-to-dropdownlist.html" target="_blank">有 EnumDropDownListFor 為什麼還要客製 Enum to Dropdownlist ？！</a></li>
 <li><a href="https://stackoverflow.com/questions/972307/can-you-loop-through-all-enum-values" target="_blank">Can you loop through all enum values?</a></li>
 <li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/query-syntax-and-method-syntax-in-linq" target="_blank">Query Syntax and Method Syntax in LINQ (C#)</a></li>
-</ol>
+</ol></li>
+</ul>
 
     </div>
 

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -332,8 +332,9 @@ Version Information: Microsoft .NET Framework Version:4.0.30319; ASP.NET Version
             base.OnException(filterContext);// exception 不是 HttpAntiForgeryException 就照 mvc 預設流程
     }
 }
-</code></pre></li>
+</code></pre>
 
+<ol>
 <li><p>在需要處理 AntiForgeryError 的 action 上套用自訂的 <code>AntiForgeryErrorHandlerAttribute</code></p>
 
 <pre><code class="language-cs">[AntiForgeryErrorHandler(ExceptionType = typeof(HttpAntiForgeryException), View = &quot;Login&quot;, Controller = &quot;Account&quot;, ErrorMessage = &quot;Session Timeout&quot;)]
@@ -346,26 +347,26 @@ Version Information: Microsoft .NET Framework Version:4.0.30319; ASP.NET Version
 [AntiForgeryErrorHandler(ExceptionType = typeof(HttpAntiForgeryException), View = &quot;Login&quot;, Controller = &quot;Account&quot;, ErrorMessage = &quot;Session Timeout&quot;)]
 public async Task&lt;ActionResult&gt; Login(LoginViewModel model, string returnUrl)
 {
-    if (!ModelState.IsValid)
-    {
+if (!ModelState.IsValid)
+{
+    return View(model);
+}
+// This doesn't count login failures towards account lockout
+// To enable password failures to trigger account lockout, change to shouldLockout: true
+var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+switch (result)
+{
+    case SignInStatus.Success:
+        return RedirectToLocal(returnUrl);
+    case SignInStatus.LockedOut:
+        return View(&quot;Lockout&quot;);
+    case SignInStatus.RequiresVerification:
+        return RedirectToAction(&quot;SendCode&quot;, new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+    case SignInStatus.Failure:
+    default:
+        ModelState.AddModelError(&quot;&quot;, &quot;Invalid login attempt.&quot;);
         return View(model);
-    }
-    // This doesn't count login failures towards account lockout
-    // To enable password failures to trigger account lockout, change to shouldLockout: true
-    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-    switch (result)
-    {
-        case SignInStatus.Success:
-            return RedirectToLocal(returnUrl);
-        case SignInStatus.LockedOut:
-            return View(&quot;Lockout&quot;);
-        case SignInStatus.RequiresVerification:
-            return RedirectToAction(&quot;SendCode&quot;, new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-        case SignInStatus.Failure:
-        default:
-            ModelState.AddModelError(&quot;&quot;, &quot;Invalid login attempt.&quot;);
-            return View(model);
-    }
+}
 }
 </code></pre></li>
 
@@ -374,16 +375,17 @@ public async Task&lt;ActionResult&gt; Login(LoginViewModel model, string returnU
 <pre><code class="language-cs">[AllowAnonymous]
 public ActionResult Login(string returnUrl)
 {
-    ViewBag.ReturnUrl = returnUrl;
-    //將顯示用訊息從 TempData 取出
-    var errmsg = TempData[&quot;Timeout&quot;] as string;
-    if (!string.IsNullOrWhiteSpace(errmsg))
-    {
-        ViewBag.Timeout = errmsg;//將顯示訊息放入 ViewBag 供 view 使用
-    }
-    return View();
+ViewBag.ReturnUrl = returnUrl;
+//將顯示用訊息從 TempData 取出
+var errmsg = TempData[&quot;Timeout&quot;] as string;
+if (!string.IsNullOrWhiteSpace(errmsg))
+{
+    ViewBag.Timeout = errmsg;//將顯示訊息放入 ViewBag 供 view 使用
+}
+return View();
 }
 </code></pre></li>
+</ol></li>
 
 <li><p>前端頁面處理提示訊息</p>
 
@@ -400,14 +402,16 @@ public ActionResult Login(string returnUrl)
         })
     &lt;/script&gt;
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>實際效果</p>
+<ol>
+<li>實際效果
+<br /></li>
+</ol>
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39466338-f4ed2d4a-4d5a-11e8-8140-a7687c52eae0.png" alt="3result" /></p>
-</blockquote></li>
-</ol>
+</blockquote>
 
 <h2 id="心得">心得</h2>
 
@@ -421,6 +425,7 @@ public ActionResult Login(string returnUrl)
 <li><a href="https://codereview.stackexchange.com/questions/60759/error-handling-controllers-onexception-and-application-error" target="_blank">Error Handling - Controller&rsquo;s OnException and Application_Error</a></li>
 <li><a href="https://stackoverflow.com/questions/2472578/is-it-possible-to-use-redirecttoaction-inside-a-custom-authorizeattribute-clas" target="_blank">s it possible to use RedirectToAction() inside a custom AuthorizeAttribute class?</a></li>
 <li><a href="https://stackoverflow.com/questions/12967917/a-way-of-properly-handling-httpantiforgeryexception-in-mvc-4-application" target="_blank">A way of properly handling HttpAntiForgeryException in MVC 4 application</a></li>
+</ol></li>
 </ol>
 
     </div>

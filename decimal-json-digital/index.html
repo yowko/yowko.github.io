@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -194,9 +194,11 @@
 {
     public decimal Salary { get; set; }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>可能存在不同小數點位數的值</p>
+<ol>
+<li>可能存在不同小數點位數的值</li>
+</ol>
 
 <pre><code class="language-cs">var test = new TestData() { Salary = 1.03355M };
 var test2 = new TestData() { Salary = 2.0000M };
@@ -235,13 +237,13 @@ JsonConvert.SerializeObject(test4).Dump();
 <p><img src="https://user-images.githubusercontent.com/3851540/39060398-d777fb88-44f3-11e8-8c84-43cd2dc09721.png" alt="1original" /></p>
 </blockquote>
 
-<p>可以看到除了整數(3)被加上一個小數位(3.0)之外，其他數值都會完整輸出</p></li>
-</ol>
+<p>可以看到除了整數(3)被加上一個小數位(3.0)之外，其他數值都會完整輸出</p>
 
 <h2 id="使用私有欄位儲存-在-get-時格式化">使用私有欄位儲存，在 get 時格式化</h2>
 
 <ul>
-<li><p>加上私有欄位並格式化輸出</p>
+<li>加上私有欄位並格式化輸出</li>
+</ul>
 
 <pre><code class="language-cs">public class TestData
 {
@@ -253,7 +255,9 @@ JsonConvert.SerializeObject(test4).Dump();
     }
 }
 </code></pre></li>
+</ol>
 
+<ul>
 <li><p>結果</p>
 
 <blockquote>
@@ -287,13 +291,13 @@ JsonConvert.SerializeObject(test4).Dump();
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39060400-d7c4f5c8-44f3-11e8-8292-f4599b4d7bb2.png" alt="3fieldboxing" /></p>
-</blockquote></li>
-</ul>
+</blockquote>
 
 <h2 id="客製-json-net-的-jsonconverter">客製 Json.Net 的 JsonConverter</h2>
 
 <ol>
-<li><p>加入自訂 JsonConverter 並繼承 JsonConverter</p>
+<li>加入自訂 JsonConverter 並繼承 JsonConverter</li>
+</ol>
 
 <pre><code class="language-cs">public class RoundingJsonConverter : JsonConverter
 {
@@ -339,7 +343,9 @@ JsonConvert.SerializeObject(test4).Dump();
     }
 }
 </code></pre></li>
+</ul>
 
+<ol>
 <li><p>在欲指定精準度的屬性上加入 attribute</p>
 
 <pre><code class="language-cs">public class TestData
@@ -347,25 +353,29 @@ JsonConvert.SerializeObject(test4).Dump();
     [JsonConverter(typeof(RoundingJsonConverter),2)]
     public decimal Salary { get; set; }
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <ul>
-<li><p>結果</p>
+<li>結果</li>
+</ul>
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39060402-d814b5ae-44f3-11e8-854d-ddc66ffd2553.png" alt="4jsonconverter" /></p>
-</blockquote></li>
+</blockquote>
 
-<li><p>缺點</p>
+<ul>
+<li>缺點</li>
+</ul>
 
 <p><code>一樣有指定小數位數未生效的狀況，以下指定小數四位為例</code></p>
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39060403-d8454aa2-44f3-11e8-89c8-8fdd1ab7bdc8.png" alt="5jsonissue" /></p>
-</blockquote></li>
+</blockquote>
 
-<li><p>改善</p>
+<ul>
+<li>改善</li>
+</ul>
 
 <blockquote>
 <p>一樣會有效能問題</p>
@@ -420,7 +430,7 @@ JsonConvert.SerializeObject(test4).Dump();
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39060404-d86de20a-44f3-11e8-9a29-6c08c60cfc29.png" alt="6josnconvertboxing" /></p>
 </blockquote></li>
-</ul>
+</ol>
 
 <h2 id="心得">心得</h2>
 

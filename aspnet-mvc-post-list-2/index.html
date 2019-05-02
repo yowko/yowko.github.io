@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -205,8 +205,7 @@
     [Range(0, Int32.MaxValue)]
     public int price { get; set; }
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="controller">Controller</h2>
 
@@ -216,15 +215,12 @@
 
 <ol>
 <li>起始畫面用的 action</li>
-<li>準備接受 post 資料的 action
-
-<ul>
+<li>準備接受 post 資料的 action</li>
 <li>套用 <code>[HttpPost]</code></li>
 <li>建議也套用 <code>[ValidateAntiForgeryToken]</code> 以增加安全性</li>
 <li>接受 list 資料的參數</li>
-</ul></li>
-
-<li><p>接受資料的 action 加上基本檢核判斷</p>
+<li>接受資料的 action 加上基本檢核判斷</li>
+</ol>
 
 <pre><code class="language-cs">public ActionResult Add()
 {
@@ -247,7 +243,7 @@ public ActionResult Add(List&lt;PstData&gt; data)
     return View(data);
 }
 </code></pre></li>
-</ol>
+</ul>
 
 <h2 id="view">View</h2>
 
@@ -351,9 +347,11 @@ public ActionResult Add(List&lt;PstData&gt; data)
 &lt;/div&gt;
 </code></pre>
 
-<h1 id="參考資訊">參考資訊</h1></li>
+<h1 id="參考資訊">參考資訊</h1>
 
-<li><p><a href="https://blog.yowko.com/2017/02/aspnet-mvc-post-list-1" target="_blank">ASP.NET MVC 如何 POST LIST 資料 1</a></p></li>
+<ol>
+<li><a href="https://blog.yowko.com/2017/02/aspnet-mvc-post-list-1" target="_blank">ASP.NET MVC 如何 POST LIST 資料 1</a></li>
+</ol></li>
 </ol>
 
     </div>

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -248,9 +248,12 @@
         WebHost.CreateDefaultBuilder(args)
             .UseStartup&lt;Startup&gt;();
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>Startup.cs</p>
+<ul>
+<li>Startup.cs
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">public class Startup
 {
@@ -304,9 +307,11 @@
         .Where(t =&gt; typeof(IController).IsAssignableFrom(t) || t.Name.EndsWith(&quot;Controller&quot;, StringComparison.OrdinalIgnoreCase)));
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>DefaultDependencyResolver.cs</p>
+<ul>
+<li>DefaultDependencyResolver.cs</li>
+</ul>
 
 <pre><code class="language-cs">public class DefaultDependencyResolver : IDependencyResolver
 {
@@ -386,9 +391,11 @@
 {
     services.AddHttpClient();
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>在需要使用 HttpClient 的 class 中透過 .NET Core 的建構式注入</p>
+<ul>
+<li>在需要使用 HttpClient 的 class 中透過 .NET Core 的建構式注入</li>
+</ul>
 
 <pre><code class="language-cs">private readonly IHttpClientFactory _clientFactory;
 
@@ -417,9 +424,11 @@ public HomeController(IHttpClientFactory clientFactory)
 {
     c.BaseAddress = new Uri(&quot;https://blog.yowko.com/&quot;);
 });
-</code></pre></li>
+</code></pre>
 
-<li><p>在需要使用 HttpClient 的 class 中透過 .NET Core 的建構式注入 (與 <code>基本用法</code> 相同)</p>
+<ul>
+<li>在需要使用 HttpClient 的 class 中透過 .NET Core 的建構式注入 (與 <code>基本用法</code> 相同)</li>
+</ul>
 
 <pre><code class="language-cs">private readonly IHttpClientFactory _clientFactory;
 
@@ -471,9 +480,12 @@ var client = _clientFactory.CreateClient(&quot;yowkoblog&quot;);
         return result;
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>在 <code>Startup.cs</code> 使用自訂類別來註冊 HttpClientFactory</p>
+<ul>
+<li>在 <code>Startup.cs</code> 使用自訂類別來註冊 HttpClientFactory
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">services.AddHttpClient&lt;YowkoBlogService&gt;();
 </code></pre></li>
@@ -486,9 +498,11 @@ public HomeController(YowkoBlogService yowkoBlogService)
 {
     _yowkoBlogService = yowkoBlogService;
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>直接呼叫自訂類別中的自訂方法即可</p>
+<ul>
+<li>直接呼叫自訂類別中的自訂方法即可</li>
+</ul>
 
 <pre><code class="language-cs">var result = await _yowkoBlogService.GetPosts();
 </code></pre></li>
@@ -520,9 +534,12 @@ public HomeController(YowkoBlogService yowkoBlogService)
         return result;
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>在 <code>Startup.cs</code> 使用自訂類別來註冊 HttpClientFactory</p>
+<ul>
+<li>在 <code>Startup.cs</code> 使用自訂類別來註冊 HttpClientFactory
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">services.AddHttpClient&lt;YowkoBlogService&gt;(c =&gt;
 {
@@ -559,9 +576,12 @@ public HomeController(YowkoBlogService yowkoBlogService)
         return result;
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>在 <code>Startup.cs</code> 使用自訂類別來註冊 HttpClientFactory</p>
+<ul>
+<li>在 <code>Startup.cs</code> 使用自訂類別來註冊 HttpClientFactory
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">services.AddHttpClient&lt;YowkoBlogService&gt;(c =&gt;
 {
@@ -601,9 +621,12 @@ public HomeController(YowkoBlogService yowkoBlogService)
     [Get(&quot;/_/me&quot;)]
     Task&lt;User&gt; GetMeAsync();
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>取得結果 class</p>
+<ul>
+<li>取得結果 class
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">public class AboutMe
 {
@@ -642,9 +665,11 @@ public class Accounttype
     })
     .AddTypedClient(c =&gt; Refit.RestService.For&lt;IJsonbinClient&gt;(c));       
 
-</code></pre></li>
+</code></pre>
 
-<li><p>在需要使用 HttpClient 的 class 中透過 .NET Core 的建構式注入 (與 <code>基本用法</code> 相同)</p>
+<ul>
+<li>在需要使用 HttpClient 的 class 中透過 .NET Core 的建構式注入 (與 <code>基本用法</code> 相同)</li>
+</ul>
 
 <pre><code class="language-cs">private readonly IJsonbinClient _jsonbinClient;
 
@@ -689,9 +714,11 @@ public HomeController(IJsonbinClient jsonbinClient)
         return response;
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>InnerHandler.cs</p>
+<ul>
+<li>InnerHandler.cs</li>
+</ul>
 
 <pre><code class="language-cs">public class InnerHandler : DelegatingHandler
 {
@@ -728,18 +755,20 @@ services.AddHttpClient(&quot;yowkoblog&quot;, c =&gt;
 .AddHttpMessageHandler&lt;OuterHandler&gt;() //發出 request 時第一個執行，取回 response 時最後一個執行，對 HttpClientHandler 是較外層
 .AddHttpMessageHandler&lt;InnerHandler&gt;(); //發出 request 時最後執行，取回 response 時第一個執行，對 HttpClientHandler 是較內層
             
-</code></pre></li>
+</code></pre>
 
-<li><p>實際結果</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/51261569-76a45180-19eb-11e9-9572-cc01fccf6081.png" alt="1result" /></p></li>
+<ol>
+<li>實際結果</li>
 </ol>
 
-<ul>
-<li><p>完整流程</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/51261569-76a45180-19eb-11e9-9572-cc01fccf6081.png" alt="1result" /></p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/51324487-ce9f8e80-1aa5-11e9-9523-38b9440d5938.png" alt="httpclient" /></p></li>
+<ul>
+<li>完整流程
+<br /></li>
 </ul>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/51324487-ce9f8e80-1aa5-11e9-9523-38b9440d5938.png" alt="httpclient" /></p>
 
 <h2 id="重試策略-使用-polly">重試策略：使用 Polly</h2>
 
@@ -748,7 +777,8 @@ services.AddHttpClient(&quot;yowkoblog&quot;, c =&gt;
 <p>Polly 是綜合彈性和暫時故障處理的套件，允許開發人員使用流暢及 thread-safe 的方式來達成 Retry、鎔斷、Timeout、隔離、降級退回等策略</p>
 
 <ol>
-<li><p>安裝 <code>Microsoft.Extensions.Http.Polly</code> NuGet 套件</p>
+<li>安裝 <code>Microsoft.Extensions.Http.Polly</code> NuGet 套件</li>
+</ol>
 
 <blockquote>
 <p>Install-Package Microsoft.Extensions.Http.Polly</p>
@@ -764,9 +794,11 @@ services.AddHttpClient(&quot;yowkoblog&quot;, c =&gt;
 
 <pre><code>dotnet add package Microsoft.Extensions.Http.Polly
 </code></pre></li>
-</ul></li>
+</ul>
 
-<li><p>建立 Polly 重試策略</p>
+<ol>
+<li>建立 Polly 重試策略</li>
+</ol>
 
 <ul>
 <li><p>暫時性錯誤：透過 <code>HandleTransientHttpError</code></p>
@@ -778,25 +810,31 @@ services.AddHttpClient(&quot;yowkoblog&quot;, c =&gt;
         .OrResult(msg =&gt; msg.StatusCode == System.Net.HttpStatusCode.NotFound)//或是得到 404 NoFound
         .WaitAndRetryAsync(6, retryAttempt =&gt; TimeSpan.FromSeconds(Math.Pow(2,retryAttempt)));//重試六次，間隔秒數為 2 的 {重試次數} 次方:重試第一次間隔 2 的 1 次方、重試第三次間隔為 2 的 3 次方
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>預先定義一般策略</p>
+<ul>
+<li>預先定義一般策略</li>
+</ul>
 
 <pre><code class="language-cs">var timeout = Policy.TimeoutAsync&lt;HttpResponseMessage&gt;(TimeSpan.FromSeconds(10));
 var longTimeout = Policy.TimeoutAsync&lt;HttpResponseMessage&gt;(TimeSpan.FromSeconds(30));
 </code></pre></li>
-</ul></li>
+</ul>
 
-<li><p>在 Startup.cs 的 ConfigureServices 方法中透過上述的 Polly 重試策略來註冊 HttpClient</p>
+<ol>
+<li>在 Startup.cs 的 ConfigureServices 方法中透過上述的 Polly 重試策略來註冊 HttpClient</li>
+</ol>
 
 <ul>
 <li><p>透過靜態方法來註冊</p>
 
 <pre><code class="language-cs">services.AddHttpClient()
     .AddPolicyHandler(GetRetryPolicy());
-</code></pre></li>
+</code></pre>
 
-<li><p>動態註冊策略</p>
+<ul>
+<li>動態註冊策略</li>
+</ul>
 
 <pre><code class="language-cs">services.AddHttpClient()
     .AddPolicyHandler(request =&gt; 
@@ -808,9 +846,11 @@ var longTimeout = Policy.TimeoutAsync&lt;HttpResponseMessage&gt;(TimeSpan.FromSe
 <pre><code class="language-cs">services.AddHttpClient()
 .AddTransientHttpErrorPolicy(p =&gt; p.RetryAsync(3))//至多重試三次
 .AddTransientHttpErrorPolicy(p =&gt; p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));//若失敗五次，就暫停嘗試 30秒
-</code></pre></li>
+</code></pre>
 
-<li><p>具名註冊</p>
+<ul>
+<li>具名註冊</li>
+</ul>
 
 <blockquote>
 <p>為策略命名且定義，可以依不同的具名 client 指定不同策略</p>
@@ -824,19 +864,21 @@ registry.Add(&quot;long&quot;, longTimeout);
 services.AddHttpClient()
     .AddPolicyHandlerFromRegistry(&quot;regular&quot;);
 </code></pre></li>
-</ul></li>
+</ul>
 
-<li><p>實際效果</p>
+<ol>
+<li>實際效果</li>
+</ol>
 
 <blockquote>
 <p>原本無法成功取得，重試第三次後正常</p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/51261570-76a45180-19eb-11e9-88c1-ddbb0e167662.png" alt="2pollyretry" /></p></li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/51261570-76a45180-19eb-11e9-88c1-ddbb0e167662.png" alt="2pollyretry" /></p>
 
 <ul>
-<li><p>實作 jitter 策略</p>
+<li>實作 jitter 策略</li>
+</ul>
 
 <blockquote>
 <p>jitter 是讓重試間隔加入隨機的時間，避免大量重試行為同時發生</p>
@@ -848,7 +890,7 @@ Policy
 //預設重試間隔為 2 的 {重試次數} 次方秒，再加入一個隨機時間以錯開重試動作
 .WaitAndRetry(5,  retryAttempt =&gt; TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))  + TimeSpan.FromMilliseconds(jitterer.Next(0, 100)));
 </code></pre></li>
-</ul>
+</ol>
 
 <h2 id="心得">心得</h2>
 

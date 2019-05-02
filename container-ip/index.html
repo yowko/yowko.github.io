@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -212,10 +212,10 @@
 <li><p>範例</p>
 
 <pre><code class="language-cmd">docker exec -it oracle-xe-11g ifconfig
-</code></pre></li>
-</ul>
+</code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/29979899-e4f07090-8f79-11e7-886b-2781d60dc3a1.png" alt="1ifocnfig" /></p></li>
+</ul></li>
 
 <li><p>方法二： container 未安裝 ifconfig 指令</p>
 
@@ -237,13 +237,13 @@
 <pre><code class="language-cmd">docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' jenkins
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/29979901-e51c00f2-8f79-11e7-9ea6-8be7a3c9d7a8.png" alt="3getip" /></p></li>
-</ul></li>
-
-<li><p>語法 2</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/29979901-e51c00f2-8f79-11e7-9ea6-8be7a3c9d7a8.png" alt="3getip" /></p>
 
 <ul>
-<li><p>PowerShell 語法</p>
+<li><p>語法 2</p></li>
+
+<li><p>PowerShell 語法</p></li>
+</ul>
 
 <pre><code class="language-ps1">docker inspect container_name_or_container_id | findstr '&quot;IPAddress&quot;'
 </code></pre></li>

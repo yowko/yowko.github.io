@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -232,15 +232,17 @@
 <li><p>引用 namespace</p>
 
 <pre><code class="language-cs">using Telerik.JustMock;
-</code></pre></li>
+</code></pre>
 
-<li><p>啟用 JustMock</p>
+<ol>
+<li>啟用 JustMock</li>
 
-<ul>
 <li><p>Visual Studio 主選單 JustMock &ndash;&gt; Enable Profiler</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/28023469-9458239a-65c0-11e7-835a-b95a1e2e0a74.png" alt="1enable" /></p></li>
+</ol>
 
+<ul>
 <li><p>未啟用錯誤訊息</p>
 
 <ul>
@@ -270,16 +272,18 @@ Telerik.JustMock.Core.ElevatedMockingException: Cannot mock 'Boolean detectStrin
 
 <p><img src="https://user-images.githubusercontent.com/3851540/28023471-94849434-65c0-11e7-8af1-df5a6364bd09.png" alt="2error" /></p></li>
 </ul></li>
-</ul></li>
+</ul>
 
-<li><p>arrange</p>
+<ol>
+<li>arrange</li>
 
-<ul>
 <li><p>使用 JuskMock 語法 mock 測試目標</p>
 
 <pre><code>var target = Mock.Create&lt;ValuesController&gt;();
 </code></pre></li>
+</ol>
 
+<ul>
 <li><p>使用 JuskMock 語法 mock 測試目標方法回傳值</p>
 
 <blockquote>
@@ -291,9 +295,11 @@ Telerik.JustMock.Core.ElevatedMockingException: Cannot mock 'Boolean detectStrin
 </blockquote>
 
 <pre><code class="language-cs">Mock.NonPublic.Arrange&lt;bool&gt;(target, &quot;detectStringEmpty&quot;, new object[] { string.Empty }).Returns(true);
-</code></pre></li>
+</code></pre>
 
-<li><p>通知 JuskMock 需執行原測試目標方法</p>
+<ul>
+<li>通知 JuskMock 需執行原測試目標方法</li>
+</ul>
 
 <blockquote>
 <p>如果不加上 <code>.CallOriginal()</code> 會執行 JustMock 建立出來的 instance 方法，結果會跟預期完全不同，要特別留意</p>
@@ -305,13 +311,12 @@ Telerik.JustMock.Core.ElevatedMockingException: Cannot mock 'Boolean detectStrin
 <li><p>定義預期結果</p>
 
 <pre><code class="language-cs">var expected = typeof(BadRequestResult);
-</code></pre></li>
-</ul></li>
+</code></pre>
 
-<li><p>act</p>
-
-<ul>
-<li><p>執行測試目標程式方法</p>
+<ol>
+<li>act</li>
+<li>執行測試目標程式方法</li>
+</ol>
 
 <pre><code class="language-cs">var actualAction = target.Get(string.Empty);
 </code></pre></li>
@@ -319,13 +324,15 @@ Telerik.JustMock.Core.ElevatedMockingException: Cannot mock 'Boolean detectStrin
 <li><p>將實際執行結果轉型為預期的 <code>BadRequestResult</code></p>
 
 <pre><code class="language-cs">var actual = actualAction as BadRequestResult;
-</code></pre></li>
-</ul></li>
+</code></pre>
 
-<li><p>assert</p>
+<ol>
+<li>assert</li>
+</ol>
 
 <ul>
-<li><p>檢查執行結果不能是 null</p>
+<li>檢查執行結果不能是 null</li>
+</ul>
 
 <pre><code class="language-cs">Assert.IsNotNull(actual);
 </code></pre></li>
@@ -333,28 +340,30 @@ Telerik.JustMock.Core.ElevatedMockingException: Cannot mock 'Boolean detectStrin
 <li><p>驗證執行結果是否與預期相符</p>
 
 <pre><code class="language-cs">Assert.IsInstanceOfType(actual, expected);
-</code></pre></li>
-</ul></li>
+</code></pre>
 
-<li><p>完整程式碼</p>
+<ol>
+<li>完整程式碼</li>
+</ol>
 
 <pre><code class="language-cs">[TestMethod()]
 public void Get_StringEmpty_BadRequestResult()
 {
-    //arrange
-    var target = Mock.Create&lt;ValuesController&gt;();
-    Mock.NonPublic.Arrange&lt;bool&gt;(target, &quot;detectStringEmpty&quot;, new object[] { string.Empty }).Returns(true);
-    Mock.Arrange(() =&gt; target.Get(string.Empty)).CallOriginal();
-    var expected = typeof(BadRequestResult);
-    //act
-    var actualAction = target.Get(string.Empty);
-    var actual = actualAction as BadRequestResult;
+//arrange
+var target = Mock.Create&lt;ValuesController&gt;();
+Mock.NonPublic.Arrange&lt;bool&gt;(target, &quot;detectStringEmpty&quot;, new object[] { string.Empty }).Returns(true);
+Mock.Arrange(() =&gt; target.Get(string.Empty)).CallOriginal();
+var expected = typeof(BadRequestResult);
+//act
+var actualAction = target.Get(string.Empty);
+var actual = actualAction as BadRequestResult;
                 
-    //assert
-    Assert.IsNotNull(actual);
-    Assert.IsInstanceOfType(actual, expected);
+//assert
+Assert.IsNotNull(actual);
+Assert.IsInstanceOfType(actual, expected);
 }
 </code></pre></li>
+</ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -202,9 +202,11 @@
     public IEnumerable&lt;T&gt; TestEnum { get; set; }
     public int[] Products{ get; set; }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>使用方式</p>
+<ol>
+<li>使用方式</li>
+</ol>
 
 <blockquote>
 <p>以下使用 LINQPad 進行 demo</p>
@@ -321,9 +323,11 @@ using (JsonWriter writer = new JsonTextWriter(sw))
 <li><p>指定 JsonSerializer 格式</p>
 
 <pre><code class="language-cs">serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
-</code></pre></li>
+</code></pre>
 
-<li><p>加入自訂 JsonConverter 至 JsonSerializer 中</p>
+<ol>
+<li>加入自訂 JsonConverter 至 JsonSerializer 中</li>
+</ol>
 
 <pre><code class="language-cs">serializer.Converters.Add(new InitialJsonConvert(user.GetType()));
 </code></pre></li>
@@ -363,9 +367,11 @@ using (JsonWriter writer = new JsonTextWriter(sw))
 }
 // 輸出經過自訂 serialize 的 data (value type 已被初始化)
 user.Dump();
-</code></pre></li>
+</code></pre>
 
-<li><p>輸出結果</p>
+<ul>
+<li>輸出結果</li>
+</ul>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/28881734-a9b1e294-77db-11e7-9b76-c881bd4241ab.png" alt="2result" /></p></li>
 </ul></li>

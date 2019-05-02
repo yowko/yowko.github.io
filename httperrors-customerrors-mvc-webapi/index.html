@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -275,9 +275,12 @@
   &lt;remove statusCode=&quot;404&quot; subStatusCode=&quot;-1&quot; /&gt;
   &lt;error statusCode=&quot;404&quot; path=&quot;/NotFound&quot; responseMode=&quot;ExecuteURL&quot;/&gt;
 &lt;/httpErrors&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>NotFoundController 的 Index action</p>
+<ul>
+<li>NotFoundController 的 Index action
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">public ActionResult Index()
 {
@@ -292,11 +295,11 @@
     //Response.TrySkipIisCustomErrors = true;//用來指定 SetStatus flag
     return HttpNotFound();
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>測試結果截圖</p>
+<ul>
+<li>測試結果截圖</li>
 
-<ol>
 <li><p>執行 NotFoundController 的 Index action</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/23617957/cbc200c6-02c9-11e7-83a0-44b4cf4614da.png" alt="2notfound" /></p></li>
@@ -304,9 +307,9 @@
 <li><p>直接吐 404</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/23617959/cbc80a48-02c9-11e7-9bdb-05e3d3020ea2.png" alt="3404" /></p></li>
-</ol></li>
 
-<li><p>測試結果整理</p>
+<li><p>測試結果整理</p></li>
+</ul>
 
 <table>
 <thead>

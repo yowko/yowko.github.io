@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -229,9 +229,11 @@ using (var channel = connection.CreateModel())
 
 <blockquote>
 <p>變化不大，就是原本在 <code>ConnectionFactory</code> 指定連線字串，現在改由 <code>CreateConnection</code> 時傳入多個 host 資訊，該連線哪個 host，client 會自行決定</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>consumer</p>
+<ol>
+<li>consumer</li>
+</ol>
 
 <pre><code class="language-cs">//初始化連線資訊
 var factory = new ConnectionFactory()
@@ -321,9 +323,11 @@ using (var advancedBus = RabbitHutch.CreateBus(&quot;host=localhost,192.168.56.1
     advancedBus.Publish(exchange, routingKey, false, new MessageProperties { DeliveryMode = 2 }, body);
     Console.WriteLine($&quot;Send Message：{message},{DateTime.Now}&quot;);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>consumer</p>
+<ol>
+<li>consumer</li>
+</ol>
 
 <pre><code class="language-cs">//建立連線，並透過 `,` 指定多個 host，prefetchcount 指定一次只處理一筆 message
 using (var advancedBus = RabbitHutch.CreateBus(&quot;host=127.0.0.1,192.168.56.101;username=yowko;password=pass.123;prefetchcount=1&quot;).Advanced)

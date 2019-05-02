@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -263,12 +263,13 @@ var initializer = new Google.Apis.Services.BaseClientService.Initializer()
 Google.Apis.Blogger.v3.BloggerService service = new Google.Apis.Blogger.v3.BloggerService(initializer);
 //取得文章內容
 service.Posts.List(blogId).ExecuteAsync().Items;
-</code></pre></li>
+</code></pre>
 
-<li><p>預設取得 <code>10</code> 筆文章</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/45597331-24333400-b9fd-11e8-8a35-17af63bec874.png" alt="6tenposts" /></p></li>
+<ul>
+<li>預設取得 <code>10</code> 筆文章</li>
 </ul>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/45597331-24333400-b9fd-11e8-8a35-17af63bec874.png" alt="6tenposts" /></p>
 
 <h2 id="自訂取得文章數目">自訂取得文章數目</h2>
 
@@ -277,7 +278,9 @@ service.Posts.List(blogId).ExecuteAsync().Items;
 </blockquote>
 
 <ul>
-<li><p>程式碼</p>
+<li>程式碼
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">//請填 blog id，最簡單的取得進 Blogger 後台網址列就有，也可以由 user 或是 url 查
 var blogId = &quot;blogId&quot;;
@@ -351,8 +354,7 @@ foreach (var item in listRequestResult)
     //透過套件將 html 轉為 markdown
     (new Html2Markdown.Converter()).Convert(item.Content).Dump();
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="心得">心得</h2>
 
@@ -363,7 +365,8 @@ foreach (var item in listRequestResult)
 <ol>
 <li><a href="https://developers.google.com/blogger/docs/3.0/api-lib/dotnet" target="_blank">Blogger APIs Client Library for .NET</a></li>
 <li><a href="https://github.com/baynezy/Html2Markdown" target="_blank">baynezy/Html2Markdown</a></li>
-</ol>
+</ol></li>
+</ul>
 
     </div>
 

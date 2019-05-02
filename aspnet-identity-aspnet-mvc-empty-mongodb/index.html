@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -253,9 +253,12 @@
 <li><p>建立 <code>ApplicationUser</code> 並繼承 <code>IdentityUser</code></p>
 
 <pre><code class="language-cs">public class ApplicationUser: IdentityUser
-</code></pre></li>
+</code></pre>
 
-<li><p>在 ApplicationUser 中建立 <code>GenerateUserIdentityAsync</code> 方法</p>
+<ol>
+<li>在 ApplicationUser 中建立 <code>GenerateUserIdentityAsync</code> 方法
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public async Task&lt;ClaimsIdentity&gt; GenerateUserIdentityAsync(UserManager&lt;ApplicationUser&gt; manager)
 {
@@ -282,8 +285,7 @@ namespace IdentityMongo.Models
         }
     }
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="建立-mongodb-連線物件">建立 MongoDB 連線物件</h2>
 
@@ -292,7 +294,9 @@ namespace IdentityMongo.Models
 </blockquote>
 
 <ol>
-<li><p>建立 <code>ApplicationDbContext</code> 繼承至 <code>IDisposable</code></p>
+<li>建立 <code>ApplicationDbContext</code> 繼承至 <code>IDisposable</code>
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public class ApplicationDbContext : IDisposable
 {
@@ -304,9 +308,12 @@ namespace IdentityMongo.Models
 <pre><code class="language-cs">public void Dispose()
 {
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>加入 <code>Users</code> 與 <code>Roles</code> 屬性</p>
+<ol>
+<li>加入 <code>Users</code> 與 <code>Roles</code> 屬性
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public IMongoCollection&lt;IdentityRole&gt; Roles { get; set; }
 
@@ -320,9 +327,12 @@ public IMongoCollection&lt;ApplicationUser&gt; Users { get; set; }
     Users = users;
     Roles = roles;
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>建立 <code>static</code> 的 <code>Create()</code> 方法並回傳 <code>ApplicationDbContext</code></p>
+<ol>
+<li>建立 <code>static</code> 的 <code>Create()</code> 方法並回傳 <code>ApplicationDbContext</code>
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public static ApplicationDbContext Create()
 {
@@ -376,8 +386,7 @@ namespace IdentityMongo.Models
         }
     }
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="建立-user-管理用物件">建立 user 管理用物件</h2>
 
@@ -386,7 +395,9 @@ namespace IdentityMongo.Models
 </blockquote>
 
 <ol>
-<li><p>加入 Email service</p>
+<li>加入 Email service
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public class EmailService : IIdentityMessageService
 {
@@ -408,25 +419,30 @@ namespace IdentityMongo.Models
         return Task.FromResult(0);
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>建立 <code>ApplicationUserManager</code> class</p>
+<ol>
+<li>建立 <code>ApplicationUserManager</code> class</li>
 
-<ul>
 <li><p>建立 <code>ApplicationUserManager</code> 繼承 <code>UserManager&lt;ApplicationUser&gt;</code></p>
 
 <pre><code class="language-cs">public class ApplicationUserManager : UserManager&lt;ApplicationUser&gt;
 {
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>加入使用 <code>IUserStore&lt;ApplicationUser&gt;</code> 為參數的建構子呼叫 base class 建構子</p>
+<ul>
+<li>加入使用 <code>IUserStore&lt;ApplicationUser&gt;</code> 為參數的建構子呼叫 base class 建構子
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">public ApplicationUserManager(IUserStore&lt;ApplicationUser&gt; store) : base(store)
 {
 }
 </code></pre></li>
+</ol>
 
+<ul>
 <li><p>建立 Create 方法</p>
 
 <pre><code class="language-cs">public static ApplicationUserManager Create(IdentityFactoryOptions&lt;ApplicationUserManager&gt; options, IOwinContext context)
@@ -473,29 +489,32 @@ namespace IdentityMongo.Models
     }
     return manager;
 }
-</code></pre></li>
-</ul></li>
+</code></pre>
 
-<li><p>建立 <code>ApplicationSignInManager</code> class</p>
+<ol>
+<li>建立 <code>ApplicationSignInManager</code> class
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public class ApplicationSignInManager : SignInManager&lt;ApplicationUser, string&gt;
 {
-    public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
-        : base(userManager, authenticationManager)
-    {
-    }
+public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
+    : base(userManager, authenticationManager)
+{
+}
 
-    public override Task&lt;ClaimsIdentity&gt; CreateUserIdentityAsync(ApplicationUser user)
-    {
-        return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
-    }
+public override Task&lt;ClaimsIdentity&gt; CreateUserIdentityAsync(ApplicationUser user)
+{
+    return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
+}
 
-    public static ApplicationSignInManager Create(IdentityFactoryOptions&lt;ApplicationSignInManager&gt; options, IOwinContext context)
-    {
-        return new ApplicationSignInManager(context.GetUserManager&lt;ApplicationUserManager&gt;(), context.Authentication);
-    }
+public static ApplicationSignInManager Create(IdentityFactoryOptions&lt;ApplicationSignInManager&gt; options, IOwinContext context)
+{
+    return new ApplicationSignInManager(context.GetUserManager&lt;ApplicationUserManager&gt;(), context.Authentication);
+}
 }
 </code></pre></li>
+</ul></li>
 
 <li><p>完整程式碼</p>
 
@@ -601,19 +620,22 @@ namespace IdentityMongo
 }
 </code></pre>
 
-<h2 id="註冊-identity-至-owin-中">註冊 Identity 至 OWIN 中</h2></li>
+<h2 id="註冊-identity-至-owin-中">註冊 Identity 至 OWIN 中</h2>
 
-<li><p>在 <code>App_Start</code> 目錄中加入 <code>Startup.Auth.cs</code></p>
+<ol>
+<li>在 <code>App_Start</code> 目錄中加入 <code>Startup.Auth.cs</code></li>
 
-<ul>
 <li><p>建立 partial <code>Startup</code> class</p>
 
 <pre><code class="language-cs">public partial class Startup
 {
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>建立 <code>ConfigureAuth</code> 方法</p>
+<ul>
+<li>建立 <code>ConfigureAuth</code> 方法
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">public void ConfigureAuth(IAppBuilder app)
 {
@@ -635,7 +657,9 @@ namespace IdentityMongo
     app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 }
 </code></pre></li>
+</ol>
 
+<ul>
 <li><p>完整程式碼</p>
 
 <pre><code class="language-cs">using IdentityMongo.Models;
@@ -671,13 +695,13 @@ namespace IdentityMongo
         }
     }
 }
-</code></pre></li>
-</ul></li>
+</code></pre>
 
-<li><p>在根目錄加入 <code>Startup.cs</code></p>
-
-<ul>
-<li><p>建立 partial Startup class</p>
+<ol>
+<li>在根目錄加入 <code>Startup.cs</code></li>
+<li>建立 partial Startup class
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public partial class Startup
 {
@@ -690,9 +714,12 @@ namespace IdentityMongo
 {
     ConfigureAuth(app);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>在 namespace 上加入 OwinStartupAttribute</p>
+<ul>
+<li>在 namespace 上加入 OwinStartupAttribute
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">[assembly: OwinStartup(typeof(IdentityMongo.Startup))]
 </code></pre></li>
@@ -713,20 +740,21 @@ namespace IdentityMongo
         }
     }
 }
-</code></pre></li>
-</ul></li>
-</ol>
+</code></pre>
 
 <h2 id="實際使用">實際使用</h2>
 
 <ol>
-<li><p>建立 <code>AccountController</code> 繼承 Controller</p>
+<li>建立 <code>AccountController</code> 繼承 Controller
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public class AccountController : Controller
 {
 
 }
 </code></pre></li>
+</ul></li>
 
 <li><p>加入 <code>SignInManager</code> 與 <code>UserManager</code></p>
 
@@ -743,9 +771,12 @@ public ApplicationUserManager UserManager
     get =&gt; _userManager ?? HttpContext.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;();
     private set =&gt; _userManager = value;
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>加入建構子</p>
+<ol>
+<li>加入建構子
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public AccountController()
 {
@@ -796,9 +827,12 @@ private void AddErrors(IdentityResult result)
         ModelState.AddModelError(&quot;&quot;, error);
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>建立 <code>RegisterViewModel</code></p>
+<ul>
+<li>建立 <code>RegisterViewModel</code>
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">public class RegisterViewModel
 {

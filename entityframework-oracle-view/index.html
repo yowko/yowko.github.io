@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -245,9 +245,11 @@ SELECT *
 FROM allunit
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/33902456-fc987f04-dfaf-11e7-9c6e-cc63ce499cdf.png" alt="12viewdata" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/33902456-fc987f04-dfaf-11e7-9c6e-cc63ce499cdf.png" alt="12viewdata" /></p>
 
-<li><p>原因尚待請教專業 DBA，可以先參考 <a href="https://dba.stackexchange.com/questions/48169/is-there-a-way-to-explicitely-have-a-not-null-column-in-a-view" target="_blank">Is there a way to explicitely have a not-null column in a view</a>及<a href="https://stackoverflow.com/questions/37551567/union-of-non-nullable-columns-is-nullable" target="_blank">UNION of non-nullable columns is nullable</a></p></li>
+<ul>
+<li>原因尚待請教專業 DBA，可以先參考 <a href="https://dba.stackexchange.com/questions/48169/is-there-a-way-to-explicitely-have-a-not-null-column-in-a-view" target="_blank">Is there a way to explicitely have a not-null column in a view</a>及<a href="https://stackoverflow.com/questions/37551567/union-of-non-nullable-columns-is-nullable" target="_blank">UNION of non-nullable columns is nullable</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -267,9 +269,11 @@ FROM allunit
     &lt;Property Name=&quot;NAME&quot; Type=&quot;varchar2&quot; MaxLength=&quot;20&quot; /&gt;
     &lt;Property Name=&quot;LEVEL1&quot; Type=&quot;number&quot; Precision=&quot;38&quot; Scale=&quot;0&quot; /&gt;
 &lt;/EntityType&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>加入 key</p>
+<ul>
+<li>加入 key</li>
+</ul>
 
 <pre><code class="language-xml">&lt;Key&gt;
     &lt;PropertyRef Name=&quot;ID&quot; /&gt;
@@ -279,9 +283,11 @@ FROM allunit
 <li><p>將 key 加上 Nullable=&ldquo;false&rdquo;</p>
 
 <pre><code class="language-cs">Nullable=&quot;false&quot;
-</code></pre></li>
+</code></pre>
 
-<li><p>將 View 加至 EntityContainer 中，並指定 store type 為 Views</p>
+<ul>
+<li>將 View 加至 EntityContainer 中，並指定 store type 為 Views</li>
+</ul>
 
 <pre><code class="language-xml">&lt;EntitySet Name=&quot;ORGUNIT&quot; EntityType=&quot;Self.ORGUNIT&quot; Schema=&quot;TESTIDENTITY&quot; store:Type=&quot;Views&quot; /&gt;
 </code></pre></li>
@@ -300,10 +306,10 @@ FROM allunit
 &lt;EntityContainer Name=&quot;ModelStoreContainer&quot;&gt;
     &lt;EntitySet Name=&quot;ORGUNIT&quot; EntityType=&quot;Self.ORGUNIT&quot; Schema=&quot;TESTIDENTITY&quot; store:Type=&quot;Views&quot; /&gt;
 &lt;/EntityContainer&gt;
-</code></pre></li>
-</ul>
+</code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/33902448-fb4a0816-dfaf-11e7-87f2-471059919e17.png" alt="5SSDL" /></p></li>
+</ul></li>
 
 <li><p>CSDL</p>
 
@@ -318,9 +324,11 @@ FROM allunit
 <li><p>將 View 加至 EntityContainer 中</p>
 
 <pre><code class="language-xml">&lt;EntitySet Name=&quot;OrgUnit&quot; EntityType=&quot;Model.OrgUnit&quot; /&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>加入 EntityType 及屬性定義</p>
+<ul>
+<li>加入 EntityType 及屬性定義</li>
+</ul>
 
 <pre><code class="language-xml">&lt;EntityType Name=&quot;OrgUnit&quot;&gt;
 &lt;Key&gt;

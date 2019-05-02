@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2018-04-22T17:42:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-04T17:42:45&#43;08:00" />
-<meta itemprop="wordCount" content="1307">
+<meta itemprop="wordCount" content="1308">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-04-22 </span>
         
-        <span class="more-meta"> 約 1307 字 </span>
+        <span class="more-meta"> 約 1308 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -195,9 +195,12 @@
     public double ExRate { get; set; }
     public float TaxRate { get; set; }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>使用 jsonconvert</p>
+<ol>
+<li>使用 jsonconvert
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public class RoundingJsonConverter : JsonConverter
 {
@@ -279,9 +282,9 @@ Math.Round(value,2,MidpointRounding.AwayFromZero).Dump();
 
 <p><img src="https://user-images.githubusercontent.com/3851540/39093549-b31080ce-4653-11e8-8b05-b8021530f3fd.png" alt="6double" /></p>
 </blockquote></li>
-</ul></li>
 
-<li><p>新做法：先轉型為 <code>decimal</code></p>
+<li><p>新做法：先轉型為 <code>decimal</code></p></li>
+</ul>
 
 <pre><code class="language-cs">Math.Round(Convert.ToDecimal(value),2,MidpointRounding.AwayFromZero).Dump();
 </code></pre>
@@ -304,10 +307,9 @@ Math.Round(value,2,MidpointRounding.AwayFromZero).Dump();
 </code></pre>
 
 <blockquote>
-<p><img src="https://user-images.githubusercontent.com/3851540/39093544-b1024920-4653-11e8-8ef0-b5b5ea141526.png" alt="1tostring" /></p>
-</blockquote></li>
-
-<li><p>新做法</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/39093544-b1024920-4653-11e8-8ef0-b5b5ea141526.png" alt="1tostring" />
+- 新做法</p>
+</blockquote>
 
 <pre><code class="language-cs">writer.WriteRawValue((Convert.ToDecimal(value)).ToString(&quot;0.&quot;.PadRight(2 + _precision, '0')));
 </code></pre>
@@ -401,9 +403,12 @@ public RoundingJsonConverter(int precision, MidpointRounding rounding, bool trun
     _rounding = rounding;
     _truncate = truncate;
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>加入 <code>0</code> 的處理流程</p>
+<ul>
+<li>加入 <code>0</code> 的處理流程
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">if (_truncate)
 {

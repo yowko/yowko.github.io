@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -223,22 +223,19 @@ public ActionResult Index(List&lt;WeekDaysEnum&gt; days)
     }
     return View(days);
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="view">View</h2>
 
 <ol>
 <li>定義用來遞增的變數給 label for 用 <code>int daysIndex = 0</code>;</li>
-<li>使用 form
-
-<ul>
+<li>使用 form</li>
 <li>@using (Html.BeginForm())</li>
 <li>如果 post action 名稱與 get 相同，不用另外寫</li>
-</ul></li>
 <li>加上 Html.AntiForgeryToken 增加安全性 @Html.AntiForgeryToken()</li>
-
-<li><p>定義一個全選按鈕</p>
+<li>定義一個全選按鈕
+<br /></li>
+</ol>
 
 <pre><code class="language-html">&lt;input type=&quot;checkbox&quot; id=&quot;Allday&quot; @((Model == null) ? &quot;checked&quot; : string.Empty) /&gt;
 &lt;label for=&quot;Allday&quot;&gt;
@@ -273,11 +270,12 @@ public ActionResult Index(List&lt;WeekDaysEnum&gt; days)
 <pre><code class="language-cs">@Html.ValidationMessage(&quot;days&quot;, new { @class = &quot;text-danger&quot; })
 </code></pre>
 
-<h2 id="script">script</h2></li>
+<h2 id="script">script</h2>
 
-<li><p>定義 <code>全選</code> 按鈕行為</p></li>
-
-<li><p>勾選選項檢查是否勾選 <code>全選</code> 按鈕</p>
+<ol>
+<li>定義 <code>全選</code> 按鈕行為</li>
+<li>勾選選項檢查是否勾選 <code>全選</code> 按鈕</li>
+</ol>
 
 <pre><code class="language-cs">@section scripts{
 &lt;script type=&quot;text/javascript&quot;&gt;

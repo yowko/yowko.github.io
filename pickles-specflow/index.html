@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -241,21 +241,25 @@
 
 <blockquote>
 <p>詳細內容可以參考 <a href="https://www.nuget.org/packages/Pickles/" target="_blank">Pickles</a></p>
-</blockquote></li>
+</blockquote>
 
+<ul>
 <li><p>Command Line</p>
 
 <pre><code>Install-Package Pickles.CommandLine
-</code></pre>
+</code></pre></li>
+</ul>
 
 <blockquote>
 <p>詳細內容可以參考 <a href="https://www.nuget.org/packages/Pickles.CommandLine/" target="_blank">Command line version of Pickles</a></p>
-</blockquote></li>
+</blockquote>
 
+<ul>
 <li><p>MSBuild</p>
 
 <pre><code>Install-Package Pickles.MSBuild
-</code></pre>
+</code></pre></li>
+</ul>
 
 <blockquote>
 <p>詳細內容可以參考 <a href="https://www.nuget.org/packages/Pickles.MSBuild/" target="_blank">MSBuild Task for Pickles</a></p>
@@ -325,14 +329,16 @@ Pickles.exe -f=C:\MyProject\Features
 <li><p>Powershell</p>
 
 <pre><code class="language-ps1">Pickle-Features -FeatureDirectory C:\MyProject\Features
-</code></pre></li>
+</code></pre>
 
+<ul>
 <li><p>MSBuild</p>
 
 <pre><code>&lt;Target Name=&quot;document&quot;&gt;
-    &lt;Pickles FeatureDirectory=&quot;C:\MyProject\Features&quot; /&gt;
+&lt;Pickles FeatureDirectory=&quot;C:\MyProject\Features&quot; /&gt;
 &lt;/Target&gt;
 </code></pre></li>
+</ul></li>
 </ul></li>
 
 <li><p>Output Directory</p>
@@ -351,14 +357,16 @@ Pickles.exe -o=C:\GeneratedDocs
 <li><p>Powershell</p>
 
 <pre><code class="language-ps1">Pickle-Features -OutputDirectory C:\GeneratedDocs
-</code></pre></li>
+</code></pre>
 
+<ul>
 <li><p>MSBuild</p>
 
 <pre><code>&lt;Target Name=&quot;document&quot;&gt;
-    &lt;Pickles OutputDirectory=&quot;C:\GeneratedDocs&quot; /&gt;
+&lt;Pickles OutputDirectory=&quot;C:\GeneratedDocs&quot; /&gt;
 &lt;/Target&gt;
 </code></pre></li>
+</ul></li>
 </ul></li>
 
 <li><p>Documentation Format</p>
@@ -377,20 +385,24 @@ Pickles.exe -df=Word
 <li><p>Powershell</p>
 
 <pre><code class="language-ps1">Pickle-Features -DocumentationFormat Word
-</code></pre></li>
+</code></pre>
 
+<ul>
 <li><p>MSBuild</p>
 
 <pre><code>&lt;target Name=&quot;document&quot;&gt;
-    &lt;pickles DocumentationFormat=&quot;Word&quot; /&gt;
+&lt;pickles DocumentationFormat=&quot;Word&quot; /&gt;
 &lt;/target&gt;
 </code></pre></li>
 
-<li><p>html 報表</p>
+<li><p>html 報表</p></li>
+</ul>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/27592692-a2023604-5b87-11e7-9d4e-e4be699d81d5.png" alt="1html" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/27592692-a2023604-5b87-11e7-9d4e-e4be699d81d5.png" alt="1html" /></p>
 
-<li><p>dhtml 報表</p>
+<ul>
+<li>dhtml 報表</li>
+</ul>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/27592694-a22b70f0-5b87-11e7-9889-a232e926f214.png" alt="2dhtml" /></p></li>
 </ul></li>
@@ -406,9 +418,11 @@ Pickles.exe -df=Word
 
 <pre><code class="language-cmd">Pickles.exe --system-under-test-name=MyProject
 Pickles.exe -sn=MyProject
-</code></pre></li>
+</code></pre>
 
-<li><p>Powershell</p>
+<ul>
+<li>Powershell</li>
+</ul>
 
 <pre><code class="language-ps1">Pickle-Features -SystemUnderTestName MyProject
 </code></pre></li>

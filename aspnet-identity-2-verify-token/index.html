@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -238,9 +238,11 @@ public ActionResult ResetPassword(string code)
 }
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34071877-8d01d878-e2b8-11e7-9d2e-0a1c3731361c.png" alt="7beforechange" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/34071877-8d01d878-e2b8-11e7-9d2e-0a1c3731361c.png" alt="7beforechange" /></p>
 
-<li><p>將 userid 也加入接放參數</p>
+<ul>
+<li>將 userid 也加入接放參數</li>
+</ul>
 
 <pre><code class="language-cs">public ActionResult ResetPassword(string code, string userId)
 </code></pre></li>
@@ -248,9 +250,11 @@ public ActionResult ResetPassword(string code)
 <li><p>使用 UserManager.VerifyUserToken 驗證 Token 有效性</p>
 
 <pre><code class="language-cs">UserManager.VerifyUserToken(userId, &quot;ResetPassword&quot;, code)
-</code></pre></li>
+</code></pre>
 
-<li><p>Token 無效導向自訂頁面(非必要，但可以讓訊息更容易理解)</p>
+<ul>
+<li>Token 無效導向自訂頁面(非必要，但可以讓訊息更容易理解)</li>
+</ul>
 
 <pre><code class="language-cs">return View(&quot;InvalidToken&quot;);
 </code></pre></li>
@@ -269,8 +273,7 @@ public ActionResult ResetPassword(string code, string userId)
 }
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34071878-8d3860b4-e2b8-11e7-90bf-1afc4ba6ff47.png" alt="8afterchange" /></p></li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/34071878-8d3860b4-e2b8-11e7-90bf-1afc4ba6ff47.png" alt="8afterchange" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -280,6 +283,7 @@ public ActionResult ResetPassword(string code, string userId)
 
 <ol>
 <li><a href="https://blog.yowko.com/2017/12/aspnet-identity-2-token-lifetime.html" target="_blank">改 ASP.NET Identity 2 的 Token 時效</a></li>
+</ol></li>
 </ol>
 
     </div>

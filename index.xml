@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 28 Apr 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 02 May 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</title>
+      <link>https://blog.yowko.com/fluentd-elasticsearch-docker/</link>
+      <pubDate>Thu, 02 May 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/fluentd-elasticsearch-docker/</guid>
+      <description>Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image 近期專案的 log 集中化採用 EFK - Elasticsearch + Fluentd + Kibana (log parser 改用 Fluentd 而非 Logstash 主要是因為 Logstash 有 memory 使用量大的問題)，這幾天發現設定上有些問題導致資料</description>
+    </item>
     
     <item>
       <title>為 .NET Core Middleware 加上 Unit Test</title>

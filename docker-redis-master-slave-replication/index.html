@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -290,9 +290,11 @@ services:
 <li><p>進入至存放 docker-compose 資料夾中</p>
 
 <pre><code class="language-bash">cd docker-replication
-</code></pre></li>
+</code></pre>
 
-<li><p>建立 docker replication instance</p>
+<ol>
+<li>建立 docker replication instance</li>
+</ol>
 
 <pre><code class="language-bash">docker-compose up -d --build
 </code></pre>
@@ -304,9 +306,11 @@ services:
 <pre><code class="language-bash">docker exec -it redis-master redis-cli info | grep 'role'
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/53646943-684a8600-3c77-11e9-96a2-f95bf96eedd6.png" alt="3masterrole" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/53646943-684a8600-3c77-11e9-96a2-f95bf96eedd6.png" alt="3masterrole" /></p>
 
-<li><p>確認 slave</p>
+<ol>
+<li>確認 slave</li>
+</ol>
 
 <pre><code class="language-bash">docker exec -it redis-slave redis-cli info | grep 'role'
 </code></pre>
@@ -316,13 +320,18 @@ services:
 <li><p>觸發 failover</p>
 
 <pre><code class="language-bash">docker stop redis-master
-</code></pre></li>
+</code></pre>
 
-<li><p>slave 已轉為 master</p>
+<ol>
+<li>slave 已轉為 master
+<br /></li>
+</ol>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/53646945-68e31c80-3c77-11e9-8777-a4ff6ac1a713.png" alt="5failover" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/53646945-68e31c80-3c77-11e9-8777-a4ff6ac1a713.png" alt="5failover" /></p>
 
-<li><p>重新啟動 failover 停掉的 master</p>
+<ol>
+<li>重新啟動 failover 停掉的 master</li>
+</ol>
 
 <pre><code class="language-bash">docker start redis-master
 </code></pre></li>

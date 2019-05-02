@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -213,15 +213,19 @@ stage('TestCopy') {
         [$class: 'StringParameterValue', name: 'excludeFolders', value: 'D:\\Downloads\\NewReveal\\reveal.js-master\\test D:\\Downloads\\NewReveal\\reveal.js-master\\js']
     ]
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>依序執行</p>
+<ul>
+<li>依序執行</li>
+</ul>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/25400369/e554f71e-2a24-11e7-932c-c341725b19a0.png" alt="1step1" /></p>
 
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400370/e5597334-2a24-11e7-8458-d11c8a4fc2a1.png" alt="2step2" /></p></li>
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400370/e5597334-2a24-11e7-8458-d11c8a4fc2a1.png" alt="2step2" /></p>
 
-<li><p>有錯直接中斷後續動作</p>
+<ul>
+<li>有錯直接中斷後續動作</li>
+</ul>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/25400372/e55cf770-2a24-11e7-87c5-a68fa110f166.png" alt="3blocking" /></p></li>
 </ul></li>
@@ -245,9 +249,11 @@ stage('TestCopy') {
     ]
     }}
 )
-</code></pre></li>
+</code></pre>
 
-<li><p>平行執行</p>
+<ul>
+<li>平行執行</li>
+</ul>
 
 <blockquote>
 <p>將多個 stage 視為同一個 node 會同時啟動，會等待較長的 stage 完成後才統一回傳結果</p>
@@ -255,9 +261,11 @@ stage('TestCopy') {
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/25400371/e55c8e98-2a24-11e7-98b7-e1c07408b795.png" alt="4starttoget" /></p>
 
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400368/e5346f12-2a24-11e7-9fce-ebd049f812d9.png" alt="5stoptoget" /></p></li>
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400368/e5346f12-2a24-11e7-9fce-ebd049f812d9.png" alt="5stoptoget" /></p>
 
-<li><p>出錯仍會執行其他 stage</p>
+<ul>
+<li>出錯仍會執行其他 stage</li>
+</ul>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/25400367/e53343bc-2a24-11e7-885c-015e3d8236ac.png" alt="6noblocking" /></p></li>
 </ul></li>
@@ -309,20 +317,23 @@ stage('Step3') {
     [$class: 'StringParameterValue', name: 'groupNo', value: '0']
     ]
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>正常執行</p>
+<ul>
+<li>正常執行</li>
+</ul>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/25400364/e531b9d4-2a24-11e7-9961-76f010f609c3.png" alt="7pipelineparallel" /></p>
 
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400366/e533326e-2a24-11e7-83d6-706d370c8dc8.png" alt="8parallelok" /></p></li>
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400366/e533326e-2a24-11e7-83d6-706d370c8dc8.png" alt="8parallelok" /></p>
 
-<li><p>某個 job 有異常，也不會影響其他 job build</p>
+<ul>
+<li>某個 job 有異常，也不會影響其他 job build</li>
+</ul>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/25400363/e53178e8-2a24-11e7-84fd-74205e439893.png" alt="9parallelfail" /></p>
 
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400365/e53300b4-2a24-11e7-9e9a-c4c60411e6a9.png" alt="10paralleljobok" /></p></li>
-</ul>
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25400365/e53300b4-2a24-11e7-9e9a-c4c60411e6a9.png" alt="10paralleljobok" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -335,7 +346,8 @@ stage('Step3') {
 <li><a href="https://www.cloudbees.com/blog/parallelism-and-distributed-builds-jenkins" target="_blank">Parallelism and Distributed Builds with Jenkins</a></li>
 <li><a href="//blog.yowko.com/2017/04/jenkins2-getlastsuccessfulbuild.html" target="_blank">Jenkins 2 如何取得上次編譯成功的時間</a></li>
 <li><a href="https://jenkins.io/doc/pipeline/examples/#jobs-in-parallel" target="_blank">Jobs In Parallel</a></li>
-</ol>
+</ol></li>
+</ul>
 
     </div>
 

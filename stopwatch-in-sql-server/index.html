@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -193,9 +193,11 @@
 <li><p>語法</p>
 
 <pre><code class="language-sql">SET STATISTICS TIME { ON | OFF }
-</code></pre></li>
+</code></pre>
 
-<li><p>範例</p>
+<ol>
+<li>範例</li>
+</ol>
 
 <pre><code class="language-sql">USE AdventureWorks2014;  
 GO         
@@ -240,12 +242,13 @@ SELECT ProductID, StartDate, EndDate, StandardCost
 FROM Production.ProductCostHistory  
 WHERE StandardCost &gt; 500.00;  
 GO
-</code></pre></li>
+</code></pre>
 
-<li><p>結果</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/27743432-90a251aa-5dee-11e7-857c-6ac4bdd98084.png" alt="2includeresult" /></p></li>
+<ol>
+<li>結果</li>
 </ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/27743432-90a251aa-5dee-11e7-857c-6ac4bdd98084.png" alt="2includeresult" /></p>
 
 <h2 id="三-手刻計時器">三、手刻計時器</h2>
 
@@ -254,7 +257,8 @@ GO
 </blockquote>
 
 <ol>
-<li><p>語法</p>
+<li>語法</li>
+</ol>
 
 <pre><code class="language-SQL">DECLARE @t1 DATETIME;
 DECLARE @t2 DATETIME;
@@ -288,12 +292,13 @@ FROM [Sales].[Store]
 SET @t2 = GETDATE();
 SELECT DATEDIFF(millisecond,@t1,@t2) AS elapsed_ms;
 GO
-</code></pre></li>
+</code></pre>
 
-<li><p>結果</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/27743433-90a5e450-5dee-11e7-9f5c-cbe4612627ad.png" alt="3inlineresult" /></p></li>
+<ol>
+<li>結果</li>
 </ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/27743433-90a5e450-5dee-11e7-9f5c-cbe4612627ad.png" alt="3inlineresult" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -304,6 +309,7 @@ GO
 <ol>
 <li><a href="https://docs.microsoft.com/ZH-tw/sql/t-sql/statements/set-statistics-time-transact-sql" target="_blank">SET STATISTICS TIME (Transact-SQL)</a></li>
 <li><a href="http://www.sqlserver.info/management-studio/show-query-execution-time/" target="_blank">Show Query Execution Time</a></li>
+</ol></li>
 </ol>
 
     </div>

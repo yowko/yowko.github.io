@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -269,11 +269,11 @@
 </blockquote>
 
 <pre><code class="language-cs">SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
-</code></pre></li>
+</code></pre>
 
-<li><p>檢核是否鎖定</p>
+<ol>
+<li>檢核是否鎖定</li>
 
-<ul>
 <li><p>由儲存 user 資料的三個 table 欄位控制</p>
 
 <ul>
@@ -295,7 +295,9 @@
 <p>登入失敗次數</p>
 </blockquote></li>
 </ul></li>
+</ol>
 
+<ul>
 <li><p>實際驗證是否鎖定流程</p>
 
 <ul>
@@ -322,32 +324,35 @@
 <li>同時滿足啟用自動鎖定 (LockoutEnabled 為 true) 且當下時間小於鎖定結束時間 (LockoutEndUtc)，即 <code>鎖定，無法登入</code></li>
 <li>未啟用自動鎖定 (LockoutEnabled 為 false)，登入嘗試紀錄及寫入鎖定時間的機制依舊，但因未滿足上述條件(LockoutEnabled 為 true)，所以不會鎖定</li>
 </ul></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="applicationusermanager-的自動鎖定預設設定">ApplicationUserManager 的自動鎖定預設設定</h2>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/33835120-70180ec2-dec0-11e7-8e07-a0bdc133352f.png" alt="5defaultset" /></p>
 
 <ol>
-<li><p>UserLockoutEnabledByDefault</p>
+<li>UserLockoutEnabledByDefault</li>
+</ol>
 
 <blockquote>
 <p>將會在建立 user 時啟用自動鎖定</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>DefaultAccountLockoutTimeSpan</p>
+<ol>
+<li>DefaultAccountLockoutTimeSpan</li>
+</ol>
 
 <blockquote>
 <p>鎖定的預設時間間隔，達到登入失敗上限時間點開始鎖定的時間間隔，預設為五分鐘(達到失敗上限後鎖定五分鐘不得登入)</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>MaxFailedAccessAttemptsBeforeLockout</p>
+<ol>
+<li>MaxFailedAccessAttemptsBeforeLockout</li>
+</ol>
 
 <blockquote>
 <p>登入失敗次數上限</p>
-</blockquote></li>
-</ol>
+</blockquote>
 
 <h2 id="心得">心得</h2>
 
@@ -361,6 +366,7 @@
 
 <ol>
 <li><a href="https://dotblogs.com.tw/yc421206/2016/08/03/asp_net_identity_oauth_user_lockout" target="_blank">OAuth Server 鎖定(Lockout)登入失敗次數太多的帳號</a></li>
+</ol></li>
 </ol>
 
     </div>

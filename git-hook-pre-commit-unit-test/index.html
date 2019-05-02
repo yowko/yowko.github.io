@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -249,43 +249,46 @@ fi
 <blockquote>
 <p>if 的結尾</p>
 </blockquote></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="與其他團隊成員共用">與其他團隊成員共用</h2>
 
 <p>上述的設定只適用於 local repository，因為在 <code>.git</code> folder 下的所有內容都不會加入版控，如果想將 git hook 與其他團隊成員共用，就需要加上下列設定</p>
 
 <ol>
-<li><p>將 <code>hooks</code> 資料夾從 <code>.git</code> 中移至專案根目錄</p>
+<li>將 <code>hooks</code> 資料夾從 <code>.git</code> 中移至專案根目錄</li>
+</ol>
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/30600994-66f85536-9d93-11e7-86f6-6be872347ced.png" alt="4movetoroot" /></p>
-</blockquote></li>
+</blockquote>
 
+<ol>
 <li><p>將 git hooks 的路徑從 <code>.git\hooks</code> 指向專案根目錄的 <code>hooks</code></p>
 
 <pre><code>git config core.hooksPath hooks
 </code></pre></li>
 
-<li><p>可能需要調整 git hook 內容</p>
+<li><p>可能需要調整 git hook 內容</p></li>
+</ol>
 
 <blockquote>
 <p>確認測試目標的 dll 路徑</p>
-</blockquote></li>
-</ol>
+</blockquote>
 
 <h2 id="實際效果">實際效果</h2>
 
 <ol>
-<li><p>未通過測試，無法 commit</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/30600993-66f8034c-9d93-11e7-8c02-42d096acc967.png" alt="2cannotcommit" /></p></li>
-
-<li><p>通過測試，順利 commit</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/30600992-66f212b6-9d93-11e7-91a0-465e5f3d90b8.png" alt="3commit" /></p></li>
+<li>未通過測試，無法 commit</li>
 </ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30600993-66f8034c-9d93-11e7-8c02-42d096acc967.png" alt="2cannotcommit" /></p>
+
+<ol>
+<li>通過測試，順利 commit</li>
+</ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30600992-66f212b6-9d93-11e7-91a0-465e5f3d90b8.png" alt="3commit" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -297,6 +300,7 @@ fi
 <li><a href="https://blog.yowko.com/2017/05/git-hook-windows.html" target="_blank">Windows 環境下為 Git Repository 加上 Git Hook</a></li>
 <li><a href="http://yodalee.blogspot.tw/2016/12/git-hook-unittest.html" target="_blank">使用git hook在commit 前進行unittest</a></li>
 <li><a href="https://www.viget.com/articles/two-ways-to-share-git-hooks-with-your-team" target="_blank">Two Ways to Share Git Hooks with Your Team</a></li>
+</ol></li>
 </ol>
 
     </div>

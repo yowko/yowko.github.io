@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -248,9 +248,11 @@ If you see the text &quot;There is a duplicate 'system.web.extensions/scripting/
     &lt;section name=&quot;oracle.manageddataaccess.client&quot; type=&quot;OracleInternal.Common.ODPMSectionHandler, Oracle.ManagedDataAccess&quot; /&gt;
     &lt;section name=&quot;entityFramework&quot; type=&quot;System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&quot; requirePermission=&quot;false&quot; /&gt;
 &lt;/configSections&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>google 到黑大文章 <a href="http://blog.darkthread.net/post-2014-04-22-duplicated-handler-entry-in-webconfig.aspx" target="_blank">【茶包射手日記】怪異的web.config HttpHandler重複錯誤</a> 可能是吃到上層的 web.config</p>
+<ol>
+<li>google 到黑大文章 <a href="http://blog.darkthread.net/post-2014-04-22-duplicated-handler-entry-in-webconfig.aspx" target="_blank">【茶包射手日記】怪異的web.config HttpHandler重複錯誤</a> 可能是吃到上層的 web.config</li>
+</ol>
 
 <ul>
 <li><p>這是直接啟動 iis express 執行的，看一下專案 property 設定</p>
@@ -258,9 +260,11 @@ If you see the text &quot;There is a duplicate 'system.web.extensions/scripting/
 <p><img src="https://user-images.githubusercontent.com/3851540/27622728-84b3903c-5c0b-11e7-920c-f078b58ff70b.png" alt="3webproperty" /></p></li>
 
 <li><p>確認沒有上層資料夾，排除吃到上層 web.config 設定的可能</p></li>
-</ul></li>
+</ul>
 
-<li><p>嘗試把 web.config 提示重複的區段註解掉還真的可以正常執行XD</p>
+<ol>
+<li>嘗試把 web.config 提示重複的區段註解掉還真的可以正常執行XD</li>
+</ol>
 
 <pre><code class="language-xml">&lt;configSections&gt;
     &lt;section name=&quot;nlog&quot; type=&quot;NLog.Config.ConfigSectionHandler, NLog&quot; /&gt;

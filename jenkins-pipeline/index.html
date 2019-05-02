@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -250,9 +250,12 @@ do
     Start-Sleep -Seconds 1
 }
 until ( Invoke-Command -ComputerName  $env:serverIP -ScriptBlock { (Get-WebAppPoolState -Name $args[0]).Value -eq &quot;Stopped&quot; } -argumentlist $env:siteName  )
-</code></pre></li>
+</code></pre>
 
-<li><p>在 Windows PowerShell 要取用定義在 Jenkins 的變數，記得在 變數前面加上 <code>$env:</code></p></li>
+<ul>
+<li>在 Windows PowerShell 要取用定義在 Jenkins 的變數，記得在 變數前面加上 <code>$env:</code>
+<br /></li>
+</ul></li>
 </ul></li>
 </ul></li>
 

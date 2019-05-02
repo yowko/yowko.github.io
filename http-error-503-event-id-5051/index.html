@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -193,12 +193,13 @@
 
 <pre><code class="language-text">Service Unavailable
 HTTP Error 503. The service is unavailable.
-</code></pre></li>
+</code></pre>
 
-<li><p>錯誤截圖</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/39143392-620734f8-4760-11e8-9b56-e0aaa5939e0c.png" alt="1error" /></p></li>
+<ol>
+<li>錯誤截圖</li>
 </ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/39143392-620734f8-4760-11e8-9b56-e0aaa5939e0c.png" alt="1error" /></p>
 
 <h2 id="解決方式">解決方式</h2>
 
@@ -207,43 +208,52 @@ HTTP Error 503. The service is unavailable.
 </blockquote>
 
 <ol>
-<li><p>取得 IIS Application Pool 所使用的 Identity</p>
+<li>取得 IIS Application Pool 所使用的 Identity</li>
+</ol>
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39143393-622f7968-4760-11e8-8fd4-d8d4f41fa835.png" alt="2identity" /></p>
-</blockquote></li>
+</blockquote>
 
-<li><p>開啟 Local Policies &ndash;&gt; User Rights Assignment &ndash;&gt; Log on as a batch job</p>
+<ol>
+<li>開啟 Local Policies &ndash;&gt; User Rights Assignment &ndash;&gt; Log on as a batch job</li>
+</ol>
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39143394-62578bc4-4760-11e8-987c-09f46ae52aaf.png" alt="3logonasbatch" /></p>
-</blockquote></li>
+</blockquote>
 
-<li><p>Add User or Group&hellip;</p>
+<ol>
+<li>Add User or Group&hellip;</li>
+</ol>
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39143395-62812ae2-4760-11e8-9b1d-8fd3cecec471.png" alt="4adduser" /></p>
-</blockquote></li>
+</blockquote>
 
-<li><p>重新開機(不一定需要)</p>
+<ol>
+<li>重新開機(不一定需要)</li>
+</ol>
 
 <blockquote>
 <p>較新的 Windows 10 及 Windows Server 2016 都可以直接生效，如果較舊的作業系統建議重新開機</p>
-</blockquote></li>
-</ol>
+</blockquote>
 
 <h2 id="如何確認解決方式適用">如何確認解決方式適用</h2>
 
 <ol>
 <li><p>IIS 出現 503 Service Unavailable</p></li>
 
-<li><p>Application Pool 啟動後立即被停止</p>
+<li><p>Application Pool 啟動後立即被停止</p></li>
+</ol>
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39143396-62aede7e-4760-11e8-92d0-6d3992cc6719.png" alt="5alwaysstop" /></p>
-</blockquote></li>
+</blockquote>
 
-<li><p>Event log 中出現 WAS 類型的 Error 及 Warning</p>
+<ol>
+<li>Event log 中出現 WAS 類型的 Error 及 Warning</li>
+</ol>
 
 <blockquote>
 <p>以下三個 WAS 類型的 Error 及 Warning 會接續出現</p>
@@ -259,9 +269,11 @@ HTTP Error 503. The service is unavailable.
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39143398-6309cdfc-4760-11e8-84e0-91407e871335.png" alt="7eventerror" /></p>
-</blockquote></li>
+</blockquote>
 
-<li><p><code>Warning</code> - Event ID 5057</p>
+<ul>
+<li><code>Warning</code> - Event ID 5057</li>
+</ul>
 
 <pre><code class="language-text">Application pool TestTimeout has been disabled. Windows Process Activation Service (WAS) did not create a worker process to serve the application pool because the application pool identity is invalid.
 </code></pre>
@@ -277,33 +289,35 @@ HTTP Error 503. The service is unavailable.
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39143401-636fe178-4760-11e8-8c80-486262dded71.png" alt="9eventwarning2" /></p>
-</blockquote></li>
-</ul></li>
-</ol>
+</blockquote>
 
 <h2 id="需要-logon-as-batch-job-權限的情境">需要 Logon as Batch Job 權限的情境</h2>
 
 <ol>
-<li><p>寫入資料至分享資料夾</p>
+<li>寫入資料至分享資料夾</li>
+</ol>
 
 <blockquote>
 <p>我遇到的狀況屬於這個</p>
 </blockquote>
 
 <ul>
-<li><p>程式使用到分享資料夾(透過網路位置加入)</p>
+<li>程式使用到分享資料夾(透過網路位置加入)</li>
+</ul>
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39143402-639c81f6-4760-11e8-86a1-2413b5104c40.png" alt="10networklocation" /></p>
-</blockquote></li>
+</blockquote>
 
-<li><p>IIS 使用特定 user 來存取網路硬碟</p>
+<ul>
+<li>IIS 使用特定 user 來存取網路硬碟</li>
+</ul>
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39143391-61c353dc-4760-11e8-97f2-e43b22b291dc.png" alt="11poolidentity" /></p>
-</blockquote></li>
-</ul></li>
+</blockquote>
 
+<ol>
 <li><p>使用分享印表機</p></li>
 
 <li><p>執行互動式程式</p></li>
@@ -318,6 +332,8 @@ HTTP Error 503. The service is unavailable.
 <ol>
 <li><a href="https://www.howtogeek.com/tips/how-to-see-which-group-your-windows-user-belongs-to/" target="_blank">How to See Which Groups Your Windows User Account Belongs To</a></li>
 <li><a href="https://www.brooksnet.com/faq/granting-logon-as-batch-privilege" target="_blank">Granting &ldquo;Logon as a batch job&rdquo;</a></li>
+</ol></li>
+</ul></li>
 </ol>
 
     </div>

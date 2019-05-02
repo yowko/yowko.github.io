@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -205,9 +205,11 @@
 <li><p>引用 <code>Microsoft.Office.Interop.Word</code></p>
 
 <pre><code class="language-cs">using Microsoft.Office.Interop.Word;
-</code></pre></li>
+</code></pre>
 
-<li><p>程式碼</p>
+<ol>
+<li>程式碼</li>
+</ol>
 
 <pre><code class="language-cs">// docx 檔案位置
 string sourcedocx = @&quot;C:\sample.docx&quot;;
@@ -255,26 +257,30 @@ namespace Word2PDF
         }
     }
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="出現多個-word-背景執行作業-or-檔案使用中">出現多個 Word 背景執行作業 or 檔案使用中</h2>
 
 <ol>
-<li><p>錯誤畫面</p>
+<li>錯誤畫面</li>
+</ol>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34535534-22768e88-f0fd-11e7-9bfc-dc298975b229.png" alt="3word" /></p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34535535-22a00a74-f0fd-11e7-905b-43a3ee858a95.png" alt="4opening" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/34535535-22a00a74-f0fd-11e7-905b-43a3ee858a95.png" alt="4opening" /></p>
 
-<li><p>問題原因：</p>
+<ol>
+<li>問題原因：</li>
+</ol>
 
 <ul>
 <li>Word 背景執行 instance：未關閉 Word 元件</li>
 <li>Word 檔案使用中：Word 元件未關閉 Word 檔</li>
-</ul></li>
+</ul>
 
-<li><p>解決方式</p>
+<ol>
+<li>解決方式</li>
+</ol>
 
 <pre><code class="language-cs">//關閉 word 檔
 wordDocument.Close();

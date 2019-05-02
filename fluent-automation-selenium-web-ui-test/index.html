@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -301,19 +301,19 @@ namespace SeleniumTests
         }
     }
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="安裝-nuget-套件">安裝 NuGet 套件</h2>
 
 <ol>
-<li><p>FluentAutomation.SeleniumWebDriver</p>
+<li>FluentAutomation.SeleniumWebDriver</li>
 
-<ul>
 <li><p>專案上按右鍵 &ndash;&gt; Manage NuGet Packages</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/26888548-f0aae4b8-4bdd-11e7-8cf4-1279dac0bc85.png" alt="1nuget" /></p></li>
+</ol>
 
+<ul>
 <li><p>Browse &ndash;&gt; 搜尋 <code>FluentAutomation.SeleniumWebDriver</code> &ndash;&gt; Install</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/26888549-f0d1bf98-4bdd-11e7-8e95-64b54034cad8.png" alt="2install" /></p></li>
@@ -321,15 +321,17 @@ namespace SeleniumTests
 <li><p>會一併安裝其他相關套件</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/26888550-f0e78d32-4bdd-11e7-8781-fa4c7a354e9b.png" alt="3otherpacks" /></p></li>
-</ul></li>
+</ul>
 
-<li><p>Selenium.WebDriver.ChromeDriver</p>
+<ol>
+<li>Selenium.WebDriver.ChromeDriver</li>
 
-<ul>
 <li><p>專案上按右鍵 &ndash;&gt; Manage NuGet Packages</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/26888548-f0aae4b8-4bdd-11e7-8cf4-1279dac0bc85.png" alt="1nuget" /></p></li>
+</ol>
 
+<ul>
 <li><p>Browse &ndash;&gt; 搜尋 <code>Selenium.WebDriver.ChromeDriver</code> &ndash;&gt; Install</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/26888553-f0ee5446-4bdd-11e7-80d7-3ca8b766dde1.png" alt="4install" /></p></li>
@@ -380,23 +382,27 @@ FluentAutomation.Exceptions.FluentException : An unexpected exception was thrown
 
 <p><img src="https://user-images.githubusercontent.com/3851540/26888552-f0ec8ecc-4bdd-11e7-9c83-f8b9dbc95bff.png" alt="6error" /></p></li>
 </ul></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="如何使用">如何使用</h2>
 
 <ol>
-<li><p>引用 <code>FluentAutomation</code></p>
+<li>引用 <code>FluentAutomation</code></li>
+</ol>
 
 <pre><code class="language-cs">using FluentAutomation;
 </code></pre></li>
+</ul>
 
+<ol>
 <li><p>測試 class 繼承 <code>FluentTest</code></p>
 
 <pre><code class="language-cs">public class Ngithub : FluentTest
-</code></pre></li>
+</code></pre>
 
-<li><p>建構式中指定使用的瀏覽器</p>
+<ol>
+<li>建構式中指定使用的瀏覽器</li>
+</ol>
 
 <pre><code class="language-cs">SeleniumWebDriver.Bootstrap(SeleniumWebDriver.Browser.Firefox);
 </code></pre>
@@ -414,9 +420,11 @@ FluentAutomation.Exceptions.FluentException : An unexpected exception was thrown
 .In(&quot;#password&quot;)
 .Click(&quot;input[name='commit']&quot;)
 .Wait(1).Assert.Url(baseURL);
-</code></pre></li>
+</code></pre>
 
-<li><p>完整程式</p>
+<ol>
+<li>完整程式</li>
+</ol>
 
 <pre><code class="language-cs">using NUnit.Framework;
 using FluentAutomation;
@@ -454,9 +462,11 @@ namespace SeleniumTests
 <li><p>驗證在 selector 中是否有特定 css class</p>
 
 <pre><code class="language-cs">I.Assert.Class(&quot;{class name}&quot;).Of(&quot;{selector}&quot;);
-</code></pre></li>
+</code></pre>
 
-<li><p>驗證特定的 selector 數量</p>
+<ul>
+<li>驗證特定的 selector 數量</li>
+</ul>
 
 <pre><code class="language-cs">I.Assert.Count(1).Of(&quot;{selector}&quot;);
 </code></pre></li>
@@ -464,9 +474,11 @@ namespace SeleniumTests
 <li><p>驗證頁面上是否有特定 selector</p>
 
 <pre><code class="language-cs">I.Assert.Exists(&quot;{selector}&quot;);
-</code></pre></li>
+</code></pre>
 
-<li><p>驗證匿名函式結果是否為 false</p>
+<ul>
+<li>驗證匿名函式結果是否為 false</li>
+</ul>
 
 <pre><code class="language-cs">var element = I.Find(&quot;input&quot;);
 I.Assert.False(() =&gt; element().IsSelect);
@@ -478,9 +490,11 @@ I.Assert.False(() =&gt; element().IsSelect);
 <li><p>可以用於有 <code>innerHTML</code> 或是可以提供 <code>文字</code> 值的 DOM element 上</p>
 
 <pre><code class="language-cs">I.Assert.Text(&quot;FluentAutomation&quot;).In(&quot;{selector}&quot;);
-</code></pre></li>
+</code></pre>
 
-<li><p>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</p>
+<ul>
+<li>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</li>
+</ul>
 
 <pre><code class="language-cs">I.Assert.Text((text) =&gt; text.Length &gt; 50).In(&quot;{selector}&quot;);
 </code></pre></li>
@@ -494,23 +508,25 @@ I.Assert.False(() =&gt; element().IsSelect);
 
 <pre><code class="language-cs">//登入成功沒有這個 div 會 pass ，登入失敗出現這個 div 會 fail
 I.Assert.Throws(() =&gt; I.Assert.Exists(&quot;#js-flash-container .flash.flash-full.flash-error .container&quot;));
-</code></pre></li>
-
-<li><p>驗證 <code>value</code> 是否合乎預期</p>
+</code></pre>
 
 <ul>
+<li><p>驗證 <code>value</code> 是否合乎預期</p></li>
+
 <li><p>可以使用 selector 選定的 <code>&lt;INPUT&gt;</code>、<code>&lt;TEXTAREA&gt;</code>、<code>&lt;SELECT&gt;</code></p>
 
 <pre><code class="language-cs">I.Assert.Value(10).In(&quot;{selector}&quot;);
-</code></pre></li>
+</code></pre>
 
-<li><p>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</p>
+<ul>
+<li>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</li>
+</ul>
 
 <pre><code class="language-cs">I.Assert.Value((value) =&gt; value.StartsWith(&quot;M&quot;)).In(&quot;{selector}&quot;);
 </code></pre></li>
-</ul></li>
 
-<li><p>驗證匿名函數結果應該為 <code>true</code></p>
+<li><p>驗證匿名函數結果應該為 <code>true</code></p></li>
+</ul>
 
 <pre><code class="language-cs">var element = I.Find(&quot;select&quot;);
 I.Assert.True(() =&gt; element().IsSelect);
@@ -522,9 +538,11 @@ I.Assert.True(() =&gt; element().IsSelect);
 <li><p>可以驗證 <code>string</code> 或是 <code>Uri</code></p>
 
 <pre><code class="language-cs">I.Assert.Url(url);
-</code></pre></li>
+</code></pre>
 
-<li><p>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</p>
+<ul>
+<li>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</li>
+</ul>
 
 <pre><code class="language-cs">I.Assert.Url((uri) =&gt; uri.Scheme == &quot;https&quot;);
 </code></pre></li>

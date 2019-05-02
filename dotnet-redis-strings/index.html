@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -280,15 +280,15 @@
     }
     public static ConnectionMultiplexer GetConnection() =&gt; Connection.Value;
 }
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="web-config-加上連線字串">web.config 加上連線字串</h2>
 
 <pre><code class="language-xml">&lt;appSettings&gt;
-    &lt;add key=&quot;RedisConnection&quot; value=&quot;localhost:6379&quot;/&gt;
+&lt;add key=&quot;RedisConnection&quot; value=&quot;localhost:6379&quot;/&gt;
 &lt;/appSettings&gt;
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="將原本使用-memorycache-修改為使用-redis">將原本使用 <code>MemoryCache</code> 修改為使用 Redis</h2>
 
@@ -312,9 +312,12 @@
     _redisconnection = RedisConnectionFactory.GetConnection();
     _db = _redisconnection.GetDatabase();
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>修改取 cahce data 方法</p>
+<ol>
+<li>修改取 cahce data 方法
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">/// &lt;summary&gt;
 /// 取得 cache data
@@ -377,9 +380,12 @@ private static List&lt;T&gt; SetCacheData&lt;T&gt;(string key)
     }
     return cacheData;
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>完整程式</p>
+<ol>
+<li>完整程式
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">public static class RedisLockCacheHelper
 {
@@ -466,7 +472,6 @@ private static List&lt;T&gt; SetCacheData&lt;T&gt;(string key)
 <li><code>List&lt;Table&gt;</code> 是 caceh 存放型別</li>
 <li>第一個參數 <code>cacheKey</code> 是用來區隔多組 cache data 的 key (如需多個相同 table 不同 cache ，可藉由 cache 區隔)</li>
 <li>第二個參數 <code>refresh</code> 是用來強制更新 cache 的</li>
-</ul></li>
 </ul>
 
 <h2 id="結果">結果</h2>
@@ -488,7 +493,8 @@ private static List&lt;T&gt; SetCacheData&lt;T&gt;(string key)
 <li><a href="http://blog.yowko.com/2017/01/net-framework-memorycache-avoid-ddos-db.html" target="_blank">使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 2 使用 lock 避免 ddos db</a></li>
 <li><a href="http://blog.yowko.com/2017/02/net-framework-memorycache-cache-part-3.html" target="_blank">使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 3 隱藏的效能瓶頸</a></li>
 <li><a href="http://blog.yowko.com/2017/02/net-framework-memorycache-use-generic.html" target="_blank">使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 4 使用泛型來簡化</a></li>
-</ol>
+</ol></li>
+</ul>
 
     </div>
 

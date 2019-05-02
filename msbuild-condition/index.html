@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -236,9 +236,11 @@
 <ul>
 <li>編譯參數 <code>Configuration</code> 等於 DEBUG 就輸出 ValueChanged - $(Configuration) 即 <code>ValueChanged - DEBUG</code>；</li>
 <li>未指定 <code>Configuration</code> 參數或是 <code>Configuration</code> 是空字串時就輸出 <code>ValueChanged-NoConfig</code></li>
-</ul></li>
+</ul>
 
-<li><p>多個條件參數設定</p>
+<ol>
+<li>多個條件參數設定</li>
+</ol>
 
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;Project xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;&gt;
@@ -276,9 +278,11 @@
         &lt;/Otherwise&gt;  
     &lt;/Choose&gt;  
 &lt;/Project&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>指定預設值</p>
+<ol>
+<li>指定預設值</li>
+</ol>
 
 <blockquote>
 <p>如果未指定參數值或是參數等於空字串，可以設定參數預設值</p>

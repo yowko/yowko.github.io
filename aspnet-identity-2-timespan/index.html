@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -265,9 +265,11 @@
 <li><p>理論值</p>
 
 <pre><code class="language-cs">TimeSpan.FromTicks((DateTimeOffset.MaxValue-DateTimeOffset.UtcNow).Ticks)
-</code></pre></li>
+</code></pre>
 
-<li><p>實際值</p>
+<ul>
+<li>實際值</li>
+</ul>
 
 <blockquote>
 <p>理論值可以取得 <code>DateTime.MaxValue</code> 與 <code>DateTimeOffset.UtcNow</code> 的精準落差，但實際上可用度很低，原因是該實際執行時會有時間差問題</p>
@@ -277,9 +279,11 @@
 <li><p>建議設定一個可接受的極大值即可(5000/12/31)</p>
 
 <pre><code class="language-cs">TimeSpan.FromTicks(new DateTime(5000,12,31).Ticks)
-</code></pre></li>
+</code></pre>
 
-<li><p>可以透過時間差調整設定找出最接近的極限值</p>
+<ul>
+<li>可以透過時間差調整設定找出最接近的極限值</li>
+</ul>
 
 <pre><code class="language-cs">TimeSpan.FromTicks((DateTime.MaxValue - DateTime.UtcNow.AddSeconds(1)).Ticks)
 </code></pre></li>

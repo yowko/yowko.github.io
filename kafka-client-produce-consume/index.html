@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -264,20 +264,19 @@
         }
     }
 }
-</code></pre></li>
-
-<li><p>注意事項</p>
+</code></pre>
 
 <ul>
+<li>注意事項</li>
 <li>只會接受 producer 在 consumer 啟動後所發送的訊息</li>
 <li>多個 consumer 都會收到同樣訊息，不是分配接受端</li>
-</ul></li>
 </ul>
 
 <h2 id="發送訊息">發送訊息</h2>
 
 <ul>
-<li><p>範例程式</p>
+<li>範例程式</li>
+</ul>
 
 <pre><code class="language-cs">void Main()
 {
@@ -346,14 +345,12 @@
         Console.ReadLine();
     }
 }
-</code></pre></li>
-
-<li><p>注意事項</p>
+</code></pre>
 
 <ul>
+<li>注意事項</li>
 <li>只有沒收過的訊息，啟動監聽後會全部收下來</li>
 <li>一樣是非分配訊息接受，訊息會被後起的 consumer 收走</li>
-</ul></li>
 </ul>
 
 <h2 id="心得">心得</h2>
@@ -370,7 +367,8 @@
 <li><a href="https://github.com/Microsoft/CSharpClient-for-Kafka" target="_blank">Microsoft/CSharpClient-for-Kafka</a></li>
 <li><a href="https://github.com/confluentinc/confluent-kafka-dotnet" target="_blank">confluentinc/confluent-kafka-dotnet</a></li>
 <li><a href="https://github.com/ah-/rdkafka-dotnet" target="_blank">ah-/rdkafka-dotnet</a></li>
-</ol>
+</ol></li>
+</ul>
 
     </div>
 

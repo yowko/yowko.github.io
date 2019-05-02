@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -266,11 +266,11 @@ var channel = new Channel($&quot;{host}:{port}&quot;, ChannelCredentials.Insecur
 
 var serviceClient = new gRPCService.gRPCServiceClient(channel);
 
-</code></pre></li>
+</code></pre>
 
-<li><p>gRPC.Server 實作 gRPCService 並啟動 gRPC</p>
+<ol>
+<li>gRPC.Server 實作 gRPCService 並啟動 gRPC</li>
 
-<ul>
 <li><p>實作</p>
 
 <pre><code class="language-cs">public class gRPCServiceImplfor : gRPCService.gRPCServiceBase
@@ -290,9 +290,11 @@ var serviceClient = new gRPCService.gRPCServiceClient(channel);
         return base.DeleteUser(request, context);
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>啟動</p>
+<ul>
+<li>啟動</li>
+</ul>
 
 <pre><code class="language-cs">static async Task Main(string[] args)
 {
@@ -320,7 +322,6 @@ var serviceClient = new gRPCService.gRPCServiceClient(channel);
     await serverInstance.ShutdownAsync();
 }
 </code></pre></li>
-</ul></li>
 </ol>
 
 <h2 id="方法一-使用-string">方法一：使用 string</h2>
@@ -334,31 +335,32 @@ package gRPC.Message;
 option csharp_namespace = &quot;gRPC.Message&quot;;
     
 message AddUserRequest{
-    string Name=1;
-    int32 Age=2;
+string Name=1;
+int32 Age=2;
 }
 message GetUsersRequest{
 }
 
 message DeleteUserRequest{
-    string Name=1;
+string Name=1;
 }
 
 message Response{
-    bool IsSuccess=1;
-    string ResultMsg=2;
-    epeated string ResultMsgs=3;
+bool IsSuccess=1;
+string ResultMsg=2;
+epeated string ResultMsgs=3;
 }
 
 
 service gRPCService {
-    rpc AddUser(AddUserRequest) returns (Response);
-    rpc GetUsers(GetUsersRequest) returns (Response);
-    rpc DeleteUser(DeleteUserRequest) returns (Response);
+rpc AddUser(AddUserRequest) returns (Response);
+rpc GetUsers(GetUsersRequest) returns (Response);
+rpc DeleteUser(DeleteUserRequest) returns (Response);
 }
 </code></pre></li>
 
-<li><p>實際使用</p>
+<li><p>實際使用</p></li>
+</ol>
 
 <ul>
 <li><p>client 端</p>
@@ -401,9 +403,11 @@ service gRPCService {
     var delResult = deleteResult.ResultMsg;
     Console.WriteLine($&quot;Msg:{delResult}&quot;);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>server 端</p>
+<ul>
+<li>server 端</li>
+</ul>
 
 <pre><code class="language-cs">public class gRPCServiceImpl : gRPCService.gRPCServiceBase
 {
@@ -455,13 +459,13 @@ service gRPCService {
     }
 }
 </code></pre></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="方法二-使用-any">方法二：使用 any</h2>
 
 <ol>
-<li><p>message 定義</p>
+<li>message 定義</li>
+</ol>
 
 <blockquote>
 <p><code>any</code> 是 google 額外提供的型別，使用時需要 import</p>
@@ -496,9 +500,11 @@ service gRPCService {
     rpc GetUsers(GetUsersRequest) returns (Response);
     rpc DeleteUser(DeleteUserRequest) returns (Response);
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>將 UserModel 加上 Serializable</p>
+<ol>
+<li>將 UserModel 加上 Serializable</li>
+</ol>
 
 <pre><code class="language-cs">[Serializable]
 public class UserModel
@@ -541,18 +547,22 @@ public class UserModel
         }
     }
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>編譯需額外引用參考 any.proto</p>
+<ol>
+<li>編譯需額外引用參考 any.proto</li>
+</ol>
 
 <blockquote>
 <p>any.proto 位於 <code>/Users/</code><code>whoami</code><code>/.nuget/packages/google.protobuf.tools/3.7.0/tools/google/protobuf/any.proto</code></p>
 </blockquote>
 
 <pre><code>/Users/`whoami`/.nuget/packages/grpc.tools/1.19.0/tools/macosx_x64/protoc -I /Users/`whoami`/.nuget/packages/google.protobuf.tools/3.7.0/tools/ -I proto/  --csharp_out src/gRPC.Message --grpc_out src/gRPC.Message proto/*.proto --plugin=protoc-gen-grpc=/Users/`whoami`/.nuget/packages/grpc.tools/1.19.0/tools/macosx_x64/grpc_csharp_plugin
-</code></pre></li>
+</code></pre>
 
-<li><p>實際使用</p>
+<ol>
+<li>實際使用</li>
+</ol>
 
 <ul>
 <li><p>client 端</p>
@@ -588,9 +598,12 @@ var deleteResult = serviceClient.DeleteUser(new DeleteUserRequest()
 var delResult = ByteStringUtility.FromByteArray&lt;string&gt;(deleteResult.ResultMsg.Value
     .ToByteArray());
 Console.WriteLine($&quot;Msg:{delResult}&quot;);
-</code></pre></li>
+</code></pre>
 
-<li><p>server 端</p>
+<ul>
+<li>server 端
+<br /></li>
+</ul>
 
 <pre><code class="language-cs">public class gRPCServiceImpl : gRPCService.gRPCServiceBase
 {
@@ -650,8 +663,7 @@ Console.WriteLine($&quot;Msg:{delResult}&quot;);
     }
 }
 </code></pre></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="心得">心得</h2>
 
@@ -667,6 +679,7 @@ Console.WriteLine($&quot;Msg:{delResult}&quot;);
 <li><a href="https://blackie1019.github.io/2019/02/10/gRPC-development-on-NET-Core-Basic/" target="_blank">gRPC development on .NET Core - Basic</a></li>
 <li><a href="https://stackoverflow.com/a/33022788" target="_blank">How to convert byte array to any type</a></li>
 <li><a href="https://github.com/yowko/gRPC-Any-CSharp-Sample.git" target="_blank">yowko/gRPC-Any-CSharp-Sample</a></li>
+</ol></li>
 </ol>
 
     </div>

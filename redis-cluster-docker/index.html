@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -477,9 +477,11 @@ networks:
 <li><p>進入 <code>docker-redis-cluster</code> 資料夾中</p>
 
 <pre><code class="language-bash">cd docker-redis-cluster
-</code></pre></li>
+</code></pre>
 
-<li><p>啟動 Redis Cluster</p>
+<ol>
+<li>啟動 Redis Cluster</li>
+</ol>
 
 <pre><code class="language-bash">docker-compose up -d --build
 </code></pre></li>
@@ -493,15 +495,15 @@ networks:
 <pre><code class="language-bash">docker exec -it redis-master1 redis-cli -a pass.123 -c cluster info
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/53691578-dbf5ab80-3dbb-11e9-90af-026926abc619.png" alt="2clusterinfo" /></p></li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/53691578-dbf5ab80-3dbb-11e9-90af-026926abc619.png" alt="2clusterinfo" /></p>
 
 <h2 id="加入-ip-route-rule-font-style-color-red-新增動作-font">加入 ip route rule ：<font style="color:red">新增動作</font></h2>
 
 <p>讓 host 可以透過 container ip 直接 access 相關服務</p>
 
 <ul>
-<li><p>以 Docker for Windows 為例</p>
+<li>以 Docker for Windows 為例</li>
+</ul>
 
 <blockquote>
 <p>詳細內容可以參考 <a href="https://blog.yowko.com/docker-host-access-linux-container-ip/" target="_blank">如何從 Winows docker host 透過 linux container ip 使用服務</a></p>
@@ -509,8 +511,10 @@ networks:
 
 <pre><code class="language-cmd">route add 172.19.0.0 MASK 255.255.255.0 10.0.75.2
 </code></pre></li>
+</ol>
 
-<li><p><font style="color:red">Docker for Mac 不支援該作法</font></p></li>
+<ul>
+<li><font style="color:red">Docker for Mac 不支援該作法</font></li>
 </ul>
 
 <h2 id="實際使用">實際使用</h2>
@@ -526,12 +530,13 @@ networks:
 ConfigurationOptions options = ConfigurationOptions.Parse(configString);
 var conn = ConnectionMultiplexer.Connect(options);
 conn.GetDatabase().StringSetAsync(&quot;test3&quot;,&quot;test123&quot;).ConfigureAwait(false).GetAwaiter().GetResult().Dump();
-</code></pre></li>
+</code></pre>
 
-<li><p>依 key 將資料儲存至不同 node 上</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/53813233-1caa1c00-3f98-11e9-856e-f9a91115bf75.png" alt="2result" /></p></li>
+<ol>
+<li>依 key 將資料儲存至不同 node 上</li>
 </ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/53813233-1caa1c00-3f98-11e9-856e-f9a91115bf75.png" alt="2result" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -545,6 +550,7 @@ conn.GetDatabase().StringSetAsync(&quot;test3&quot;,&quot;test123&quot;).Configu
 <li><a href="https://blog.yowko.com/docker-host-access-linux-container-ip/" target="_blank">如何從 Winows docker host 透過 linux container ip 使用服務</a></li>
 <li><a href="https://blog.yowko.com/docker-redis-cluster" target="_blank">使用 docker 建立 Redis Cluster</a></li>
 <li><a href="https://github.com/yowko/docker-redis-5-cluster.git" target="_blank">yowko/docker-redis-5-cluster</a></li>
+</ol></li>
 </ol>
 
     </div>

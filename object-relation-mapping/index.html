@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2019-01-01T00:42:34&#43;08:00" />
 <meta itemprop="dateModified" content="2019-01-01T00:42:34&#43;08:00" />
-<meta itemprop="wordCount" content="1131">
+<meta itemprop="wordCount" content="1133">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-01-01 </span>
         
-        <span class="more-meta"> 約 1131 字 </span>
+        <span class="more-meta"> 約 1133 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -215,40 +215,42 @@
 <li><p>連線字串</p>
 
 <pre><code class="language-cs">const string constr = &quot;Data Source=.;Integrated Security=SSPI;Initial Catalog=AdventureWorks2014;&quot;;
-</code></pre></li>
+</code></pre>
 
-<li><p>model</p>
-
-<pre><code class="language-cs">public class Person
+<ul>
+<li><p>model
+```cs
+public class Person
 {
-    public int BusinessEntityID { get; set; }
+public int BusinessEntityID { get; set; }</p>
 
-    public string PersonType { get; set; }
+<p>public string PersonType { get; set; }</p>
 
-    public bool NameStyle { get; set; }
+<p>public bool NameStyle { get; set; }</p>
 
-    public string Title { get; set; }
+<p>public string Title { get; set; }</p>
 
-    public string FirstName { get; set; }
+<p>public string FirstName { get; set; }</p>
 
-    public string MiddleName { get; set; }
+<p>public string MiddleName { get; set; }</p>
 
-    public string LastName { get; set; }
+<p>public string LastName { get; set; }</p>
 
-    public string Suffix { get; set; }
+<p>public string Suffix { get; set; }</p>
 
-    public int EmailPromotion { get; set; }
+<p>public int EmailPromotion { get; set; }</p>
 
-    public string AdditionalContactInfo { get; set; }
+<p>public string AdditionalContactInfo { get; set; }</p>
 
-    public string Demographics { get; set; }
+<p>public string Demographics { get; set; }</p>
 
-    public Guid rowguid { get; set; }
+<p>public Guid rowguid { get; set; }</p>
 
-    public DateTime ModifiedDate { get; set; }
+<p>public DateTime ModifiedDate { get; set; }</p></li>
+</ul>
 
-}
-</code></pre></li>
+<p>}
+```</p></li>
 </ul></li>
 
 <li><p>Dapper 1.50.5</p></li>

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -231,9 +231,11 @@ headers.Add(&quot;x-delay&quot;, 5000);
 props.Headers = headers;
 // 以 BasicProperties 發送訊息
 channel.BasicPublish(exchange, routingKey, props, body);
-</code></pre></li>
+</code></pre>
 
-<li><p>完整程式碼</p>
+<ul>
+<li>完整程式碼</li>
+</ul>
 
 <pre><code class="language-cs">//初始化連線資訊
 var factory = new ConnectionFactory();

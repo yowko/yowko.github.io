@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -237,12 +237,14 @@ DBCC DROPCLEANBUFFERS;
 <li><p>Syntax for SQL Server</p>
 
 <pre><code class="language-sql">DBCC DROPCLEANBUFFERS [ WITH NO_INFOMSGS ]
-</code></pre></li>
+</code></pre>
 
+<ul>
 <li><p>Syntax for Azure SQL Data Warehouse and Parallel Data Warehouse</p>
 
 <pre><code>DBCC DROPCLEANBUFFERS ( COMPUTE | ALL ) [ WITH NO_INFOMSGS ]
 </code></pre></li>
+</ul></li>
 </ul></li>
 
 <li><p>參數說明</p>
@@ -309,11 +311,11 @@ AND sysObj.is_ms_shipped = 0
 <li><p>使用 <code>DBCC DROPCLEANBUFFERS</code></p>
 
 <pre><code class="language-sql">DBCC DROPCLEANBUFFERS
-</code></pre></li>
+</code></pre>
 
-<li><p>檢查 cache</p>
+<ol>
+<li>檢查 cache</li>
 
-<ul>
 <li><p>因為僅有 <code>Clean Buffer</code>，所以可以全部清除</p>
 
 <pre><code class="language-sql">select sysObj.name,*
@@ -325,34 +327,32 @@ WHERE bufferDescriptors.database_id = DB_ID()
 AND sysObj.is_ms_shipped = 0
 </code></pre>
 
-<p><img src="https://trello-attachments.s3.amazonaws.com/580af37595015aea5f142a0b/1200x423/92ee3f137d2561a94494aa7d6509dd69/_output_cleanbufferdbcc.png" alt="cleanbufferdbcc" /></p></li>
-</ul></li>
+<p><img src="https://trello-attachments.s3.amazonaws.com/580af37595015aea5f142a0b/1200x423/92ee3f137d2561a94494aa7d6509dd69/_output_cleanbufferdbcc.png" alt="cleanbufferdbcc" /></p>
 
-<li><p>修改一筆資料</p>
-
-<ul>
-<li><p>製造出 <code>Dirty buffer</code></p>
+<ol>
+<li>修改一筆資料</li>
+<li>製造出 <code>Dirty buffer</code>
+<br /></li>
+</ol>
 
 <pre><code class="language-sql">UPDATE [Sales].[Customer]
 SET [ModifiedDate] = GETDATE()
 WHERE [CustomerID]=1
 GO
 </code></pre></li>
-</ul></li>
 
-<li><p>一般的 select</p>
+<li><p>一般的 select</p></li>
 
-<ul>
 <li><p>將資料載入 cache</p>
 
 <pre><code class="language-sql">SELECT * FROM [AdventureWorks2014].[Sales].[Customer]
-</code></pre></li>
-</ul></li>
+</code></pre>
 
-<li><p>檢查 cache</p>
-
-<ul>
-<li><p>cache 數量不變， 有 122 筆資料</p>
+<ol>
+<li>檢查 cache</li>
+<li>cache 數量不變， 有 122 筆資料
+<br /></li>
+</ol>
 
 <pre><code class="language-sql">select sysObj.name,* 
 from sys.dm_os_buffer_descriptors bufferDescriptors
@@ -364,9 +364,9 @@ AND sysObj.is_ms_shipped = 0
 </code></pre>
 
 <p><img src="https://trello-attachments.s3.amazonaws.com/580af37595015aea5f142a0b/1200x399/cfd2ebab5ff062f07525f2c160c77944/_output_update.png" alt="update" /></p></li>
-</ul></li>
 
-<li><p>使用 <code>DBCC DROPCLEANBUFFERS</code></p>
+<li><p>使用 <code>DBCC DROPCLEANBUFFERS</code></p></li>
+</ol>
 
 <pre><code class="language-sql">DBCC DROPCLEANBUFFERS
 </code></pre></li>
@@ -392,11 +392,10 @@ AND sysObj.is_ms_shipped = 0
 
 <pre><code class="language-sql">CHECKPOINT;
 DBCC DROPCLEANBUFFERS ;
-</code></pre></li>
+</code></pre>
 
-<li><p>檢查 cache</p>
-
-<ul>
+<ol>
+<li>檢查 cache</li>
 <li><code>CHECKPOINT</code> 將 <code>Dirty buffer</code> 被寫入 disk</li>
 <li><code>DBCC DROPCLEANBUFFERS</code>清除 <code>Clean buufer</code></li>
 
@@ -411,9 +410,7 @@ WHERE bufferDescriptors.database_id = DB_ID()
 AND sysObj.is_ms_shipped = 0
 </code></pre>
 
-<p><img src="https://trello-attachments.s3.amazonaws.com/580af37595015aea5f142a0b/1200x408/4b3b68cb0702af0a11b14cb310d93140/_output_ckdbcc.png" alt="ckdbcc" /></p></li>
-</ul></li>
-</ol>
+<p><img src="https://trello-attachments.s3.amazonaws.com/580af37595015aea5f142a0b/1200x408/4b3b68cb0702af0a11b14cb310d93140/_output_ckdbcc.png" alt="ckdbcc" /></p>
 
 <h1 id="參考資料">參考資料</h1>
 
@@ -423,6 +420,8 @@ AND sysObj.is_ms_shipped = 0
 <li><a href="https://msdn.microsoft.com/zh-tw/library/ms186274.aspx" target="_blank">DB_ID</a></li>
 <li><a href="https://msdn.microsoft.com/zh-tw/library/ms189573.aspx" target="_blank">Checkpoint</a></li>
 <li><a href="https://msdn.microsoft.com/zh-tw/library/ms187762.aspx" target="_blank">DBCC DROPCLEANBUFFERS</a></li>
+</ol></li>
+</ol></li>
 </ol>
 
     </div>

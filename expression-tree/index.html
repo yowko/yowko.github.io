@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -200,15 +200,14 @@
 <pre><code class="language-cs">Expression &lt;Func&lt;int, int&gt;&gt; expr1 = n =&gt; n*2;// 將運算式轉換成樹狀資料結構
 Func&lt;int, int&gt; fn = expr1.Compile();// 將樹狀結構逆向轉為程式碼，並存入委派物件.
 Console.WriteLine(fn(10));// 印出 20.
-</code></pre></li>
+</code></pre>
 
-<li><p>輸出 <code>傳入參數的平方</code></p>
-
-<ul>
+<ol>
+<li>輸出 <code>傳入參數的平方</code></li>
 <li><span style="color:red">以下程式碼與說明節錄至 <a href="http://huan-lin.blogspot.com/2011/08/csharp-expression-trees.html" target="_blank">蔡煥麟老師的 C# 筆記：Expression Trees</a></span>, 請大家直接參照原文，煥麟老師說明的較詳細</li>
 <li>statement lambda 只能被轉換成委派物件，</li>
 <li>expression lambda 可以轉換成委派物件，還可以轉換成運算式樹（expression tree）</li>
-</ul>
+</ol>
 
 <pre><code class="language-cs">Expression&lt;Func&lt;int, int&gt;&gt; expr = n =&gt; n * n;  // 將運算式轉換成樹狀資料結構
 Func&lt;int, int&gt; fn = expr.Compile();  // 將樹狀結構逆向轉為程式碼，並存入委派物件.
@@ -227,9 +226,12 @@ BinaryExpression b = BinaryExpression.Multiply(c, p);//定義變數間的操作�
 LambdaExpression l= Expression.Lambda(b, p);//將多個 expression 組成 lambda expression
 Expression&lt;Func&lt;int, int&gt;&gt; e=(Expression&lt;Func&lt;int, int&gt;&gt;) l;//將 lambda expression 轉成  `Expression&lt;TDelegate&gt;`
 Console.WriteLine(e.Compile()(10));// 印出 20.
-</code></pre></li>
+</code></pre>
 
-<li><p>輸出 <code>傳入參數的平方</code></p>
+<ol>
+<li>輸出 <code>傳入參數的平方</code>
+<br /></li>
+</ol>
 
 <pre><code class="language-cs">ParameterExpression p = Expression.Parameter(typeof(int), &quot;r&quot;);//參數 `r`
 BinaryExpression b = BinaryExpression.Multiply(p, p);

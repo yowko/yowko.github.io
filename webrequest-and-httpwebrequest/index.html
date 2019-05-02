@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -262,8 +262,7 @@ using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
     var result = streamReader.ReadToEnd();
     result.Dump();
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="3-post-使用-application-x-www-form-urlencoded">3. POST(使用 <code>application/x-www-form-urlencoded</code>)</h2>
 
@@ -281,7 +280,7 @@ request.ContentLength = byteArray.Length;
 //將 byte array 寫到 request stream 中 
 using (Stream reqStream = request.GetRequestStream())
 {
-    reqStream.Write(byteArray, 0, byteArray.Length);
+reqStream.Write(byteArray, 0, byteArray.Length);
 }
 using (var httpResponse = (HttpWebResponse)request.GetResponse())
 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
@@ -289,7 +288,8 @@ using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
 	var result = streamReader.ReadToEnd();
 	result.Dump();
 }
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="4-put">4. PUT</h2>
 

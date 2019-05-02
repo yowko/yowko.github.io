@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -188,9 +188,12 @@
 <li><p>在 HTML 中加入 <code>Vue.js</code> 引用</p>
 
 <pre><code class="language-html">&lt;script src=&quot;http://vuefe.cn/js/vue.js&quot;&gt;&lt;/script&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>在 HTML 上建立 Container</p>
+<ol>
+<li>在 HTML 上建立 Container
+<br /></li>
+</ol>
 
 <pre><code class="language-html">&lt;div id='demo'&gt;
     &lt;p&gt;{{message}}&lt;/p&gt;
@@ -206,15 +209,12 @@
         message:'Hello Vue.js'
     }
 })
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h1 id="api">API</h1>
 
 <ol>
-<li><p>el</p>
-
-<ul>
+<li>el</li>
 <li>DOM 元素</li>
 <li>提供 Vue.js 執行目標</li>
 <li>CSS 選擇器 or  HTMLElement instance</li>
@@ -225,59 +225,61 @@
 <pre><code class="language-js">new Vue({
     el:'#test'
 })
+</code></pre>
+
+<ul>
+<li><p>Html</p>
+
+<pre><code>&lt;div id='test'&gt;&lt;/div&gt;
+</code></pre></li>
+</ul>
+
+<ol>
+<li>template</li>
+<li>模版</li>
+<li>用來替換 el 的內容</li>
+<li><a href="http://jsbin.com/vapiki/edit?html,js,output" target="_blank">線上範例</a></li>
+
+<li><p>Javascript</p>
+
+<pre><code>new Vue({
+el:'#test',
+template:'&lt;span&gt;rrr&lt;/span&gt;'
+})
 </code></pre></li>
 
 <li><p>Html</p>
 
 <pre><code>&lt;div id='test'&gt;&lt;/div&gt;
 </code></pre></li>
-</ul></li>
 
-<li><p>template</p>
+<li><p>render</p></li>
 
-<ul>
-<li>模版</li>
-<li>用來替換 el 的內容</li>
-<li><a href="http://jsbin.com/vapiki/edit?html,js,output" target="_blank">線上範例</a></li>
-<li>Javascript
-<code>
-new Vue({
-    el:'#test',
-    template:'&lt;span&gt;rrr&lt;/span&gt;'
+<li><p>不同於 template ，可以用 JavaScript 建立 VNode</p></li>
+
+<li><p><a href="http://jsbin.com/hagape/edit?html,js,output" target="_blank">線上範例</a></p></li>
+
+<li><p>Javascript</p>
+
+<pre><code>new Vue({
+el:'#test',
+render:function(elementCreate){
+    return elementCreate('h1',&quot;hello world&quot;)
+  }
 })
-</code></li>
-<li>Html
-<code>
-&lt;div id='test'&gt;&lt;/div&gt;
-</code></li>
-</ul></li>
+</code></pre></li>
 
-<li><p>render</p>
-
-<ul>
-<li>不同於 template ，可以用 JavaScript 建立 VNode</li>
-<li><a href="http://jsbin.com/hagape/edit?html,js,output" target="_blank">線上範例</a></li>
-<li>Javascript
-<code>
-new Vue({
-    el:'#test',
-    render:function(elementCreate){
-        return elementCreate('h1',&quot;hello world&quot;)
-      }
-})
-</code></li>
-
-<li><p>Html</p>
+<li><p>Html</p></li>
+</ol>
 
 <pre><code class="language-html">&lt;div id='test'&gt;&lt;/div&gt;
 </code></pre></li>
-</ul></li>
 
-<li><p>data</p>
+<li><p>data</p></li>
 
-<ul>
-<li>為 Vue instance 提供資料</li>
-<li><a href="http://jsbin.com/bosaqi/edit?js,output" target="_blank">線上範例</a></li>
+<li><p>為 Vue instance 提供資料</p></li>
+
+<li><p><a href="http://jsbin.com/bosaqi/edit?js,output" target="_blank">線上範例</a></p></li>
 
 <li><p>Javascript</p>
 
@@ -287,19 +289,21 @@ new Vue({
       template:'&lt;span&gt;{{a}}&lt;/span&gt;',
       data:d
 })
-</code></pre></li>
+</code></pre>
 
-<li><p>Html</p>
+<ul>
+<li>Html
+<br /></li>
+</ul>
 
 <pre><code class="language-html">&lt;div id='test'&gt;&lt;/div&gt;
 </code></pre></li>
-</ul></li>
 
-<li><p>methods</p>
+<li><p>methods</p></li>
 
-<ul>
-<li>可以直接在 directive 中使用或是直接透 Vue instance 叫用</li>
-<li><a href="http://jsbin.com/bosaqi/edit?js,output" target="_blank">線上範例</a></li>
+<li><p>可以直接在 directive 中使用或是直接透 Vue instance 叫用</p></li>
+
+<li><p><a href="http://jsbin.com/bosaqi/edit?js,output" target="_blank">線上範例</a></p></li>
 
 <li><p>Javascript</p>
 
@@ -314,20 +318,23 @@ new Vue({
           }
       }
 })
-</code></pre></li>
+</code></pre>
 
-<li><p>Html</p>
+<ul>
+<li>Html
+<br /></li>
+</ul>
 
 <pre><code class="language-html">&lt;div id='test'&gt;&lt;/div&gt;
 </code></pre></li>
-</ul></li>
 
-<li><p>watch</p>
+<li><p>watch</p></li>
 
-<ul>
-<li>key 是 watch 對象, value 是執行動作</li>
-<li>value 可以是方法實體、方法名稱，也可以 json (深度 watch)</li>
-<li><a href="http://jsbin.com/jusuyob/edit?html,js,output" target="_blank">線上範例</a></li>
+<li><p>key 是 watch 對象, value 是執行動作</p></li>
+
+<li><p>value 可以是方法實體、方法名稱，也可以 json (深度 watch)</p></li>
+
+<li><p><a href="http://jsbin.com/jusuyob/edit?html,js,output" target="_blank">線上範例</a></p></li>
 
 <li><p>Javascript</p>
 
@@ -350,20 +357,23 @@ var vm =new Vue({
   }
 })
 vm.a=3;
-</code></pre></li>
+</code></pre>
 
-<li><p>Html</p>
+<ul>
+<li>Html
+<br /></li>
+</ul>
 
 <pre><code class="language-html">&lt;div id='test'&gt;&lt;/div&gt;
 </code></pre></li>
-</ul></li>
 
-<li><p>props</p>
+<li><p>props</p></li>
 
-<ul>
-<li>Array or Object</li>
-<li>用來接收父組件的資料</li>
-<li><a href="http://jsbin.com/fulebaf/edit?html,js,output" target="_blank">線上範例</a></li>
+<li><p>Array or Object</p></li>
+
+<li><p>用來接收父組件的資料</p></li>
+
+<li><p><a href="http://jsbin.com/fulebaf/edit?html,js,output" target="_blank">線上範例</a></p></li>
 
 <li><p>Javascript</p>
 
@@ -377,19 +387,21 @@ new Vue({
       data:{message:&quot;Hello Vue&quot;},
       template:'&lt;child v-bind:message1=message&gt;&lt;/child&gt;'
 })
-</code></pre></li>
+</code></pre>
 
-<li><p>Html</p>
+<ul>
+<li>Html
+<br /></li>
+</ul>
 
 <pre><code class="language-html">&lt;div id='test'&gt;&lt;/div&gt;
 </code></pre></li>
-</ul></li>
 
-<li><p>computed</p>
+<li><p>computed</p></li>
 
-<ul>
-<li>有 <code>get</code> 跟 <code>set</code> 方法 &ndash;&gt; 會自動 binding</li>
-<li><a href="http://jsbin.com/bogowan/edit?html,js,output" target="_blank">線上範例</a></li>
+<li><p>有 <code>get</code> 跟 <code>set</code> 方法 &ndash;&gt; 會自動 binding</p></li>
+
+<li><p><a href="http://jsbin.com/bogowan/edit?html,js,output" target="_blank">線上範例</a></p></li>
 
 <li><p>Javascript</p>
 
@@ -417,21 +429,21 @@ var vm=new Vue({
     
 console.log(vm.aPlus);//2
 console.log(vm.aPlus=5);//5
-</code></pre></li>
+</code></pre>
 
-<li><p>Html</p>
+<ul>
+<li>Html
+<br /></li>
+</ul>
 
 <pre><code class="language-html">&lt;div id='test'&gt;&lt;/div&gt;
 </code></pre></li>
-</ul></li>
 </ol>
 
 <h1 id="directives">Directives</h1>
 
 <ol>
-<li><p>v-text</p>
-
-<ul>
+<li>v-text</li>
 <li>更新 Vue component 的 textcontent</li>
 <li><code>&lt;span v-text=&quot;msg&quot;&gt;&lt;/span&gt;</code> 等同 <code>&lt;span&gt;{{msg}}&lt;/span&gt;</code></li>
 
@@ -440,16 +452,15 @@ console.log(vm.aPlus=5);//5
 <pre><code class="language-html">&lt;span&gt;{{msg}}&lt;/span&gt;
 &lt;br/&gt;
 &lt;span v-text=&quot;msg&quot;&gt;&lt;/span&gt;
-</code></pre></li>
-</ul></li>
+</code></pre>
 
-<li><p>v-html</p>
-
-<ul>
+<ol>
+<li>v-html</li>
 <li>更新 component 的 innerHTML</li>
 <li>可使用 HTML 語法</li>
-
-<li><p><a href="http://jsbin.com/bugawi/edit?html,js,output" target="_blank">線上範例</a></p>
+<li><a href="http://jsbin.com/bugawi/edit?html,js,output" target="_blank">線上範例</a>
+<br /></li>
+</ol>
 
 <pre><code class="language-js">new Vue({
       el:'#test',
@@ -457,13 +468,12 @@ console.log(vm.aPlus=5);//5
       template:'&lt;div v-html=&quot;msg&quot;&gt;&lt;/div&gt;'
 })
 </code></pre></li>
-</ul></li>
 
-<li><p>v-if/v-else</p>
+<li><p>v-if/v-else</p></li>
 
-<ul>
-<li>依判斷式結果來決定是否 render,</li>
-<li>直接影響 html 是否輸出或是銷毀</li>
+<li><p>依判斷式結果來決定是否 render,</p></li>
+
+<li><p>直接影響 html 是否輸出或是銷毀</p></li>
 
 <li><p><a href="http://jsbin.com/wokuget/edit?html,js,output" target="_blank">線上範例</a></p>
 
@@ -473,15 +483,14 @@ console.log(vm.aPlus=5);//5
       template:&quot;&lt;div&gt;&lt;h1 v-if='showif'&gt;Yes&lt;/h1&gt;&quot;+
                 &quot;&lt;h1 v-else&gt;No&lt;/h1&gt;&lt;/div&gt;&quot;
 })
-</code></pre></li>
-</ul></li>
+</code></pre>
 
-<li><p>v-show</p>
-
-<ul>
+<ol>
+<li>v-show</li>
 <li>透過判斷式來切換 component 的 display 屬性</li>
-
-<li><p><a href="http://jsbin.com/ceqedi/edit?html,js,output" target="_blank">線上範例</a></p>
+<li><a href="http://jsbin.com/ceqedi/edit?html,js,output" target="_blank">線上範例</a>
+<br /></li>
+</ol>
 
 <pre><code class="language-js">new Vue({
       el:'#test',
@@ -489,12 +498,10 @@ console.log(vm.aPlus=5);//5
       template:&quot;&lt;div v-show='isshow'&gt;Hello Vue.js&lt;/div&gt;&lt;/div&gt;&quot;
 })
 </code></pre></li>
-</ul></li>
 
-<li><p>v-for</p>
+<li><p>v-for</p></li>
 
-<ul>
-<li>用來重複 render</li>
+<li><p>用來重複 render</p></li>
 
 <li><p><a href="http://jsbin.com/papagaq/edit?html,js,output" target="_blank">線上範例</a></p>
 
@@ -503,95 +510,94 @@ console.log(vm.aPlus=5);//5
       {{ item.message }}
     &lt;/li&gt;
 &lt;/ul&gt;
-</code></pre></li>
-</ul></li>
+</code></pre>
 
-<li><p>v-on</p>
-
-<ul>
+<ol>
+<li>v-on</li>
 <li>用來監聽事件</li>
 <li>普通 HTML Element 只能監聽 <code>原生 DOM 事件</code></li>
 <li>自定組件可以監聽 <code>自定義事件</code></li>
 <li>縮寫：<code>@</code></li>
 <li><code>v-on:click=&quot;doThis&quot;</code> 與 <code>@click=&quot;doThis</code> 相同</li>
-
-<li><p><a href="http://jsbin.com/seliwof/edit?html,js,output" target="_blank">線上範例</a></p>
+<li><a href="http://jsbin.com/seliwof/edit?html,js,output" target="_blank">線上範例</a>
+<br /></li>
+</ol>
 
 <pre><code class="language-html">&lt;button v-on:click=&quot;doThis&quot;&gt;Test1&lt;/button&gt;
 &lt;button @click=&quot;doThis&quot;&gt;test2&lt;/button&gt;
 </code></pre></li>
-</ul></li>
 
-<li><p>v-bind</p>
+<li><p>v-bind</p></li>
 
-<ul>
-<li>動態屬性 binding</li>
-<li>縮寫：<code>:</code></li>
-<li><code>v-bind:href=&quot;targetUrl&quot;</code> 與 <code>:href=&quot;targetUrl&quot;</code> 相同</li>
+<li><p>動態屬性 binding</p></li>
+
+<li><p>縮寫：<code>:</code></p></li>
+
+<li><p><code>v-bind:href=&quot;targetUrl&quot;</code> 與 <code>:href=&quot;targetUrl&quot;</code> 相同</p></li>
 
 <li><p><a href="http://jsbin.com/fosefe/edit?html,js,output" target="_blank">線上範例</a></p>
 
 <pre><code class="language-html">&lt;a v-bind:href=&quot;targetUrl&quot; target=&quot;_blank&quot;&gt;yahoo1&lt;/a&gt;
 &lt;a :href=&quot;targetUrl&quot; target=&quot;_blank&quot;&gt;yahoo2&lt;/a&gt;
-</code></pre></li>
-</ul></li>
+</code></pre>
 
-<li><p>v-model</p>
-
-<ul>
+<ol>
+<li>v-model</li>
 <li>表單的雙向 binding</li>
-
-<li><p><a href="http://jsbin.com/fogefi/edit?html,js,output" target="_blank">線上範例</a></p>
+<li><a href="http://jsbin.com/fogefi/edit?html,js,output" target="_blank">線上範例</a>
+<br /></li>
+</ol>
 
 <pre><code class="language-html">&lt;input v-model=&quot;message&quot; placeholder=&quot;edit me&quot;/&gt;
 &lt;p&gt;Message is: {{ message }}&lt;/p&gt;
 </code></pre></li>
-</ul></li>
 
-<li><p>v-pre</p>
+<li><p>v-pre</p></li>
 
-<ul>
-<li>標示為不經由 Vue 編譯</li>
+<li><p>標示為不經由 Vue 編譯</p></li>
 
 <li><p><a href="http://jsbin.com/wazoco/edit?html,js,output" target="_blank">線上範例</a></p>
 
 <pre><code class="language-html">&lt;span &gt;{{ msg }}&lt;/span&gt;
 &lt;hr&gt;
 &lt;span v-pre&gt;{{ msg }}&lt;/span&gt;
-</code></pre></li>
-</ul></li>
+</code></pre>
 
-<li><p>v-cloak</p>
-
-<ul>
+<ol>
+<li>v-cloak</li>
 <li>Vue 編譯完成前，元素不顯示</li>
 <li>CSS 也需要配合</li>
 <li>可以透過下面範例，先刪除 CSS 來比較差異</li>
 <li><a href="http://jsbin.com/kajeram/edit?html,css,js,output" target="_blank">線上範例</a></li>
-
-<li><p>CSS</p>
+<li>CSS
+<br /></li>
+</ol>
 
 <pre><code class="language-css">[v-cloak] {
      display: none;
 }
 </code></pre></li>
+</ol>
 
+<ul>
 <li><p>HTML</p>
 
 <pre><code class="language-html">&lt;p v-cloak&gt;Message is: {{ msg }}&lt;/p&gt;
-</code></pre></li>
+</code></pre>
 
-<li><p>JavaScript (模擬 call api 延遲現象)</p>
+<ul>
+<li>JavaScript (模擬 call api 延遲現象)
+<br /></li>
+</ul>
 
 <pre><code class="language-js">$(function(){
     setTimeout(&quot;new Vue({el:'#test',data:{msg:'Hello Vue.js'}})&quot;,1000);
 })
 </code></pre></li>
-</ul></li>
+</ul>
 
-<li><p>v-once</p>
-
-<ul>
+<ol>
+<li>v-once</li>
 <li>只 binding 一次，之後就會略過</li>
 <li>可以透過下面範例 ，在 console 中輸入 <code>msg=123</code> 來瞭解效果</li>
 
@@ -600,9 +606,7 @@ console.log(vm.aPlus=5);//5
 <pre><code class="language-html">&lt;span&gt;{{msg}}&lt;/span&gt;
 &lt;br/&gt;
 &lt;span v-once&gt;{{msg}}&lt;/span&gt;
-</code></pre></li>
-</ul></li>
-</ol>
+</code></pre>
 
 <h1 id="參考資料">參考資料</h1>
 
@@ -610,6 +614,8 @@ console.log(vm.aPlus=5);//5
 <li><a href="https://vuefe.cn/" target="_blank">Vue.js</a></li>
 <li><a href="http://vuejs.org/" target="_blank">Vue.js</a></li>
 <li><a href="https://vuejs.org.cn/" target="_blank">Vue.js</a></li>
+</ol></li>
+</ol></li>
 </ol>
 
     </div>

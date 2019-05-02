@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -220,15 +220,14 @@
     Addr VARCHAR2(250) not null,
     constraint PK_UserProfile primary key (Id)
 )
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="2-建立-oracle-sequence">2. 建立 Oracle Sequence</h2>
 
 <ul>
 <li>用來自動循序增加數字</li>
-
-<li><p>語法範例</p>
+<li>語法範例</li>
+</ul>
 
 <pre><code class="language-sql">create sequence SQ_UserProfile
 </code></pre></li>
@@ -247,26 +246,28 @@ for each row
 begin
 select SQ_UserProfile.nextval into :new.Id from dual;
 end;
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="實際效果">實際效果</h2>
 
 <ul>
-<li><p>輸入時指定 <code>100</code></p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32132311-64a94af4-bbf4-11e7-8a12-9892b83fb57b.png" alt="1input" /></p></li>
-
-<li><p>儲存 <code>1</code></p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32132312-64dc3892-bbf4-11e7-8a3c-1320feaf18eb.png" alt="2save" /></p></li>
+<li>輸入時指定 <code>100</code></li>
 </ul>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32132311-64a94af4-bbf4-11e7-8a12-9892b83fb57b.png" alt="1input" /></p>
+
+<ul>
+<li>儲存 <code>1</code></li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32132312-64dc3892-bbf4-11e7-8a3c-1320feaf18eb.png" alt="2save" /></p>
 
 <h2 id="心得">心得</h2>
 
 <p>一直以來都是使用 SQL Server 從來沒想過原來其他 db 沒有 identity 欄位型態，本來也沒想到可以這麼做，是使用 code first 產生 pl-sql 時發現原來 oracle 的 identity 可以透過上述方式建立，特別筆記一下</p>
 
-<h1 id="參考資訊">參考資訊</h1>
+<h1 id="參考資訊">參考資訊</h1></li>
+</ul>
 
     </div>
 

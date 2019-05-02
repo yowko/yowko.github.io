@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -217,9 +217,11 @@
 <pre><code class="language-cmd">use admin
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/29783679-efc6085a-8c53-11e7-9033-49be5f5563f1.png" alt="2useadmin" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/29783679-efc6085a-8c53-11e7-9033-49be5f5563f1.png" alt="2useadmin" /></p>
 
-<li><p>加入帳號密碼並設定 role</p>
+<ol>
+<li>加入帳號密碼並設定 role</li>
+</ol>
 
 <pre><code class="language-cmd">db.createUser(
 {
@@ -286,9 +288,11 @@ db.createUser(
 )
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/29783676-ef9b3b02-8c53-11e7-8d48-3dbe72fe9ba0.png" alt="7createuser" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/29783676-ef9b3b02-8c53-11e7-8d48-3dbe72fe9ba0.png" alt="7createuser" /></p>
 
-<li><p>連線至目標 db</p>
+<ol>
+<li>連線至目標 db</li>
+</ol>
 
 <blockquote>
 <p>連線方式與上述相同</p>
@@ -306,15 +310,16 @@ db.createUser(
 use test
 db.auth(&quot;{username}&quot;,&quot;password&quot;)
 </code></pre></li>
-</ul></li>
+</ul>
 
+<ol>
 <li><p>insert 資料</p>
 
 <pre><code>db.test.insert({x:1,y:1})
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/29783677-ef9ec92a-8c53-11e7-8d49-57b643236bb2.png" alt="8insert" /></p></li>
+</code></pre></li>
 </ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/29783677-ef9ec92a-8c53-11e7-8d49-57b643236bb2.png" alt="8insert" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -327,6 +332,7 @@ db.auth(&quot;{username}&quot;,&quot;password&quot;)
 <ol>
 <li><a href="https://docs.mongodb.com/manual/tutorial/enable-authentication/" target="_blank">Enable Auth</a></li>
 <li><a href="https://blog.yowko.com/2017/08/windows-mongodb.html" target="_blank">如何在 Windows 環境安裝及設定 MongoDB</a></li>
+</ol></li>
 </ol>
 
     </div>

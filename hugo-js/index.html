@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -213,12 +213,14 @@
 <li><p>在網站 root 下的 <code>config.toml</code> 中加入 CDN 位置</p>
 
 <pre><code class="language-toml">instantclick = '&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/instantclick/3.0.1/instantclick.min.js&quot; crossorigin=&quot;anonymous&quot; data-no-instant&gt;&lt;/script&gt;'
-</code></pre></li>
+</code></pre>
 
+<ul>
 <li><p>在步驟 1 的 js 引用範本中加入引用 js</p>
 
 <pre><code>{{ .Site.Params.publicCDN.instantclick | safeHTML }}
 </code></pre></li>
+</ul></li>
 </ul></li>
 
 <li><p>self-host</p>

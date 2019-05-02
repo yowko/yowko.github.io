@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -241,9 +241,11 @@ Invalid Signature.
 
 <blockquote>
 <p>我沒有 file server 試不出這個指令的效果</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>關閉 client 端的 &ldquo;Secure Negotiate&rdquo;</p>
+<ol>
+<li>關閉 client 端的 &ldquo;Secure Negotiate&rdquo;</li>
+</ol>
 
 <ul>
 <li><span style="color:red">微軟官方不建議這個做法</span>，可能會有其他資安風險</li>
@@ -251,19 +253,21 @@ Invalid Signature.
 <li><p>PowerShell 語法</p>
 
 <pre><code class="language-ps1">Set-ItemProperty -Path &quot;HKLM:\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters&quot; RequireSecureNegotiate -Value 0 -Force
-</code></pre></li>
+</code></pre>
 
-<li><p>其他注意事項</p>
+<ul>
+<li>其他注意事項</li>
+</ul>
 
 <blockquote>
 <p>我設定兩台電腦，有一台需要重啟才生效，有一台不用</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>設定完成</p>
+<ul>
+<li>設定完成</li>
+</ul>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/29030712-9aa02bf8-7bbe-11e7-892c-6515488b2aba.png" alt="3success" /></p></li>
-</ul></li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/29030712-9aa02bf8-7bbe-11e7-892c-6515488b2aba.png" alt="3success" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -276,6 +280,8 @@ Invalid Signature.
 <ol>
 <li><a href="https://support.microsoft.com/zh-tw/help/2686098/-system-error-2148073478--extended-error--or-invalid-signature-error-m" target="_blank">&ldquo;System error 2148073478,&rdquo; &ldquo;extended error,&rdquo; or &ldquo;Invalid Signature&rdquo; error message on SMB connections in Windows Server 2012 or Windows 8</a></li>
 <li><a href="https://www.adamfowlerit.com/2013/05/unable-to-map-drives-from-windows-8/" target="_blank">Unable to Map Drives from Windows 8 and Server 2012</a></li>
+</ol></li>
+</ul></li>
 </ol>
 
     </div>

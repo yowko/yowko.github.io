@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -272,9 +272,11 @@ public ResponseHelper(ITracer tracer)
 {
     _tracer = tracer;
 }
-</code></pre></li>
+</code></pre>
 
-<li><p>建立 span</p>
+<ol>
+<li>建立 span</li>
+</ol>
 
 <pre><code class="language-cs">using (IScope scope = _tracer.BuildSpan(GetType().Name).StartActive(finishSpanOnDispose: true))
 {
@@ -293,9 +295,11 @@ scope.Span.Log(new Dictionary&lt;string, object&gt;
     [&quot;input&quot;] = values,
     [&quot;output&quot;] = output
 });
-</code></pre></li>
+</code></pre>
 
-<li><p>完整 ResponseHelper 內容</p>
+<ol>
+<li>完整 ResponseHelper 內容</li>
+</ol>
 
 <pre><code class="language-cs">using System;
 using System.Collections.Generic;

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.4" />
+<meta name="generator" content="Hugo 0.55.5" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -201,13 +201,13 @@
 <pre><code class="language-bash">firewall-cmd --zone=public --list-all
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/30976029-5b1a3206-a4a6-11e7-818f-3e6491b61dc1.png" alt="2list" /></p></li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/30976029-5b1a3206-a4a6-11e7-818f-3e6491b61dc1.png" alt="2list" /></p>
 
 <h2 id="解決方式">解決方式</h2>
 
 <ol>
-<li><p>對外開放 6379 port</p>
+<li>對外開放 6379 port</li>
+</ol>
 
 <pre><code class="language-bash">firewall-cmd --zone=public --add-port=6379/tcp --permanent
 </code></pre>
@@ -219,9 +219,11 @@
 <li><p>重新讀取 firewall 設定</p>
 
 <pre><code class="language-bash">firewall-cmd --reload
-</code></pre></li>
+</code></pre>
 
-<li><p>可以檢查是否成功加入開放清單</p>
+<ol>
+<li>可以檢查是否成功加入開放清單</li>
+</ol>
 
 <pre><code class="language-bash">firewall-cmd --zone=public --list-all
 </code></pre>
