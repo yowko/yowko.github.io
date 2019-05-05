@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Fluentd 使用自定 Log 時間當做 Timestamp - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="Fluentd 使用自定 Log 時間當做 Timestamp 之前筆記 Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image 提到最近需要 debug EFK 起因就是發現 Kibana 顯示儲存在 Elasticsearch 中的時間與過濾條件都是 log 的處理時間並非 log 真正的" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.55.5" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/fluentd-log-time/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="Fluentd 使用自定 Log 時間當做 Timestamp" />
+<meta property="og:description" content="Fluentd 使用自定 Log 時間當做 Timestamp 之前筆記 Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image 提到最近需要 debug EFK 起因就是發現 Kibana 顯示儲存在 Elasticsearch 中的時間與過濾條件都是 log 的處理時間並非 log 真正的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/fluentd-log-time/" />
+<meta property="article:published_time" content="2019-05-04T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-05-04T21:30:31&#43;08:00"/>
+
+<meta itemprop="name" content="Fluentd 使用自定 Log 時間當做 Timestamp">
+<meta itemprop="description" content="Fluentd 使用自定 Log 時間當做 Timestamp 之前筆記 Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image 提到最近需要 debug EFK 起因就是發現 Kibana 顯示儲存在 Elasticsearch 中的時間與過濾條件都是 log 的處理時間並非 log 真正的">
+
+
+<meta itemprop="datePublished" content="2019-05-04T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-05-04T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="1351">
+
+
+
+<meta itemprop="keywords" content="Fluentd,Log,ELK," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Fluentd 使用自定 Log 時間當做 Timestamp"/>
+<meta name="twitter:description" content="Fluentd 使用自定 Log 時間當做 Timestamp 之前筆記 Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image 提到最近需要 debug EFK 起因就是發現 Kibana 顯示儲存在 Elasticsearch 中的時間與過濾條件都是 log 的處理時間並非 log 真正的"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-05-04 </span>
+        
+        <span class="more-meta"> 約 1351 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#fluentd-使用自定-log-時間當做-timestamp">Fluentd 使用自定 Log 時間當做 Timestamp</a>
+<ul>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#fluentd-的原始設定">Fluentd 的原始設定</a></li>
+<li><a href="#啟動-fluentd">啟動 Fluentd</a></li>
+<li><a href="#使用自定時間">使用自定時間</a></li>
+<li><a href="#心得">心得</a></li>
+</ul></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="fluentd-使用自定-log-時間當做-timestamp">Fluentd 使用自定 Log 時間當做 Timestamp</h1>
+
+<p>之前筆記 <a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a> 提到最近需要 debug EFK 起因就是發現 Kibana 顯示儲存在 Elasticsearch 中的時間與過濾條件都是 log 的處理時間並非 log 真正的發生時間，想像一下：客戶反應了出問題的時間，工程師在 Kibana 上怎麼查都找不到相關紀錄，翻原始 log 才能找到實際問題&hellip;. 想必沒人能接受，導入工具沒有改善流程就算了  還誤導除錯方向這可不行呀</p>
+
+<p>剛好最近手上的功能開發工作有空檔，就由我來調整，不過偶爾碰 ELK 的我很多東西都不記得，東卡西卡的，於是簡單筆記一下</p>
+
+<h2 id="基本環境說明">基本環境說明</h2>
+
+<ol>
+<li>macOS Mojave 10.14.4</li>
+<li>Docker Engine - Community 18.09.2</li>
+
+<li><p>Elastic stack 6.7</p>
+
+<blockquote>
+<p>我只為了要本機方便開發測試，正式環境請勿這麼做。環境需要 elasticsearch + kibana，我懶得重頭開始架，就拿了 github 上的 docker-compose (<a href="https://github.com/deviantony/docker-elk" target="_blank">Elastic stack (ELK) on Docker</a>)來用</p>
+</blockquote>
+
+<pre><code class="language-yaml">version: '2'
+
+services:
+
+elasticsearch:
+    build:
+    context: elasticsearch/
+    args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+    - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    ports:
+    - &quot;9200:9200&quot;
+    - &quot;9300:9300&quot;
+    environment:
+    ES_JAVA_OPTS: &quot;-Xmx256m -Xms256m&quot;
+    networks:
+    - elk
+
+logstash:
+    build:
+    context: logstash/
+    args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+    - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+    - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+    ports:
+    - &quot;5000:5000&quot;
+    - &quot;9600:9600&quot;
+    environment:
+    LS_JAVA_OPTS: &quot;-Xmx256m -Xms256m&quot;
+    networks:
+    - elk
+    depends_on:
+    - elasticsearch
+
+kibana:
+    build:
+    context: kibana/
+    args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+    - ./kibana/config/:/usr/share/kibana/config:ro
+    ports:
+    - &quot;5601:5601&quot;
+    networks:
+    - elk
+    depends_on:
+    - elasticsearch
+
+networks:
+
+elk:
+    driver: bridge
+</code></pre>
+
+<ol>
+<li>Fluentd edge (v1.4.2) - aggregator 採用自製 docker image (詳細內容請參考 <a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a> )</li>
+</ol>
+
+<blockquote>
+<p>這邊使用官方建議方式 (forwarder - aggregator):在需要 parse log 的 server 上安裝一個 forwarder 的 fluentd instance，然後將 log 發送給 aggregator 做後續處理</p>
+</blockquote>
+
+<p><img src="https://docs.fluentd.org/images/fluentd_ha.png" alt="ha" /></p>
+
+<blockquote>
+<p>圖片出處：<a href="https://docs.fluentd.org/v1.0/articles/high-availability" target="_blank">https://docs.fluentd.org/v1.0/articles/high-availability</a></p>
+</blockquote>
+
+<h2 id="fluentd-的原始設定">Fluentd 的原始設定</h2>
+
+<ol>
+<li><p>Log Forwarder</p>
+
+<pre><code>&lt;source&gt;
+@type tail
+path /tmp/fluentd/app/**/All-*.log
+pos_file /tmp/fluentd/pos/app-api.pos
+format /^(?&lt;logdate&gt;[^ ]* [^ ]*) \[(?&lt;application&gt;[^ \]]+)\]\[(?&lt;thread&gt;[\d]+)\]\[(?&lt;type&gt;[A-Za-z_][A-Za-z0-9_]+)\](?&lt;message&gt;\{.+\})/
+tag yowko.app-api
+&lt;/source&gt;
+
+# Log Forwarding
+&lt;match *.**&gt;
+@type forward
+&lt;server&gt;
+    host 192.168.50.97
+    port 24224
+&lt;/server&gt;
+&lt;buffer&gt;
+    flush_interval 60s
+&lt;/buffer&gt;
+&lt;/match&gt;
+</code></pre></li>
+
+<li><p>Log Aggregator</p>
+
+<pre><code># Input
+&lt;source&gt;
+@type http
+port 8888
+&lt;/source&gt;
+
+&lt;source&gt;
+@type forward
+port 24224
+&lt;/source&gt;
+
+# Output
+&lt;match *.**&gt;
+@type elasticsearch
+host 192.168.50.97
+port 9200
+logstash_format true
+&lt;/match&gt;
+</code></pre></li>
+
+<li><p>實際問題： kibana 顯示的紀錄時間與 log 不一致</p></li>
+</ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/57190821-63dd6a80-6f51-11e9-86f4-14d6f40dbf49.png" alt="1mismatch" /></p>
+
+<h2 id="啟動-fluentd">啟動 Fluentd</h2>
+
+<ol>
+<li>Log Forwarder</li>
+</ol>
+
+<pre><code class="language-bash">docker run -d  -v /tmp/fluentd/app:/tmp/fluentd/app -v /tmp/fluentd/pos:/tmp/fluentd/pos -v /tmp/fluentd/forwarder:/fluentd/etc -e FLUENTD_CONF=fluentd.conf --name fluentdForwarder fluent/fluentd:edge
+</code></pre>
+
+<ul>
+<li>第一個 <code>-v</code> mount 需要 parse 的 log 位置 (可以從外部調整 log 方便測試)</li>
+<li>第二個 <code>-v</code> 用來儲存紀錄上次讀取資訊的 pos 檔</li>
+<li>第三個 <code>-v</code> 則是將外部的 fluentd config 掛載進去用的</li>
+<li><code>-e</code> 用來設定環境變數 <code>FLUENTD_CONF</code> 的檔名</li>
+</ul></li>
+
+<li><p>Log Aggregator</p>
+
+<pre><code class="language-bash">docker run -d -p 8888:8888 -p 24224:24224 -p 24224:24224/udp --name fluentdAggregator -v /tmp/fluentd/aggregator:/fluentd/etc -e FLUENTD_CONF=fluentd.conf fluentdelastic:v1
+</code></pre>
+
+<ul>
+<li><code>-p 8888</code> 用來開放 http request 方便測試</li>
+<li><code>-p 24224</code> 則是用來處理 fluentd forward</li>
+<li><code>-v</code> 則是將外部的 fluentd config 掛載進去用的</li>
+<li><code>-e</code> 用來設定環境變數 <code>FLUENTD_CONF</code> 的檔名</li>
+<li><code>fluentdelastic:v1</code> 使用自製已安裝 <code>Elasticsearch Output Plugin</code> 的 base image (詳細內容請參考 <a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a>)</li>
+</ul>
+
+<h2 id="使用自定時間">使用自定時間</h2>
+
+<ol>
+<li>forwarder 指定 key name (預設使用 <code>time</code>)</li>
+</ol>
+
+<blockquote>
+<p>如果 parser 的 format 中即使用 <code>time</code> 變數來儲存 log time，就可以不用額外指定 key name。e.g. <code>format /^(?&lt;time&gt;[^ ]* [^ ]*) \[(?&lt;application&gt;[^ \]]+)\]\[(?&lt;thread&gt;[\d]+)\]\[(?&lt;type&gt;[A-Za-z_][A-Za-z0-9_]+)\](?&lt;message&gt;\{.+\})/</code> 就可以省略</p>
+</blockquote>
+
+<pre><code>time_key logdate
+</code></pre>
+
+<ol>
+<li><p>forwarder 設定保留 key</p>
+
+<pre><code>keep_time_key true
+</code></pre></li>
+
+<li><p>forwarder 指定 key name</p></li>
+</ol>
+
+<blockquote>
+<p>如果時間欄位為 <code>time</code> 這邊亦可省略</p>
+</blockquote>
+
+<pre><code>time_key logdate
+</code></pre>
+
+<ol>
+<li>實際效果：kibana 已將 log 時間做為顯示及過濾的基準</li>
+</ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/57190822-63dd6a80-6f51-11e9-9615-e6bc74e4db6d.png" alt="2correctlogdate" /></p>
+
+<h2 id="心得">心得</h2>
+
+<p>要使用自訂時間當做 timestamp 所需的正確設定很少，但卻很難一次就搞定，我想原因是官網上沒有明確的說明，就連同 <code>Elasticsearch Output Plugin</code> 參數列表上也沒有對應選項。經過反覆測試我才終於找出正確設定，不過或許隨著版本遞代  相關參數與設定可能也會跟著調整 (我嘗試了不少網路文章的建議設定都無法正確生效，推測可以也是因為設定調整的關係)</p>
+
+<p>以下列出個人 debug 的好用小技巧</p>
+
+<ol>
+<li><p>清空 elasticsearch 的所有物件：可以確保打進去的 log 是獨立的，不會受到之前操作的影響</p>
+
+<pre><code>curl -X DELETE 'http://localhost:9200/_all'
+</code></pre></li>
+
+<li><p>Log Forwarder ： 加入 <code>stdout</code> 輸出，方便確認收到的 log 內容</p>
+
+<pre><code>&lt;source&gt;
+@type tail
+path /tmp/fluentd/app/**/All-*.log
+pos_file /tmp/fluentd/pos/app-api.pos
+format /^(?&lt;logdate&gt;[^ ]* [^ ]*) \[(?&lt;application&gt;[^ \]]+)\]\[(?&lt;thread&gt;[\d]+)\]\[(?&lt;type&gt;[A-Za-z_][A-Za-z0-9_]+)\](?&lt;message&gt;\{.+\})/ 
+time_key logdate
+keep_time_key true
+tag yowko.app-api
+&lt;/source&gt;
+# Log Forwarding
+&lt;match *.**&gt;
+@type copy
+&lt;store&gt;
+    @type forward
+    &lt;server&gt;
+        host 192.168.50.97
+        port 24224
+    &lt;/server&gt;
+&lt;buffer&gt;
+        flush_interval 60s
+    &lt;/buffer&gt;
+&lt;/store&gt;
+&lt;store&gt;
+    @type stdout
+&lt;/store&gt;
+&lt;/match&gt;
+</code></pre></li>
+
+<li><p>Log Aggregator： 加入 <code>stdout</code> 輸出，方便確認收到的 log 內容;指定 <code>logstash_prefix</code> 便於辨識</p>
+
+<pre><code># Input
+&lt;source&gt;
+@type http
+port 8888
+&lt;/source&gt;
+&lt;source&gt;
+@type forward
+port 24224
+&lt;/source&gt;
+# Output
+&lt;match *.**&gt;
+@type copy
+&lt;store&gt;
+    @type elasticsearch
+    host 192.168.50.97
+    port 9200
+    logstash_format true
+    logstash_prefix fluentd-${tag}
+    time_key logdate
+&lt;/store&gt;
+&lt;store&gt;
+    @type stdout
+&lt;/store&gt;
+&lt;/match&gt;
+</code></pre></li>
+
+<li><p>Fluentd 間或是與 Elastisearch 的溝通記得使用 可以對外服務的 ip，因為是 container，使用 localhosr or 127.0.0.1 都會解析到自己</p></li>
+</ol>
+
+<h1 id="參考資訊">參考資訊</h1>
+
+<ol>
+<li><a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a></li>
+<li><a href="https://github.com/deviantony/docker-elk" target="_blank">Elastic stack (ELK) on Docker</a></li>
+</ol></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-05-04</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/fluentd/">Fluentd</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/log/">Log</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/elk/">ELK</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/not-serialize-json-string/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">將 Object 序列化為 Json 時，攤平 Json string 欄位</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/fluentd-elasticsearch-docker/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/fluentd-log-time\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

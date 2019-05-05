@@ -6,10 +6,19 @@
     <description>Recent content in C# on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 16 Mar 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 05 May 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/c#/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>將 Object 序列化為 Json 時，攤平 Json string 欄位</title>
+      <link>https://blog.yowko.com/not-serialize-json-string/</link>
+      <pubDate>Sun, 05 May 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/not-serialize-json-string/</guid>
+      <description>將 Object 序列化為 Json 時，攤平 Json string 欄位 在不同系統間透過 Json 來交換資料是很常見的設計，甚至在某些系統上還可以見到將 Json string 儲存在屬性中，當然有人會質疑這樣就</description>
+    </item>
     
     <item>
       <title>Protobuf 該如何處理不定型別</title>
