@@ -7,6 +7,7 @@ tags: ["ASP.NET MVC"]
 slug: "aspnet-mvc-httpantiforgeryexception-redirect"
 aliases:
     - /2018/05/aspnet-mvc-httpantiforgeryexception-redirect.html
+    - /2018/05/aspnet-mvc-httpantiforgeryexception-redirect/
 ---
 # ASP.NET MVC 的 System.Web.Mvc.HttpAntiForgeryException 錯誤
 user 反應在操作系統時出現 System.Web.Mvc.HttpAntiForgeryException錯誤，而 System.Web.Mvc.HttpAntiForgeryException 的錯誤在 ASP.NET MVC 上並不算罕見，是個為了避免 XSRF 的保護機制：在網頁表單上加上個隱藏欄位用來儲存 token ，實際 submit 時 server 會檢查這個 token 是否有效，常發生在網頁開啟閒置一段時間後再次 submit 資料的情境下，通常只要 refresh 頁面讓網頁重新取得 token 即可解決

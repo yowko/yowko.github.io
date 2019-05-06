@@ -7,6 +7,7 @@ tags: ["Frontend","JavaScript"]
 slug: "build-your-own-react-js-starter"
 aliases:
     - /2016/12/Build-Your-Own-React-js-Starter.html
+    - /2016/12/build-your-own-react-js-starter
 ---
 # 如何從無至有建立 React.js 開發環境
 React.js 有著 facebook 的效能品質保證，快速襲捲前端開發生態，很多嶄新觀念也大大地改變前端開發人員的思維，也因為快速地發展與演化讓 React.js 開發流程一直很多元，結果讓開發 React.js 的進入門檻變高，好像有好多方法可行(e.g.需不需要 jsx 語法、jsx 需要預先編譯嗎、預先編譯要用什麼？ gulp、browserify 還是 webpack+babel?)。

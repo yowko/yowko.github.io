@@ -7,6 +7,7 @@ tags: ["Windows Server 2016"]
 slug: "windows-server-2016-enable-remote-desktop"
 aliases:
     - /2017/04/windows-server-2016-enable-remote-desktop.html
+    - /2017/04/windows-server-2016-enable-remote-desktop/
 ---
 # 如何開啟 Windows Server 2016 遠端桌面
 為了體驗 Windows Server 2016 的威力, 從安裝 Windows Server 2016 開始，都是直接操作實體機器，只是這樣不僅常常用錯滑鼠鍵盤，有的軟體授權方式是綁機器的還要準備兩套授權，加上檔案跨機器分享都比較麻煩，所以經過幾次的嘗試後還是決定使用遠端桌面來作業，順手筆記啟用步驟
