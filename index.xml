@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 05 May 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 10 May 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TimeZoneInfo 在 Mac/Linux 找不到 time zone ID</title>
+      <link>https://blog.yowko.com/timezoneinfo-time-zone-id-not-found/</link>
+      <pubDate>Fri, 10 May 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/timezoneinfo-time-zone-id-not-found/</guid>
+      <description>TimeZoneInfo 在 Mac/Linux 找不到指定 time zone ID 同事提到 TimeZoneInfo 的操作在 Linux server 會出現錯誤，想說我怎麼沒遇到立馬試試，於是發現原來是 time zone ID 在 Windows 與 Linux 不同造成的 XD 雖說可以理解，但不</description>
+    </item>
     
     <item>
       <title>將 Object 序列化為 Json 時，攤平 Json string 欄位</title>
