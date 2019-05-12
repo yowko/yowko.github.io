@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 10 May 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 12 May 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>讓 ASP.NET Core MVC 自行停止運作</title>
+      <link>https://blog.yowko.com/aspdotnet-core-mvc-stop-by-itself/</link>
+      <pubDate>Sun, 12 May 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-mvc-stop-by-itself/</guid>
+      <description>讓 ASP.NET Core MVC 自行停止運作 公司專案有個系統在啟動時執行 init script，接著就等待後台管理者下指令才會有後續動作，但開發階段暫時還不會有後台管理者的</description>
+    </item>
     
     <item>
       <title>TimeZoneInfo 在 Mac/Linux 找不到 time zone ID</title>

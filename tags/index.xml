@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 10 May 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 12 May 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ASP.NET Core</title>
+      <link>https://blog.yowko.com/tags/asp.net-core/</link>
+      <pubDate>Sun, 12 May 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/tags/asp.net-core/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ASP.NET Core MVC</title>
+      <link>https://blog.yowko.com/tags/asp.net-core-mvc/</link>
+      <pubDate>Sun, 12 May 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/tags/asp.net-core-mvc/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>C#</title>
@@ -98,15 +116,6 @@
       <pubDate>Fri, 26 Apr 2019 21:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/tags/kubernetes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ASP.NET Core</title>
-      <link>https://blog.yowko.com/tags/asp.net-core/</link>
-      <pubDate>Wed, 24 Apr 2019 21:30:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/tags/asp.net-core/</guid>
       <description></description>
     </item>
     
