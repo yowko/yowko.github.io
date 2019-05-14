@@ -96,16 +96,16 @@
   </url>
   
   <url>
+    <loc>https://blog.yowko.com/tags/docker/</loc>
+    <lastmod>2019-05-02T21:30:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/fluentd-elasticsearch-docker/</loc>
     <lastmod>2019-05-02T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.yowko.com/tags/docker/</loc>
-    <lastmod>2019-05-02T21:30:31+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
