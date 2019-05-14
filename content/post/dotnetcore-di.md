@@ -78,11 +78,11 @@ slug: "dotnet-core-console-di"
 
 查了文件 [Host in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/index) 有提到 host 有兩種 API 負責應用程式啟動及 lifetime 管理
 
-* `Web Host`
+- `Web Host`
 
     > 主要用來 host web application
 
-* `Generic Host`
+- `Generic Host`
 
     > 目前版本主要用來 host 非 web application (e.g. 背景執行的工作)，之後預計發展成可以同時 host 任何類型的應用程式，包含 web，也預計徹底取代 Web Host 
 
