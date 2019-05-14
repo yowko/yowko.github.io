@@ -72,7 +72,7 @@ slug: "dotnet-core-console-di"
     ```
 
 
-## B.(可能是)未來主要 DI
+## B. (可能是)未來主要 DI
 
 今天想要透過 console 寫個小工具時發現沒有用 DI 連要寫個 log 用起來都覺得怪，這也讓我聯想到 ASP.NET Core 都可以透過 Program 的 Main 來設定並啟動 host，反而 console project 沒有走相同流程？！
 
