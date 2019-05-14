@@ -12,6 +12,7 @@ slug: "dotnet-core-console-di"
 官方文件沒有完整的介紹，看了些文件，順手紀錄一下
 
 ## A. 簡易 DI
+
 1. 安裝套件 - `Microsoft.Extensions.DependencyInjection`
 
     - Package Manager Console
@@ -80,6 +81,7 @@ slug: "dotnet-core-console-di"
 * `Web Host`
 
     > 主要用來 host web application
+
 * `Generic Host`
 
     > 目前版本主要用來 host 非 web application (e.g. 背景執行的工作)，之後預計發展成可以同時 host 任何類型的應用程式，包含 web，也預計徹底取代 Web Host 
