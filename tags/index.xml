@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 14 May 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 May 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MariaDB</title>
+      <link>https://blog.yowko.com/tags/mariadb/</link>
+      <pubDate>Sun, 19 May 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/tags/mariadb/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>ASP.NET Core</title>
