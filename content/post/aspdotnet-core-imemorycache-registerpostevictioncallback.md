@@ -32,7 +32,7 @@ Assembly|Microsoft.Extensions.Caching.Memory.dll|System.Runtime.Caching.dll
 3. NuGet package
     - NLog 4.6.3
     - NLog.Web.AspNetCore 4.8.2
-4. ASP.NET Core 預設專案範本
+4. ASP.NET Core MVC 預設專案範本
 
 ## 前置準備
 
