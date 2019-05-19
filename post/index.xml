@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 May 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 14 May 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>關於 ASP.NET Core IMemoryCache RegisterPostEvictionCallback 的觸發時機</title>
+      <link>https://blog.yowko.com/aspdotnet-core-imemorycache-registerpostevictioncallback/</link>
+      <pubDate>Tue, 14 May 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-imemorycache-registerpostevictioncallback/</guid>
+      <description>關於 ASP.NET Core IMemoryCache RegisterPostEvictionCallback 的觸發時機 同事提到想用 ASP.NET Core 的 IMemoryCache 來處理 application 本身的 cache，無奈小弟學藝不精沒有太多想法可以參與討論，所以趕緊惡補，藉這個機會學習也</description>
+    </item>
     
     <item>
       <title>讓 ASP.NET Core MVC 自行停止運作</title>
