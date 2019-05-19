@@ -71,7 +71,6 @@ slug: "dotnet-core-console-di"
     }
     ```
 
-
 ## B. (可能是)未來主要 DI
 
 今天想要透過 console 寫個小工具時發現沒有用 DI 連要寫個 log 用起來都覺得怪，這也讓我聯想到 ASP.NET Core 都可以透過 Program 的 Main 來設定並啟動 host，反而 console project 沒有走相同流程？！
@@ -95,22 +94,25 @@ slug: "dotnet-core-console-di"
             ```
             Install-Package Microsoft.Extensions.Hosting
             ```
+        
         - .NET CLI
 
             ```
             dotnet add package Microsoft.Extensions.Hosting
             ```  
+    
     - `Microsoft.Extensions.DependencyInjection`
         - Package Manager Console
         
             ```
             Install-Package Microsoft.Extensions.DependencyInjection
             ```
+        
         - .NET CLI
 
             ```
             dotnet add package Microsoft.Extensions.DependencyInjection
-            ``` 
+            ```
 
     - 相依套件(理論上會自動安裝，曾經遇過需手動安裝)
         - Microsoft.Extensions.Configuration
@@ -173,12 +175,13 @@ slug: "dotnet-core-console-di"
     ```
 
 ## 心得
+
 從 .NET Core 的使用上明顯可以看得出 .NET Core 仍在快速發展中，常常一陣子沒有留意就又多了一些內容出來，也造成文件的產生速度有些落後，但相較於其他 open source 工具還是好上許多，只能說以前胃口被養大了
 
 回到這次紀錄的內容，程式碼數量上並沒有太多差異，不過整個 host 啟動與初始化流程卻有很大的不同，但說實話對於 Generic Host 的用法還是有些疑慮，主要是官方都說還在開發階段，依過去 MicroSoft 的習慣，大幅改動是非常有可能的XD 現在冒然使用難免有些風險呀
 
-
 # 參考資料
+
 1. [Host in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/index)
 2. [Using IHost .net core console applications](https://garywoodfine.com/ihost-net-core-console-applications/)
 3. [Dependency injection in .NET Core Console Application](https://korytiak.com/Home/BlogPost?PostName=Dependency%20injection%20in%20.NET%20Core%20Console%20Application)

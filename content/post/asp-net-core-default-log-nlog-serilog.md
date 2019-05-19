@@ -56,6 +56,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
 ![1default](https://user-images.githubusercontent.com/3851540/54085483-a92e5300-4379-11e9-9bfc-9f312f551215.png)
 
 ## NLog
+
 1. 安裝 NLog.Web.AspNetCore
 
     - Package Manager
@@ -68,6 +69,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
         ```
         dotnet add package NLog.Web.AspNetCore
         ```
+
 2. 建立 `nlog.config` 檔案
 
     > 位置為專案根目錄下
@@ -177,6 +179,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
         ```
         dotnet add package Serilog.AspNetCore
         ```
+
 2. 視 log 儲存類型安裝套件(以 file 為例)：Serilog.Sinks.File
 
     - Package Manage
@@ -189,6 +192,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
         ```
         dotnet add package Serilog.Sinks.File
         ```
+
 3. 安裝 json config 用套件 : Serilog.Settings.Configuration
 
     > xml config 需要安裝 Serilog.Settings.AppSettings
@@ -203,6 +207,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
         ```
         dotnet add package Serilog.Settings.Configuration
         ```
+
 4. 設定 Serilog 相關參數
 
     > 設定值寫至 `appsettings.json`
@@ -225,6 +230,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
         }
     }
     ```
+
 5. 設定啟用 Serilog
     - Main method
     
@@ -248,6 +254,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
                 //註冊 Serilog
                 .UseSerilog();
         ```
+
 6. programs.cs 完整內容
 
     ```cs
@@ -284,7 +291,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
     }
     ```
 
-# 心得
+## 心得
 
 NLog 有點像過去的 .NET Framework 中的 System.Web ：功能齊全，只要一經引用幾乎沒什麼做不到的;Serilog 則像 .NET Core，多數功能都能滿足，但功能拆分細微，需要什麼就單獨安裝、升級
 
