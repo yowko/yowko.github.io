@@ -6,10 +6,28 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 19 May 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 21 May 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 ASP.NET Core 2.2 來 Host gRPC Server</title>
+      <link>https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/</link>
+      <pubDate>Tue, 21 May 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/</guid>
+      <description>使用 ASP.NET Core 2.2 來 Host gRPC Server 之前筆記 Protobuf 該如何處理不定型別, .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫, Protobuf 時間屬性該如何表示？ 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用</description>
+    </item>
+    
+    <item>
+      <title>將 .NET Core Console 專案轉換為 ASP.NET Core</title>
+      <link>https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core/</link>
+      <pubDate>Tue, 21 May 2019 19:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core/</guid>
+      <description>將 .NET Core Console 專案轉換為 ASP.NET Core console 因為組成簡單、建立快速，常被用來確認語法或是 POC 特定功能需求，不過一旦 POC 沒問題就會遇到程式碼彙總的狀況，如果程式碼數量</description>
+    </item>
     
     <item>
       <title>Generated Columns - MariaDB 上的 Computed Columns</title>

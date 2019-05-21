@@ -2,15 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.yowko.com/computed-colums-mariadb/</loc>
-    <lastmod>2019-05-19T21:30:31+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.yowko.com/tags/mariadb/</loc>
-    <lastmod>2019-05-19T21:30:31+08:00</lastmod>
+    <loc>https://blog.yowko.com/tags/asp.net-core/</loc>
+    <lastmod>2019-05-21T21:30:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -33,8 +26,41 @@
   </url>
   
   <url>
-    <loc>https://blog.yowko.com/tags/asp.net-core/</loc>
-    <lastmod>2019-05-14T21:30:31+08:00</lastmod>
+    <loc>https://blog.yowko.com/tags/grpc/</loc>
+    <lastmod>2019-05-21T21:30:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/</loc>
+    <lastmod>2019-05-21T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/tags/dotnet-core/</loc>
+    <lastmod>2019-05-21T19:30:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core/</loc>
+    <lastmod>2019-05-21T19:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/computed-colums-mariadb/</loc>
+    <lastmod>2019-05-19T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/tags/mariadb/</loc>
+    <lastmod>2019-05-19T21:30:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -141,12 +167,6 @@
   </url>
   
   <url>
-    <loc>https://blog.yowko.com/tags/dotnet-core/</loc>
-    <lastmod>2019-04-28T21:30:31+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.yowko.com/dotnet-core-middieware-unit-test/</loc>
     <lastmod>2019-04-28T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -211,12 +231,6 @@
     <lastmod>2019-03-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.yowko.com/tags/grpc/</loc>
-    <lastmod>2019-03-16T21:30:31+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

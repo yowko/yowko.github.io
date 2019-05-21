@@ -6,10 +6,19 @@
     <description>Recent content in dotnet core on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 28 Apr 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 21 May 2019 19:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/dotnet-core/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>將 .NET Core Console 專案轉換為 ASP.NET Core</title>
+      <link>https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core/</link>
+      <pubDate>Tue, 21 May 2019 19:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core/</guid>
+      <description>將 .NET Core Console 專案轉換為 ASP.NET Core console 因為組成簡單、建立快速，常被用來確認語法或是 POC 特定功能需求，不過一旦 POC 沒問題就會遇到程式碼彙總的狀況，如果程式碼數量</description>
+    </item>
     
     <item>
       <title>為 .NET Core Middleware 加上 Unit Test</title>
