@@ -51,7 +51,6 @@ ASP.NET Core 將在 .NET Core 3 正式支援 gRPC，其中 gRPC Server host 的�
 ## 使用 ASP.NET Core host gRPC Server
 
 1. 前置準備
-
     - 將 `gRPC.Message` 專案加入參考
     - 複製 `gRPCServiceImpl.CS`
 
