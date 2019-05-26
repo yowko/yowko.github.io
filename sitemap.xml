@@ -3,7 +3,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/asp.net-core/</loc>
-    <lastmod>2019-05-21T21:30:31+08:00</lastmod>
+    <lastmod>2019-05-26T21:30:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -26,9 +26,22 @@
   </url>
   
   <url>
-    <loc>https://blog.yowko.com/tags/grpc/</loc>
-    <lastmod>2019-05-21T21:30:31+08:00</lastmod>
+    <loc>https://blog.yowko.com/tags/dotnet-core/</loc>
+    <lastmod>2019-05-26T21:30:31+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/tags/grpc/</loc>
+    <lastmod>2019-05-26T21:30:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/generichost-grpc-server/</loc>
+    <lastmod>2019-05-26T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
@@ -36,12 +49,6 @@
     <lastmod>2019-05-21T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.yowko.com/tags/dotnet-core/</loc>
-    <lastmod>2019-05-21T19:30:31+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

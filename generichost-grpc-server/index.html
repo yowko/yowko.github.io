@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 ASP.NET Core 2.2 來 Host gRPC Server - Yowko&#39;s Notes</title>
+  <title>使用 GenericHost 來 Host gRPC Server - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 ASP.NET Core 2.2 來 Host gRPC Server 之前筆記 Protobuf 該如何處理不定型別, .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫, Protobuf 時間屬性該如何表示？ 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用" />
+  <meta name="description" content="使用 GenericHost 來 Host gRPC Server 之前筆記 在 .NET Core console 上使用 Dependency Injection - DI 提到 ASP.NET Core 有兩種 host 方式： WebHost Generic Host 而在之前另一則筆記 使用 ASP.NET Core 2.2 來 Host gRPC Server 使用到 WebHost 來 host gRPC Server，經同" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" />
+<link rel="canonical" href="https://blog.yowko.com/generichost-grpc-server/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,27 +54,27 @@
 
 
 
-<meta property="og:title" content="使用 ASP.NET Core 2.2 來 Host gRPC Server" />
-<meta property="og:description" content="使用 ASP.NET Core 2.2 來 Host gRPC Server 之前筆記 Protobuf 該如何處理不定型別, .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫, Protobuf 時間屬性該如何表示？ 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用" />
+<meta property="og:title" content="使用 GenericHost 來 Host gRPC Server" />
+<meta property="og:description" content="使用 GenericHost 來 Host gRPC Server 之前筆記 在 .NET Core console 上使用 Dependency Injection - DI 提到 ASP.NET Core 有兩種 host 方式： WebHost Generic Host 而在之前另一則筆記 使用 ASP.NET Core 2.2 來 Host gRPC Server 使用到 WebHost 來 host gRPC Server，經同" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" />
-<meta property="article:published_time" content="2019-05-21T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-05-21T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/generichost-grpc-server/" />
+<meta property="article:published_time" content="2019-05-26T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-05-26T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="使用 ASP.NET Core 2.2 來 Host gRPC Server">
-<meta itemprop="description" content="使用 ASP.NET Core 2.2 來 Host gRPC Server 之前筆記 Protobuf 該如何處理不定型別, .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫, Protobuf 時間屬性該如何表示？ 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用">
-
-
-<meta itemprop="datePublished" content="2019-05-21T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-05-21T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="978">
+<meta itemprop="name" content="使用 GenericHost 來 Host gRPC Server">
+<meta itemprop="description" content="使用 GenericHost 來 Host gRPC Server 之前筆記 在 .NET Core console 上使用 Dependency Injection - DI 提到 ASP.NET Core 有兩種 host 方式： WebHost Generic Host 而在之前另一則筆記 使用 ASP.NET Core 2.2 來 Host gRPC Server 使用到 WebHost 來 host gRPC Server，經同">
 
 
+<meta itemprop="datePublished" content="2019-05-26T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-05-26T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="702">
 
-<meta itemprop="keywords" content="ASP.NET Core,gRPC," />
+
+
+<meta itemprop="keywords" content="ASP.NET Core,gRPC,dotnet core," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 ASP.NET Core 2.2 來 Host gRPC Server"/>
-<meta name="twitter:description" content="使用 ASP.NET Core 2.2 來 Host gRPC Server 之前筆記 Protobuf 該如何處理不定型別, .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫, Protobuf 時間屬性該如何表示？ 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用"/>
+<meta name="twitter:title" content="使用 GenericHost 來 Host gRPC Server"/>
+<meta name="twitter:description" content="使用 GenericHost 來 Host gRPC Server 之前筆記 在 .NET Core console 上使用 Dependency Injection - DI 提到 ASP.NET Core 有兩種 host 方式： WebHost Generic Host 而在之前另一則筆記 使用 ASP.NET Core 2.2 來 Host gRPC Server 使用到 WebHost 來 host gRPC Server，經同"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-05-21 </span>
+        <span class="post-time"> 2019-05-26 </span>
         
-        <span class="more-meta"> 約 978 字 </span>
+        <span class="more-meta"> 約 702 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -161,12 +161,10 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#使用-asp-net-core-2-2-來-host-grpc-server">使用 ASP.NET Core 2.2 來 Host gRPC Server</a>
+<li><a href="#使用-generichost-來-host-grpc-server">使用 GenericHost 來 Host gRPC Server</a>
 <ul>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#升級-nuget-package-並調整建置方式">升級 NuGet package 並調整建置方式</a></li>
-<li><a href="#建立-asp-net-core-專案或是將-grpc-server-專案改為-asp-net-core">建立 ASP.NET Core 專案或是將 gRPC.Server 專案改為 ASP.NET Core</a></li>
-<li><a href="#使用-asp-net-core-host-grpc-server">使用 ASP.NET Core host gRPC Server</a></li>
+<li><a href="#修改步驟">修改步驟</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -182,63 +180,45 @@
     <div class="post-content">
       
 
-<h1 id="使用-asp-net-core-2-2-來-host-grpc-server">使用 ASP.NET Core 2.2 來 Host gRPC Server</h1>
+<h1 id="使用-generichost-來-host-grpc-server">使用 GenericHost 來 Host gRPC Server</h1>
 
-<p>之前筆記 <a href="https://blog.yowko.com/protobuf-object-any/" target="_blank">Protobuf 該如何處理不定型別</a>, <a href="https://blog.yowko.com/dotnet-core-jaeger-grpc/" target="_blank">.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫</a>, <a href="https://blog.yowko.com/protobuf-datetime-timestamp/" target="_blank">Protobuf 時間屬性該如何表示？</a> 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用 <code>Console.ReadLine()</code> 或是 <code>Console.ReadKey()</code> 來讓程式持續運作，實在不太保險，所以打算改用 ASP.NET Core 來 host gRPC Server</p>
+<p>之前筆記 <a href="https://blog.yowko.com/dotnet-core-console-di/" target="_blank">在 .NET Core console 上使用 Dependency Injection - DI</a> 提到 ASP.NET Core 有兩種 host 方式：</p>
 
-<p>ASP.NET Core 將在 .NET Core 3 正式支援 gRPC，其中 gRPC Server host 的部份會透過使用 extension method 的方式在 ConfigureServices 進行註冊，但這個 NuGet package ：<a href="https://www.nuget.org/packages/Grpc.AspNetCore.Server" target="_blank">Grpc.AspNetCore.Server</a>，目前仍在 preview 階段且會相依於 <code>.NETCoreApp 3.0</code>，無法使用在 ASP.NET Core 2.2 上，所幸 gRPC 需要的 HTTP/2 特性在 ASP.NET Core 2.2 中已加入，於是我來筆記一下該怎麼簡易地讓 gRPC Server host 在 ASP.NET Core 2.2 上</p>
+<ol>
+<li>WebHost</li>
+<li>Generic Host</li>
+</ol>
+
+<p>而在之前另一則筆記 <a href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" target="_blank">使用 ASP.NET Core 2.2 來 Host gRPC Server</a> 使用到 WebHost 來 host gRPC Server，經同事提醒其實不需要用到 kestrel 來處理 request，覺得相當有道理於是我就來改版了</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Mojave 10.14.5</li>
 <li>.NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)</li>
-<li>使用之前筆記 <a href="https://blog.yowko.com/dotnet-core-console-di/" target="_blank">在 .NET Core console 上使用 Dependency Injection - DI</a> 作為基礎來修改</li>
+<li>使用之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" target="_blank">使用 ASP.NET Core 2.2 來 Host gRPC Server</a> 作為基礎來修改</li>
 
 <li><p>NuGet package</p>
 
 <ul>
 <li>Microsoft.AspNetCore 2.2.0</li>
+<li>Microsoft.Extensions.Hosting 2.2.0</li>
 </ul></li>
 </ol>
 
-<h2 id="升級-nuget-package-並調整建置方式">升級 NuGet package 並調整建置方式</h2>
-
-<p>之前都是透過 <code>grpc.tools</code> 的 CLI 工具來將 <code>.proto</code> 產生出對應的 C# code，後來經過同事的積極研究後發現從 <code>grpc.tools 1.17</code> 開始就支援使用 <code>dotnet build</code>、<code>Visual Studio</code>、<code>MSBuild</code> 來編譯 proto 檔</p>
-
-<blockquote>
-<p>以下操作將以 Rider 示範，Visual Studio 的用法可以直接參考 <a href="https://github.com/grpc/grpc/blob/master/src/csharp/BUILD-INTEGRATION.md" target="_blank">Protocol Buffers/gRPC Integration Into .NET Build</a></p>
-</blockquote>
+<h2 id="修改步驟">修改步驟</h2>
 
 <ol>
-<li><p>確認 <code>Grpc.Tools</code> 版本比 <code>1.17</code> 新</p></li>
+<li>建立 .NET Core console 專案</li>
 
-<li><p>編輯 <code>gRPC.Message.csproj</code></p>
-
-<blockquote>
-<p>include <code>.proto</code> ，並加上 <code>OutputDir</code> 與 <code>CompileOutputs</code>，存檔時就會自動產生 c# 內容</p>
+<li><p>安裝 NuGet package</p>
 
 <ul>
-<li><code>Include</code> : 指定 <code>proto</code> 檔案位置</li>
-<li><code>OutputDir</code> : 指定 cs 產出位置，預設為 <code>/obj/Debug/netstandard2.0</code> or <code>/obj/Release/netstandard2.0</code> 下，視 configuration 而定</li>
-<li><code>CompileOutputs</code> : 說明看不懂，但實際上可以避免重複產生 cs 及沒有內容的 cs</li>
-</ul>
-</blockquote>
+<li>Microsoft.AspNetCore 2.2.0</li>
+<li>Microsoft.Extensions.Hosting 2.2.0</li>
+</ul></li>
 
-<pre><code class="language-xml">&lt;ItemGroup&gt;
-    &lt;Protobuf Include=&quot;../../proto/*.proto&quot; OutputDir=&quot;%(RelativePath)&quot; CompileOutputs=&quot;false&quot;/&gt;
-&lt;/ItemGroup&gt;
-</code></pre>
-
-<h2 id="建立-asp-net-core-專案或是將-grpc-server-專案改為-asp-net-core">建立 ASP.NET Core 專案或是將 gRPC.Server 專案改為 ASP.NET Core</h2>
-
-<p>以下將用新建 ASP.NET Core 專案 示範，gRPC.Server 專案升級為 ASP.NET Core 詳細做法可以參考之前筆記 <a href="https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core" target="_blank">將 .NET Core Console 專案轉換為 ASP.NET Core</a></p>
-
-<h2 id="使用-asp-net-core-host-grpc-server">使用 ASP.NET Core host gRPC Server</h2>
-
-<ol>
-<li>前置準備</li>
-<li>將 <code>gRPC.Message</code> 專案加入參考</li>
+<li><p>將 <code>gRPC.Message</code> 專案加入參考</p></li>
 
 <li><p>複製 <code>gRPCServiceImpl.CS</code></p>
 
@@ -253,7 +233,6 @@
             }
         );
     }
-
     public override Task&lt;Response&gt; SayGoodbye(GoodByeRequest request, ServerCallContext context)
     {
         return Task.FromResult(new Response
@@ -267,97 +246,107 @@
 </code></pre>
 
 <ol>
-<li>新增 gRPC Server 的啟動 class : <code>gRPCServer.cs</code></li>
+<li>建立 <code>gRPCServer.cs</code> 用來啟動 gRPC Server</li>
 </ol>
 
 <pre><code class="language-cs">public class gRPCServer
 {
-public string Host { get; private set; }
-public int Port { get; private set; }
-private readonly Grpc.Core.Server serverInstance;
-
-public gRPCServer(string host, int port, params ServerServiceDefinition[] serverServices)
-{
-    Host = host;
-    Port = port;
-    serverInstance = new Grpc.Core.Server
-    //(
-    //      // channel 設定請自行依專案狀況調整
-    //      new List&lt;ChannelOption&gt;
-    //      {
-    //          new ChannelOption(&quot;grpc.keepalive_permit_without_calls&quot;, 1),
-    //          new ChannelOption(&quot;grpc.http2.max_pings_without_data&quot;, 0)
-    //      }
-    //  )
+    public string Host { get; private set; }
+    public int Port { get; private set; }
+    private readonly Grpc.Core.Server serverInstance;
+    public gRPCServer(string host, int port, params ServerServiceDefinition[] serverServices)
     {
-        Ports =
+        Host = host;
+        Port = port;
+        serverInstance = new Grpc.Core.Server
+        //(
+        //      // channel 設定請自行依專案狀況調整
+        //      new List&lt;ChannelOption&gt;
+        //      {
+        //          new ChannelOption(&quot;grpc.keepalive_permit_without_calls&quot;, 1),
+        //          new ChannelOption(&quot;grpc.http2.max_pings_without_data&quot;, 0)
+        //      }
+        //  )
         {
-            new ServerPort(Host, Port, ServerCredentials.Insecure)
+            Ports =
+            {
+                new ServerPort(Host, Port, ServerCredentials.Insecure)
+            }
+        };
+        foreach (var serverService in serverServices)
+        {
+            serverInstance.Services.Add(serverService);
         }
-    };
-    foreach (var serverService in serverServices)
-    {
-        serverInstance.Services.Add(serverService);
+        serverInstance.Start();
     }
-
-    serverInstance.Start();
-}
 }
 </code></pre></li>
-</ol></li>
 
-<li><p>在 <code>Startup.cs</code> 的 <code>ConfigureServices</code> 方法中註冊 gRPC</p>
+<li><p>註冊並啟動 gRPC</p>
 
-<pre><code class="language-cs">public void ConfigureServices(IServiceCollection services)
+<pre><code class="language-cs">static async Task Main(string[] args)
 {
-    var host = &quot;127.0.0.1&quot;;
-    var port = 50051;
+    var builder = new HostBuilder()
+        .ConfigureAppConfiguration((hostingContext, config) =&gt;
+        {
+            //沒有 appsettings.json 就可以不用加
+            //config.AddJsonFile(&quot;appsettings.json&quot;, optional: true);
+            config.AddEnvironmentVariables();
 
-    services.AddSingleton&lt;gRPCService.gRPCServiceBase, gRPCServiceImpl&gt;();
+            if (args != null)
+            {
+                config.AddCommandLine(args);
+            }
+        })
+        .ConfigureServices((hostContext, services) =&gt;
+        {
+            services.AddOptions();
 
-    var Services = services.BuildServiceProvider();
-    services.AddSingleton(
-        new gRPCServer(host, port,
-            gRPCService.BindService(Services.GetRequiredService&lt;gRPCService.gRPCServiceBase&gt;())
-        ));
+            var host = &quot;127.0.0.1&quot;;
+            var port = 50051;
+
+            services.AddSingleton&lt;gRPCService.gRPCServiceBase, gRPCServiceImpl&gt;();
+            var Services = services.BuildServiceProvider();
+            services.AddSingleton(
+                new gRPCServer(host, port,
+                    gRPCService.BindService(Services.GetRequiredService&lt;gRPCService.gRPCServiceBase&gt;())
+                ));
+        });
+
+    await builder.RunConsoleAsync();
 }
 </code></pre>
 
 <ol>
-<li>加入 Jaeger trace</li>
+<li>加入 Jaeger tracer (optional)</li>
 </ol>
 
-<pre><code class="language-cs">public void ConfigureServices(IServiceCollection services)
-{
-    ILoggerFactory loggerFactory = new LoggerFactory().AddConsole();
-    var serviceName = &quot;gRPC.ServerOnASP.NETCore&quot;;
-    Tracer tracer = TracingHelper.InitTracer(serviceName, loggerFactory);
-    ServerTracingInterceptor tracingInterceptor = new ServerTracingInterceptor(tracer);
+<pre><code class="language-cs">ILoggerFactory loggerFactory = new LoggerFactory().AddConsole();
+var serviceName = &quot;gRPCServerOnGenericHost&quot;;
+Tracer tracer = TracingHelper.InitTracer(serviceName, loggerFactory);
+ServerTracingInterceptor tracingInterceptor = new ServerTracingInterceptor(tracer);
 
-    var host = &quot;127.0.0.1&quot;;
-    var port = 50051;
-
-    services.AddSingleton&lt;gRPCService.gRPCServiceBase, gRPCServiceImpl&gt;();
-
-    var Services = services.BuildServiceProvider();
-    services.AddSingleton(
-        new gRPCServer(host, port,
-            gRPCService.BindService(Services.GetRequiredService&lt;gRPCService.gRPCServiceBase&gt;()).Intercept(tracingInterceptor)
-        ));
-}
+services.AddSingleton(
+new gRPCServer(host, port,
+    gRPCService.BindService(Services.GetRequiredService&lt;gRPCService.gRPCServiceBase&gt;())
+        .Intercept(tracingInterceptor)
+));
 </code></pre></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>透過 ASP.NET Core 來 host gRPC Server 除了可以避免在不小心的情況下中止 console 執行，也可以使 configuration、log、cache 這類服務都使用 ASP.NET Core 的 DI,讓開發模式統一，除此之外  等到 .NET Core 3 上市時，轉移至 <code>Grpc.AspNetCore.Server</code> 的 effort 也較低</p>
+<p>Generic Host 適合用來 host 不需處理 http request 的應用程式，以 gRPC Server 而言是相當適合，再次由衷地佩服起同事，深深覺得有強大的同事一起工作真的可以學到很多</p>
 
-<p>詳細程式碼可以參考 <a href="https://github.com/yowko/asp.netcore2hostgrpc" target="_blank">yowko/asp.netcore2hostgrpc</a></p>
+<p>回到 ASP.NET Core host gRPC 的主題上，我翻了 <code>Grpc.AspNetCore.Server</code> 的原始碼，目前看來主要功能都是使用 WebHost，其中有一部份功能還包含了處理 http request。因此屆時使用 .NET Core 3 ，是不是可以簡單的 migrate 過去可能還需要持續觀察，但 .NET Core 3 還未正式上市，<code>Grpc.AspNetCore.Server</code> 也還在 preview，日後會不會調整加入 Generic Host 支援就拭目以待囉</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://github.com/grpc/grpc/blob/master/src/csharp/BUILD-INTEGRATION.md" target="_blank">Protocol Buffers/gRPC Integration Into .NET Build</a></li>
+<li><a href="https://blog.yowko.com/dotnet-core-console-di/" target="_blank">在 .NET Core console 上使用 Dependency Injection - DI</a></li>
+<li><a href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" target="_blank">使用 ASP.NET Core 2.2 來 Host gRPC Server</a></li>
+<li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/index?view=aspnetcore-2.2&amp;tabs=macos#host" target="_blank">ASP.NET Core 基本概念</a></li>
+<li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.2" target="_blank">.NET 泛型主機</a></li>
 </ol>
 
     </div>
@@ -370,7 +359,7 @@ public gRPCServer(string host, int port, params ServerServiceDefinition[] server
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-05-21</span>
+    <span class="item-content">2019-05-26</span>
   </p>
   
   <p class="copyright-item">
@@ -398,24 +387,23 @@ public gRPCServer(string host, int port, params ServerServiceDefinition[] server
 		    	
             <a href="https://blog.yowko.com/tags/grpc/">gRPC</a>
           
+		    
+		    
+		      
+		    	
+            <a href="https://blog.yowko.com/tags/dotnet-core/">.NET Core</a>
+          
         </div>
 
       
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/generichost-grpc-server/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">使用 GenericHost 來 Host gRPC Server</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">將 .NET Core Console 專案轉換為 ASP.NET Core</span>			
+            <span class="prev-text nav-default">使用 ASP.NET Core 2.2 來 Host gRPC Server</span>			
           </a>
 		  </div>
       </nav>
@@ -426,7 +414,7 @@ public gRPCServer(string host, int port, params ServerServiceDefinition[] server
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/aspdotnet-core-2-host-grpc-server\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/generichost-grpc-server\/';  
       
     };
 

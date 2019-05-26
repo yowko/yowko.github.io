@@ -6,10 +6,19 @@
     <description>Recent content in ASP.NET Core on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 21 May 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 26 May 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/asp.net-core/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 GenericHost 來 Host gRPC Server</title>
+      <link>https://blog.yowko.com/generichost-grpc-server/</link>
+      <pubDate>Sun, 26 May 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/generichost-grpc-server/</guid>
+      <description>使用 GenericHost 來 Host gRPC Server 之前筆記 在 .NET Core console 上使用 Dependency Injection - DI 提到 ASP.NET Core 有兩種 host 方式： WebHost Generic Host 而在之前另一則筆記 使用 ASP.NET Core 2.2 來 Host gRPC Server 使用到 WebHost 來 host gRPC Server，經同</description>
+    </item>
     
     <item>
       <title>使用 ASP.NET Core 2.2 來 Host gRPC Server</title>
