@@ -67,7 +67,7 @@
 
 <meta itemprop="datePublished" content="2019-05-26T21:30:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-05-26T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="702">
+<meta itemprop="wordCount" content="711">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-05-26 </span>
         
-        <span class="more-meta"> 約 702 字 </span>
+        <span class="more-meta"> 約 711 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -339,6 +339,8 @@ new gRPCServer(host, port,
 <p>Generic Host 適合用來 host 不需處理 http request 的應用程式，以 gRPC Server 而言是相當適合，再次由衷地佩服起同事，深深覺得有強大的同事一起工作真的可以學到很多</p>
 
 <p>回到 ASP.NET Core host gRPC 的主題上，我翻了 <code>Grpc.AspNetCore.Server</code> 的原始碼，目前看來主要功能都是使用 WebHost，其中有一部份功能還包含了處理 http request。因此屆時使用 .NET Core 3 ，是不是可以簡單的 migrate 過去可能還需要持續觀察，但 .NET Core 3 還未正式上市，<code>Grpc.AspNetCore.Server</code> 也還在 preview，日後會不會調整加入 Generic Host 支援就拭目以待囉</p>
+
+<p>詳細程式碼請參考 <a href="https://github.com/yowko/generichostgrpc" target="_blank">yowko/generichostgrpc</a></p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
