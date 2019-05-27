@@ -153,6 +153,8 @@ Generic Host 適合用來 host 不需處理 http request 的應用程式，以 g
 
 回到 ASP.NET Core host gRPC 的主題上，我翻了 `Grpc.AspNetCore.Server` 的原始碼，目前看來主要功能都是使用 WebHost，其中有一部份功能還包含了處理 http request。因此屆時使用 .NET Core 3 ，是不是可以簡單的 migrate 過去可能還需要持續觀察，但 .NET Core 3 還未正式上市，`Grpc.AspNetCore.Server` 也還在 preview，日後會不會調整加入 Generic Host 支援就拭目以待囉
 
+詳細程式碼請參考 [yowko/generichostgrpc](https://github.com/yowko/generichostgrpc)
+
 ## 參考資訊
 
 1. [在 .NET Core console 上使用 Dependency Injection - DI](https://blog.yowko.com/dotnet-core-console-di/)
