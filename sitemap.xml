@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.yowko.com/tags/asp.net-core/</loc>
-    <lastmod>2019-05-26T21:30:31+08:00</lastmod>
+    <loc>https://blog.yowko.com/tags/kafka/</loc>
+    <lastmod>2019-06-02T19:30:31+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/dotnet-kafka-producer-compresstype/</loc>
+    <lastmod>2019-06-02T19:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
@@ -27,6 +34,19 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/dotnet-core/</loc>
+    <lastmod>2019-06-02T19:30:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/dotnet-kafka-consumer-setting/</loc>
+    <lastmod>2019-06-01T19:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/tags/asp.net-core/</loc>
     <lastmod>2019-05-26T21:30:31+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -284,12 +304,6 @@
     <lastmod>2019-03-10T21:00:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.yowko.com/tags/kafka/</loc>
-    <lastmod>2019-03-09T21:30:31+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

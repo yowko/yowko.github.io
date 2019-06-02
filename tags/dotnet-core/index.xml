@@ -6,10 +6,28 @@
     <description>Recent content in dotnet core on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 26 May 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 02 Jun 2019 19:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/dotnet-core/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kafka Producer 不同壓縮方式對發送速度的影響</title>
+      <link>https://blog.yowko.com/dotnet-kafka-producer-compresstype/</link>
+      <pubDate>Sun, 02 Jun 2019 19:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-kafka-producer-compresstype/</guid>
+      <description>Kafka Producer 不同壓縮方式對發送速度的影響 這兩天在測試 Kafka consumer 各項設定對於處理速度的影響 (詳細內容可以參考 Kafka Consumer 處理速度緩慢，設定調整紀實)，經過一輪比較後</description>
+    </item>
+    
+    <item>
+      <title>Kafka Consumer 處理速度緩慢，設定調整紀實</title>
+      <link>https://blog.yowko.com/dotnet-kafka-consumer-setting/</link>
+      <pubDate>Sat, 01 Jun 2019 19:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-kafka-consumer-setting/</guid>
+      <description>Kafka Consumer 處理速度緩慢，設定調整紀實 最近專案用了 Kafka 做為中介的 message queue，近期已經陸陸續續開始準備上線的前置作業，其中一項就是壓測數據，不過 Kafka 的 consumer</description>
+    </item>
     
     <item>
       <title>使用 GenericHost 來 Host gRPC Server</title>

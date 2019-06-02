@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 GenericHost 來 Host gRPC Server - Yowko&#39;s Notes</title>
+  <title>Kafka Producer 不同壓縮方式對發送速度的影響 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 GenericHost 來 Host gRPC Server 之前筆記 在 .NET Core console 上使用 Dependency Injection - DI 提到 ASP.NET Core 有兩種 host 方式： WebHost Generic Host 而在之前另一則筆記 使用 ASP.NET Core 2.2 來 Host gRPC Server 使用到 WebHost 來 host gRPC Server，經同" />
+  <meta name="description" content="Kafka Producer 不同壓縮方式對發送速度的影響 這兩天在測試 Kafka consumer 各項設定對於處理速度的影響 (詳細內容可以參考 Kafka Consumer 處理速度緩慢，設定調整紀實)，經過一輪比較後" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/generichost-grpc-server/" />
+<link rel="canonical" href="https://blog.yowko.com/dotnet-kafka-producer-compresstype/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,27 +54,27 @@
 
 
 
-<meta property="og:title" content="使用 GenericHost 來 Host gRPC Server" />
-<meta property="og:description" content="使用 GenericHost 來 Host gRPC Server 之前筆記 在 .NET Core console 上使用 Dependency Injection - DI 提到 ASP.NET Core 有兩種 host 方式： WebHost Generic Host 而在之前另一則筆記 使用 ASP.NET Core 2.2 來 Host gRPC Server 使用到 WebHost 來 host gRPC Server，經同" />
+<meta property="og:title" content="Kafka Producer 不同壓縮方式對發送速度的影響" />
+<meta property="og:description" content="Kafka Producer 不同壓縮方式對發送速度的影響 這兩天在測試 Kafka consumer 各項設定對於處理速度的影響 (詳細內容可以參考 Kafka Consumer 處理速度緩慢，設定調整紀實)，經過一輪比較後" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/generichost-grpc-server/" />
-<meta property="article:published_time" content="2019-05-26T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-05-26T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/dotnet-kafka-producer-compresstype/" />
+<meta property="article:published_time" content="2019-06-02T19:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-06-02T19:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="使用 GenericHost 來 Host gRPC Server">
-<meta itemprop="description" content="使用 GenericHost 來 Host gRPC Server 之前筆記 在 .NET Core console 上使用 Dependency Injection - DI 提到 ASP.NET Core 有兩種 host 方式： WebHost Generic Host 而在之前另一則筆記 使用 ASP.NET Core 2.2 來 Host gRPC Server 使用到 WebHost 來 host gRPC Server，經同">
-
-
-<meta itemprop="datePublished" content="2019-05-26T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-05-26T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="711">
+<meta itemprop="name" content="Kafka Producer 不同壓縮方式對發送速度的影響">
+<meta itemprop="description" content="Kafka Producer 不同壓縮方式對發送速度的影響 這兩天在測試 Kafka consumer 各項設定對於處理速度的影響 (詳細內容可以參考 Kafka Consumer 處理速度緩慢，設定調整紀實)，經過一輪比較後">
 
 
+<meta itemprop="datePublished" content="2019-06-02T19:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-02T19:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="851">
 
-<meta itemprop="keywords" content="ASP.NET Core,gRPC,dotnet core," />
+
+
+<meta itemprop="keywords" content="Kafka,dotnet core," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 GenericHost 來 Host gRPC Server"/>
-<meta name="twitter:description" content="使用 GenericHost 來 Host gRPC Server 之前筆記 在 .NET Core console 上使用 Dependency Injection - DI 提到 ASP.NET Core 有兩種 host 方式： WebHost Generic Host 而在之前另一則筆記 使用 ASP.NET Core 2.2 來 Host gRPC Server 使用到 WebHost 來 host gRPC Server，經同"/>
+<meta name="twitter:title" content="Kafka Producer 不同壓縮方式對發送速度的影響"/>
+<meta name="twitter:description" content="Kafka Producer 不同壓縮方式對發送速度的影響 這兩天在測試 Kafka consumer 各項設定對於處理速度的影響 (詳細內容可以參考 Kafka Consumer 處理速度緩慢，設定調整紀實)，經過一輪比較後"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-05-26 </span>
+        <span class="post-time"> 2019-06-02 </span>
         
-        <span class="more-meta"> 約 711 字 </span>
+        <span class="more-meta"> 約 851 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -161,10 +161,11 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#使用-generichost-來-host-grpc-server">使用 GenericHost 來 Host gRPC Server</a>
+<li><a href="#kafka-producer-不同壓縮方式對發送速度的影響">Kafka Producer 不同壓縮方式對發送速度的影響</a>
 <ul>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#修改步驟">修改步驟</a></li>
+<li><a href="#compressiontype">CompressionType</a></li>
+<li><a href="#實際數據">實際數據</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,175 +181,164 @@
     <div class="post-content">
       
 
-<h1 id="使用-generichost-來-host-grpc-server">使用 GenericHost 來 Host gRPC Server</h1>
+<h1 id="kafka-producer-不同壓縮方式對發送速度的影響">Kafka Producer 不同壓縮方式對發送速度的影響</h1>
 
-<p>之前筆記 <a href="https://blog.yowko.com/dotnet-core-console-di/" target="_blank">在 .NET Core console 上使用 Dependency Injection - DI</a> 提到 ASP.NET Core 有兩種 host 方式：</p>
+<p>這兩天在測試 Kafka consumer 各項設定對於處理速度的影響 (詳細內容可以參考 <a href="https://blog.yowko.com/dotnet-kafka-consumer-setting" target="_blank">Kafka Consumer 處理速度緩慢，設定調整紀實</a>)，經過一輪比較後發現實際影響有限，最重要的還是需要降低 message 內容大小，在不調整發送流程、訊息內容的情況下，想要達到降低的 message 內容大小的做法就是對 message 進行壓縮了，只是壓縮不會是萬能藥對速度一定會有影響，就看影響的幅度多寡了</p>
 
-<ol>
-<li>WebHost</li>
-<li>Generic Host</li>
-</ol>
+<p>不過口說無憑，就來比較看看 Kafka 支援的幾種壓縮方式間有什麼差異吧</p>
 
-<p>而在之前另一則筆記 <a href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" target="_blank">使用 ASP.NET Core 2.2 來 Host gRPC Server</a> 使用到 WebHost 來 host gRPC Server，經同事提醒其實不需要用到 kestrel 來處理 request，覺得相當有道理於是我就來改版了</p>
+<p>原本想用 BenchmarkDotNet 跑數據，但跑了一天一夜最後把 kafka 用的 volume 撐爆XD，暫時就用簡單方式大概了解趨勢囉</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Mojave 10.14.5</li>
 <li>.NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)</li>
-<li>使用之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" target="_blank">使用 ASP.NET Core 2.2 來 Host gRPC Server</a> 作為基礎來修改</li>
+<li>Docker version 18.09.2, build 6247962</li>
 
 <li><p>NuGet package</p>
 
 <ul>
-<li>Microsoft.AspNetCore 2.2.0</li>
-<li>Microsoft.Extensions.Hosting 2.2.0</li>
-</ul></li>
-</ol>
-
-<h2 id="修改步驟">修改步驟</h2>
-
-<ol>
-<li>建立 .NET Core console 專案</li>
-
-<li><p>安裝 NuGet package</p>
-
-<ul>
-<li>Microsoft.AspNetCore 2.2.0</li>
-<li>Microsoft.Extensions.Hosting 2.2.0</li>
+<li>Confluent.Kafka 1.0.1</li>
+<li><del>BenchmarkDotNet 0.11.5</del></li>
 </ul></li>
 
-<li><p>將 <code>gRPC.Message</code> 專案加入參考</p></li>
+<li><p>Kafak 環境建置使用 <a href="https://github.com/wurstmeister/kafka-docker" target="_blank">wurstmeister/kafka-docker</a></p></li>
 
-<li><p>複製 <code>gRPCServiceImpl.CS</code></p>
+<li><p>情境說明</p>
 
-<pre><code class="language-cs">public class gRPCServiceImpl : gRPCService.gRPCServiceBase
-{
-    public override Task&lt;Response&gt; SayHello(HelloRequest request, ServerCallContext context)
-    {
-        return Task.FromResult(new Response
-            {
-                IsSuccess = true,
-                ResponseMsg = $&quot;Hi {request.Name} @ {request.SendDate.ToDateTime()} !!!&quot;
-            }
-        );
-    }
-    public override Task&lt;Response&gt; SayGoodbye(GoodByeRequest request, ServerCallContext context)
-    {
-        return Task.FromResult(new Response
-            {
-                IsSuccess = true,
-                ResponseMsg = $&quot;Bye,{request.Name}&quot;
-            }
-        );
-    }
-}
-</code></pre>
+<blockquote>
+<p>透過 docker-compose 啟動 kafka 以及 zookeeper，接著使用 console application 傳送 10萬則內容為 20267 字的 message</p>
+</blockquote></li>
+</ol>
+
+<h2 id="compressiontype">CompressionType</h2>
+
+<p>Confluent.Kafka 支援四種壓縮方式(加上不壓縮為五種)</p>
 
 <ol>
-<li>建立 <code>gRPCServer.cs</code> 用來啟動 gRPC Server</li>
+<li><p>None</p>
+
+<blockquote>
+<p>不壓縮</p>
+</blockquote></li>
+
+<li><p>Gzip</p>
+
+<blockquote>
+<p>1992 年就發表，也因為發展較早是常見的壓縮方式</p>
+</blockquote></li>
+
+<li><p>Snappy</p>
+
+<blockquote>
+<p>過去稱 Zippy，是 Google 於 2011 年 open source，目標是高速與合理壓縮比</p>
+</blockquote></li>
+
+<li><p>Lz4</p>
+
+<blockquote>
+<p>一種無失真資料壓縮演算法，追求速度，而非壓縮比</p>
+</blockquote></li>
+
+<li><p>Zstd</p>
+
+<blockquote>
+<p>Apache Kafka 2.1.0 開始支援 ZStandard - ZStandard 是 Facebook open source 的壓縮演算法，可以提供超高的壓縮比(compression ratio)</p>
+</blockquote></li>
 </ol>
 
-<pre><code class="language-cs">public class gRPCServer
-{
-    public string Host { get; private set; }
-    public int Port { get; private set; }
-    private readonly Grpc.Core.Server serverInstance;
-    public gRPCServer(string host, int port, params ServerServiceDefinition[] serverServices)
-    {
-        Host = host;
-        Port = port;
-        serverInstance = new Grpc.Core.Server
-        //(
-        //      // channel 設定請自行依專案狀況調整
-        //      new List&lt;ChannelOption&gt;
-        //      {
-        //          new ChannelOption(&quot;grpc.keepalive_permit_without_calls&quot;, 1),
-        //          new ChannelOption(&quot;grpc.http2.max_pings_without_data&quot;, 0)
-        //      }
-        //  )
-        {
-            Ports =
-            {
-                new ServerPort(Host, Port, ServerCredentials.Insecure)
-            }
-        };
-        foreach (var serverService in serverServices)
-        {
-            serverInstance.Services.Add(serverService);
-        }
-        serverInstance.Start();
-    }
-}
-</code></pre></li>
+<h2 id="實際數據">實際數據</h2>
 
-<li><p>註冊並啟動 gRPC</p>
+<blockquote>
+<p>以下數據單位皆為 <code>毫秒(Milliseconds)</code></p>
+</blockquote>
 
-<pre><code class="language-cs">static async Task Main(string[] args)
-{
-    var builder = new HostBuilder()
-        .ConfigureAppConfiguration((hostingContext, config) =&gt;
-        {
-            //沒有 appsettings.json 就可以不用加
-            //config.AddJsonFile(&quot;appsettings.json&quot;, optional: true);
-            config.AddEnvironmentVariables();
+<table>
+<thead>
+<tr>
+<th align="left">測試序\壓縮類型</th>
+<th align="left">None</th>
+<th align="left">Gzip</th>
+<th align="left">Snappy</th>
+<th align="left">Lz4</th>
+<th align="left">Zstd</th>
+</tr>
+</thead>
 
-            if (args != null)
-            {
-                config.AddCommandLine(args);
-            }
-        })
-        .ConfigureServices((hostContext, services) =&gt;
-        {
-            services.AddOptions();
+<tbody>
+<tr>
+<td align="left">1</td>
+<td align="left">158,630</td>
+<td align="left">150,031</td>
+<td align="left">130,903</td>
+<td align="left">132,211</td>
+<td align="left">159,511</td>
+</tr>
 
-            var host = &quot;127.0.0.1&quot;;
-            var port = 50051;
+<tr>
+<td align="left">2</td>
+<td align="left">140,655</td>
+<td align="left">134,789</td>
+<td align="left">116,066</td>
+<td align="left">116,722</td>
+<td align="left">143,775</td>
+</tr>
 
-            services.AddSingleton&lt;gRPCService.gRPCServiceBase, gRPCServiceImpl&gt;();
-            var Services = services.BuildServiceProvider();
-            services.AddSingleton(
-                new gRPCServer(host, port,
-                    gRPCService.BindService(Services.GetRequiredService&lt;gRPCService.gRPCServiceBase&gt;())
-                ));
-        });
+<tr>
+<td align="left">3</td>
+<td align="left">131,750</td>
+<td align="left">133,232</td>
+<td align="left">116,756</td>
+<td align="left">115,459</td>
+<td align="left">142,409</td>
+</tr>
 
-    await builder.RunConsoleAsync();
-}
-</code></pre>
+<tr>
+<td align="left">4</td>
+<td align="left">150,077</td>
+<td align="left">136,454</td>
+<td align="left">121,711</td>
+<td align="left">122,406</td>
+<td align="left">143,071</td>
+</tr>
 
-<ol>
-<li>加入 Jaeger tracer (optional)</li>
-</ol>
+<tr>
+<td align="left">5</td>
+<td align="left">130,802</td>
+<td align="left">135,228</td>
+<td align="left">122,700</td>
+<td align="left">123,484</td>
+<td align="left">140,196</td>
+</tr>
 
-<pre><code class="language-cs">ILoggerFactory loggerFactory = new LoggerFactory().AddConsole();
-var serviceName = &quot;gRPCServerOnGenericHost&quot;;
-Tracer tracer = TracingHelper.InitTracer(serviceName, loggerFactory);
-ServerTracingInterceptor tracingInterceptor = new ServerTracingInterceptor(tracer);
-
-services.AddSingleton(
-new gRPCServer(host, port,
-    gRPCService.BindService(Services.GetRequiredService&lt;gRPCService.gRPCServiceBase&gt;())
-        .Intercept(tracingInterceptor)
-));
-</code></pre></li>
-</ol>
+<tr>
+<td align="left">AVG.</td>
+<td align="left">142,383</td>
+<td align="left">137,947</td>
+<td align="left">121,627</td>
+<td align="left">122,056</td>
+<td align="left">145,792</td>
+</tr>
+</tbody>
+</table>
 
 <h2 id="心得">心得</h2>
 
-<p>Generic Host 適合用來 host 不需處理 http request 的應用程式，以 gRPC Server 而言是相當適合，再次由衷地佩服起同事，深深覺得有強大的同事一起工作真的可以學到很多</p>
+<p>看到數據的直覺：是不是跑錯了XD 怎麼加密方法跑得比未加密來得快，不過馬上想到測試的目標是整個傳送的過程不是只有加密行為，加密後如果資料內容壓縮比較大就可以有效降低傳輸的時間，也就符合實際數據的呈現結果</p>
 
-<p>回到 ASP.NET Core host gRPC 的主題上，我翻了 <code>Grpc.AspNetCore.Server</code> 的原始碼，目前看來主要功能都是使用 WebHost，其中有一部份功能還包含了處理 http request。因此屆時使用 .NET Core 3 ，是不是可以簡單的 migrate 過去可能還需要持續觀察，但 .NET Core 3 還未正式上市，<code>Grpc.AspNetCore.Server</code> 也還在 preview，日後會不會調整加入 Generic Host 支援就拭目以待囉</p>
+<p>但這次我測試的 message payload 是大資料，如果資料內容換作是小資料，結果說不定會天差地遠</p>
 
-<p>詳細程式碼請參考 <a href="https://github.com/yowko/generichostgrpc" target="_blank">yowko/generichostgrpc</a></p>
+<p>以平均來看 <code>Snappy</code> 與 <code>Lz4</code> 表現差不多，倒是 <code>Zstd</code> 反而跑出不同於其他壓縮方式的結果 (耗時大於完全不壓縮)，在實際的選擇上建議使用真實案例的 message payload 大小來跑跑看數據比較準確</p>
+
+<p>相較於 producer 在發送效率上的差距， consumer 在接收 message 有沒有壓縮的速度差距非常懸殊呀，詳細內容可以參考 <a href="https://blog.yowko.com/dotnet-kafka-consumer-setting" target="_blank">Kafka Consumer 處理速度緩慢，設定調整紀實</a></p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/dotnet-core-console-di/" target="_blank">在 .NET Core console 上使用 Dependency Injection - DI</a></li>
-<li><a href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" target="_blank">使用 ASP.NET Core 2.2 來 Host gRPC Server</a></li>
-<li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/index?view=aspnetcore-2.2&amp;tabs=macos#host" target="_blank">ASP.NET Core 基本概念</a></li>
-<li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.2" target="_blank">.NET 泛型主機</a></li>
+<li><a href="https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.CompressionType.html" target="_blank">Enum CompressionType</a></li>
+<li><a href="https://www.cnblogs.com/huxi2b/p/10330607.html" target="_blank">Kafka 2.1.0壓縮算法性能測試</a></li>
+<li><a href="https://blog.yowko.com/dotnet-kafka-consumer-setting" target="_blank">Kafka Consumer 處理速度緩慢，設定調整紀實</a></li>
 </ol>
 
     </div>
@@ -361,7 +351,7 @@ new gRPCServer(host, port,
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-05-26</span>
+    <span class="item-content">2019-06-02</span>
   </p>
   
   <p class="copyright-item">
@@ -383,11 +373,7 @@ new gRPCServer(host, port,
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/asp.net-core/">ASP.NET Core</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/grpc/">gRPC</a>
+            <a href="https://blog.yowko.com/tags/kafka/">Kafka</a>
           
 		    
 		    
@@ -401,18 +387,11 @@ new gRPCServer(host, port,
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/dotnet-kafka-consumer-setting/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">Kafka Consumer 處理速度緩慢，設定調整紀實</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/dotnet-kafka-consumer-setting/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">使用 ASP.NET Core 2.2 來 Host gRPC Server</span>			
+            <span class="prev-text nav-default">Kafka Consumer 處理速度緩慢，設定調整紀實</span>			
           </a>
 		  </div>
       </nav>
@@ -423,7 +402,7 @@ new gRPCServer(host, port,
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/generichost-grpc-server\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/dotnet-kafka-producer-compresstype\/';  
       
     };
 
