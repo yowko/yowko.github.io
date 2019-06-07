@@ -45,7 +45,7 @@ WORKDIR /app
 
 # 複製 sln csproj and restore nuget
 COPY *.sln .
-# 目標路徑資料夾要與來源路徑資料夾名稱(因 sln 已存在專案之 path)
+# 目標路徑資料夾要與來源路徑資料夾名稱相同(因 sln 已儲存專案路徑)
 COPY TestDocker/*.csproj ./TestDocker/
 # nuget restore
 RUN dotnet restore
