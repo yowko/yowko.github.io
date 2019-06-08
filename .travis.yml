@@ -18,6 +18,7 @@ script:
 after_script:
   # 部署
   - cd ./public
+  - echo "blog.yowko.com" >CNAME
   - git init
   - git config user.name "Yowko.Tsai"
   - git config user.email "yowko@yowko.com"
