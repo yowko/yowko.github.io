@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)" />
 <meta property="og:description" content="使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation) 你有遇過類似的狀況嗎？：改了 code 卻忘了改註解 或是 看既有 code 時發現 code 行為與註解說明不同？ 這兩種情況在我" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/pickles-specflow/" />
-<meta property="article:published_time" content="2017-06-27T22:47:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/pickles-specflow/" /><meta property="article:published_time" content="2017-06-27T22:47:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-23T22:47:48&#43;08:00"/>
 
 <meta itemprop="name" content="使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)">
@@ -241,25 +240,21 @@
 
 <blockquote>
 <p>詳細內容可以參考 <a href="https://www.nuget.org/packages/Pickles/" target="_blank">Pickles</a></p>
-</blockquote>
+</blockquote></li>
 
-<ul>
 <li><p>Command Line</p>
 
 <pre><code>Install-Package Pickles.CommandLine
-</code></pre></li>
-</ul>
+</code></pre>
 
 <blockquote>
 <p>詳細內容可以參考 <a href="https://www.nuget.org/packages/Pickles.CommandLine/" target="_blank">Command line version of Pickles</a></p>
-</blockquote>
+</blockquote></li>
 
-<ul>
 <li><p>MSBuild</p>
 
 <pre><code>Install-Package Pickles.MSBuild
-</code></pre></li>
-</ul>
+</code></pre>
 
 <blockquote>
 <p>詳細內容可以參考 <a href="https://www.nuget.org/packages/Pickles.MSBuild/" target="_blank">MSBuild Task for Pickles</a></p>
@@ -329,16 +324,14 @@ Pickles.exe -f=C:\MyProject\Features
 <li><p>Powershell</p>
 
 <pre><code class="language-ps1">Pickle-Features -FeatureDirectory C:\MyProject\Features
-</code></pre>
+</code></pre></li>
 
-<ul>
 <li><p>MSBuild</p>
 
 <pre><code>&lt;Target Name=&quot;document&quot;&gt;
-&lt;Pickles FeatureDirectory=&quot;C:\MyProject\Features&quot; /&gt;
+    &lt;Pickles FeatureDirectory=&quot;C:\MyProject\Features&quot; /&gt;
 &lt;/Target&gt;
 </code></pre></li>
-</ul></li>
 </ul></li>
 
 <li><p>Output Directory</p>
@@ -357,16 +350,14 @@ Pickles.exe -o=C:\GeneratedDocs
 <li><p>Powershell</p>
 
 <pre><code class="language-ps1">Pickle-Features -OutputDirectory C:\GeneratedDocs
-</code></pre>
+</code></pre></li>
 
-<ul>
 <li><p>MSBuild</p>
 
 <pre><code>&lt;Target Name=&quot;document&quot;&gt;
-&lt;Pickles OutputDirectory=&quot;C:\GeneratedDocs&quot; /&gt;
+    &lt;Pickles OutputDirectory=&quot;C:\GeneratedDocs&quot; /&gt;
 &lt;/Target&gt;
 </code></pre></li>
-</ul></li>
 </ul></li>
 
 <li><p>Documentation Format</p>
@@ -385,24 +376,20 @@ Pickles.exe -df=Word
 <li><p>Powershell</p>
 
 <pre><code class="language-ps1">Pickle-Features -DocumentationFormat Word
-</code></pre>
+</code></pre></li>
 
-<ul>
 <li><p>MSBuild</p>
 
 <pre><code>&lt;target Name=&quot;document&quot;&gt;
-&lt;pickles DocumentationFormat=&quot;Word&quot; /&gt;
+    &lt;pickles DocumentationFormat=&quot;Word&quot; /&gt;
 &lt;/target&gt;
 </code></pre></li>
 
-<li><p>html 報表</p></li>
-</ul>
+<li><p>html 報表</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/27592692-a2023604-5b87-11e7-9d4e-e4be699d81d5.png" alt="1html" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/27592692-a2023604-5b87-11e7-9d4e-e4be699d81d5.png" alt="1html" /></p></li>
 
-<ul>
-<li>dhtml 報表</li>
-</ul>
+<li><p>dhtml 報表</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/27592694-a22b70f0-5b87-11e7-9889-a232e926f214.png" alt="2dhtml" /></p></li>
 </ul></li>
@@ -418,11 +405,9 @@ Pickles.exe -df=Word
 
 <pre><code class="language-cmd">Pickles.exe --system-under-test-name=MyProject
 Pickles.exe -sn=MyProject
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>Powershell</li>
-</ul>
+<li><p>Powershell</p>
 
 <pre><code class="language-ps1">Pickle-Features -SystemUnderTestName MyProject
 </code></pre></li>

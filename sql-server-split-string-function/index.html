@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="SQL Server 字串分割 function 的效能調校" />
 <meta property="og:description" content="SQL Server 字串分割 function 的效能調校 過去曾經參加某個效能調校的研討會，相關資訊已經不可考，就連講師是誰都沒有印象，但卻對其提出的效能調校 guideline 有很深的體悟，" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/sql-server-split-string-function/" />
-<meta property="article:published_time" content="2017-04-21T02:08:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/sql-server-split-string-function/" /><meta property="article:published_time" content="2017-04-21T02:08:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-17T10:35:44&#43;08:00"/>
 
 <meta itemprop="name" content="SQL Server 字串分割 function 的效能調校">
@@ -277,11 +276,9 @@ return
 <li><p>function return table</p>
 
 <pre><code class="language-sql">select * from [dbo].[fn_SplitString] ('0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20',',')
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>cte</li>
-</ul>
+<li><p>cte</p>
 
 <pre><code class="language-sql">select * from [dbo].[fn_SplitString_cte] ('0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20',',')
 option (maxrecursion 0)

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="如何從 Winows docker host 透過 linux container ip 使用服務" />
 <meta property="og:description" content="如何從 Winows docker host 透過 linux container ip 使用服務 前幾天為了重現前幾天在 production 環境遇到的 issue，嘗試在 Windows Server 2016 透過 docker for windows 建立 linux 版 redis，因為需要模擬 sentinel failover 所以需" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/docker-host-access-linux-container-ip/" />
-<meta property="article:published_time" content="2017-09-14T23:16:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/docker-host-access-linux-container-ip/" /><meta property="article:published_time" content="2017-09-14T23:16:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-12-09T23:16:03&#43;08:00"/>
 
 <meta itemprop="name" content="如何從 Winows docker host 透過 linux container ip 使用服務">
@@ -198,31 +197,27 @@
 <pre><code class="language-cmd">docker inspect container_name_or_container_id | findstr '&quot;IPAddress&quot;'
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/30390143-ae1a625c-98e7-11e7-9f6f-5691ef81b5b7.png" alt="1getip" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/30390143-ae1a625c-98e7-11e7-9f6f-5691ef81b5b7.png" alt="1getip" /></p></li>
 
-<ol>
-<li>無法存取 container ip</li>
+<li><p>無法存取 container ip</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30390145-ae1bdcc2-98e7-11e7-8b45-7f21970543f3.png" alt="2containeripfail" /></p></li>
+
+<li><p>透過 host ip 正常</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30390146-ae25b10c-98e7-11e7-9424-2819aa7fd801.png" alt="4localhostOK" /></p></li>
+
+<li><p>透過 localhost 也正常</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/30390141-ae153674-98e7-11e7-8d70-7b1a219ea53b.png" alt="3hostipok" /></p></li>
 </ol>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/30390145-ae1bdcc2-98e7-11e7-8b45-7f21970543f3.png" alt="2containeripfail" /></p>
-
-<ol>
-<li>透過 host ip 正常</li>
-</ol>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/30390146-ae25b10c-98e7-11e7-9424-2819aa7fd801.png" alt="4localhostOK" /></p>
-
-<ol>
-<li>透過 localhost 也正常</li>
-</ol>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/30390141-ae153674-98e7-11e7-8d70-7b1a219ea53b.png" alt="3hostipok" /></p>
 
 <h2 id="如何解決">如何解決</h2>
 
 <ol>
-<li>手動加上一筆 route 讓 host 可以 access 至 container ip</li>
+<li><p>手動加上一筆 route 讓 host 可以 access 至 container ip</p>
 
+<ul>
 <li><p>確認 container 使用的 router ip</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/30390142-ae195330-98e7-11e7-89a2-db94a3906782.png" alt="5routerip" /></p>
@@ -232,9 +227,7 @@
 
 <p><img src="https://user-images.githubusercontent.com/3851540/30390151-b06ccd10-98e7-11e7-8104-3d0209b0b08d.png" alt="6NOIP" /></p></li>
 </ul></li>
-</ol>
 
-<ul>
 <li><p>加上 route 紀錄</p>
 
 <pre><code>route /P add 172.0.0.0 MASK 255.0.0.0 10.0.75.2
@@ -246,16 +239,13 @@
 </code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/30390147-ae5073c4-98e7-11e7-9050-1ea3786bc863.png" alt="7routeadded" /></p></li>
-</ul>
+</ul></li>
 
-<ol>
-<li>已可正常存取 container ip 服務</li>
-</ol>
+<li><p>已可正常存取 container ip 服務</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/30390144-ae1ae934-98e7-11e7-83f7-ed95f6d8022b.png" alt="8accessok" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/30390144-ae1ae934-98e7-11e7-83f7-ed95f6d8022b.png" alt="8accessok" /></p></li>
 
-<ol>
-<li>如果依上述操作仍無法存取 container 服務，請重啟 docker service 即可</li>
+<li><p>如果依上述操作仍無法存取 container 服務，請重啟 docker service 即可</p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
@@ -267,7 +257,6 @@
 <ol>
 <li><a href="https://github.com/docker/for-win/issues/221" target="_blank">How to access containers by internal IPs 172.x.x.x</a></li>
 <li><a href="https://cianallner.com/docker-for-windows/" target="_blank">Docker for Windows</a></li>
-</ol></li>
 </ol>
 
     </div>

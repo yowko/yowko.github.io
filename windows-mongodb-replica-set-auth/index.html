@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="在 Windows 啟用 MongoDB Replica Set 驗證" />
 <meta property="og:description" content="在 Windows 啟用 MongoDB Replica Set 驗證 之前曾在 為 MongoDB 加上驗證機制 介紹過如何為 MongoDB 建立驗證授權機制，為資料加上基本保護，也在 MongoDB 在 Windows 上的 HA 機制 - Replica sets 介紹 MongoDB 的 HA 機制 - Replica Set" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/windows-mongodb-replica-set-auth/" />
-<meta property="article:published_time" content="2017-09-10T23:13:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/windows-mongodb-replica-set-auth/" /><meta property="article:published_time" content="2017-09-10T23:13:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-26T12:03:57&#43;08:00"/>
 
 <meta itemprop="name" content="在 Windows 啟用 MongoDB Replica Set 驗證">
@@ -235,14 +234,12 @@
 
 <pre><code class="language-yml">security:
     keyFile: c:\keyfile
-</code></pre>
+</code></pre></li>
 
-<ul>
 <li><p>透過指令指定</p>
 
 <pre><code>mongod --keyFile c:\keyfile
 </code></pre></li>
-</ul></li>
 </ul></li>
 
 <li><p>重新啟動 MongoDB Replica Set 各個 instance</p></li>

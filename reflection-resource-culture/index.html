@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="匯出 Excel 時使用多國語系 Resource 當做欄位名稱" />
 <meta property="og:description" content="匯出 Excel 時使用多國語系 Resource 當做欄位名稱 之前筆記 使用 C# 將資料匯出成 Excel (.xlsx) 紀錄到使用 ClosedXML 搭配 generic 與 reflection 匯出 excel，方便使用者自行調整資料報表 剛好有個系統" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/reflection-resource-culture/" />
-<meta property="article:published_time" content="2018-04-06T21:53:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/reflection-resource-culture/" /><meta property="article:published_time" content="2018-04-06T21:53:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-04-06T21:53:14&#43;08:00"/>
 
 <meta itemprop="name" content="匯出 Excel 時使用多國語系 Resource 當做欄位名稱">
@@ -255,12 +254,9 @@
 <li><p>範本</p>
 
 <pre><code class="language-cs">Resource.ResourceManager.GetString({resource key}, {target CultureInfo};
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>實例
-<br /></li>
-</ul>
+<li><p>實例</p>
 
 <pre><code class="language-cs">Resource.ResourceManager.GetString(&quot;Name&quot;, new CultureInfo(&quot;zh-TW&quot;));
 </code></pre></li>
@@ -284,12 +280,9 @@ public XSLXHelper(ResourceManager rm, CultureInfo ci)
     _rm = rm;
     _ci = ci;
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>調整取欄位邏輯
-<br /></li>
-</ul>
+<li><p>調整取欄位邏輯</p>
 
 <pre><code class="language-cs">if (_rm != null)
 {
@@ -305,12 +298,9 @@ else
 <li><p>程式呼叫</p>
 
 <pre><code class="language-cs">XSLXHelper helper = new XSLXHelper(new System.Resources.ResourceManager(typeof(Resource)), new CultureInfo(&quot;zh-TW&quot;));
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>完整程式碼
-<br /></li>
-</ul>
+<li><p>完整程式碼</p>
 
 <pre><code class="language-cs">using ClosedXML.Excel;
 using System;

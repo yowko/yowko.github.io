@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="將 .NET Core Console 專案轉換為 ASP.NET Core" />
 <meta property="og:description" content="將 .NET Core Console 專案轉換為 ASP.NET Core console 因為組成簡單、建立快速，常被用來確認語法或是 POC 特定功能需求，不過一旦 POC 沒問題就會遇到程式碼彙總的狀況，如果程式碼數量" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core/" />
-<meta property="article:published_time" content="2019-05-21T19:30:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core/" /><meta property="article:published_time" content="2019-05-21T19:30:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-05-21T19:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="將 .NET Core Console 專案轉換為 ASP.NET Core">
@@ -211,11 +210,9 @@
 <li><p>使用 Package Manager</p>
 
 <pre><code class="language-bash">Install-Package Microsoft.AspNetCore
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>使用 .NET CLI</li>
-</ul>
+<li><p>使用 .NET CLI</p>
 
 <pre><code class="language-bash">dotnet add package Microsoft.AspNetCore
 </code></pre></li>
@@ -242,7 +239,8 @@
         app.Run(async (context) =&gt; { await context.Response.WriteAsync(&quot;Hello World!&quot;); });
     }
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="修改-host-建立方式">修改 Host 建立方式</h2>
 
@@ -250,16 +248,15 @@
 
 <pre><code class="language-cs">class Program
 {
-static void Main(string[] args)
-{
-    CreateWebHostBuilder(args).Build().Run();
+    static void Main(string[] args)
+    {
+        CreateWebHostBuilder(args).Build().Run();
+    }
+    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =&gt;
+        WebHost.CreateDefaultBuilder(args)
+           .UseStartup&lt;Startup&gt;();
 }
-public static IWebHostBuilder CreateWebHostBuilder(string[] args) =&gt;
-    WebHost.CreateDefaultBuilder(args)
-       .UseStartup&lt;Startup&gt;();
-}
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="註冊-di">註冊 DI</h2>
 
@@ -289,7 +286,8 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =&gt;
     app.Run((context) =&gt; Task.Run(
         () =&gt; runner.DoAction(nameof(Startup))));
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="實際效果">實際效果</h2>
 
@@ -306,8 +304,9 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =&gt;
 <p><img src="https://user-images.githubusercontent.com/3851540/58086674-aa89c080-7bf1-11e9-9463-5a6afc81f302.png" alt="1consoleoutput" /></p>
 
 <ul>
-<li><p>改善console 訊息不明顯</p></li>
+<li><p>改善console 訊息不明顯</p>
 
+<ul>
 <li><p>修改 interface 及實作</p>
 
 <pre><code class="language-cs">public interface IRunner
@@ -328,11 +327,9 @@ public class YowkoRunner : IRunner
         return $&quot;YowkoRunner : Doing hard work! {name}&quot;;
     }
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>修改實際使用</li>
-</ul>
+<li><p>修改實際使用</p>
 
 <pre><code class="language-cs">public void Configure(IApplicationBuilder app, IHostingEnvironment env, IRunner runner)
 {
@@ -346,6 +343,7 @@ public class YowkoRunner : IRunner
 </code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/58086675-aa89c080-7bf1-11e9-9d79-1de86afd2221.png" alt="2pageoutput" /></p></li>
+</ul></li>
 </ul>
 
 <h2 id="心得">心得</h2>
@@ -362,7 +360,6 @@ public class YowkoRunner : IRunner
 <li><a href="https://blog.yowko.com/dotnet-core-console-di/" target="_blank">在 .NET Core console 上使用 Dependency Injection - DI</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/?view=aspnetcore-2.2&amp;tabs=macos" target="_blank">ASP.NET Core 基本概念</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/startup?view=aspnetcore-2.2" target="_blank">ASP.NET Core 中的應用程式啟動</a></li>
-</ol></li>
 </ol>
 
     </div>

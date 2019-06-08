@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 Common.Logging 同時將 log 寫至多個 Logging Framework" />
 <meta property="og:description" content="使用 Common.Logging 同時將 log 寫至多個 Logging Framework 之前文章 使用 Common.Logging 搭配 NLog 及 Log4Net 介紹到透過 Common.Logging 可以使用一致的 log 語法將 log 轉由不同 logging framework 處理，在不同專案間就可以使用統一 log 語法而且" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/common-logging-multiple-logging-framework/" />
-<meta property="article:published_time" content="2017-07-15T23:23:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/common-logging-multiple-logging-framework/" /><meta property="article:published_time" content="2017-07-15T23:23:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-24T23:23:00&#43;08:00"/>
 
 <meta itemprop="name" content="使用 Common.Logging 同時將 log 寫至多個 Logging Framework">
@@ -266,11 +265,9 @@ Parser Error Message: An error occurred creating the configuration section handl
         &lt;section name=&quot;log4net&quot; type=&quot;log4net.Config.Log4NetConfigurationSectionHandler,log4net&quot; /&gt;
     &lt;/configSections&gt;
 &lt;/configuration&gt;
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>factoryAdapter 使用 MultipleLogger</li>
-</ol>
+<li><p>factoryAdapter 使用 MultipleLogger</p>
 
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
 &lt;configuration&gt;
@@ -305,7 +302,8 @@ Parser Error Message: An error occurred creating the configuration section handl
         &lt;/logging.multipleLoggers&gt;
     &lt;/common&gt;
 &lt;/configSection&gt;
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="程式碼加上-log">程式碼加上 log</h2>
 
@@ -314,8 +312,7 @@ Parser Error Message: An error occurred creating the configuration section handl
 </blockquote>
 
 <ol>
-<li>引用 <code>Common.Logging</code></li>
-</ol>
+<li><p>引用 <code>Common.Logging</code></p>
 
 <pre><code class="language-cs">using Common.Logging;
 </code></pre></li>
@@ -323,17 +320,15 @@ Parser Error Message: An error occurred creating the configuration section handl
 <li><p>定義 logger</p>
 
 <pre><code class="language-cs">private static ILog logger = LogManager.GetCurrentClassLogger();
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>加上 log</li>
-</ol>
+<li><p>加上 log</p>
 
 <pre><code class="language-cs">logger.Debug($&quot;yowko-TestLog-{DateTime.Now}&quot;);
-</code></pre></li>
-</ol>
+</code></pre>
 
-<h2 id="心得">心得</h2>
+<h2 id="心得">心得</h2></li>
+</ol>
 
 <p>測試幾個方法一直不得其門而入，使用的套件： Common.Logging.MultipleLogger 可能是因為還在 beta 找不到相關文件，後來好不容易在 test 專案找到相關設定，有興趣的可以參考 <a href="https://github.com/net-commons/common-logging/blob/master/test/Common.Logging.MultipleLogger.Tests/App.config" target="_blank">Common.Logging.MultipleLogger.Tests</a>，最後靠著測試專案的設定總算是搞定了 ~~~呼 還好人家有乖乖寫測試</p>
 

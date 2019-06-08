@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 Jaeger 追蹤 ASP.NET Core 中的 class 呼叫" />
 <meta property="og:description" content="使用 Jaeger 追蹤 ASP.NET Core 中的 class 呼叫 之前筆記 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 與 使用 Jaeger 追蹤 ASP.NET Core 呼叫 分別紀錄到使用 Jaeger 來紀錄 gRPC call 與 ASP.NET Core Web API 的呼叫歷程內容，接著紀錄另個常" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/jaeger-trace-aspdotnet-core-class-call/" />
-<meta property="article:published_time" content="2019-04-14T15:30:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/jaeger-trace-aspdotnet-core-class-call/" /><meta property="article:published_time" content="2019-04-14T15:30:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-04-14T15:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="使用 Jaeger 追蹤 ASP.NET Core 中的 class 呼叫">
@@ -272,11 +271,9 @@ public ResponseHelper(ITracer tracer)
 {
     _tracer = tracer;
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>建立 span</li>
-</ol>
+<li><p>建立 span</p>
 
 <pre><code class="language-cs">using (IScope scope = _tracer.BuildSpan(GetType().Name).StartActive(finishSpanOnDispose: true))
 {
@@ -295,11 +292,9 @@ scope.Span.Log(new Dictionary&lt;string, object&gt;
     [&quot;input&quot;] = values,
     [&quot;output&quot;] = output
 });
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>完整 ResponseHelper 內容</li>
-</ol>
+<li><p>完整 ResponseHelper 內容</p>
 
 <pre><code class="language-cs">using System;
 using System.Collections.Generic;

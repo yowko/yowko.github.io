@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="如何在 Command 中依序執行指令" />
 <meta property="og:description" content="如何在 Command 中依序執行指令 同事問說他有幾個 .bat 指令檔，想要上一個 .bat 完成再開始執行下一個 .bat。這樣的需求在 powershell 中很常見，第一個念頭就是問看看能不能" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/command/" />
-<meta property="article:published_time" content="2017-07-03T23:31:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/command/" /><meta property="article:published_time" content="2017-07-03T23:31:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-23T23:31:59&#43;08:00"/>
 
 <meta itemprop="name" content="如何在 Command 中依序執行指令">
@@ -193,28 +192,26 @@
 <ul>
 <li>印出 <code>start1</code></li>
 <li>sleep 5 秒</li>
-
-<li><p>印出 <code>end1</code></p>
+<li>印出 <code>end1</code></li>
+</ul>
 
 <pre><code>echo start1
 timeout /t 5
 echo end1
 </code></pre></li>
-</ul></li>
 
 <li><p>第一隻 bat：2.bat</p>
 
 <ul>
 <li>印出 <code>start2</code></li>
 <li>sleep 5 秒</li>
-
-<li><p>印出 <code>end2</code></p>
+<li>印出 <code>end2</code></li>
+</ul>
 
 <pre><code>echo start2
 timeout /t 5
 echo end2
 </code></pre></li>
-</ul></li>
 </ol>
 
 <h2 id="讓-command-循序執行">讓 command 循序執行</h2>

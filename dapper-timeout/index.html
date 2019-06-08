@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="C# 使用 Dapper 連線 DB 時指定逾時時間 (timeout)：0x80004005" />
 <meta property="og:description" content="C# 使用 Dapper 連線 DB 時指定逾時時間 (timeout)：0x80004005 最近專案在 production 環境執行時常常遇到 [Win32Exception (0x80004005): The wait operation timed out]，造成程式未完整執行，" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/dapper-timeout/" />
-<meta property="article:published_time" content="2018-04-22T23:34:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/dapper-timeout/" /><meta property="article:published_time" content="2018-04-22T23:34:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-10-06T23:34:43&#43;08:00"/>
 
 <meta itemprop="name" content="C# 使用 Dapper 連線 DB 時指定逾時時間 (timeout)：0x80004005">
@@ -67,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2018-04-22T23:34:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-06T23:34:43&#43;08:00" />
-<meta itemprop="wordCount" content="1029">
+<meta itemprop="wordCount" content="1028">
 
 
 
@@ -147,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-04-22 </span>
         
-        <span class="more-meta"> 約 1029 字 </span>
+        <span class="more-meta"> 約 1028 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -196,21 +195,19 @@
 <pre><code class="language-sql">select getdate();
 waitfor delay '00:00:30';
 select getdate();
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>使用 dapper 連線
-<code>cs
-var sql = @&quot;select getdate();
-         waitfor delay '00:00:30';
-         select getdate();&quot;;
-var connection = ConfigurationManager.ConnectionStrings[&quot;TestDB&quot;].ConnectionString;
-using (var cn = new SqlConnection(connection))
-{
- var result = cn.Query&lt;DateTime&gt;(sql);
-}
-</code></li>
-</ol></li>
+<li><p>使用 dapper 連線</p>
+
+<pre><code class="language-cs"> var sql = @&quot;select getdate();
+             waitfor delay '00:00:30';
+             select getdate();&quot;;
+ var connection = ConfigurationManager.ConnectionStrings[&quot;TestDB&quot;].ConnectionString;
+ using (var cn = new SqlConnection(connection))
+ {
+     var result = cn.Query&lt;DateTime&gt;(sql);
+ }
+</code></pre></li>
 </ol>
 
 <h2 id="錯誤訊息">錯誤訊息</h2>
@@ -298,35 +295,34 @@ Stack Trace:
    System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously) +159
     
 Version Information: Microsoft .NET Framework Version:4.0.30319; ASP.NET Version:4.7.2633.0
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>錯誤截圖
-<br /></li>
-</ol>
+<li><p>錯誤截圖</p>
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39096566-27cacb7e-4684-11e8-941b-62a55c6b9635.png" alt="1error" /></p>
-</blockquote>
+</blockquote></li>
+</ol>
 
 <h2 id="connectiontimeout-vs-commandtimeout">ConnectionTimeout vs CommandTimeout</h2>
 
 <ul>
-<li>ConnectionTimeout</li>
+<li><p>ConnectionTimeout</p>
+
+<ul>
 <li>嘗試建立連線的時間</li>
 <li>預設值為 <code>15 秒</code>，<code>0</code> 表示永遠不 timeout</li>
+<li>可以針對 Connection 設定 (ConnectTimeout ) 或是在 connection string 指定 (Connection Timeout )</li>
+</ul></li>
 
-<li><p>可以針對 Connection 設定 (ConnectTimeout ) 或是在 connection string 指定 (Connection Timeout )</p></li>
+<li><p>CommandTimeout</p>
 
-<li><p>CommandTimeout</p></li>
-
-<li><p>完成執行 sql 語法的時間</p></li>
-
-<li><p>預設值為 <code>30 秒</code>，<code>0</code> 表示永遠不 timeout</p></li>
-
-<li><p>對於非同步 command 無效：System.Data.SqlClient.SqlCommand.BeginExecuteReader</p></li>
-
-<li><p>對於 context connection 無效，connection string 有 <code>context connection=true</code></p></li>
+<ul>
+<li>完成執行 sql 語法的時間</li>
+<li>預設值為 <code>30 秒</code>，<code>0</code> 表示永遠不 timeout</li>
+<li>對於非同步 command 無效：System.Data.SqlClient.SqlCommand.BeginExecuteReader</li>
+<li>對於 context connection 無效，connection string 有 <code>context connection=true</code></li>
+</ul></li>
 </ul>
 
 <h2 id="dapper-設定">dapper 設定</h2>
@@ -336,8 +332,7 @@ Version Information: Microsoft .NET Framework Version:4.0.30319; ASP.NET Version
 </blockquote>
 
 <pre><code class="language-cs">var result = cn.Query&lt;DateTime&gt;(sql,commandTimeout:60);
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="心得">心得</h2>
 

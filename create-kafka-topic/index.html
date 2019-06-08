@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="建立 Kafka 的 Topic" />
 <meta property="og:description" content="調整 Kafka 中 Topic 的 Partition 數量 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/create-kafka-topic/" />
-<meta property="article:published_time" content="2019-06-07T21:30:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/create-kafka-topic/" /><meta property="article:published_time" content="2019-06-07T21:30:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-06-07T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="建立 Kafka 的 Topic">
@@ -215,11 +214,9 @@
 <li><p>基本語法</p>
 
 <pre><code class="language-bash">kafka-topics.sh --create --bootstrap-server {kafka 位置} --config {configName=configValue} --replication-factor {個數} --partitions {個數} --topic {Topic 名稱}
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>實際範例</li>
-</ul>
+<li><p>實際範例</p>
 
 <pre><code class="language-bash">kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test
 </code></pre></li>
@@ -259,7 +256,8 @@ using (var adminClient =
             $&quot;An error occured creating topic {e.Results[index: 0].Topic}: {e.Results[index: 0].Error.Reason}&quot;);
     }
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
@@ -273,7 +271,6 @@ using (var adminClient =
 <li><a href="https://kafka.apache.org/documentation/#quickstart_createtopic" target="_blank">Step 3: Create a topic</a></li>
 <li><a href="https://stackoverflow.com/a/55849553" target="_blank">How to create a Kafka Topic using Confluent.Kafka .Net Client</a></li>
 <li><a href="https://www.allprogrammingtutorials.com/tutorials/adding-partitions-to-topic-in-apache-kafka.php" target="_blank">Adding Partitions to a Topic in Apache Kafka</a></li>
-</ol></li>
 </ol>
 
     </div>

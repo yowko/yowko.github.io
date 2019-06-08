@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="Enum in C#" />
 <meta property="og:description" content="Enum in C 最近跟同事討論 enum 相關應用時剛好同事問到 enum 可以用什麼型別，無奈學藝不精沒有答出完整正確答案XD，剛好趁這個機會順便整理一下。 基本特性 名稱" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/enum-in-c-sharp/" />
-<meta property="article:published_time" content="2017-01-29T00:42:34&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/enum-in-c-sharp/" /><meta property="article:published_time" content="2017-01-29T00:42:34&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-10T00:42:34&#43;08:00"/>
 
 <meta itemprop="name" content="Enum in C#">
@@ -213,7 +212,8 @@
     Sleeping = 10,
     Hibernating = Sleeping + 5
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="enum-取代數字的好處">Enum 取代數字的好處</h2>
 
@@ -225,8 +225,7 @@
 <h2 id="允許使用的資料型別">允許使用的資料型別</h2>
 
 <ul>
-<li>只要是整數數字型別(Numeric Type)都是被允許的</li>
-</ul>
+<li><p>只要是整數數字型別(Numeric Type)都是被允許的</p>
 
 <p>Allow Type List</p>
 
@@ -324,12 +323,15 @@
 <td>ulong uLong = 9223372036854775808; //<code>L</code> or <code>I</code> 會依大小決定是 <code>long</code> or <code>ulong</code>;<code>U</code> or <code>u</code>會依大小決定是 <code>unit</code> or <code>ulong</code>;<code>UL</code>、<code>ul</code>、<code>Ul</code>、<code>uL</code>、<code>LU</code>、<code>lu</code>、<code>Lu</code> 或 <code>lU</code> 則會是 <code>ulong</code></td>
 </tr>
 </tbody>
-</table>
+</table></li>
+</ul>
 
 <h2 id="其他用法">其他用法</h2>
 
 <ol>
-<li>Bit Flag(位元旗標)</li>
+<li><p>Bit Flag(位元旗標)</p>
+
+<ul>
 <li>位元運算效能較佳</li>
 <li><code>0</code> 表示未設定</li>
 <li>在 enum 套用 <code>System.FlagsAttribute</code> 屬性</li>
@@ -340,12 +342,9 @@
 <li><p>範例以下列 Days 為例，要表示星期一、三、五，需用 <code>1,3,5</code> (變成字串操作)</p>
 
 <pre><code class="language-cs">enum Days { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday };
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>如果改用 Days2 ,星期一、三、五，只要直接存 <code>30</code> ((Monday = 0x2) + (Wednesday = 0x8) + (Friday = 0x20))
-<br /></li>
-</ul>
+<li><p>如果改用 Days2 ,星期一、三、五，只要直接存 <code>30</code> ((Monday = 0x2) + (Wednesday = 0x8) + (Friday = 0x20))</p>
 
 <pre><code class="language-cs">[Flags]
 enum Days2
@@ -361,9 +360,7 @@ enum Days2
 }
 </code></pre></li>
 </ul></li>
-</ol>
 
-<ul>
 <li><p>使用<code>&amp;</code>(AND)、<code>|</code>(OR)、<code>~</code>(NOT) 和 <code>^</code>(XOR) 位元運算子</p>
 
 <ul>
@@ -386,19 +383,17 @@ meetingDays = meetingDays ^ Days2.Tuesday;
 //48
 </code></pre></li>
 </ul></li>
-</ul>
+</ul></li>
 
-<ol>
-<li>使用 <code>System.Enum</code> 的型別 <code>Method</code></li>
+<li><p>使用 <code>System.Enum</code> 的型別 <code>Method</code></p>
 
+<ul>
 <li><p>指定 Value 取得名稱</p>
 
 <blockquote>
 <p>Enum.GetName(typeof(Days), 4)</p>
 </blockquote></li>
-</ol>
 
-<ul>
 <li><p>取得所有 Value 陣列</p>
 
 <blockquote>
@@ -410,14 +405,14 @@ meetingDays = meetingDays ^ Days2.Tuesday;
 <blockquote>
 <p>Enum.GetNames(typeof(Days))</p>
 </blockquote></li>
-</ul>
+</ul></li>
+</ol>
 
 <h1 id="參考資料">參考資料</h1>
 
 <ol>
 <li><a href="https://msdn.microsoft.com/zh-tw/library/sbbt4032.aspx" target="_blank">enum (C# 參考)</a></li>
 <li><a href="https://msdn.microsoft.com/zh-tw/library/cc138362.aspx" target="_blank">列舉類型 (C# 程式設計手冊)</a></li>
-</ol></li>
 </ol>
 
     </div>

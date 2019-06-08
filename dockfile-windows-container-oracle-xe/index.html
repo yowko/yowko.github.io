@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 Dockerfile 建立 Windows Container 版本 Oracle XE" />
 <meta property="og:description" content="使用 Dockerfile 建立 Windows Container 版本 Oracle XE 之前曾經在筆記 在 Windows 中使用 Command 安裝 Oracle XE (Silent Installation) 提到打算將 db 語法也納入自動化測試，所以想要透過 script 來安裝 Oracle XE，既然已經確定 Oracle XE 可" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/dockfile-windows-container-oracle-xe/" />
-<meta property="article:published_time" content="2017-11-14T00:43:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/dockfile-windows-container-oracle-xe/" /><meta property="article:published_time" content="2017-11-14T00:43:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-28T22:27:43&#43;08:00"/>
 
 <meta itemprop="name" content="使用 Dockerfile 建立 Windows Container 版本 Oracle XE">
@@ -67,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2017-11-14T00:43:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-28T22:27:43&#43;08:00" />
-<meta itemprop="wordCount" content="1166">
+<meta itemprop="wordCount" content="1162">
 
 
 
@@ -147,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2017-11-14 </span>
         
-        <span class="more-meta"> 約 1166 字 </span>
+        <span class="more-meta"> 約 1162 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -166,6 +165,7 @@
 <li><a href="#準備-oracle-xe-安裝檔">準備 Oracle XE 安裝檔</a></li>
 <li><a href="#使用-dockerfile-建立-image">使用 dockerfile 建立 image</a></li>
 <li><a href="#建置-image">建置 image</a></li>
+<li><a href="#啟動-container">啟動 container</a></li>
 <li><a href="#成功連線">成功連線</a></li>
 <li><a href="#心得">心得</a></li>
 </ul></li>
@@ -266,24 +266,21 @@ EXPOSE 1521
     
 # 預設執行動作，可用來避免 container 自動停止
 CMD [ &quot;ping localhost -t&quot; ]
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="建置-image">建置 image</h2>
 
-<p>```</p></li>
-</ol>
-
-<p>docker build -t yowko/winoraclexe C:\oraclexeinstall</p>
-
-<pre><code>
-![2buildimage](https://user-images.githubusercontent.com/3851540/32737005-dd6aeda8-c8d3-11e7-8c44-2402e9153a40.png)
-
-## 啟動 container
+<pre><code>docker build -t yowko/winoraclexe C:\oraclexeinstall
 
 </code></pre>
 
-<p>docker run -d -p 1521:1521 yowko/winoraclexe
-```</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/32737005-dd6aeda8-c8d3-11e7-8c44-2402e9153a40.png" alt="2buildimage" /></p>
+
+<h2 id="啟動-container">啟動 container</h2>
+
+<pre><code>docker run -d -p 1521:1521 yowko/winoraclexe
+</code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/32737006-dd988eac-c8d3-11e7-824b-a8165891a9de.png" alt="3createcontainer" /></p>
 

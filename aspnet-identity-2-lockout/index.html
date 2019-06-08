@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="ASP.NET Identity 2 啟用自動鎖定機制" />
 <meta property="og:description" content="ASP.NET Identity 2 啟用自動鎖定機制 新專案有個需求是要讓 user 在嘗試登入時超過指定登入次數就自動鎖定帳號讓 user 無法登入，而 ASP.NET Identity 本身就已經涵蓋了這個功能，不需要自" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspnet-identity-2-lockout/" />
-<meta property="article:published_time" content="2017-12-11T22:31:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspnet-identity-2-lockout/" /><meta property="article:published_time" content="2017-12-11T22:31:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-30T22:31:05&#43;08:00"/>
 
 <meta itemprop="name" content="ASP.NET Identity 2 啟用自動鎖定機制">
@@ -269,11 +268,11 @@
 </blockquote>
 
 <pre><code class="language-cs">SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>檢核是否鎖定</li>
+<li><p>檢核是否鎖定</p>
 
+<ul>
 <li><p>由儲存 user 資料的三個 table 欄位控制</p>
 
 <ul>
@@ -295,9 +294,7 @@
 <p>登入失敗次數</p>
 </blockquote></li>
 </ul></li>
-</ol>
 
-<ul>
 <li><p>實際驗證是否鎖定流程</p>
 
 <ul>
@@ -324,35 +321,32 @@
 <li>同時滿足啟用自動鎖定 (LockoutEnabled 為 true) 且當下時間小於鎖定結束時間 (LockoutEndUtc)，即 <code>鎖定，無法登入</code></li>
 <li>未啟用自動鎖定 (LockoutEnabled 為 false)，登入嘗試紀錄及寫入鎖定時間的機制依舊，但因未滿足上述條件(LockoutEnabled 為 true)，所以不會鎖定</li>
 </ul></li>
-</ul>
+</ul></li>
+</ol>
 
 <h2 id="applicationusermanager-的自動鎖定預設設定">ApplicationUserManager 的自動鎖定預設設定</h2>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/33835120-70180ec2-dec0-11e7-8e07-a0bdc133352f.png" alt="5defaultset" /></p>
 
 <ol>
-<li>UserLockoutEnabledByDefault</li>
-</ol>
+<li><p>UserLockoutEnabledByDefault</p>
 
 <blockquote>
 <p>將會在建立 user 時啟用自動鎖定</p>
-</blockquote>
+</blockquote></li>
 
-<ol>
-<li>DefaultAccountLockoutTimeSpan</li>
-</ol>
+<li><p>DefaultAccountLockoutTimeSpan</p>
 
 <blockquote>
 <p>鎖定的預設時間間隔，達到登入失敗上限時間點開始鎖定的時間間隔，預設為五分鐘(達到失敗上限後鎖定五分鐘不得登入)</p>
-</blockquote>
+</blockquote></li>
 
-<ol>
-<li>MaxFailedAccessAttemptsBeforeLockout</li>
-</ol>
+<li><p>MaxFailedAccessAttemptsBeforeLockout</p>
 
 <blockquote>
 <p>登入失敗次數上限</p>
-</blockquote>
+</blockquote></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
@@ -366,7 +360,6 @@
 
 <ol>
 <li><a href="https://dotblogs.com.tw/yc421206/2016/08/03/asp_net_identity_oauth_user_lockout" target="_blank">OAuth Server 鎖定(Lockout)登入失敗次數太多的帳號</a></li>
-</ol></li>
 </ol>
 
     </div>

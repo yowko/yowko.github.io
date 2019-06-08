@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="如何在 Windows Server 2016 安裝 Docker" />
 <meta property="og:description" content="如何在 Windows Server 2016 安裝 Docker Windows Server 2016 是第一個原生支援 Docker 的 Windows 作業系統，雖然 windows container 的 image 數量遠遠比不上 linux container，但 MicroSoft 自家出品的 windows 原生相關產品與工具還" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/windows-server-2016-docker/" />
-<meta property="article:published_time" content="2017-05-04T01:00:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/windows-server-2016-docker/" /><meta property="article:published_time" content="2017-05-04T01:00:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-18T01:00:04&#43;08:00"/>
 
 <meta itemprop="name" content="如何在 Windows Server 2016 安裝 Docker">
@@ -202,11 +201,9 @@
 <li><p>下載並安裝 NuGet</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/25586235/0beba4f8-2ed1-11e7-892c-fba077d69bb4.png" alt="2download" /></p></li>
-</ul>
+</ul></li>
 
-<ol>
-<li>安裝 Docker</li>
-</ol>
+<li><p>安裝 Docker</p>
 
 <pre><code class="language-ps1">Install-Package -Name docker -ProviderName DockerMsftProvider
 </code></pre>
@@ -224,13 +221,13 @@
 <li><p>重新開機</p>
 
 <pre><code class="language-ps1">Restart-Computer -Force
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="安裝-windows-updates">安裝 Windows Updates</h2>
 
 <ol>
-<li>以管理員開啟 command prompt 或是 Windows PowerShell 並檢查更新</li>
-</ol>
+<li><p>以管理員開啟 command prompt 或是 Windows PowerShell 並檢查更新</p>
 
 <pre><code class="language-ps1">sconfig
 </code></pre>

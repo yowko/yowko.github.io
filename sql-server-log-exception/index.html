@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="SQL Server 如何紀錄執行錯誤" />
 <meta property="og:description" content="SQL Server 如何紀錄執行錯誤 程式在 production 環境上出現錯誤，大家會怎麼 debug 呢？最傳統也最普遍的做法當然就是追查各式各樣的 log，現在發生錯誤的對象換做是 db 該怎" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/sql-server-log-exception/" />
-<meta property="article:published_time" content="2017-04-25T02:07:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/sql-server-log-exception/" /><meta property="article:published_time" content="2017-04-25T02:07:00&#43;08:00"/>
 <meta property="article:modified_time" content="2017-04-25T02:07:00&#43;08:00"/>
 
 <meta itemprop="name" content="SQL Server 如何紀錄執行錯誤">
@@ -326,11 +325,9 @@ GO
 
 <blockquote>
 <p>為了避免用來紀錄錯誤訊息的 stored procedure 也出現錯誤，另外加上一支只顯示錯誤資訊的 stored procedure</p>
-</blockquote>
+</blockquote></li>
 
-<ul>
-<li>uspPrintError</li>
-</ul>
+<li><p>uspPrintError</p>
 
 <pre><code class="language-sql">SET ANSI_NULLS ON
 GO
@@ -364,11 +361,9 @@ END TRY
 BEGIN CATCH
     EXECUTE [dbo].[uspLogErrors];
 END CATCH;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>stored procedure</li>
-</ul>
+<li><p>stored procedure</p>
 
 <pre><code class="language-sql">CREATE PROCEDURE [dbo].[uspSelectSalesCurrency]
 AS

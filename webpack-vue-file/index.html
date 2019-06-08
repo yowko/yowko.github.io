@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 Webpack 來編譯 Vue.js Single File Components (.vue)" />
 <meta property="og:description" content="使用 Webpack 來編譯 Vue.js Single File Components (.vue) 最近因為新專案的部份頁面有較多的互動功能，所以打算透過 Vue.js 來處理，其中某些功能在多個頁面間可以共用，就使用了 Vue.js 的 Single File Components (.vue)" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/webpack-vue-file/" />
-<meta property="article:published_time" content="2017-11-12T22:24:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/webpack-vue-file/" /><meta property="article:published_time" content="2017-11-12T22:24:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-28T22:24:18&#43;08:00"/>
 
 <meta itemprop="name" content="使用 Webpack 來編譯 Vue.js Single File Components (.vue)">
@@ -249,11 +248,9 @@
     &lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>引用 vue.js</li>
-</ol>
+<li><p>引用 vue.js</p>
 
 <pre><code class="language-html">&lt;script src=&quot;./node_modules/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
 </code></pre></li>
@@ -268,11 +265,9 @@
         }
     })
 &lt;/script&gt;
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>index.html 完整程式碼</li>
-</ol>
+<li><p>index.html 完整程式碼</p>
 
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
@@ -313,11 +308,9 @@
         message: &quot;Hello Vue&quot;
     }
 })
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>index.html 改引用 index.js</li>
-</ol>
+<li><p>index.html 改引用 index.js</p>
 
 <pre><code class="language-html">&lt;script src=&quot;./src/index.js&quot;&gt;&lt;/script&gt;
 </code></pre></li>
@@ -339,11 +332,9 @@ new Vue({
         message: &quot;Hello Vue123&quot;
     }
 })
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>設定 webpack 編譯 index.js</li>
-</ol>
+<li><p>設定 webpack 編譯 index.js</p>
 
 <ul>
 <li>根目錄加入 <code>webpack.config.js</code></li>
@@ -372,26 +363,23 @@ module.exports = {
         }
     }
 };
-</code></pre>
+</code></pre></li>
+</ul></li>
 
-<ol>
-<li>執行編譯</li>
-</ol>
+<li><p>執行編譯</p>
 
 <blockquote>
 <p>webpack</p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/32699865-5bfb316a-c7f7-11e7-9ea2-bbe974117f0d.png" alt="1webpack" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/32699865-5bfb316a-c7f7-11e7-9ea2-bbe974117f0d.png" alt="1webpack" /></p></li>
 
-<ol>
-<li>修改 js 引用</li>
-</ol>
+<li><p>修改 js 引用</p>
 
 <ul>
 <li>移除 index.html 相關 js 引用</li>
-<li>加入編譯後檔案引用</li>
-</ul>
+
+<li><p>加入編譯後檔案引用</p>
 
 <pre><code class="language-html">&lt;script src=&quot;./dist/build.js&quot;&gt;&lt;/script&gt;
 </code></pre></li>
@@ -415,41 +403,41 @@ module.exports = {
     &lt;script src=&quot;./dist/build.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre>
+</code></pre></li>
+</ul></li>
+</ol>
 
 <h2 id="使用-vue-來模組輸出-重點在此">使用 .vue 來模組輸出 (重點在此)</h2>
 
 <ol>
-<li>建立 <code>msg.vue</code></li>
-</ol>
+<li><p>建立 <code>msg.vue</code></p>
 
 <blockquote>
 <p>將 html、javascript、css 部份全部移至 <code>msg.vue</code></p>
 </blockquote>
 
 <pre><code class="language-html">&lt;template lang=&quot;html&quot;&gt;
-&lt;div class=&quot;message&quot;&gt;
-    {{ message }}
-&lt;/div&gt;
+    &lt;div class=&quot;message&quot;&gt;
+        {{ message }}
+    &lt;/div&gt;
 &lt;/template&gt;
     
 &lt;script&gt;
 export default {
 data () {
-return {
-message: 'Helo, .vue file'
-}
+    return {
+    message: 'Helo, .vue file'
+    }
 }
 }
 &lt;/script&gt;
     
 &lt;style lang=&quot;css&quot;&gt;
-.message {
-    color: blue;
-}
+    .message {
+        color: blue;
+    }
 &lt;/style&gt;
 </code></pre></li>
-</ul></li>
 
 <li><p>在 index.js 加入引用 msg.vue 並指定 components</p>
 
@@ -459,11 +447,11 @@ new Vue({
     el: '#app',
     components:{Msg}
 })
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>webpack.config.js 加入編譯 <code>.vue</code> 設定</li>
+<li><p>webpack.config.js 加入編譯 <code>.vue</code> 設定</p>
 
+<ul>
 <li><p>module &ndash;&gt; loaders 加入 vue-loader</p>
 
 <pre><code>{
@@ -471,9 +459,7 @@ new Vue({
     loader: 'vue-loader'//使用 babel-loader 來編譯 .vue
 }
 </code></pre></li>
-</ol>
 
-<ul>
 <li><p>webpack.config.js 完整版</p>
 
 <pre><code class="language-js">&quot;use strict&quot;;
@@ -502,17 +488,15 @@ module.exports = {
         }
     }
 };
-</code></pre>
+</code></pre></li>
+</ul></li>
 
-<ol>
-<li>index.html 使用自訂 tag</li>
-</ol>
+<li><p>index.html 使用自訂 tag</p>
 
 <pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
 &lt;msg&gt;&lt;/msg&gt;
 &lt;/div&gt;
-</code></pre></li>
-</ul>
+</code></pre>
 
 <ul>
 <li><p>index.html 完整程式碼</p>

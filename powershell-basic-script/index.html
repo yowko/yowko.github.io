@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="PowerShell 基本語法筆記" />
 <meta property="og:description" content="PowerShell 基本語法筆記 最近工作上的需要，用了 PowerShell 語法來處理，幾乎各式各樣的花式需求都可以達成，怪不得百敬老師非常推薦 PowerShell ，功能十分強大呀，只可惜學習資源" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/powershell-basic-script/" />
-<meta property="article:published_time" content="2017-01-12T00:42:34&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/powershell-basic-script/" /><meta property="article:published_time" content="2017-01-12T00:42:34&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-09T00:42:34&#43;08:00"/>
 
 <meta itemprop="name" content="PowerShell 基本語法筆記">
@@ -197,28 +196,27 @@
 <li><p>比較大小</p>
 
 <pre><code class="language-ps1">$a -gt $b #($a 是否大於 $b)
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="字串處理">字串處理</h2>
 
 <ol>
-<li>字串分割</li>
+<li><p>字串分割</p>
 
+<ul>
 <li><p>1-1.</p>
 
 <pre><code class="language-ps1">$$serveritem -split ',' 
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>1-2.
-<br /></li>
-</ul>
+<li><p>1-2.</p>
 
 <pre><code class="language-ps1">$serveritem.Split(',')
 </code></pre></li>
+</ul></li>
 
-<li><p>檢查是否為空值 (string.IsNullOrWhiteSpace)</p></li>
-</ol>
+<li><p>檢查是否為空值 (string.IsNullOrWhiteSpace)</p>
 
 <pre><code class="language-ps1">[string]::IsNullOrWhiteSpace($serveritem.ExcludeFolder)
 </code></pre></li>
@@ -226,12 +224,9 @@
 <li><p>比對字串開頭</p>
 
 <pre><code class="language-ps1"> $stringVariable.StartsWith('startString','CurrentCultureIgnoreCase')
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>字串比對
-<br /></li>
-</ol>
+<li><p>字串比對</p>
 
 <pre><code class="language-ps1"> $stringVariable -eq &quot;Value&quot;
 </code></pre></li>
@@ -243,11 +238,11 @@
 <li><p>檔案內容轉成 json</p>
 
 <pre><code class="language-ps1">Get-Content -Raw -Path $filelocation | ConvertFrom-Json
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>檔案壓縮與解壓縮</li>
+<li><p>檔案壓縮與解壓縮</p>
 
+<ul>
 <li><p>PowerShell v5</p>
 
 <ul>
@@ -257,12 +252,9 @@
 <li><p>語法</p>
 
 <pre><code class="language-ps1">Compress-Archive -Path $sourceFolder -DestinationPath $archiveFile
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>實際範例
-<br /></li>
-</ul>
+<li><p>實際範例</p>
 
 <pre><code class="language-ps1">Compress-Archive -Path D:\Downloads\Demo -DestinationPath D:\Downloads\demo.zip
 </code></pre></li>
@@ -274,12 +266,9 @@
 <li><p>語法</p>
 
 <pre><code class="language-ps1">Expand-Archive -Path $archiveFile -DestinationPath $targetFolder
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>實際範例
-<br /></li>
-</ul>
+<li><p>實際範例</p>
 
 <pre><code class="language-ps1">Expand-Archive -Path D:\Downloads\demo.zip -DestinationPath D:\Downloads\testPS
 </code></pre></li>
@@ -296,12 +285,9 @@
 
 <pre><code class="language-ps1">Add-Type -AssemblyName 'System.IO.Compression.Filesystem'
 [System.IO.Compression.ZipFile]::CreateFromDirectory($folderSource,$fileDestination)
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>實際例範
-<br /></li>
-</ul>
+<li><p>實際例範</p>
 
 <pre><code class="language-ps1">$folderSource='D:\Downloads\Demo'
 $fileDestination='D:\Downloads\demo.zip'
@@ -318,12 +304,9 @@ Add-Type -AssemblyName 'System.IO.Compression.Filesystem'
 
 <pre><code class="language-ps1">Add-Type -AssemblyName 'System.IO.Compression.Filesystem'
 [System.IO.Compression.ZipFile]::ExtractToDirectory($fileSource, $folderDestination)
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>實際範例
-<br /></li>
-</ul>
+<li><p>實際範例</p>
 
 <pre><code class="language-ps1">$fileSource='D:\Downloads\demo.zip'
 $folderDestination='D:\Downloads\testPS'
@@ -332,14 +315,13 @@ Add-Type -AssemblyName 'System.IO.Compression.Filesystem'
 </code></pre></li>
 </ul></li>
 </ul></li>
+</ul></li>
 </ol>
 
 <h2 id="list-處理">List 處理</h2>
 
 <ol>
-<li>多個 List 取交集或是聯集
-<br /></li>
-</ol>
+<li><p>多個 List 取交集或是聯集</p>
 
 <pre><code class="language-ps1">$a = (1,2,3,4)
 $b = (1,3,4,5)
@@ -349,12 +331,9 @@ $b = (1,3,4,5)
 <li><p>1-1. 聯集</p>
 
 <pre><code class="language-ps1">$a + $b | select -uniq    #union
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>1-2. 交集
-<br /></li>
-</ul>
+<li><p>1-2. 交集</p>
 
 <pre><code class="language-ps1">$a | ?{$b -contains $_}   #intersection
 </code></pre></li>
@@ -366,12 +345,9 @@ $b = (1,3,4,5)
 <li><p>2-1. 宣告個空的 List</p>
 
 <pre><code class="language-ps1">$a = New-Object System.Collections.ArrayList
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>2-2. 加入項目
-<br /></li>
-</ul>
+<li><p>2-2. 加入項目</p>
 
 <pre><code class="language-ps1">$a.Add('data')
 $a.Add('test')
@@ -391,12 +367,9 @@ $pass = ConvertTo-SecureString -String (Get-Content C:\securestring.txt)
 #$pass = cat C:\securestring.txt | convertto-securestring  
 #使用 username 及 密碼  建立 credential
 $Cred = new-object -typename System.Management.Automation.PSCredential -argumentlist &quot;AD\username&quot;,$pass    
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>取得密碼明碼
-<br /></li>
-</ol>
+<li><p>取得密碼明碼</p>
 
 <pre><code class="language-ps1">$cred.GetNetworkCredential().Password
 </code></pre></li>
@@ -408,12 +381,9 @@ $Cred = new-object -typename System.Management.Automation.PSCredential -argument
 <li><p>取得服務狀態</p>
 
 <pre><code class="language-ps1">Get-Service -Name &quot;serviceName&quot; #Get-Service -Name &quot;aspnet_state&quot;
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>停用服務
-<br /></li>
-</ol>
+<li><p>停用服務</p>
 
 <pre><code class="language-ps1">Stop-Service -Name &quot;aspnet_state&quot;
 </code></pre></li>
@@ -421,38 +391,35 @@ $Cred = new-object -typename System.Management.Automation.PSCredential -argument
 <li><p>啟用服務</p>
 
 <pre><code class="language-ps1">Start-Service -Name &quot;aspnet_state&quot;
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="iis-相關">IIS 相關</h2>
 
 <ol>
-<li>AppPool</li>
+<li><p>AppPool</p>
 
+<ul>
 <li><p>1-1. 取得特定 AppPool 狀態</p>
 
 <pre><code class="language-ps1">Get-WebAppPoolState -Name &quot;appPoolName&quot; 
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>1-2. 停用 AppPool
-<br /></li>
-</ul>
+<li><p>1-2. 停用 AppPool</p>
 
 <pre><code class="language-ps1">Stop-WebAppPool -Name &quot;appPoolName&quot;
 </code></pre></li>
-</ol>
 
-<ul>
 <li><p>1-3. 啟用 AppPool</p>
 
 <pre><code class="language-ps1">Start-WebAppPool -Name &quot;appPoolName&quot;
-</code></pre>
+</code></pre></li>
+</ul></li>
 
-<ol>
-<li>Website</li>
-<li>2-1. 取得特定網站狀態
-<br /></li>
-</ol>
+<li><p>Website</p>
+
+<ul>
+<li><p>2-1. 取得特定網站狀態</p>
 
 <pre><code class="language-ps1">Get-WebsiteState -Name &quot;websiteName&quot;
 </code></pre></li>
@@ -460,22 +427,19 @@ $Cred = new-object -typename System.Management.Automation.PSCredential -argument
 <li><p>2-2. 停用特定網站</p>
 
 <pre><code class="language-ps1">Stop-Website -Name &quot;websiteName&quot;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>2-3. 啟用特定網站
-<br /></li>
-</ul>
+<li><p>2-3. 啟用特定網站</p>
 
 <pre><code class="language-ps1">Start-Website -Name &quot;websiteName&quot;
 </code></pre></li>
-</ul>
+</ul></li>
+</ol>
 
 <h2 id="動態組成指令">動態組成指令</h2>
 
 <pre><code class="language-ps1">$ExecutionContext.InvokeCommand.NewScriptBlock(&quot; /XD $parameter&quot;)
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="遠端執行">遠端執行</h2>
 
@@ -486,12 +450,9 @@ $Cred = new-object -typename System.Management.Automation.PSCredential -argument
 <li><p>語法</p>
 
 <pre><code class="language-ps1">Invoke-Command –ComputerName Production1 {$env:COMPUTERNAME}
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>傳遞其他參數語法
-<br /></li>
-</ul>
+<li><p>傳遞其他參數語法</p>
 
 <pre><code class="language-ps1">Invoke-Command -ComputerName $Computer -ScriptBlock {param($comp) write-host &quot;This script is running on machine: $Comp&quot; } -ArgumentList $Computer
 </code></pre></li>
@@ -501,29 +462,23 @@ $Cred = new-object -typename System.Management.Automation.PSCredential -argument
 
 <pre><code class="language-ps1">New-PSSession –ComputerName Production1
 Enter-PSSession {sessionID}
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="無線網路服務">無線網路服務</h2>
 
 <ol>
-<li>確認無線網路服務的狀態
-<br /></li>
-</ol>
+<li><p>確認無線網路服務的狀態</p>
 
 <pre><code class="language-ps1">Get-WindowsFeature *Wireless*
 </code></pre></li>
-</ul>
 
-<ol>
 <li><p>安裝無線網路服務</p>
 
 <pre><code class="language-ps1">Install-WindowsFeature -Name Wireless-Networking
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>啟動服務
-<br /></li>
-</ol>
+<li><p>啟動服務</p>
 
 <pre><code class="language-ps1">net start WlanSvc
 </code></pre></li>

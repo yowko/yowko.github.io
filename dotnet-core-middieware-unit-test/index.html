@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="為 .NET Core Middleware 加上 Unit Test" />
 <meta property="og:description" content="為 .NET Core Middleware 加上 Unit Test .NET Core 的 Middleware 在 .NET Core 的 pipeline 中扮演了非常重要的角色，因此在實際應用上更需要確保功能與結果符合預期。第一次寫 middleware 的 unit test 順手紀錄過程，看看在" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/dotnet-core-middieware-unit-test/" />
-<meta property="article:published_time" content="2019-04-28T21:30:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/dotnet-core-middieware-unit-test/" /><meta property="article:published_time" content="2019-04-28T21:30:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-04-28T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="為 .NET Core Middleware 加上 Unit Test">
@@ -221,11 +220,9 @@
 
             throw  new InvalidOperationException(&quot;Missing header !!&quot;);
         });C
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>為 middleware 建立獨立類別 <code>AuthHeaderCheckMiddleware</code></li>
-</ul>
+<li><p>為 middleware 建立獨立類別 <code>AuthHeaderCheckMiddleware</code></p>
 
 <ol>
 <li><p>加入 middleware</p>
@@ -250,11 +247,9 @@
         throw new InvalidOperationException(&quot;Missing header !!&quot;);
     }
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>註冊 middleware</li>
-</ol>
+<li><p>註冊 middleware</p>
 
 <blockquote>
 <p>註冊位置與上個方式相同，但需要留意想要在哪一層處理：愈早註冊就會愈早檢查，只是出現錯誤的可讀性就會愈差</p>
@@ -262,13 +257,13 @@
 
 <pre><code class="language-cs">app.UseMiddleware&lt;AuthHeaderCheckMiddleware&gt;();
 </code></pre></li>
-</ol>
+</ol></li>
+</ul>
 
 <h2 id="撰寫-middleware-的-unit-test">撰寫 Middleware 的 Unit Test</h2>
 
 <ol>
-<li>建立 mock HttpContext</li>
-</ol>
+<li><p>建立 mock HttpContext</p>
 
 <blockquote>
 <p>為了符合 Unit Test 的基本定義， mock HttpContext 的隔離動作不可少，.NET Core 在這點上有長足的進步，直接使用 <code>DefaultHttpContext</code> 即可，不需自行 fake (需要參考並 using <code>Microsoft.AspNetCore.Http</code>)</p>
@@ -276,9 +271,7 @@
 
 <pre><code class="language-cs">var httpContext = new DefaultHttpContext();
 </code></pre></li>
-</ul>
 
-<ol>
 <li><p>建立 Unit Test</p>
 
 <ul>
@@ -302,11 +295,9 @@ public async Task AthHeaderCheckMiddleware_Without_header_Should_Get_InvalidOper
     action.Should().Throw&lt;InvalidOperationException&gt;()
         .WithMessage(expect.Message);
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>提供 auth header 則出現 NullReferenceException (因 next 傳入 null)</li>
-</ul>
+<li><p>提供 auth header 則出現 NullReferenceException (因 next 傳入 null)</p>
 
 <pre><code class="language-cs">[Test]
 public async Task AthHeaderCheckMiddleware_With_Auht_header_Should_Get_NullReferenceException()

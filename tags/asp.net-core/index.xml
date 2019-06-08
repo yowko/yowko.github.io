@@ -1,60 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>ASP.NET Core on Yowko&#39;s Notes</title>
+    <title>asp.net core on Yowko&#39;s Notes</title>
     <link>https://blog.yowko.com/tags/asp.net-core/</link>
-    <description>Recent content in ASP.NET Core on Yowko&#39;s Notes</description>
+    <description>Recent content in asp.net core on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 26 May 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 24 Apr 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/asp.net-core/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>使用 GenericHost 來 Host gRPC Server</title>
-      <link>https://blog.yowko.com/generichost-grpc-server/</link>
-      <pubDate>Sun, 26 May 2019 21:30:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/generichost-grpc-server/</guid>
-      <description>使用 GenericHost 來 Host gRPC Server 之前筆記 在 .NET Core console 上使用 Dependency Injection - DI 提到 ASP.NET Core 有兩種 host 方式： WebHost Generic Host 而在之前另一則筆記 使用 ASP.NET Core 2.2 來 Host gRPC Server 使用到 WebHost 來 host gRPC Server，經同</description>
-    </item>
-    
-    <item>
-      <title>使用 ASP.NET Core 2.2 來 Host gRPC Server</title>
-      <link>https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/</link>
-      <pubDate>Tue, 21 May 2019 21:30:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/</guid>
-      <description>使用 ASP.NET Core 2.2 來 Host gRPC Server 之前筆記 Protobuf 該如何處理不定型別, .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫, Protobuf 時間屬性該如何表示？ 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用</description>
-    </item>
-    
-    <item>
-      <title>將 .NET Core Console 專案轉換為 ASP.NET Core</title>
-      <link>https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core/</link>
-      <pubDate>Tue, 21 May 2019 19:30:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core/</guid>
-      <description>將 .NET Core Console 專案轉換為 ASP.NET Core console 因為組成簡單、建立快速，常被用來確認語法或是 POC 特定功能需求，不過一旦 POC 沒問題就會遇到程式碼彙總的狀況，如果程式碼數量</description>
-    </item>
-    
-    <item>
-      <title>關於 ASP.NET Core IMemoryCache RegisterPostEvictionCallback 的觸發時機</title>
-      <link>https://blog.yowko.com/aspdotnet-core-imemorycache-registerpostevictioncallback/</link>
-      <pubDate>Tue, 14 May 2019 21:30:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/aspdotnet-core-imemorycache-registerpostevictioncallback/</guid>
-      <description>關於 ASP.NET Core IMemoryCache RegisterPostEvictionCallback 的觸發時機 同事提到想用 ASP.NET Core 的 IMemoryCache 來處理 application 本身的 cache，無奈小弟學藝不精沒有太多想法可以參與討論，所以趕緊惡補，藉這個機會學習也</description>
-    </item>
-    
-    <item>
-      <title>讓 ASP.NET Core MVC 自行停止運作</title>
-      <link>https://blog.yowko.com/aspdotnet-core-mvc-stop-by-itself/</link>
-      <pubDate>Sun, 12 May 2019 21:30:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/aspdotnet-core-mvc-stop-by-itself/</guid>
-      <description>讓 ASP.NET Core MVC 自行停止運作 公司專案有個系統在啟動時執行 init script，接著就等待後台管理者下指令才會有後續動作，但開發階段暫時還不會有後台管理者的</description>
-    </item>
     
     <item>
       <title>將 ASP.NET Core 部署至 Docker 中</title>
@@ -63,42 +18,6 @@
       
       <guid>https://blog.yowko.com/aspnet-core-docker/</guid>
       <description>將 ASP.NET Core 部署至 Docker 中 最近專案在 macOS 上開發 ASP.NET Core 的 Web API，完成後再透過 Docker 包成 image 準備建立 container，流程很直覺，加上 CI CD 同事都已經準備好了，所</description>
-    </item>
-    
-    <item>
-      <title>使用 Jaeger 追蹤 ASP.NET Core 中的 class 呼叫</title>
-      <link>https://blog.yowko.com/jaeger-trace-aspdotnet-core-class-call/</link>
-      <pubDate>Sun, 14 Apr 2019 15:30:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/jaeger-trace-aspdotnet-core-class-call/</guid>
-      <description>使用 Jaeger 追蹤 ASP.NET Core 中的 class 呼叫 之前筆記 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 與 使用 Jaeger 追蹤 ASP.NET Core 呼叫 分別紀錄到使用 Jaeger 來紀錄 gRPC call 與 ASP.NET Core Web API 的呼叫歷程內容，接著紀錄另個常</description>
-    </item>
-    
-    <item>
-      <title>使用 Jaeger 追蹤 ASP.NET Core 呼叫</title>
-      <link>https://blog.yowko.com/jaeger-trace-aspdotnet-core/</link>
-      <pubDate>Sat, 13 Apr 2019 21:30:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/jaeger-trace-aspdotnet-core/</guid>
-      <description>使用 Jaeger 追蹤 ASP.NET Core 呼叫 之前筆記 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 紀錄到如何使用 Jaeger 來追蹤 .NET Core Console project 中 gRPC 的呼叫歷程，不過想必未來應該免不了還是需要使用 REST api 的專案，</description>
-    </item>
-    
-    <item>
-      <title>將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog</title>
-      <link>https://blog.yowko.com/asp-net-core-default-log-nlog-serilog/</link>
-      <pubDate>Sun, 10 Mar 2019 21:00:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/asp-net-core-default-log-nlog-serilog/</guid>
-      <description>將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog ASP.NET Core 預設會將 WebHost 執行細節透過 stdout 輸出至 console 上，application 的所有動作都一目暸然，這在 debug 時很方便，不過部署在一般</description>
-    </item>
-    
-    <item>
-      <title>讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded</title>
-      <link>https://blog.yowko.com/aspnet-core-x-www-form-urlencoded/</link>
-      <pubDate>Mon, 01 Oct 2018 02:44:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/aspnet-core-x-www-form-urlencoded/</guid>
-      <description>讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded 最近某個專案需要將資料(前端)傳送至其他平台 API 進行處理，跟一般需求相同，只是資料傳輸格式不是使用過去較熟悉的 application/json 而是使</description>
     </item>
     
   </channel>

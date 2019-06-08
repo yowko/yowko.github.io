@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="如何在 ASP.NET MVC 的 BaseController 或是 Controller 建構式中存取 ASP.NET Identity User 資料" />
 <meta property="og:description" content="如何在 ASP.NET MVC 的 BaseController 或是 Controller 建構式中存取 ASP.NET Identity User 資料 從 ASP.NET MVC 5 開始預設使用 ASP.NET Identity ，全新的會員身份系統（membership system），雖然已經實際在幾" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspnet-mvc-access-identity-user-data-in-basecontroller/" />
-<meta property="article:published_time" content="2017-01-28T00:42:34&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspnet-mvc-access-identity-user-data-in-basecontroller/" /><meta property="article:published_time" content="2017-01-28T00:42:34&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-10T00:42:34&#43;08:00"/>
 
 <meta itemprop="name" content="如何在 ASP.NET MVC 的 BaseController 或是 Controller 建構式中存取 ASP.NET Identity User 資料">
@@ -218,11 +217,9 @@
 
 <pre><code class="language-cs">[Authorize]
 public class BaseController : Controller
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>新增 User property</li>
-</ol>
+<li><p>新增 User property</p>
 
 <pre><code class="language-cs">IUser _UserData;
 public IUser UserData
@@ -278,20 +275,20 @@ public class BaseController : Controller
 
 
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="3-建立-asp-net-identity-資料服務">3. 建立 ASP.NET Identity 資料服務</h2>
 
 <pre><code class="language-cs">public static class UserRepository
 {
-public  static IUser GetUser(string username)
-{
-    var UserManager = HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;();
-    return UserManager.FindByName(username);
+    public  static IUser GetUser(string username)
+    {
+        var UserManager = HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;();
+        return UserManager.FindByName(username);
+    }
 }
-}
-</code></pre></li>
-</ol>
+</code></pre>
 
 <h2 id="4-其他-controller-實際使用">4. 其他 Controller 實際使用</h2>
 
@@ -299,12 +296,9 @@ public  static IUser GetUser(string username)
 <li><p>繼承 BaseController</p>
 
 <pre><code class="language-cs">public class HomeController : BaseController
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>自訂 property
-<br /></li>
-</ol>
+<li><p>自訂 property</p>
 
 <pre><code class="language-cs">private string userID;
 </code></pre></li>
@@ -315,16 +309,15 @@ public  static IUser GetUser(string username)
 {
     userID = UserData.Id;
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="5-web-api-下的作法">5. Web API 下的作法</h2>
 
 <p>相關做法請參考 <a href="http://stackoverflow.com/questions/25908209/identity-2-0-user-identity-is-null-in-mvc-5-controller-initializer" target="_blank">Identity 2.0 User Identity is null in MVC 5 controller initializer</a></p>
 
 <ol>
-<li>加入自訂 Authorize attibute
-<br /></li>
-</ol>
+<li><p>加入自訂 Authorize attibute</p>
 
 <pre><code class="language-cs">public class MyAuthorizeAttribute : AuthorizeAttribute 
 {
@@ -355,12 +348,9 @@ public  static IUser GetUser(string username)
     WebApiConfig.Register(config);
     config.Filters.Add(new MyAuthorizeAttribute());
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>使用 ActionContext 取得 userId
-<br /></li>
-</ol>
+<li><p>使用 ActionContext 取得 userId</p>
 
 <pre><code class="language-cs">Guid userId = (Guid) ActionContext.Request.Properties[&quot;userId&quot;];
 </code></pre></li>

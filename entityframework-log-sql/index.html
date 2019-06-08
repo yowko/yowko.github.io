@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="取得 Entity Framework 存取 DB 時的實際 SQL Script" />
 <meta property="og:description" content="取得 Entity Framework 存取 DB 時的實際 SQL Script 使用 ORM 的好處之一就是可以專注在 object 控制，不用擔心 sql 語法不熟悉而寫不出正確的 sql script，也可以省下與不同 sql 語法間 (" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/entityframework-log-sql/" />
-<meta property="article:published_time" content="2017-10-29T15:48:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/entityframework-log-sql/" /><meta property="article:published_time" content="2017-10-29T15:48:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-27T15:48:17&#43;08:00"/>
 
 <meta itemprop="name" content="取得 Entity Framework 存取 DB 時的實際 SQL Script">
@@ -208,11 +207,9 @@
 }
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/32141591-4d0a0d22-bcbf-11e7-8bcf-fd4d0a3b222f.png" alt="1console" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/32141591-4d0a0d22-bcbf-11e7-8bcf-fd4d0a3b222f.png" alt="1console" /></p></li>
 
-<ul>
-<li>web project 適用</li>
-</ul>
+<li><p>web project 適用</p>
 
 <pre><code class="language-cs">using (var db = new Entities())
 {
@@ -248,9 +245,8 @@
 }
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/32141594-4d895de8-bcbf-11e7-919d-d3ef757b7973.png" alt="4tostring" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/32141594-4d895de8-bcbf-11e7-919d-d3ef757b7973.png" alt="4tostring" /></p></li>
 
-<ul>
 <li><p>優點：可精準控制需要 log 的內容</p></li>
 
 <li><p>缺點：限制不少，像是 <code>FirstOrDefault()</code> 執行完已經是特定 object 就會將 object type ToString，但其他還是 IQuerable 的語法則是可以正常使用</p></li>
@@ -261,8 +257,7 @@
 <p><span style="color:red">僅適用 Entity Framework 6.1 以上版本</span></p>
 
 <ul>
-<li>在 <code>config</code> 的 <code>entityFramework</code> 區段加上 <code>interceptors</code> 設定</li>
-</ul>
+<li><p>在 <code>config</code> 的 <code>entityFramework</code> 區段加上 <code>interceptors</code> 設定</p>
 
 <pre><code class="language-xml">&lt;interceptors&gt;
     &lt;interceptor type=&quot;System.Data.Entity.Infrastructure.Interception.DatabaseLogger, EntityFramework&quot;&gt;
@@ -290,11 +285,11 @@
 &lt;/entityFramework&gt;
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/32141595-4db3d4b0-bcbf-11e7-9bee-98eea794ebba.png" alt="5interceptor" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/32141595-4db3d4b0-bcbf-11e7-9bee-98eea794ebba.png" alt="5interceptor" /></p></li>
 
-<ul>
-<li>優點：不需要改程式</li>
-<li>缺點：無差別 log 所有 sql</li>
+<li><p>優點：不需要改程式</p></li>
+
+<li><p>缺點：無差別 log 所有 sql</p></li>
 </ul>
 
 <h2 id="精準紀錄特定-db-操作">精準紀錄特定 db 操作</h2>
@@ -302,8 +297,7 @@
 <p>程式與 db 溝通相當頻繁，無差別全部 log 很容易造成雜訊過多，讓 debug 變得沒效率，此時可以透過這個方式只紀錄需要的部份</p>
 
 <ul>
-<li>僅在需要紀錄的位置前加上 <code>db.Database.Log = Console.Write;</code>，執行動作後就移除</li>
-</ul>
+<li><p>僅在需要紀錄的位置前加上 <code>db.Database.Log = Console.Write;</code>，執行動作後就移除</p>
 
 <pre><code class="language-cs">using (var db = new Entities())
 {
@@ -331,11 +325,11 @@
 }
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/32141596-4ddf050e-bcbf-11e7-8ba1-f887e095d493.png" alt="6lspecificog" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/32141596-4ddf050e-bcbf-11e7-8ba1-f887e095d493.png" alt="6lspecificog" /></p></li>
 
-<ul>
-<li>優點：精準控制需要 log 的內容</li>
-<li>缺點：需要手動處理</li>
+<li><p>優點：精準控制需要 log 的內容</p></li>
+
+<li><p>缺點：需要手動處理</p></li>
 </ul>
 
 <h2 id="搭配既有-log-機制">搭配既有 log 機制</h2>
@@ -343,8 +337,7 @@
 <p>專案都有自己的 log 機制，希望在 production 環境也將 sql log 下來供 debug 用，最好的做法就是與既有專案 log 機制配合，不要另外處理以免造成 log 資訊散落各處，徒增 debug 難度</p>
 
 <ul>
-<li>將既有 logger 指定給 Context Log 屬性即可</li>
-</ul>
+<li><p>將既有 logger 指定給 Context Log 屬性即可</p>
 
 <pre><code class="language-cs">// logger 為既有 log 機制
 db.Database.Log = (log)=&gt; logger.Debug(log);
@@ -373,11 +366,11 @@ static void Main(string[] args)
 }
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/32141597-4e0a2f7c-bcbf-11e7-8975-2d038b740779.png" alt="7nlog" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/32141597-4e0a2f7c-bcbf-11e7-8975-2d038b740779.png" alt="7nlog" /></p></li>
 
-<ul>
-<li>優點：可以精準控制</li>
-<li>缺點：需要調整程式</li>
+<li><p>優點：可以精準控制</p></li>
+
+<li><p>缺點：需要調整程式</p></li>
 </ul>
 
 <h2 id="心得">心得</h2>
@@ -389,8 +382,7 @@ static void Main(string[] args)
 <ol>
 <li><a href="https://msdn.microsoft.com/en-us/library/dn469464%28v=vs.113529.aspx" target="_blank">Entity Framework Logging and Intercepting Database Operations (EF6 Onwards)</a></li>
 <li><a href="https://stackoverflow.com/questions/1412863/how-do-i-view-the-sql-generated-by-the-entity-framework" target="_blank">How do I view the SQL generated by the Entity Framework?</a></li>
-</ol></li>
-</ul>
+</ol>
 
     </div>
 

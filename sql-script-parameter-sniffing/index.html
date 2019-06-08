@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="相同的 SQL script 在 Stored Procedure 裡跑比較慢？！" />
 <meta property="og:description" content="相同的 SQL script 在 Stored Procedure 裡跑比較慢？！ 你遇過把原本執行效率不錯的 sql script 搬到 stored procedure 後執行效率大降的情形嗎？我遇到一次：問題發生原因是 parameter sniffing (參數探測)，至於" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/sql-script-parameter-sniffing/" />
-<meta property="article:published_time" content="2017-04-23T02:57:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/sql-script-parameter-sniffing/" /><meta property="article:published_time" content="2017-04-23T02:57:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-18T02:57:03&#43;08:00"/>
 
 <meta itemprop="name" content="相同的 SQL script 在 Stored Procedure 裡跑比較慢？！">
@@ -208,11 +207,9 @@ CREATE TABLE [dbo].[TestParameterSniffing](
 GO
 SET ANSI_PADDING OFF
 GO
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>建立 index</li>
-</ol>
+<li><p>建立 index</p>
 
 <pre><code class="language-sql">CREATE NONCLUSTERED INDEX [NonClusteredIndex-birthday] ON [dbo].[TestParameterSniffing]
 (
@@ -234,41 +231,37 @@ set @birthAdd=cast (rand ()*3650 as int);
 end
 </code></pre>
 
-<h2 id="問題模擬">問題模擬</h2>
+<h2 id="問題模擬">問題模擬</h2></li>
 
-<ol>
-<li>Literal 寫法(將條件直接寫在 script 中)</li>
+<li><p>Literal 寫法(將條件直接寫在 script 中)</p>
 
+<ul>
 <li><p>script</p>
 
 <pre><code class="language-sql">select  Birthday ,  Name  from  TestParameterSniffing 
 where  Birthday  between  '2015-01-01'  and  '2015-12-31'
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>執行計劃</li>
-</ul>
+<li><p>執行計劃</p>
 
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25307216/a0f8fc34-27cf-11e7-863b-fe12ee20b68c.png" alt="1literal" /></p>
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25307216/a0f8fc34-27cf-11e7-863b-fe12ee20b68c.png" alt="1literal" /></p></li>
+</ul></li>
 
-<ol>
-<li>將 script 移入 stored procedure 中</li>
-</ol>
+<li><p>將 script 移入 stored procedure 中</p>
 
 <pre><code class="language-sql">SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 create  procedure  [dbo].[uspParamaterSniffing] 
-       @BeginDate  datetime , 
-       @EndDate  datetime 
+           @BeginDate  datetime , 
+           @EndDate  datetime 
 as 
 set  nocount  on ; 
 select  Birthday ,  Name  from  TestParameterSniffing 
 where  Birthday  between  @BeginDate  and  @EndDate        
 GO
 </code></pre></li>
-</ol></li>
 
 <li><p>使用不同參數執行 sp</p>
 
@@ -281,12 +274,9 @@ GO
 <pre><code class="language-sql">dbcc  freeproccache ; --清除執行計劃
 exec  uspParamaterSniffing  '2011-01-01' ,  '2011-12-31' ; 
 exec  uspParamaterSniffing  '2015-01-01' ,  '2015-01-03' ;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>執行計劃
-<br /></li>
-</ul>
+<li><p>執行計劃</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/25307215/a0f7b5e0-27cf-11e7-8960-8eddf6bcf7c8.png" alt="2sp1" /></p></li>
 </ul></li>
@@ -299,12 +289,9 @@ exec  uspParamaterSniffing  '2015-01-01' ,  '2015-01-03' ;
 <pre><code class="language-sql">dbcc  freeproccache ; --清除執行計劃
 exec  uspParamaterSniffing  '2015-01-01' ,  '2015-01-03' ;
 exec  uspParamaterSniffing  '2011-01-01' ,  '2011-12-31' ;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>執行計劃
-<br /></li>
-</ul>
+<li><p>執行計劃</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/25307214/a0f70776-27cf-11e7-8e8b-d9f44567946a.png" alt="3sp2" /></p></li>
 </ul></li>
@@ -328,11 +315,9 @@ set  @_BeginDate  =  @BeginDate ;
 set  @_EndDate  =  @EndDate ;            
 select  Birthday ,  Name  from  TestParameterSniffing 
 where  Birthday  between  @_BeginDate  and  @_EndDate
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>誤用執行計畫的問題已解決</li>
-</ol>
+<li><p>誤用執行計畫的問題已解決</p>
 
 <ul>
 <li><p>script 1</p>
@@ -340,17 +325,13 @@ where  Birthday  between  @_BeginDate  and  @_EndDate
 <pre><code class="language-sql">dbcc  freeproccache ; --清除執行計劃
 exec  uspParamaterSniffing  '2011-01-01' ,  '2011-12-31' ; 
 exec  uspParamaterSniffing  '2015-01-01' ,  '2015-01-03' ;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>執行計劃 1</li>
-</ul>
+<li><p>執行計劃 1</p>
 
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25307217/a0fa9562-27cf-11e7-9510-54c1ab48b475.png" alt="4sp3" /></p>
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/25307217/a0fa9562-27cf-11e7-9510-54c1ab48b475.png" alt="4sp3" /></p></li>
 
-<ul>
-<li>script 2</li>
-</ul>
+<li><p>script 2</p>
 
 <pre><code class="language-sql">dbcc  freeproccache ; --清除執行計劃
 exec  uspParamaterSniffing  '2015-01-01' ,  '2015-01-03' ;
@@ -360,7 +341,8 @@ exec  uspParamaterSniffing  '2011-01-01' ,  '2011-12-31' ;
 <li><p>執行計劃 2</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/25307218/a0fbe7c8-27cf-11e7-8f41-9b5fab6f8613.png" alt="5sp4" /></p></li>
-</ul>
+</ul></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
@@ -370,7 +352,6 @@ exec  uspParamaterSniffing  '2011-01-01' ,  '2011-12-31' ;
 
 <ol>
 <li><a href="http://blog.darkthread.net/post-2015-08-16-literal-var-param-and-exec-plan.aspx" target="_blank">SQL筆記：Literal, Variable與Parameter</a></li>
-</ol></li>
 </ol>
 
     </div>

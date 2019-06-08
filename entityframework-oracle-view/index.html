@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="Entity Framework 無法匯入 Oracle View？！" />
 <meta property="og:description" content="Entity Framework 無法匯入 Oracle View？！ 同事反應在使用 Entity Framework EDMX 更新 Model 時一直無法將 View 加入(未看先猜是 primary key 所造成的問題，果不其然真的猜中XD) DB View 的 priamry key 問題在 Entity" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/entityframework-oracle-view/" />
-<meta property="article:published_time" content="2017-12-13T02:58:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/entityframework-oracle-view/" /><meta property="article:published_time" content="2017-12-13T02:58:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-30T02:58:13&#43;08:00"/>
 
 <meta itemprop="name" content="Entity Framework 無法匯入 Oracle View？！">
@@ -245,11 +244,9 @@ SELECT *
 FROM allunit
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/33902456-fc987f04-dfaf-11e7-9c6e-cc63ce499cdf.png" alt="12viewdata" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/33902456-fc987f04-dfaf-11e7-9c6e-cc63ce499cdf.png" alt="12viewdata" /></p></li>
 
-<ul>
-<li>原因尚待請教專業 DBA，可以先參考 <a href="https://dba.stackexchange.com/questions/48169/is-there-a-way-to-explicitely-have-a-not-null-column-in-a-view" target="_blank">Is there a way to explicitely have a not-null column in a view</a>及<a href="https://stackoverflow.com/questions/37551567/union-of-non-nullable-columns-is-nullable" target="_blank">UNION of non-nullable columns is nullable</a></li>
-</ul></li>
+<li><p>原因尚待請教專業 DBA，可以先參考 <a href="https://dba.stackexchange.com/questions/48169/is-there-a-way-to-explicitely-have-a-not-null-column-in-a-view" target="_blank">Is there a way to explicitely have a not-null column in a view</a>及<a href="https://stackoverflow.com/questions/37551567/union-of-non-nullable-columns-is-nullable" target="_blank">UNION of non-nullable columns is nullable</a></p></li>
 </ul></li>
 </ul>
 
@@ -269,11 +266,9 @@ FROM allunit
     &lt;Property Name=&quot;NAME&quot; Type=&quot;varchar2&quot; MaxLength=&quot;20&quot; /&gt;
     &lt;Property Name=&quot;LEVEL1&quot; Type=&quot;number&quot; Precision=&quot;38&quot; Scale=&quot;0&quot; /&gt;
 &lt;/EntityType&gt;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>加入 key</li>
-</ul>
+<li><p>加入 key</p>
 
 <pre><code class="language-xml">&lt;Key&gt;
     &lt;PropertyRef Name=&quot;ID&quot; /&gt;
@@ -283,11 +278,9 @@ FROM allunit
 <li><p>將 key 加上 Nullable=&ldquo;false&rdquo;</p>
 
 <pre><code class="language-cs">Nullable=&quot;false&quot;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>將 View 加至 EntityContainer 中，並指定 store type 為 Views</li>
-</ul>
+<li><p>將 View 加至 EntityContainer 中，並指定 store type 為 Views</p>
 
 <pre><code class="language-xml">&lt;EntitySet Name=&quot;ORGUNIT&quot; EntityType=&quot;Self.ORGUNIT&quot; Schema=&quot;TESTIDENTITY&quot; store:Type=&quot;Views&quot; /&gt;
 </code></pre></li>
@@ -306,10 +299,10 @@ FROM allunit
 &lt;EntityContainer Name=&quot;ModelStoreContainer&quot;&gt;
     &lt;EntitySet Name=&quot;ORGUNIT&quot; EntityType=&quot;Self.ORGUNIT&quot; Schema=&quot;TESTIDENTITY&quot; store:Type=&quot;Views&quot; /&gt;
 &lt;/EntityContainer&gt;
-</code></pre>
+</code></pre></li>
+</ul>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/33902448-fb4a0816-dfaf-11e7-87f2-471059919e17.png" alt="5SSDL" /></p></li>
-</ul></li>
 
 <li><p>CSDL</p>
 
@@ -324,11 +317,9 @@ FROM allunit
 <li><p>將 View 加至 EntityContainer 中</p>
 
 <pre><code class="language-xml">&lt;EntitySet Name=&quot;OrgUnit&quot; EntityType=&quot;Model.OrgUnit&quot; /&gt;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>加入 EntityType 及屬性定義</li>
-</ul>
+<li><p>加入 EntityType 及屬性定義</p>
 
 <pre><code class="language-xml">&lt;EntityType Name=&quot;OrgUnit&quot;&gt;
 &lt;Key&gt;

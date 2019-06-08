@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content=".NET Core 上使用 Jaeger 追蹤 gRPC 呼叫" />
 <meta property="og:description" content=".NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 隨著系統使用人數愈來愈多，架構也跟著愈來愈複雜，各種技術為了解決既有問題或是加快反應速度不斷推陳出新，服務的架構也從單" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/dotnet-core-jaeger-grpc/" />
-<meta property="article:published_time" content="2019-03-13T21:30:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/dotnet-core-jaeger-grpc/" /><meta property="article:published_time" content="2019-03-13T21:30:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-03-13T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content=".NET Core 上使用 Jaeger 追蹤 gRPC 呼叫">
@@ -376,14 +375,15 @@ namespace gRPC.Message
         }
     }
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="建立-grpc-server">建立 gRPC.Server</h2>
 
 <ol>
 <li>將 gRPC.Message 加入參考</li>
-<li>加入 gRPCServiceImpl.cs 並繼承 gRPCService.gRPCServiceBase</li>
-</ol>
+
+<li><p>加入 gRPCServiceImpl.cs 並繼承 gRPCService.gRPCServiceBase</p>
 
 <pre><code class="language-cs">using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
@@ -463,14 +463,15 @@ namespace gRPC.Server
         }
     }
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="建立-grpc-client">建立 gRPC.Client</h2>
 
 <ol>
 <li>將 gRPC.Message 加入參考</li>
-<li>建立 gRPC interceptor 並啟動 gRPC server</li>
-</ol>
+
+<li><p>建立 gRPC interceptor 並啟動 gRPC server</p>
 
 <pre><code class="language-cs">using System;
 using System.Threading.Tasks;

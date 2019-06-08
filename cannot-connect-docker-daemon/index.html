@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="CentOS 7 Docker 無法連線 Docker daemon？！" />
 <meta property="og:description" content="CentOS 7 Docker 無法連線 Docker daemon？！ 同事想在 VirtualBox 上建立 CentOS 7 虛擬環境，並在 VM 中使用 Docker，在安裝 Docker 時一如往常相當順利直到實際建立 container 時卻遇到無法" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/cannot-connect-docker-daemon/" />
-<meta property="article:published_time" content="2018-06-06T04:00:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/cannot-connect-docker-daemon/" /><meta property="article:published_time" content="2018-06-06T04:00:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-10-07T10:43:18&#43;08:00"/>
 
 <meta itemprop="name" content="CentOS 7 Docker 無法連線 Docker daemon？！">
@@ -292,11 +291,11 @@ Hint: Some lines were ellipsized, use -l to show in full.
 
 <blockquote>
 <p><code>nohup docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock</code></p>
-</blockquote>
+</blockquote></li>
+</ul>
 
 <pre><code>nohup docker daemon -H unix:///var/run/docker.sock
 </code></pre></li>
-</ul></li>
 
 <li><p>另一個 proccess (另一個 linux 連線) 就可以正常使用 docker 指令</p></li>
 </ul></li>

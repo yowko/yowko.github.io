@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="Fluentd 使用自定 Log 時間當做 Timestamp" />
 <meta property="og:description" content="Fluentd 使用自定 Log 時間當做 Timestamp 之前筆記 Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image 提到最近需要 debug EFK 起因就是發現 Kibana 顯示儲存在 Elasticsearch 中的時間與過濾條件都是 log 的處理時間並非 log 真正的" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/fluentd-log-time/" />
-<meta property="article:published_time" content="2019-05-04T21:30:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/fluentd-log-time/" /><meta property="article:published_time" content="2019-05-04T21:30:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-05-04T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="Fluentd 使用自定 Log 時間當做 Timestamp">
@@ -255,11 +254,9 @@ networks:
 
 elk:
     driver: bridge
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>Fluentd edge (v1.4.2) - aggregator 採用自製 docker image (詳細內容請參考 <a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a> )</li>
-</ol>
+<li><p>Fluentd edge (v1.4.2) - aggregator 採用自製 docker image (詳細內容請參考 <a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a> )</p>
 
 <blockquote>
 <p>這邊使用官方建議方式 (forwarder - aggregator):在需要 parse log 的 server 上安裝一個 forwarder 的 fluentd instance，然後將 log 發送給 aggregator 做後續處理</p>
@@ -269,7 +266,8 @@ elk:
 
 <blockquote>
 <p>圖片出處：<a href="https://docs.fluentd.org/v1.0/articles/high-availability" target="_blank">https://docs.fluentd.org/v1.0/articles/high-availability</a></p>
-</blockquote>
+</blockquote></li>
+</ol>
 
 <h2 id="fluentd-的原始設定">Fluentd 的原始設定</h2>
 
@@ -277,23 +275,23 @@ elk:
 <li><p>Log Forwarder</p>
 
 <pre><code>&lt;source&gt;
-@type tail
-path /tmp/fluentd/app/**/All-*.log
-pos_file /tmp/fluentd/pos/app-api.pos
-format /^(?&lt;logdate&gt;[^ ]* [^ ]*) \[(?&lt;application&gt;[^ \]]+)\]\[(?&lt;thread&gt;[\d]+)\]\[(?&lt;type&gt;[A-Za-z_][A-Za-z0-9_]+)\](?&lt;message&gt;\{.+\})/
-tag yowko.app-api
+    @type tail
+    path /tmp/fluentd/app/**/All-*.log
+    pos_file /tmp/fluentd/pos/app-api.pos
+    format /^(?&lt;logdate&gt;[^ ]* [^ ]*) \[(?&lt;application&gt;[^ \]]+)\]\[(?&lt;thread&gt;[\d]+)\]\[(?&lt;type&gt;[A-Za-z_][A-Za-z0-9_]+)\](?&lt;message&gt;\{.+\})/
+    tag yowko.app-api
 &lt;/source&gt;
 
 # Log Forwarding
 &lt;match *.**&gt;
-@type forward
-&lt;server&gt;
-    host 192.168.50.97
-    port 24224
-&lt;/server&gt;
-&lt;buffer&gt;
-    flush_interval 60s
-&lt;/buffer&gt;
+    @type forward
+    &lt;server&gt;
+        host 192.168.50.97
+        port 24224
+    &lt;/server&gt;
+    &lt;buffer&gt;
+        flush_interval 60s
+    &lt;/buffer&gt;
 &lt;/match&gt;
 </code></pre></li>
 
@@ -301,34 +299,33 @@ tag yowko.app-api
 
 <pre><code># Input
 &lt;source&gt;
-@type http
-port 8888
+    @type http
+    port 8888
 &lt;/source&gt;
 
 &lt;source&gt;
-@type forward
-port 24224
+    @type forward
+    port 24224
 &lt;/source&gt;
 
 # Output
 &lt;match *.**&gt;
-@type elasticsearch
-host 192.168.50.97
-port 9200
-logstash_format true
+    @type elasticsearch
+    host 192.168.50.97
+    port 9200
+    logstash_format true
 &lt;/match&gt;
 </code></pre></li>
 
-<li><p>實際問題： kibana 顯示的紀錄時間與 log 不一致</p></li>
-</ol>
+<li><p>實際問題： kibana 顯示的紀錄時間與 log 不一致</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/57190821-63dd6a80-6f51-11e9-86f4-14d6f40dbf49.png" alt="1mismatch" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/57190821-63dd6a80-6f51-11e9-86f4-14d6f40dbf49.png" alt="1mismatch" /></p></li>
+</ol>
 
 <h2 id="啟動-fluentd">啟動 Fluentd</h2>
 
 <ol>
-<li>Log Forwarder</li>
-</ol>
+<li><p>Log Forwarder</p>
 
 <pre><code class="language-bash">docker run -d  -v /tmp/fluentd/app:/tmp/fluentd/app -v /tmp/fluentd/pos:/tmp/fluentd/pos -v /tmp/fluentd/forwarder:/fluentd/etc -e FLUENTD_CONF=fluentd.conf --name fluentdForwarder fluent/fluentd:edge
 </code></pre>
@@ -351,42 +348,39 @@ logstash_format true
 <li><code>-v</code> 則是將外部的 fluentd config 掛載進去用的</li>
 <li><code>-e</code> 用來設定環境變數 <code>FLUENTD_CONF</code> 的檔名</li>
 <li><code>fluentdelastic:v1</code> 使用自製已安裝 <code>Elasticsearch Output Plugin</code> 的 base image (詳細內容請參考 <a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a>)</li>
-</ul>
+</ul></li>
+</ol>
 
 <h2 id="使用自定時間">使用自定時間</h2>
 
 <ol>
-<li>forwarder 指定 key name (預設使用 <code>time</code>)</li>
-</ol>
+<li><p>forwarder 指定 key name (預設使用 <code>time</code>)</p>
 
 <blockquote>
 <p>如果 parser 的 format 中即使用 <code>time</code> 變數來儲存 log time，就可以不用額外指定 key name。e.g. <code>format /^(?&lt;time&gt;[^ ]* [^ ]*) \[(?&lt;application&gt;[^ \]]+)\]\[(?&lt;thread&gt;[\d]+)\]\[(?&lt;type&gt;[A-Za-z_][A-Za-z0-9_]+)\](?&lt;message&gt;\{.+\})/</code> 就可以省略</p>
 </blockquote>
 
 <pre><code>time_key logdate
-</code></pre>
+</code></pre></li>
 
-<ol>
 <li><p>forwarder 設定保留 key</p>
 
 <pre><code>keep_time_key true
 </code></pre></li>
 
-<li><p>forwarder 指定 key name</p></li>
-</ol>
+<li><p>forwarder 指定 key name</p>
 
 <blockquote>
 <p>如果時間欄位為 <code>time</code> 這邊亦可省略</p>
 </blockquote>
 
 <pre><code>time_key logdate
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>實際效果：kibana 已將 log 時間做為顯示及過濾的基準</li>
+<li><p>實際效果：kibana 已將 log 時間做為顯示及過濾的基準</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/57190822-63dd6a80-6f51-11e9-9615-e6bc74e4db6d.png" alt="2correctlogdate" /></p></li>
 </ol>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/57190822-63dd6a80-6f51-11e9-9615-e6bc74e4db6d.png" alt="2correctlogdate" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -403,30 +397,30 @@ logstash_format true
 <li><p>Log Forwarder ： 加入 <code>stdout</code> 輸出，方便確認收到的 log 內容</p>
 
 <pre><code>&lt;source&gt;
-@type tail
-path /tmp/fluentd/app/**/All-*.log
-pos_file /tmp/fluentd/pos/app-api.pos
-format /^(?&lt;logdate&gt;[^ ]* [^ ]*) \[(?&lt;application&gt;[^ \]]+)\]\[(?&lt;thread&gt;[\d]+)\]\[(?&lt;type&gt;[A-Za-z_][A-Za-z0-9_]+)\](?&lt;message&gt;\{.+\})/ 
-time_key logdate
-keep_time_key true
-tag yowko.app-api
+    @type tail
+    path /tmp/fluentd/app/**/All-*.log
+    pos_file /tmp/fluentd/pos/app-api.pos
+    format /^(?&lt;logdate&gt;[^ ]* [^ ]*) \[(?&lt;application&gt;[^ \]]+)\]\[(?&lt;thread&gt;[\d]+)\]\[(?&lt;type&gt;[A-Za-z_][A-Za-z0-9_]+)\](?&lt;message&gt;\{.+\})/ 
+    time_key logdate
+    keep_time_key true
+    tag yowko.app-api
 &lt;/source&gt;
 # Log Forwarding
 &lt;match *.**&gt;
-@type copy
-&lt;store&gt;
-    @type forward
-    &lt;server&gt;
-        host 192.168.50.97
-        port 24224
-    &lt;/server&gt;
-&lt;buffer&gt;
-        flush_interval 60s
-    &lt;/buffer&gt;
-&lt;/store&gt;
-&lt;store&gt;
-    @type stdout
-&lt;/store&gt;
+    @type copy
+    &lt;store&gt;
+        @type forward
+        &lt;server&gt;
+            host 192.168.50.97
+            port 24224
+        &lt;/server&gt;
+    &lt;buffer&gt;
+            flush_interval 60s
+        &lt;/buffer&gt;
+    &lt;/store&gt;
+    &lt;store&gt;
+        @type stdout
+    &lt;/store&gt;
 &lt;/match&gt;
 </code></pre></li>
 
@@ -434,27 +428,27 @@ tag yowko.app-api
 
 <pre><code># Input
 &lt;source&gt;
-@type http
-port 8888
+    @type http
+    port 8888
 &lt;/source&gt;
 &lt;source&gt;
-@type forward
-port 24224
+    @type forward
+    port 24224
 &lt;/source&gt;
 # Output
 &lt;match *.**&gt;
-@type copy
-&lt;store&gt;
-    @type elasticsearch
-    host 192.168.50.97
-    port 9200
-    logstash_format true
-    logstash_prefix fluentd-${tag}
-    time_key logdate
-&lt;/store&gt;
-&lt;store&gt;
-    @type stdout
-&lt;/store&gt;
+    @type copy
+    &lt;store&gt;
+        @type elasticsearch
+        host 192.168.50.97
+        port 9200
+        logstash_format true
+        logstash_prefix fluentd-${tag}
+        time_key logdate
+    &lt;/store&gt;
+    &lt;store&gt;
+        @type stdout
+    &lt;/store&gt;
 &lt;/match&gt;
 </code></pre></li>
 
@@ -466,7 +460,6 @@ port 24224
 <ol>
 <li><a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a></li>
 <li><a href="https://github.com/deviantony/docker-elk" target="_blank">Elastic stack (ELK) on Docker</a></li>
-</ol></li>
 </ol>
 
     </div>

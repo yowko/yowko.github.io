@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="Test Framework 套件不好用嗎？！ 自己做一個囉" />
 <meta property="og:description" content="Test Framework 套件不好用嗎？！ 自己做一個囉 前幾天在測試不同 Test Framework 特性時發現 NuGet 上 Visual Studio 2017 沒有 xUnit.net 2.0 的專案範本套件 (在 Visual Studio 2017 中安裝其他 Test Framework - NUnit)，所以就" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/customize-test-framework-project-template/" />
-<meta property="article:published_time" content="2017-05-29T18:08:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/customize-test-framework-project-template/" /><meta property="article:published_time" content="2017-05-29T18:08:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-22T17:08:25&#43;08:00"/>
 
 <meta itemprop="name" content="Test Framework 套件不好用嗎？！ 自己做一個囉">
@@ -379,11 +378,9 @@
 <pre><code class="language-cs">using System;
 using EnvDTE;
 using Microsoft.VisualStudio.TestPlatform.TestGeneration.Model;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>繼承 <code>UnitTestProjectManagerBase</code></li>
-</ul>
+<li><p>繼承 <code>UnitTestProjectManagerBase</code></p>
 
 <pre><code class="language-cs">/// &lt;summary&gt;
 /// A unit test project for NUnit3 unit tests.
@@ -419,11 +416,9 @@ public class NUnit3UnitTestProjectManager : UnitTestProjectManagerBase
 
 <pre><code class="language-cs">using Microsoft.VisualStudio.TestPlatform.TestGeneration.Data;
 using Microsoft.VisualStudio.TestPlatform.TestGeneration.Model;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>繼承 <code>UnitTestClassManagerBase</code></li>
-</ul>
+<li><p>繼承 <code>UnitTestClassManagerBase</code></p>
 
 <pre><code class="language-cs">/// &lt;summary&gt;
 /// A unit test class for NUnit unit tests.
@@ -471,11 +466,9 @@ using Microsoft.VisualStudio.TestPlatform.TestGeneration.Data;
 using Microsoft.VisualStudio.TestPlatform.TestGeneration.Logging;
 using Microsoft.VisualStudio.TestPlatform.TestGeneration.Model;
 using VSLangProj80;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>繼承 <code>SolutionManagerBase</code></li>
-</ul>
+<li><p>繼承 <code>SolutionManagerBase</code></p>
 
 <pre><code class="language-cs">public class NUnit3SolutionManager : SolutionManagerBase
 {
@@ -529,11 +522,9 @@ using VSLangProj80;
 using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.TestPlatform.TestGeneration.Data;
 using Microsoft.VisualStudio.TestPlatform.TestGeneration.Model;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>繼承 <code>FrameworkProviderBase</code></li>
-</ul>
+<li><p>繼承 <code>FrameworkProviderBase</code></p>
 
 <pre><code class="language-cs">/// &lt;summary&gt;
 /// The provider for the NUnit 3 unit test framework.

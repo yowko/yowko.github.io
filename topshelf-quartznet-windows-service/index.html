@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作" />
 <meta property="og:description" content="使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作 排程工作在許多系統中都是必備組件，常用來處理非立即性作業(e.g.：每日交易結清，發送電子報&hellip;" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/topshelf-quartznet-windows-service/" />
-<meta property="article:published_time" content="2018-04-12T21:00:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/topshelf-quartznet-windows-service/" /><meta property="article:published_time" content="2018-04-12T21:00:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-10-04T21:00:39&#43;08:00"/>
 
 <meta itemprop="name" content="使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工作">
@@ -194,12 +193,9 @@
 
 <pre><code class="language-cs">install-package Topshelf  
 install-package Topshelf.Quartz
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>加入 Service
-<br /></li>
-</ol>
+<li><p>加入 Service</p>
 
 <blockquote>
 <p>用來處理 Windows Service 啟動及停止行為</p>
@@ -244,12 +240,9 @@ namespace TestTopshelf
     }
 }
 
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>設定 Topshelf 及 Quartz
-<br /></li>
-</ol>
+<li><p>設定 Topshelf 及 Quartz</p>
 
 <pre><code class="language-cs">using System;
 using Quartz;
@@ -320,12 +313,9 @@ namespace TestTopshelf
 <li><p>指令</p>
 
 <pre><code class="language-cmd">{console application}.exe install
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>範例
-<br /></li>
-</ul>
+<li><p>範例</p>
 
 <pre><code class="language-cmd">TestTopshelf.exe install
 </code></pre>

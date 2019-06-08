@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="PowerShell 基本語法筆記 2" />
 <meta property="og:description" content="PowerShell 基本語法筆記 2 自從開始使用 PowerShell 來與 Jenkins 2 整合進行 CI 與 CD 的流程之後，有愈來愈多需求出現，原本的文章 powershell 基本語法筆記 的內容無法負荷，因此補充一下其他" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/powershell-operator-pipeline-xml/" />
-<meta property="article:published_time" content="2017-03-14T02:42:34&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/powershell-operator-pipeline-xml/" /><meta property="article:published_time" content="2017-03-14T02:42:34&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-13T00:42:34&#43;08:00"/>
 
 <meta itemprop="name" content="PowerShell 基本語法筆記 2">
@@ -369,48 +368,45 @@
         &lt;/Site&gt;
     &lt;/Accounts&gt;
 &lt;/YowkoProfile&gt;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>將檔案轉為 xml object
-<br /></li>
-</ul>
+<li><p>將檔案轉為 xml object</p>
 
 <blockquote>
 <p><code>[xml]$xmldata = get-content &quot;C:\yowkoprofile.xml&quot;</code></p>
-</blockquote>
+</blockquote></li>
+
+<li><p>依階層取值</p>
 
 <ul>
-<li>依階層取值</li>
-
 <li><p>Name</p>
 
 <pre><code class="language-ps1">$xmldata.YowkoProfile.Name
-</code></pre>
+</code></pre></li>
+</ul></li>
+
+<li><p>element 中有 <code>.</code>，使用 <code>''</code>來取值</p>
 
 <ul>
-<li>element 中有 <code>.</code>，使用 <code>''</code>來取值</li>
-<li>Yowko.Tel
-<br /></li>
-</ul>
+<li><p>Yowko.Tel</p>
 
 <pre><code class="language-ps1">$xmldata.YowkoProfile.'Yowko.Tel'
 </code></pre></li>
+</ul></li>
 
-<li><p>使用 index 來取值</p></li>
+<li><p>使用 index 來取值</p>
 
+<ul>
 <li><p>Site</p>
 
 <pre><code class="language-ps1">$xmldata.YowkoProfile.Accounts.Site[0]
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>Url
-<br /></li>
-</ul>
+<li><p>Url</p>
 
 <pre><code class="language-ps1">$xmldata.YowkoProfile.Accounts.Site[0].Url
 </code></pre></li>
+</ul></li>
 </ul>
 
 <h1 id="參考資訊">參考資訊</h1>
@@ -419,8 +415,7 @@
 <li><a href="https://ss64.com/ps/syntax-compare.html" target="_blank">Comparison Operators</a></li>
 <li><a href="http://www.thomasmaurer.ch/2010/06/powershell-parsing-xml-part-1/" target="_blank">POWERSHELL: PARSING XML PART 1</a></li>
 <li><a href="https://msdn.microsoft.com/en-us/powershell/scripting/getting-started/fundamental/understanding-the-windows-powershell-pipeline" target="_blank">Understanding the Windows PowerShell Pipeline</a></li>
-</ol></li>
-</ul>
+</ol>
 
     </div>
 

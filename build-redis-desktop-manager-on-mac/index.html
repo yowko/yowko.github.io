@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="在 macOS 上 Build Redis Desktop Manager(RDM)" />
 <meta property="og:description" content="在 macOS 上 Build Redis Desktop Manager(RDM) Redis 是套 in-memory 的 key-value databse，也被現在許多稍具規模系統拿來當做 cache 層以減輕 application cluster 直接大量存取 database 壓力，相信許多開發人員都認識它 Redis 在安裝" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/build-redis-desktop-manager-on-mac/" />
-<meta property="article:published_time" content="2019-01-27T21:30:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/build-redis-desktop-manager-on-mac/" /><meta property="article:published_time" content="2019-01-27T21:30:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-01-27T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="在 macOS 上 Build Redis Desktop Manager(RDM)">
@@ -67,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2019-01-27T21:30:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-01-27T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="997">
+<meta itemprop="wordCount" content="996">
 
 
 
@@ -147,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-01-27 </span>
         
-        <span class="more-meta"> 約 997 字 </span>
+        <span class="more-meta"> 約 996 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -214,11 +213,9 @@
 <pre><code class="language-bash">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/51802960-56e21880-228a-11e9-9adc-dc59040fb83c.png" alt="2installhomebrew" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/51802960-56e21880-228a-11e9-9adc-dc59040fb83c.png" alt="2installhomebrew" /></p></li>
 
-<ol>
-<li>透過 homebrew 安裝 git</li>
-</ol>
+<li><p>透過 homebrew 安裝 git</p>
 
 <pre><code class="language-bash">brew install git
 </code></pre></li>
@@ -231,25 +228,25 @@
 <li><p>透過 homebrew 安裝 qt-creator</p>
 
 <pre><code class="language-bash">brew cask install qt-creator
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="編譯-redis-desktop-manager">編譯 Redis Desktop Manager</h2>
 
 <ol>
-<li>下載 source code</li>
-</ol>
+<li><p>下載 source code</p>
 
 <blockquote>
 <p>下載 Redis Desktop Manager 及相關 submodule 至 <code>rdm</code> 資料夾並切換工作目錄至 <code>rdm</code></p>
 </blockquote>
 
-<pre><code class="language-bash">git clone --recursive https://github.com/uglide/RedisDesktopManager.git -b 0.9 rdm &amp;&amp; cd ./rdm
-````
+<p><code>bash
+git clone --recursive https://github.com/uglide/RedisDesktopManager.git -b 0.9 rdm &amp;&amp; cd ./rdm
+</code>`</p></li>
 
-2. 透過 Info.plist.sample 建立 `Info.plist`
+<li><p>透過 Info.plist.sample 建立 <code>Info.plist</code></p>
 
-```bash
-cd ./src &amp;&amp; cp ./resources/Info.plist.sample ./resources/Info.plist
+<pre><code class="language-bash">cd ./src &amp;&amp; cp ./resources/Info.plist.sample ./resources/Info.plist
 </code></pre></li>
 
 <li><p>build</p>
@@ -283,10 +280,10 @@ cd ./src &amp;&amp; cp ./resources/Info.plist.sample ./resources/Info.plist
 <li><p>錯誤 二：不再支援 macOS 10.6 之前版本</p>
 
 <ul>
-<li><p>錯誤訊息</p>
-
-<pre><code>error 3rdparty/gbreakpad/src/client/mac/sender/Breakpad.xib:global: error: Compiling for earlier than macOS 10.6 is no longer supported.
-</code></pre></li>
+<li>錯誤訊息
+<code>
+error 3rdparty/gbreakpad/src/client/mac/sender/Breakpad.xib:global: error: Compiling for earlier than macOS 10.6 is no longer supported.
+</code></li>
 
 <li><p>錯誤截圖</p>
 
@@ -369,19 +366,16 @@ To reinstall 1.0.2q, run `brew reinstall openssl`
 
 <blockquote>
 <p>將會產生 <code>rdm.app</code> 在 ⁨<code>/rdm⁩/bin⁩/osx⁩/debug/⁩</code> 中</p>
-</blockquote>
+</blockquote></li>
 
-<ul>
-<li>將所有 debug 內容與 crashreporter 內容都註解掉
-<br /></li>
-</ul>
+<li><p>將所有 debug 內容與 crashreporter 內容都註解掉</p>
 
 <blockquote>
 <p>將會產生 <code>rdm.app</code> 在 ⁨<code>/rdm⁩/bin⁩/osx⁩/release/⁩</code> 中</p>
-</blockquote>
+</blockquote></li>
+</ul>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/51802965-58134580-228a-11e9-907e-f0b1e5f094bb.png" alt="7editedm" /></p></li>
-</ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>

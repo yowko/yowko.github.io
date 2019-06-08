@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 Exceptionless 取代 ELK(Elasticsearch, Logstash, Kibana) 中的 kibana 來完成 log 集中化" />
 <meta property="og:description" content="使用 Exceptionless 取代 ELK(Elasticsearch, Logstash, Kibana) 中的 kibana 來完成 log 集中化 目前公司的 application logs 集中化是用 ELK(Elasticsearch, Logstash, Kibana) 來處理的，而前公司則使用付費軟體 Splunk 來做，兩者差別最明顯的就是 ELK 是 open source 軟體 ;Splunk" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/centralized-logging-with-exceptionless/" />
-<meta property="article:published_time" content="2017-03-01T01:42:34&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/centralized-logging-with-exceptionless/" /><meta property="article:published_time" content="2017-03-01T01:42:34&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-13T00:42:34&#43;08:00"/>
 
 <meta itemprop="name" content="使用 Exceptionless 取代 ELK(Elasticsearch, Logstash, Kibana) 中的 kibana 來完成 log 集中化">
@@ -298,12 +297,9 @@
 <li><p>在 web.config 加入 apiKey 及 url</p>
 
 <pre><code class="language-xml">&lt;exceptionless apiKey=&quot;API_KEY_HERE&quot; serverUrl=&quot;http://localhost:50000&quot;/&gt;
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>手動拋出錯誤
-<br /></li>
-</ol>
+<li><p>手動拋出錯誤</p>
 
 <pre><code class="language-cs">ex.ToExceptionless().Submit()
 </code></pre></li>
@@ -325,12 +321,9 @@
 <pre><code class="language-xml">&lt;extensions&gt;
     &lt;add assembly=&quot;Exceptionless.NLog&quot;/&gt;  
 &lt;/extensions&gt;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>在 nlog 的 config 加上 exceptionless 的 target 設定
-<br /></li>
-</ul>
+<li><p>在 nlog 的 config 加上 exceptionless 的 target 設定</p>
 
 <pre><code class="language-xml">&lt;target name=&quot;exceptionless&quot; apiKey=&quot;API_KEY_HERE&quot; serverUrl=&quot;http://localhost:50000&quot; xsi:type=&quot;Exceptionless&quot;&gt;
         &lt;field name=&quot;host&quot; layout=&quot;${machinename}&quot; /&gt;
@@ -343,12 +336,9 @@
 <li><p>在 nlog 的 config 加上 exceptionless 的 rules 設定</p>
 
 <pre><code class="language-xml">&lt;logger name=&quot;*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;exceptionless&quot; /&gt;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>程式使用方式
-<br /></li>
-</ul>
+<li><p>程式使用方式</p>
 
 <pre><code class="language-cs">private Logger logger = LogManager.GetCurrentClassLogger();
 logger.Debug(&quot;test123&quot;);

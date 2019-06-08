@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 C# 將資料匯出成 Excel (.xlsx)" />
 <meta property="og:description" content="使用 C# 將資料匯出成 Excel (.xlsx) 雖然大部份系統都會有報表相關功能，只是多數情況都無法在系統建置時就設想到所有使用者需求，加上常常功能需求的優先程度會被" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/list-to-excel/" />
-<meta property="article:published_time" content="2018-04-05T22:17:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/list-to-excel/" /><meta property="article:published_time" content="2018-04-05T22:17:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-10-04T22:17:15&#43;08:00"/>
 
 <meta itemprop="name" content="使用 C# 將資料匯出成 Excel (.xlsx)">
@@ -67,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2018-04-05T22:17:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-04T22:17:15&#43;08:00" />
-<meta itemprop="wordCount" content="1446">
+<meta itemprop="wordCount" content="1445">
 
 
 
@@ -147,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-04-05 </span>
         
-        <span class="more-meta"> 約 1446 字 </span>
+        <span class="more-meta"> 約 1445 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -261,12 +260,9 @@
         return workbook;
     }
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>完整程式碼
-<br /></li>
-</ul>
+<li><p>完整程式碼</p>
 
 <pre><code class="language-cs">using ClosedXML.Excel;
 using System;
@@ -329,10 +325,10 @@ namespace GenXLSX
         }
     }
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
-<h2 id="3-呼叫方式">3. 呼叫方式</h2>
+<h2 id="3-呼叫方式">3. 呼叫方式</h2></li>
+</ul>
 
 <pre><code class="language-cs">//想要匯出的資料集
 var users = new List&lt;User&gt;() {
@@ -366,19 +362,22 @@ xlsx.SaveAs(filepath);
     public DateTime Birthday { get; set; }
     public string Addr { get; set; }
 }
-</code></pre>
+</code></pre></li>
+</ul>
 
 <ol>
-<li>使用 Description 搭配屬性名稱
-<br /></li>
-</ol>
+<li><p>使用 Description 搭配屬性名稱</p>
 
 <blockquote>
-<p><img src="https://user-images.githubusercontent.com/3851540/38164067-095bd69c-3531-11e8-91f8-ccc0513b2be9.png" alt="2desc" />
-2. 直接使用屬性名稱</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/38164067-095bd69c-3531-11e8-91f8-ccc0513b2be9.png" alt="2desc" /></p>
+</blockquote></li>
 
+<li><p>直接使用屬性名稱</p>
+
+<blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/38164068-099de9ce-3531-11e8-83fa-7a4cb03c9e5d.png" alt="3property" /></p>
-</blockquote>
+</blockquote></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
@@ -391,8 +390,7 @@ xlsx.SaveAs(filepath);
 <ol>
 <li><a href="https://zh.wikipedia.org/wiki/Office_Open_XML" target="_blank">Office Open XML</a></li>
 <li><a href="https://github.com/ClosedXML/ClosedXML" target="_blank">ClosedXML/ClosedXML</a></li>
-</ol></li>
-</ul>
+</ol>
 
     </div>
 

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="如何客製化 Opserver - 使用不同帳號密碼來監控多台 Windows Server" />
 <meta property="og:description" content="如何客製化 Opserver - 使用不同帳號密碼來監控多台 Windows Server 之前文章 如何使用 Opserver 來監控 Windows Server 介紹該怎麼設定 Opserver 來監控 Windows Server，但我們也發現只能使用同一組帳號" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/opserver-windows-server_multiple_auth/" />
-<meta property="article:published_time" content="2017-03-30T01:00:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/opserver-windows-server_multiple_auth/" /><meta property="article:published_time" content="2017-03-30T01:00:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-16T01:00:44&#43;08:00"/>
 
 <meta itemprop="name" content="如何客製化 Opserver - 使用不同帳號密碼來監控多台 Windows Server">
@@ -219,12 +218,9 @@
 <li><p>將 Settings 改成可以吃多筆</p>
 
 <pre><code class="language-cs">public IEnumerable&lt;TSettings&gt; Settings { get; protected set; }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li><code>DashboardDataProvider</code> 建構式參數改成可吃多筆
-<br /></li>
-</ul>
+<li><p><code>DashboardDataProvider</code> 建構式參數改成可吃多筆</p>
 
 <pre><code class="language-cs">protected DashboardDataProvider(TSettings settings) : base(settings)
 </code></pre></li>
@@ -269,11 +265,9 @@
         }   
     }
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>將使用到 <code>bosun</code> 與 <code>orion</code> 部份移除</li>
-</ul>
+<li><p>將使用到 <code>bosun</code> 與 <code>orion</code> 部份移除</p>
 
 <pre><code class="language-cs">//if (providers.Bosun != null)
 //    Providers.Add(new BosunDataProvider(providers.Bosun));
@@ -337,22 +331,19 @@
     }
     ]
 },
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>監控結果
-<br /></li>
+<li><p>監控結果</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/22058136/d8f37fc8-dda2-11e6-996b-dd3a9319c193.png" alt="1RESULT" /></p></li>
 </ul>
-
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/22058136/d8f37fc8-dda2-11e6-996b-dd3a9319c193.png" alt="1RESULT" /></p>
 
 <h1 id="參考資料">參考資料</h1>
 
 <ol>
 <li><a href="https://github.com/opserver/Opserver" target="_blank">Opserver GitHub</a></li>
 <li><a href="https://github.com/yowko/Opserver" target="_blank">Yowko&rsquo;s Repository(GitHub)</a></li>
-</ol></li>
-</ul>
+</ol>
 
     </div>
 

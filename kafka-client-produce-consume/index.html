@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 .Net client 連線至 Apache Kafka 收發訊息" />
 <meta property="og:description" content="使用 .Net client 連線至 Apache Kafka 收發訊息 繼之前紀錄 如何在 Windows OS 安裝 Apache Kafka 到現在默默地過了兩個月XD，直到最近才有時間可以再開始進行 MQ 相關功能比較，經過初步比較" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/kafka-client-produce-consume/" />
-<meta property="article:published_time" content="2017-05-25T01:00:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/kafka-client-produce-consume/" /><meta property="article:published_time" content="2017-05-25T01:00:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-22T01:00:27&#43;08:00"/>
 
 <meta itemprop="name" content="使用 .Net client 連線至 Apache Kafka 收發訊息">
@@ -264,19 +263,20 @@
         }
     }
 }
-</code></pre>
+</code></pre></li>
+
+<li><p>注意事項</p>
 
 <ul>
-<li>注意事項</li>
 <li>只會接受 producer 在 consumer 啟動後所發送的訊息</li>
 <li>多個 consumer 都會收到同樣訊息，不是分配接受端</li>
+</ul></li>
 </ul>
 
 <h2 id="發送訊息">發送訊息</h2>
 
 <ul>
-<li>範例程式</li>
-</ul>
+<li><p>範例程式</p>
 
 <pre><code class="language-cs">void Main()
 {
@@ -345,12 +345,14 @@
         Console.ReadLine();
     }
 }
-</code></pre>
+</code></pre></li>
+
+<li><p>注意事項</p>
 
 <ul>
-<li>注意事項</li>
 <li>只有沒收過的訊息，啟動監聽後會全部收下來</li>
 <li>一樣是非分配訊息接受，訊息會被後起的 consumer 收走</li>
+</ul></li>
 </ul>
 
 <h2 id="心得">心得</h2>
@@ -367,8 +369,7 @@
 <li><a href="https://github.com/Microsoft/CSharpClient-for-Kafka" target="_blank">Microsoft/CSharpClient-for-Kafka</a></li>
 <li><a href="https://github.com/confluentinc/confluent-kafka-dotnet" target="_blank">confluentinc/confluent-kafka-dotnet</a></li>
 <li><a href="https://github.com/ah-/rdkafka-dotnet" target="_blank">ah-/rdkafka-dotnet</a></li>
-</ol></li>
-</ul>
+</ol>
 
     </div>
 

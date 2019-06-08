@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="餵資料集給 SpecFlow 來執行測試及驗證" />
 <meta property="og:description" content="餵資料集給 SpecFlow 來執行測試及驗證 之前文章 使用 SpecFlow 建立人語化的單元測試 已經大致了解如何使用近似人類語言來描述需求跟寫測試案例，透過這樣的方式不僅讓需" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/specflow-outline/" />
-<meta property="article:published_time" content="2017-06-21T23:16:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/specflow-outline/" /><meta property="article:published_time" content="2017-06-21T23:16:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-23T23:16:03&#43;08:00"/>
 
 <meta itemprop="name" content="餵資料集給 SpecFlow 來執行測試及驗證">
@@ -207,11 +206,9 @@ Scenario Outline: 兩數相加
     And 第二個數字輸入 70
     When 按下 add
     Then 結果應該為 120
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>Step Definition 檔內容</li>
-</ol>
+<li><p>Step Definition 檔內容</p>
 
 <pre><code class="language-cs">[Binding]
 public class CalculatorSteps
@@ -264,13 +261,13 @@ public class CalculatorSteps
         return first + second;
     }
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="想要驗證其他值">想要驗證其他值</h2>
 
 <ol>
-<li>驗證 (-50) + 70 = 20</li>
-</ol>
+<li><p>驗證 (-50) + 70 = 20</p>
 
 <pre><code class="language-cs">@MSCalculator
 Scenario: 兩數相加-負數
@@ -312,11 +309,9 @@ Then 結果應該為 &lt;result&gt;
 | first | second | result |
 | 50    | 70     | 120    |
 | -50   | 70     | 20     |
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>完整 Feature 檔</li>
-</ol>
+<li><p>完整 Feature 檔</p>
 
 <pre><code class="language-cs">Feature: Calculator
     In order to 減少莫名其妙的錯誤

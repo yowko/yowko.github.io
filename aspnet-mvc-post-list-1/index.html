@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="ASP.NET MVC 如何 POST LIST 資料 1" />
 <meta property="og:description" content="ASP.NET MVC 如何 POST LIST 資料 1 開發 ASP.NET MVC 網站表單時，不時會遇到需要 post list 資料的需求，功能雖然很容易，但每次遇到就重寫也不是辦法，順手紀錄一下也讓大家看看有沒" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspnet-mvc-post-list-1/" />
-<meta property="article:published_time" content="2017-02-01T00:42:34&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspnet-mvc-post-list-1/" /><meta property="article:published_time" content="2017-02-01T00:42:34&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-11T00:42:34&#43;08:00"/>
 
 <meta itemprop="name" content="ASP.NET MVC 如何 POST LIST 資料 1">
@@ -223,19 +222,22 @@ public ActionResult Index(List&lt;WeekDaysEnum&gt; days)
     }
     return View(days);
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="view">View</h2>
 
 <ol>
 <li>定義用來遞增的變數給 label for 用 <code>int daysIndex = 0</code>;</li>
-<li>使用 form</li>
+<li>使用 form
+
+<ul>
 <li>@using (Html.BeginForm())</li>
 <li>如果 post action 名稱與 get 相同，不用另外寫</li>
+</ul></li>
 <li>加上 Html.AntiForgeryToken 增加安全性 @Html.AntiForgeryToken()</li>
-<li>定義一個全選按鈕
-<br /></li>
-</ol>
+
+<li><p>定義一個全選按鈕</p>
 
 <pre><code class="language-html">&lt;input type=&quot;checkbox&quot; id=&quot;Allday&quot; @((Model == null) ? &quot;checked&quot; : string.Empty) /&gt;
 &lt;label for=&quot;Allday&quot;&gt;
@@ -270,12 +272,11 @@ public ActionResult Index(List&lt;WeekDaysEnum&gt; days)
 <pre><code class="language-cs">@Html.ValidationMessage(&quot;days&quot;, new { @class = &quot;text-danger&quot; })
 </code></pre>
 
-<h2 id="script">script</h2>
+<h2 id="script">script</h2></li>
 
-<ol>
-<li>定義 <code>全選</code> 按鈕行為</li>
-<li>勾選選項檢查是否勾選 <code>全選</code> 按鈕</li>
-</ol>
+<li><p>定義 <code>全選</code> 按鈕行為</p></li>
+
+<li><p>勾選選項檢查是否勾選 <code>全選</code> 按鈕</p>
 
 <pre><code class="language-cs">@section scripts{
 &lt;script type=&quot;text/javascript&quot;&gt;

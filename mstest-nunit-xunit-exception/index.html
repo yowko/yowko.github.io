@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)" />
 <meta property="og:description" content="使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exceptio" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/mstest-nunit-xunit-exception/" />
-<meta property="article:published_time" content="2017-05-27T01:00:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/mstest-nunit-xunit-exception/" /><meta property="article:published_time" content="2017-05-27T01:00:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-22T00:35:20&#43;08:00"/>
 
 <meta itemprop="name" content="使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)">
@@ -219,11 +218,9 @@
     {
     }
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>有回傳值方法：修改其中的 <code>Get(int id)</code> 使其丟出 exception</li>
-</ol>
+<li><p>有回傳值方法：修改其中的 <code>Get(int id)</code> 使其丟出 exception</p>
 
 <pre><code class="language-cs">public string Get(int id)
 {
@@ -244,13 +241,13 @@
         throw new ArgumentException();
     }
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="mstest-驗證-exception">MSTest 驗證 exception</h2>
 
 <ul>
-<li>方法一：在測試方法加上 <code>[ExpectedException(typeof({exception 型別}))]</code></li>
-</ul>
+<li><p>方法一：在測試方法加上 <code>[ExpectedException(typeof({exception 型別}))]</code></p>
 
 <pre><code class="language-cs">[TestMethod]
 [ExpectedException(typeof(ArgumentException))]
@@ -267,9 +264,7 @@ public void 測試Get_傳入0_得到ArgumentException()
 <ul>
 <li>缺點是如果在執行目標方法前就遇到相同的錯誤時。測試會 pass</li>
 </ul></li>
-</ol>
 
-<ul>
 <li><p>方法二：安裝 <code>MSTestExtensions</code></p>
 
 <ol>
@@ -280,11 +275,9 @@ public void 測試Get_傳入0_得到ArgumentException()
 
 <pre><code class="language-cs">[TestClass()]
 public class ValuesControllerMSTests:BaseTest
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>使用 <code>Assert.Throws&lt;T&gt;()</code> 驗證</li>
-</ol>
+<li><p>使用 <code>Assert.Throws&lt;T&gt;()</code> 驗證</p>
 
 <pre><code class="language-cs">[TestMethod]
 public void 測試Get_傳入0_得到ArgumentException()
@@ -374,7 +367,8 @@ public void ExpectExceptionButCodeThrowsDerivedException()
         Assert.Equal(&quot;Assert.Throws() Failure&quot;, exception.UserMessage);
     }
 }
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="nsubstitute-驗證-exception">NSubstitute 驗證 exception</h2>
 
@@ -383,8 +377,9 @@ public void ExpectExceptionButCodeThrowsDerivedException()
 </blockquote>
 
 <ul>
-<li>針對有回傳值方法</li>
+<li><p>針對有回傳值方法</p>
 
+<ul>
 <li><p>MSTest</p>
 
 <ul>
@@ -418,11 +413,11 @@ public void 測試Get_傳入0_得到ArgumentException()
     var actual = target.Get(0);
     //assert
 }
-</code></pre>
+</code></pre></li>
+
+<li><p>NUnit 3</p>
 
 <ul>
-<li>NUnit 3</li>
-
 <li><p>範例程式碼</p>
 
 <pre><code class="language-cs">[Test]
@@ -435,13 +430,13 @@ public void 測試Get_傳入0_得到ArgumentException()
     //assert-expected exception
     Assert.Throws&lt;ArgumentException&gt;(() =&gt; target.Get(0));
 }
-</code></pre>
+</code></pre></li>
+</ul></li>
+
+<li><p>xUnit.net 2.0</p>
 
 <ul>
-<li><p>xUnit.net 2.0</p></li>
-
-<li><p>範例程式碼</p></li>
-</ul>
+<li><p>範例程式碼</p>
 
 <pre><code class="language-cs">[Fact]
 public void 測試Get_傳入0_得到ArgumentException()
@@ -454,11 +449,15 @@ public void 測試Get_傳入0_得到ArgumentException()
     Assert.Throws&lt;ArgumentException&gt;(() =&gt; target.Get(0));
 }
 </code></pre></li>
+</ul></li>
+</ul></li>
 
-<li><p>針對無回傳 (void) 方法</p></li>
+<li><p>針對無回傳 (void) 方法</p>
 
-<li><p>MSTest</p></li>
+<ul>
+<li><p>MSTest</p>
 
+<ul>
 <li><p>範例程式碼 1 - 使用 <code>MSTestExtensions</code></p>
 
 <pre><code class="language-cs">[TestMethod]
@@ -470,25 +469,23 @@ public void 測試Delete_傳入0_得到ArgumentException()
     //act
     Assert.Throws&lt;ArgumentException&gt;(() =&gt; target.Delete(0));
 }
-</code></pre>
+</code></pre></li>
+</ul></li>
 
-<ul>
-<li>範例程式碼 2</li>
-</ul>
+<li><p>範例程式碼 2</p>
 
 <pre><code class="language-cs">[TestMethod]
 [ExpectedException(typeof(ArgumentException))]
 public void 測試Delete_傳入0_得到ArgumentException()
 {
-//arrange
-var target = Substitute.For&lt;IValuesController&gt;();
-target.When(x =&gt; x.Delete(0)).Do(x =&gt; { throw new ArgumentException(); });
-//act
-target.Delete(0);
-//assert
+    //arrange
+    var target = Substitute.For&lt;IValuesController&gt;();
+    target.When(x =&gt; x.Delete(0)).Do(x =&gt; { throw new ArgumentException(); });
+    //act
+    target.Delete(0);
+    //assert
 }
 </code></pre></li>
-</ul></li>
 
 <li><p>NUnit 3</p>
 
@@ -525,6 +522,7 @@ public void 測試Delete_傳入0_得到ArgumentException()
 }
 </code></pre></li>
 </ul></li>
+</ul></li>
 </ul>
 
 <h2 id="fluentassertions-驗證-exception">FluentAssertions 驗證 exception</h2>
@@ -534,8 +532,9 @@ public void 測試Delete_傳入0_得到ArgumentException()
 </blockquote>
 
 <ul>
-<li><p>方法一：直接呼叫方法</p></li>
+<li><p>方法一：直接呼叫方法</p>
 
+<ul>
 <li><p>MSTest</p>
 
 <ul>
@@ -551,11 +550,9 @@ public void 測試Get_傳入0_得到ArgumentException()
     //assert
     target.Invoking(a =&gt; a.Get(0)).ShouldThrow&lt;ArgumentException&gt;();
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>搭配 NSubstitute</li>
-</ul>
+<li><p>搭配 NSubstitute</p>
 
 <pre><code class="language-cs">[TestMethod]
 public void 測試Get_傳入0_得到ArgumentException()
@@ -633,9 +630,11 @@ public void 測試Get_傳入0_得到ArgumentException()
 }
 </code></pre></li>
 </ul></li>
+</ul></li>
 
-<li><p>方法二：使用 delegate 呼叫</p></li>
+<li><p>方法二：使用 delegate 呼叫</p>
 
+<ul>
 <li><p>MSTest</p>
 
 <ul>
@@ -651,11 +650,9 @@ public void 測試Get_傳入0_得到ArgumentException()
                 //assert
     act.ShouldThrow&lt;ArgumentException&gt;();
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>搭配 NSubstitute</li>
-</ul>
+<li><p>搭配 NSubstitute</p>
 
 <pre><code class="language-cs">[TestMethod]
 public void 測試Get_傳入0_得到ArgumentException()
@@ -686,11 +683,9 @@ public void 測試Get_傳入0_得到ArgumentException()
     //assert-expected exception
     act.ShouldThrow&lt;ArgumentException&gt;();
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>搭配 NSubstitute</li>
-</ul>
+<li><p>搭配 NSubstitute</p>
 
 <pre><code class="language-cs">[Test]
 public void 測試Get_傳入0_得到ArgumentException()
@@ -721,11 +716,9 @@ public void 測試Get_傳入0_得到ArgumentException()
     //assert-expected exception
     act.ShouldThrow&lt;ArgumentException&gt;();
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>搭配 NSubstitute</li>
-</ul>
+<li><p>搭配 NSubstitute</p>
 
 <pre><code class="language-cs">[Fact]
 public void 測試Get_傳入0_得到ArgumentException()
@@ -740,6 +733,7 @@ public void 測試Get_傳入0_得到ArgumentException()
 }
 </code></pre></li>
 </ul></li>
+</ul></li>
 </ul>
 
 <h1 id="參考資訊">參考資訊</h1>
@@ -750,8 +744,7 @@ public void 測試Get_傳入0_得到ArgumentException()
 <li><a href="http://hadihariri.com/2008/10/17/testing-exceptions-with-xunit/" target="_blank">Testing exceptions with xUnit</a></li>
 <li><a href="http://nsubstitute.github.io/help/throwing-exceptions/" target="_blank">NSubstitute Throwing exceptions</a></li>
 <li><a href="http://fluentassertions.com/documentation.html#exceptions" target="_blank">Fluent Assertions - Exceptions</a></li>
-</ol></li>
-</ul>
+</ol>
 
     </div>
 

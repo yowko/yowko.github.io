@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 Moq 來 Mock protected Method" />
 <meta property="og:description" content="使用 Moq 來 Mock protected Method 跟同事討論到在進行單元測試時，目標方法使用到其他非 public 方法，而且想要 mock 這個方法的回傳值該怎麼做？ 其實這個問題我之前也思考過，一直" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/moq-mock-protected-method/" />
-<meta property="article:published_time" content="2017-07-09T20:20:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/moq-mock-protected-method/" /><meta property="article:published_time" content="2017-07-09T20:20:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-23T22:43:59&#43;08:00"/>
 
 <meta itemprop="name" content="使用 Moq 來 Mock protected Method">
@@ -228,11 +227,9 @@
     else
         return false;
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>加上 virtual</li>
-</ol>
+<li><p>加上 virtual</p>
 
 <blockquote>
 <p>Moq 只能 mock <code>protected virtual</code> method</p>
@@ -267,11 +264,9 @@ System.NotSupportedException: Invalid setup on a non-virtual (overridable in VB)
 
 <p><img src="https://user-images.githubusercontent.com/3851540/27993755-807e94b4-64e2-11e7-8bee-7714f790d226.png" alt="1non-virtualerror" /></p></li>
 </ul></li>
-</ul>
+</ul></li>
 
-<ol>
-<li>修改後程式碼</li>
-</ol>
+<li><p>修改後程式碼</p>
 
 <pre><code class="language-cs">protected virtual bool detectStringEmpty(string value)
 {
@@ -292,11 +287,9 @@ System.NotSupportedException: Invalid setup on a non-virtual (overridable in VB)
 
 <pre><code class="language-cs">using Moq;
 using Moq.Protected;
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>arrange</li>
-</ol>
+<li><p>arrange</p>
 
 <ul>
 <li><p>使用 Moq 語法 mock 目標程式</p>
@@ -317,11 +310,9 @@ using Moq.Protected;
 target.Protected()
 .Setup&lt;bool&gt;(&quot;detectStringEmpty&quot;, new object[] { string.Empty })
 .Returns(true);
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>寫法二</li>
-</ul>
+<li><p>寫法二</p>
 
 <pre><code class="language-cs">var target = new Mock&lt;ValuesController&gt;();
 target.Protected()
@@ -333,12 +324,13 @@ target.Protected()
 <li><p>定義預期結果</p>
 
 <pre><code class="language-cs">var expected = typeof(BadRequestResult);
-</code></pre>
+</code></pre></li>
+</ul></li>
 
-<ol>
-<li>act</li>
-<li>使用 Moq 語法來執行測試目標程式方法</li>
-</ol>
+<li><p>act</p>
+
+<ul>
+<li><p>使用 Moq 語法來執行測試目標程式方法</p>
 
 <pre><code class="language-cs">var actualAction = target.Object.Get(string.Empty);
 </code></pre>
@@ -350,12 +342,13 @@ target.Protected()
 <li><p>將實際執行結果轉型為預期的 <code>BadRequestResult</code></p>
 
 <pre><code class="language-cs">var actual = actualAction as BadRequestResult;
-</code></pre>
+</code></pre></li>
+</ul></li>
 
-<ol>
-<li>assert</li>
-<li>檢查執行結果不能是 null</li>
-</ol>
+<li><p>assert</p>
+
+<ul>
+<li><p>檢查執行結果不能是 null</p>
 
 <pre><code class="language-cs">Assert.IsNotNull(actual);
 </code></pre></li>
@@ -363,30 +356,28 @@ target.Protected()
 <li><p>驗證執行結果是否與預期相符</p>
 
 <pre><code class="language-cs">Assert.IsInstanceOfType(actual, expected);
-</code></pre>
+</code></pre></li>
+</ul></li>
 
-<ol>
-<li>完整程式碼</li>
-</ol>
+<li><p>完整程式碼</p>
 
 <pre><code class="language-cs">[TestMethod()]
 public void Get_StringEmpty_BadRequest()
 {
-//arrange
-var target = new Mock&lt;ValuesController&gt;() { CallBase = true };
-target.Protected()
-    .Setup&lt;bool&gt;(&quot;detectStringEmpty&quot;, ItExpr.IsAny&lt;string&gt;())
-    .Returns(true);
-var expected = typeof(BadRequestResult);
-//act
-var actualAction = target.Object.Get(string.Empty);
-var actual = actualAction as BadRequestResult;
-//assert
-Assert.IsNotNull(actual);
-Assert.IsInstanceOfType(actual, expected);
+    //arrange
+    var target = new Mock&lt;ValuesController&gt;() { CallBase = true };
+    target.Protected()
+        .Setup&lt;bool&gt;(&quot;detectStringEmpty&quot;, ItExpr.IsAny&lt;string&gt;())
+        .Returns(true);
+    var expected = typeof(BadRequestResult);
+    //act
+    var actualAction = target.Object.Get(string.Empty);
+    var actual = actualAction as BadRequestResult;
+    //assert
+    Assert.IsNotNull(actual);
+    Assert.IsInstanceOfType(actual, expected);
 }
 </code></pre></li>
-</ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>

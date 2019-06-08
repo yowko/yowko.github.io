@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="JavaScript Array 的加總" />
 <meta property="og:description" content="JavaScript Array 的加總 最近的專案中因為前端互動性強，採用了較多的 JavaScript 來處理畫面互動性，雖然身為一名網站開發工程師，JS 並不算陌生，但實際開發時還是經常需要" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/javascript-array-sum/" />
-<meta property="article:published_time" content="2017-12-22T03:51:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/javascript-array-sum/" /><meta property="article:published_time" content="2017-12-22T03:51:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-10-02T18:09:04&#43;08:00"/>
 
 <meta itemprop="name" content="JavaScript Array 的加總">
@@ -259,29 +258,25 @@ console.log(SumDatareduce(data));
         salary:15000,
         age:25
     }];
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>使用 map 將物件屬性轉為陣列</li>
-</ol>
+<li><p>使用 map 將物件屬性轉為陣列</p>
 
 <pre><code class="language-js">var objarray=dataobj.map(el=&gt;el.salary);
 console.log(objarray);
 </code></pre></li>
-</ul>
 
-<ol>
 <li><p>再透過 reduce 加總</p>
 
 <pre><code class="language-js">function SumDatareduce(arr){
     return arr.reduce((a,b)=&gt;a+b);  
 }
 console.log(SumDatareduce(objarray));
-</code></pre>
+</code></pre></li>
+</ul>
 
 <ol>
-<li>簡化 function</li>
-</ol>
+<li><p>簡化 function</p>
 
 <pre><code class="language-js">function SumDataMapReduce(arr){
 return arr.map(el=&gt;el.salary).reduce((a,b)=&gt;a+b);
@@ -304,11 +299,9 @@ console.log(SumDataMapReduce(dataobj));
 }
 var propname='salary'
 console.log(SumDataMapReduce(dataobj,propname));
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>選擇性屬性</li>
-</ol>
+<li><p>選擇性屬性</p>
 
 <pre><code class="language-js">function SumDataMapReduce(arr,prop){
     if(prop === undefined){

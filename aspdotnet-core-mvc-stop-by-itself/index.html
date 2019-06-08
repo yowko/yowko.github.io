@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="讓 ASP.NET Core MVC 自行停止運作" />
 <meta property="og:description" content="讓 ASP.NET Core MVC 自行停止運作 公司專案有個系統在啟動時執行 init script，接著就等待後台管理者下指令才會有後續動作，但開發階段暫時還不會有後台管理者的" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-mvc-stop-by-itself/" />
-<meta property="article:published_time" content="2019-05-12T21:30:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-mvc-stop-by-itself/" /><meta property="article:published_time" content="2019-05-12T21:30:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-05-12T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="讓 ASP.NET Core MVC 自行停止運作">
@@ -200,11 +199,9 @@
 <li><p>在 <code>Start.cs</code> 中加入 <code>IApplicationLifetime</code> field</p>
 
 <pre><code class="language-cs">private IApplicationLifetime _applicationLifetime;
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>在 <code>Start.cs</code> 的 <code>Configue</code> 方法中加入 <code>IApplicationLifetime applicationLifetime</code> 參數並將參數值設定給先前新增的 field</li>
-</ol>
+<li><p>在 <code>Start.cs</code> 的 <code>Configue</code> 方法中加入 <code>IApplicationLifetime applicationLifetime</code> 參數並將參數值設定給先前新增的 field</p>
 
 <pre><code class="language-cs">public void Configure(IApplicationBuilder app, IHostingEnvironment env,IApplicationLifetime applicationLifetime)
 {
@@ -233,11 +230,11 @@ if (stop)
 <p>使用下列指令即可執行關閉</p>
 
 <pre><code> dotnet {project}.dll stop=true  
-</code></pre>
+</code></pre></li>
+
+<li><p>在 Controller 中執行</p>
 
 <ul>
-<li><p>在 Controller 中執行</p></li>
-
 <li><p>加入 field 並在建構子允許 DI</p>
 
 <pre><code class="language-cs">private IApplicationLifetime _applicationLifetime;
@@ -246,11 +243,9 @@ public HomeController(IApplicationLifetime applicationLifetime)
 {
     _applicationLifetime = applicationLifetime;
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>Action 執行 shutdown</li>
-</ul>
+<li><p>Action 執行 shutdown</p>
 
 <pre><code class="language-cs">public void Shutdown()
 {

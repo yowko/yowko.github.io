@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="為 ASP.NET WEB API 加上簡易的 Token 驗證" />
 <meta property="og:description" content="為 ASP.NET WEB API 加上簡易的 Token 驗證 朋友需要個提供資料處理的 WEB API ，需要有個基本的 TOKEN 來驗證即可，甚至也不需要 TOKEN 的管理功能，直接指定固定 TOKEN 即可，聽來不太合理" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspnet-web-api-fixed-token/" />
-<meta property="article:published_time" content="2017-02-28T01:42:34&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspnet-web-api-fixed-token/" /><meta property="article:published_time" content="2017-02-28T01:42:34&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-13T00:42:34&#43;08:00"/>
 
 <meta itemprop="name" content="為 ASP.NET WEB API 加上簡易的 Token 驗證">
@@ -194,12 +193,9 @@
 <li><p><code>TokenHandler.cs</code> 繼承 <code>DelegatingHandler</code></p>
 
 <pre><code class="language-cs">using System.Net.Http;
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>定義一個固定 Token
-<br /></li>
-</ol>
+<li><p>定義一個固定 Token</p>
 
 <pre><code class="language-cs">private const string Token = &quot;3f1472de8cb345f78a826d0cc466bbbe&quot;;
 </code></pre></li>
@@ -229,14 +225,13 @@
         //回傳執行結果
     return response;
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="註冊-handler">註冊 <code>Handler</code></h2>
 
 <ul>
-<li>在 Global.asax.cs 中的 <code>Application_Start()</code> 註冊 <code>Handler</code>
-<br /></li>
-</ul>
+<li><p>在 Global.asax.cs 中的 <code>Application_Start()</code> 註冊 <code>Handler</code></p>
 
 <blockquote>
 <p>GlobalConfiguration.Configuration.MessageHandlers.Add(new TokenHandler());</p>
@@ -248,7 +243,7 @@
     GlobalConfiguration.Configuration.MessageHandlers.Add(new TokenHandler());
 }
 </code></pre></li>
-</ol>
+</ul>
 
 <h2 id="使用方式及測試結果">使用方式及測試結果</h2>
 

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="如何透過 jobname 取得 Jenkins 2 的 SCM Repository URL 及如何取得 BUILD_ID 及 BUILD_NUMBER 基本語法筆記 2" />
 <meta property="og:description" content="如何透過 jobname 取得 Jenkins 2 的 SCM Repository URL 及如何取得 BUILD_ID 及 BUILD_NUMBER 公司的 CI 流程需要使用 SCM Repository URL 來進行不同環境間的程式碼切換，原本為每個 job 都加上一個 URL 設定，但這樣一來就" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/jenkins-scm-url/" />
-<meta property="article:published_time" content="2017-03-14T02:43:34&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/jenkins-scm-url/" /><meta property="article:published_time" content="2017-03-14T02:43:34&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-13T00:42:34&#43;08:00"/>
 
 <meta itemprop="name" content="如何透過 jobname 取得 Jenkins 2 的 SCM Repository URL 及如何取得 BUILD_ID 及 BUILD_NUMBER 基本語法筆記 2">
@@ -67,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2017-03-14T02:43:34&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-13T00:42:34&#43;08:00" />
-<meta itemprop="wordCount" content="551">
+<meta itemprop="wordCount" content="547">
 
 
 
@@ -147,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2017-03-14 </span>
         
-        <span class="more-meta"> 約 551 字 </span>
+        <span class="more-meta"> 約 547 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -209,29 +208,28 @@
 <pre><code class="language-ps1"> #將 config 檔案 parse 成 xml 物件
  [xml]$xmldata = get-content &quot;{Jenkins 安裝目錄}\Jenkins\jobs\{jobname}\config.xml&quot;
  #依階層取值
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h4 id="git">GIT</h4>
 
 <ul>
-<li>Jenkins 的設定
-<br /></li>
-</ul>
+<li><p>Jenkins 的設定</p>
 
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/23746390/b6da1ad4-04f6-11e7-9cb6-e3229fb841c5.png" alt="1gitsource" />
-- config 內容</p>
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/23746390/b6da1ad4-04f6-11e7-9cb6-e3229fb841c5.png" alt="1gitsource" /></p></li>
 
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/23746391/b6db35c2-04f6-11e7-81dd-07d84777a8c3.png" alt="3gitconfig" />
-- 使用 powershell 取得 url 設定</p>
+<li><p>config 內容</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/3851540/23746391/b6db35c2-04f6-11e7-81dd-07d84777a8c3.png" alt="3gitconfig" /></p></li>
+
+<li><p>使用 powershell 取得 url 設定</p>
 
 <pre><code class="language-ps1">[xml]$xmldata = get-content &quot;{Jenkins 安裝目錄}\Jenkins\jobs\{jobname}\config.xml&quot;
 $xmldata.project.scm.userRemoteConfigs.'hudson.plugins.git.UserRemoteConfig'.url
-</code></pre></li>
-</ul>
+</code></pre>
 
-<h4 id="svn">SVN</h4>
+<h4 id="svn">SVN</h4></li>
 
-<ul>
 <li><p>Jenkins 的設定</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/23746389/b6d74390-04f6-11e7-940a-08e5d3615b81.png" alt="2scmsource" /></p></li>
@@ -248,23 +246,27 @@ $xmldata.project.scm.locations.'hudson.scm.SubversionSCM_-ModuleLocation'.remote
 
 <h2 id="2-如何取得-build-id-and-build-number">2. 如何取得 BUILD_ID and BUILD_NUMBER</h2>
 
-<p>依 <a href="https://issues.jenkins-ci.org/browse/JENKINS-26520" target="_blank">Environment Variables BUILD_ID and BUILD_NUMBER now return the same value</a> 揭露 BUILD_ID 與 BUILD_NUMBER 目前會是相同的
-- BUILD_ID</p>
+<p>依 <a href="https://issues.jenkins-ci.org/browse/JENKINS-26520" target="_blank">Environment Variables BUILD_ID and BUILD_NUMBER now return the same value</a> 揭露 BUILD_ID 與 BUILD_NUMBER 目前會是相同的</p></li>
+
+<li><p>BUILD_ID</p>
 
 <blockquote>
-<p><code>$env:BUILD_ID</code>
-- BUILD_NUMBER</p>
+<p><code>$env:BUILD_ID</code></p>
+</blockquote></li>
 
+<li><p>BUILD_NUMBER</p>
+
+<blockquote>
 <p><code>$env:BUILD_NUMBER</code></p>
-</blockquote>
+</blockquote></li>
+</ul>
 
 <h1 id="參考資訊">參考資訊</h1>
 
 <ol>
 <li><a href="http://stackoverflow.com/questions/19359118/getting-job-repository-url-in-jenkins-build-plugin" target="_blank">Getting job repository URL in Jenkins build plugin</a></li>
 <li><a href="https://issues.jenkins-ci.org/browse/JENKINS-26520" target="_blank">Environment Variables BUILD_ID and BUILD_NUMBER now return the same value</a></li>
-</ol></li>
-</ul>
+</ol>
 
     </div>
 

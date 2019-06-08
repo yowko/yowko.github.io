@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="將 Object 序列化為 Json 時，攤平 Json string 欄位" />
 <meta property="og:description" content="將 Object 序列化為 Json 時，攤平 Json string 欄位 在不同系統間透過 Json 來交換資料是很常見的設計，甚至在某些系統上還可以見到將 Json string 儲存在屬性中，當然有人會質疑這樣就" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/not-serialize-json-string/" />
-<meta property="article:published_time" content="2019-05-05T21:30:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/not-serialize-json-string/" /><meta property="article:published_time" content="2019-05-05T21:30:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-05-05T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="將 Object 序列化為 Json 時，攤平 Json string 欄位">
@@ -237,13 +236,13 @@ var people = new People
     BirthDay = new DateTime(1983, 7, 29),
     JobsString = JsonConvert.SerializeObject(Jobs)
 };
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="重現問題">重現問題</h2>
 
 <ol>
-<li>將上述 <code>people</code> 透過 serilog 輸出</li>
-</ol>
+<li><p>將上述 <code>people</code> 透過 serilog 輸出</p>
 
 <pre><code class="language-cs">Log.Information(JsonConvert.SerializeObject(people));
 </code></pre></li>
@@ -276,11 +275,9 @@ var people = new People
         return false;
     }
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>處理物件屬性是否包含 Json string</li>
-</ol>
+<li><p>處理物件屬性是否包含 Json string</p>
 
 <pre><code class="language-cs">//將物件轉為 JObject
 var tmpJsonObject = JObject.FromObject(people);
@@ -299,9 +296,8 @@ foreach (var tmpJobject in tmpJsonObject)
 <li><p>輸出 log</p>
 
 <pre><code class="language-cs">Log.Information(JsonConvert.SerializeObject(tmpJsonObject));
-</code></pre>
+</code></pre></li>
 
-<ol>
 <li><p>實際 log 內容</p>
 
 <pre><code>2019-05-05 23:43:09.847 +08:00 [INF] {&quot;Name&quot;:&quot;Yowko&quot;,&quot;UserId&quot;:1,&quot;BirthDay&quot;:&quot;1983-07-29T00:00:00&quot;,&quot;JobsString&quot;:[{&quot;CompanyName&quot;:&quot;C1&quot;,&quot;Salary&quot;:1000.0},{&quot;CompanyName&quot;:&quot;C2&quot;,&quot;Salary&quot;:2000.0}]}
@@ -313,28 +309,24 @@ foreach (var tmpJobject in tmpJsonObject)
 <p>我查到資料 <a href="https://stackoverflow.com/a/20218426" target="_blank">How to make sure that string is valid JSON using JSON.NET</a></p>
 
 <ol>
-<li>JObject.Parse</li>
-</ol>
+<li><p>JObject.Parse</p>
 
 <blockquote>
 <p>用來處理 Json object</p>
-</blockquote>
+</blockquote></li>
 
-<ol>
-<li>JArray.Parse</li>
-</ol>
+<li><p>JArray.Parse</p>
 
 <blockquote>
 <p>用來處理 Json array</p>
-</blockquote>
+</blockquote></li>
 
-<ol>
-<li>JContainer.Parse</li>
-</ol>
+<li><p>JContainer.Parse</p>
 
 <blockquote>
 <p>可以同時用來處理 Json object 及 Json array</p>
-</blockquote>
+</blockquote></li>
+</ol>
 
 <p>其中因為 Container 是衍伸類別，所以改用 JToken</p>
 
@@ -343,7 +335,6 @@ foreach (var tmpJobject in tmpJsonObject)
 <ol>
 <li><a href="https://stackoverflow.com/a/20218426" target="_blank">How to make sure that string is valid JSON using JSON.NET</a></li>
 <li><a href="https://confluence.jetbrains.com/pages/viewpage.action?pageId=37232484" target="_blank">Access to a static member of a type via a derived type</a></li>
-</ol></li>
 </ol>
 
     </div>

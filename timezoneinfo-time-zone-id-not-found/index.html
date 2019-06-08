@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="TimeZoneInfo 在 Mac/Linux 找不到 time zone ID" />
 <meta property="og:description" content="TimeZoneInfo 在 Mac/Linux 找不到指定 time zone ID 同事提到 TimeZoneInfo 的操作在 Linux server 會出現錯誤，想說我怎麼沒遇到立馬試試，於是發現原來是 time zone ID 在 Windows 與 Linux 不同造成的 XD 雖說可以理解，但不" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/timezoneinfo-time-zone-id-not-found/" />
-<meta property="article:published_time" content="2019-05-10T21:30:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/timezoneinfo-time-zone-id-not-found/" /><meta property="article:published_time" content="2019-05-10T21:30:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-05-10T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="TimeZoneInfo 在 Mac/Linux 找不到 time zone ID">
@@ -204,9 +203,8 @@
 var utcNow = DateTime.UtcNow;
 Console.WriteLine(utcNow);
 Console.WriteLine(TimeZoneInfo.ConvertTime(utcNow, timeZone));
-</code></pre>
+</code></pre></li>
 
-<ol>
 <li><p>Windows 平台結果</p>
 
 <pre><code>5/10/2019 7:05:46 AM
@@ -232,16 +230,15 @@ at TestFluentd.Program.Main(String[] args) in /Users/yowko.tsai/Program.cs:line 
 Process finished with exit code 6.
 </code></pre></li>
 
-<li><p>錯誤截圖</p></li>
-</ol>
+<li><p>錯誤截圖</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/57514601-7554b700-7343-11e9-8173-7dbda44cc07b.png" alt="1error" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/57514601-7554b700-7343-11e9-8173-7dbda44cc07b.png" alt="1error" /></p></li>
+</ol>
 
 <h2 id="解決方式-1-使用套件-timezoneconverter">解決方式 1 : 使用套件 <code>TimeZoneConverter</code></h2>
 
 <ol>
-<li>安裝套件</li>
-</ol>
+<li><p>安裝套件</p>
 
 <ul>
 <li><p>Package Manager</p>
@@ -253,11 +250,9 @@ Process finished with exit code 6.
 
 <pre><code>dotnet add package TimeZoneConverter
 </code></pre></li>
-</ul>
+</ul></li>
 
-<ol>
-<li>實際使用方式</li>
-</ol>
+<li><p>實際使用方式</p>
 
 <pre><code class="language-cs">TimeZoneInfo timeZone =TZConvert.GetTimeZoneInfo(&quot;China Standard Time&quot;);
 var utcNow = DateTime.UtcNow;
@@ -2793,11 +2788,9 @@ Console.WriteLine(TimeZoneInfo.ConvertTime(utcNow, timeZone));
 var utcNow = DateTime.UtcNow;
 Console.WriteLine(utcNow);
 Console.WriteLine(TimeZoneInfo.ConvertTime(utcNow, timeZone));
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>通吃雙平台</li>
-</ol>
+<li><p>通吃雙平台</p>
 
 <pre><code class="language-cs">TimeZoneInfo timeZone;
 try {

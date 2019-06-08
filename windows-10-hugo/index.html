@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="在 Windows 10 中建置 Hugo 開發環境" />
 <meta property="og:description" content="在 Windows 10 中建置 Hugo 開發環境 之前考慮了好久，最後終於下定決心將個人筆記改用 Hugo 來建置，雖然一直都是使用 markdown 來寫筆記但過去將筆記放在 Blogger 上時必需要手動將 markdown" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/windows-10-hugo/" />
-<meta property="article:published_time" content="2018-10-18T02:40:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/windows-10-hugo/" /><meta property="article:published_time" content="2018-10-18T02:40:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-10-18T02:40:52&#43;08:00"/>
 
 <meta itemprop="name" content="在 Windows 10 中建置 Hugo 開發環境">
@@ -67,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2018-10-18T02:40:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-18T02:40:52&#43;08:00" />
-<meta itemprop="wordCount" content="870">
+<meta itemprop="wordCount" content="868">
 
 
 
@@ -147,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-10-18 </span>
         
-        <span class="more-meta"> 約 870 字 </span>
+        <span class="more-meta"> 約 868 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -207,11 +206,9 @@
 <li><p>安裝 Git</p>
 
 <pre><code class="language-cmd">choco install git.install
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>安裝 Go (1.11 以上版本)</li>
-</ol>
+<li><p>安裝 Go (1.11 以上版本)</p>
 
 <pre><code class="language-cmd">choco install golang
 </code></pre></li>
@@ -223,11 +220,9 @@
 
 <blockquote>
 <p>過去安裝 Hugo 時需要手動將 Hugo 的執行路徑加入環境變數中，但近期版本似乎可以省掉這個步驟</p>
-</blockquote>
+</blockquote></li>
 
-<ol>
-<li>驗證完成安裝</li>
-</ol>
+<li><p>驗證完成安裝</p>
 
 <blockquote>
 <p>要能正常回傳版本資訊，不可以出錯誤訊息</p>
@@ -236,13 +231,13 @@
 <pre><code>hugo version
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/47168075-95cf0c80-d332-11e8-9270-c4a4068fa664.png" alt="1hugoversion" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/47168075-95cf0c80-d332-11e8-9270-c4a4068fa664.png" alt="1hugoversion" /></p></li>
+</ol>
 
 <h2 id="建立開發環境">建立開發環境</h2>
 
 <ol>
-<li>建立 hugo 站台</li>
-</ol>
+<li><p>建立 hugo 站台</p>
 
 <ul>
 <li><p>語法</p>
@@ -256,8 +251,9 @@
 </code></pre></li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/47168076-95cf0c80-d332-11e8-84b9-4fb9c0f19f2a.png" alt="2hugonew" />
-2. 將 hugo 站台加入 git 版控</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/47168076-95cf0c80-d332-11e8-84b9-4fb9c0f19f2a.png" alt="2hugonew" /></p></li>
+
+<li><p>將 hugo 站台加入 git 版控</p>
 
 <ul>
 <li><p>進入剛建立的 hugo 站台資料夾中</p>
@@ -279,11 +275,9 @@
 
 <pre><code>git commit -m &quot;repo init&quot;
 </code></pre></li>
-</ul>
+</ul></li>
 
-<ol>
-<li>加入 hugo theme</li>
-</ol>
+<li><p>加入 hugo theme</p>
 
 <blockquote>
 <p>透過 submodule 方式加入 theme</p>
@@ -294,38 +288,35 @@
 
 <blockquote>
 <p>記得隨時 commit</p>
-</blockquote>
+</blockquote></li>
 
-<ol>
 <li><p>將 theme 中的 config.toml 複製至 root</p>
 
 <pre><code>copy themes\even\exampleSite\config.toml .
-</code></pre></li>
-</ol>
+</code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/47168077-95cf0c80-d332-11e8-9483-6c104e47a495.png" alt="3copy" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/47168077-95cf0c80-d332-11e8-9483-6c104e47a495.png" alt="3copy" /></p></li>
+</ol>
 
 <h2 id="開始建立-markdown-文件">開始建立 markdown 文件</h2>
 
 <ol>
-<li>在 root 資料夾下建立存放 markdown 的資料夾</li>
-</ol>
+<li><p>在 root 資料夾下建立存放 markdown 的資料夾</p>
 
 <blockquote>
 <p>依 theme 不同，資料夾名稱也可能不同，請參考 theme 的設定</p>
 </blockquote>
 
 <pre><code>mkdir content\post
-</code></pre>
+</code></pre></li>
 
-<ol>
 <li><p>建立 markdown 文件</p>
 
 <pre><code>hugo new post/yowkotest.md
-</code></pre></li>
-</ol>
+</code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/47168078-9667a300-d332-11e8-8094-51da0376fc8d.png" alt="4newmd" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/47168078-9667a300-d332-11e8-8094-51da0376fc8d.png" alt="4newmd" /></p></li>
+</ol>
 
 <h2 id="測試">測試</h2>
 
@@ -333,15 +324,16 @@
 <li><p>啟動 Hugo 測試站台</p>
 
 <pre><code>hugo server /D
-</code></pre></li>
-</ol>
+</code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/47168079-9667a300-d332-11e8-8ab7-7367ca48f9f4.png" alt="5hugoserver" /></p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/47168072-95367600-d332-11e8-8c6b-3253badd6ea2.png" alt="6website" />
-2. 測試 markdown 內容需將 draft 改為 <code>false</code></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/47168072-95367600-d332-11e8-8c6b-3253badd6ea2.png" alt="6website" /></p></li>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/47168074-95cf0c80-d332-11e8-84b4-4552b9532441.png" alt="7result" /></p>
+<li><p>測試 markdown 內容需將 draft 改為 <code>false</code></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/47168074-95cf0c80-d332-11e8-84b4-4552b9532441.png" alt="7result" /></p></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
@@ -351,7 +343,6 @@
 
 <ol>
 <li><a href="https://gohugo.io/getting-started/installing" target="_blank">Install Hugo</a></li>
-</ol></li>
 </ol>
 
     </div>

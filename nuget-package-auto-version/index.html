@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="NuGet 發行 Package 時自動增加版號" />
 <meta property="og:description" content="NuGet 發行 Package 時自動增加版號 之前文章 Jenkins 自動 Publish NuGet Package 已經可以透過 Jenkins 將程式碼成品打包成 NuGet package，但文末也提到 NuGet 是使用 {id&#43;版號} 當做唯一值，一" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/nuget-package-auto-version/" />
-<meta property="article:published_time" content="2017-07-22T23:56:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/nuget-package-auto-version/" /><meta property="article:published_time" content="2017-07-22T23:56:00&#43;08:00"/>
 <meta property="article:modified_time" content="2017-07-22T23:56:00&#43;08:00"/>
 
 <meta itemprop="name" content="NuGet 發行 Package 時自動增加版號">
@@ -221,11 +220,9 @@
 
 <pre><code class="language-cs">[assembly: AssemblyVersion(&quot;1.0.0.0&quot;)]
 [assembly: AssemblyFileVersion(&quot;1.0.0.0&quot;)]
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>版本設定說明</li>
-</ol>
+<li><p>版本設定說明</p>
 
 <blockquote>
 <p>版本設定由四個數字組成，分別代表含意如下</p>
@@ -236,13 +233,13 @@
 <li>Minor Version</li>
 <li>Build Number</li>
 <li>Revision</li>
-</ul>
+</ul></li>
+</ol>
 
 <h2 id="讓-dll-自動增加版號">讓 DLL 自動增加版號</h2>
 
 <ol>
-<li>將 <code>AssemblyVersion</code> 使用 <code>*</code> 設定版本編號</li>
-</ol>
+<li><p>將 <code>AssemblyVersion</code> 使用 <code>*</code> 設定版本編號</p>
 
 <blockquote>
 <p>使用 build 當下時間來自動增加版號</p>
@@ -270,12 +267,14 @@
 <ul>
 <li>Build Number 算法：build 當下時間與 2000/1/1 的天數差</li>
 </ul></li>
-</ul>
+</ul></li>
 
-<ol>
-<li>註解掉 <code>AssemblyFileVersion</code></li>
+<li><p>註解掉 <code>AssemblyFileVersion</code></p>
+
+<ul>
 <li>dll 版本預設使用 <code>AssemblyFileVersion</code>，註解掉後改使用 <code>AssemblyVersion</code> 當做版號設定</li>
 <li>因為 <code>AssemblyFileVersion</code> 不支援自動增加版號</li>
+</ul></li>
 </ol>
 
 <h2 id="nuget-package-使用-dll-版號做為發行版號">NuGet Package 使用 DLL 版號做為發行版號</h2>
@@ -283,70 +282,65 @@
 <p>以下設定延續 <a href="https://blog.yowko.com/2017/07/jenkins-publish-nuget-package.html" target="_blank">Jenkins 自動 Publish NuGet Package</a> 內容，需修改 <code>NuGetPackage.ps1</code></p>
 
 <ol>
-<li>取得 dll 的版號</li>
-</ol>
+<li><p>取得 dll 的版號</p>
 
 <ul>
 <li><p>在 277 行加上下列程式碼 (如果行號跟程式對不起來，請搜尋 <code>Creating package...</code>)</p>
 
 <pre><code class="language-ps1">$dllversion = get-childitem .\lib -recurse -include *.dll| foreach-object { &quot;{0}&quot; -f [System.Diagnostics.FileVersionInfo]::GetVersionInfo($_).FileVersion }|Select-Object -First 1
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>取出第一個 <code>lib</code> 資料夾下的 dll 檔，再讀取 dll 檔的版號</li>
-</ul>
+<li><p>取出第一個 <code>lib</code> 資料夾下的 dll 檔，再讀取 dll 檔的版號</p>
 
 <blockquote>
 <p>dll 會由前一個建置動作產生至 <code>lib</code>，接著使用 PowerShell 取得 dll 檔案版本資訊</p>
-</blockquote>
+</blockquote></li>
+</ul></li>
 
-<ol>
-<li>發行指令加上版號參數</li>
-</ol>
+<li><p>發行指令加上版號參數</p>
 
 <ul>
-<li>280 行加上指定版號(如果行號跟程式對不起來，請搜尋 <code>pack</code>)</li>
+<li><p>280 行加上指定版號(如果行號跟程式對不起來，請搜尋 <code>pack</code>)</p>
 
+<ul>
 <li><p>原程式碼</p>
 
 <pre><code class="language-ps1">$packageTask = Create-Process .\NuGet.exe (&quot;pack Package.nuspec -Symbol -Verbosity Detailed&quot;)
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>修改後程式</li>
-</ul>
+<li><p>修改後程式</p>
 
 <pre><code class="language-ps1">$packageTask = Create-Process .\NuGet.exe (&quot;pack Package.nuspec -Version &quot;+ &quot;$dllversion&quot; +&quot; -Symbol -Verbosity Detailed&quot;)
 </code></pre></li>
+</ul></li>
 
-<li><p>292 行加上指定版號(如果行號跟程式對不起來，請搜尋 <code>pack</code>)</p></li>
+<li><p>292 行加上指定版號(如果行號跟程式對不起來，請搜尋 <code>pack</code>)</p>
 
+<ul>
 <li><p>原程式碼</p>
 
 <pre><code class="language-ps1">$packageTask = Create-Process .\NuGet.exe (&quot;pack Package.nuspec -Verbosity Detailed&quot;)
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>修改後程式碼</li>
-</ul>
+<li><p>修改後程式碼</p>
 
 <pre><code class="language-ps1">$packageTask = Create-Process .\NuGet.exe (&quot;pack Package.nuspec -Version &quot;+ &quot;$dllversion&quot; +&quot; -Verbosity Detailed&quot;)
 </code></pre></li>
-</ul>
+</ul></li>
+</ul></li>
+</ol>
 
 <h2 id="修改成果">修改成果</h2>
 
 <ol>
-<li>Jenkins 成功建置並順利發行 NuGet package</li>
+<li><p>Jenkins 成功建置並順利發行 NuGet package</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/28492605-2716ccd2-6f39-11e7-9250-790faed14f6c.png" alt="3jenkins" /></p></li>
+
+<li><p>NuGet 可以找到正確版本</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/28492606-271d49e0-6f39-11e7-93e5-5d062d599ca2.png" alt="4newversion" /></p></li>
 </ol>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/28492605-2716ccd2-6f39-11e7-9250-790faed14f6c.png" alt="3jenkins" /></p>
-
-<ol>
-<li>NuGet 可以找到正確版本</li>
-</ol>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/28492606-271d49e0-6f39-11e7-93e5-5d062d599ca2.png" alt="4newversion" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -358,8 +352,6 @@
 <li><a href="https://msdn.microsoft.com/en-us/library/system.reflection.assemblyversionattribute.aspx" target="_blank">AssemblyVersionAttribute Class</a></li>
 <li><a href="https://jonthysell.com/2017/01/10/automatically-generating-version-numbers-in-visual-studio/" target="_blank">Automatically generating version numbers in Visual Studio</a></li>
 <li><a href="https://blog.yowko.com/2017/07/jenkins-publish-nuget-package.html" target="_blank">Jenkins 自動 Publish NuGet Package</a></li>
-</ol></li>
-</ul></li>
 </ol>
 
     </div>

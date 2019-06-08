@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="在 ASP.NET MVC 出現 HttpAntiForgeryException 錯誤時 Redirect 至指定 Controller、Action" />
 <meta property="og:description" content="ASP.NET MVC 的 System.Web.Mvc.HttpAntiForgeryException 錯誤 user 反應在操作系統時出現 System.Web.Mvc.HttpAntiForgeryException錯誤，而 System.Web.Mvc.HttpAntiForgeryException 的錯誤在 ASP.NET MVC 上並不" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspnet-mvc-httpantiforgeryexception-redirect/" />
-<meta property="article:published_time" content="2018-05-01T16:43:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspnet-mvc-httpantiforgeryexception-redirect/" /><meta property="article:published_time" content="2018-05-01T16:43:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-10-06T22:28:47&#43;08:00"/>
 
 <meta itemprop="name" content="在 ASP.NET MVC 出現 HttpAntiForgeryException 錯誤時 Redirect 至指定 Controller、Action">
@@ -332,9 +331,8 @@ Version Information: Microsoft .NET Framework Version:4.0.30319; ASP.NET Version
             base.OnException(filterContext);// exception 不是 HttpAntiForgeryException 就照 mvc 預設流程
     }
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
 <li><p>在需要處理 AntiForgeryError 的 action 上套用自訂的 <code>AntiForgeryErrorHandlerAttribute</code></p>
 
 <pre><code class="language-cs">[AntiForgeryErrorHandler(ExceptionType = typeof(HttpAntiForgeryException), View = &quot;Login&quot;, Controller = &quot;Account&quot;, ErrorMessage = &quot;Session Timeout&quot;)]
@@ -347,26 +345,26 @@ Version Information: Microsoft .NET Framework Version:4.0.30319; ASP.NET Version
 [AntiForgeryErrorHandler(ExceptionType = typeof(HttpAntiForgeryException), View = &quot;Login&quot;, Controller = &quot;Account&quot;, ErrorMessage = &quot;Session Timeout&quot;)]
 public async Task&lt;ActionResult&gt; Login(LoginViewModel model, string returnUrl)
 {
-if (!ModelState.IsValid)
-{
-    return View(model);
-}
-// This doesn't count login failures towards account lockout
-// To enable password failures to trigger account lockout, change to shouldLockout: true
-var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-switch (result)
-{
-    case SignInStatus.Success:
-        return RedirectToLocal(returnUrl);
-    case SignInStatus.LockedOut:
-        return View(&quot;Lockout&quot;);
-    case SignInStatus.RequiresVerification:
-        return RedirectToAction(&quot;SendCode&quot;, new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-    case SignInStatus.Failure:
-    default:
-        ModelState.AddModelError(&quot;&quot;, &quot;Invalid login attempt.&quot;);
+    if (!ModelState.IsValid)
+    {
         return View(model);
-}
+    }
+    // This doesn't count login failures towards account lockout
+    // To enable password failures to trigger account lockout, change to shouldLockout: true
+    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+    switch (result)
+    {
+        case SignInStatus.Success:
+            return RedirectToLocal(returnUrl);
+        case SignInStatus.LockedOut:
+            return View(&quot;Lockout&quot;);
+        case SignInStatus.RequiresVerification:
+            return RedirectToAction(&quot;SendCode&quot;, new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+        case SignInStatus.Failure:
+        default:
+            ModelState.AddModelError(&quot;&quot;, &quot;Invalid login attempt.&quot;);
+            return View(model);
+    }
 }
 </code></pre></li>
 
@@ -375,17 +373,16 @@ switch (result)
 <pre><code class="language-cs">[AllowAnonymous]
 public ActionResult Login(string returnUrl)
 {
-ViewBag.ReturnUrl = returnUrl;
-//將顯示用訊息從 TempData 取出
-var errmsg = TempData[&quot;Timeout&quot;] as string;
-if (!string.IsNullOrWhiteSpace(errmsg))
-{
-    ViewBag.Timeout = errmsg;//將顯示訊息放入 ViewBag 供 view 使用
-}
-return View();
+    ViewBag.ReturnUrl = returnUrl;
+    //將顯示用訊息從 TempData 取出
+    var errmsg = TempData[&quot;Timeout&quot;] as string;
+    if (!string.IsNullOrWhiteSpace(errmsg))
+    {
+        ViewBag.Timeout = errmsg;//將顯示訊息放入 ViewBag 供 view 使用
+    }
+    return View();
 }
 </code></pre></li>
-</ol></li>
 
 <li><p>前端頁面處理提示訊息</p>
 
@@ -402,16 +399,14 @@ return View();
         })
     &lt;/script&gt;
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>實際效果
-<br /></li>
-</ol>
+<li><p>實際效果</p>
 
 <blockquote>
 <p><img src="https://user-images.githubusercontent.com/3851540/39466338-f4ed2d4a-4d5a-11e8-8140-a7687c52eae0.png" alt="3result" /></p>
-</blockquote>
+</blockquote></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
@@ -425,7 +420,6 @@ return View();
 <li><a href="https://codereview.stackexchange.com/questions/60759/error-handling-controllers-onexception-and-application-error" target="_blank">Error Handling - Controller&rsquo;s OnException and Application_Error</a></li>
 <li><a href="https://stackoverflow.com/questions/2472578/is-it-possible-to-use-redirecttoaction-inside-a-custom-authorizeattribute-clas" target="_blank">s it possible to use RedirectToAction() inside a custom AuthorizeAttribute class?</a></li>
 <li><a href="https://stackoverflow.com/questions/12967917/a-way-of-properly-handling-httpantiforgeryexception-in-mvc-4-application" target="_blank">A way of properly handling HttpAntiForgeryException in MVC 4 application</a></li>
-</ol></li>
 </ol>
 
     </div>

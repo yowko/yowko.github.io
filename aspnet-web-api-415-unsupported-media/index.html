@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="ASP.NET Web API 上傳檔案出現 415 Unsupported Media Type 錯誤" />
 <meta property="og:description" content="ASP.NET Web API 上傳檔案出現 415 Unsupported Media Type 錯誤 最近專案前端高互動性的頁面採用 Vue.js 來呈現，讓原本習慣的開發流程跟方式都需求做些調整，像是 Vue.js 存取資料部份因為沒有 server" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspnet-web-api-415-unsupported-media/" />
-<meta property="article:published_time" content="2017-12-25T23:33:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspnet-web-api-415-unsupported-media/" /><meta property="article:published_time" content="2017-12-25T23:33:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-10-02T23:33:46&#43;08:00"/>
 
 <meta itemprop="name" content="ASP.NET Web API 上傳檔案出現 415 Unsupported Media Type 錯誤">
@@ -231,11 +230,9 @@
         return Request.CreateResponse(HttpStatusCode.BadRequest);
     }
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>前端上傳內容</li>
-</ol>
+<li><p>前端上傳內容</p>
 
 <ul>
 <li>Content-Type：application/x-www-form-urlencoded</li>
@@ -243,21 +240,19 @@
 <li><p>body 夾檔</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34341094-2cb1be42-e9cb-11e7-9b59-6a738c7e47b3.png" alt="2body" /></p></li>
-</ul>
+</ul></li>
 
-<ol>
-<li>順利取得檔案內容</li>
-</ol>
+<li><p>順利取得檔案內容</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/34341095-2ce054c8-e9cb-11e7-8a75-d6b4016f2da5.png" alt="3result1" /></p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/34341096-2d0a1bb4-e9cb-11e7-818d-303d720587c4.png" alt="4result2" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/34341096-2d0a1bb4-e9cb-11e7-818d-303d720587c4.png" alt="4result2" /></p></li>
+</ol>
 
 <h2 id="解決方式二-使用-multipartformdatastreamprovider">解決方式二：使用 MultipartFormDataStreamProvider</h2>
 
 <ol>
-<li>API 程式碼</li>
-</ol>
+<li><p>API 程式碼</p>
 
 <pre><code class="language-cs">public class UploadController : ApiController
 {

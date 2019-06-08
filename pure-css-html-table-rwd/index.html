@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="利用 Pure CSS 讓 HTML Table 也能有 RWD 效果" />
 <meta property="og:description" content="這是最近專案 user 提出的需求：所有對外服務的頁面都要有 RWD 顯示。這是現代化網站基本條件並不算特殊需求。雖然透過 grid system 的排版可以快速達成 RWD 的效果，但資" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/pure-css-html-table-rwd/" />
-<meta property="article:published_time" content="2018-01-09T01:35:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/pure-css-html-table-rwd/" /><meta property="article:published_time" content="2018-01-09T01:35:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-01-09T01:35:06&#43;08:00"/>
 
 <meta itemprop="name" content="利用 Pure CSS 讓 HTML Table 也能有 RWD 效果">
@@ -283,11 +282,9 @@
         }
     }
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>編譯後的 CSS</li>
-</ul>
+<li><p>編譯後的 CSS</p>
 
 <pre><code class="language-css">@media screen and (max-width: 600px) {
     .rwdtable {
@@ -346,11 +343,9 @@
 
 <pre><code class="language-html">&lt;table class=&quot;rwdtable&quot;&gt;
 &lt;/table&gt;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>在 table tbody 的每個 td 上加入 <code>data-label=&quot;{顯示欄位名稱}&quot;</code></li>
-</ul>
+<li><p>在 table tbody 的每個 td 上加入 <code>data-label=&quot;{顯示欄位名稱}&quot;</code></p>
 
 <pre><code class="language-html">&lt;td data-label=&quot;No.&quot;&gt;@index&lt;/td&gt;
 </code></pre>

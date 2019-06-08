@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="Oracle 如何做到 SQL Server 的 Identity 欄位型態" />
 <meta property="og:description" content="Oracle 如何做到 SQL Server 的 Identity 欄位型態 在 DB table 規劃時，內部使用的 primary key 欄位常見用法分成兩派：使用 int 或是 GUID，在 SQL Server 上兩種做法都有對應的欄位型態，而在 Oracle 上" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/oracle-identity/" />
-<meta property="article:published_time" content="2017-10-28T15:41:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/oracle-identity/" /><meta property="article:published_time" content="2017-10-28T15:41:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-27T15:41:16&#43;08:00"/>
 
 <meta itemprop="name" content="Oracle 如何做到 SQL Server 的 Identity 欄位型態">
@@ -220,14 +219,15 @@
     Addr VARCHAR2(250) not null,
     constraint PK_UserProfile primary key (Id)
 )
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="2-建立-oracle-sequence">2. 建立 Oracle Sequence</h2>
 
 <ul>
 <li>用來自動循序增加數字</li>
-<li>語法範例</li>
-</ul>
+
+<li><p>語法範例</p>
 
 <pre><code class="language-sql">create sequence SQ_UserProfile
 </code></pre></li>
@@ -246,28 +246,26 @@ for each row
 begin
 select SQ_UserProfile.nextval into :new.Id from dual;
 end;
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="實際效果">實際效果</h2>
 
 <ul>
-<li>輸入時指定 <code>100</code></li>
+<li><p>輸入時指定 <code>100</code></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32132311-64a94af4-bbf4-11e7-8a12-9892b83fb57b.png" alt="1input" /></p></li>
+
+<li><p>儲存 <code>1</code></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/32132312-64dc3892-bbf4-11e7-8a3c-1320feaf18eb.png" alt="2save" /></p></li>
 </ul>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32132311-64a94af4-bbf4-11e7-8a12-9892b83fb57b.png" alt="1input" /></p>
-
-<ul>
-<li>儲存 <code>1</code></li>
-</ul>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32132312-64dc3892-bbf4-11e7-8a3c-1320feaf18eb.png" alt="2save" /></p>
 
 <h2 id="心得">心得</h2>
 
 <p>一直以來都是使用 SQL Server 從來沒想過原來其他 db 沒有 identity 欄位型態，本來也沒想到可以這麼做，是使用 code first 產生 pl-sql 時發現原來 oracle 的 identity 可以透過上述方式建立，特別筆記一下</p>
 
-<h1 id="參考資訊">參考資訊</h1></li>
-</ul>
+<h1 id="參考資訊">參考資訊</h1>
 
     </div>
 

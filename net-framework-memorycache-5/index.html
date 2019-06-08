@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 5 使用動態條件與動態欄位" />
 <meta property="og:description" content="使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 5 使用動態條件與動態欄位 一直以為 使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 4 使用泛型來簡化 是 .NET MemoryCache 系列的最後一篇，壓根忘" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/net-framework-memorycache-5/" />
-<meta property="article:published_time" content="2017-03-11T01:42:34&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/net-framework-memorycache-5/" /><meta property="article:published_time" content="2017-03-11T01:42:34&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-12T00:42:34&#43;08:00"/>
 
 <meta itemprop="name" content="使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 5 使用動態條件與動態欄位">
@@ -277,11 +276,9 @@ cacheData = db.Set(typeof(TEntry))
     .Where(predicate)
     .Select(selector)
     .ToList();
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>完整範例</li>
-</ol>
+<li><p>完整範例</p>
 
 <pre><code class="language-cs"> /// &lt;summary&gt;
  /// 取得 cache data
@@ -340,11 +337,9 @@ cacheData = db.Set(typeof(TEntry))
 var predicate = PredicateBuilder.True&lt;{modelType}&gt;();
 predicate = predicate.And(a =&gt; a.IsEnable == true);
 predicate = predicate.And(a =&gt; a.IsDelete == false);
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>指定動態欄位</li>
-</ul>
+<li><p>指定動態欄位</p>
 
 <pre><code class="language-cs">//建立動態欄位 selector
 Expression&lt;Func&lt;{modelType}, dynamic&gt;&gt; selector = a =&gt; new { a.APIKey };
@@ -353,14 +348,15 @@ Expression&lt;Func&lt;{modelType}, dynamic&gt;&gt; selector = a =&gt; new { a.AP
 <li><p>使用新方法</p>
 
 <pre><code class="language-cs">CacheService.GetCacheData&lt;{modelType}, dynamic&gt;(predicate, &quot;{cacheKey}&quot;, selector,{refresh=false}); CacheHelper.GetCacheData&lt;{modelType}&gt;(&quot;{cacheKey}&quot;,{refresh=false});
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li><code>{modelType}</code> 是 caceh 存放型別</li>
-<li>第一個參數 <code>cacheKey</code> 是用來區隔多組 cache data 的 key (如需多個相同 table 不同 cache ，可藉由 cache 區隔)</li>
-<li>第二個參數 <code>refresh</code> 是用來強制更新 cache 的</li>
-<li>LINQPad 可以直接執行, .NET 請參考這篇 <a href="http://www.albahari.com/nutshell/predicatebuilder.aspx" target="_blank">Dynamically Composing Expression Predicates</a> 安裝</li>
-</ul></li>
+<li><p><code>{modelType}</code> 是 caceh 存放型別</p></li>
+
+<li><p>第一個參數 <code>cacheKey</code> 是用來區隔多組 cache data 的 key (如需多個相同 table 不同 cache ，可藉由 cache 區隔)</p></li>
+
+<li><p>第二個參數 <code>refresh</code> 是用來強制更新 cache 的</p></li>
+
+<li><p>LINQPad 可以直接執行, .NET 請參考這篇 <a href="http://www.albahari.com/nutshell/predicatebuilder.aspx" target="_blank">Dynamically Composing Expression Predicates</a> 安裝</p></li>
 </ul></li>
 </ol>
 

@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 ASP.NET Web API 建立 OData 服務" />
 <meta property="og:description" content="使用 ASP.NET Web API 建立 OData 服務 OData 從 2013 年首次出現後就吸引不少技術人員目光，剛好當時專案允許立馬就嘗試，以當時的專案需要同時提供 API 給 WebSite、iOS" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspnet-web-api-odata/" />
-<meta property="article:published_time" content="2017-10-12T00:50:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspnet-web-api-odata/" /><meta property="article:published_time" content="2017-10-12T00:50:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-27T00:50:39&#43;08:00"/>
 
 <meta itemprop="name" content="使用 ASP.NET Web API 建立 OData 服務">
@@ -332,11 +331,9 @@
 <pre><code class="language-cs">public class ShippersController : ODataController
 {
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>透過 EntityFramework 檢查資料</li>
-</ul>
+<li><p>透過 EntityFramework 檢查資料</p>
 
 <pre><code class="language-CS">NorthwindEntities db = new NorthwindEntities();
 private bool ShippersExists(int key)
@@ -352,11 +349,9 @@ private bool ShippersExists(int key)
     db.Dispose();
     base.Dispose(disposing);
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>完整程式碼</li>
-</ul>
+<li><p>完整程式碼</p>
 
 <pre><code class="language-cs">using System.Linq;
 using System.Web.OData;
@@ -402,11 +397,9 @@ namespace TestOData.Controllers
         routePrefix: &quot;odata&quot;,
         model: builder.GetEdmModel());
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>完整程式碼</li>
-</ul>
+<li><p>完整程式碼</p>
 
 <pre><code class="language-cs">using System.Net.Http.Formatting;
 using System.Web.Http;
@@ -459,11 +452,9 @@ public SingleResult&lt;Shippers&gt; Get([FromODataUri] int key)
     IQueryable&lt;Shippers&gt; result = db.Shippers.Where(p =&gt; p.ShipperID == key);
     return SingleResult.Create(result);
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>Post - Create</li>
-</ul>
+<li><p>Post - Create</p>
 
 <pre><code class="language-cs">public async Task&lt;IHttpActionResult&gt; Post(Shippers shippers)
 {
@@ -537,11 +528,9 @@ public async Task&lt;IHttpActionResult&gt; Put([FromODataUri] int key, Shippers 
     }
     return Updated(update);
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>Delete - Delete</li>
-</ul>
+<li><p>Delete - Delete</p>
 
 <pre><code class="language-cs">public async Task&lt;IHttpActionResult&gt; Delete([FromODataUri] int key)
 {

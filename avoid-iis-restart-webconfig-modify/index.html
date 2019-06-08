@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="修改 web.config 可以不讓 IIS 自動重啟？！" />
 <meta property="og:description" content="修改 web.config 可以不讓 IIS 自動重啟？！ 這是同事提出的問題：想要修改 web.config 中的 NLog log level，但不敢冒然修改 production server 上的檔案，深怕檔案一改立馬引發 IIS recycle 直接影響線" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/avoid-iis-restart-webconfig-modify/" />
-<meta property="article:published_time" content="2018-11-14T00:42:34&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/avoid-iis-restart-webconfig-modify/" /><meta property="article:published_time" content="2018-11-14T00:42:34&#43;08:00"/>
 <meta property="article:modified_time" content="2018-11-14T00:42:34&#43;08:00"/>
 
 <meta itemprop="name" content="修改 web.config 可以不讓 IIS 自動重啟？！">
@@ -247,11 +246,11 @@
 <pre><code class="language-xml">&lt;system.web&gt;
     &lt;httpRuntime fcnMode=&quot;Disabled&quot;/&gt;
 &lt;/system.web&gt;
-</code></pre>
+</code></pre></li>
+
+<li><p><code>waitChangeNotification</code> 與 <code>maxWaitChangeNotification</code></p>
 
 <ul>
-<li><code>waitChangeNotification</code> 與 <code>maxWaitChangeNotification</code></li>
-
 <li><p>waitChangeNotification</p>
 
 <ul>
@@ -293,11 +292,9 @@
 <li><p>使用 <code>PowerShell</code></p>
 
 <pre><code class="language-ps1">New-ItemProperty -Path &quot;hklm:\SOFTWARE\WOW6432Node\Microsoft\ASP.NET&quot; -Name &quot;FCNMode&quot; -Value 1 -PropertyType DWORD
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>完成設定可以透過 <code>iisreset /restart</code> 或是 <code>重新開機</code> 來套用設定</li>
-</ul></li>
+<li><p>完成設定可以透過 <code>iisreset /restart</code> 或是 <code>重新開機</code> 來套用設定</p></li>
 </ul></li>
 
 <li><p>修改 IIS - ApplicationPool 設定</p>

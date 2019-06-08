@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="在 .NET Core console 上使用 Dependency Injection - DI" />
 <meta property="og:description" content="在 .NET Core console 上使用 Dependency Injection - DI 開始撰寫 ASP.NET Core 後，對於整個開發流程雖然不至於陌生卻也一直覺得掌握度不足，尤其在習慣 ASP.NET Core 註冊及啟動流程後，突然要寫 .NET Core console application" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/dotnet-core-console-di/" />
-<meta property="article:published_time" content="2018-11-28T23:45:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/dotnet-core-console-di/" /><meta property="article:published_time" content="2018-11-28T23:45:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-11-28T23:44:30&#43;08:00"/>
 
 <meta itemprop="name" content="在 .NET Core console 上使用 Dependency Injection - DI">
@@ -245,7 +244,8 @@ public class YowkoRunner : IRunner
         Console.WriteLine($&quot;YowkoRunner : Doing hard work! {name}&quot;);
     }
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="b-可能是-未來主要-di">B. (可能是)未來主要 DI</h2>
 
@@ -254,26 +254,25 @@ public class YowkoRunner : IRunner
 <p>查了文件 <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/index" target="_blank">Host in ASP.NET Core</a> 有提到 host 有兩種 API 負責應用程式啟動及 lifetime 管理</p>
 
 <ul>
-<li><code>Web Host</code></li>
-</ul>
+<li><p><code>Web Host</code></p>
 
 <blockquote>
 <p>主要用來 host web application</p>
-</blockquote>
+</blockquote></li>
 
-<ul>
-<li><code>Generic Host</code></li>
-</ul>
+<li><p><code>Generic Host</code></p>
 
 <blockquote>
 <p>目前版本主要用來 host 非 web application (e.g. 背景執行的工作)，之後預計發展成可以同時 host 任何類型的應用程式，包含 web，也預計徹底取代 Web Host</p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/49169687-4f2ef200-f375-11e8-9a90-1c74dc70b09b.png" alt="1generichost" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/49169687-4f2ef200-f375-11e8-9a90-1c74dc70b09b.png" alt="1generichost" /></p></li>
+</ul>
 
 <ol>
-<li>安裝套件</li>
+<li><p>安裝套件</p>
 
+<ul>
 <li><p><code>Microsoft.Extensions.Hosting</code></p>
 
 <ul>
@@ -287,9 +286,7 @@ public class YowkoRunner : IRunner
 <pre><code>dotnet add package Microsoft.Extensions.Hosting
 </code></pre></li>
 </ul></li>
-</ol>
 
-<ul>
 <li><p><code>Microsoft.Extensions.DependencyInjection</code></p>
 
 <ul>
@@ -315,11 +312,9 @@ public class YowkoRunner : IRunner
 </ul>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/49169688-4fc78880-f375-11e8-9bcf-7724db826571.png" alt="2dependency" /></p></li>
-</ul>
+</ul></li>
 
-<ol>
-<li>程式碼</li>
-</ol>
+<li><p>程式碼</p>
 
 <pre><code class="language-cs">class Program
 {

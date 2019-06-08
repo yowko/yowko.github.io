@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Docker on Yowko&#39;s Notes</title>
+    <title>docker on Yowko&#39;s Notes</title>
     <link>https://blog.yowko.com/tags/docker/</link>
-    <description>Recent content in Docker on Yowko&#39;s Notes</description>
+    <description>Recent content in docker on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 02 May 2019 21:30:00 +0800</lastBuildDate>
@@ -18,15 +18,6 @@
       
       <guid>https://blog.yowko.com/fluentd-elasticsearch-docker/</guid>
       <description>Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image 近期專案的 log 集中化採用 EFK - Elasticsearch + Fluentd + Kibana (log parser 改用 Fluentd 而非 Logstash 主要是因為 Logstash 有 memory 使用量大的問題)，這幾天發現設定上有些問題導致資料</description>
-    </item>
-    
-    <item>
-      <title>將 ASP.NET Core 部署至 Docker 中</title>
-      <link>https://blog.yowko.com/aspnet-core-docker/</link>
-      <pubDate>Wed, 24 Apr 2019 21:30:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/aspnet-core-docker/</guid>
-      <description>將 ASP.NET Core 部署至 Docker 中 最近專案在 macOS 上開發 ASP.NET Core 的 Web API，完成後再透過 Docker 包成 image 準備建立 container，流程很直覺，加上 CI CD 同事都已經準備好了，所</description>
     </item>
     
     <item>
@@ -138,15 +129,6 @@
     </item>
     
     <item>
-      <title>Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)</title>
-      <link>https://blog.yowko.com/ubuntu-kubeadm-kubernetes/</link>
-      <pubDate>Mon, 14 May 2018 02:15:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/ubuntu-kubeadm-kubernetes/</guid>
-      <description>Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s) 原本是想將 Kubernetes 架設在 Ubuntu Server 17.10 上，但需要透過一些小手法才能順利執行 container，為了避免忘記如何架設，</description>
-    </item>
-    
-    <item>
       <title>Windows Server 2016 docker 執行身份</title>
       <link>https://blog.yowko.com/windows-server-2016-docker-users/</link>
       <pubDate>Sun, 14 Jan 2018 23:47:00 +0800</pubDate>
@@ -219,39 +201,12 @@
     </item>
     
     <item>
-      <title>修改 Windows container 的預設 IP</title>
-      <link>https://blog.yowko.com/windows-container-ip-prefix/</link>
-      <pubDate>Sun, 03 Sep 2017 23:06:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/windows-container-ip-prefix/</guid>
-      <description>之前文章 docker 無法連線至特定網段 (172.17.x.x) 分享了 docker 的 linux container bridge 會將特定 IP (172.17..) 的 request 導向 container 內部而造成無法存取特定 IP (172.17..) 問題，也介紹如何修改預設分配 IP 規則避免出現 172.17.. 的</description>
-    </item>
-    
-    <item>
       <title>Docker 無法連線至特定網段 (172.17.x.x)</title>
       <link>https://blog.yowko.com/docker-172-17-ip/</link>
       <pubDate>Sat, 02 Sep 2017 17:00:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/docker-172-17-ip/</guid>
       <description>Docker 無法連線至特定網段 (172.17.x.x) 公司正逐步採用 docker 來進行快速部署，一開始先從 Jenkins、Redis 這類基礎服務著手，在開發環境一切都很順利，加上 docker 的</description>
-    </item>
-    
-    <item>
-      <title>如何取得 Container 所使用的 Ip</title>
-      <link>https://blog.yowko.com/container-ip/</link>
-      <pubDate>Sat, 02 Sep 2017 01:03:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/container-ip/</guid>
-      <description>雖然一般來說都會將 container 的服務透過 port mapping 的動作，讓外部直接透過 docker host ip 來使用 container 所提供的服務，並不需要刻意取得 container 真正使用的 ip 不過為了確認 container 服務正確 container ip</description>
-    </item>
-    
-    <item>
-      <title>在 Windows Server 2016 上使用 Linux Container</title>
-      <link>https://blog.yowko.com/windows-server-2016-linux-container/</link>
-      <pubDate>Fri, 01 Sep 2017 01:40:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/windows-server-2016-linux-container/</guid>
-      <description>在 Windows Server 2016 上使用 Linux Container 想必大家對於 Windows 10 透過簡易的 GUI 就可達到快速切換 Windows container 與 Linux container 的功能非常有印象(詳細內容可以參考 Windows 10 如何啟用 docker 功能)，原本在 Windows Server 2016</description>
     </item>
     
     <item>
@@ -279,15 +234,6 @@
       
       <guid>https://blog.yowko.com/remove-windowsfilter/</guid>
       <description>解決無法刪除 dcoker 在 Windows 下的 image 預設目錄 windowsfilter 之前文章 Widnows 環境中修改 Docker image 的儲存位置 介紹如何修改 Windows 環境中的 docker image 儲存位置，讓 image 可以不需佔用系統槽空間 今天同事反</description>
-    </item>
-    
-    <item>
-      <title>Widnows 環境中修改 Docker image 的儲存位置</title>
-      <link>https://blog.yowko.com/windows-docker-image-location/</link>
-      <pubDate>Fri, 18 Aug 2017 00:06:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/windows-docker-image-location/</guid>
-      <description>Widnows 環境中修改 Docker image 的儲存位置 同事在 pull asp-net image 時，發現系統磁碟空間不足，無法取得 image，所以想修改 image 的預設儲存位置，讓 image 可以不必佔用系統磁碟槽 這</description>
     </item>
     
     <item>

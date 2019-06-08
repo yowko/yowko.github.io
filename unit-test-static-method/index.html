@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="Unit Test 想驗證 private static method 該怎麼做？ - 使用 PrivateType" />
 <meta property="og:description" content="Unit Test 想驗證 private static method 該怎麼做？ - 使用 PrivateType TDD 的第一天課程中就提到，以單元測試的角度 private method 不需單獨進行測試，在驗證 public 及 internal method 的過程中自然會涵蓋到 private or protected me" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/unit-test-static-method/" />
-<meta property="article:published_time" content="2017-06-18T21:26:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/unit-test-static-method/" /><meta property="article:published_time" content="2017-06-18T21:26:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-08-22T21:26:48&#43;08:00"/>
 
 <meta itemprop="name" content="Unit Test 想驗證 private static method 該怎麼做？ - 使用 PrivateType">
@@ -209,7 +208,8 @@ private static string GetNowReturn(string value)
 {
     return $&quot;{DateTime.Today}-{value}&quot;;
 }
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="如何測試">如何測試？</h2>
 
@@ -218,17 +218,14 @@ private static string GetNowReturn(string value)
 </blockquote>
 
 <ol>
-<li>修改 private static 為 internal</li>
-</ol>
+<li><p>修改 private static 為 internal</p>
 
 <pre><code class="language-cs">internal string GetNowReturn(string value)
 {
     return $&quot;{DateTime.Today}-{value}&quot;;
 }
 </code></pre></li>
-</ul>
 
-<ol>
 <li><p>修改測試目標程式的 AssemblyInfo.cs 讓測試專案可以看見 internal method</p>
 
 <ul>
@@ -252,7 +249,8 @@ public void GetNowReturn_Yowko_Return_DateTimeToday_value()
     //assert
     Assert.AreEqual(expected, actual);
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="有其他解決方式嗎-使用-privatetype">有其他解決方式嗎？ - 使用 PrivateType</h2>
 
@@ -263,8 +261,7 @@ public void GetNowReturn_Yowko_Return_DateTimeToday_value()
 </ul>
 
 <ol>
-<li><span style="color:red">不用修改</span> 測試目標程式</li>
-</ol>
+<li><p><span style="color:red">不用修改</span> 測試目標程式</p>
 
 <pre><code class="language-cs">public class ValuesController : ApiController
 {
@@ -288,11 +285,9 @@ private static string GetNowReturn(string value)
 <li><p>建立測試目標程式的 PrivateType 物件</p>
 
 <pre><code class="language-cs">PrivateType target = new PrivateType(typeof(ValuesController));
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>執行測試目標程式的 private static method</li>
-</ol>
+<li><p>執行測試目標程式的 private static method</p>
 
 <pre><code class="language-cs">var actual = target.InvokeStatic(&quot;GetNowReturn&quot;, value);
 </code></pre></li>
@@ -311,7 +306,8 @@ public void GetNowReturn_Yowko_Return_DateTimeToday_value()
     //assert
     Assert.AreEqual(expected, actual);
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
@@ -324,7 +320,6 @@ public void GetNowReturn_Yowko_Return_DateTimeToday_value()
 <ol>
 <li><a href="https://msdn.microsoft.com/en-us/library/microsoft.visualstudio.testtools.unittesting.privatetype%28v=vs.120%29.aspx" target="_blank">PrivateType Class</a></li>
 <li><a href="//blog.yowko.com/2017/06/unit-test-static-field-property.html" target="_blank">Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType</a></li>
-</ol></li>
 </ol>
 
     </div>

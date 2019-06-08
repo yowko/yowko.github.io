@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中" />
 <meta property="og:description" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這個問題前些日子也在網路上掀起熱鬧的討論，相信大家都有各自的喜好，但不可否" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/add-aspnet-identity-empty-project/" />
-<meta property="article:published_time" content="2017-11-05T23:04:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/add-aspnet-identity-empty-project/" /><meta property="article:published_time" content="2017-11-05T23:04:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-27T23:04:26&#43;08:00"/>
 
 <meta itemprop="name" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中">
@@ -276,11 +275,9 @@
 <li><p>建立 <code>CustomUser</code> 並繼承 <code>IdentityUser</code></p>
 
 <pre><code class="language-cs">public class CustomUser: IdentityUser
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>在 <code>CustomUser</code> 中建立 <code>GenerateUserIdentityAsync</code>要方法</li>
-</ol>
+<li><p>在 <code>CustomUser</code> 中建立 <code>GenerateUserIdentityAsync</code>要方法</p>
 
 <pre><code class="language-cs">public async Task&lt;ClaimsIdentity&gt; GenerateUserIdentityAsync(UserManager&lt;CustomUser&gt; manager)
 {
@@ -296,11 +293,9 @@
 </blockquote>
 
 <pre><code class="language-cs">public string Address { get; set; }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>UserModel 完整程式碼</li>
-</ol>
+<li><p>UserModel 完整程式碼</p>
 
 <pre><code class="language-cs">using System.Security.Claims;
 using System.Threading.Tasks;
@@ -330,11 +325,9 @@ namespace AddIdentity.Models
 <pre><code class="language-cs">public class ApplicationDbContext : IdentityDbContext&lt;CustomUser&gt;
 {
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>讓建構子呼叫 base class 建構子並傳入正確連線字串</li>
-</ol>
+<li><p>讓建構子呼叫 base class 建構子並傳入正確連線字串</p>
 
 <blockquote>
 <p>這邊使用 <code>DefaultConnection</code> 當做做範例，請實際情況修改</p>
@@ -351,11 +344,9 @@ namespace AddIdentity.Models
 {
     return new ApplicationDbContext();
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>自訂 DbContext 完整程式碼</li>
-</ol>
+<li><p>自訂 DbContext 完整程式碼</p>
 
 <pre><code class="language-cs">using Microsoft.AspNet.Identity.EntityFramework;
     
@@ -391,11 +382,9 @@ namespace AddIdentity.Models
 <pre><code class="language-cs">public class ApplicationUserManager : UserManager&lt;CustomUser&gt;
 {
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>讓建構子呼叫 base class 建構子</li>
-</ul>
+<li><p>讓建構子呼叫 base class 建構子</p>
 
 <pre><code class="language-cs">public ApplicationUserManager(IUserStore&lt;CustomUser&gt; store): base(store)
 {
@@ -466,11 +455,9 @@ namespace AddIdentity.Models
 <pre><code class="language-cs">public class ApplicationSignInManager : SignInManager&lt;CustomUser, string&gt;
 {
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>建構子呼叫 base class 建構子</li>
-</ul>
+<li><p>建構子呼叫 base class 建構子</p>
 
 <pre><code class="language-cs">public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager): base(userManager, authenticationManager)
 {
@@ -483,11 +470,9 @@ namespace AddIdentity.Models
 {
     return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>建立 Create 方法</li>
-</ul>
+<li><p>建立 Create 方法</p>
 
 <pre><code class="language-cs">public static ApplicationSignInManager Create(IdentityFactoryOptions&lt;ApplicationSignInManager&gt; options, IOwinContext context)
 {
@@ -599,13 +584,13 @@ namespace AddIdentity
         }
     }
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="在-app-start-目錄中加入-startup-auth-cs">在 <code>App_Start</code> 目錄中加入 <code>Startup.Auth.cs</code></h2>
 
 <ol>
-<li>建立 <code>Startup</code> class</li>
-</ol>
+<li><p>建立 <code>Startup</code> class</p>
 
 <pre><code class="language-cs">public partial class Startup
 {
@@ -633,11 +618,9 @@ namespace AddIdentity
     });
     app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>完整程式碼</li>
-</ol>
+<li><p>完整程式碼</p>
 
 <pre><code class="language-cs">using System;
 using AddIdentity.Models;
@@ -687,11 +670,9 @@ namespace AddIdentity
 <pre><code class="language-cs">public partial class Startup
 {
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>加入 Configuration 方法</li>
-</ol>
+<li><p>加入 Configuration 方法</p>
 
 <pre><code class="language-cs">public void Configuration(IAppBuilder app)
 {
@@ -702,11 +683,9 @@ namespace AddIdentity
 <li><p>在 namespace 上加入 <code>OwinStartupAttribute</code></p>
 
 <pre><code class="language-cs">[assembly: OwinStartup(typeof(AddIdentity.Startup))]
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>完整程式碼</li>
-</ol>
+<li><p>完整程式碼</p>
 
 <pre><code class="language-cs">using Microsoft.Owin;
 using Owin;
@@ -733,11 +712,9 @@ namespace AddIdentity
 <pre><code class="language-cs">public class AccountController : Controller
 {
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>加入 <code>SignInManager</code> 與 <code>UserManager</code></li>
-</ol>
+<li><p>加入 <code>SignInManager</code> 與 <code>UserManager</code></p>
 
 <pre><code class="language-cs">private ApplicationSignInManager _signInManager;
 private ApplicationUserManager _userManager;
@@ -765,11 +742,9 @@ public AccountController(ApplicationUserManager userManager, ApplicationSignInMa
     UserManager = userManager;
     SignInManager = signInManager;
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>加入 Register</li>
-</ol>
+<li><p>加入 Register</p>
 
 <pre><code class="language-cs">[AllowAnonymous]
 public ActionResult Register()
@@ -819,11 +794,9 @@ public async Task&lt;ActionResult&gt; Register(RegisterViewModel model)
     [Compare(&quot;Password&quot;, ErrorMessage = &quot;The password and confirmation password do not match.&quot;)]
     public string ConfirmPassword { get; set; }
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>建立 <code>AddErrors</code></li>
-</ol>
+<li><p>建立 <code>AddErrors</code></p>
 
 <pre><code class="language-cs">private void AddErrors(IdentityResult result)
 {
@@ -872,11 +845,9 @@ public async Task&lt;ActionResult&gt; Register(RegisterViewModel model)
         &lt;/div&gt;
     &lt;/div&gt;
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>效果</li>
-</ol>
+<li><p>效果</p>
 
 <ul>
 <li><p>預設使用 CodeFirst 會自動將需要的 table 產生出來</p>
@@ -886,7 +857,8 @@ public async Task&lt;ActionResult&gt; Register(RegisterViewModel model)
 <li><p>自訂的 <code>Address</code> 屬性也已被加入</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/32415900-168bfefa-c27c-11e7-8a98-fcdcb1461656.png" alt="5address" /></p></li>
-</ul>
+</ul></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
@@ -898,7 +870,6 @@ public async Task&lt;ActionResult&gt; Register(RegisterViewModel model)
 
 <ol>
 <li><a href="https://stackoverflow.com/questions/31960433/adding-asp-net-mvc5-identity-authentication-to-an-existing-project" target="_blank">Adding ASP.NET MVC5 Identity Authentication to an existing project</a></li>
-</ol></li>
 </ol>
 
     </div>

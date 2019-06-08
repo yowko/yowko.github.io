@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="httpErrors 與 customErrors 在 ASP.NET MVC 與 ASP.NET WEB API 中的處理方式" />
 <meta property="og:description" content="httpErrors 與 customErrors 在 ASP.NET MVC 與 ASP.NET WEB API 中的處理方式 這是同事遇到的 production issue，大意是設定了 customErrors 後出現 cpu 釘死在 100% 的重大缺失，聽到這樣的描述立馬想到可以藉機練習黑大" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/httperrors-customerrors-mvc-webapi/" />
-<meta property="article:published_time" content="2017-03-10T02:42:34&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/httperrors-customerrors-mvc-webapi/" /><meta property="article:published_time" content="2017-03-10T02:42:34&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-13T00:42:34&#43;08:00"/>
 
 <meta itemprop="name" content="httpErrors 與 customErrors 在 ASP.NET MVC 與 ASP.NET WEB API 中的處理方式">
@@ -275,12 +274,9 @@
   &lt;remove statusCode=&quot;404&quot; subStatusCode=&quot;-1&quot; /&gt;
   &lt;error statusCode=&quot;404&quot; path=&quot;/NotFound&quot; responseMode=&quot;ExecuteURL&quot;/&gt;
 &lt;/httpErrors&gt;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>NotFoundController 的 Index action
-<br /></li>
-</ul>
+<li><p>NotFoundController 的 Index action</p>
 
 <pre><code class="language-cs">public ActionResult Index()
 {
@@ -295,11 +291,11 @@
     //Response.TrySkipIisCustomErrors = true;//用來指定 SetStatus flag
     return HttpNotFound();
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>測試結果截圖</li>
+<li><p>測試結果截圖</p>
 
+<ol>
 <li><p>執行 NotFoundController 的 Index action</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/23617957/cbc200c6-02c9-11e7-83a0-44b4cf4614da.png" alt="2notfound" /></p></li>
@@ -307,9 +303,9 @@
 <li><p>直接吐 404</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/3851540/23617959/cbc80a48-02c9-11e7-9bdb-05e3d3020ea2.png" alt="3404" /></p></li>
+</ol></li>
 
-<li><p>測試結果整理</p></li>
-</ul>
+<li><p>測試結果整理</p>
 
 <table>
 <thead>

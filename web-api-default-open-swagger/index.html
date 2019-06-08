@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="開啟 Web Api Url 時直接導向 Swagger 頁面" />
 <meta property="og:description" content="開啟 Web Api Url 時直接導向 Swagger 頁面 文章 建立 ASP.NET Web API 專案的幾種方式 介紹到選擇適合的專案範本來建立 ASP.NET Web Api 專案以避免預設安裝過多用不到的套件，其中除了完整安" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/web-api-default-open-swagger/" />
-<meta property="article:published_time" content="2017-07-24T22:24:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/web-api-default-open-swagger/" /><meta property="article:published_time" content="2017-07-24T22:24:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-24T22:24:50&#43;08:00"/>
 
 <meta itemprop="name" content="開啟 Web Api Url 時直接導向 Swagger 頁面">
@@ -257,17 +256,13 @@
 <ul>
 <li>route template 完全沒有 request 參數時導向 <code>\swagger</code></li>
 <li>想了解如何轉導，請參考 <a href="https://github.com/domaindrivendev/Swashbuckle/blob/e0053e1864defa3c4f73ca2a960eb876e257cc9e/Swashbuckle.Core/Application/RedirectHandler.cs" target="_blank">RedirectHandler.cs</a></li>
-</ul>
+</ul></li>
 
-<ol>
-<li>Redirect</li>
-</ol>
+<li><p>Redirect</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/28527624-ade2c2a4-70bd-11e7-8b4f-e756cfe69ca2.png" alt="4redirect" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/28527624-ade2c2a4-70bd-11e7-8b4f-e756cfe69ca2.png" alt="4redirect" /></p></li>
 
-<ol>
-<li>優化</li>
-</ol>
+<li><p>優化</p>
 
 <ul>
 <li>從上面的 redirect 流程來看，我們可以發現 <code>/</code> 會 redirect 至 <code>/swagger</code> 再 redirect 至 <code>/swagger/ui/index</code></li>
@@ -283,7 +278,9 @@
 );
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/28527625-ade44372-70bd-11e7-81bb-55c2e65d8b5d.png" alt="5lessredirect" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/28527625-ade44372-70bd-11e7-81bb-55c2e65d8b5d.png" alt="5lessredirect" /></p></li>
+</ul></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
@@ -296,8 +293,6 @@
 <ol>
 <li><a href="https://stackoverflow.com/questions/30028736/how-to-use-swagger-as-welcome-page-of-iappbuilder-in-webapi" target="_blank">How to use Swagger as Welcome Page of IAppBuilder in WebAPI</a></li>
 <li><a href="https://github.com/domaindrivendev/Swashbuckle/blob/e0053e1864defa3c4f73ca2a960eb876e257cc9e/Swashbuckle.Core/Application/RedirectHandler.cs" target="_blank">RedirectHandler.cs</a></li>
-</ol></li>
-</ul></li>
 </ol>
 
     </div>

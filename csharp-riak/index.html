@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 C# 存取 Riak" />
 <meta property="og:description" content="使用 C# 存取 Riak 之前筆記 使用 C# 存取 Cassandra 提到想要將 log 存放至 NoSQL 中而正在嘗試某幾套 NoSQL，現在就來看看 Riak 的使用吧 基本環境說明 在 Windows 上使用 docker 建立 linux 版本 R" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/csharp-riak/" />
-<meta property="article:published_time" content="2019-02-23T20:40:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/csharp-riak/" /><meta property="article:published_time" content="2019-02-23T20:40:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-02-23T20:40:00&#43;08:00"/>
 
 <meta itemprop="name" content="使用 C# 存取 Riak">
@@ -246,12 +245,10 @@
     &lt;/nodes&gt;
 &lt;/riakConfig&gt;
 &lt;/configuration&gt;
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>安裝 <code>RiakClient</code> NuGet 套件
-&gt; 本次測試使用 RiakClient  版本為 <code>2.5.0</code></li>
-</ol>
+<li><p>安裝 <code>RiakClient</code> NuGet 套件
+&gt; 本次測試使用 RiakClient  版本為 <code>2.5.0</code></p>
 
 <ul>
 <li><p>Package Manager</p>
@@ -263,11 +260,9 @@
 
 <pre><code>dotnet add package RiakClient
 </code></pre></li>
-</ul>
+</ul></li>
 
-<ol>
-<li>實際存取 Riak</li>
-</ol>
+<li><p>實際存取 Riak</p>
 
 <ul>
 <li><p>Insert</p>
@@ -284,11 +279,9 @@ var client = cluster.CreateClient();
 var o = new RiakObject(&quot;users&quot;, _user.UserId.ToString(), _user);
 //將資料寫入 riak
 client.Put(o);
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>Select</li>
-</ul>
+<li><p>Select</p>
 
 <pre><code class="language-cs">//從 config 中讀取資料
 var cluster = RiakCluster.FromConfig(&quot;riakConfig&quot;);
@@ -323,16 +316,15 @@ if (result.IsSuccess)
     //更新資料
     var updateResult = client.Put(o);
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>Delete</li>
-</ul>
+<li><p>Delete</p>
 
 <pre><code class="language-cs">//以 key 刪除 users bucket 資料
 var deleteResult = client.Delete(&quot;users&quot;, &quot;40bd4101-4bd5-0d39-3f92-a0575a9670f0&quot;);
 </code></pre></li>
-</ul>
+</ul></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
@@ -356,7 +348,6 @@ var deleteResult = client.Delete(&quot;users&quot;, &quot;40bd4101-4bd5-0d39-3f9
 <li><a href="http://basho.com/products/riak-kv" target="_blank">RIAK KV</a></li>
 <li><a href="https://github.com/basho/riak-dotnet-client" target="_blank">basho/riak-dotnet-client</a></li>
 <li><a href="https://docs.basho.com/riak/kv/2.1.4/developing/getting-started/csharp/crud-operations/" target="_blank">Getting Started: CRUD Operations with C Sharp</a></li>
-</ol></li>
 </ol>
 
     </div>

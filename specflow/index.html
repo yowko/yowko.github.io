@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 SpecFlow 建立人語化的單元測試" />
 <meta property="og:description" content="使用 SpecFlow 建立人語化的單元測試 如何寫出良好可讀性的程式是個持續性的挑戰，也可能是永無止盡的挑戰，而測試程式雖然目的是測試，但終究是程式，也需要具" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/specflow/" />
-<meta property="article:published_time" content="2017-06-13T01:00:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/specflow/" /><meta property="article:published_time" content="2017-06-13T01:00:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-22T11:19:56&#43;08:00"/>
 
 <meta itemprop="name" content="使用 SpecFlow 建立人語化的單元測試">
@@ -264,11 +263,9 @@ SpecFlow+ adds additional functionality to SpecFlow, such as Visual Studio Test 
 <pre><code class="language-xml">&lt;specFlow&gt;
     &lt;unitTestProvider name=&quot;MsTest&quot; /&gt;
 &lt;/specFlow&gt;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>xUnit.net 2.0</li>
-</ul>
+<li><p>xUnit.net 2.0</p>
 
 <pre><code class="language-xml">&lt;specFlow&gt;
     &lt;unitTestProvider name=&quot;xUnit&quot; /&gt;
@@ -383,12 +380,11 @@ Scenario: 兩數相加
 <li><p>加上測試目標</p>
 
 <pre><code class="language-cs">private Calculator target;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>使用 IDE 產生 Calculator class (意圖導向開發)</li>
-<li>建立初始化 target 並加上 <code>[BeforeScenario]</code></li>
-</ul>
+<li><p>使用 IDE 產生 Calculator class (意圖導向開發)</p></li>
+
+<li><p>建立初始化 target 並加上 <code>[BeforeScenario]</code></p>
 
 <pre><code class="language-cs">[BeforeScenario]
 private void Init()
@@ -400,12 +396,12 @@ private void Init()
 <li><p>修改 <code>Given第一個數字輸入</code> 方法參數名稱使其有意義</p>
 
 <pre><code class="language-cs">public void Given第一個數字輸入(int first)
-</code></pre>
+</code></pre></li>
+
+<li><p>修改 <code>Given第一個數字輸入</code> 方法實作</p>
 
 <ul>
-<li><p>修改 <code>Given第一個數字輸入</code> 方法實作</p></li>
-
-<li><p>因為要讓值跨不同 method 使用，所以需要註冊 key 的及內容存進 ScenarioContext</p></li>
+<li>因為要讓值跨不同 method 使用，所以需要註冊 key 的及內容存進 ScenarioContext</li>
 </ul>
 
 <pre><code class="language-cs">ScenarioContext.Current.Set&lt;int&gt;(first, &quot;first&quot;);
@@ -418,11 +414,9 @@ public void Given第二個數字輸入(int second)
 {
     ScenarioContext.Current.Set&lt;int&gt;(second, &quot;second&quot;); 
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>修改 <code>When按下Add</code> 方法實作內容</li>
-</ul>
+<li><p>修改 <code>When按下Add</code> 方法實作內容</p>
 
 <pre><code class="language-cs">[When(@&quot;按下 add&quot;)]
 public void When按下Add()
@@ -444,11 +438,9 @@ public void When按下Add()
 {
     return first + second;
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>修改 <code>Then結果應該為</code> 方法參數名稱及實作</li>
-</ul>
+<li><p>修改 <code>Then結果應該為</code> 方法參數名稱及實作</p>
 
 <pre><code class="language-cs">[Then(@&quot;結果應該為 (.*)&quot;)]
 public void Then結果應該為(int expected)

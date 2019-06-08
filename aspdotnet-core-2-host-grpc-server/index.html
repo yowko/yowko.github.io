@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 ASP.NET Core 2.2 來 Host gRPC Server" />
 <meta property="og:description" content="使用 ASP.NET Core 2.2 來 Host gRPC Server 之前筆記 Protobuf 該如何處理不定型別, .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫, Protobuf 時間屬性該如何表示？ 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" />
-<meta property="article:published_time" content="2019-05-21T21:30:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" /><meta property="article:published_time" content="2019-05-21T21:30:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-05-21T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="使用 ASP.NET Core 2.2 來 Host gRPC Server">
@@ -228,7 +227,8 @@
 <pre><code class="language-xml">&lt;ItemGroup&gt;
     &lt;Protobuf Include=&quot;../../proto/*.proto&quot; OutputDir=&quot;%(RelativePath)&quot; CompileOutputs=&quot;false&quot;/&gt;
 &lt;/ItemGroup&gt;
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="建立-asp-net-core-專案或是將-grpc-server-專案改為-asp-net-core">建立 ASP.NET Core 專案或是將 gRPC.Server 專案改為 ASP.NET Core</h2>
 
@@ -237,7 +237,9 @@
 <h2 id="使用-asp-net-core-host-grpc-server">使用 ASP.NET Core host gRPC Server</h2>
 
 <ol>
-<li>前置準備</li>
+<li><p>前置準備</p>
+
+<ul>
 <li>將 <code>gRPC.Message</code> 專案加入參考</li>
 
 <li><p>複製 <code>gRPCServiceImpl.CS</code></p>
@@ -264,47 +266,45 @@
         );
     }
 }
-</code></pre>
+</code></pre></li>
+</ul></li>
 
-<ol>
-<li>新增 gRPC Server 的啟動 class : <code>gRPCServer.cs</code></li>
-</ol>
+<li><p>新增 gRPC Server 的啟動 class : <code>gRPCServer.cs</code></p>
 
 <pre><code class="language-cs">public class gRPCServer
 {
-public string Host { get; private set; }
-public int Port { get; private set; }
-private readonly Grpc.Core.Server serverInstance;
+    public string Host { get; private set; }
+    public int Port { get; private set; }
+    private readonly Grpc.Core.Server serverInstance;
 
-public gRPCServer(string host, int port, params ServerServiceDefinition[] serverServices)
-{
-    Host = host;
-    Port = port;
-    serverInstance = new Grpc.Core.Server
-    //(
-    //      // channel 設定請自行依專案狀況調整
-    //      new List&lt;ChannelOption&gt;
-    //      {
-    //          new ChannelOption(&quot;grpc.keepalive_permit_without_calls&quot;, 1),
-    //          new ChannelOption(&quot;grpc.http2.max_pings_without_data&quot;, 0)
-    //      }
-    //  )
+    public gRPCServer(string host, int port, params ServerServiceDefinition[] serverServices)
     {
-        Ports =
+        Host = host;
+        Port = port;
+        serverInstance = new Grpc.Core.Server
+        //(
+        //      // channel 設定請自行依專案狀況調整
+        //      new List&lt;ChannelOption&gt;
+        //      {
+        //          new ChannelOption(&quot;grpc.keepalive_permit_without_calls&quot;, 1),
+        //          new ChannelOption(&quot;grpc.http2.max_pings_without_data&quot;, 0)
+        //      }
+        //  )
         {
-            new ServerPort(Host, Port, ServerCredentials.Insecure)
+            Ports =
+            {
+                new ServerPort(Host, Port, ServerCredentials.Insecure)
+            }
+        };
+        foreach (var serverService in serverServices)
+        {
+            serverInstance.Services.Add(serverService);
         }
-    };
-    foreach (var serverService in serverServices)
-    {
-        serverInstance.Services.Add(serverService);
-    }
 
-    serverInstance.Start();
-}
+        serverInstance.Start();
+    }
 }
 </code></pre></li>
-</ol></li>
 
 <li><p>在 <code>Startup.cs</code> 的 <code>ConfigureServices</code> 方法中註冊 gRPC</p>
 
@@ -321,11 +321,9 @@ public gRPCServer(string host, int port, params ServerServiceDefinition[] server
             gRPCService.BindService(Services.GetRequiredService&lt;gRPCService.gRPCServiceBase&gt;())
         ));
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>加入 Jaeger trace</li>
-</ol>
+<li><p>加入 Jaeger trace</p>
 
 <pre><code class="language-cs">public void ConfigureServices(IServiceCollection services)
 {

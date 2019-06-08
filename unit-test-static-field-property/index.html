@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType" />
 <meta property="og:description" content="Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType 自從上完第二次 TDD 課程後，對於新專案的開發充滿著信心，躍躍欲試不算新學到但有新理解的技能，只是過程還是跌跌" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/unit-test-static-field-property/" />
-<meta property="article:published_time" content="2017-06-17T23:18:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/unit-test-static-field-property/" /><meta property="article:published_time" content="2017-06-17T23:18:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-22T15:27:02&#43;08:00"/>
 
 <meta itemprop="name" content="Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType">
@@ -208,23 +207,21 @@
             return Ok();
     }
 }
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="如何測試">如何測試？</h2>
 
 <p>經過三天 TDD 的訓練後，第一眼看到程式碼，我腦中浮現的測試程式大概長得像下面程式</p>
 
 <ol>
-<li>目標程式加入 constructor</li>
-</ol>
+<li><p>目標程式加入 constructor</p>
 
 <pre><code class="language-cs">public ValuesController()
 {
 }
 </code></pre></li>
-</ul>
 
-<ol>
 <li><p>為 static 資源加入 seam</p>
 
 <blockquote>
@@ -236,11 +233,9 @@ public ValuesController()
 {
     logger = LogManager.GetLogger(&quot;ValuesController&quot;);
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>加入允許傳入 ILogger 參數的 constructor 並讓無參數 constructor 呼叫</li>
-</ol>
+<li><p>加入允許傳入 ILogger 參數的 constructor 並讓無參數 constructor 呼叫</p>
 
 <blockquote>
 <p>這邊無參數 constructor 呼叫傳入 ILogger 參數的 constructor 可以讓原本呼叫該 api 的程式碼不用異動</p>
@@ -275,7 +270,8 @@ public void Post_StringEmpty_Return_BadRequest()
     Assert.IsNotNull(actual);
     Assert.IsInstanceOfType(actual, expected);
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="有改善空間嗎">有改善空間嗎？</h2>
 
@@ -286,8 +282,7 @@ public void Post_StringEmpty_Return_BadRequest()
 </ul>
 
 <ol>
-<li><span style="color:red">不用修改</span> 測試目標程式</li>
-</ol>
+<li><p><span style="color:red">不用修改</span> 測試目標程式</p>
 
 <pre><code class="language-cs">public class ValuesController : ApiController
 {
@@ -306,11 +301,9 @@ public void Post_StringEmpty_Return_BadRequest()
 <li><p>使用 <code>NSubstitute</code> 產生 ILogger 虛擬物件</p>
 
 <pre><code class="language-cs">var logger = Substitute.For&lt;ILogger&gt;();
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>建立測試目標程式的 PrivateType 物件</li>
-</ol>
+<li><p>建立測試目標程式的 PrivateType 物件</p>
 
 <pre><code class="language-cs">PrivateType valueController = new PrivateType(typeof(ValuesController));
 </code></pre></li>
@@ -318,11 +311,9 @@ public void Post_StringEmpty_Return_BadRequest()
 <li><p>設定 測試目標程式 static field</p>
 
 <pre><code class="language-cs">valueController.SetStaticFieldOrProperty(&quot;logger&quot;, logger);
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>最終程式碼</li>
-</ol>
+<li><p>最終程式碼</p>
 
 <pre><code class="language-cs">[TestMethod]
 public void Post_StringEmpty_Return_BadRequest()

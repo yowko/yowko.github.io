@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="使用 PageObject(Page Object Pattern) 建立物件導向的 Web UI 測試程式" />
 <meta property="og:description" content="使用 PageObject(Page Object Pattern) 建立物件導向的 Web UI 測試程式 從 使用 Selenium IDE 與 C# 做 Web UI 測試 介紹如何使用 Selenium IDE 錄製網頁操作再轉換為 c# 測試案例，讓測試程式也能觸發 Web UI 的測試驗證" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/pageobject-web-ui-test/" />
-<meta property="article:published_time" content="2017-06-09T21:00:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/pageobject-web-ui-test/" /><meta property="article:published_time" content="2017-06-09T21:00:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-22T21:00:17&#43;08:00"/>
 
 <meta itemprop="name" content="使用 PageObject(Page Object Pattern) 建立物件導向的 Web UI 測試程式">
@@ -260,7 +259,8 @@ namespace UnitTestGitHubProject
         }
     }
 }
-</code></pre>
+</code></pre></li>
+</ul>
 
 <blockquote>
 <p>以下說明會在不同程式間頻繁切換，為了避免混洧會加註程式名稱</p>
@@ -272,24 +272,19 @@ namespace UnitTestGitHubProject
 <pre><code>GitHubLoginPageObject pageobject = new GitHubLoginPageObject(this);
 </code></pre></li>
 
-<li><p><code>測試程式</code> 中使用 IDE 功能產生 <code>GitHubLoginPageObject</code></p></li>
-</ol>
+<li><p><code>測試程式</code> 中使用 IDE 功能產生 <code>GitHubLoginPageObject</code></p>
 
 <blockquote>
 <p>意圖導向程式設計的做法，有助於命名及 api 簡化</p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/26961115-ee510a08-4d0e-11e7-935b-7ec2519b6868.png" alt="2genpageobject" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/26961115-ee510a08-4d0e-11e7-935b-7ec2519b6868.png" alt="2genpageobject" /></p></li>
 
-<ol>
-<li><code>GitHubLoginPageObject</code> 中引用 <code>FluentAutomation</code></li>
-</ol>
+<li><p><code>GitHubLoginPageObject</code> 中引用 <code>FluentAutomation</code></p>
 
 <pre><code class="language-cs">using FluentAutomation;
 </code></pre></li>
-</ul>
 
-<ol>
 <li><p><code>GitHubLoginPageObject</code> 中讓 <code>GitHubLoginPageObject</code> 繼承 <code>PageObject&lt;GitHubLoginObject&gt;</code></p>
 
 <pre><code>internal class GitHubLoginPageObject:PageObject&lt;GitHubLoginPageObject&gt;
@@ -300,11 +295,9 @@ namespace UnitTestGitHubProject
 <pre><code class="language-cs">public GitHubLoginPageObject(FluentTest fluenttest):base(fluenttest) 
 {
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li><code>GitHubLoginPageObject</code> 中建構式中指定該頁面所屬 url</li>
-</ol>
+<li><p><code>GitHubLoginPageObject</code> 中建構式中指定該頁面所屬 url</p>
 
 <blockquote>
 <p>這也可以由測試程式傳入，個人覺得訂在 PageObject 比較符合物件導向：每個頁面都有一個 PageObject，一般情境下各個網頁對應的 PageObject 無法共用，因為網頁元素應該不同</p>
@@ -314,9 +307,8 @@ namespace UnitTestGitHubProject
 {
     this.Url = &quot;https://github.com/&quot;;
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
 <li><p><code>測試程式</code> 中加上 <code>pagobject.Go()</code></p>
 
 <pre><code>pageobject.Go();
@@ -327,8 +319,7 @@ namespace UnitTestGitHubProject
 <pre><code>pageobject.Login(username,password);
 </code></pre></li>
 
-<li><p><code>GitHubLoginPageObject</code> 中將原本測試程式執行網頁的操作移至 GitHubLoginPageObject 的動作內</p></li>
-</ol>
+<li><p><code>GitHubLoginPageObject</code> 中將原本測試程式執行網頁的操作移至 GitHubLoginPageObject 的動作內</p>
 
 <pre><code class="language-cs">internal void Login(string username, string password)
 {
@@ -343,11 +334,9 @@ namespace UnitTestGitHubProject
 <li><p><code>測試程式</code> 中宣告結果頁面的 PageObject 並傳入 <code>this</code> 後透過 Visual Studio 建立 <code>GitHubLoginResult</code></p>
 
 <pre><code class="language-cs">GitHubLoginResult resultpageobject = new GitHubLoginResult(this);
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li><code>GitHubLoginResult</code> 中引用 <code>FluentAutomation</code></li>
-</ol>
+<li><p><code>GitHubLoginResult</code> 中引用 <code>FluentAutomation</code></p>
 
 <pre><code class="language-cs">using FluentAutomation;
 </code></pre></li>
@@ -355,11 +344,9 @@ namespace UnitTestGitHubProject
 <li><p><code>GitHubLoginResult</code> 中讓 <code>GitHubLoginResult</code> 繼承 <code>PageObject&lt;GitHubLoginResult&gt;</code></p>
 
 <pre><code class="language-cs">internal class GitHubLoginResult:PageObject&lt;GitHubLoginResult&gt;
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li><code>GitHubLoginResult</code> 中建立 <code>GitHubLoginResult</code> 的建構式並繼承 base</li>
-</ol>
+<li><p><code>GitHubLoginResult</code> 中建立 <code>GitHubLoginResult</code> 的建構式並繼承 base</p>
 
 <pre><code class="language-cs">public GitHubLoginResult(FluentTest fluenttest):base(fluenttest) 
 {
@@ -369,11 +356,9 @@ namespace UnitTestGitHubProject
 <li><p><code>測試程式</code> 中加入 result pageobject 驗證方法並使用 Visual Studio 產生至 GitHubLoginResult</p>
 
 <pre><code class="language-cs">resultpageobject.VerifyRedirectLink(&quot;https://github.com/&quot;);
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li><code>GitHubLoginResult</code> 中調整驗證方法</li>
-</ol>
+<li><p><code>GitHubLoginResult</code> 中調整驗證方法</p>
 
 <pre><code class="language-cs">internal void VerifyRedirectLink(string url)
 {
@@ -416,11 +401,9 @@ namespace UnitTestGitHubProject
         }
     }
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>GitHubLoginPageObject</li>
-</ul>
+<li><p>GitHubLoginPageObject</p>
 
 <pre><code class="language-cs">using System;
 using FluentAutomation;
@@ -462,13 +445,13 @@ namespace UnitTestGitHubProject
         }
     }
 }
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="其他驗證方式">其他驗證方式</h2>
 
 <ul>
-<li>驗證在 selector 中是否有特定 css class</li>
-</ul>
+<li><p>驗證在 selector 中是否有特定 css class</p>
 
 <pre><code class="language-cs">I.Assert.Class(&quot;{class name}&quot;).Of(&quot;{selector}&quot;);
 </code></pre></li>
@@ -476,11 +459,9 @@ namespace UnitTestGitHubProject
 <li><p>驗證特定的 selector 數量</p>
 
 <pre><code class="language-cs">I.Assert.Count(1).Of(&quot;{selector}&quot;);
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>驗證頁面上是否有特定 selector</li>
-</ul>
+<li><p>驗證頁面上是否有特定 selector</p>
 
 <pre><code class="language-cs">I.Assert.Exists(&quot;{selector}&quot;);
 </code></pre></li>
@@ -489,25 +470,23 @@ namespace UnitTestGitHubProject
 
 <pre><code class="language-cs">var element = I.Find(&quot;input&quot;);
 I.Assert.False(() =&gt; element().IsSelect);
-</code></pre>
+</code></pre></li>
+
+<li><p>驗證 selector 內容是否為指定文字</p>
 
 <ul>
-<li><p>驗證 selector 內容是否為指定文字</p></li>
-
 <li><p>可以用於有 <code>innerHTML</code> 或是可以提供 <code>文字</code> 值的 DOM element 上</p>
 
 <pre><code class="language-cs">I.Assert.Text(&quot;FluentAutomation&quot;).In(&quot;{selector}&quot;);
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</li>
-</ul>
+<li><p>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</p>
 
 <pre><code class="language-cs">I.Assert.Text((text) =&gt; text.Length &gt; 50).In(&quot;{selector}&quot;);
 </code></pre></li>
+</ul></li>
 
-<li><p>驗證匿名函數應該出現 exception</p></li>
-</ul>
+<li><p>驗證匿名函數應該出現 exception</p>
 
 <blockquote>
 <p>用來做反向驗證 &ndash;&gt; 驗證某個 selector 不該存在</p>
@@ -523,11 +502,9 @@ I.Assert.Throws(() =&gt; I.Assert.Exists(&quot;#js-flash-container .flash.flash-
 <li><p>可以使用 selector 選定的 <code>&lt;INPUT&gt;</code>、<code>&lt;TEXTAREA&gt;</code>、<code>&lt;SELECT&gt;</code></p>
 
 <pre><code class="language-cs">I.Assert.Value(10).In(&quot;{selector}&quot;);
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</li>
-</ul>
+<li><p>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</p>
 
 <pre><code class="language-cs">I.Assert.Value((value) =&gt; value.StartsWith(&quot;M&quot;)).In(&quot;{selector}&quot;);
 </code></pre></li>
@@ -537,43 +514,40 @@ I.Assert.Throws(() =&gt; I.Assert.Exists(&quot;#js-flash-container .flash.flash-
 
 <pre><code class="language-cs">var element = I.Find(&quot;select&quot;);
 I.Assert.True(() =&gt; element().IsSelect);
-</code></pre>
+</code></pre></li>
+
+<li><p>驗證瀏覽器是否有 url</p>
 
 <ul>
-<li><p>驗證瀏覽器是否有 url</p></li>
-
 <li><p>可以驗證 <code>string</code> 或是 <code>Uri</code></p>
 
 <pre><code class="language-cs">I.Assert.Url(url);
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</li>
-</ul>
+<li><p>可以用來驗證回傳 <code>true</code>|<code>false</code> 的匿名函式</p>
 
 <pre><code class="language-cs">I.Assert.Url((uri) =&gt; uri.Scheme == &quot;https&quot;);
-</code></pre></li>
-</ul>
+</code></pre>
 
-<h2 id="使用-pageobject-時-assert-該寫在哪裡">使用 PageObject 時 assert 該寫在哪裡？</h2>
+<h2 id="使用-pageobject-時-assert-該寫在哪裡">使用 PageObject 時 assert 該寫在哪裡？</h2></li>
+</ul></li>
+</ul>
 
 <p>目前有兩派做法：可視實際情境來調整</p>
 
 <ol>
-<li>PageObject 也應該包含驗證 ()</li>
-</ol>
+<li><p>PageObject 也應該包含驗證 ()</p>
 
 <blockquote>
 <p>包含驗證可以讓測試程式有效減少重複程式碼</p>
-</blockquote>
+</blockquote></li>
 
-<ol>
-<li>PageObject 僅提供資料，不該驗證</li>
-</ol>
+<li><p>PageObject 僅提供資料，不該驗證</p>
 
 <blockquote>
 <p>驗證邏輯應該是跟著需求，而不是 PageObject，應該避免 PageObject 只是 model 的角色不該與邏輯交錯</p>
-</blockquote>
+</blockquote></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
@@ -584,8 +558,7 @@ I.Assert.True(() =&gt; element().IsSelect);
 <ol>
 <li><a href="https://martinfowler.com/bliki/PageObject.html" target="_blank">PageObject</a></li>
 <li><a href="https://github.com/SeleniumHQ/selenium/wiki/PageObjects" target="_blank">PageObject GitHub</a></li>
-</ol></li>
-</ul>
+</ol>
 
     </div>
 

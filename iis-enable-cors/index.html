@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="IIS 設定啟用 CORS (Cross-Origin Resource Sharing) - 跨來源資源共用" />
 <meta property="og:description" content="IIS 設定啟用 CORS (Cross-Origin Resource Sharing) - 跨來源資源共用 網站工程師或多或少都曾聽過 CORS (Cross-Origin Resource Sharing) - 跨來源資源共用，甚至遇到相關問題，小弟也不例外，只是以往主要都是調整 ASP.NET" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/iis-enable-cors/" />
-<meta property="article:published_time" content="2018-02-02T02:06:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/iis-enable-cors/" /><meta property="article:published_time" content="2018-02-02T02:06:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-10-03T02:06:19&#43;08:00"/>
 
 <meta itemprop="name" content="IIS 設定啟用 CORS (Cross-Origin Resource Sharing) - 跨來源資源共用">
@@ -210,11 +209,11 @@
         url: &quot;http://localhost:8011/test.png&quot;,
     });
 })
-</code></pre>
+</code></pre></li>
+
+<li><p>IIS 未設定啟用 CORS 出現錯誤</p>
 
 <ul>
-<li>IIS 未設定啟用 CORS 出現錯誤</li>
-
 <li><p>錯誤訊息</p>
 
 <pre><code>Failed to load http://localhost:8011/test.png: No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:2165' is therefore not allowed access.
@@ -223,19 +222,17 @@
 <li><p>錯誤截圖</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/35694522-99a0fa72-07bc-11e8-8309-a2b257a0edef.png" alt="1nocors" /></p></li>
+</ul></li>
 </ul>
 
 <h2 id="iis-啟用-cors">IIS 啟用 CORS</h2>
 
 <ol>
-<li>選擇目標 IIS 站台 &ndash;&gt; double click <code>Http Response Header</code></li>
-</ol>
+<li><p>選擇目標 IIS 站台 &ndash;&gt; double click <code>Http Response Header</code></p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/35694524-99d252de-07bc-11e8-8c6b-8c547d575534.png" alt="2httpheader" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/35694524-99d252de-07bc-11e8-8c6b-8c547d575534.png" alt="2httpheader" /></p></li>
 
-<ol>
-<li>Add</li>
-</ol>
+<li><p>Add</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/35694525-9a017e1a-07bc-11e8-9314-aa5a82ca5a02.png" alt="3addheader" /></p>
 
@@ -251,7 +248,8 @@
 
 <p><img src="https://user-images.githubusercontent.com/3851540/35694528-9a5b05d4-07bc-11e8-8f48-df3039f252e0.png" alt="5multipleerror" /></p></li>
 </ul></li>
-</ul>
+</ul></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
@@ -263,8 +261,7 @@
 
 <ol>
 <li><a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS" target="_blank">跨來源資源共享（CORS）</a></li>
-</ol></li>
-</ul>
+</ol>
 
     </div>
 

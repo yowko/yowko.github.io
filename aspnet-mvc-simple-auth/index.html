@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="如何在 ASP.NET MVC 加上簡易表單驗證" />
 <meta property="og:description" content="如何在 ASP.NET MVC 加上簡易表單驗證 以前寫 ASP.NET WebForm 的時，有時候專案規模不需要建立整套的 Membership 功能，有時候幾個開發者小工具 DBA 也不想讓你建那些 table，所以有時" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspnet-mvc-simple-auth/" />
-<meta property="article:published_time" content="2017-03-19T02:43:34&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspnet-mvc-simple-auth/" /><meta property="article:published_time" content="2017-03-19T02:43:34&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-13T00:42:34&#43;08:00"/>
 
 <meta itemprop="name" content="如何在 ASP.NET MVC 加上簡易表單驗證">
@@ -67,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2017-03-19T02:43:34&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-13T00:42:34&#43;08:00" />
-<meta itemprop="wordCount" content="973">
+<meta itemprop="wordCount" content="975">
 
 
 
@@ -147,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2017-03-19 </span>
         
-        <span class="more-meta"> 約 973 字 </span>
+        <span class="more-meta"> 約 975 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -200,12 +199,9 @@
 <pre><code class="language-xml">&lt;system.web&gt;
     &lt;authentication mode=&quot;Forms&quot;&gt;
 &lt;/system.web&gt;
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>避免移除 FormsAuthentication modules
-<br /></li>
-</ol>
+<li><p>避免移除 FormsAuthentication modules</p>
 
 <blockquote>
 <p>ASP.NET MVC 5 開始預設使用 ASP.NET Identity，因此專案範本預設會移除 FormsAuthentication modules</p>
@@ -230,12 +226,9 @@
     &lt;/forms&gt;
     &lt;/authentication&gt;
 &lt;/system.web&gt;
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>加上 crendential 登入資訊
-<br /></li>
-</ol>
+<li><p>加上 crendential 登入資訊</p>
 
 <ul>
 <li><p>指定 crendential 的 passwordFormat</p>
@@ -281,17 +274,19 @@
     &lt;compilation debug=&quot;true&quot; targetFramework=&quot;4.6.2&quot; /&gt;
     &lt;httpRuntime targetFramework=&quot;4.6.2&quot; /&gt;
 &lt;/system.web&gt;
-</code></pre>
-
-<h2 id="加上登入-action">加上登入 action</h2>
-
-<pre><code class="language-cs">public ActionResult Login()
-{
-return View();
-}
 </code></pre></li>
 </ul></li>
 </ol>
+
+<h2 id="加上登入-action">加上登入 action</h2>
+
+<pre><code>```cs
+public ActionResult Login()
+{
+    return View();
+}
+```
+</code></pre>
 
 <h2 id="加上登入頁面">加上登入頁面</h2>
 
@@ -312,12 +307,9 @@ return View();
 <li><p>需引用 System.Web.Security NameSpace</p>
 
 <pre><code class="language-cs">using System.Web.Security;
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>使用 FormsAuthentication.Authenticate 驗證
-<br /></li>
-</ul>
+<li><p>使用 FormsAuthentication.Authenticate 驗證</p>
 
 <pre><code class="language-cs">FormsAuthentication.Authenticate(user.username, user.password)
 </code></pre></li>
@@ -325,11 +317,9 @@ return View();
 <li><p>將驗證資訊寫入 cookie ，讓 ASP.NET MVC 也認得已通過驗證</p>
 
 <pre><code class="language-cs">FormsAuthentication.SetAuthCookie(user.username, false);
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>範例</li>
-</ul>
+<li><p>範例</p>
 
 <pre><code class="language-cs">[HttpPost]
 [ValidateAntiForgeryToken]
@@ -343,12 +333,12 @@ public ActionResult Login(UserLogin user)
     }
     return View();
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="心得">心得</h2>
 
-<p>這個簡易驗證功能附屬於 FormsAuthentication module 中，因為已有後繼版本 - ASP.NET Idnetity ，我想更新的機會不高，功能應該滿穩定的但有個大問題是密碼儲存的加密方式，就算是使用支援的最安全加密方式：SHA1，也已證實被攻破不再曠日費時，所以建議不要把重要的功能套上這樣簡易的驗證方式</p>
+<p>這個簡易驗證功能附屬於 FormsAuthentication module 中，因為已有後繼版本 - ASP.NET Idnetity ，我想更新的機會不高，功能應該滿穩定的但有個大問題是密碼儲存的加密方式，就算是使用支援的最安全加密方式：SHA1，也已證實被攻破不再曠日費時，所以建議不要把重要的功能套上這樣簡易的驗證方式</p></li>
+</ul>
 
 <h1 id="參考資訊">參考資訊</h1>
 

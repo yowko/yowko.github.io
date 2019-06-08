@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="如何知道使用的 dll 是否需以 32 位元模式執行" />
 <meta property="og:description" content="如何知道使用的 dll 是否需以 32 位元模式執行 最近因為年度計畫預計做些 Windows server OS 的升級作業，將大部份 OS 升級為 Windows Server 2016，也順便整理 server 上的 applica" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/detect-dll-require-32bit/" />
-<meta property="article:published_time" content="2018-05-08T09:57:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/detect-dll-require-32bit/" /><meta property="article:published_time" content="2018-05-08T09:57:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-05-08T09:57:26&#43;08:00"/>
 
 <meta itemprop="name" content="如何知道使用的 dll 是否需以 32 位元模式執行">
@@ -67,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2018-05-08T09:57:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-05-08T09:57:26&#43;08:00" />
-<meta itemprop="wordCount" content="2624">
+<meta itemprop="wordCount" content="2619">
 
 
 
@@ -147,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-05-08 </span>
         
-        <span class="more-meta"> 約 2624 字 </span>
+        <span class="more-meta"> 約 2619 字 </span>
           <span class="more-meta"> 預計閱讀 6 分鐘 </span>
         
       </div>
@@ -198,11 +197,11 @@
 <li><p>使用方式</p>
 
 <pre><code class="language-bash">dumpbin.exe /headers {檔案}
-</code></pre>
+</code></pre></li>
+
+<li><p>實際使用</p>
 
 <ul>
-<li>實際使用</li>
-
 <li><p><code>System.Data.dll</code></p>
 
 <ul>
@@ -276,8 +275,9 @@ OPTIONAL HEADER VALUES
             0 [       0] RVA [size] of Reserved Directory
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/39715721-c55a85ea-5260-11e8-895c-1374bca2dfa7.png" alt="1dumpbinsystemdata" />
-- 不需 32 位元模式</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/39715721-c55a85ea-5260-11e8-895c-1374bca2dfa7.png" alt="1dumpbinsystemdata" /></p></li>
+
+<li><p>不需 32 位元模式</p>
 
 <pre><code>Dump of file D:\Test\System.Data_ok.dll
 
@@ -504,6 +504,7 @@ OPTIONAL HEADER VALUES
 
 <p><img src="https://user-images.githubusercontent.com/3851540/39715724-c5d5b88c-5260-11e8-89a8-6035c798d279.png" alt="4dumpbinoracle" /></p></li>
 </ul></li>
+</ul></li>
 </ul>
 
 <h2 id="使用-corflags-span-style-color-red-個人測試下不一定可以識別是否需要-32-位元模式-span">使用 CorFlags：<span style="color:red">個人測試下不一定可以識別是否需要 32 位元模式</span></h2>
@@ -513,9 +514,7 @@ OPTIONAL HEADER VALUES
 </blockquote>
 
 <ul>
-<li>判斷基準
-<br /></li>
-</ul>
+<li><p>判斷基準</p>
 
 <table>
 <thead>
@@ -545,11 +544,11 @@ OPTIONAL HEADER VALUES
 <td align="left">0</td>
 </tr>
 </tbody>
-</table>
+</table></li>
+
+<li><p>實際使用</p>
 
 <ul>
-<li>實際使用</li>
-
 <li><p><code>System.Data.dll</code></p>
 
 <ul>
@@ -629,14 +628,13 @@ Signed    : 1
 
 <p><img src="https://user-images.githubusercontent.com/3851540/39715730-c683bcac-5260-11e8-9cb4-8c461d341e92.png" alt="8corflagoracle" /></p></li>
 </ul></li>
+</ul></li>
 </ul>
 
 <h2 id="使用-powershell-span-style-color-red-勉強可識別是否需要-32-位元模式-span">使用 powershell：<span style="color:red">勉強可識別是否需要 32 位元模式</span></h2>
 
 <ul>
-<li>ProcessorArchitecture
-<br /></li>
-</ul>
+<li><p>ProcessorArchitecture</p>
 
 <table>
 <thead>
@@ -677,11 +675,11 @@ Signed    : 1
 <td align="left">32-bit Intel 處理器, 或是 64-bit 平台上 Windows on Windows 環境(WOW64).</td>
 </tr>
 </tbody>
-</table>
+</table></li>
+
+<li><p>實際使用</p>
 
 <ul>
-<li>實際使用</li>
-
 <li><p><code>System.Data.dll</code></p>
 
 <ul>
@@ -707,8 +705,9 @@ KeyPair               :
 FullName              : System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/39715731-c6af75a4-5260-11e8-9b1a-632b027f90e4.png" alt="9pssystemdata" />
-- 不需要 32 位元模式</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/39715731-c6af75a4-5260-11e8-9b1a-632b027f90e4.png" alt="9pssystemdata" /></p></li>
+
+<li><p>不需要 32 位元模式</p>
 
 <pre><code class="language-ps1">PS C:\Users\yowko.tsai&gt; $dllpath=&quot;d:\TEST\System.Data_ok.dll&quot;
 
@@ -759,8 +758,9 @@ KeyPair               :
 FullName              : Oracle.DataAccess, Version=2.111.7.0, Culture=neutral, PublicKeyToken=89b483f429c47342
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/39715734-c7248056-5260-11e8-8998-c9a7ac0c115e.png" alt="11psoracle" />
-- 不需要 32 位元模式</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/39715734-c7248056-5260-11e8-8998-c9a7ac0c115e.png" alt="11psoracle" /></p></li>
+
+<li><p>不需要 32 位元模式</p>
 
 <pre><code class="language-ps1">PS C:\Users\yowko.tsai&gt; $dllpath=&quot;d:\TEST\Oracle.DataAccess_ok.dll&quot;
 
@@ -784,13 +784,15 @@ FullName              : Oracle.DataAccess, Version=2.112.1.0, Culture=neutral, P
 
 <p><img src="https://user-images.githubusercontent.com/3851540/39715735-c74f7766-5260-11e8-9d7b-86f1ba68190f.png" alt="12psoracle" /></p></li>
 </ul></li>
+</ul></li>
 </ul>
 
 <h2 id="使用-c-span-style-color-red-可識別是否需要-32-位元模式-span">使用 c#：<span style="color:red">可識別是否需要 32 位元模式</span></h2>
 
 <ul>
-<li>實際使用</li>
+<li><p>實際使用</p>
 
+<ul>
 <li><p><code>System.Data.dll</code></p>
 
 <ul>
@@ -802,8 +804,9 @@ assembly.ManifestModule.GetPEKind(out PortableExecutableKinds peKind, out ImageF
 peKind.Dump();
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/39715736-c77b7848-5260-11e8-9911-8863abee38f7.png" alt="13cssystemdata" />
-- 不需要 32 位元模式</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/39715736-c77b7848-5260-11e8-9911-8863abee38f7.png" alt="13cssystemdata" /></p></li>
+
+<li><p>不需要 32 位元模式</p>
 
 <pre><code class="language-cs">string dllpath = @&quot;D:\Test\System.Data_ok.dll&quot;;
 Assembly assembly = Assembly.ReflectionOnlyLoadFrom(dllpath);
@@ -825,8 +828,9 @@ assembly.ManifestModule.GetPEKind(out PortableExecutableKinds peKind, out ImageF
 peKind.Dump();
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/39715740-c7cb025a-5260-11e8-8f45-7f339d698ab7.png" alt="15csoracle" />
-- 不需要 32 位元模式</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/39715740-c7cb025a-5260-11e8-8f45-7f339d698ab7.png" alt="15csoracle" /></p></li>
+
+<li><p>不需要 32 位元模式</p>
 
 <pre><code class="language-cs">string dllpath = @&quot;D:\Test\Oracle.DataAccess_ok.dll&quot;;
 Assembly assembly = Assembly.ReflectionOnlyLoadFrom(dllpath);
@@ -835,6 +839,7 @@ peKind.Dump();
 </code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/39715742-c7f29586-5260-11e8-9c49-668d4a1de62d.png" alt="16csoracle" /></p></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -852,8 +857,7 @@ peKind.Dump();
 <li><a href="https://msdn.microsoft.com/library/system.reflection.processorarchitecture" target="_blank">ProcessorArchitecture 列舉</a></li>
 <li><a href="https://stackoverflow.com/questions/270531/how-to-determine-if-a-net-assembly-was-built-for-x86-or-x64" target="_blank">How to determine if a .NET assembly was built for x86 or x64?</a></li>
 <li><a href="https://msdn.microsoft.com/zh-tw/library/system.reflection.portableexecutablekinds%28v=vs.110%29.aspx" target="_blank">PortableExecutableKinds 列舉</a></li>
-</ol></li>
-</ul>
+</ol>
 
     </div>
 

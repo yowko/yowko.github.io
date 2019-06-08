@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="ASP.NET Identity 如何依據不同用途設定個別 Token 時效" />
 <meta property="og:description" content="ASP.NET Identity 如何依據不同用途設定個別 Token 時效 之前曾經筆記中 改 ASP.NET Identity 2 的 Token 時效 紀錄到 ASP.NET Identity 預設的 token 時效及調整方式。在專案實際使用時，user 提出其他需求：依" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/multiple-tokenlifespan/" />
-<meta property="article:published_time" content="2018-04-03T01:04:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/multiple-tokenlifespan/" /><meta property="article:published_time" content="2018-04-03T01:04:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-10-04T01:04:26&#43;08:00"/>
 
 <meta itemprop="name" content="ASP.NET Identity 如何依據不同用途設定個別 Token 時效">
@@ -217,11 +216,9 @@
         return manager;
     }
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>完整檔案內容</li>
-</ul>
+<li><p>完整檔案內容</p>
 
 <pre><code class="language-cs">using System;
 using System.Security.Claims;
@@ -358,11 +355,9 @@ namespace DemoIdentity
 <li><p>新增內容 (新增至 <code>ConfigureAuth</code> 方法中)</p>
 
 <pre><code class="language-cs">app.CreatePerOwinContext&lt;MailUserManager&gt;(MailUserManager.Create);
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>完整檔案內容</li>
-</ul>
+<li><p>完整檔案內容</p>
 
 <pre><code class="language-cs">using System;
 using Microsoft.AspNet.Identity;
@@ -490,11 +485,9 @@ public async Task&lt;ActionResult&gt; Register(RegisterViewModel model)
     // If we got this far, something failed, redisplay form
     return View(model);
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>對應的 <code>ConfirmEmail</code> 也需調整</li>
-</ul>
+<li><p>對應的 <code>ConfirmEmail</code> 也需調整</p>
 
 <pre><code class="language-cs">[AllowAnonymous]
 public async Task&lt;ActionResult&gt; ConfirmEmail(string userId, string code)
@@ -545,11 +538,9 @@ public virtual async Task&lt;bool&gt; VerifyEmailResetTokenAsync(string purpose,
     }
     return await tokenprovider.ValidateAsync(purpose, token, this, user).WithCurrentCulture&lt;bool&gt;();
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>修改 <code>Create</code> 方法，加入以下程式碼</li>
-</ul>
+<li><p>修改 <code>Create</code> 方法，加入以下程式碼</p>
 
 <pre><code class="language-cs">tokenprovider = new Microsoft.AspNet.Identity.Owin.DataProtectorTokenProvider&lt;ApplicationUser&gt;(options.DataProtectionProvider.Create(&quot;ASP.NET Identity&quot;))
 {
@@ -728,11 +719,9 @@ public async Task&lt;ActionResult&gt; ForgotPassword(ForgotPasswordViewModel mod
     // If we got this far, something failed, redisplay form
     return View(model);
 }
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>實際 ResetPassword 也需要調整</li>
-</ul>
+<li><p>實際 ResetPassword 也需要調整</p>
 
 <pre><code class="language-cs">[AllowAnonymous]
 public ActionResult ResetPassword(string code, string userId)
@@ -899,11 +888,9 @@ namespace DemoIdentity.Extension
         }
     }
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>IdentityConfig.cs 使用自訂 DataProtectorTokenProvider - <code>DataProtectorTokenProviderEx</code></li>
-</ol>
+<li><p>IdentityConfig.cs 使用自訂 DataProtectorTokenProvider - <code>DataProtectorTokenProviderEx</code></p>
 
 <pre><code class="language-cs">if (dataProtectionProvider != null)
 {

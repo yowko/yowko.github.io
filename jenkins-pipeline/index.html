@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="Jenkins 2 如何建立 Pipeline job" />
 <meta property="og:description" content="Jenkins 2 如何建立 Pipeline job Pipeline 是 Jenkins 2 的一大特色，其概念就是將建置流程步驟透過 DSL(Domain-Specific Languages) 來定義與描述，使用的語法是 groovy，但如果只為了 build job 而刻意學 goovy 個人擔" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/jenkins-pipeline/" />
-<meta property="article:published_time" content="2017-02-22T01:42:34&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/jenkins-pipeline/" /><meta property="article:published_time" content="2017-02-22T01:42:34&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-12T00:42:34&#43;08:00"/>
 
 <meta itemprop="name" content="Jenkins 2 如何建立 Pipeline job">
@@ -250,12 +249,9 @@ do
     Start-Sleep -Seconds 1
 }
 until ( Invoke-Command -ComputerName  $env:serverIP -ScriptBlock { (Get-WebAppPoolState -Name $args[0]).Value -eq &quot;Stopped&quot; } -argumentlist $env:siteName  )
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>在 Windows PowerShell 要取用定義在 Jenkins 的變數，記得在 變數前面加上 <code>$env:</code>
-<br /></li>
-</ul></li>
+<li><p>在 Windows PowerShell 要取用定義在 Jenkins 的變數，記得在 變數前面加上 <code>$env:</code></p></li>
 </ul></li>
 </ul></li>
 

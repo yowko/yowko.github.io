@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="ASP.NET Identity 2 使用 EntityFramework 搭配 Oracle" />
 <meta property="og:description" content="ASP.NET Identity 2 使用 EntityFramework 搭配 Oracle 相信開發 ASP.NET 比較久的朋友都曾經聽過甚至是用過 ASP.NET Membership - ASP.NET 2.0 時期的預設使用者權限管理系統，但也相信不少人對它深惡痛絕，不可否認以現" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspnet-identity-2-entityframework-oracle/" />
-<meta property="article:published_time" content="2017-09-30T01:01:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspnet-identity-2-entityframework-oracle/" /><meta property="article:published_time" content="2017-09-30T01:01:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-26T01:01:23&#43;08:00"/>
 
 <meta itemprop="name" content="ASP.NET Identity 2 使用 EntityFramework 搭配 Oracle">
@@ -67,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2017-09-30T01:01:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-26T01:01:23&#43;08:00" />
-<meta itemprop="wordCount" content="1104">
+<meta itemprop="wordCount" content="1106">
 
 
 
@@ -147,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2017-09-30 </span>
         
-        <span class="more-meta"> 約 1104 字 </span>
+        <span class="more-meta"> 約 1106 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -317,13 +316,15 @@ ALTER TABLE &quot;AspNetUserLogins&quot;
 </ul>
 
 <pre><code class="language-xml">&lt;add name=&quot;DefaultConnection&quot; providerName=&quot;Oracle.ManagedDataAccess.Client&quot; connectionString=&quot;User Id=TestIdentity;Password=password;Data Source=localhost:1521/XE&quot;/&gt;
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="將-db-table-與程式-class-綁定">將 db table 與程式 class 綁定</h2>
 
 <p>修改 <code>ApplicationDbContext</code>，加入 override <code>OnModelCreating</code> 方法</p>
 
-<pre><code class="language-sql">protected override void OnModelCreating(DbModelBuilder modelBuilder)
+<pre><code>```sql
+protected override void OnModelCreating(DbModelBuilder modelBuilder)
 {
     //這必需在第一行
     base.OnModelCreating(modelBuilder);
@@ -336,8 +337,8 @@ ALTER TABLE &quot;AspNetUserLogins&quot;
     modelBuilder.Entity&lt;IdentityUserClaim&gt;().ToTable(&quot;AspNetUserClaims&quot;);
     modelBuilder.Entity&lt;IdentityUserLogin&gt;().ToTable(&quot;AspNetUserLogins&quot;);
 }
-</code></pre></li>
-</ol>
+```
+</code></pre>
 
 <ul>
 <li><p>如果出現 <code>ORA-01918: user 'xx' does not exist</code> 請先檢查 HasDefaultSchema 設定</p>
@@ -370,21 +371,20 @@ ALTER TABLE &quot;AspNetUserLogins&quot;
         modelBuilder.Entity&lt;IdentityUserLogin&gt;().ToTable(&quot;AspNetUserLogins&quot;);
     }
 }
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="設定完成">設定完成</h2>
 
 <ol>
-<li>直接 Register</li>
+<li><p>直接 Register</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/31026764-2ebe6720-a57a-11e7-9593-59c31a856e63.png" alt="6register" /></p></li>
+
+<li><p>順利登入也成功將資料寫至 Oracle</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/31026765-2ed73f7a-a57a-11e7-8f30-3472f481d4fe.png" alt="6result" /></p></li>
 </ol>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/31026764-2ebe6720-a57a-11e7-9593-59c31a856e63.png" alt="6register" /></p>
-
-<ol>
-<li>順利登入也成功將資料寫至 Oracle</li>
-</ol>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/31026765-2ed73f7a-a57a-11e7-8f30-3472f481d4fe.png" alt="6result" /></p>
 
 <h2 id="心得">心得</h2>
 
@@ -397,8 +397,7 @@ ALTER TABLE &quot;AspNetUserLogins&quot;
 <li><a href="https://docs.microsoft.com/en-us/aspnet/identity/overview/getting-started/introduction-to-aspnet-identity" target="_blank">Introduction to ASP.NET Identity</a></li>
 <li><a href="http://fatlinuxguy.blogspot.tw/2012/01/oracle.html" target="_blank">Oracle 用戶、對象權限、系統權限</a></li>
 <li><a href="https://www.oschina.net/question/12_27650" target="_blank">在 Windows 下安裝 Oracle 11g XE (Express Edition)</a></li>
-</ol></li>
-</ul>
+</ol>
 
     </div>
 

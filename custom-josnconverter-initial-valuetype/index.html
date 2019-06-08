@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性" />
 <meta property="og:description" content="客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性 同事負責的專案原本使用 XML 做為資料傳遞的媒介，為了縮小網路傳輸封包，所以改用 json，而這個動作讓原本正常運行的功能" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/custom-josnconverter-initial-valuetype/" />
-<meta property="article:published_time" content="2017-07-07T21:00:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/custom-josnconverter-initial-valuetype/" /><meta property="article:published_time" content="2017-07-07T21:00:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-23T14:17:40&#43;08:00"/>
 
 <meta itemprop="name" content="客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性">
@@ -209,11 +208,9 @@
     public IEnumerable&lt;T&gt; TestEnum { get; set; }
     public int[] Products{ get; set; }
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>使用方式</li>
-</ol>
+<li><p>使用方式</p>
 
 <blockquote>
 <p>以下使用 LINQPad demo</p>
@@ -318,11 +315,9 @@ foreach (var element in propInfos)
         }
     }
 }
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>完整程式碼</li>
-</ol>
+<li><p>完整程式碼</p>
 
 <pre><code class="language-cs">public class InitialJsonConvert : JsonConverter
 {
@@ -430,11 +425,9 @@ JsonConvert.SerializeObject(user).Dump();
 JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented, new InitialJsonConvert(user.GetType())).Dump();
 // 輸出經過自訂 serialize 的 user (value type 已被初始化)
 user.Dump();
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>輸出結果</li>
-</ul>
+<li><p>輸出結果</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/27953764-9a9eb2f6-633f-11e7-88a2-a9c60a1468b3.png" alt="2result" /></p></li>
 </ul></li>

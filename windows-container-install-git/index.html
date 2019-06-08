@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.51" />
 
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
@@ -57,8 +57,7 @@
 <meta property="og:title" content="為 Windows Container 安裝 Git - Part2" />
 <meta property="og:description" content="為 Windows Container 安裝 Git - Part2 昨天提到同事想要在 Windows Container 上安裝 Git 當做 base image 再用來擴充其他功能，但沒辦法直接安裝，所以在 為 Windows Container 安裝 Git 介紹到透過 Chocolatey 安裝 Git 的做法 雖然知" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/windows-container-install-git/" />
-<meta property="article:published_time" content="2019-02-19T20:40:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/windows-container-install-git/" /><meta property="article:published_time" content="2019-02-19T20:40:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-02-19T20:40:30&#43;08:00"/>
 
 <meta itemprop="name" content="為 Windows Container 安裝 Git - Part2">
@@ -67,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2019-02-19T20:40:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-02-19T20:40:30&#43;08:00" />
-<meta itemprop="wordCount" content="434">
+<meta itemprop="wordCount" content="432">
 
 
 
@@ -147,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-02-19 </span>
         
-        <span class="more-meta"> 約 434 字 </span>
+        <span class="more-meta"> 約 432 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -238,16 +237,16 @@ RUN [&quot;c:/setup/Git-2.20.1-64-bit.exe&quot;,&quot;/VERYSILENT&quot;]
 <li><p>格式</p>
 
 <pre><code class="language-cmd">docker build {dockerfile folder} -t {repository:tag}
+</code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-cmd">docker build c:\WinContainerGit -t windowswithgit:v2
 </code></pre>
 
-<ul>
-<li>範例
-<code>cmd
-docker build c:\WinContainerGit -t windowswithgit:v2
-</code>
-<br />
-&gt; <code>c:\WinContainerGit</code> 為放 <code>dockerfile</code> 檔案的資料夾</li>
-</ul></li>
+<blockquote>
+<p><code>c:\WinContainerGit</code> 為放 <code>dockerfile</code> 檔案的資料夾</p>
+</blockquote></li>
 </ul>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/53022598-7558bf80-3496-11e9-9baf-a1f2912cf1a5.png" alt="3buildimage" /></p></li>
@@ -257,7 +256,8 @@ docker build c:\WinContainerGit -t windowswithgit:v2
 <pre><code class="language-cmd">docker run -it windowswithgit:v2 git --version
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/52961640-601c5c00-33d6-11e9-9edc-dfb6abd45704.png" alt="1gitversion" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/52961640-601c5c00-33d6-11e9-9edc-dfb6abd45704.png" alt="1gitversion" /></p></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
@@ -271,7 +271,6 @@ docker build c:\WinContainerGit -t windowswithgit:v2
 <li><a href="https://blog.yowko.com/windows-container-git" target="_blank">為 Windows Container 安裝 Git</a></li>
 <li><a href="https://git-scm.com/download/win" target="_blank">Git for Windows</a></li>
 <li><a href="https://superuser.com/a/1112382" target="_blank">Git For Windows Silent Install Silent Arguments</a></li>
-</ol></li>
 </ol>
 
     </div>
