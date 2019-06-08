@@ -6,10 +6,28 @@
     <description>Recent content in Kafka on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 02 Jun 2019 19:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 07 Jun 2019 23:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>調整 Kafka 中 Topic 的 Partition 數量</title>
+      <link>https://blog.yowko.com/change-kafka-topic-partition/</link>
+      <pubDate>Fri, 07 Jun 2019 23:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/change-kafka-topic-partition/</guid>
+      <description>調整 Kafka 中 Topic 的 Partition 數量 最近積極在針對 Kafka 做些設定調整與效能測試，其中也包含了 Topic 的 Partition 數量產生的影響，也就常常需要調整 Topic 中的 Partition 數量來檢視對效能的影響，</description>
+    </item>
+    
+    <item>
+      <title>建立 Kafka 的 Topic</title>
+      <link>https://blog.yowko.com/create-kafka-topic/</link>
+      <pubDate>Fri, 07 Jun 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/create-kafka-topic/</guid>
+      <description>調整 Kafka 中 Topic 的 Partition 數量 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka</description>
+    </item>
     
     <item>
       <title>Kafka Producer 不同壓縮方式對發送速度的影響</title>
