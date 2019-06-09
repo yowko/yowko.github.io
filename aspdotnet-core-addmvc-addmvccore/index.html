@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>調整 Kafka 中 Topic 的 Partition 數量 - Yowko&#39;s Notes</title>
+  <title>ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="調整 Kafka 中 Topic 的 Partition 數量 最近積極在針對 Kafka 做些設定調整與效能測試，其中也包含了 Topic 的 Partition 數量產生的影響，也就常常需要調整 Topic 中的 Partition 數量來檢視對效能的影響，" />
+  <meta name="description" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 ASP.NET Core 將過去 ASP.NET MVC 與 ASP.NET Web API 兩套 framework 整合在一起，對於開發人員是種福音：不用再想到底該引用哪個 NameSpace、不用再為該繼承哪個" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/change-kafka-topic-partition/" />
+<link rel="canonical" href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="調整 Kafka 中 Topic 的 Partition 數量" />
-<meta property="og:description" content="調整 Kafka 中 Topic 的 Partition 數量 最近積極在針對 Kafka 做些設定調整與效能測試，其中也包含了 Topic 的 Partition 數量產生的影響，也就常常需要調整 Topic 中的 Partition 數量來檢視對效能的影響，" />
+<meta property="og:title" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別" />
+<meta property="og:description" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 ASP.NET Core 將過去 ASP.NET MVC 與 ASP.NET Web API 兩套 framework 整合在一起，對於開發人員是種福音：不用再想到底該引用哪個 NameSpace、不用再為該繼承哪個" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/change-kafka-topic-partition/" /><meta property="article:published_time" content="2019-06-07T23:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-06-07T23:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore/" /><meta property="article:published_time" content="2019-06-08T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-06-08T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="調整 Kafka 中 Topic 的 Partition 數量">
-<meta itemprop="description" content="調整 Kafka 中 Topic 的 Partition 數量 最近積極在針對 Kafka 做些設定調整與效能測試，其中也包含了 Topic 的 Partition 數量產生的影響，也就常常需要調整 Topic 中的 Partition 數量來檢視對效能的影響，">
-
-
-<meta itemprop="datePublished" content="2019-06-07T23:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-06-07T23:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="365">
+<meta itemprop="name" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別">
+<meta itemprop="description" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 ASP.NET Core 將過去 ASP.NET MVC 與 ASP.NET Web API 兩套 framework 整合在一起，對於開發人員是種福音：不用再想到底該引用哪個 NameSpace、不用再為該繼承哪個">
 
 
+<meta itemprop="datePublished" content="2019-06-08T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-08T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="485">
 
-<meta itemprop="keywords" content="Kafka,C#," />
+
+
+<meta itemprop="keywords" content="ASP.NET Core," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="調整 Kafka 中 Topic 的 Partition 數量"/>
-<meta name="twitter:description" content="調整 Kafka 中 Topic 的 Partition 數量 最近積極在針對 Kafka 做些設定調整與效能測試，其中也包含了 Topic 的 Partition 數量產生的影響，也就常常需要調整 Topic 中的 Partition 數量來檢視對效能的影響，"/>
+<meta name="twitter:title" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別"/>
+<meta name="twitter:description" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 ASP.NET Core 將過去 ASP.NET MVC 與 ASP.NET Web API 兩套 framework 整合在一起，對於開發人員是種福音：不用再想到底該引用哪個 NameSpace、不用再為該繼承哪個"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-06-07 </span>
+        <span class="post-time"> 2019-06-08 </span>
         
-        <span class="more-meta"> 約 365 字 </span>
+        <span class="more-meta"> 約 485 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -160,11 +160,12 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li>
+<li><a href="#asp-net-core-中-addmvc-與-addmvccore-的差別">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</a>
 <ul>
-<li><a href="#調整-kafka-中-topic-的-partition-數量">調整 Kafka 中 Topic 的 Partition 數量</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#調整方式">調整方式</a></li>
+<li><a href="#addmvccore">AddMvcCore</a></li>
+<li><a href="#addmvc">AddMvc</a></li>
+<li><a href="#trace-code">trace code</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,87 +181,138 @@
     <div class="post-content">
       
 
-<h2 id="調整-kafka-中-topic-的-partition-數量">調整 Kafka 中 Topic 的 Partition 數量</h2>
+<h1 id="asp-net-core-中-addmvc-與-addmvccore-的差別">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</h1>
 
-<p>最近積極在針對 Kafka 做些設定調整與效能測試，其中也包含了 Topic 的 Partition 數量產生的影響，也就常常需要調整 Topic 中的 Partition 數量來檢視對效能的影響，簡單紀錄一下我自己常用的做法備忘</p>
+<p>ASP.NET Core 將過去 ASP.NET MVC 與 ASP.NET Web API 兩套 framework 整合在一起，對於開發人員是種福音：不用再想到底該引用哪個 NameSpace、不用再為該繼承哪個類別煩惱、不用再記兩種開發模式(到底該用 action filter 還是 MessageHandler)，不過實際上在 ASP.NET Core 中還是有 <code>AddMvc()</code> 與 <code>AddMvcCore()</code> 兩種服務註冊方式</p>
+
+<p>其中差別剛看到時實在沒什麼想法，幸虧 ASP.NET Core 程式碼都是 open source，覺得有疑問馬上可以翻一下，今天就簡單紀錄一下自己看到的差異</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Mojave 10.14.5</li>
-<li>Docker Engine - Community 18.09.2</li>
 <li>.NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)</li>
-<li>Kafka 2.2.1</li>
-
-<li><p>NuGet Package</p>
-
-<ul>
-<li>Confluent.Kafka 1.0.1.1</li>
-</ul></li>
 </ol>
 
-<h2 id="調整方式">調整方式</h2>
+<h2 id="addmvccore">AddMvcCore</h2>
 
-<ol>
-<li><p>使用官方 shell</p>
+<p>完整程式碼請參考 <a href="https://github.com/aspnet/AspNetCore/blob/258d34e3828a1870a16d13cd3c62d1b7a65acc4a/src/Mvc/Mvc.Core/src/DependencyInjection/MvcCoreServiceCollectionExtensions.cs#L47" target="_blank">AddMvcCore</a></p>
 
-<blockquote>
-<p>這是過去我一直以來的做法</p>
-</blockquote>
+<p>程式碼節錄如下：</p>
 
-<ul>
-<li><p>基本語法</p>
-
-<pre><code class="language-bash">kafka-topics.sh --alter --zookeeper {kafka 位置} --topic {topic 名稱} --partitions {partition 個數}
-</code></pre></li>
-
-<li><p>實際範例</p>
-
-<pre><code class="language-bash">kafka-topics.sh --alter --zookeeper localhost:2181 --topic my-topic --partitions 3
-</code></pre></li>
-</ul></li>
-
-<li><p>使用 <code>Confluent.Kafka</code></p>
-
-<blockquote>
-<p>這是最近的發現 <code>1.0.0</code> (2019/4/26) 版本加入的新功能</p>
-</blockquote>
-
-<pre><code class="language-cs">const string bootstrapServers = &quot;127.0.0.1:9092&quot;;
-const string topicName = &quot;TestPartition&quot;;
-
-using (var adminClient =
-    new AdminClientBuilder(config: new AdminClientConfig {BootstrapServers = bootstrapServers}).Build())
+<pre><code class="language-cs">public static IMvcCoreBuilder AddMvcCore(this IServiceCollection services)
 {
-    try
+    if (services == null)
     {
-        //調整 partition
-       await adminClient.CreatePartitionsAsync(new List&lt;PartitionsSpecification&gt;
-       {
-           //指定 Topic 及目標 partition 數
-           new PartitionsSpecification { Topic = topicName, IncreaseTo = 3 }
-       });
+        throw new ArgumentNullException(nameof(services));
     }
-    catch (CreateTopicsException e)
-    {
-        Console.WriteLine(
-            value:
-            $&quot;An error occured creating topic {e.Results[index: 0].Topic}: {e.Results[index: 0].Error.Reason}&quot;);
-    }
+    var partManager = GetApplicationPartManager(services);
+    services.TryAddSingleton(partManager);
+    ConfigureDefaultFeatureProviders(partManager);
+    ConfigureDefaultServices(services);
+    AddMvcCoreServices(services);
+    var builder = new MvcCoreBuilder(services, partManager);
+    return builder;
 }
-</code></pre></li>
-</ol>
+</code></pre>
+
+<h2 id="addmvc">AddMvc</h2>
+
+<p>完整程式碼請參考 <a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L27" target="_blank">AddMvc</a></p>
+
+<p>程式碼節錄如下：</p>
+
+<pre><code class="language-cs">public static IMvcBuilder AddMvc(this IServiceCollection services)
+{
+    if (services == null)
+    {
+        throw new ArgumentNullException(nameof(services));
+    }
+    services.AddControllersWithViews();
+    return services.AddRazorPages();
+}
+....
+
+public static IMvcBuilder AddControllersWithViews(this IServiceCollection services)
+{
+    if (services == null)
+    {
+        throw new ArgumentNullException(nameof(services));
+    }
+    var builder = AddControllersWithViewsCore(services);
+    return new MvcBuilder(builder.Services, builder.PartManager);
+}
+
+private static IMvcCoreBuilder AddControllersWithViewsCore(IServiceCollection services)
+{
+    var builder = AddControllersCore(services)
+        .AddViews()
+        .AddRazorViewEngine()
+        .AddCacheTagHelper();
+    AddTagHelpersFrameworkParts(builder.PartManager);
+    return builder;
+}
+....
+
+private static IMvcCoreBuilder AddControllersCore(IServiceCollection services)
+{
+    // This method excludes all of the view-related services by default.
+    return services
+        .AddMvcCore()
+        .AddApiExplorer()
+        .AddAuthorization()
+        .AddCors()
+        .AddDataAnnotations()
+        .AddFormatterMappings();
+}
+</code></pre>
+
+<h2 id="trace-code">trace code</h2>
+
+<p>從 <a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L27" target="_blank">AddMvc</a> 追起就可以發現最後殊途同歸：最後還是使用到 <a href="https://github.com/aspnet/AspNetCore/blob/258d34e3828a1870a16d13cd3c62d1b7a65acc4a/src/Mvc/Mvc.Core/src/DependencyInjection/MvcCoreServiceCollectionExtensions.cs#L47" target="_blank">AddMvcCore</a></p>
+
+<p><a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L34" target="_blank">services.AddControllersWithViews();</a></p>
+
+<p>&ndash;&gt;
+<a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L176" target="_blank">public static IMvcBuilder AddControllersWithViews(this IServiceCollection services)</a></p>
+
+<p>&ndash;&gt;
+<a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L183" target="_blank">var builder = AddControllersWithViewsCore(services);</a></p>
+
+<p>&ndash;&gt;
+<a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L228" target="_blank">private static IMvcCoreBuilder AddControllersWithViewsCore(IServiceCollection services)</a></p>
+
+<p>&ndash;&gt;
+<a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L230" target="_blank">var builder = AddControllersCore(services)</a></p>
+
+<p>&ndash;&gt;
+<a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L141" target="_blank">private static IMvcCoreBuilder AddControllersCore(IServiceCollection services)</a></p>
+
+<p>&ndash;&gt;
+<a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L145" target="_blank">.AddMvcCore()</a></p>
 
 <h2 id="心得">心得</h2>
 
-<p>不論是 shell 或是 <code>Confluent.Kafka</code>，partition 數量都只能增加不能減少，就算是指定數量與當下數量一致也會出現錯誤訊息，使用上需要留意</p>
+<p>以程式碼來看 <code>AddMvc</code> 比 <code>AddMvcCore</code> 多了下列內容</p>
 
-<p>可以使用 <code>./kafka-topics.sh --describe --zookeeper localhost:2181 --topic my-topic</code> 先確認目前設定值</p>
+<ol>
+<li>AddRazorPages</li>
+<li>AddViews</li>
+<li>AddRazorViewEngine</li>
+<li>AddCacheTagHelper</li>
+<li>AddApiExplorer</li>
+<li>AddAuthorization</li>
+<li>AddCors</li>
+<li>AddDataAnnotations</li>
+<li>AddFormatterMappings</li>
+</ol>
+
+<p>大家在使用時可以評估看看用哪個方法比較合適</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://www.allprogrammingtutorials.com/tutorials/adding-partitions-to-topic-in-apache-kafka.php" target="_blank">Adding Partitions to a Topic in Apache Kafka</a></li>
+<li><a href="http://ajaynallanagula.blogspot.com/2018/03/aspnet-core-addmvc-vs-addmvccore.html" target="_blank">ASP.NET Core AddMvc() Vs AddMvcCore()</a></li>
 </ol>
 
     </div>
@@ -273,7 +325,7 @@ using (var adminClient =
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-06-07</span>
+    <span class="item-content">2019-06-08</span>
   </p>
   
   <p class="copyright-item">
@@ -295,11 +347,7 @@ using (var adminClient =
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/kafka/">Kafka</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/c/">C#</a>
+            <a href="https://blog.yowko.com/tags/asp.net-core/">ASP.NET Core</a>
           
         </div>
 
@@ -307,18 +355,18 @@ using (var adminClient =
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/aspdotnet-core-controller-controllerbase/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</span>			
+            <span class="next-text nav-default">ASP.NET Core 中 Controller 與 ControllerBase 的差別</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/create-kafka-topic/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/change-kafka-topic-partition/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">建立 Kafka 的 Topic</span>			
+            <span class="prev-text nav-default">調整 Kafka 中 Topic 的 Partition 數量</span>			
           </a>
 		  </div>
       </nav>
@@ -329,7 +377,7 @@ using (var adminClient =
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/change-kafka-topic-partition\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/aspdotnet-core-addmvc-addmvccore\/';  
       
     };
 
