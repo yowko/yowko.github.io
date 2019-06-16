@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>csharp on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/csharp/</link>
+    <description>Recent content in csharp on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 16 Jun 2019 21:30:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/csharp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>C# 搭配 gRPC 中使用 stream RPC</title>
+      <link>https://blog.yowko.com/csharp-grpc-stream/</link>
+      <pubDate>Sun, 16 Jun 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/csharp-grpc-stream/</guid>
+      <description>C# 搭配 gRPC 中使用 stream RPC gRPC 允許使用四種則型的 service 方法： 簡單 RPC (simple RPC) 主機端串流 RPC (server-side streaming RPC) 用戶端串流 RPC (client-side streaming RPC) 雙向串流 RPC (bidirectional streaming RPC) 過去的筆記都是使用 簡單 RPC (simple RPC</description>
+    </item>
+    
+  </channel>
+</rss>
