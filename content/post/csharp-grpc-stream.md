@@ -84,6 +84,8 @@ gRPC 允許使用四種則型的 service 方法：
 
 1. 主機端串流 RPC (server-side streaming RPC)
 
+    > 適合從 server 端取得較大資料量時使用
+
     - 在 service 的 rpc 定義中將 return 的 message 加上 `stream` 修飾子
 
         ```proto
@@ -132,6 +134,8 @@ gRPC 允許使用四種則型的 service 方法：
 
 2. 用戶端串流 RPC (client-side streaming RPC)
 
+    > 適合傳送較大資料量至 server 端時使用
+
     - 在 service 的 rpc 定義中將 rpc 接受的 message 加上 `stream` 修飾子
 
         ```proto
@@ -177,6 +181,8 @@ gRPC 允許使用四種則型的 service 方法：
         ```
 
 3. 雙向串流 RPC (bidirectional streaming RPC)
+
+    > 適合在 client 與 server 端間雙向傳送大資料量或是即時資料時使用
 
     - 在 service 的 rpc 定義中將 rpc 傳送與接受的 message 都加上 `stream` 修飾子
 
@@ -230,7 +236,7 @@ gRPC 允許使用四種則型的 service 方法：
 
 ## 心得
 
-資料量大時透過 stream 可以使用即時做出回應而不需等待所有資料傳送完成，程式碼並不多也滿好理解的，先紀錄一下使用方式，後續再紀錄使用情境及其他相關用法
+資料量大時透過 stream 可以使用即時做出回應而不需等待所有資料傳送完成，程式碼並不多也滿好理解的，先紀錄一下使用方式，後續再紀錄實際使用情境及其他相關用法
 
 完整程式碼請參考 [yowko/dotnetgrpcstream](https://github.com/yowko/dotnetgrpcstream)
 
