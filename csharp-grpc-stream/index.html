@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2019-06-16T21:30:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-06-16T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="802">
+<meta itemprop="wordCount" content="859">
 
 
 
@@ -146,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-06-16 </span>
         
-        <span class="more-meta"> 約 802 字 </span>
+        <span class="more-meta"> 約 859 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -265,6 +265,10 @@ service CandidateService {
 <ol>
 <li><p>主機端串流 RPC (server-side streaming RPC)</p>
 
+<blockquote>
+<p>適合從 server 端取得較大資料量時使用</p>
+</blockquote>
+
 <ul>
 <li><p>在 service 的 rpc 定義中將 return 的 message 加上 <code>stream</code> 修飾子</p>
 
@@ -312,6 +316,10 @@ service CandidateService {
 
 <li><p>用戶端串流 RPC (client-side streaming RPC)</p>
 
+<blockquote>
+<p>適合傳送較大資料量至 server 端時使用</p>
+</blockquote>
+
 <ul>
 <li><p>在 service 的 rpc 定義中將 rpc 接受的 message 加上 <code>stream</code> 修飾子</p>
 
@@ -356,6 +364,10 @@ service CandidateService {
 </ul></li>
 
 <li><p>雙向串流 RPC (bidirectional streaming RPC)</p>
+
+<blockquote>
+<p>適合在 client 與 server 端間雙向傳送大資料量或是即時資料時使用</p>
+</blockquote>
 
 <ul>
 <li><p>在 service 的 rpc 定義中將 rpc 傳送與接受的 message 都加上 <code>stream</code> 修飾子</p>
@@ -409,7 +421,7 @@ service CandidateService {
 
 <h2 id="心得">心得</h2>
 
-<p>資料量大時透過 stream 可以使用即時做出回應而不需等待所有資料傳送完成，程式碼並不多也滿好理解的，先紀錄一下使用方式，後續再紀錄使用情境及其他相關用法</p>
+<p>資料量大時透過 stream 可以使用即時做出回應而不需等待所有資料傳送完成，程式碼並不多也滿好理解的，先紀錄一下使用方式，後續再紀錄實際使用情境及其他相關用法</p>
 
 <p>完整程式碼請參考 <a href="https://github.com/yowko/dotnetgrpcstream" target="_blank">yowko/dotnetgrpcstream</a></p>
 
