@@ -6,10 +6,19 @@
     <description>Recent content in Unit Test on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 28 Apr 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 19 Jun 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/unit-test/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>嘗試為gRPC 中的 stream RPC 加上 Unit Test</title>
+      <link>https://blog.yowko.com/csharp-grpc-stream-unit-test/</link>
+      <pubDate>Wed, 19 Jun 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/csharp-grpc-stream-unit-test/</guid>
+      <description>嘗試為gRPC 中的 stream RPC 加上 Unit Test 之前筆記 C# 搭配 gRPC 中使用 stream RPC 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，</description>
+    </item>
     
     <item>
       <title>為 .NET Core Middleware 加上 Unit Test</title>
