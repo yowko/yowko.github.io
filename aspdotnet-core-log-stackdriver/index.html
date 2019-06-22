@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver 之前剛好有個功能在內部環境運作時都一直出現錯誤，經過一輪測試後決定將功能搬至 GCP 的 GKE 上執行來確認問題是不是內部環境設定所" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.51" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/aspdotnet-core-log-stackdriver/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver" />
+<meta property="og:description" content="在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver 之前剛好有個功能在內部環境運作時都一直出現錯誤，經過一輪測試後決定將功能搬至 GCP 的 GKE 上執行來確認問題是不是內部環境設定所" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-log-stackdriver/" /><meta property="article:published_time" content="2019-06-22T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-06-22T21:30:00&#43;08:00"/>
+
+<meta itemprop="name" content="在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver">
+<meta itemprop="description" content="在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver 之前剛好有個功能在內部環境運作時都一直出現錯誤，經過一輪測試後決定將功能搬至 GCP 的 GKE 上執行來確認問題是不是內部環境設定所">
+
+
+<meta itemprop="datePublished" content="2019-06-22T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-22T21:30:00&#43;08:00" />
+<meta itemprop="wordCount" content="720">
+
+
+
+<meta itemprop="keywords" content="ASP.NET Core,GCP," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver"/>
+<meta name="twitter:description" content="在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver 之前剛好有個功能在內部環境運作時都一直出現錯誤，經過一輪測試後決定將功能搬至 GCP 的 GKE 上執行來確認問題是不是內部環境設定所"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-06-22 </span>
+        
+        <span class="more-meta"> 約 720 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#在-asp-net-core-中將-log-寫至-gcp-的-stackdriver">在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver</a>
+<ul>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#在-gcp-建立憑證">在 GCP 建立憑證</a></li>
+<li><a href="#application-設定">application 設定</a></li>
+<li><a href="#在執行環境中設定憑證">在執行環境中設定憑證</a></li>
+<li><a href="#從-gcp-上確認-log">從 GCP 上確認 log</a></li>
+<li><a href="#心得">心得</a></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="在-asp-net-core-中將-log-寫至-gcp-的-stackdriver">在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver</h1>
+
+<p>之前剛好有個功能在內部環境運作時都一直出現錯誤，經過一輪測試後決定將功能搬至 GCP 的 GKE 上執行來確認問題是不是內部環境設定所造成的</p>
+
+<p>為了可以在 GKE 測試，核心功能程式碼幾乎不需要修改，但 log 部份就不得不做些調整，一來不想要大費周章設定 storage 也不想直接把 log file 擺在 container 內，所以打算透過 GCP 的 Stackdriver 來儲存 log，不僅程式修改幅度小還可以直接使用 UI 來查詢 log，相當方便</p>
+
+<p>至於 Stackdriver ，我沒有深入探討，就功能上看來與 Azure 的 ApplicationInsight 應該是一樣的，但純屬個人猜測</p>
+
+<h2 id="基本環境說明">基本環境說明</h2>
+
+<ol>
+<li>macOS Mojave 10.14.5</li>
+<li>.NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)</li>
+
+<li><p>NuGet package</p>
+
+<ul>
+<li>Google.Cloud.Diagnostics.AspNetCore 2.0.1</li>
+</ul></li>
+</ol>
+
+<h2 id="在-gcp-建立憑證">在 GCP 建立憑證</h2>
+
+<p>憑證是用來讓與 Stackdriver 進行權限驗證用的</p>
+
+<ol>
+<li><p>API 和服務 &ndash;&gt; 憑證</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/59965713-76812280-9544-11e9-81c4-a68b32bb0d06.png" alt="1crendential" /></p></li>
+
+<li><p>建立憑證 &ndash;&gt; 服務用戶金鑰</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/59965715-76812280-9544-11e9-8448-c2f2b8191a0c.png" alt="2createcredential" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/59965716-76812280-9544-11e9-89b7-88559e4f491c.png" alt="3keycreated" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/59965717-7719b900-9544-11e9-8f06-607e13f08bc2.png" alt="4created" /></p></li>
+</ol>
+
+<h2 id="application-設定">application 設定</h2>
+
+<ol>
+<li><p>安裝 NuGet package : <code>Google.Cloud.Diagnostics.AspNetCore</code></p>
+
+<ul>
+<li><p>Package Manager</p>
+
+<pre><code class="language-bash">Install-Package Google.Cloud.Diagnostics.AspNetCore
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code class="language-bash">dotnet add package Google.Cloud.Diagnostics.AspNetCore --version 2.0.1
+</code></pre></li>
+</ul></li>
+
+<li><p>將 <code>Stackdriver</code> 所需設定加至 <code>appsettings.json</code></p>
+
+<pre><code class="language-json">{
+    &quot;Stackdriver&quot;: {
+        &quot;ProjectId&quot;: &quot;YOUR-GOOGLE-PROJECT-ID&quot;,
+        &quot;ServiceName&quot;: &quot;NAME-OF-YOUR-SERVICE&quot;,
+        &quot;Version&quot;: &quot;VERSION-OF-YOUR-SERVICE&quot;
+    }
+}
+</code></pre>
+
+<ul>
+<li><p>ProjectId</p>
+
+<blockquote>
+<p>從 google cloud console 上可以找到</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/59965718-7719b900-9544-11e9-8453-f9d99b456bdd.png" alt="5projectid" /></p></li>
+
+<li><p>ServiceName</p>
+
+<blockquote>
+<p>自訂，會當做 log 的名稱</p>
+</blockquote></li>
+
+<li><p>Version</p>
+
+<blockquote>
+<p>自訂，沒看到哪邊有用到</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>設定 Stackdriver</p>
+
+<blockquote>
+<p>將以下設定加至 <code>Startup</code> 的 <code>Configure</code> 方法中</p>
+</blockquote>
+
+<pre><code class="language-cs">// 設定 logging 
+loggerFactory.AddGoogle(configuration.GetValue&lt;string&gt;(&quot;Stackdriver:ProjectId&quot;));
+var logger = loggerFactory.CreateLogger(configuration.GetValue&lt;string&gt;(&quot;Stackdriver:ServiceName&quot;));
+
+// 實際寫 log
+logger.LogInformation(&quot;測試 log stackdriver&quot;);
+</code></pre></li>
+</ol>
+
+<h2 id="在執行環境中設定憑證">在執行環境中設定憑證</h2>
+
+<ol>
+<li><p>將 GCP 建立並下載的憑證檔案位置設定給環境變數 <code>GOOGLE_APPLICATION_CREDENTIALS</code></p>
+
+<pre><code class="language-bash">export GOOGLE_APPLICATION_CREDENTIALS={credential_path}
+</code></pre></li>
+
+<li><p>未設定錯誤</p>
+
+<ul>
+<li><p>錯誤訊息</p>
+
+<pre><code class="language-text">Application startup exception: System.InvalidOperationException: The Application Default Credentials are not available. They are available if running in Google Compute Engine. Otherwise, the environment variable GOOGLE_APPLICATION_CREDENTIALS must be defined pointing to a file defining the credentials. See https://developers.google.com/accounts/docs/application-default-credentials for more information.
+
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/59965719-7719b900-9544-11e9-9695-eaa485455c4e.png" alt="6error" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="從-gcp-上確認-log">從 GCP 上確認 log</h2>
+
+<ol>
+<li><p>記錄 &ndash;&gt; 記錄檢視器</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/59965720-7719b900-9544-11e9-9ac8-113cc7489490.png" alt="7logviewer" /></p></li>
+
+<li><p>資源部份選擇 <code>通用</code></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/59965722-77b24f80-9544-11e9-972b-c99b67ab82ac.png" alt="8logdetail" /></p></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>也許是我還沒搞清楚官方文件的使用方式，雖然所有需要的資訊在 GCP 的官方文件上都可以找到，但就是散落在各處，加上各處的內容又一定不一致，做了許多嘗試才真的成功 XD    我猜測狀況應該跟 .NET Core 的一樣：更新快又頻繁，文件來不及跟上，以致於舊版文件還殘留著</p>
+
+<p>這是我第一次使用 GCP 服務，整體說來還算是直覺，功能位置還算好找，不過設定的東西很多，一時之間沒能摸懂，也不影響功能的使用</p>
+
+<h2 id="參考資訊">參考資訊</h2>
+
+<ol>
+<li><a href="https://cloud.google.com/debugger/docs/setup/dotnet?hl=zh-tw" target="_blank">設定 .NET Core 適用的 Stackdriver Debugger</a></li>
+<li><a href="https://cloud.google.com/dotnet/docs/stackdriver?hl=zh-tw" target="_blank">為 .NET 設定 Stackdriver</a></li>
+<li><a href="https://cloud.google.com/appengine/docs/flexible/dotnet/writing-application-logs?hl=zh-tw#writing_application_logs_1" target="_blank">Writing Application Logs</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-06-22</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/asp.net-core/">ASP.NET Core</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/gcp/">GCP</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/csharp-grpc-stream-unit-test/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">嘗試為gRPC 中的 stream RPC 加上 Unit Test</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/aspdotnet-core-log-stackdriver\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

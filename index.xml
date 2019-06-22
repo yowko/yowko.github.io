@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 19 Jun 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 22 Jun 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver</title>
+      <link>https://blog.yowko.com/aspdotnet-core-log-stackdriver/</link>
+      <pubDate>Sat, 22 Jun 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-log-stackdriver/</guid>
+      <description>在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver 之前剛好有個功能在內部環境運作時都一直出現錯誤，經過一輪測試後決定將功能搬至 GCP 的 GKE 上執行來確認問題是不是內部環境設定所</description>
+    </item>
     
     <item>
       <title>嘗試為gRPC 中的 stream RPC 加上 Unit Test</title>
