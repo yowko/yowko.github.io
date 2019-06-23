@@ -6,10 +6,19 @@
     <description>Recent content in csharp on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 19 Jun 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 23 Jun 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/csharp/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>gRPC 出現 `8 RESOURCE_EXHAUSTED` 錯誤</title>
+      <link>https://blog.yowko.com/grpc-8-resource-exhausted/</link>
+      <pubDate>Sun, 23 Jun 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/grpc-8-resource-exhausted/</guid>
+      <description>gRPC 出現 8 RESOURCE_EXHAUSTED 錯誤 隨著系統一步步成形，資料量也愈來愈大，在原本只是先求功能正常而未進行資料分頁的功能逐漸露出原型，今天就來筆記 gRPC 在傳送龐大資料可</description>
+    </item>
     
     <item>
       <title>嘗試為gRPC 中的 stream RPC 加上 Unit Test</title>
