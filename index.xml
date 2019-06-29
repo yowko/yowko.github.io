@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 23 Jun 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 29 Jun 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>從 Empty 建立 ASP.NET Core Web API</title>
+      <link>https://blog.yowko.com/add-webapi-to-aspdotnetcore-empty/</link>
+      <pubDate>Sat, 29 Jun 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/add-webapi-to-aspdotnetcore-empty/</guid>
+      <description>從 Empty 建立 ASP.NET Core Web API 之前曾經在筆記 建立ASP.NET Web API 專案的幾種方式- Yowko&amp;rsquo;s Notes 提到專案的起源分為兩派： 使用 Empty 專案範本再手動安裝需要的 framework 直接使用需要</description>
+    </item>
     
     <item>
       <title>gRPC 出現 `8 RESOURCE_EXHAUSTED` 錯誤</title>
