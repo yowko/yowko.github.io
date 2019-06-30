@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/aspdotnetcore-webapi-406-not-acceptable/</loc>
+    <lastmod>2019-06-30T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/add-webapi-to-aspdotnetcore-empty/</loc>
     <lastmod>2019-06-29T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -3357,7 +3364,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/asp.net-core/</loc>
-    <lastmod>2019-06-29T21:30:31+08:00</lastmod>
+    <lastmod>2019-06-30T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3393,6 +3400,13 @@
   <url>
     <loc>https://blog.yowko.com/tags/asp.net-web-api/</loc>
     <lastmod>2018-10-10T02:44:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/tags/asp.net-webapi/</loc>
+    <lastmod>2019-06-30T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3762,7 +3776,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2019-06-29T21:30:31+08:00</lastmod>
+    <lastmod>2019-06-30T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3832,7 +3846,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/</loc>
-    <lastmod>2019-06-29T21:30:31+08:00</lastmod>
+    <lastmod>2019-06-30T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3930,7 +3944,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2019-06-29T21:30:31+08:00</lastmod>
+    <lastmod>2019-06-30T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

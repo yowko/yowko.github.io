@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 29 Jun 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 30 Jun 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>ASP.NET Core</title>
       <link>https://blog.yowko.com/tags/asp.net-core/</link>
-      <pubDate>Sat, 29 Jun 2019 21:30:00 +0800</pubDate>
+      <pubDate>Sun, 30 Jun 2019 21:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/tags/asp.net-core/</guid>
       <description></description>
@@ -62,6 +62,15 @@
       <pubDate>Mon, 01 Oct 2018 02:44:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/tags/asp.net-web-api/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ASP.NET WebAPI</title>
+      <link>https://blog.yowko.com/tags/asp.net-webapi/</link>
+      <pubDate>Sun, 30 Jun 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/tags/asp.net-webapi/</guid>
       <description></description>
     </item>
     

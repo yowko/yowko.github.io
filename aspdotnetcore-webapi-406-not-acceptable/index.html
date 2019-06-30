@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 - Yowko&#39;s Notes</title>
+  <title>ASP.NET Core WebAPI 回應 406 Not Acceptable - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 ASP.NET Core 將過去 ASP.NET MVC 與 ASP.NET Web API 兩套 framework 整合在一起，對於開發人員是種福音：不用再想到底該引用哪個 NameSpace、不用再為該繼承哪個" />
+  <meta name="description" content="ASP.NET Core WebAPI 回應 406 Not Acceptable 照著之前筆記 從 Empty 建立 ASP.NET Core Web API 從空專案開始建立 ASP.NET Core WebAPI ，過程中一切順利直到開始加入商業邏輯時卻出現意料外的錯誤，雖然事後覺得我應" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore/" />
+<link rel="canonical" href="https://blog.yowko.com/aspdotnetcore-webapi-406-not-acceptable/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別" />
-<meta property="og:description" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 ASP.NET Core 將過去 ASP.NET MVC 與 ASP.NET Web API 兩套 framework 整合在一起，對於開發人員是種福音：不用再想到底該引用哪個 NameSpace、不用再為該繼承哪個" />
+<meta property="og:title" content="ASP.NET Core WebAPI 回應 406 Not Acceptable" />
+<meta property="og:description" content="ASP.NET Core WebAPI 回應 406 Not Acceptable 照著之前筆記 從 Empty 建立 ASP.NET Core Web API 從空專案開始建立 ASP.NET Core WebAPI ，過程中一切順利直到開始加入商業邏輯時卻出現意料外的錯誤，雖然事後覺得我應" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore/" /><meta property="article:published_time" content="2019-06-08T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-06-08T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspdotnetcore-webapi-406-not-acceptable/" /><meta property="article:published_time" content="2019-06-30T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-06-30T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別">
-<meta itemprop="description" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 ASP.NET Core 將過去 ASP.NET MVC 與 ASP.NET Web API 兩套 framework 整合在一起，對於開發人員是種福音：不用再想到底該引用哪個 NameSpace、不用再為該繼承哪個">
-
-
-<meta itemprop="datePublished" content="2019-06-08T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-06-08T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="486">
+<meta itemprop="name" content="ASP.NET Core WebAPI 回應 406 Not Acceptable">
+<meta itemprop="description" content="ASP.NET Core WebAPI 回應 406 Not Acceptable 照著之前筆記 從 Empty 建立 ASP.NET Core Web API 從空專案開始建立 ASP.NET Core WebAPI ，過程中一切順利直到開始加入商業邏輯時卻出現意料外的錯誤，雖然事後覺得我應">
 
 
+<meta itemprop="datePublished" content="2019-06-30T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-30T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="498">
 
-<meta itemprop="keywords" content="ASP.NET Core," />
+
+
+<meta itemprop="keywords" content="ASP.NET Core,ASP.NET WebAPI," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別"/>
-<meta name="twitter:description" content="ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 ASP.NET Core 將過去 ASP.NET MVC 與 ASP.NET Web API 兩套 framework 整合在一起，對於開發人員是種福音：不用再想到底該引用哪個 NameSpace、不用再為該繼承哪個"/>
+<meta name="twitter:title" content="ASP.NET Core WebAPI 回應 406 Not Acceptable"/>
+<meta name="twitter:description" content="ASP.NET Core WebAPI 回應 406 Not Acceptable 照著之前筆記 從 Empty 建立 ASP.NET Core Web API 從空專案開始建立 ASP.NET Core WebAPI ，過程中一切順利直到開始加入商業邏輯時卻出現意料外的錯誤，雖然事後覺得我應"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-06-08 </span>
+        <span class="post-time"> 2019-06-30 </span>
         
-        <span class="more-meta"> 約 486 字 </span>
+        <span class="more-meta"> 約 498 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -160,12 +160,13 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#asp-net-core-中-addmvc-與-addmvccore-的差別">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</a>
+<li>
 <ul>
+<li><a href="#asp-net-core-webapi-回應-406-not-acceptable">ASP.NET Core WebAPI 回應 406 Not Acceptable</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#addmvccore">AddMvcCore</a></li>
-<li><a href="#addmvc">AddMvc</a></li>
-<li><a href="#trace-code">trace code</a></li>
+<li><a href="#錯誤訊息">錯誤訊息</a></li>
+<li><a href="#問題發生原因">問題發生原因</a></li>
+<li><a href="#如何解決問題">如何解決問題</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,139 +182,99 @@
     <div class="post-content">
       
 
-<h1 id="asp-net-core-中-addmvc-與-addmvccore-的差別">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</h1>
+<h2 id="asp-net-core-webapi-回應-406-not-acceptable">ASP.NET Core WebAPI 回應 406 Not Acceptable</h2>
 
-<p>ASP.NET Core 將過去 ASP.NET MVC 與 ASP.NET Web API 兩套 framework 整合在一起，對於開發人員是種福音：不用再想到底該引用哪個 NameSpace、不用再為該繼承哪個類別煩惱、不用再記兩種開發模式(到底該用 action filter 還是 MessageHandler)，不過實際上在 ASP.NET Core 中還是有 <code>AddMvc()</code> 與 <code>AddMvcCore()</code> 兩種服務註冊方式</p>
-
-<p>其中差別剛看到時實在沒什麼想法，幸虧 ASP.NET Core 程式碼都是 open source，覺得有疑問馬上可以翻一下，今天就簡單紀錄一下自己看到的差異</p>
+<p>照著之前筆記 <a href="https://blog.yowko.com/add-webapi-to-aspdotnetcore-empty/" target="_blank">從 Empty 建立 ASP.NET Core Web API</a> 從空專案開始建立 ASP.NET Core WebAPI ，過程中一切順利直到開始加入商業邏輯時卻出現意料外的錯誤，雖然事後覺得我應該要馬上聯想的問題原因，但事實上並沒有，紀錄一下加深印象</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Mojave 10.14.5</li>
 <li>.NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)</li>
+
+<li><p>NuGet package</p>
+
+<ul>
+<li>Microsoft.AspNetCore.Mvc.FormattersJson 2.2.0</li>
+</ul></li>
 </ol>
 
-<h2 id="addmvccore">AddMvcCore</h2>
+<h2 id="錯誤訊息">錯誤訊息</h2>
 
-<p>完整程式碼請參考 <a href="https://github.com/aspnet/AspNetCore/blob/258d34e3828a1870a16d13cd3c62d1b7a65acc4a/src/Mvc/Mvc.Core/src/DependencyInjection/MvcCoreServiceCollectionExtensions.cs#L47" target="_blank">AddMvcCore</a></p>
+<ol>
+<li><p>訊息內容</p>
 
-<p>程式碼節錄如下：</p>
+<pre><code class="language-txt">406 Not Acceptable
+</code></pre></li>
 
-<pre><code class="language-cs">public static IMvcCoreBuilder AddMvcCore(this IServiceCollection services)
-{
-    if (services == null)
-    {
-        throw new ArgumentNullException(nameof(services));
-    }
-    var partManager = GetApplicationPartManager(services);
-    services.TryAddSingleton(partManager);
-    ConfigureDefaultFeatureProviders(partManager);
-    ConfigureDefaultServices(services);
-    AddMvcCoreServices(services);
-    var builder = new MvcCoreBuilder(services, partManager);
-    return builder;
-}
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/60398221-7908fb00-9b88-11e9-87e7-7daf555b9b62.png" alt="1error" /></p></li>
+</ol>
+
+<h2 id="問題發生原因">問題發生原因</h2>
+
+<ol>
+<li><p>先檢視 kestrel log 的異常</p>
+
+<pre><code class="language-txt">warn: Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector[1]
+  No output formatter was found for content type '' to write the response.
+warn: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+  No output formatter was found for content type '' to write the response.
 </code></pre>
 
-<h2 id="addmvc">AddMvc</h2>
+<p><img src="https://user-images.githubusercontent.com/3851540/60398222-7908fb00-9b88-11e9-8db9-92030dcd45a2.png" alt="2kestrel" /></p></li>
 
-<p>完整程式碼請參考 <a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L27" target="_blank">AddMvc</a></p>
+<li><p>發現問題</p>
 
-<p>程式碼節錄如下：</p>
+<p>從 log 中我們可以看得出來，在 response 時並沒有任何的 content-type，而這個問題的源頭其實可以從 <a href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore/" target="_blank">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</a> 中看得出來，因為使用 <code>AddMvcCore()</code> 而少了 <code>builder.AddJsonFormatters();</code></p></li>
+</ol>
 
-<pre><code class="language-cs">public static IMvcBuilder AddMvc(this IServiceCollection services)
+<h2 id="如何解決問題">如何解決問題</h2>
+
+<ol>
+<li><p>安裝需要的 formatter</p>
+
+<blockquote>
+<p>以 json 為例 <code>Microsoft.AspNetCore.Mvc.FormattersJson</code></p>
+</blockquote>
+
+<ul>
+<li><p>Package Manager</p>
+
+<pre><code class="language-txt">Install-Package Microsoft.AspNetCore.Mvc.Formatters.Json
+</code></pre></li>
+
+<li><p>.NET CLI</p>
+
+<pre><code class="language-bash">dotnet add package Microsoft.AspNetCore.Mvc.Formatters.Json --version 2.2.0
+</code></pre></li>
+</ul></li>
+
+<li><p>註冊 formatter</p>
+
+<p>調整 <code>Startup.cs</code> 中的 <code>ConfigureServices</code> 方法</p>
+
+<pre><code class="language-cs"> public void ConfigureServices(IServiceCollection services)
 {
-    if (services == null)
-    {
-        throw new ArgumentNullException(nameof(services));
-    }
-    services.AddControllersWithViews();
-    return services.AddRazorPages();
+        services.AddMvcCore().AddJsonFormatters();
 }
-....
-
-public static IMvcBuilder AddControllersWithViews(this IServiceCollection services)
-{
-    if (services == null)
-    {
-        throw new ArgumentNullException(nameof(services));
-    }
-    var builder = AddControllersWithViewsCore(services);
-    return new MvcBuilder(builder.Services, builder.PartManager);
-}
-
-private static IMvcCoreBuilder AddControllersWithViewsCore(IServiceCollection services)
-{
-    var builder = AddControllersCore(services)
-        .AddViews()
-        .AddRazorViewEngine()
-        .AddCacheTagHelper();
-    AddTagHelpersFrameworkParts(builder.PartManager);
-    return builder;
-}
-....
-
-private static IMvcCoreBuilder AddControllersCore(IServiceCollection services)
-{
-    // This method excludes all of the view-related services by default.
-    return services
-        .AddMvcCore()
-        .AddApiExplorer()
-        .AddAuthorization()
-        .AddCors()
-        .AddDataAnnotations()
-        .AddFormatterMappings();
-}
-</code></pre>
-
-<h2 id="trace-code">trace code</h2>
-
-<p>從 <a href="https://github.com/aspnet/AspNetCore/blob/v2.2.5/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs" target="_blank">AddMvc</a> 追起就可以發現最後殊途同歸：最後還是使用到 <a href="https://github.com/aspnet/AspNetCore/blob/258d34e3828a1870a16d13cd3c62d1b7a65acc4a/src/Mvc/Mvc.Core/src/DependencyInjection/MvcCoreServiceCollectionExtensions.cs#L47" target="_blank">AddMvcCore</a></p>
-
-<p><a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L34" target="_blank">services.AddControllersWithViews();</a></p>
-
-<p>&ndash;&gt;
-<a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L176" target="_blank">public static IMvcBuilder AddControllersWithViews(this IServiceCollection services)</a></p>
-
-<p>&ndash;&gt;
-<a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L183" target="_blank">var builder = AddControllersWithViewsCore(services);</a></p>
-
-<p>&ndash;&gt;
-<a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L228" target="_blank">private static IMvcCoreBuilder AddControllersWithViewsCore(IServiceCollection services)</a></p>
-
-<p>&ndash;&gt;
-<a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L230" target="_blank">var builder = AddControllersCore(services)</a></p>
-
-<p>&ndash;&gt;
-<a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L141" target="_blank">private static IMvcCoreBuilder AddControllersCore(IServiceCollection services)</a></p>
-
-<p>&ndash;&gt;
-<a href="https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L145" target="_blank">.AddMvcCore()</a></p>
+</code></pre></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
-<p>以程式碼來看 <code>AddMvc</code> 比 <code>AddMvcCore</code> 多了下列內容</p>
+<p>原本以為我看過資料，遇到相關問題我應該可以快速想到問題發生的原因，想不到還是卡了一下XD</p>
 
-<ol>
-<li>AddRazorPages</li>
-<li>AddViews</li>
-<li>AddRazorViewEngine</li>
-<li>AddCacheTagHelper</li>
-<li>AddApiExplorer</li>
-<li>AddAuthorization</li>
-<li>AddCors</li>
-<li>AddDataAnnotations</li>
-<li>AddFormatterMappings</li>
-<li>AddJsonFormatters</li>
-</ol>
-
-<p>大家在使用時可以評估看看用哪個方法比較合適</p>
+<p>不過錯誤都已經發生了還是要想辦法改善，後來仔細檢討後發現，我之前 trace code 時是直接透過 GitHub 的 search in repository，結果就找到 master 的 code，而我應該要換到 tag <code>2.2.5</code> 才是我正使用的版本呀  真是糟糕@@&rdquo;  幸虧有筆記  才發現之前的錯誤</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="http://ajaynallanagula.blogspot.com/2018/03/aspnet-core-addmvc-vs-addmvccore.html" target="_blank">ASP.NET Core AddMvc() Vs AddMvcCore()</a></li>
+<li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/web-api/advanced/formatting?view=aspnetcore-2.2" target="_blank">在 ASP.NET Core Web API 中格式化回應資料</a></li>
+<li><a href="https://offering.solutions/blog/articles/2017/02/07/the-difference-between-addmvc-and-addmvccore/" target="_blank">The difference between AddMvc() and AddMvcCore()</a></li>
+<li><a href="https://blog.yowko.com/add-webapi-to-aspdotnetcore-empty/" target="_blank">從 Empty 建立 ASP.NET Core Web API</a></li>
+<li><a href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore/" target="_blank">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</a></li>
 </ol>
 
     </div>
@@ -326,7 +287,7 @@ private static IMvcCoreBuilder AddControllersCore(IServiceCollection services)
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-06-08</span>
+    <span class="item-content">2019-06-30</span>
   </p>
   
   <p class="copyright-item">
@@ -350,24 +311,21 @@ private static IMvcCoreBuilder AddControllersCore(IServiceCollection services)
 		    	
             <a href="https://blog.yowko.com/tags/asp.net-core/">ASP.NET Core</a>
           
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/asp.net-webapi/">ASP.NET WebAPI</a>
+          
         </div>
 
       
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/aspdotnet-core-controller-controllerbase/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">ASP.NET Core 中 Controller 與 ControllerBase 的差別</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/change-kafka-topic-partition/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/add-webapi-to-aspdotnetcore-empty/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">調整 Kafka 中 Topic 的 Partition 數量</span>			
+            <span class="prev-text nav-default">從 Empty 建立 ASP.NET Core Web API</span>			
           </a>
 		  </div>
       </nav>
@@ -378,7 +336,7 @@ private static IMvcCoreBuilder AddControllersCore(IServiceCollection services)
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/aspdotnet-core-addmvc-addmvccore\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/aspdotnetcore-webapi-406-not-acceptable\/';  
       
     };
 

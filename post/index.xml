@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 29 Jun 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 30 Jun 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ASP.NET Core WebAPI 回應 406 Not Acceptable</title>
+      <link>https://blog.yowko.com/aspdotnetcore-webapi-406-not-acceptable/</link>
+      <pubDate>Sun, 30 Jun 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnetcore-webapi-406-not-acceptable/</guid>
+      <description>ASP.NET Core WebAPI 回應 406 Not Acceptable 照著之前筆記 從 Empty 建立 ASP.NET Core Web API 從空專案開始建立 ASP.NET Core WebAPI ，過程中一切順利直到開始加入商業邏輯時卻出現意料外的錯誤，雖然事後覺得我應</description>
+    </item>
     
     <item>
       <title>從 Empty 建立 ASP.NET Core Web API</title>
