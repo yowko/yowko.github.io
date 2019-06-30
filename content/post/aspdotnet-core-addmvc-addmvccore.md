@@ -95,7 +95,7 @@ private static IMvcCoreBuilder AddControllersCore(IServiceCollection services)
 
 ## trace code
 
-從 [AddMvc](https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L27) 追起就可以發現最後殊途同歸：最後還是使用到 [AddMvcCore](https://github.com/aspnet/AspNetCore/blob/258d34e3828a1870a16d13cd3c62d1b7a65acc4a/src/Mvc/Mvc.Core/src/DependencyInjection/MvcCoreServiceCollectionExtensions.cs#L47)
+從 [AddMvc](https://github.com/aspnet/AspNetCore/blob/v2.2.5/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs) 追起就可以發現最後殊途同歸：最後還是使用到 [AddMvcCore](https://github.com/aspnet/AspNetCore/blob/258d34e3828a1870a16d13cd3c62d1b7a65acc4a/src/Mvc/Mvc.Core/src/DependencyInjection/MvcCoreServiceCollectionExtensions.cs#L47)
 
 [services.AddControllersWithViews();](https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L34) 
 
@@ -130,6 +130,7 @@ private static IMvcCoreBuilder AddControllersCore(IServiceCollection services)
 7. AddCors
 8. AddDataAnnotations
 9. AddFormatterMappings
+10. AddJsonFormatters
 
 大家在使用時可以評估看看用哪個方法比較合適
 
