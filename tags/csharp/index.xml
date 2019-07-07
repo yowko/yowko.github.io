@@ -6,10 +6,28 @@
     <description>Recent content in csharp on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 23 Jun 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 07 Jul 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/csharp/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>gRPC stream 如何傳送單一大物件</title>
+      <link>https://blog.yowko.com/grpc-stream-big-object/</link>
+      <pubDate>Sun, 07 Jul 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/grpc-stream-big-object/</guid>
+      <description>gRPC stream 如何傳送單一大物件 之前筆記 C# 搭配 gRPC 中使用 stream RPC 提到為了對於較大資料量以及即時性資料內容，可以透過 gRPC 的 stream RPC 來處理，不過官方範例是用在傳送 repeated 內</description>
+    </item>
+    
+    <item>
+      <title>C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</title>
+      <link>https://blog.yowko.com/csharp-protobuf-serialize-deserialize/</link>
+      <pubDate>Sat, 06 Jul 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/csharp-protobuf-serialize-deserialize/</guid>
+      <description>C# 中使用 Protocol Buffers 協定來序列化與反序列化物件 專案上剛好需要將 object 進行序列化，過去常用的方式都是序列為 json，後來同事覺得既然都使用 protobuf 了，為什麼不直</description>
+    </item>
     
     <item>
       <title>gRPC 出現 `8 RESOURCE_EXHAUSTED` 錯誤</title>
