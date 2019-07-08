@@ -144,9 +144,9 @@ slug: "csharp-protobuf-serialize-deserialize"
     }
     ```
 
-3. ~~Stream~~
+3. Stream
 
-     > 序列化動作正常，但無法正確反序列化回原物件
+     > 序列化動作正常，~~但無法正確反序列化回原物件~~  經強大同事提點已可正常運作
 
     ```cs
     private static MemoryStream GetStream(Person person)
@@ -177,13 +177,14 @@ slug: "csharp-protobuf-serialize-deserialize"
     }
     ```
 
-3. ~~Stream~~
+3. Stream
 
-    > 無法正確反序列化回原物件
+    > ~~無法正確反序列化回原物件~~  經強大同事提點已可正常運作
 
     ```cs
     private static Person GetPersonFromStream(Stream ms)
     {
+        ms.Seek(0, SeekOrigin.Begin);
         return Person.Parser.ParseFrom(ms);
     }
     ```
@@ -205,6 +206,8 @@ slug: "csharp-protobuf-serialize-deserialize"
 所以我改用 `Google.Protobuf` 後就不需要再手動加入 `[ProtoContract]` 與 `[ProtoMember]` 也不用擔心漏加或是重新 build 後忘了加回去
 
 另外官方提到 Serialize 與 Deserialize 可以透過 `stream`、`byte[]` 與 `ByteString`，不過 `stream` 我一直無法成功：我傳入 MemoryStream 進行 Deserialize 時，只能得到預設物件、一直無法取得正確資料，但這個問題我在 `protobuf-net` 上也有遇到，不知道是什麼原因不能這麼直接用，改天待發現根本原因，或是有大大願意提點時我再來註記
+
+`2019/07/08 update  經同事說明 序列化到 stream 後要把 stream cursor 往回調才能解，確認可行，感謝強大同事指導`
 
 ## 參考資訊
 
