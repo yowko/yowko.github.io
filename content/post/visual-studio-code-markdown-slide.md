@@ -58,8 +58,8 @@ aliases:
     Name|	Description|	Default
     :---|:---|:---
     notesSeparator|	註解標記|	note:
-    separator|	換頁符號|	---
-    verticalSeparator|	垂直簡報分割符號|	--
+    separator|	換頁符號|	`---`
+    verticalSeparator|	垂直簡報分割符號|	`--`
     theme|	佈景主題：<br/>black<br/>    white<br/>    league<br/>    beige<br/> sky<br/>    night<br/>    serif<br/>    simple<br/>    solarized|black
     highlightTheme|	高亮主題|	Zenburn
     controls	|是否顯示換頁控制器|true
