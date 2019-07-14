@@ -1,6 +1,6 @@
 ---
 title: "透過 Kubespray 來架設 Kubernetes"
-date: 2019-0713T21:30:00+08:00
+date: 2019-07-13T21:30:00+08:00
 lastmod: 2019-07-13T21:30:31+08:00
 draft: false
 tags: ["Kubernetes"]
