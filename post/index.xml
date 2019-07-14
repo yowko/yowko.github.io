@@ -6,10 +6,37 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 07 Jul 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 14 Jul 2019 22:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 Kubernetes 上使用 Helm 安裝 Istio</title>
+      <link>https://blog.yowko.com/kubernetes-helm-istio/</link>
+      <pubDate>Sun, 14 Jul 2019 22:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kubernetes-helm-istio/</guid>
+      <description>在 Kubernetes 上使用 Helm 安裝 Istio 其實對於 Istio 到底解決了什麼問題，我沒有把握可以講得很清楚，就我粗淺地理解是為了更有效地簡化 Pod 間的溝通與管理，但好壞都要等實際</description>
+    </item>
+    
+    <item>
+      <title>透過 Kubespray 在 Kubernetes 上安裝 Helm</title>
+      <link>https://blog.yowko.com/kubespray-helm/</link>
+      <pubDate>Sun, 14 Jul 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kubespray-helm/</guid>
+      <description>透過 Kubespray 在 Kubernetes 上安裝 Helm 經過一段時間的發展 Kubernetes 目前是 container 調度工具中最受重視的，不過 Kubernetes 只是用來管理 container 的調度，該如何決定調度的計劃以及內容就成了新課題，而</description>
+    </item>
+    
+    <item>
+      <title>透過 Kubespray 來架設 Kubernetes</title>
+      <link>https://blog.yowko.com/kubespray-kubernetes/</link>
+      <pubDate>Sat, 13 Jul 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kubespray-kubernetes/</guid>
+      <description>透過 Kubespray 來架設 Kubernetes 最近剛好有機會可以參與專案的部署作業，雖然過去也持續進行過不同方式的 CI/CD，但真正部署至 Kubernetes 上則是全新的體驗，為了降低扯團隊</description>
+    </item>
     
     <item>
       <title>gRPC stream 如何傳送單一大物件</title>

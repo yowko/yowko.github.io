@@ -3,6 +3,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/kubernetes-helm-istio/</loc>
+    <lastmod>2019-07-14T22:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/kubespray-helm/</loc>
+    <lastmod>2019-07-14T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/kubespray-kubernetes/</loc>
+    <lastmod>2019-07-13T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/grpc-stream-big-object/</loc>
     <lastmod>2019-07-07T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -3643,7 +3664,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/kubernetes/</loc>
-    <lastmod>2019-04-26T21:30:31+08:00</lastmod>
+    <lastmod>2019-07-14T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3790,7 +3811,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2019-07-07T21:30:31+08:00</lastmod>
+    <lastmod>2019-07-14T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3958,7 +3979,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2019-07-07T21:30:31+08:00</lastmod>
+    <lastmod>2019-07-14T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
