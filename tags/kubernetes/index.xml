@@ -6,10 +6,19 @@
     <description>Recent content in Kubernetes on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 14 Jul 2019 22:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jul 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 Docker for Mac 上啟用 Kubernetes</title>
+      <link>https://blog.yowko.com/docker-for-mac-kubernetes/</link>
+      <pubDate>Sun, 21 Jul 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-for-mac-kubernetes/</guid>
+      <description>在 Docker for Mac 上啟用 Kubernetes 現在工作的部暑都是透過 Kubernetes 來執行，不過我還是常常會卡東卡西，又不能老是使用團隊環境來練習，加上工作內部的資料也無法部署至自己建</description>
+    </item>
     
     <item>
       <title>在 Kubernetes 上使用 Helm 安裝 Istio</title>

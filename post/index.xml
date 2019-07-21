@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 14 Jul 2019 22:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jul 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 Docker for Mac 上啟用 Kubernetes</title>
+      <link>https://blog.yowko.com/docker-for-mac-kubernetes/</link>
+      <pubDate>Sun, 21 Jul 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-for-mac-kubernetes/</guid>
+      <description>在 Docker for Mac 上啟用 Kubernetes 現在工作的部暑都是透過 Kubernetes 來執行，不過我還是常常會卡東卡西，又不能老是使用團隊環境來練習，加上工作內部的資料也無法部署至自己建</description>
+    </item>
+    
+    <item>
+      <title>使用 Homebrew 安裝 Docker</title>
+      <link>https://blog.yowko.com/homebrew-docker/</link>
+      <pubDate>Sat, 20 Jul 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/homebrew-docker/</guid>
+      <description>使用 Homebrew 安裝 Docker 現在工作上都是使用 mac，但為了保留可以比較 macOS 與 Windows 在部份行為上的差異，自己的家用電腦一直都是 macbook pro 使用 bootcamp 開機直接進入 Windows 10，最近因</description>
+    </item>
     
     <item>
       <title>在 Kubernetes 上使用 Helm 安裝 Istio</title>

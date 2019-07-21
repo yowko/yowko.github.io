@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>在 Kubernetes 上使用 Helm 安裝 Istio - Yowko&#39;s Notes</title>
+  <title>在 Docker for Mac 上啟用 Kubernetes - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="在 Kubernetes 上使用 Helm 安裝 Istio 其實對於 Istio 到底解決了什麼問題，我沒有把握可以講得很清楚，就我粗淺地理解是為了更有效地簡化 Pod 間的溝通與管理，但好壞都要等實際" />
+  <meta name="description" content="在 Docker for Mac 上啟用 Kubernetes 現在工作的部暑都是透過 Kubernetes 來執行，不過我還是常常會卡東卡西，又不能老是使用團隊環境來練習，加上工作內部的資料也無法部署至自己建" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/kubernetes-helm-istio/" />
+<link rel="canonical" href="https://blog.yowko.com/docker-for-mac-kubernetes/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="在 Kubernetes 上使用 Helm 安裝 Istio" />
-<meta property="og:description" content="在 Kubernetes 上使用 Helm 安裝 Istio 其實對於 Istio 到底解決了什麼問題，我沒有把握可以講得很清楚，就我粗淺地理解是為了更有效地簡化 Pod 間的溝通與管理，但好壞都要等實際" />
+<meta property="og:title" content="在 Docker for Mac 上啟用 Kubernetes" />
+<meta property="og:description" content="在 Docker for Mac 上啟用 Kubernetes 現在工作的部暑都是透過 Kubernetes 來執行，不過我還是常常會卡東卡西，又不能老是使用團隊環境來練習，加上工作內部的資料也無法部署至自己建" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/kubernetes-helm-istio/" /><meta property="article:published_time" content="2019-07-14T22:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-07-14T22:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/docker-for-mac-kubernetes/" /><meta property="article:published_time" content="2019-07-21T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-07-21T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="在 Kubernetes 上使用 Helm 安裝 Istio">
-<meta itemprop="description" content="在 Kubernetes 上使用 Helm 安裝 Istio 其實對於 Istio 到底解決了什麼問題，我沒有把握可以講得很清楚，就我粗淺地理解是為了更有效地簡化 Pod 間的溝通與管理，但好壞都要等實際">
-
-
-<meta itemprop="datePublished" content="2019-07-14T22:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-07-14T22:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="585">
+<meta itemprop="name" content="在 Docker for Mac 上啟用 Kubernetes">
+<meta itemprop="description" content="在 Docker for Mac 上啟用 Kubernetes 現在工作的部暑都是透過 Kubernetes 來執行，不過我還是常常會卡東卡西，又不能老是使用團隊環境來練習，加上工作內部的資料也無法部署至自己建">
 
 
+<meta itemprop="datePublished" content="2019-07-21T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-07-21T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="362">
 
-<meta itemprop="keywords" content="Kubernetes," />
+
+
+<meta itemprop="keywords" content="Mac,Docker,Kubernetes," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="在 Kubernetes 上使用 Helm 安裝 Istio"/>
-<meta name="twitter:description" content="在 Kubernetes 上使用 Helm 安裝 Istio 其實對於 Istio 到底解決了什麼問題，我沒有把握可以講得很清楚，就我粗淺地理解是為了更有效地簡化 Pod 間的溝通與管理，但好壞都要等實際"/>
+<meta name="twitter:title" content="在 Docker for Mac 上啟用 Kubernetes"/>
+<meta name="twitter:description" content="在 Docker for Mac 上啟用 Kubernetes 現在工作的部暑都是透過 Kubernetes 來執行，不過我還是常常會卡東卡西，又不能老是使用團隊環境來練習，加上工作內部的資料也無法部署至自己建"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,10 +144,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-07-14 </span>
+        <span class="post-time"> 2019-07-21 </span>
         
-        <span class="more-meta"> 約 585 字 </span>
-          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        <span class="more-meta"> 約 362 字 </span>
+          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
     </header>
@@ -162,9 +162,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#在-kubernetes-上使用-helm-安裝-istio">在 Kubernetes 上使用 Helm 安裝 Istio</a></li>
+<li><a href="#在-docker-for-mac-上啟用-kubernetes">在 Docker for Mac 上啟用 Kubernetes</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝-istio">安裝 Istio</a></li>
+<li><a href="#關於-swarm-與-kubernetes">關於 Swarm 與 Kubernetes</a></li>
+<li><a href="#啟用-kubernetes">啟用 Kubernetes</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,145 +181,75 @@
     <div class="post-content">
       
 
-<h2 id="在-kubernetes-上使用-helm-安裝-istio">在 Kubernetes 上使用 Helm 安裝 Istio</h2>
+<h2 id="在-docker-for-mac-上啟用-kubernetes">在 Docker for Mac 上啟用 Kubernetes</h2>
 
-<p>其實對於 Istio 到底解決了什麼問題，我沒有把握可以講得很清楚，就我粗淺地理解是為了更有效地簡化 Pod 間的溝通與管理，但好壞都要等實際體驗過才說得準，所以先來紀錄一下如何在 Kubernetes 透過 Helm 來安裝 Istio，待我實際使用過後再來分享優缺點</p>
+<p>現在工作的部暑都是透過 Kubernetes 來執行，不過我還是常常會卡東卡西，又不能老是使用團隊環境來練習，加上工作內部的資料也無法部署至自己建的雲端 Kubernetes cluster 中，所以正在嘗試可以在 local 建立 Kubernetes cluster 的方式</p>
+
+<p>今天就先簡單筆記一下如何使用 Docker for Mac 內建的 Kubernetes 功能</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
-<blockquote>
-<p>以下 VM 透過 Azure 建立</p>
-</blockquote>
-
 <ol>
-<li><p>CentOS 7.6 * 3</p>
+<li>macOS Mojave 10.14.5</li>
+
+<li><p>Docker Desktop 2.0.0.3 (31259)</p>
 
 <ul>
-<li>Standard B2ms</li>
-<li>2 vcpus, 8 GiB memory</li>
-<li>200 GB Standard SSD</li>
+<li>Docker Engine 18.09.2</li>
+<li>Kubernetes v1.10.11</li>
 </ul></li>
-
-<li><p>VM 配置說明</p>
-
-<blockquote>
-<p>請確保各個 node 間可以透過 host name 連線</p>
-</blockquote>
-
-<table>
-<thead>
-<tr>
-<th align="left">Name</th>
-<th align="left">IP</th>
-<th align="left">用途</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td align="left">node1</td>
-<td align="left">10.0.0.4</td>
-<td align="left">ansible-client,master,etcd</td>
-</tr>
-
-<tr>
-<td align="left">node2</td>
-<td align="left">10.0.0.5</td>
-<td align="left">node,etcd</td>
-</tr>
-
-<tr>
-<td align="left">node3</td>
-<td align="left">10.0.0.6</td>
-<td align="left">node,etcd</td>
-</tr>
-</tbody>
-</table></li>
-
-<li><p>Kubespray 2.10</p></li>
-
-<li><p>Kubernetes 2.14.3</p></li>
-
-<li><p>Helm v2.13.1</p></li>
-
-<li><p>Istio 1.2.2</p></li>
-
-<li><p>Kubernetes cluster 內容請參考之前筆記 <a href="https://blog.yowko.com/kubespray-kubernetes" target="_blank">透過 Kubespray 來架設 Kubernetes</a> 與 <a href="https://blog.yowko.com/kubespray-helm" target="_blank">透過 Kubespray 在 Kubernetes 上安裝 Helm</a></p></li>
 </ol>
 
-<h2 id="安裝-istio">安裝 Istio</h2>
+<h2 id="關於-swarm-與-kubernetes">關於 Swarm 與 Kubernetes</h2>
+
+<ul>
+<li>Swarm 是 Docker 公司自行開發的 container 調度工具，也因此很早期就整合進 docker engine 之中，不需要額外安裝套件即可使用</li>
+<li>Kubernetes 為 Google open source 的 container 調度工具，架構較為彈性而較受到市場歡迎，也因此讓 Docker 公司將其整合進 Docker 中</li>
+</ul>
+
+<p>目前只有 <code>Docker Desktop for Mac 18.06.0-ce-mac70 CE</code> 之後版本可以支援 Kubernetes</p>
+
+<h2 id="啟用-kubernetes">啟用 Kubernetes</h2>
 
 <ol>
-<li><p>下載並解壓 Istio</p>
+<li><p>點 <code>Docker Desktop</code> 圖示 &ndash;&gt; <code>Preferences</code></p>
 
-<pre><code class="language-bash">curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.2.2 sh -
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/61593260-dafcd380-ac0f-11e9-9648-1050b2bbafcd.png" alt="1preferemces" /></p></li>
 
-<li><p>建立 service account for Tiller</p>
+<li><p>Kubernetes &ndash;&gt; Enable Kubernetes &ndash;&gt; Apply</p>
 
-<pre><code class="language-bash">cd istio-1.2.2
+<p><img src="https://user-images.githubusercontent.com/3851540/61593261-dafcd380-ac0f-11e9-92db-2ea958be1568.png" alt="2enablek8s" /></p></li>
 
-kubectl apply -f install/kubernetes/helm/helm-service-account.yaml
-</code></pre></li>
+<li><p>Install Now</p>
 
-<li><p>安裝 Tiller</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/61593262-dafcd380-ac0f-11e9-8e60-02668a96f0be.png" alt="3install" /></p></li>
 
-<pre><code class="language-bash">helm init --service-account tiller
-</code></pre></li>
+<li><p>Kubernetes is Starting</p>
 
-<li><p>安裝 <code>istio-init</code> 來啟動 Istio 的所有 CRD</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/61593263-db956a00-ac0f-11e9-9080-58ae14163cfe.png" alt="4installing" /></p></li>
 
-<pre><code class="language-bash">helm install install/kubernetes/helm/istio-init --name istio-init --namespace istio-system
-</code></pre></li>
+<li><p>Kubernetes is running</p>
 
-<li><p>驗證是否有 <code>23</code> CRD 被加至 Kubernetes 的 api-server 中</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/61593264-db956a00-ac0f-11e9-9e29-411f4721df5d.png" alt="5running" /></p></li>
 
-<pre><code class="language-bash">kubectl get crds | grep 'istio.io\|certmanager.k8s.io' | wc -l
-</code></pre>
+<li><p>確認執行中</p>
 
-<blockquote>
-<p>執行結果若為 <code>23</code> 就是正確</p>
-</blockquote></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/61593265-db956a00-ac0f-11e9-8819-073b14dd7ce4.png" alt="6running" /></p>
 
-<li><p>安裝 istio</p>
-
-<pre><code class="language-bash">helm install install/kubernetes/helm/istio --name istio --namespace istio-system
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/61593266-db956a00-ac0f-11e9-9539-2abc738f0b61.png" alt="7running" /></p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>安裝上難度不高，但在確認正確性卻不如想像中容易</p>
+<p>紀錄完才發現原來在 Docker for Mc 上啟用 Kubernetes 如此簡單，不得不說整合得相當好呀XD</p>
 
-<ol>
-<li><p>確認 service 是否完整部署</p>
-
-<pre><code class="language-bash">kubectl get svc -n istio-system
-</code></pre>
-
-<blockquote>
-<p>可以跟 <a href="https://istio.io/docs/setup/kubernetes/additional-setup/config-profiles/" target="_blank">Installation Configuration Profiles</a> 比對一下，是否對應的 service 都有被部署，以    <code>default</code> 為例總共需要 <code>8</code> 個 service</p>
-</blockquote></li>
-
-<li><p>確保 Kubenetes 的 Pod 都是 <code>Running</code></p>
-
-<pre><code class="language-bash">kubectl get pods -n istio-system
-</code></pre>
-
-<blockquote>
-<p>經過數次安裝，我一直無法得到所有 Pod 都是 Running：固定三個 <code>istio-init-crd-*</code> 的狀態都是 <code>Completed</code>，同事解釋那是啟動用的，執行階段不影響，幸虧有同事指導，不然我不知道還要在這上面卡多久，嘗試各種安裝方式都是相同結果呀XD</p>
-</blockquote></li>
-</ol>
-
-<p>對於 Istio 目前我還在學習安裝階段，不到實際使用，待日後有真正實際經驗再來紀錄相關內容</p>
+<p>本來在考慮這麼虛的筆記內容要不要上傳，不過既然都截圖了，還是放一下備忘囉</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://jimmysong.io/posts/why-do-we-need-istio/" target="_blank">為什麼我們需要Istio？</a></li>
-<li><a href="https://www.inwinstack.com/2018/01/12/service-mesh-istio/" target="_blank">Service Mesh與Istio佈署簡介(上)</a></li>
-<li><a href="https://istio.io/" target="_blank">Istio</a></li>
-<li><a href="https://istio.io/docs/setup/kubernetes/install/helm/" target="_blank">Customizable Install with Helm</a></li>
+<li><a href="https://docs.docker.com/docker-for-mac/kubernetes" target="_blank">Deploy on Kubernetes</a></li>
+<li><a href="https://rominirani.com/tutorial-getting-started-with-kubernetes-with-docker-on-mac-7f58467203fd" target="_blank">Tutorial : Getting Started with Kubernetes with Docker on Mac</a></li>
 </ol>
 
     </div>
@@ -331,7 +262,7 @@ kubectl apply -f install/kubernetes/helm/helm-service-account.yaml
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-07-14</span>
+    <span class="item-content">2019-07-21</span>
   </p>
   
   <p class="copyright-item">
@@ -353,6 +284,14 @@ kubectl apply -f install/kubernetes/helm/helm-service-account.yaml
           
 		    
 		    	
+            <a href="https://blog.yowko.com/tags/mac/">Mac</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/docker/">Docker</a>
+          
+		    
+		    	
             <a href="https://blog.yowko.com/tags/kubernetes/">Kubernetes</a>
           
         </div>
@@ -361,18 +300,11 @@ kubectl apply -f install/kubernetes/helm/helm-service-account.yaml
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/homebrew-docker/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">使用 Homebrew 安裝 Docker</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/kubespray-helm/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/homebrew-docker/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">透過 Kubespray 在 Kubernetes 上安裝 Helm</span>			
+            <span class="prev-text nav-default">使用 Homebrew 安裝 Docker</span>			
           </a>
 		  </div>
       </nav>
@@ -383,7 +315,7 @@ kubectl apply -f install/kubernetes/helm/helm-service-account.yaml
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/kubernetes-helm-istio\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/docker-for-mac-kubernetes\/';  
       
     };
 
