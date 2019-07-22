@@ -6,10 +6,19 @@
     <description>Recent content in Mac on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 21 Jul 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 22 Jul 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/mac/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>從 Mac 移除 .NET Core Runtime 與 SDK</title>
+      <link>https://blog.yowko.com/remove-dotnet-from-mac/</link>
+      <pubDate>Mon, 22 Jul 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/remove-dotnet-from-mac/</guid>
+      <description>從 Mac 移除 .NET Core Runtime 與 SDK 可以不時更新 .NET Core SDK 是幸福，也是痛苦; 幸福的是可以使用新的語言特性或是新功能，而痛苦的是不僅又有新的 feature 要學習適應還要想辦法移</description>
+    </item>
     
     <item>
       <title>在 Docker for Mac 上啟用 Kubernetes</title>

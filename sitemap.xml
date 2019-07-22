@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/remove-dotnet-from-mac/</loc>
+    <lastmod>2019-07-22T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/docker-for-mac-kubernetes/</loc>
     <lastmod>2019-07-21T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -3720,7 +3727,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/mac/</loc>
-    <lastmod>2019-07-21T21:30:31+08:00</lastmod>
+    <lastmod>2019-07-22T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3825,7 +3832,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2019-07-21T21:30:31+08:00</lastmod>
+    <lastmod>2019-07-22T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3993,7 +4000,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2019-07-21T21:30:31+08:00</lastmod>
+    <lastmod>2019-07-22T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4035,7 +4042,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/dotnet-core/</loc>
-    <lastmod>2019-06-02T19:30:31+08:00</lastmod>
+    <lastmod>2019-07-22T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

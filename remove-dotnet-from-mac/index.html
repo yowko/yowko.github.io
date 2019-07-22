@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>在 Docker for Mac 上啟用 Kubernetes - Yowko&#39;s Notes</title>
+  <title>從 Mac 移除 .NET Core Runtime 與 SDK - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="在 Docker for Mac 上啟用 Kubernetes 現在工作的部暑都是透過 Kubernetes 來執行，不過我還是常常會卡東卡西，又不能老是使用團隊環境來練習，加上工作內部的資料也無法部署至自己建" />
+  <meta name="description" content="從 Mac 移除 .NET Core Runtime 與 SDK 可以不時更新 .NET Core SDK 是幸福，也是痛苦; 幸福的是可以使用新的語言特性或是新功能，而痛苦的是不僅又有新的 feature 要學習適應還要想辦法移" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/docker-for-mac-kubernetes/" />
+<link rel="canonical" href="https://blog.yowko.com/remove-dotnet-from-mac/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="在 Docker for Mac 上啟用 Kubernetes" />
-<meta property="og:description" content="在 Docker for Mac 上啟用 Kubernetes 現在工作的部暑都是透過 Kubernetes 來執行，不過我還是常常會卡東卡西，又不能老是使用團隊環境來練習，加上工作內部的資料也無法部署至自己建" />
+<meta property="og:title" content="從 Mac 移除 .NET Core Runtime 與 SDK" />
+<meta property="og:description" content="從 Mac 移除 .NET Core Runtime 與 SDK 可以不時更新 .NET Core SDK 是幸福，也是痛苦; 幸福的是可以使用新的語言特性或是新功能，而痛苦的是不僅又有新的 feature 要學習適應還要想辦法移" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/docker-for-mac-kubernetes/" /><meta property="article:published_time" content="2019-07-21T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-07-21T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/remove-dotnet-from-mac/" /><meta property="article:published_time" content="2019-07-22T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-07-22T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="在 Docker for Mac 上啟用 Kubernetes">
-<meta itemprop="description" content="在 Docker for Mac 上啟用 Kubernetes 現在工作的部暑都是透過 Kubernetes 來執行，不過我還是常常會卡東卡西，又不能老是使用團隊環境來練習，加上工作內部的資料也無法部署至自己建">
-
-
-<meta itemprop="datePublished" content="2019-07-21T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-07-21T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="362">
+<meta itemprop="name" content="從 Mac 移除 .NET Core Runtime 與 SDK">
+<meta itemprop="description" content="從 Mac 移除 .NET Core Runtime 與 SDK 可以不時更新 .NET Core SDK 是幸福，也是痛苦; 幸福的是可以使用新的語言特性或是新功能，而痛苦的是不僅又有新的 feature 要學習適應還要想辦法移">
 
 
+<meta itemprop="datePublished" content="2019-07-22T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-07-22T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="624">
 
-<meta itemprop="keywords" content="Mac,Docker,Kubernetes," />
+
+
+<meta itemprop="keywords" content="dotnet core,Mac," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="在 Docker for Mac 上啟用 Kubernetes"/>
-<meta name="twitter:description" content="在 Docker for Mac 上啟用 Kubernetes 現在工作的部暑都是透過 Kubernetes 來執行，不過我還是常常會卡東卡西，又不能老是使用團隊環境來練習，加上工作內部的資料也無法部署至自己建"/>
+<meta name="twitter:title" content="從 Mac 移除 .NET Core Runtime 與 SDK"/>
+<meta name="twitter:description" content="從 Mac 移除 .NET Core Runtime 與 SDK 可以不時更新 .NET Core SDK 是幸福，也是痛苦; 幸福的是可以使用新的語言特性或是新功能，而痛苦的是不僅又有新的 feature 要學習適應還要想辦法移"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,10 +144,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-07-21 </span>
+        <span class="post-time"> 2019-07-22 </span>
         
-        <span class="more-meta"> 約 362 字 </span>
-          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+        <span class="more-meta"> 約 624 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
     </header>
@@ -162,10 +162,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#在-docker-for-mac-上啟用-kubernetes">在 Docker for Mac 上啟用 Kubernetes</a></li>
+<li><a href="#從-mac-移除-net-core-runtime-與-sdk">從 Mac 移除 .NET Core Runtime 與 SDK</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#關於-swarm-與-kubernetes">關於 Swarm 與 Kubernetes</a></li>
-<li><a href="#啟用-kubernetes">啟用 Kubernetes</a></li>
+<li><a href="#移除-net-core-sdk">移除 .NET Core SDK</a></li>
+<li><a href="#重新安裝-net-core-sdk">重新安裝 .NET Core SDK</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,75 +181,70 @@
     <div class="post-content">
       
 
-<h2 id="在-docker-for-mac-上啟用-kubernetes">在 Docker for Mac 上啟用 Kubernetes</h2>
+<h2 id="從-mac-移除-net-core-runtime-與-sdk">從 Mac 移除 .NET Core Runtime 與 SDK</h2>
 
-<p>現在工作的部暑都是透過 Kubernetes 來執行，不過我還是常常會卡東卡西，又不能老是使用團隊環境來練習，加上工作內部的資料也無法部署至自己建的雲端 Kubernetes cluster 中，所以正在嘗試可以在 local 建立 Kubernetes cluster 的方式</p>
+<p>可以不時更新 .NET Core SDK 是幸福，也是痛苦;</p>
 
-<p>今天就先簡單筆記一下如何使用 Docker for Mac 內建的 Kubernetes 功能</p>
+<p>幸福的是可以使用新的語言特性或是新功能，而痛苦的是不僅又有新的 feature 要學習適應還要想辦法移除舊的 SDK。</p>
+
+<p>過去 .NET Framework 時代的做法是直接取代舊版本，到了 .NET Core 時代則允許同時存在不同版本的 .NET Core SDK，讓開發人員自行選擇使用版本，當然是立意良善，不過像是 .NET Core 1 SDK，我相信絕對不會再用到，如果沒有手動移除它就還是一直留在電腦中，雖然不造成影響，但總是心裡有些疙瘩：既佔空間又怕誤用</p>
+
+<p>過去都是透過 <a href="https://docs.microsoft.com/zh-tw/dotnet/core/versions/remove-runtime-sdk-versions?tabs=macos" target="_blank">如何移除 .NET Core 執行階段和 SDK</a> 的步驟來執行移除，但我老是覺得步驟有點冗餘，另外讓我更不能接受的事有時候會刪不乾淨 (猜測是部份檔案仍在使用中而無法刪除)</p>
+
+<p>今天趁著再次更新 .NET Core SDK 之餘，順手筆記一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Mojave 10.14.5</li>
-
-<li><p>Docker Desktop 2.0.0.3 (31259)</p>
-
-<ul>
-<li>Docker Engine 18.09.2</li>
-<li>Kubernetes v1.10.11</li>
-</ul></li>
+<li>.NET Core 2.2.107 &ndash;&gt; 2.2.301</li>
 </ol>
 
-<h2 id="關於-swarm-與-kubernetes">關於 Swarm 與 Kubernetes</h2>
+<h2 id="移除-net-core-sdk">移除 .NET Core SDK</h2>
 
-<ul>
-<li>Swarm 是 Docker 公司自行開發的 container 調度工具，也因此很早期就整合進 docker engine 之中，不需要額外安裝套件即可使用</li>
-<li>Kubernetes 為 Google open source 的 container 調度工具，架構較為彈性而較受到市場歡迎，也因此讓 Docker 公司將其整合進 Docker 中</li>
-</ul>
-
-<p>目前只有 <code>Docker Desktop for Mac 18.06.0-ce-mac70 CE</code> 之後版本可以支援 Kubernetes</p>
-
-<h2 id="啟用-kubernetes">啟用 Kubernetes</h2>
+<blockquote>
+<p>以下語法是參考官網中的 shell <a href="https://github.com/dotnet/cli/blob/master/scripts/obtain/uninstall/dotnet-uninstall-pkgs.sh" target="_blank">dotnet/cli/scripts/obtain/uninstall/dotnet-uninstall-pkgs.sh</a> 簡化而來的 (我不想要更新 .NET Core SDK 還必需要先找到移除用 shell 下載並執行 XD，不過如果不嫌麻煩，還是建議使用官方的 shell，畢竟小弟不才可能會把 shell 簡化出 bug 呀)</p>
+</blockquote>
 
 <ol>
-<li><p>點 <code>Docker Desktop</code> 圖示 &ndash;&gt; <code>Preferences</code></p>
+<li><p>移除 .NET Core 相關 pkgs</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/61593260-dafcd380-ac0f-11e9-9648-1050b2bbafcd.png" alt="1preferemces" /></p></li>
+<pre><code class="language-bash">pkgutil --pkgs | grep com.microsoft.dotnet  | xargs -n 1 sudo pkgutil --forget
+</code></pre>
 
-<li><p>Kubernetes &ndash;&gt; Enable Kubernetes &ndash;&gt; Apply</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/61641657-1069f580-acd2-11e9-8f27-c4dca7498446.png" alt="1forget" /></p></li>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/61593261-dafcd380-ac0f-11e9-92db-2ea958be1568.png" alt="2enablek8s" /></p></li>
+<li><p>移除 dotnet 相關檔案及工具</p>
 
-<li><p>Install Now</p>
+<pre><code class="language-bash">sudo rm -rf /usr/local/share/dotnet &amp;&amp; sudo rm -f /etc/paths.d/dotnet &amp;&amp; sudo rm -f /etc/paths.d/dotnet-cli-tools
+</code></pre></li>
+</ol>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/61593262-dafcd380-ac0f-11e9-8e60-02668a96f0be.png" alt="3install" /></p></li>
+<h2 id="重新安裝-net-core-sdk">重新安裝 .NET Core SDK</h2>
 
-<li><p>Kubernetes is Starting</p>
+<blockquote>
+<p>以下兩個方法 (或是其他方式皆可) 擇一執行即可，主要目的就是安裝新版的 .NET Core SDK</p>
+</blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/61593263-db956a00-ac0f-11e9-9080-58ae14163cfe.png" alt="4installing" /></p></li>
+<ol>
+<li><a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">官網</a> 下載 .NET Core SDK installer</li>
 
-<li><p>Kubernetes is running</p>
+<li><p>使用 homebrew</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/61593264-db956a00-ac0f-11e9-9e29-411f4721df5d.png" alt="5running" /></p></li>
-
-<li><p>確認執行中</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/61593265-db956a00-ac0f-11e9-8819-073b14dd7ce4.png" alt="6running" /></p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/61593266-db956a00-ac0f-11e9-9539-2abc738f0b61.png" alt="7running" /></p></li>
+<pre><code class="language-bash">brew cask install dotnet-sdk
+</code></pre></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>紀錄完才發現原來在 Docker for Mc 上啟用 Kubernetes 如此簡單，不得不說整合得相當好呀XD</p>
-
-<p>本來在考慮這麼虛的筆記內容要不要上傳，不過既然都截圖了，還是放一下備忘囉</p>
+<p>沒錯，我其實沒有真的更新 .NET Core SDK，我就是直接刪除所有 .NET Core SDK 再重新安裝最新版本的 .NET Core SDK，也許不一定比較省時間，但個人還是覺得清爽不少，花這個時間划算  哈哈</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://docs.docker.com/docker-for-mac/kubernetes" target="_blank">Deploy on Kubernetes</a></li>
-<li><a href="https://rominirani.com/tutorial-getting-started-with-kubernetes-with-docker-on-mac-7f58467203fd" target="_blank">Tutorial : Getting Started with Kubernetes with Docker on Mac</a></li>
+<li><a href="https://docs.microsoft.com/zh-tw/dotnet/core/versions/remove-runtime-sdk-versions?tabs=macos" target="_blank">如何移除 .NET Core 執行階段和 SDK</a></li>
+<li><a href="https://gist.github.com/sandrovicente/5590f5ac993d9d7fef038fd2858efcc3" target="_blank">Steps to uninstall a DotNet CLI version on Mac OS X</a></li>
+<li><a href="https://github.com/dotnet/cli/blob/master/scripts/obtain/uninstall/dotnet-uninstall-pkgs.sh" target="_blank">dotnet/cli/scripts/obtain/uninstall/dotnet-uninstall-pkgs.sh</a></li>
 </ol>
 
     </div>
@@ -262,7 +257,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-07-21</span>
+    <span class="item-content">2019-07-22</span>
   </p>
   
   <p class="copyright-item">
@@ -283,16 +278,14 @@
 		  
           
 		    
+		    
+		      
+		    	
+            <a href="https://blog.yowko.com/tags/dotnet-core/">.NET Core</a>
+          
+		    
 		    	
             <a href="https://blog.yowko.com/tags/mac/">Mac</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/docker/">Docker</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/kubernetes/">Kubernetes</a>
           
         </div>
 
@@ -300,18 +293,11 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/remove-dotnet-from-mac/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">從 Mac 移除 .NET Core Runtime 與 SDK</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/homebrew-docker/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/docker-for-mac-kubernetes/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">使用 Homebrew 安裝 Docker</span>			
+            <span class="prev-text nav-default">在 Docker for Mac 上啟用 Kubernetes</span>			
           </a>
 		  </div>
       </nav>
@@ -322,7 +308,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/docker-for-mac-kubernetes\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/remove-dotnet-from-mac\/';  
       
     };
 
