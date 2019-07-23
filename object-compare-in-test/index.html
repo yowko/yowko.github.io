@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>從 Mac 移除 .NET Core Runtime 與 SDK - Yowko&#39;s Notes</title>
+  <title>Test 中驗證 Object 是否相同的方法 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="從 Mac 移除 .NET Core Runtime 與 SDK 可以不時更新 .NET Core SDK 是幸福，也是痛苦; 幸福的是可以使用新的語言特性或是新功能，而痛苦的是不僅又有新的 feature 要學習適應還要想辦法移" />
+  <meta name="description" content="Test 中驗證 Object 是否相同的方法 最近花了不少時間在重構先前專案中的 Unit Test 與 Integration Test，其中對於 reference type 的物件比對有幾種不同的寫法 當然我個人大多配合團隊規範" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/remove-dotnet-from-mac/" />
+<link rel="canonical" href="https://blog.yowko.com/object-compare-in-test/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="從 Mac 移除 .NET Core Runtime 與 SDK" />
-<meta property="og:description" content="從 Mac 移除 .NET Core Runtime 與 SDK 可以不時更新 .NET Core SDK 是幸福，也是痛苦; 幸福的是可以使用新的語言特性或是新功能，而痛苦的是不僅又有新的 feature 要學習適應還要想辦法移" />
+<meta property="og:title" content="Test 中驗證 Object 是否相同的方法" />
+<meta property="og:description" content="Test 中驗證 Object 是否相同的方法 最近花了不少時間在重構先前專案中的 Unit Test 與 Integration Test，其中對於 reference type 的物件比對有幾種不同的寫法 當然我個人大多配合團隊規範" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/remove-dotnet-from-mac/" /><meta property="article:published_time" content="2019-07-22T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-07-22T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/object-compare-in-test/" /><meta property="article:published_time" content="2019-07-23T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-07-23T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="從 Mac 移除 .NET Core Runtime 與 SDK">
-<meta itemprop="description" content="從 Mac 移除 .NET Core Runtime 與 SDK 可以不時更新 .NET Core SDK 是幸福，也是痛苦; 幸福的是可以使用新的語言特性或是新功能，而痛苦的是不僅又有新的 feature 要學習適應還要想辦法移">
-
-
-<meta itemprop="datePublished" content="2019-07-22T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-07-22T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="624">
+<meta itemprop="name" content="Test 中驗證 Object 是否相同的方法">
+<meta itemprop="description" content="Test 中驗證 Object 是否相同的方法 最近花了不少時間在重構先前專案中的 Unit Test 與 Integration Test，其中對於 reference type 的物件比對有幾種不同的寫法 當然我個人大多配合團隊規範">
 
 
+<meta itemprop="datePublished" content="2019-07-23T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-07-23T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="884">
 
-<meta itemprop="keywords" content="dotnet core,Mac," />
+
+
+<meta itemprop="keywords" content="UnitTest,csharp," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="從 Mac 移除 .NET Core Runtime 與 SDK"/>
-<meta name="twitter:description" content="從 Mac 移除 .NET Core Runtime 與 SDK 可以不時更新 .NET Core SDK 是幸福，也是痛苦; 幸福的是可以使用新的語言特性或是新功能，而痛苦的是不僅又有新的 feature 要學習適應還要想辦法移"/>
+<meta name="twitter:title" content="Test 中驗證 Object 是否相同的方法"/>
+<meta name="twitter:description" content="Test 中驗證 Object 是否相同的方法 最近花了不少時間在重構先前專案中的 Unit Test 與 Integration Test，其中對於 reference type 的物件比對有幾種不同的寫法 當然我個人大多配合團隊規範"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-07-22 </span>
+        <span class="post-time"> 2019-07-23 </span>
         
-        <span class="more-meta"> 約 624 字 </span>
+        <span class="more-meta"> 約 884 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,10 +162,11 @@
 <ul>
 <li>
 <ul>
-<li><a href="#從-mac-移除-net-core-runtime-與-sdk">從 Mac 移除 .NET Core Runtime 與 SDK</a></li>
+<li><a href="#test-中驗證-object-是否相同的方法">Test 中驗證 Object 是否相同的方法</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#移除-net-core-sdk">移除 .NET Core SDK</a></li>
-<li><a href="#重新安裝-net-core-sdk">重新安裝 .NET Core SDK</a></li>
+<li><a href="#1-覆寫-equals">1. 覆寫 <code>Equals</code></a></li>
+<li><a href="#2-自訂比對">2. 自訂比對</a></li>
+<li><a href="#3-使用第三方套件">3. 使用第三方套件</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,70 +182,247 @@
     <div class="post-content">
       
 
-<h2 id="從-mac-移除-net-core-runtime-與-sdk">從 Mac 移除 .NET Core Runtime 與 SDK</h2>
+<h2 id="test-中驗證-object-是否相同的方法">Test 中驗證 Object 是否相同的方法</h2>
 
-<p>可以不時更新 .NET Core SDK 是幸福，也是痛苦;</p>
+<p>最近花了不少時間在重構先前專案中的 Unit Test 與 Integration Test，其中對於 reference type 的物件比對有幾種不同的寫法</p>
 
-<p>幸福的是可以使用新的語言特性或是新功能，而痛苦的是不僅又有新的 feature 要學習適應還要想辦法移除舊的 SDK。</p>
-
-<p>過去 .NET Framework 時代的做法是直接取代舊版本，到了 .NET Core 時代則允許同時存在不同版本的 .NET Core SDK，讓開發人員自行選擇使用版本，當然是立意良善，不過像是 .NET Core 1 SDK，我相信絕對不會再用到，如果沒有手動移除它就還是一直留在電腦中，雖然不造成影響，但總是心裡有些疙瘩：既佔空間又怕誤用</p>
-
-<p>過去都是透過 <a href="https://docs.microsoft.com/zh-tw/dotnet/core/versions/remove-runtime-sdk-versions?tabs=macos" target="_blank">如何移除 .NET Core 執行階段和 SDK</a> 的步驟來執行移除，但我老是覺得步驟有點冗餘，另外讓我更不能接受的事有時候會刪不乾淨 (猜測是部份檔案仍在使用中而無法刪除)</p>
-
-<p>今天趁著再次更新 .NET Core SDK 之餘，順手筆記一下</p>
+<p>當然我個人大多配合團隊規範，不會堅持某些做法，就是邊寫邊看邊學，如果有機會看到更好的方式就偷師幾招，今天就筆記一下個人在進行測試時驗證 <code>期望物件</code> 是否與 <code>實際物件</code> 相同的幾個做法</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Mojave 10.14.5</li>
-<li>.NET Core 2.2.107 &ndash;&gt; 2.2.301</li>
-</ol>
+<li>.NET Core 2.2.301</li>
 
-<h2 id="移除-net-core-sdk">移除 .NET Core SDK</h2>
+<li><p>NuGet package</p>
 
-<blockquote>
-<p>以下語法是參考官網中的 shell <a href="https://github.com/dotnet/cli/blob/master/scripts/obtain/uninstall/dotnet-uninstall-pkgs.sh" target="_blank">dotnet/cli/scripts/obtain/uninstall/dotnet-uninstall-pkgs.sh</a> 簡化而來的 (我不想要更新 .NET Core SDK 還必需要先找到移除用 shell 下載並執行 XD，不過如果不嫌麻煩，還是建議使用官方的 shell，畢竟小弟不才可能會把 shell 簡化出 bug 呀)</p>
-</blockquote>
+<ul>
+<li>ExpectedObjects 2.3.4</li>
+<li>FluentAssertions 5.7.0</li>
+</ul></li>
 
-<ol>
-<li><p>移除 .NET Core 相關 pkgs</p>
+<li><p>測試用資料</p>
 
-<pre><code class="language-bash">pkgutil --pkgs | grep com.microsoft.dotnet  | xargs -n 1 sudo pkgutil --forget
-</code></pre>
+<pre><code class="language-cs">public class TestObject
+{
+    public int Id { get; set; }
 
-<p><img src="https://user-images.githubusercontent.com/3851540/61641657-1069f580-acd2-11e9-8f27-c4dca7498446.png" alt="1forget" /></p></li>
+    public string Name { get; set;}
 
-<li><p>移除 dotnet 相關檔案及工具</p>
-
-<pre><code class="language-bash">sudo rm -rf /usr/local/share/dotnet &amp;&amp; sudo rm -f /etc/paths.d/dotnet &amp;&amp; sudo rm -f /etc/paths.d/dotnet-cli-tools
+    public DateTime Birthday { get; set;}
+}
 </code></pre></li>
 </ol>
 
-<h2 id="重新安裝-net-core-sdk">重新安裝 .NET Core SDK</h2>
+<h2 id="1-覆寫-equals">1. 覆寫 <code>Equals</code></h2>
 
 <blockquote>
-<p>以下兩個方法 (或是其他方式皆可) 擇一執行即可，主要目的就是安裝新版的 .NET Core SDK</p>
+<p>不建議只為了 <code>測試</code> 而覆寫 <code>Object.Equals</code>，這是本末倒置：<code>不該為了測試目的而修改了 prodcution code 的行為</code>，以下只是學術研究</p>
 </blockquote>
 
 <ol>
-<li><a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">官網</a> 下載 .NET Core SDK installer</li>
+<li><p>繼承並實作 <code>IEquatable&lt;T&gt;</code></p>
 
-<li><p>使用 homebrew</p>
+<pre><code class="language-cs">public class TestObject : IEquatable&lt;TestObject&gt;
+</code></pre></li>
 
-<pre><code class="language-bash">brew cask install dotnet-sdk
+<li><p>實作 <code>Equals</code></p>
+
+<pre><code class="language-cs">public bool Equals(TestObject other)
+{
+    if (ReferenceEquals(null, other)) return false;
+    if (ReferenceEquals(this, other)) return true;
+
+   return this.Id == other.Id &amp;&amp; this.Birthday == other.Birthday &amp;&amp; this.Name == other.Name;
+}
+</code></pre></li>
+
+<li><p>覆寫 <code>Object.Equals</code> 與 <code>GetHashCode</code></p>
+
+<blockquote>
+<p>以 <code>測試</code> 這個目的，這個步驟可以忽略，不會影響實際效果</p>
+</blockquote>
+
+<pre><code class="language-cs">public override bool Equals(object obj)
+{
+    if (ReferenceEquals(null, obj)) return false;
+    if (ReferenceEquals(this, obj)) return true;
+
+    return obj.GetType() == this.GetType() &amp;&amp; Equals((TestObject) obj);
+}
+
+public override int GetHashCode()
+{
+    unchecked
+    {
+        return this.Id * 1983 * this.Birthday.GetHashCode() * 7 * this.Name.GetHashCode() * 29;
+    }
+}
+</code></pre></li>
+
+<li><p>實際使用</p>
+
+<pre><code class="language-cs">// Arrange
+var expected = new TestObject
+{
+    Id = 1,
+    Name = &quot;Test&quot;,
+    Birthday = new DateTime(1983, 7, 29)
+};
+
+
+// Act
+var actual = new TestObject
+{
+    Id = 1,
+    Name = &quot;Test&quot;,
+    Birthday = new DateTime(1983, 7, 29)
+};
+
+// Assert
+Assert.AreEqual(expected, actual);
 </code></pre></li>
 </ol>
+
+<h2 id="2-自訂比對">2. 自訂比對</h2>
+
+<ol>
+<li><p>建立比對方法</p>
+
+<pre><code class="language-cs">public static class CompareExtension
+{
+    public static string ToStringNullSafe(this object obj)
+    {
+        return obj != null ? obj.ToString() : String.Empty;
+    }
+    public static bool Compare&lt;T&gt;(T actual, T expected, params string[] ignore)
+    {
+        var actualProps = actual.GetType().GetProperties();
+        var expectedProps = expected.GetType().GetProperties();
+        var count = actualProps.Length;
+        for (var i = 0; i &lt; count; i++)
+        {
+            var actualValue = actualProps[i].GetValue(actual, null).ToStringNullSafe();
+            var expectedValue = expectedProps[i].GetValue(expected, null).ToStringNullSafe();
+            if (actualValue != expectedValue &amp;&amp; ignore.All(x =&gt; x != actualProps[i].Name))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+</code></pre></li>
+
+<li><p>實際使用</p>
+
+<pre><code class="language-cs">// Arrange
+var expected = new TestObject
+{
+    Id = 1,
+    Name = &quot;Test&quot;,
+    Birthday = new DateTime(1983, 7, 29)
+};
+
+
+// Act
+var actual = new TestObject
+{
+    Id = 1,
+    Name = &quot;Test&quot;,
+    Birthday = new DateTime(1983, 7, 29)
+};
+
+// Assert
+Assert.IsTrue( CompareExtension.Compare(actual,expected));
+</code></pre></li>
+</ol>
+
+<h2 id="3-使用第三方套件">3. 使用第三方套件</h2>
+
+<blockquote>
+<p>這是普遍推薦的作法，差異在於 assert fail 時會丟出詳細錯誤細節，對於 debug 相對友善</p>
+</blockquote>
+
+<ul>
+<li><p>ExpectedObject</p>
+
+<pre><code class="language-cs">// Arrange
+var expected = new TestObject
+{
+    Id = 1,
+    Name = &quot;Test&quot;,
+    Birthday = new DateTime(1983, 7, 29)
+};
+
+
+// Act
+var actual = new TestObject
+{
+    Id = 1,
+    Name = &quot;Test&quot;,
+    Birthday = new DateTime(1983, 7, 29)
+};
+
+// Assert
+actual.ToExpectedObject().ShouldEqual(expected);
+</code></pre></li>
+
+<li><p>FluentAssertions</p>
+
+<pre><code class="language-cs">// Arrange
+var expected = new TestObject
+{
+    Id = 1,
+    Name = &quot;Test&quot;,
+    Birthday = new DateTime(1983, 7, 29)
+};
+
+
+// Act
+var actual = new TestObject
+{
+    Id = 1,
+    Name = &quot;Test&quot;,
+    Birthday = new DateTime(1983, 7, 29)
+};
+
+// Assert
+actual.Should().BeEquivalentTo(expected);
+</code></pre></li>
+</ul>
 
 <h2 id="心得">心得</h2>
 
-<p>沒錯，我其實沒有真的更新 .NET Core SDK，我就是直接刪除所有 .NET Core SDK 再重新安裝最新版本的 .NET Core SDK，也許不一定比較省時間，但個人還是覺得清爽不少，花這個時間划算  哈哈</p>
+<p>以下是實際出現 assert fail 的訊息截圖</p>
+
+<ol>
+<li><p>實作 <code>IEquatable&lt;T&gt;</code></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/61721133-8e91cf00-ad9a-11e9-964d-1e0750326d8e.png" alt="_output_3objectequal" /></p></li>
+
+<li><p>自訂比對</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/61721134-8e91cf00-ad9a-11e9-848a-5888b05359ed.png" alt="_output_4customcompare" /></p></li>
+
+<li><p>ExpectedObject</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/61721130-8df93880-ad9a-11e9-89b0-421250240095.png" alt="_output_1expectedobject" /></p></li>
+
+<li><p>FluentAssertions</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/61721131-8df93880-ad9a-11e9-8ceb-3b7ab19ddad7.png" alt="_output_2fluentassertions" /></p></li>
+</ol>
+
+<p>看完 assert fail 的訊息後，我立馬就放棄了 <code>實作 IEquatable&lt;T&gt;</code> 與 <code>自訂比對</code>，提示訊息很不友善，對於快速定位問題源頭沒有幫助</p>
+
+<p>至於兩個 NuGet package ： <code>ExpectedObject</code> 與 <code>FluentAssertions</code>，我個人是比較常用 <code>FluentAssertions</code>，因為 <code>FluentAssertions</code> 還可以用來將 assert 做語意化的呈現，而 <code>ExpectedObject</code> 就是只用來比較 object 是否相同，功能相對比較侷限</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://docs.microsoft.com/zh-tw/dotnet/core/versions/remove-runtime-sdk-versions?tabs=macos" target="_blank">如何移除 .NET Core 執行階段和 SDK</a></li>
-<li><a href="https://gist.github.com/sandrovicente/5590f5ac993d9d7fef038fd2858efcc3" target="_blank">Steps to uninstall a DotNet CLI version on Mac OS X</a></li>
-<li><a href="https://github.com/dotnet/cli/blob/master/scripts/obtain/uninstall/dotnet-uninstall-pkgs.sh" target="_blank">dotnet/cli/scripts/obtain/uninstall/dotnet-uninstall-pkgs.sh</a></li>
+<li><a href="https://medium.com/@pjbgf/asserting-equality-in-your-c-unit-tests-837b423024bf" target="_blank">Asserting Equality in your C# unit tests</a></li>
+<li><a href="https://buildplease.com/pages/testing-deep-equalilty/" target="_blank">How to Compare Object Instances in your Unit Tests Quickly and Easily</a></li>
 </ol>
 
     </div>
@@ -257,7 +435,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-07-22</span>
+    <span class="item-content">2019-07-23</span>
   </p>
   
   <p class="copyright-item">
@@ -278,14 +456,14 @@
 		  
           
 		    
+		    	
+            <a href="https://blog.yowko.com/tags/unittest/">UnitTest</a>
+          
+		    
 		    
 		      
 		    	
-            <a href="https://blog.yowko.com/tags/dotnet-core/">.NET Core</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/mac/">Mac</a>
+            <a href="https://blog.yowko.com/tags/csharp/">C#</a>
           
         </div>
 
@@ -293,18 +471,11 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/object-compare-in-test/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">Test 中驗證 Object 是否相同的方法</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/docker-for-mac-kubernetes/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/remove-dotnet-from-mac/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">在 Docker for Mac 上啟用 Kubernetes</span>			
+            <span class="prev-text nav-default">從 Mac 移除 .NET Core Runtime 與 SDK</span>			
           </a>
 		  </div>
       </nav>
@@ -315,7 +486,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/remove-dotnet-from-mac\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/object-compare-in-test\/';  
       
     };
 

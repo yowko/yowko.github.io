@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 22 Jul 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jul 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Test 中驗證 Object 是否相同的方法</title>
+      <link>https://blog.yowko.com/object-compare-in-test/</link>
+      <pubDate>Tue, 23 Jul 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/object-compare-in-test/</guid>
+      <description>Test 中驗證 Object 是否相同的方法 最近花了不少時間在重構先前專案中的 Unit Test 與 Integration Test，其中對於 reference type 的物件比對有幾種不同的寫法 當然我個人大多配合團隊規範</description>
+    </item>
     
     <item>
       <title>從 Mac 移除 .NET Core Runtime 與 SDK</title>
