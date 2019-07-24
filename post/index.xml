@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 23 Jul 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jul 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 Docker Compose file 3 下限制 CPU 與 Memory</title>
+      <link>https://blog.yowko.com/docker-compose-3-cpu-memory-limit/</link>
+      <pubDate>Wed, 24 Jul 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-compose-3-cpu-memory-limit/</guid>
+      <description>在 Docker Compose file 3 下限制 CPU 與 Memory 這幾天某個 job 在進行最終階段測試時發現用到的某個 container 會出現 cpu high 的現象，而且狀況嚴重到會讓 docker process cpu 衝到 400% 以上，接著 docker service 掛了 XD</description>
+    </item>
     
     <item>
       <title>Test 中驗證 Object 是否相同的方法</title>
