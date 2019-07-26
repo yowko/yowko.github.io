@@ -182,7 +182,7 @@ slug: "object-compare-in-test"
     };
 
     // Assert
-    actual.ToExpectedObject().ShouldEqual(expected);
+    expected.ToExpectedObject().ShouldEqual(actual);
     ```
 
 - FluentAssertions
