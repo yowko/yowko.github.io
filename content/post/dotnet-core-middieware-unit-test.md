@@ -6,7 +6,7 @@ draft: false
 tags: ["dotnet core","Unit Test"]
 slug: "dotnet-core-middieware-unit-test"
 ---
-# 為 .NET Core Middleware 加上 Unit Test
+## 為 .NET Core Middleware 加上 Unit Test
 
 .NET Core 的 Middleware 在 .NET Core 的 pipeline 中扮演了非常重要的角色，因此在實際應用上更需要確保功能與結果符合預期。第一次寫 middleware 的 unit test 順手紀錄過程，看看在 unit tese 上有沒有什麼需要留意的，
 
@@ -22,7 +22,7 @@ slug: "dotnet-core-middieware-unit-test"
     - NUnit3TestAdapter 3.11.0
     - Microsoft.NET.Test.Sdk 15.9.0
 
-## 加入 Middleware (兩個方擇一即可)
+## 加入 Middleware (兩個方式擇一即可)
 
 > 加上檢查 header : request 在未包含指定的 header (auth) 時，即丟出 InvalidOperationException
 
@@ -85,6 +85,7 @@ slug: "dotnet-core-middieware-unit-test"
     ```cs
     var httpContext = new DefaultHttpContext();
     ```
+
 2. 建立 Unit Test
 
     - 未提供 auth header 時會出現 InvalidOperationException
@@ -138,6 +139,8 @@ slug: "dotnet-core-middieware-unit-test"
  
 像這樣的中介層因為事關重大，沒有測試保護 (不管是 unit test 或是 integration test) 對於新加入團隊的成員難免都是進入障礙，團隊也很難確保穩定的產出品質，就算是團隊成員都很小心，開發時不會犯錯，也無法確保所有成員過了半年後還記得商業邏輯跟程式碼用意，雖然每個人立場不同(也許覺得測試很浪費時間)，但也許該試著看看為什麼有那麼多人推崇測試
 
-# 參考資訊
+## 參考資訊
+
 1. [撰寫自訂的 ASP.NET Core 中介軟體](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/middleware/write?view=aspnetcore-2.2)
 2. [ASP.NET Core 2.1 middlewares part 2: Unit test a custom middleware](http://anthonygiretti.com/2018/09/04/asp-net-core-2-1-middlewares-part2-unit-test-a-custom-middleware/)
+3. 
