@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 24 Jul 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 28 Jul 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>.Net Core 操作 MongoDB 出現 MongoWaitQueueFullException</title>
+      <link>https://blog.yowko.com/csharp-mongodb-waitqueuefullexception/</link>
+      <pubDate>Sun, 28 Jul 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/csharp-mongodb-waitqueuefullexception/</guid>
+      <description>.Net Core 操作 MongoDB 出現 MongoWaitQueueFullException 之前筆記 在 Docker Compose file 3 下限制 CPU 與 Memory 中提到同事反應說某個專案在執行時會造成 MongoDB CPU high，最後引發 docker service crash，一直沒有找到 root ca</description>
+    </item>
     
     <item>
       <title>在 Docker Compose file 3 下限制 CPU 與 Memory</title>
