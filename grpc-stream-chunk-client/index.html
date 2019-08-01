@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>gRPC stream 如何傳送單一大物件 - Yowko&#39;s Notes</title>
+  <title>gRPC stream 如何傳送單一大物件 (Client 版) - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="gRPC stream 如何傳送單一大物件 之前筆記 C# 搭配 gRPC 中使用 stream RPC 提到為了對於較大資料量以及即時性資料內容，可以透過 gRPC 的 stream RPC 來處理，不過官方範例是用在傳送 repeated 內" />
+  <meta name="description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/grpc-stream-big-object/" />
+<link rel="canonical" href="https://blog.yowko.com/grpc-stream-chunk-client/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="gRPC stream 如何傳送單一大物件" />
-<meta property="og:description" content="gRPC stream 如何傳送單一大物件 之前筆記 C# 搭配 gRPC 中使用 stream RPC 提到為了對於較大資料量以及即時性資料內容，可以透過 gRPC 的 stream RPC 來處理，不過官方範例是用在傳送 repeated 內" />
+<meta property="og:title" content="gRPC stream 如何傳送單一大物件 (Client 版)" />
+<meta property="og:description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/grpc-stream-big-object/" /><meta property="article:published_time" content="2019-07-07T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-07-07T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/grpc-stream-chunk-client/" /><meta property="article:published_time" content="2019-08-01T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-08-01T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="gRPC stream 如何傳送單一大物件">
-<meta itemprop="description" content="gRPC stream 如何傳送單一大物件 之前筆記 C# 搭配 gRPC 中使用 stream RPC 提到為了對於較大資料量以及即時性資料內容，可以透過 gRPC 的 stream RPC 來處理，不過官方範例是用在傳送 repeated 內">
-
-
-<meta itemprop="datePublished" content="2019-07-07T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-07-07T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="868">
+<meta itemprop="name" content="gRPC stream 如何傳送單一大物件 (Client 版)">
+<meta itemprop="description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制">
 
 
+<meta itemprop="datePublished" content="2019-08-01T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-08-01T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="960">
 
-<meta itemprop="keywords" content="csharp,gRPC," />
+
+
+<meta itemprop="keywords" content="C#,gRPC," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="gRPC stream 如何傳送單一大物件"/>
-<meta name="twitter:description" content="gRPC stream 如何傳送單一大物件 之前筆記 C# 搭配 gRPC 中使用 stream RPC 提到為了對於較大資料量以及即時性資料內容，可以透過 gRPC 的 stream RPC 來處理，不過官方範例是用在傳送 repeated 內"/>
+<meta name="twitter:title" content="gRPC stream 如何傳送單一大物件 (Client 版)"/>
+<meta name="twitter:description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-07-07 </span>
+        <span class="post-time"> 2019-08-01 </span>
         
-        <span class="more-meta"> 約 868 字 </span>
+        <span class="more-meta"> 約 960 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,7 +162,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#grpc-stream-如何傳送單一大物件">gRPC stream 如何傳送單一大物件</a></li>
+<li><a href="#grpc-stream-如何傳送單一大物件-client-版">gRPC stream 如何傳送單一大物件 (Client 版)</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
 <li><a href="#修改方式">修改方式</a></li>
 <li><a href="#心得">心得</a></li>
@@ -180,17 +180,19 @@
     <div class="post-content">
       
 
-<h2 id="grpc-stream-如何傳送單一大物件">gRPC stream 如何傳送單一大物件</h2>
+<h2 id="grpc-stream-如何傳送單一大物件-client-版">gRPC stream 如何傳送單一大物件 (Client 版)</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/csharp-grpc-stream/" target="_blank">C# 搭配 gRPC 中使用 stream RPC</a> 提到為了對於較大資料量以及即時性資料內容，可以透過 gRPC 的 stream RPC 來處理，不過官方範例是用在傳送 <code>repeated</code> 內容 (如同 List、Array 這類的物件)，但現實上難免會遇到需要傳送不只一個 list 的狀況：像是一個大型物件中，包含多個不同長度的 list，剛好專案就有類似需求，我就小小筆記一下，當作備忘</p>
+<p>繼之前筆記 <a href="https://blog.yowko.com/grpc-stream-big-object/" target="_blank">gRPC stream 如何傳送單一大物件</a> 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制的 api 改用 stream 以避免可能出現的 <code>RESOURCE_EXHAUSTED</code> 錯誤，截至目前使用上沒有遇到異常狀況。</p>
 
-<p>今天內容會以之前筆記 <a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/" target="_blank">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a> 為基礎作延伸</p>
+<p>上班前同事問到，該如何透過 client 端來上傳單一大物件，我翻了翻筆記，發現沒得抄，想要直接開工卻想不起來該怎麼做 (看來真的不能不服老呀)，所以立馬來筆記一下，避免以後沒地方抄又想很久 QQ</p>
+
+<p>今天內容會以之前筆記 <a href="https://blog.yowko.com/grpc-stream-big-object/" target="_blank">gRPC stream 如何傳送單一大物件</a>  為基礎作延伸</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>macOS Mojave 10.14.5</li>
-<li>.NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)</li>
+<li>macOS Mojave 10.14.6</li>
+<li>.NET Core SDK 2.2.301 (.NET Core Runtime 2.2.6)</li>
 
 <li><p>NuGet Package</p>
 
@@ -213,7 +215,7 @@
 <ul>
 <li><p>message</p>
 
-<pre><code class="language-ptoto">syntax = &quot;proto3&quot;;
+<pre><code class="language-proto">syntax = &quot;proto3&quot;;
 
 package Messages; //will be placed in a namespace matching the package name if csharp_namespace is not specified
 option csharp_namespace = &quot;Messages&quot;;
@@ -248,6 +250,10 @@ message School{
     google.protobuf.Timestamp DateFrom=3;
     google.protobuf.Timestamp DateTo=4;
 }
+
+message Chunk {
+    bytes chunk = 1;
+}
 </code></pre></li>
 
 <li><p>service</p>
@@ -260,7 +266,7 @@ import &quot;message.proto&quot;;
 import &quot;empty.proto&quot;;
 
 service TestService {
-    rpc GetFakePerson (google.protobuf.Empty) returns (Person);
+    rpc GetFakePerson (google.protobuf.Empty) returns (stream Chunk);
 }
 </code></pre></li>
 </ul></li>
@@ -273,7 +279,6 @@ service TestService {
         .RuleFor(a =&gt; a.Name, (f, u) =&gt; f.Random.Word())
         .RuleFor(a =&gt; a.IssueDate, f=&gt;f.Date.Past().ToUniversalTime().ToTimestamp())
         .RuleFor(a =&gt; a.IssueOrg, (f, u) =&gt; f.Company.CompanyName()).Generate(3);
-
     var jobs= new Faker&lt;Job&gt;()
         .RuleFor(a=&gt;a.CompanyName,(f, u) =&gt;f.Company.CompanyName())
         .RuleFor(a=&gt;a.JobTitle,(f, u) =&gt;f.Person.Company.Bs)
@@ -292,7 +297,6 @@ service TestService {
         .RuleFor(a=&gt;a.Birthday,(f,u)=&gt;f.Person.DateOfBirth.ToUniversalTime().ToTimestamp())
         .Generate()
         ;
-
     person.Certificates.AddRange(certificates);
     person.Jobs.AddRange(jobs);
     person.Schools.AddRange(schools);
@@ -303,98 +307,84 @@ service TestService {
 
 <h2 id="修改方式">修改方式</h2>
 
-<p>因為無法將一個大物件中做合理分群 (像是 list 切分為多個小 lsit) 進行 stream 傳送，所以作法改為 <code>傳送 byte[]</code> 這樣一樣就可以有效對於 stream rpc 要傳送的內容進行有群切分了</p>
-
 <ol>
-<li><p>加入 field 為 <code>bytes</code> 的 message</p>
+<li><p>service.proto 加入允許使用 stream 上傳的方式</p>
 
-<pre><code class="language-proto">message Chunk {
-    bytes chunk = 1;
-}
+<pre><code class="language-proto">rpc CreatePerson (stream Chunk) returns (Person);
 </code></pre></li>
 
-<li><p>原本回傳大物件的 service 改為 <code>stream Chunk</code></p>
-
-<pre><code class="language-proto">rpc GetFakePerson (google.protobuf.Empty) returns (stream Chunk);
-</code></pre></li>
-
-<li><p>修改傳送端</p>
+<li><p>client 上傳大物件</p>
 
 <blockquote>
 <p>protobuf 序列化的用法可以參考 <a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/" target="_blank">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></p>
 </blockquote>
 
 <ul>
-<li>改用 <code>stream</code></li>
+<li>使用 <code>stream</code></li>
 <li>透過 Google.Protobuf 轉為 byte[] 傳送</li>
 </ul>
 
-<pre><code class="language-cs">var result = GeneratePerson();
-using (var ms = new MemoryStream())
+<pre><code class="language-cs">using (var creator = serviceClient.CreatePerson())
 {
+    var createPerson = GeneratePerson();
 
-    result.WriteTo(ms);
-    //每次以 64k 傳送
-    const int chunkSize = 64 * 1024;
-    var streamResult = ms.ToArray();
-    var chunkCount = streamResult.Length % chunkSize == 0
-        ? streamResult.Length / chunkSize
-        : (streamResult.Length / chunkSize) + 1;
-
-    for (var i = 0; i &lt; chunkCount; i++)
+    using (var ms = new MemoryStream())
     {
-        await responseStream.WriteAsync( new Chunk(){Chunk_ = ByteString.CopyFrom(streamResult.Skip(chunkSize*i).Take(chunkSize).ToArray())} );
 
+        createPerson.WriteTo(ms);
+        //每次以 64k 傳送
+        const int chunkSize = 64 * 1024;
+        var streamResult = ms.ToArray();
+        var chunkCount = streamResult.Length % chunkSize == 0
+            ? streamResult.Length / chunkSize
+            : (streamResult.Length / chunkSize) + 1;
+
+        for (var i = 0; i &lt; chunkCount; i++)
+        {
+            await creator.RequestStream.WriteAsync( new Chunk(){Chunk_ = ByteString.CopyFrom(streamResult.Skip(chunkSize*i).Take(chunkSize).ToArray())} );
+        }
     }
+    //等待完成上傳
+    await creator.RequestStream.CompleteAsync();
+    //回傳 gRPC call 結果
+    return await creator;
 }
 </code></pre></li>
 
-<li><p>修改接受端</p>
+<li><p>server 端接收大物件</p>
 
 <blockquote>
 <p>protobuf 反序列化的用法可以參考 <a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/" target="_blank">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></p>
 </blockquote>
 
 <ul>
-<li>改用 stream 接收</li>
+<li>使用 stream 接收</li>
 <li>透過 Google.Protobuf 讀取 byte[] 轉型</li>
 </ul>
 
 <pre><code class="language-cs">var streamResult = new List&lt;byte&gt;();
-using (var client = serviceClient.GetFakePerson(new Empty()))
+//逐步接收內容
+while (await requestStream.MoveNext())
 {
-    // 逐一取出 stream 內容
-    while (await client.ResponseStream.MoveNext())
-    {
-        streamResult.AddRange(client.ResponseStream.Current.Chunk_.ToByteArray());
-    }
+    var current = requestStream.Current;
+    streamResult.AddRange(current.Chunk_);
 }
-
-var person = Person.Parser.ParseFrom(streamResult.ToArray());
-
+//將收到的 byte array 轉為 Person
+var person =  Person.Parser.ParseFrom(streamResult.ToArray());
+//回傳收到的內容
 return person;
 </code></pre></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>雖然依上述步驟可以解決 <code>使用 stream rpc 傳送單一大型物件</code> 的問題，但做法上我自己覺得還有改進空間</p>
-
-<ol>
-<li>stream RPC 需要自行決定傳送型態與切割傳送大小</li>
-
-<li><p>client 端需先暫存 byte[]，官方文件提到 Google.Protobuf 可以直接讀取 ByteString</p>
-
-<blockquote>
-<p>這個可能是我自己沒找到方法</p>
-</blockquote></li>
-</ol>
+<p>仔細看上面所使用的例子可以發現有個 bug，我們使用 gRPC stream 就是想要處理超乎 4mb 單次傳送限制的內容， client 上傳改用 srteam 這部份程式沒有問題，但回傳時卻沒有用上 stream，如果上傳的物件真的超過 4mb 時就會出現錯誤，不過我考慮再三還是決定先不加，因為這次筆記的重點是紀錄 client 上傳使用 stream chunk 的做法，如果加上回傳也用上 stream 就變成雙向 stream，跟這次目的不符也會使得程式碼變複雜，如果有需要雙向 stream 之後再另外筆記囉</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
+<li><a href="https://blog.yowko.com/grpc-stream-big-object/" target="_blank">gRPC stream 如何傳送單一大物件</a></li>
 <li><a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/" target="_blank">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></li>
-<li><a href="https://jbrandhorst.com/post/grpc-binary-blob-stream/" target="_blank">Chunking large messages with gRPC</a></li>
 </ol>
 
     </div>
@@ -407,7 +397,7 @@ return person;
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-07-07</span>
+    <span class="item-content">2019-08-01</span>
   </p>
   
   <p class="copyright-item">
@@ -428,10 +418,8 @@ return person;
 		  
           
 		    
-		    
-		      
 		    	
-            <a href="https://blog.yowko.com/tags/csharp/">C#</a>
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
           
 		    
 		    	
@@ -443,18 +431,11 @@ return person;
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/kubespray-kubernetes/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">透過 Kubespray 來架設 Kubernetes</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/csharp-mongodb-waitqueuefullexception/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</span>			
+            <span class="prev-text nav-default">.Net Core 操作 MongoDB 出現 MongoWaitQueueFullException</span>			
           </a>
 		  </div>
       </nav>
@@ -465,7 +446,7 @@ return person;
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/grpc-stream-big-object\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/grpc-stream-chunk-client\/';  
       
     };
 

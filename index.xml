@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 28 Jul 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 01 Aug 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>gRPC stream 如何傳送單一大物件 (Client 版)</title>
+      <link>https://blog.yowko.com/grpc-stream-chunk-client/</link>
+      <pubDate>Thu, 01 Aug 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/grpc-stream-chunk-client/</guid>
+      <description>gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制</description>
+    </item>
     
     <item>
       <title>.Net Core 操作 MongoDB 出現 MongoWaitQueueFullException</title>
