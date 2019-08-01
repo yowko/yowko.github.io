@@ -155,7 +155,7 @@ slug: "grpc-stream-big-object"
         var streamResult = ms.ToArray();
         var chunkCount = streamResult.Length % chunkSize == 0
             ? streamResult.Length / chunkSize
-            : (streamResult.Length % chunkSize) + 1;
+            : (streamResult.Length / chunkSize) + 1;
 
         for (var i = 0; i < chunkCount; i++)
         {
