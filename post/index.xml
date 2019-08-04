@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 01 Aug 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 04 Aug 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MongoDB CPU High 問題追查紀錄</title>
+      <link>https://blog.yowko.com/mongodb-cpu-high/</link>
+      <pubDate>Sun, 04 Aug 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mongodb-cpu-high/</guid>
+      <description>MongoDB CPU High 問題追查紀錄 在之前筆記 取得 MongoDB SDK 實際產生的指令 中提到是為了追查 MongoDB 的效能問題而需要取得 MongoDB driver 實際產生的 script，既然 script 已經順利取得，就可</description>
+    </item>
+    
+    <item>
+      <title>取得 MongoDB SDK 實際產生的指令</title>
+      <link>https://blog.yowko.com/mongodb-interceptor/</link>
+      <pubDate>Sat, 03 Aug 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mongodb-interceptor/</guid>
+      <description>取得 MongoDB SDK 實際產生的指令 之前曾經在 取得 Entity Framework 存取 DB 時的實際 SQL Script 提到如果都透過 EntityFramework 來存取 DB，有時候遇到的效能瓶頸是因為 EntityFramework 沒有使用正確的 index 或是執行計</description>
+    </item>
     
     <item>
       <title>gRPC stream 如何傳送單一大物件 (Client 版)</title>

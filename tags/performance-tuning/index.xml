@@ -6,10 +6,19 @@
     <description>Recent content in Performance Tuning on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 19 May 2018 00:38:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 04 Aug 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/performance-tuning/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MongoDB CPU High 問題追查紀錄</title>
+      <link>https://blog.yowko.com/mongodb-cpu-high/</link>
+      <pubDate>Sun, 04 Aug 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mongodb-cpu-high/</guid>
+      <description>MongoDB CPU High 問題追查紀錄 在之前筆記 取得 MongoDB SDK 實際產生的指令 中提到是為了追查 MongoDB 的效能問題而需要取得 MongoDB driver 實際產生的 script，既然 script 已經順利取得，就可</description>
+    </item>
     
     <item>
       <title>使用 Entity Framework Insert 大量資料</title>

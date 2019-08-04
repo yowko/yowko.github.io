@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>gRPC stream 如何傳送單一大物件 (Client 版) - Yowko&#39;s Notes</title>
+  <title>取得 MongoDB SDK 實際產生的指令 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制" />
+  <meta name="description" content="取得 MongoDB SDK 實際產生的指令 之前曾經在 取得 Entity Framework 存取 DB 時的實際 SQL Script 提到如果都透過 EntityFramework 來存取 DB，有時候遇到的效能瓶頸是因為 EntityFramework 沒有使用正確的 index 或是執行計" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/grpc-stream-chunk-client/" />
+<link rel="canonical" href="https://blog.yowko.com/mongodb-interceptor/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="gRPC stream 如何傳送單一大物件 (Client 版)" />
-<meta property="og:description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制" />
+<meta property="og:title" content="取得 MongoDB SDK 實際產生的指令" />
+<meta property="og:description" content="取得 MongoDB SDK 實際產生的指令 之前曾經在 取得 Entity Framework 存取 DB 時的實際 SQL Script 提到如果都透過 EntityFramework 來存取 DB，有時候遇到的效能瓶頸是因為 EntityFramework 沒有使用正確的 index 或是執行計" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/grpc-stream-chunk-client/" /><meta property="article:published_time" content="2019-08-01T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-08-01T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/mongodb-interceptor/" /><meta property="article:published_time" content="2019-08-03T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-08-03T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="gRPC stream 如何傳送單一大物件 (Client 版)">
-<meta itemprop="description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制">
-
-
-<meta itemprop="datePublished" content="2019-08-01T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-08-01T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="960">
+<meta itemprop="name" content="取得 MongoDB SDK 實際產生的指令">
+<meta itemprop="description" content="取得 MongoDB SDK 實際產生的指令 之前曾經在 取得 Entity Framework 存取 DB 時的實際 SQL Script 提到如果都透過 EntityFramework 來存取 DB，有時候遇到的效能瓶頸是因為 EntityFramework 沒有使用正確的 index 或是執行計">
 
 
+<meta itemprop="datePublished" content="2019-08-03T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-08-03T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="624">
 
-<meta itemprop="keywords" content="C#,gRPC," />
+
+
+<meta itemprop="keywords" content="C#,MongoDB," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="gRPC stream 如何傳送單一大物件 (Client 版)"/>
-<meta name="twitter:description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制"/>
+<meta name="twitter:title" content="取得 MongoDB SDK 實際產生的指令"/>
+<meta name="twitter:description" content="取得 MongoDB SDK 實際產生的指令 之前曾經在 取得 Entity Framework 存取 DB 時的實際 SQL Script 提到如果都透過 EntityFramework 來存取 DB，有時候遇到的效能瓶頸是因為 EntityFramework 沒有使用正確的 index 或是執行計"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-08-01 </span>
+        <span class="post-time"> 2019-08-03 </span>
         
-        <span class="more-meta"> 約 960 字 </span>
+        <span class="more-meta"> 約 624 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,9 +162,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#grpc-stream-如何傳送單一大物件-client-版">gRPC stream 如何傳送單一大物件 (Client 版)</a></li>
+<li><a href="#取得-mongodb-sdk-實際產生的指令">取得 MongoDB SDK 實際產生的指令</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#修改方式">修改方式</a></li>
+<li><a href="#指令取得方式">指令取得方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,211 +180,130 @@
     <div class="post-content">
       
 
-<h2 id="grpc-stream-如何傳送單一大物件-client-版">gRPC stream 如何傳送單一大物件 (Client 版)</h2>
+<h2 id="取得-mongodb-sdk-實際產生的指令">取得 MongoDB SDK 實際產生的指令</h2>
 
-<p>繼之前筆記 <a href="https://blog.yowko.com/grpc-stream-big-object/" target="_blank">gRPC stream 如何傳送單一大物件</a> 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制的 api 改用 stream 以避免可能出現的 <code>RESOURCE_EXHAUSTED</code> 錯誤，截至目前使用上沒有遇到異常狀況。</p>
+<p>之前曾經在 <a href="https://blog.yowko.com/entityframework-log-sql/" target="_blank">取得 Entity Framework 存取 DB 時的實際 SQL Script</a> 提到如果都透過 EntityFramework 來存取 DB，有時候遇到的效能瓶頸是因為 EntityFramework 沒有使用正確的 index 或是執行計劃，這時候就可以使用 interceptor 來攔截 EntityFramework 實際對 DB 執行的 SQL statement 內容</p>
 
-<p>上班前同事問到，該如何透過 client 端來上傳單一大物件，我翻了翻筆記，發現沒得抄，想要直接開工卻想不起來該怎麼做 (看來真的不能不服老呀)，所以立馬來筆記一下，避免以後沒地方抄又想很久 QQ</p>
-
-<p>今天內容會以之前筆記 <a href="https://blog.yowko.com/grpc-stream-big-object/" target="_blank">gRPC stream 如何傳送單一大物件</a>  為基礎作延伸</p>
+<p>最近剛好要確認專案的 MongoDB instance performane issue，剛好趁這個機會紀錄一下如何取得 MongoDB SDK 實際執行的 script 內容</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Mojave 10.14.6</li>
 <li>.NET Core SDK 2.2.301 (.NET Core Runtime 2.2.6)</li>
+<li>MongoDB 4.0.10</li>
 
 <li><p>NuGet Package</p>
 
 <ul>
-<li>Google.Protobuf 3.8.0</li>
+<li>MongoDB.Driver 2.8.1</li>
 
-<li><p>Bogus 28.0.1</p>
+<li><p>Bogus 28.0.2</p>
 
 <blockquote>
-<p>產生假資料用 (非必要)</p>
+<p>產生假資料用，選擇性安裝</p>
 </blockquote></li>
-
-<li><p>Grpc 1.22.0</p></li>
-
-<li><p>Grpc.Tools 1.22.0</p></li>
 </ul></li>
 
-<li><p>proto</p>
+<li><p>測試用程式</p>
 
 <ul>
-<li><p>message</p>
+<li><p>連線</p>
 
-<pre><code class="language-proto">syntax = &quot;proto3&quot;;
+<pre><code class="language-cs">var client = new MongoClient(
+    new MongoClientSettings
+    {
+       Server = new MongoServerAddress(&quot;localhost&quot;,27017)
+    });
+var db = client.GetDatabase(&quot;test&quot;);
+var collection = db.GetCollection&lt;User&gt;(&quot;users&quot;);
 
-package Messages; //will be placed in a namespace matching the package name if csharp_namespace is not specified
-option csharp_namespace = &quot;Messages&quot;;
-
-import &quot;timestamp.proto&quot;;
-
-message Person{
-    string Id=1;
-    google.protobuf.Timestamp Birthday=2;
-    string Name=3;
-    repeated Job jobs=4;
-    repeated Certificate Certificates=5;
-    repeated School Schools=6;
-}
-
-message Job{
-    string CompanyName=1;
-    string JobTitle=2;
-    google.protobuf.Timestamp DateFrom=3;
-    google.protobuf.Timestamp DateTo=4;
-}
-
-message Certificate{
-    string Name=1;
-    string IssueOrg=2;
-    google.protobuf.Timestamp IssueDate=3;
-}
-
-message School{
-    string SchoolName=1;
-    bool IsGraduated=2;
-    google.protobuf.Timestamp DateFrom=3;
-    google.protobuf.Timestamp DateTo=4;
-}
-
-message Chunk {
-    bytes chunk = 1;
-}
+//準備 insert 用假資料
+var _user = GetFakeUserData();
 </code></pre></li>
 
-<li><p>service</p>
+<li><p>insert</p>
 
-<pre><code class="language-proto">syntax = &quot;proto3&quot;;
+<pre><code class="language-cs">await collection.InsertOneAsync(_user);
+</code></pre></li>
 
-package Messages; //will be placed in a namespace matching the package name if csharp_namespace is not specified
-option csharp_namespace = &quot;Messages&quot;;
-import &quot;message.proto&quot;;
-import &quot;empty.proto&quot;;
+<li><p>select</p>
 
-service TestService {
-    rpc GetFakePerson (google.protobuf.Empty) returns (stream Chunk);
-}
+<pre><code class="language-cs">//依 name 過濾並取得一筆資料
+var document = collection.Find(a =&gt; a.Name == &quot;name&quot;).FirstOrDefault();
+</code></pre></li>
+
+<li><p>update</p>
+
+<pre><code class="language-cs">// 設定過濾條件：找 Name 為 &quot;name&quot;
+var filter = Builders&lt;User&gt;.Filter.Eq(a =&gt; a.Name, &quot;name&quot;);
+// 設定新的值
+var update = Builders&lt;User&gt;.Update.Set(a =&gt; a.Name, &quot;Yowko&quot;);
+//將過濾條件與設定值傳入 collection 進行更新
+collection.UpdateOne(filter, update);
+</code></pre></li>
+
+<li><p>delete</p>
+
+<pre><code class="language-cs">collection.DeleteOne(a =&gt; a.Name == &quot;Yowko&quot;);
+</code></pre></li>
+
+<li><p>upsert</p>
+
+<pre><code class="language-cs">var upsertModel = Builders&lt;User&gt;.Update
+    .SetOnInsert(m =&gt; m.Id, _user.Id)
+    .Set(m =&gt; m.ModifiedOn, _user.ModifiedOn)
+    .SetOnInsert(m =&gt; m.CreatedOn, _user.CreatedOn)
+    .Set(m =&gt; m.Name, _user.Name);
+var result = await db
+    .GetCollection&lt;User&gt;(&quot;users&quot;)
+    .UpdateOneAsync(m =&gt; m.Id == _user.Id, upsertModel,
+        new UpdateOptions {IsUpsert = true}).ConfigureAwait(false);
 </code></pre></li>
 </ul></li>
-
-<li><p>使用 Bogus 產生假資料</p>
-
-<pre><code class="language-cs">static Person GeneratePerson()
-{
-    var certificates = new Faker&lt;Certificate&gt;()
-        .RuleFor(a =&gt; a.Name, (f, u) =&gt; f.Random.Word())
-        .RuleFor(a =&gt; a.IssueDate, f=&gt;f.Date.Past().ToUniversalTime().ToTimestamp())
-        .RuleFor(a =&gt; a.IssueOrg, (f, u) =&gt; f.Company.CompanyName()).Generate(3);
-    var jobs= new Faker&lt;Job&gt;()
-        .RuleFor(a=&gt;a.CompanyName,(f, u) =&gt;f.Company.CompanyName())
-        .RuleFor(a=&gt;a.JobTitle,(f, u) =&gt;f.Person.Company.Bs)
-        .RuleFor(a=&gt;a.DateFrom,(f, u) =&gt; f.Date.Past(3).ToUniversalTime().ToTimestamp())
-        .RuleFor(a=&gt;a.DateTo,(f, u) =&gt;f.Date.Past(1).ToUniversalTime().ToTimestamp())
-        .Generate(4);
-    var schools = new Faker&lt;School&gt;()
-        .RuleFor(a=&gt;a.SchoolName,(f, u) =&gt;f.Company.CompanyName())
-        .RuleFor(a=&gt;a.DateFrom,(f, u) =&gt;f.Date.Past(3).ToUniversalTime().ToTimestamp())
-        .RuleFor(a=&gt;a.DateTo,(f, u) =&gt; f.Date.Past(1).ToUniversalTime().ToTimestamp())
-        .RuleFor(a=&gt;a.IsGraduated,(f,u)=&gt;f.Random.Bool()).Generate(5)
-        ;
-    var person = new Faker&lt;Person&gt;()
-        .RuleFor(a=&gt;a.Name,(f,u)=&gt;f.Person.FullName)
-        .RuleFor(a=&gt;a.Id,(f,u)=&gt;Guid.NewGuid().ToString())
-        .RuleFor(a=&gt;a.Birthday,(f,u)=&gt;f.Person.DateOfBirth.ToUniversalTime().ToTimestamp())
-        .Generate()
-        ;
-    person.Certificates.AddRange(certificates);
-    person.Jobs.AddRange(jobs);
-    person.Schools.AddRange(schools);
-    return person;
-}
-</code></pre></li>
 </ol>
 
-<h2 id="修改方式">修改方式</h2>
+<h2 id="指令取得方式">指令取得方式</h2>
 
 <ol>
-<li><p>service.proto 加入允許使用 stream 上傳的方式</p>
-
-<pre><code class="language-proto">rpc CreatePerson (stream Chunk) returns (Person);
-</code></pre></li>
-
-<li><p>client 上傳大物件</p>
+<li><p>修改 Mongo client 設定</p>
 
 <blockquote>
-<p>protobuf 序列化的用法可以參考 <a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/" target="_blank">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></p>
+<p>加入訂閱 <code>CommandStartedEvent</code></p>
 </blockquote>
 
-<ul>
-<li>使用 <code>stream</code></li>
-<li>透過 Google.Protobuf 轉為 byte[] 傳送</li>
-</ul>
-
-<pre><code class="language-cs">using (var creator = serviceClient.CreatePerson())
-{
-    var createPerson = GeneratePerson();
-
-    using (var ms = new MemoryStream())
+<pre><code class="language-cs">var client = new MongoClient(
+    new MongoClientSettings
     {
-
-        createPerson.WriteTo(ms);
-        //每次以 64k 傳送
-        const int chunkSize = 64 * 1024;
-        var streamResult = ms.ToArray();
-        var chunkCount = streamResult.Length % chunkSize == 0
-            ? streamResult.Length / chunkSize
-            : (streamResult.Length / chunkSize) + 1;
-
-        for (var i = 0; i &lt; chunkCount; i++)
+        Server = new MongoServerAddress(&quot;localhost&quot;, 27017),
+        ClusterConfigurator = cb =&gt;
         {
-            await creator.RequestStream.WriteAsync( new Chunk(){Chunk_ = ByteString.CopyFrom(streamResult.Skip(chunkSize*i).Take(chunkSize).ToArray())} );
+            cb.Subscribe&lt;CommandStartedEvent&gt;(e =&gt;
+            {
+                Console.WriteLine($&quot;{e.CommandName} : {e.Command}&quot;);
+            });
         }
-    }
-    //等待完成上傳
-    await creator.RequestStream.CompleteAsync();
-    //回傳 gRPC call 結果
-    return await creator;
-}
+    });
 </code></pre></li>
 
-<li><p>server 端接收大物件</p>
+<li><p>實際效果</p>
 
-<blockquote>
-<p>protobuf 反序列化的用法可以參考 <a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/" target="_blank">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></p>
-</blockquote>
-
-<ul>
-<li>使用 stream 接收</li>
-<li>透過 Google.Protobuf 讀取 byte[] 轉型</li>
-</ul>
-
-<pre><code class="language-cs">var streamResult = new List&lt;byte&gt;();
-//逐步接收內容
-while (await requestStream.MoveNext())
-{
-    var current = requestStream.Current;
-    streamResult.AddRange(current.Chunk_);
-}
-//將收到的 byte array 轉為 Person
-var person =  Person.Parser.ParseFrom(streamResult.ToArray());
-//回傳收到的內容
-return person;
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/62420447-1940cb00-b6c5-11e9-90e0-8381ff79c85b.png" alt="1subscribe" /></p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>仔細看上面所使用的例子可以發現有個 bug，我們使用 gRPC stream 就是想要處理超乎 4mb 單次傳送限制的內容， client 上傳改用 srteam 這部份程式沒有問題，但回傳時卻沒有用上 stream，如果上傳的物件真的超過 4mb 時就會出現錯誤，不過我考慮再三還是決定先不加，因為這次筆記的重點是紀錄 client 上傳使用 stream chunk 的做法，如果加上回傳也用上 stream 就變成雙向 stream，跟這次目的不符也會使得程式碼變複雜，如果有需要雙向 stream 之後再另外筆記囉</p>
+<p>MongoDB .NET driver 曾經在 2.0 時短暫加入 logging 相關的實驗性功能：可以傳入自訂的 listener 來接收 log，但後來的版本就移除了，讓我在筆記時一度懷疑起是不是自己記錯 XD</p>
+
+<p>紀錄實際產生的 script 內容，在 MongoDB 使用量大的系統中可能造成 log 數量龐大的問題，但類似情況在其他類型的 log 也會遇到 - 如果在系統開發階段沒有加入需要的 log 內容跟設定，或是 production 環境沒有開啟對應的 log level，到時候出現問題時可能就會遇到要追查 issue 但相關材料不足的情況</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/grpc-stream-big-object/" target="_blank">gRPC stream 如何傳送單一大物件</a></li>
-<li><a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/" target="_blank">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></li>
+<li><a href="https://blog.yowko.com/entityframework-log-sql/" target="_blank">取得 Entity Framework 存取 DB 時的實際 SQL Script</a></li>
+<li><a href="https://stackoverflow.com/questions/48947260/mongodb-c-sharp-driver-query-interceptors" target="_blank">MongoDB C# Driver: Query interceptors?</a></li>
+<li><a href="https://stackoverflow.com/questions/30333925/how-do-i-log-my-queries-in-mongodb-c-sharp-driver-2-0" target="_blank">How do I log my queries in MongoDB C# Driver 2.0?</a></li>
+<li><a href="http://mongodb.github.io/mongo-csharp-driver/2.0/what_is_new/#logging" target="_blank">What’s New in the MongoDB .NET 2.0 Driver</a></li>
 </ol>
 
     </div>
@@ -397,7 +316,7 @@ return person;
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-08-01</span>
+    <span class="item-content">2019-08-03</span>
   </p>
   
   <p class="copyright-item">
@@ -423,7 +342,7 @@ return person;
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/grpc/">gRPC</a>
+            <a href="https://blog.yowko.com/tags/mongodb/">MongoDB</a>
           
         </div>
 
@@ -431,18 +350,18 @@ return person;
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/mongodb-interceptor/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/mongodb-cpu-high/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">取得 MongoDB SDK 實際產生的指令</span>			
+            <span class="next-text nav-default">MongoDB CPU High 問題追查紀錄</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/csharp-mongodb-waitqueuefullexception/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/grpc-stream-chunk-client/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">.Net Core 操作 MongoDB 出現 MongoWaitQueueFullException</span>			
+            <span class="prev-text nav-default">gRPC stream 如何傳送單一大物件 (Client 版)</span>			
           </a>
 		  </div>
       </nav>
@@ -453,7 +372,7 @@ return person;
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/grpc-stream-chunk-client\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/mongodb-interceptor\/';  
       
     };
 
