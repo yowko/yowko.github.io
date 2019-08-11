@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>透過 Kubespray 來架設 Kubernetes - Yowko&#39;s Notes</title>
+  <title>使用 Kubespray 開啟 Kubernetes Dashboard - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="透過 Kubespray 來架設 Kubernetes 最近剛好有機會可以參與專案的部署作業，雖然過去也持續進行過不同方式的 CI/CD，但真正部署至 Kubernetes 上則是全新的體驗，為了降低扯團隊" />
+  <meta name="description" content="使用 Kubespray 開啟 Kubernetes Dashboard 前同事問到 Kubernetes Dashboard 安裝的問題，這才發現我只用過別人裝好的，自己沒有真的裝過 XD，趁著假日時間紀錄一下囉 Kubernetes Dashboard 是 Kubernetes 官方製作用來管理 Kubernetes clusters" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/kubespray-kubernetes/" />
+<link rel="canonical" href="https://blog.yowko.com/kubespray-kubernetes-dashboard/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="透過 Kubespray 來架設 Kubernetes" />
-<meta property="og:description" content="透過 Kubespray 來架設 Kubernetes 最近剛好有機會可以參與專案的部署作業，雖然過去也持續進行過不同方式的 CI/CD，但真正部署至 Kubernetes 上則是全新的體驗，為了降低扯團隊" />
+<meta property="og:title" content="使用 Kubespray 開啟 Kubernetes Dashboard" />
+<meta property="og:description" content="使用 Kubespray 開啟 Kubernetes Dashboard 前同事問到 Kubernetes Dashboard 安裝的問題，這才發現我只用過別人裝好的，自己沒有真的裝過 XD，趁著假日時間紀錄一下囉 Kubernetes Dashboard 是 Kubernetes 官方製作用來管理 Kubernetes clusters" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/kubespray-kubernetes/" /><meta property="article:published_time" content="2019-07-13T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-07-13T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/kubespray-kubernetes-dashboard/" /><meta property="article:published_time" content="2019-08-10T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-08-10T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="透過 Kubespray 來架設 Kubernetes">
-<meta itemprop="description" content="透過 Kubespray 來架設 Kubernetes 最近剛好有機會可以參與專案的部署作業，雖然過去也持續進行過不同方式的 CI/CD，但真正部署至 Kubernetes 上則是全新的體驗，為了降低扯團隊">
+<meta itemprop="name" content="使用 Kubespray 開啟 Kubernetes Dashboard">
+<meta itemprop="description" content="使用 Kubespray 開啟 Kubernetes Dashboard 前同事問到 Kubernetes Dashboard 安裝的問題，這才發現我只用過別人裝好的，自己沒有真的裝過 XD，趁著假日時間紀錄一下囉 Kubernetes Dashboard 是 Kubernetes 官方製作用來管理 Kubernetes clusters">
 
 
-<meta itemprop="datePublished" content="2019-07-13T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-07-13T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="1094">
+<meta itemprop="datePublished" content="2019-08-10T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-08-10T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="518">
 
 
 
 <meta itemprop="keywords" content="Kubernetes," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="透過 Kubespray 來架設 Kubernetes"/>
-<meta name="twitter:description" content="透過 Kubespray 來架設 Kubernetes 最近剛好有機會可以參與專案的部署作業，雖然過去也持續進行過不同方式的 CI/CD，但真正部署至 Kubernetes 上則是全新的體驗，為了降低扯團隊"/>
+<meta name="twitter:title" content="使用 Kubespray 開啟 Kubernetes Dashboard"/>
+<meta name="twitter:description" content="使用 Kubespray 開啟 Kubernetes Dashboard 前同事問到 Kubernetes Dashboard 安裝的問題，這才發現我只用過別人裝好的，自己沒有真的裝過 XD，趁著假日時間紀錄一下囉 Kubernetes Dashboard 是 Kubernetes 官方製作用來管理 Kubernetes clusters"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,10 +144,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-07-13 </span>
+        <span class="post-time"> 2019-08-10 </span>
         
-        <span class="more-meta"> 約 1094 字 </span>
-          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        <span class="more-meta"> 約 518 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
     </header>
@@ -162,10 +162,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#透過-kubespray-來架設-kubernetes">透過 Kubespray 來架設 Kubernetes</a></li>
+<li><a href="#使用-kubespray-開啟-kubernetes-dashboard">使用 Kubespray 開啟 Kubernetes Dashboard</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#vm-基礎環境設定">VM 基礎環境設定</a></li>
-<li><a href="#透過-kubespray-安裝">透過 Kubespray 安裝</a></li>
+<li><a href="#安裝-kubernetes-dashboard">安裝 Kubernetes Dashboard</a></li>
+<li><a href="#設定-kubernetes-dashboard-登入資訊">設定 Kubernetes Dashboard 登入資訊</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,11 +181,11 @@
     <div class="post-content">
       
 
-<h2 id="透過-kubespray-來架設-kubernetes">透過 Kubespray 來架設 Kubernetes</h2>
+<h2 id="使用-kubespray-開啟-kubernetes-dashboard">使用 Kubespray 開啟 Kubernetes Dashboard</h2>
 
-<p>最近剛好有機會可以參與專案的部署作業，雖然過去也持續進行過不同方式的 CI/CD，但真正部署至 Kubernetes 上則是全新的體驗，為了降低扯團隊後腿的機會，免不了要自己練習一下先，在細節不少加上本來掌握度就不高下狀況可謂是相當慘烈呀，於是一搞定就馬上筆記，加深印象</p>
+<p>前同事問到 Kubernetes Dashboard 安裝的問題，這才發現我只用過別人裝好的，自己沒有真的裝過 XD，趁著假日時間紀錄一下囉</p>
 
-<p>過去筆記 <a href="https://blog.yowko.com/centos-kubeadm-kubernetes/" target="_blank">(CentOS ) 上使用kubeadm 架設Kubernetes (K8s)</a> 提到的 kubeadm 與 Kubespray 都是 Google open source 的工具，其中 Kubespray 主要核心是透過 Ansible 來執行相關操作，雖說與 Kubeadm 都有細微操作被包裝的問題，但相較之下 Kubespray 因為搭配了 Ansible，讓靈活度與門檻降低了些</p>
+<p>Kubernetes Dashboard 是 Kubernetes 官方製作用來管理 Kubernetes clusters 的 web-base UI 工具</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -243,170 +243,133 @@
 <li><p>Kubernetes 1.14.3</p></li>
 </ol>
 
-<h2 id="vm-基礎環境設定">VM 基礎環境設定</h2>
+<h2 id="安裝-kubernetes-dashboard">安裝 Kubernetes Dashboard</h2>
+
+<p>透過 kubespray 安裝 Kubernetes Dashboard 非常簡單，而且預設就會執行安裝</p>
 
 <ol>
-<li><p>關閉 selinux</p>
+<li><p>確認是否啟用安裝</p>
 
 <blockquote>
-<p>執行對象：所有 VM</p>
+<p>檢查 <code>kubespray/inventory/k8s/group_vars/k8s-cluster/addons.yml</code> 中的 <code>dashboard_enabled</code> 設定是否為 <code>true</code></p>
 </blockquote>
 
-<pre><code class="language-bash">setenforce 0
-sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+<p><img src="https://user-images.githubusercontent.com/3851540/62828782-eb0d3f00-bc20-11e9-8d2b-236b525db478.png" alt="1enable" /></p></li>
+
+<li><p>檢查是否已成功安裝</p>
+
+<pre><code class="language-bash">kubectl -n kube-system get service kubernetes-dashboard
+</code></pre></li>
+
+<li><p>修改 Kubernetes Dashboard service 設定</p>
+
+<pre><code class="language-bash">kubectl -n kube-system edit service kubernetes-dashboard
 </code></pre>
 
 <ul>
-<li><code>setenforce 0</code> 暫時關閉</li>
-<li><code>sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux</code> 永久關閉，需重新開機</li>
-</ul></li>
-
-<li><p>關閉系統 Swap 交換空間</p>
+<li>指定 nodePort</li>
+<li>將 type 由 ClusterIP 改為 NodePort</li>
+</ul>
 
 <blockquote>
-<p>執行對象：所有 vm</p>
+<p>修改前</p>
 </blockquote>
 
-<pre><code class="language-bash">swapoff -a &amp;&amp; echo &quot;vm.swappiness=0&quot; &gt;&gt; /etc/sysctl.conf &amp;&amp; sysctl -p &amp;&amp; free –h
-</code></pre></li>
-
-<li><p>閉閉防火牆</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/62828783-eba5d580-bc20-11e9-9632-1a7b684a5563.png" alt="2before" /></p>
 
 <blockquote>
-<p>執行對象：所有 vm</p>
+<p>修改後</p>
 </blockquote>
 
-<pre><code class="language-bash">systemctl disable firewalld &amp;&amp; systemctl stop firewalld
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/62828784-eba5d580-bc20-11e9-870a-dd128b76f467.png" alt="3after" /></p></li>
 
-<li><p>啟用 iptable filter 的 FOWARD</p>
+<li><p>開啟 <code>https://node1:30710</code> 即可出現登入畫面</p>
 
-<blockquote>
-<p>執行對象：所有 vm</p>
-</blockquote>
-
-<pre><code class="language-bash">iptables -P FORWARD ACCEPT
-</code></pre></li>
-
-<li><p>設定免密碼登入</p>
-
-<blockquote>
-<p>執行對象：ansible-client ;在 ansible-client 產生 key，並複製至各個 vm，避免執行 ansible 部署時出問題</p>
-</blockquote>
-
-<pre><code class="language-bash">ssh-keygen -t rsa -N &quot;&quot;
-
-ssh-copy-id -i /root/.ssh/id_rsa.pub 10.0.0.4
-ssh-copy-id -i /root/.ssh/id_rsa.pub 10.0.0.5
-ssh-copy-id -i /root/.ssh/id_rsa.pub 10.0.0.6  
-</code></pre></li>
-
-<li><p>安裝基本軟體</p>
-
-<blockquote>
-<p>執行對象：ansible-client</p>
-</blockquote>
-
-<pre><code class="language-bash">yum -y install epel-release
-
-yum -y install https://centos7.iuscommunity.org/ius-release.rpm
-
-yum clean all &amp;&amp; yum makecache
-
-yum install -y python-pip python36 python-netaddr python36-pip ansible git
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/62828785-eba5d580-bc20-11e9-8de4-1d6b764e0cf0.png" alt="4login" /></p></li>
 </ol>
 
-<h2 id="透過-kubespray-安裝">透過 Kubespray 安裝</h2>
+<h2 id="設定-kubernetes-dashboard-登入資訊">設定 Kubernetes Dashboard 登入資訊</h2>
 
 <blockquote>
-<p>執行對象： ansible-client</p>
+<p>畫面上可以使用 <code>kubeconfig</code> 或是 <code>token</code> 登入，以下使用 <code>token</code> 示範囉 (我承認 <code>kubeconfig</code> 太複雜，我搞不定XD)</p>
 </blockquote>
 
 <ol>
-<li><p>下載 Kubespray</p>
+<li><p>建立 admin-role.yaml</p>
 
 <blockquote>
-<p>2019/7/14 測試： <code>master</code> 仍無法順利完成安裝，需使用 <code>release-2.10</code> branch 最高僅能安裝 <code>Kubernetes v1.14.3</code></p>
+<p>建立 <code>admin</code> 為管理者</p>
 </blockquote>
 
-<pre><code class="language-bash">git clone https://github.com/kubernetes-sigs/kubespray.git -b release-2.10
+<pre><code>```yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+name: admin
+annotations:
+    rbac.authorization.kubernetes.io/autoupdate: &quot;true&quot;
+roleRef:
+kind: ClusterRole
+name: cluster-admin
+apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+name: admin
+namespace: kube-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+name: admin
+namespace: kube-system
+labels:
+    kubernetes.io/cluster-service: &quot;true&quot;
+    addonmanager.kubernetes.io/mode: Reconcile
+```
 </code></pre></li>
 
-<li><p>安裝相依套件</p>
+<li><p>建立 Service Account 與角色綁定</p>
 
-<pre><code class="language-bash">cd kubespray
-
-pip install -r requirements.txt
+<pre><code class="language-bash">kubectl create -f admin-role.yaml
 </code></pre></li>
 
-<li><p>調整 Kubespray 參數</p>
+<li><p>取得 admin-token 的 secret 名字</p>
 
-<ul>
-<li><p>複製一份 config</p>
+<pre><code class="language-bash">kubectl -n kube-system get secret|grep admin-token
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/62828786-ec3e6c00-bc20-11e9-9462-ef2afad057d8.png" alt="5secretname" /></p></li>
+
+<li><p>取得 token</p>
 
 <blockquote>
-<p><code>{k8s}</code> 名稱可自訂，以下以 <code>k8s</code> 為例示範</p>
+<p><code>admin-token-h2dxb</code> 是上一個步驟的結果，每次建立都會不同，記得替換</p>
 </blockquote>
 
-<pre><code class="language-bash">cp -rfp inventory/sample inventory/{k8s}
+<pre><code class="language-bash">kubectl -n kube-system get secret admin-token-h2dxb -o jsonpath={.data.token}|base64 -d
+</code></pre>
+
+<blockquote>
+<p>以下語法可以看到 secret 較多資訊</p>
+</blockquote>
+
+<pre><code class="language-bash">kubectl -n kube-system describe secret admin-token-h2dxb
 </code></pre></li>
 
-<li><p>修改 <code>inventory/k8s/inventory.ini</code></p>
+<li><p>成功登入</p>
 
-<pre><code class="language-yml">[all]
-node1 ansible_host=10.0.0.4
-node2 ansible_host=10.0.0.5
-node3 ansible_host=10.0.0.6
-
-[kube-master]
-node1
-
-[etcd]
-node1
-node2
-node3
-
-[kube-node]
-node1
-node2
-node3
-
-[k8s-cluster:children]
-kube-master
-kube-node
-</code></pre></li>
-
-<li><p>修改 <code>inventory/k8s/group_vars/all/all.yml</code></p>
-
-<pre><code class="language-yml">loadbalancer_apiserver_localhost: true
-
-kubelet_load_modules: true
-</code></pre></li>
-</ul></li>
-
-<li><p>執行 Kubespray 安裝 Kubernetes</p>
-
-<pre><code class="language-bash">ansible-playbook -i inventory/k8s/inventory.ini cluster.yml -b -v -k
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/62828787-ec3e6c00-bc20-11e9-858e-3f2ea98d48f3.png" alt="5afterlogin" /></p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>看了幾篇 kubespray 安裝的網路文章，大致上理解操作流程與步驟，不過細節幾乎不同：像是 <code>更新 cpu kernel</code>、<code>inventory.ini</code> 值的設定&hellip;etc，對於一個新入門的人來說，我自己覺得門檻不低，另外一個讓我決定要自己紀錄一篇的重大理由是：看的大部份文章都需要 <code>科學上網</code>，或是調整 docker registry 位置，這對我來說是種雜訊</p>
-
-<p>我照著文章操作過不下十次，VM 建了又刪、刪了又建，一直無法成功，老是卡在 etcd 的 health check，每次一跑都要個十幾二十分鐘，最後靠著  Kubernetes 大神同事的幫忙，終於發現原來是 kubespray master 的 issue 造成的，改用 release branch 就沒問題，感謝同事的協助</p>
-
-<p>就個人使用體驗來說，kubespray 確實比 kubeadm 好些，多數設定都可以透過 yaml 檔案來調整，指令使用也相對較簡潔，不過還是有不少動作被包在 ansible 中，從這點來看 ansible 至少還是比較通用些</p>
+<p>透過 Kubespray 原則上沒有安裝的問題，預設就啟用了 Kubernetes Dashboard 的安裝，只要 Kubernetes 安裝成功，Kubernetes Dashboard 就會部署成功，我個人覺得登入的相關設定反而還比較困難些 XD</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://github.com/kubernetes-sigs/kubespray" target="_blank">kubernetes-sigs/kubespray</a></li>
-<li><a href="https://blog.xuite.net/tolarku/blog/195633562-CentOS+%E9%97%9C%E9%96%89+selinux" target="_blank">CentOS 關閉 selinux</a></li>
-<li><a href="https://jicki.me/kubernetes/docker/2018/12/21/k8s-1.13.1-kubespray/" target="_blank">Kubernetes 1.13.1</a></li>
-<li><a href="http://www.itmuch.com/install/kubernetes-deploy-by-kubespray2.8.3/" target="_blank">使用Kubespray 2.8.3部署生產可用的Kubernetes集群（1.12.5）</a></li>
-<li><a href="https://www.kubernetes.org.cn/5012.html" target="_blank">使用Kubespray自動化部署Kubernetes 1.13.1</a></li>
+<li><a href="https://github.com/kubernetes/dashboard" target="_blank">kubernetes/dashboard</a></li>
+<li><a href="https://rootsongjc.gitbooks.io/kubernetes-handbook/guide/auth-with-kubeconfig-or-token.html" target="_blank">使用 kubeconfig 或 token 进行用户身份认证</a></li>
 </ol>
 
     </div>
@@ -419,7 +382,7 @@ kubelet_load_modules: true
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-07-13</span>
+    <span class="item-content">2019-08-10</span>
   </p>
   
   <p class="copyright-item">
@@ -449,18 +412,18 @@ kubelet_load_modules: true
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/kubespray-helm/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/new-valuetask-or-not/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">透過 Kubespray 在 Kubernetes 上安裝 Helm</span>			
+            <span class="next-text nav-default">需要在 return 前自行 new ValueTask 嗎？</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/grpc-stream-big-object/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/create-redis-cluster/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">gRPC stream 如何傳送單一大物件</span>			
+            <span class="prev-text nav-default">建立 Redis Cluster (Redis 5)</span>			
           </a>
 		  </div>
       </nav>
@@ -471,7 +434,7 @@ kubelet_load_modules: true
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/kubespray-kubernetes\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/kubespray-kubernetes-dashboard\/';  
       
     };
 

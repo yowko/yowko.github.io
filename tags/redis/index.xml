@@ -6,10 +6,19 @@
     <description>Recent content in Redis on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 05 Mar 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 09 Aug 2019 18:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/redis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>建立 Redis Cluster (Redis 5)</title>
+      <link>https://blog.yowko.com/create-redis-cluster/</link>
+      <pubDate>Fri, 09 Aug 2019 18:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/create-redis-cluster/</guid>
+      <description>建立 Redis Cluster (Redis 5) 最近在部署上線用的各項服務，其中一個就是近幾年系統中不可獲缺的 redis，目前團隊打算採用 Redis Cluster 來增加 redis 處理效能及水平擴展能力，只</description>
+    </item>
     
     <item>
       <title>使用 docker 建立 Redis Cluster - 更新版</title>

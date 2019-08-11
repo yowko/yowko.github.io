@@ -6,10 +6,37 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 04 Aug 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 11 Aug 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>需要在 return 前自行 new ValueTask 嗎？</title>
+      <link>https://blog.yowko.com/new-valuetask-or-not/</link>
+      <pubDate>Sun, 11 Aug 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/new-valuetask-or-not/</guid>
+      <description>需要在 return 前自行 new ValueTask 嗎？ 上個月黑大的 閱讀筆記 - 使用 .NET Async/Await 的常見錯誤 跟同事討論起 ValueTask 的用法，大意是 ValueTask 在使用上只需要將方法簽章改為 ValueTask&amp;lt;T&amp;gt; 就好嗎？ 還是應該在</description>
+    </item>
+    
+    <item>
+      <title>使用 Kubespray 開啟 Kubernetes Dashboard</title>
+      <link>https://blog.yowko.com/kubespray-kubernetes-dashboard/</link>
+      <pubDate>Sat, 10 Aug 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kubespray-kubernetes-dashboard/</guid>
+      <description>使用 Kubespray 開啟 Kubernetes Dashboard 前同事問到 Kubernetes Dashboard 安裝的問題，這才發現我只用過別人裝好的，自己沒有真的裝過 XD，趁著假日時間紀錄一下囉 Kubernetes Dashboard 是 Kubernetes 官方製作用來管理 Kubernetes clusters</description>
+    </item>
+    
+    <item>
+      <title>建立 Redis Cluster (Redis 5)</title>
+      <link>https://blog.yowko.com/create-redis-cluster/</link>
+      <pubDate>Fri, 09 Aug 2019 18:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/create-redis-cluster/</guid>
+      <description>建立 Redis Cluster (Redis 5) 最近在部署上線用的各項服務，其中一個就是近幾年系統中不可獲缺的 redis，目前團隊打算採用 Redis Cluster 來增加 redis 處理效能及水平擴展能力，只</description>
+    </item>
     
     <item>
       <title>MongoDB CPU High 問題追查紀錄</title>

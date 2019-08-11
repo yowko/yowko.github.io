@@ -6,10 +6,19 @@
     <description>Recent content in csharp on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 23 Jul 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 11 Aug 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/csharp/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>需要在 return 前自行 new ValueTask 嗎？</title>
+      <link>https://blog.yowko.com/new-valuetask-or-not/</link>
+      <pubDate>Sun, 11 Aug 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/new-valuetask-or-not/</guid>
+      <description>需要在 return 前自行 new ValueTask 嗎？ 上個月黑大的 閱讀筆記 - 使用 .NET Async/Await 的常見錯誤 跟同事討論起 ValueTask 的用法，大意是 ValueTask 在使用上只需要將方法簽章改為 ValueTask&amp;lt;T&amp;gt; 就好嗎？ 還是應該在</description>
+    </item>
     
     <item>
       <title>Test 中驗證 Object 是否相同的方法</title>

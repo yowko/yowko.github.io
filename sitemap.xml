@@ -3,6 +3,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/new-valuetask-or-not/</loc>
+    <lastmod>2019-08-11T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/kubespray-kubernetes-dashboard/</loc>
+    <lastmod>2019-08-10T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/create-redis-cluster/</loc>
+    <lastmod>2019-08-09T18:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/mongodb-cpu-high/</loc>
     <lastmod>2019-08-04T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -3727,7 +3748,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/kubernetes/</loc>
-    <lastmod>2019-07-21T21:30:31+08:00</lastmod>
+    <lastmod>2019-08-10T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3874,7 +3895,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2019-08-04T21:30:31+08:00</lastmod>
+    <lastmod>2019-08-11T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3909,7 +3930,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/redis/</loc>
-    <lastmod>2019-03-05T21:30:31+08:00</lastmod>
+    <lastmod>2019-08-09T18:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4049,7 +4070,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2019-08-04T21:30:31+08:00</lastmod>
+    <lastmod>2019-08-11T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4070,7 +4091,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/csharp/</loc>
-    <lastmod>2019-07-23T21:30:31+08:00</lastmod>
+    <lastmod>2019-08-11T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

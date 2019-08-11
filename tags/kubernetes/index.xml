@@ -6,10 +6,19 @@
     <description>Recent content in Kubernetes on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 21 Jul 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 10 Aug 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Kubespray 開啟 Kubernetes Dashboard</title>
+      <link>https://blog.yowko.com/kubespray-kubernetes-dashboard/</link>
+      <pubDate>Sat, 10 Aug 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kubespray-kubernetes-dashboard/</guid>
+      <description>使用 Kubespray 開啟 Kubernetes Dashboard 前同事問到 Kubernetes Dashboard 安裝的問題，這才發現我只用過別人裝好的，自己沒有真的裝過 XD，趁著假日時間紀錄一下囉 Kubernetes Dashboard 是 Kubernetes 官方製作用來管理 Kubernetes clusters</description>
+    </item>
     
     <item>
       <title>在 Docker for Mac 上啟用 Kubernetes</title>
