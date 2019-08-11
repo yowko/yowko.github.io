@@ -34,7 +34,7 @@ slug: "kubespray-kubernetes"
     node3| 10.0.0.6|node,etcd
 
 3. Kubespray 2.10
-4. Kubernetes 2.14.3
+4. Kubernetes 1.14.3
 
 ## VM 基礎環境設定
 
@@ -51,6 +51,8 @@ slug: "kubespray-kubernetes"
     - `sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux` 永久關閉，需重新開機
 
 2. 關閉系統 Swap 交換空間
+
+    > 執行對象：所有 vm
 
     ```bash
     swapoff -a && echo "vm.swappiness=0" >> /etc/sysctl.conf && sysctl -p && free –h
@@ -90,6 +92,8 @@ slug: "kubespray-kubernetes"
 
     ```bash
     yum -y install epel-release
+
+    yum -y install https://centos7.iuscommunity.org/ius-release.rpm
 
     yum clean all && yum makecache
 
