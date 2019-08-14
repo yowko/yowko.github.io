@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 11 Aug 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 15 Aug 2019 01:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 Kubernetes 部署 Redis Cluster</title>
+      <link>https://blog.yowko.com/kubernetes-redis-cluster/</link>
+      <pubDate>Thu, 15 Aug 2019 01:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kubernetes-redis-cluster/</guid>
+      <description>在 Kubernetes 部署 Redis Cluster 最近在 Kubernetes 上部暑相關基礎服務，大部份的服務都有對應的 Helm 可以使用，沒有遇到太多問題，唯獨 Redis，因為團隊使用 Redis Cluster,，</description>
+    </item>
     
     <item>
       <title>需要在 return 前自行 new ValueTask 嗎？</title>
