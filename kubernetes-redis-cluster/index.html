@@ -165,8 +165,8 @@
 <li><a href="#在-kubernetes-部署-redis-cluster">在 Kubernetes 部署 Redis Cluster</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
 <li><a href="#安裝-kubedb-operator">安裝 KubeDB Operator</a></li>
-<li><a href="#準備-storageclass-與-persistent-volume">準備 StorageClass 與 Persistent Volume</a></li>
 <li><a href="#安裝-kubedb-cli">安裝 KubeDB CLI</a></li>
+<li><a href="#準備-storageclass-與-persistent-volume">準備 StorageClass 與 Persistent Volume</a></li>
 <li><a href="#使用-kubedb-安裝-redis-cluster">使用 KubeDB 安裝 Redis Cluster</a></li>
 <li><a href="#移除-kubedb">移除 KubeDB</a></li>
 <li><a href="#心得">心得</a></li>
@@ -332,6 +332,24 @@
 <p><img src="https://user-images.githubusercontent.com/3851540/63027651-e88c3d00-bedf-11e9-80c4-faf05543bc4a.png" alt="2operatorrunning" /></p></li>
 </ol>
 
+<h2 id="安裝-kubedb-cli">安裝 KubeDB CLI</h2>
+
+<ol>
+<li><p>下載編譯完成的 sh</p>
+
+<pre><code class="language-bash">wget -O kubedb https://github.com/kubedb/cli/releases/download/0.12.0/kubedb-linux-amd64 \
+&amp;&amp; chmod +x kubedb \
+&amp;&amp; sudo mv kubedb /usr/local/bin/
+</code></pre></li>
+
+<li><p>確認成功安裝</p>
+
+<pre><code class="language-bash">kubedb version
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/63025852-a9102180-bedc-11e9-91f4-1386d0b5d49f.png" alt="3kubedbversion" /></p></li>
+</ol>
+
 <h2 id="準備-storageclass-與-persistent-volume">準備 StorageClass 與 Persistent Volume</h2>
 
 <ol>
@@ -447,24 +465,6 @@ nodeAffinity:
 <p><img src="https://user-images.githubusercontent.com/3851540/63025858-a9a8b800-bedc-11e9-9fbc-ea1ec8459428.png" alt="7pvfail" /></p></li>
 </ul></li>
 </ul></li>
-</ol>
-
-<h2 id="安裝-kubedb-cli">安裝 KubeDB CLI</h2>
-
-<ol>
-<li><p>下載編譯完成的 sh</p>
-
-<pre><code class="language-bash">wget -O kubedb https://github.com/kubedb/cli/releases/download/0.12.0/kubedb-linux-amd64 \
-&amp;&amp; chmod +x kubedb \
-&amp;&amp; sudo mv kubedb /usr/local/bin/
-</code></pre></li>
-
-<li><p>確認成功安裝</p>
-
-<pre><code class="language-bash">kubedb version
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/63025852-a9102180-bedc-11e9-91f4-1386d0b5d49f.png" alt="3kubedbversion" /></p></li>
 </ol>
 
 <h2 id="使用-kubedb-安裝-redis-cluster">使用 KubeDB 安裝 Redis Cluster</h2>
