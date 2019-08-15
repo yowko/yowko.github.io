@@ -111,6 +111,24 @@ slug: "kubernetes-redis-cluster"
 
     ![2operatorrunning](https://user-images.githubusercontent.com/3851540/63027651-e88c3d00-bedf-11e9-80c4-faf05543bc4a.png)
 
+## 安裝 KubeDB CLI
+
+1. 下載編譯完成的 sh
+
+    ```bash
+    wget -O kubedb https://github.com/kubedb/cli/releases/download/0.12.0/kubedb-linux-amd64 \
+    && chmod +x kubedb \
+    && sudo mv kubedb /usr/local/bin/
+    ```
+
+2. 確認成功安裝
+
+    ```bash
+    kubedb version
+    ```
+
+    ![3kubedbversion](https://user-images.githubusercontent.com/3851540/63025852-a9102180-bedc-11e9-91f4-1386d0b5d49f.png)
+
 ## 準備 StorageClass 與 Persistent Volume
 
 1. 建立 StorageClass
@@ -211,24 +229,6 @@ slug: "kubernetes-redis-cluster"
         - 錯誤截圖
 
             ![7pvfail](https://user-images.githubusercontent.com/3851540/63025858-a9a8b800-bedc-11e9-9fbc-ea1ec8459428.png)
-
-## 安裝 KubeDB CLI
-
-1. 下載編譯完成的 sh
-
-    ```bash
-    wget -O kubedb https://github.com/kubedb/cli/releases/download/0.12.0/kubedb-linux-amd64 \
-    && chmod +x kubedb \
-    && sudo mv kubedb /usr/local/bin/
-    ```
-
-2. 確認成功安裝
-
-    ```bash
-    kubedb version
-    ```
-
-    ![3kubedbversion](https://user-images.githubusercontent.com/3851540/63025852-a9102180-bedc-11e9-91f4-1386d0b5d49f.png)
 
 ## 使用 KubeDB 安裝 Redis Cluster
 
