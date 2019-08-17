@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2019-08-15T01:30:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-15T01:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="1359">
+<meta itemprop="wordCount" content="1380">
 
 
 
@@ -146,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-08-15 </span>
         
-        <span class="more-meta"> 約 1359 字 </span>
+        <span class="more-meta"> 約 1380 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -417,25 +417,25 @@ chmod 777 /mnt/disk/vol1
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-name: local-pv1
+  name: local-pv1
 spec:
-capacity:
+  capacity:
     storage: 1Gi
-volumeMode: Filesystem
-accessModes:
-- ReadWriteOnce
-persistentVolumeReclaimPolicy: Delete
-storageClassName: local-redis
-local:
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: local-redis
+  local:
     path: /mnt/disk/vol1
-nodeAffinity:
+  nodeAffinity:
     required:
-    nodeSelectorTerms:
-    - matchExpressions:
+      nodeSelectorTerms:
+      - matchExpressions:
         - key: kubernetes.io/hostname
-        operator: In
-        values:
-        - node1
+          operator: In
+          values:
+          - node1
 ```
 </code></pre></li>
 
@@ -513,9 +513,14 @@ spec:
 <li><p>確認成功安裝</p>
 
 <ul>
+<li><p>檢查 type 為 <code>redis</code> 且名稱為 <code>redis-cluster</code> 的所有 resource 狀態</p>
+
+<pre><code class="language-bash">kubedb describe redis -n demo redis-cluster
+</code></pre></li>
+
 <li><p>成功建立 三 個 StatefulSet 且各有 二 個 pod 運行中</p>
 
-<pre><code class="language-bash">kubedb describe rd -n demo redis-cluster
+<pre><code class="language-bash">kubedb get statefulset -n demo
 </code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/63025859-a9a8b800-bedc-11e9-8da8-4cce376fca18.png" alt="8statefulsetok" /></p></li>
