@@ -186,25 +186,25 @@ slug: "kubernetes-redis-cluster"
             apiVersion: v1
             kind: PersistentVolume
             metadata:
-            name: local-pv1
+              name: local-pv1
             spec:
-            capacity:
+              capacity:
                 storage: 1Gi
-            volumeMode: Filesystem
-            accessModes:
-            - ReadWriteOnce
-            persistentVolumeReclaimPolicy: Delete
-            storageClassName: local-redis
-            local:
+              volumeMode: Filesystem
+              accessModes:
+              - ReadWriteOnce
+              persistentVolumeReclaimPolicy: Recycle
+              storageClassName: local-redis
+              local:
                 path: /mnt/disk/vol1
-            nodeAffinity:
+              nodeAffinity:
                 required:
-                nodeSelectorTerms:
-                - matchExpressions:
+                  nodeSelectorTerms:
+                  - matchExpressions:
                     - key: kubernetes.io/hostname
-                    operator: In
-                    values:
-                    - node1
+                      operator: In
+                      values:
+                      - node1
             ```
 
 
@@ -275,10 +275,16 @@ slug: "kubernetes-redis-cluster"
 
 4. 確認成功安裝
 
+    - 檢查 type 為 `redis` 且名稱為 `redis-cluster` 的所有 resource 狀態
+
+        ```bash
+        kubedb describe redis -n demo redis-cluster
+        ```
+
     - 成功建立 三 個 StatefulSet 且各有 二 個 pod 運行中
 
         ```bash
-        kubedb describe rd -n demo redis-cluster
+        kubedb get statefulset -n demo
         ```
 
         ![8statefulsetok](https://user-images.githubusercontent.com/3851540/63025859-a9a8b800-bedc-11e9-8da8-4cce376fca18.png)
