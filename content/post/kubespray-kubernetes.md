@@ -109,7 +109,7 @@ slug: "kubespray-kubernetes"
     > 2019/7/14 測試： `master` 仍無法順利完成安裝，需使用 `release-2.10` branch 最高僅能安裝 `Kubernetes v1.14.3`
 
     ```bash
-    git clone https://github.com/kubernetes-sigs/kubespray.git -b release-2.10
+    git clone https://github.com/kubernetes-sigs/kubespray.git -b release-2.11
     ```
 
 2. 安裝相依套件
@@ -127,7 +127,7 @@ slug: "kubespray-kubernetes"
         > `{k8s}` 名稱可自訂，以下以 `k8s` 為例示範
 
         ```bash
-        cp -rfp inventory/sample inventory/{k8s}
+        cp -rfp inventory/sample inventory/k8s
         ```
 
     - 修改 `inventory/k8s/inventory.ini`
