@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Git 如何設定一次 Pus 至多個 Remote Repository - Yowko&#39;s Notes</title>
+  <title>Git 如何設定一次 Push 至多個 Remote Repository - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="Git 如何設定一次 Pus 至多個 Remote Repository 相信你一定不想看到辛苦寫完的程式，因為意外造成 Source Code 遺失，當然還擇良好的 Git server 服務是必要條件，但再穩固的服務也有可能出" />
+  <meta name="description" content="Git 如何設定一次 Push 至多個 Remote Repository 相信你一定不想看到辛苦寫完的程式，因為意外造成 Source Code 遺失，當然還擇良好的 Git server 服務是必要條件，但再穩固的服務也有可能出" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -54,14 +54,14 @@
 
 
 
-<meta property="og:title" content="Git 如何設定一次 Pus 至多個 Remote Repository" />
-<meta property="og:description" content="Git 如何設定一次 Pus 至多個 Remote Repository 相信你一定不想看到辛苦寫完的程式，因為意外造成 Source Code 遺失，當然還擇良好的 Git server 服務是必要條件，但再穩固的服務也有可能出" />
+<meta property="og:title" content="Git 如何設定一次 Push 至多個 Remote Repository" />
+<meta property="og:description" content="Git 如何設定一次 Push 至多個 Remote Repository 相信你一定不想看到辛苦寫完的程式，因為意外造成 Source Code 遺失，當然還擇良好的 Git server 服務是必要條件，但再穩固的服務也有可能出" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/git-push-multiple-remote-repository/" /><meta property="article:published_time" content="2017-04-28T01:00:00&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-18T20:00:41&#43;08:00"/>
 
-<meta itemprop="name" content="Git 如何設定一次 Pus 至多個 Remote Repository">
-<meta itemprop="description" content="Git 如何設定一次 Pus 至多個 Remote Repository 相信你一定不想看到辛苦寫完的程式，因為意外造成 Source Code 遺失，當然還擇良好的 Git server 服務是必要條件，但再穩固的服務也有可能出">
+<meta itemprop="name" content="Git 如何設定一次 Push 至多個 Remote Repository">
+<meta itemprop="description" content="Git 如何設定一次 Push 至多個 Remote Repository 相信你一定不想看到辛苦寫完的程式，因為意外造成 Source Code 遺失，當然還擇良好的 Git server 服務是必要條件，但再穩固的服務也有可能出">
 
 
 <meta itemprop="datePublished" content="2017-04-28T01:00:00&#43;08:00" />
@@ -72,8 +72,8 @@
 
 <meta itemprop="keywords" content="Git," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Git 如何設定一次 Pus 至多個 Remote Repository"/>
-<meta name="twitter:description" content="Git 如何設定一次 Pus 至多個 Remote Repository 相信你一定不想看到辛苦寫完的程式，因為意外造成 Source Code 遺失，當然還擇良好的 Git server 服務是必要條件，但再穩固的服務也有可能出"/>
+<meta name="twitter:title" content="Git 如何設定一次 Push 至多個 Remote Repository"/>
+<meta name="twitter:description" content="Git 如何設定一次 Push 至多個 Remote Repository 相信你一定不想看到辛苦寫完的程式，因為意外造成 Source Code 遺失，當然還擇良好的 Git server 服務是必要條件，但再穩固的服務也有可能出"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -160,12 +160,13 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#git-如何設定一次-pus-至多個-remote-repository">Git 如何設定一次 Pus 至多個 Remote Repository</a>
+<li>
 <ul>
+<li><a href="#git-如何設定一次-push-至多個-remote-repository">Git 如何設定一次 Push 至多個 Remote Repository</a></li>
 <li><a href="#設定-remote-url">設定 remote url</a></li>
 <li><a href="#一次-push-至多個-remote">一次 push 至多個 remote</a></li>
-</ul></li>
 <li><a href="#參考資訊">參考資訊</a></li>
+</ul></li>
 </ul>
 </nav>
   </div>
@@ -178,11 +179,11 @@
     <div class="post-content">
       
 
-<h1 id="git-如何設定一次-pus-至多個-remote-repository">Git 如何設定一次 Pus 至多個 Remote Repository</h1>
+<h2 id="git-如何設定一次-push-至多個-remote-repository">Git 如何設定一次 Push 至多個 Remote Repository</h2>
 
 <p>相信你一定不想看到辛苦寫完的程式，因為意外造成 Source Code 遺失，當然還擇良好的 Git server 服務是必要條件，但再穩固的服務也有可能出現被 DDOS 攻擊或是服務管理員不小心把 DB 刪除&hellip;等等，各式各樣你意想不到的情境造成服務中斷，所以為 remote repository 進行備份也是應該的</p>
 
-<p>雖然備份很重要，但身為一個<del>偷懶</del>講求效率的工程師，你一定也不想每次 push 到 remote 都要反覆操作 push 多次，就我們來看看可以如何設定，讓一次動作就可以同時 push 到多個 remote repository</p>
+<p>雖然備份很重要，但身為一個 <del>偷懶</del> 講求效率的工程師，你一定也不想每次 push 到 remote 都要反覆操作 push 多次，就我們來看看可以如何設定，讓一次動作就可以同時 push 到多個 remote repository</p>
 
 <h2 id="設定-remote-url">設定 remote url</h2>
 
@@ -260,7 +261,7 @@
 </ul></li>
 </ul>
 
-<h1 id="參考資訊">參考資訊</h1>
+<h2 id="參考資訊">參考資訊</h2>
 
 <ol>
 <li><a href="http://blog.deadlypenguin.com/blog/2016/05/02/git-push-multiple-remotes/" target="_blank">Git push to multiple remotes</a></li>

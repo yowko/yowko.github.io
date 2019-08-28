@@ -330,7 +330,7 @@ yum install -y python-pip python36 python-netaddr python36-pip ansible git
 <p>2019/7/14 測試： <code>master</code> 仍無法順利完成安裝，需使用 <code>release-2.10</code> branch 最高僅能安裝 <code>Kubernetes v1.14.3</code></p>
 </blockquote>
 
-<pre><code class="language-bash">git clone https://github.com/kubernetes-sigs/kubespray.git -b release-2.10
+<pre><code class="language-bash">git clone https://github.com/kubernetes-sigs/kubespray.git -b release-2.11
 </code></pre></li>
 
 <li><p>安裝相依套件</p>
@@ -349,7 +349,7 @@ pip install -r requirements.txt
 <p><code>{k8s}</code> 名稱可自訂，以下以 <code>k8s</code> 為例示範</p>
 </blockquote>
 
-<pre><code class="language-bash">cp -rfp inventory/sample inventory/{k8s}
+<pre><code class="language-bash">cp -rfp inventory/sample inventory/k8s
 </code></pre></li>
 
 <li><p>修改 <code>inventory/k8s/inventory.ini</code></p>

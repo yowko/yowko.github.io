@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 15 Aug 2019 01:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 28 Aug 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 Mac 上安裝 JMeter</title>
+      <link>https://blog.yowko.com/mac-jmeter/</link>
+      <pubDate>Wed, 28 Aug 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mac-jmeter/</guid>
+      <description>在 Mac 上安裝 JMeter 之前只在 Windows 安裝過 JMeter，沒有 Mac 上的 JMeter 使用經驗，趁著最近專案需要順手紀錄一下遇到的問題 關於 JMeter Apache JMeter 是一個 Apache 專案，目的是用來作 load</description>
+    </item>
     
     <item>
       <title>在 Kubernetes 部署 Redis Cluster</title>
@@ -3225,12 +3234,12 @@
     </item>
     
     <item>
-      <title>Git 如何設定一次 Pus 至多個 Remote Repository</title>
+      <title>Git 如何設定一次 Push 至多個 Remote Repository</title>
       <link>https://blog.yowko.com/git-push-multiple-remote-repository/</link>
       <pubDate>Fri, 28 Apr 2017 01:00:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/git-push-multiple-remote-repository/</guid>
-      <description>Git 如何設定一次 Pus 至多個 Remote Repository 相信你一定不想看到辛苦寫完的程式，因為意外造成 Source Code 遺失，當然還擇良好的 Git server 服務是必要條件，但再穩固的服務也有可能出</description>
+      <description>Git 如何設定一次 Push 至多個 Remote Repository 相信你一定不想看到辛苦寫完的程式，因為意外造成 Source Code 遺失，當然還擇良好的 Git server 服務是必要條件，但再穩固的服務也有可能出</description>
     </item>
     
     <item>
