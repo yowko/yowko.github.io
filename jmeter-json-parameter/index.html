@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>在 Mac 上安裝 JMeter - Yowko&#39;s Notes</title>
+  <title>[JMeter] 取得 JSON Token 做為 Http Request Header 參數 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="在 Mac 上安裝 JMeter 之前只在 Windows 安裝過 JMeter，沒有 Mac 上的 JMeter 使用經驗，趁著最近專案需要順手紀錄一下遇到的問題 關於 JMeter Apache JMeter 是一個 Apache 專案，目的是用來作 load" />
+  <meta name="description" content="[JMeter] 取得 JSON Token 做為 Http Request Header 參數 一般公開對外的 REST API 基於安全性考量都會有認驗證機制，做法很多，其中一種做法就是透過使用指定格式來取得 token，後續的" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/mac-jmeter/" />
+<link rel="canonical" href="https://blog.yowko.com/jmeter-json-parameter/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="在 Mac 上安裝 JMeter" />
-<meta property="og:description" content="在 Mac 上安裝 JMeter 之前只在 Windows 安裝過 JMeter，沒有 Mac 上的 JMeter 使用經驗，趁著最近專案需要順手紀錄一下遇到的問題 關於 JMeter Apache JMeter 是一個 Apache 專案，目的是用來作 load" />
+<meta property="og:title" content="[JMeter] 取得 JSON Token 做為 Http Request Header 參數" />
+<meta property="og:description" content="[JMeter] 取得 JSON Token 做為 Http Request Header 參數 一般公開對外的 REST API 基於安全性考量都會有認驗證機制，做法很多，其中一種做法就是透過使用指定格式來取得 token，後續的" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/mac-jmeter/" /><meta property="article:published_time" content="2019-08-28T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-08-28T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/jmeter-json-parameter/" /><meta property="article:published_time" content="2019-09-02T01:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-09-02T01:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="在 Mac 上安裝 JMeter">
-<meta itemprop="description" content="在 Mac 上安裝 JMeter 之前只在 Windows 安裝過 JMeter，沒有 Mac 上的 JMeter 使用經驗，趁著最近專案需要順手紀錄一下遇到的問題 關於 JMeter Apache JMeter 是一個 Apache 專案，目的是用來作 load">
+<meta itemprop="name" content="[JMeter] 取得 JSON Token 做為 Http Request Header 參數">
+<meta itemprop="description" content="[JMeter] 取得 JSON Token 做為 Http Request Header 參數 一般公開對外的 REST API 基於安全性考量都會有認驗證機制，做法很多，其中一種做法就是透過使用指定格式來取得 token，後續的">
 
 
-<meta itemprop="datePublished" content="2019-08-28T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-08-28T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="567">
+<meta itemprop="datePublished" content="2019-09-02T01:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-09-02T01:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="518">
 
 
 
 <meta itemprop="keywords" content="JMeter," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="在 Mac 上安裝 JMeter"/>
-<meta name="twitter:description" content="在 Mac 上安裝 JMeter 之前只在 Windows 安裝過 JMeter，沒有 Mac 上的 JMeter 使用經驗，趁著最近專案需要順手紀錄一下遇到的問題 關於 JMeter Apache JMeter 是一個 Apache 專案，目的是用來作 load"/>
+<meta name="twitter:title" content="[JMeter] 取得 JSON Token 做為 Http Request Header 參數"/>
+<meta name="twitter:description" content="[JMeter] 取得 JSON Token 做為 Http Request Header 參數 一般公開對外的 REST API 基於安全性考量都會有認驗證機制，做法很多，其中一種做法就是透過使用指定格式來取得 token，後續的"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-08-28 </span>
+        <span class="post-time"> 2019-09-02 </span>
         
-        <span class="more-meta"> 約 567 字 </span>
+        <span class="more-meta"> 約 518 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,10 +162,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#在-mac-上安裝-jmeter">在 Mac 上安裝 JMeter</a></li>
+<li><a href="#jmeter-取得-json-token-做為-http-request-header-參數">[JMeter] 取得 JSON Token 做為 Http Request Header 參數</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#基本安裝流程">基本安裝流程</a></li>
-<li><a href="#遇到的問題">遇到的問題</a></li>
+<li><a href="#jmeter-設定">JMeter 設定</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,105 +180,104 @@
     <div class="post-content">
       
 
-<h2 id="在-mac-上安裝-jmeter">在 Mac 上安裝 JMeter</h2>
+<h2 id="jmeter-取得-json-token-做為-http-request-header-參數">[JMeter] 取得 JSON Token 做為 Http Request Header 參數</h2>
 
-<p>之前只在 Windows 安裝過 JMeter，沒有 Mac 上的 JMeter 使用經驗，趁著最近專案需要順手紀錄一下遇到的問題</p>
+<p>一般公開對外的 REST API 基於安全性考量都會有認驗證機制，做法很多，其中一種做法就是透過使用指定格式來取得 token，後續的資料交換就改以 token 為識別是否為合法 request 並提供有效 response 的基準。因此測試情境也就需要有相應的處理：先取得 token 才能測試目標 api</p>
 
-<ul>
-<li><p>關於 JMeter</p>
-
-<blockquote>
-<p>Apache JMeter 是一個 Apache 專案，目的是用來作 load test 工具，可以提供於分析和測量各種服務的性能，主要目標是 Web application。 JMeter 也可以用來進行 JDBC數據庫連接，FTP，LDAP，WebService，JMS，HTTP，一般 TCP 連線和 OSnative processes 的單元測試工具。</p>
-</blockquote></li>
-</ul>
+<p>今天簡單紀錄一下，取得 token 時內容沒有加密的做法，當做後續紀錄遇到加密 response 的比較基準</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Mojave 10.14.6</li>
-<li>Java SE 11.0.1 / openJDK 12.0.2</li>
-<li>Java SE 8 (1.8.0_192)</li>
 <li>JMeter 5.1.1</li>
+<li>測試用 api ： <a href="https://reqres.in/" target="_blank">reqres.in</a></li>
 </ol>
 
-<h2 id="基本安裝流程">基本安裝流程</h2>
-
-<blockquote>
-<p>兩個方法各有好壞，擇一即可</p>
-</blockquote>
+<h2 id="jmeter-設定">JMeter 設定</h2>
 
 <ol>
-<li><p>手動安裝</p>
+<li><p>Test Plan 右鍵 &ndash;&gt; Add &ndash;&gt; Threads (Users) &ndash;&gt; Thread Group</p>
 
-<ul>
-<li>下載並解壓 <a href="https://jmeter.apache.org/download_jmeter.cgi" target="_blank">Apache JMeter</a></li>
-<li>執行  <code>apache-jmeter-5.1.1/bin/jmeter.sh</code></li>
-</ul></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/64123783-e11dcc80-cdd7-11e9-9259-e8d7229b94a1.png" alt="1addthread" /></p></li>
 
-<li><p>使用 homebrew</p>
-
-<pre><code class="language-bash">brew install jmeter
-</code></pre>
+<li><p>建立 Login Http Header Manager</p>
 
 <blockquote>
-<p>會自動加入環境變數，不用指定執行路徑</p>
-</blockquote></li>
-</ol>
-
-<ul>
-<li><p>順利啟動</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/63869019-126a5700-c9ea-11e9-9b08-3d4b366f73f0.png" alt="jmeter" /></p></li>
-</ul>
-
-<h2 id="遇到的問題">遇到的問題</h2>
-
-<p>我個人比較懶，理所當然挑的是使用 homebrew 來安裝，不過使用時卻遇到無法從 View Results Tree 中看到 http request 的 Response data (畫面會 hang 住)，但手動安裝的環境中並沒有遇到相同問題</p>
-
-<ol>
-<li><p>錯誤訊息</p>
-
-<pre><code class="language-txt">Uncaught Exception java.lang.ClassCastException: class javax.swing.text.AbstractDocument$DefaultDocumentEventUndoableWrapper cannot be cast to class javax.swing.text.AbstractDocument$DefaultDocumentEvent (javax.swing.text.AbstractDocument$DefaultDocumentEventUndoableWrapper and javax.swing.text.AbstractDocument$DefaultDocumentEvent are in module java.desktop of loader 'bootstrap'). See log file for details.
-Uncaught Exception java.lang.ClassCastException: class javax.swing.text.DefaultStyledDocument cannot be cast to class jsyntaxpane.SyntaxDocument (javax.swing.text.DefaultStyledDocument is in module java.desktop of loader 'bootstrap'; jsyntaxpane.SyntaxDocument is in unnamed module of loader org.apache.jmeter.DynamicClassLoader @2eee9593). See log file for details.
-</code></pre></li>
-
-<li><p>錯誤截圖</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/63869020-1302ed80-c9ea-11e9-933c-a61ff128aced.png" alt="2hang" /></p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/63869022-1302ed80-c9ea-11e9-9e0b-1f7c9b2f1914.png" alt="3error" /></p></li>
-
-<li><p>解決方式</p>
-
-<blockquote>
-<p>將 JDK or JRE 降版至 1.8 (有 <a href="https://stackoverflow.com/a/47572280/3600583" target="_blank">網友</a> 說 JMeter 不支援 JAVA 9，但我覺得應該只是誤會，我直接下載就可以用，個人不負責猜測只是 homebrew 包的版本不支援而已)</p>
+<p>用來管理取得 token 的 request header</p>
 </blockquote>
 
+<p><img src="https://user-images.githubusercontent.com/3851540/64123784-e11dcc80-cdd7-11e9-92fc-7599b9ec29f1.png" alt="2header" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/64123785-e1b66300-cdd7-11e9-8e80-cfede5d482f9.png" alt="2loginheader" /></p></li>
+
+<li><p>建立 Login HTTP Request</p>
+
+<blockquote>
+<p>用來實際取得 token，測試 api 用法請參考 <a href="https://reqres.in/" target="_blank">reqres.in</a> 說明</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/64123789-e1b66300-cdd7-11e9-8544-1ff01b486a2c.png" alt="3request" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/64123788-e1b66300-cdd7-11e9-9f00-79a3db2812be.png" alt="3httprequest" /></p></li>
+
+<li><p>建立 JSON Extractor</p>
+
+<blockquote>
+<p>取得回傳的 JSON 內容，並設定為 JMeter 變數</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/64123790-e1b66300-cdd7-11e9-8b76-88af7d309dcb.png" alt="4jsonextractor" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/64123791-e24ef980-cdd7-11e9-8230-6230deeaaddc.png" alt="5extractoresetting" /></p>
+
 <ul>
-<li><p>列出可用 java 版本</p>
-
-<pre><code class="language-bash">/usr/libexec/java_home -V
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/63870090-dcc66d80-c9eb-11e9-8a95-71aa292725ad.png" alt="4javalist" /></p></li>
-
-<li><p>設定 java 版本</p>
-
-<pre><code class="language-bash">export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0_192)
-</code></pre></li>
+<li>Names of created variables 為指定 JMeter 的變數名稱</li>
+<li>JSON Path expression 為目標 JSON 屬性名稱</li>
 </ul></li>
+
+<li><p>再次建立 Http Header Manager</p>
+
+<blockquote>
+<p>用來管理實際執行目標 api 的 header 設定, 並使用上方 JSON Extractor 設定的參數</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/64123792-e24ef980-cdd7-11e9-973b-1965d76a78a8.png" alt="6header" /></p></li>
+
+<li><p>建立測試目標 HTTP Request</p>
+
+<blockquote>
+<p>實際執行測試目標</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/64123793-e24ef980-cdd7-11e9-8c40-fef5d71dbdf7.png" alt="7request" /></p></li>
+
+<li><p>加入 View Results Tree</p>
+
+<blockquote>
+<p>用來檢視各步驟的執行結果</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/64123794-e2e79000-cdd7-11e9-9c6f-5c7661dcdbe0.png" alt="8viewresult" /></p></li>
+
+<li><p>實際執行測試</p>
+
+<p>可以從 View Results Tree 看到 HTTP Request - Login 取得 token : <code>QpwL5tke4Pnpja7X4</code>，並可以看到 HTTP Request 的 request header 也正確使用 <code>Authorization: Bear QpwL5tke4Pnpja7X4</code></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/64123795-e2e79000-cdd7-11e9-9ae4-97cb0f8698fa.png" alt="9gottoken" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/64123797-e2e79000-cdd7-11e9-8eda-d64a03601562.png" alt="10correctheader" /></p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>這次在 Mac 上使用 JMeter 可謂是踩雷不斷呀，目前先紀錄無法看到 GUI 無法正確呈現資訊的狀況，接著會持續紀錄這次使用 Mac 版 JMeter 遇到的點點滴滴，供日後使用參考</p>
+<p>簡單的設定，沒有複雜的操作，上手難度不高，如果真實環境可以這麼簡單想必工作起來一定輕鬆寫意不少，不過也就是因為可以面對這麼多變的需求才顯得程式工作的挑戰性跟有趣</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://www.apache.org/" target="_blank">Apache JMeter</a></li>
-<li><a href="https://formulae.brew.sh/formula/jmeter" target="_blank">Homebrew Formulae - jmeter</a></li>
-<li><a href="https://stackoverflow.com/questions/47571351/how-to-resolve-updating-gui-error-in-jmeter" target="_blank">How to resolve updating GUI error in JMeter</a></li>
+<li><a href="https://reqres.in/" target="_blank">reqres.in</a></li>
+<li><a href="https://tpu.thinkpower.com.tw/tpu/articleDetails/620" target="_blank">JMeter解析JSON內容，動態取得變數</a></li>
 </ol>
 
     </div>
@@ -292,7 +290,7 @@ Uncaught Exception java.lang.ClassCastException: class javax.swing.text.DefaultS
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-08-28</span>
+    <span class="item-content">2019-09-02</span>
   </p>
   
   <p class="copyright-item">
@@ -322,18 +320,11 @@ Uncaught Exception java.lang.ClassCastException: class javax.swing.text.DefaultS
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/jmeter-json-parameter/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">[JMeter] 取得 JSON Token 做為 Http Request Header 參數</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/kubernetes-redis-cluster/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/mac-jmeter/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">在 Kubernetes 部署 Redis Cluster</span>			
+            <span class="prev-text nav-default">在 Mac 上安裝 JMeter</span>			
           </a>
 		  </div>
       </nav>
@@ -344,7 +335,7 @@ Uncaught Exception java.lang.ClassCastException: class javax.swing.text.DefaultS
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/mac-jmeter\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/jmeter-json-parameter\/';  
       
     };
 

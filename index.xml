@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 28 Aug 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 02 Sep 2019 01:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[JMeter] 取得 JSON Token 做為 Http Request Header 參數</title>
+      <link>https://blog.yowko.com/jmeter-json-parameter/</link>
+      <pubDate>Mon, 02 Sep 2019 01:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jmeter-json-parameter/</guid>
+      <description>[JMeter] 取得 JSON Token 做為 Http Request Header 參數 一般公開對外的 REST API 基於安全性考量都會有認驗證機制，做法很多，其中一種做法就是透過使用指定格式來取得 token，後續的</description>
+    </item>
     
     <item>
       <title>在 Mac 上安裝 JMeter</title>
