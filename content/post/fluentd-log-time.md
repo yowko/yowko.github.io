@@ -81,7 +81,7 @@ slug: "fluentd-log-time"
 
     > 這邊使用官方建議方式 (forwarder - aggregator):在需要 parse log 的 server 上安裝一個 forwarder 的 fluentd instance，然後將 log 發送給 aggregator 做後續處理
 
-    ![ha](https://docs.fluentd.org/images/fluentd_ha.png)
+    ![ha](https://user-images.githubusercontent.com/3851540/64233979-e9851d00-cf27-11e9-8605-32d46ce9d71e.png)
     
     >圖片出處：https://docs.fluentd.org/v1.0/articles/high-availability
 
