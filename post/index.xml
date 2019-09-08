@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 02 Sep 2019 01:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 08 Sep 2019 01:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>docker images 指令筆記</title>
+      <link>https://blog.yowko.com/docker-images-command/</link>
+      <pubDate>Sun, 08 Sep 2019 01:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-images-command/</guid>
+      <description> docker images 指令筆記 最近內部的 docker registry 在團隊努力地開發下，images 增長的速度相當地快速，不僅讓空間消耗快速，也讓整個 docker registry 顯得雜亂，於是我就在調整 docker</description>
+    </item>
     
     <item>
       <title>[JMeter] 取得 JSON Token 做為 Http Request Header 參數</title>
