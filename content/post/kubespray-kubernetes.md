@@ -108,6 +108,8 @@ slug: "kubespray-kubernetes"
 
     > 2019/7/14 測試： `master` 仍無法順利完成安裝，需使用 `release-2.10` branch 最高僅能安裝 `Kubernetes v1.14.3`
 
+    > 2019/9/6 測試：使用 `release-2.11` 可以順利安裝 `Kubernetes v1.15.3`
+
     ```bash
     git clone https://github.com/kubernetes-sigs/kubespray.git -b release-2.11
     ```
