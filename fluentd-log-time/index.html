@@ -58,15 +58,15 @@
 <meta property="og:description" content="Fluentd 使用自定 Log 時間當做 Timestamp 之前筆記 Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image 提到最近需要 debug EFK 起因就是發現 Kibana 顯示儲存在 Elasticsearch 中的時間與過濾條件都是 log 的處理時間並非 log 真正的" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/fluentd-log-time/" /><meta property="article:published_time" content="2019-05-04T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-05-04T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2019-09-10T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="Fluentd 使用自定 Log 時間當做 Timestamp">
 <meta itemprop="description" content="Fluentd 使用自定 Log 時間當做 Timestamp 之前筆記 Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image 提到最近需要 debug EFK 起因就是發現 Kibana 顯示儲存在 Elasticsearch 中的時間與過濾條件都是 log 的處理時間並非 log 真正的">
 
 
 <meta itemprop="datePublished" content="2019-05-04T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-05-04T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="1351">
+<meta itemprop="dateModified" content="2019-09-10T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="1415">
 
 
 
@@ -146,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-05-04 </span>
         
-        <span class="more-meta"> 約 1351 字 </span>
+        <span class="more-meta"> 約 1415 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -160,15 +160,16 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#fluentd-使用自定-log-時間當做-timestamp">Fluentd 使用自定 Log 時間當做 Timestamp</a>
+<li>
 <ul>
+<li><a href="#fluentd-使用自定-log-時間當做-timestamp">Fluentd 使用自定 Log 時間當做 Timestamp</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
 <li><a href="#fluentd-的原始設定">Fluentd 的原始設定</a></li>
 <li><a href="#啟動-fluentd">啟動 Fluentd</a></li>
 <li><a href="#使用自定時間">使用自定時間</a></li>
 <li><a href="#心得">心得</a></li>
-</ul></li>
 <li><a href="#參考資訊">參考資訊</a></li>
+</ul></li>
 </ul>
 </nav>
   </div>
@@ -181,7 +182,7 @@
     <div class="post-content">
       
 
-<h1 id="fluentd-使用自定-log-時間當做-timestamp">Fluentd 使用自定 Log 時間當做 Timestamp</h1>
+<h2 id="fluentd-使用自定-log-時間當做-timestamp">Fluentd 使用自定 Log 時間當做 Timestamp</h2>
 
 <p>之前筆記 <a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a> 提到最近需要 debug EFK 起因就是發現 Kibana 顯示儲存在 Elasticsearch 中的時間與過濾條件都是 log 的處理時間並非 log 真正的發生時間，想像一下：客戶反應了出問題的時間，工程師在 Kibana 上怎麼查都找不到相關紀錄，翻原始 log 才能找到實際問題&hellip;. 想必沒人能接受，導入工具沒有改善流程就算了  還誤導除錯方向這可不行呀</p>
 
@@ -274,7 +275,7 @@ elk:
 <ol>
 <li><p>Log Forwarder</p>
 
-<pre><code>&lt;source&gt;
+<pre><code class="language-txt">&lt;source&gt;
     @type tail
     path /tmp/fluentd/app/**/All-*.log
     pos_file /tmp/fluentd/pos/app-api.pos
@@ -297,7 +298,7 @@ elk:
 
 <li><p>Log Aggregator</p>
 
-<pre><code># Input
+<pre><code class="language-txt"># Input
 &lt;source&gt;
     @type http
     port 8888
@@ -368,7 +369,7 @@ elk:
 <pre><code>keep_time_key true
 </code></pre></li>
 
-<li><p>forwarder 指定 key name</p>
+<li><p>Aggregator 指定 key name</p>
 
 <blockquote>
 <p>如果時間欄位為 <code>time</code> 這邊亦可省略</p>
@@ -380,6 +381,58 @@ elk:
 <li><p>實際效果：kibana 已將 log 時間做為顯示及過濾的基準</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/57190822-63dd6a80-6f51-11e9-9615-e6bc74e4db6d.png" alt="2correctlogdate" /></p></li>
+
+<li><p>調整後設定</p>
+
+<ul>
+<li><p>Log Forwarder</p>
+
+<pre><code class="language-txt">&lt;source&gt;
+    @type tail
+    path /tmp/fluentd/app/**/All-*.log
+    pos_file /tmp/fluentd/pos/app-api.pos
+    format /^(?&lt;logdate&gt;[^ ]* [^ ]*) \[(?&lt;application&gt;[^ \]]+)\]\[(?&lt;thread&gt;[\d]+)\]\[(?&lt;type&gt;[A-Za-z_][A-Za-z0-9_]+)\](?&lt;message&gt;\{.+\})/
+    time_key logdate
+    keep_time_key true
+    tag yowko.app-api
+&lt;/source&gt;
+
+# Log Forwarding
+&lt;match *.**&gt;
+    @type forward
+    &lt;server&gt;
+        host 192.168.50.97
+        port 24224
+    &lt;/server&gt;
+    &lt;buffer&gt;
+        flush_interval 60s
+    &lt;/buffer&gt;
+&lt;/match&gt;
+</code></pre></li>
+
+<li><p>Log Aggregator</p>
+
+<pre><code class="language-txt"># Input
+&lt;source&gt;
+    @type http
+    port 8888
+&lt;/source&gt;
+
+&lt;source&gt;
+    @type forward
+    port 24224
+&lt;/source&gt;
+
+# Output
+&lt;match *.**&gt;
+    @type elasticsearch
+    host 192.168.50.97
+    port 9200
+    logstash_format true
+    time_key logdate
+&lt;/match&gt;
+</code></pre></li>
+</ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>
@@ -391,12 +444,12 @@ elk:
 <ol>
 <li><p>清空 elasticsearch 的所有物件：可以確保打進去的 log 是獨立的，不會受到之前操作的影響</p>
 
-<pre><code>curl -X DELETE 'http://localhost:9200/_all'
+<pre><code class="language-bash">curl -X DELETE 'http://localhost:9200/_all'
 </code></pre></li>
 
 <li><p>Log Forwarder ： 加入 <code>stdout</code> 輸出，方便確認收到的 log 內容</p>
 
-<pre><code>&lt;source&gt;
+<pre><code class="language-txt">&lt;source&gt;
     @type tail
     path /tmp/fluentd/app/**/All-*.log
     pos_file /tmp/fluentd/pos/app-api.pos
@@ -424,9 +477,9 @@ elk:
 &lt;/match&gt;
 </code></pre></li>
 
-<li><p>Log Aggregator： 加入 <code>stdout</code> 輸出，方便確認收到的 log 內容;指定 <code>logstash_prefix</code> 便於辨識</p>
+<li><p>Log Aggregator 加入 <code>http</code> 輸入，可以直接透過 http 傳入資料，方便 debug</p>
 
-<pre><code># Input
+<pre><code class="language-txt"># Input
 &lt;source&gt;
     @type http
     port 8888
@@ -452,10 +505,10 @@ elk:
 &lt;/match&gt;
 </code></pre></li>
 
-<li><p>Fluentd 間或是與 Elastisearch 的溝通記得使用 可以對外服務的 ip，因為是 container，使用 localhosr or 127.0.0.1 都會解析到自己</p></li>
+<li><p>Fluentd 間或是與 Elastisearch 的溝通記得使用可以對外服務的 ip，因為是 container，使用 localhosr or 127.0.0.1 都會解析到自己</p></li>
 </ol>
 
-<h1 id="參考資訊">參考資訊</h1>
+<h2 id="參考資訊">參考資訊</h2>
 
 <ol>
 <li><a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a></li>
@@ -472,7 +525,7 @@ elk:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-05-04</span>
+    <span class="item-content">2019-09-10</span>
   </p>
   
   <p class="copyright-item">
