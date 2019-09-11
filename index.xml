@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 10 Sep 2019 01:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 11 Sep 2019 01:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[JMeter] 跨 Thread 取得變數內容 - 設定 Load Test 的前置動作</title>
+      <link>https://blog.yowko.com/jmeter-set-get-variable-cross-thread/</link>
+      <pubDate>Wed, 11 Sep 2019 01:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/jmeter-set-get-variable-cross-thread/</guid>
+      <description>[JMeter] 跨 Thread 取得變數內容 - 設定 Load Test 的前置動作 之前筆記 [JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數 紀錄到使用 JSR223 PostProcessor 來針對加密的 response body 做解密後再設定為 JMeter 的參數供後續其他</description>
+    </item>
     
     <item>
       <title>[JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數</title>
