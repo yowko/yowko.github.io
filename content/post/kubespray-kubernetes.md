@@ -74,7 +74,16 @@ slug: "kubespray-kubernetes"
     iptables -P FORWARD ACCEPT
     ```
 
-5. 設定免密碼登入
+5. 啟用 bridge-nf-call-iptablesx
+
+    > 這是同事提醒的設定，不啟用的話某些網路功能會受限 (我還沒搞清問題，先紀錄起來)
+
+    ```bash
+    modprobe br_netfilter
+    echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+    ```
+
+6. 設定免密碼登入
 
     > 執行對象：ansible-client ;在 ansible-client 產生 key，並複製至各個 vm，避免執行 ansible 部署時出問題
 
@@ -86,7 +95,7 @@ slug: "kubespray-kubernetes"
     ssh-copy-id -i /root/.ssh/id_rsa.pub 10.0.0.6  
     ```
 
-6. 安裝基本軟體
+7. 安裝基本軟體
 
     > 執行對象：ansible-client
 
@@ -187,3 +196,4 @@ slug: "kubespray-kubernetes"
 3. [Kubernetes 1.13.1](https://jicki.me/kubernetes/docker/2018/12/21/k8s-1.13.1-kubespray/)
 4. [使用Kubespray 2.8.3部署生產可用的Kubernetes集群（1.12.5）](http://www.itmuch.com/install/kubernetes-deploy-by-kubespray2.8.3/)
 5. [使用Kubespray自動化部署Kubernetes 1.13.1](https://www.kubernetes.org.cn/5012.html)
+6. [centos7上安裝docker以及一些小問題](https://www.itread01.com/p/1385936.html)
