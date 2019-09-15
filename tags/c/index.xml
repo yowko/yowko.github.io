@@ -6,10 +6,19 @@
     <description>Recent content in c# on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 03 Aug 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 15 Sep 2019 20:40:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/c/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 C# 存取 InfluxDB</title>
+      <link>https://blog.yowko.com/csharp-influxdb-curd/</link>
+      <pubDate>Sun, 15 Sep 2019 20:40:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/csharp-influxdb-curd/</guid>
+      <description>使用 C# 存取 InfluxDB 最近專案可能會用到 InfluxDB，之前嘗試過的經驗主要是用在監控上，不是直接使用 C# 存取，所以趁著專案開始前先試試看可以如何存取</description>
+    </item>
     
     <item>
       <title>取得 MongoDB SDK 實際產生的指令</title>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>[JMeter] 跨 Thread 取得變數內容 - 設定 Load Test 的前置動作 - Yowko&#39;s Notes</title>
+  <title>使用 C# 存取 InfluxDB - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="[JMeter] 跨 Thread 取得變數內容 - 設定 Load Test 的前置動作 之前筆記 [JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數 紀錄到使用 JSR223 PostProcessor 來針對加密的 response body 做解密後再設定為 JMeter 的參數供後續其他" />
+  <meta name="description" content="使用 C# 存取 InfluxDB 最近專案可能會用到 InfluxDB，之前嘗試過的經驗主要是用在監控上，不是直接使用 C# 存取，所以趁著專案開始前先試試看可以如何存取" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/jmeter-set-get-variable-cross-thread/" />
+<link rel="canonical" href="https://blog.yowko.com/csharp-influxdb-curd/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="[JMeter] 跨 Thread 取得變數內容 - 設定 Load Test 的前置動作" />
-<meta property="og:description" content="[JMeter] 跨 Thread 取得變數內容 - 設定 Load Test 的前置動作 之前筆記 [JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數 紀錄到使用 JSR223 PostProcessor 來針對加密的 response body 做解密後再設定為 JMeter 的參數供後續其他" />
+<meta property="og:title" content="使用 C# 存取 InfluxDB" />
+<meta property="og:description" content="使用 C# 存取 InfluxDB 最近專案可能會用到 InfluxDB，之前嘗試過的經驗主要是用在監控上，不是直接使用 C# 存取，所以趁著專案開始前先試試看可以如何存取" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/jmeter-set-get-variable-cross-thread/" /><meta property="article:published_time" content="2019-09-11T01:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-09-11T01:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/csharp-influxdb-curd/" /><meta property="article:published_time" content="2019-09-15T20:40:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-09-15T20:40:30&#43;08:00"/>
 
-<meta itemprop="name" content="[JMeter] 跨 Thread 取得變數內容 - 設定 Load Test 的前置動作">
-<meta itemprop="description" content="[JMeter] 跨 Thread 取得變數內容 - 設定 Load Test 的前置動作 之前筆記 [JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數 紀錄到使用 JSR223 PostProcessor 來針對加密的 response body 做解密後再設定為 JMeter 的參數供後續其他">
-
-
-<meta itemprop="datePublished" content="2019-09-11T01:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-09-11T01:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="540">
+<meta itemprop="name" content="使用 C# 存取 InfluxDB">
+<meta itemprop="description" content="使用 C# 存取 InfluxDB 最近專案可能會用到 InfluxDB，之前嘗試過的經驗主要是用在監控上，不是直接使用 C# 存取，所以趁著專案開始前先試試看可以如何存取">
 
 
+<meta itemprop="datePublished" content="2019-09-15T20:40:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-09-15T20:40:30&#43;08:00" />
+<meta itemprop="wordCount" content="602">
 
-<meta itemprop="keywords" content="JMeter," />
+
+
+<meta itemprop="keywords" content="C#,InfluxDB," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="[JMeter] 跨 Thread 取得變數內容 - 設定 Load Test 的前置動作"/>
-<meta name="twitter:description" content="[JMeter] 跨 Thread 取得變數內容 - 設定 Load Test 的前置動作 之前筆記 [JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數 紀錄到使用 JSR223 PostProcessor 來針對加密的 response body 做解密後再設定為 JMeter 的參數供後續其他"/>
+<meta name="twitter:title" content="使用 C# 存取 InfluxDB"/>
+<meta name="twitter:description" content="使用 C# 存取 InfluxDB 最近專案可能會用到 InfluxDB，之前嘗試過的經驗主要是用在監控上，不是直接使用 C# 存取，所以趁著專案開始前先試試看可以如何存取"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-09-11 </span>
+        <span class="post-time"> 2019-09-15 </span>
         
-        <span class="more-meta"> 約 540 字 </span>
+        <span class="more-meta"> 約 602 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,9 +162,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#jmeter-跨-thread-取得變數內容-設定-load-test-的前置動作">[JMeter] 跨 Thread 取得變數內容 - 設定 Load Test 的前置動作</a></li>
+<li><a href="#使用-c-存取-influxdb">使用 C# 存取 InfluxDB</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#jmeter-設定">JMeter 設定</a></li>
+<li><a href="#建立-influxdb-instance">建立 InfluxDB instance</a></li>
+<li><a href="#使用方式">使用方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,104 +181,146 @@
     <div class="post-content">
       
 
-<h2 id="jmeter-跨-thread-取得變數內容-設定-load-test-的前置動作">[JMeter] 跨 Thread 取得變數內容 - 設定 Load Test 的前置動作</h2>
+<h2 id="使用-c-存取-influxdb">使用 C# 存取 InfluxDB</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/jmeter-decrypt-to-parameter/" target="_blank">[JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數</a> 紀錄到使用 JSR223 PostProcessor 來針對加密的 response body 做解密後再設定為 JMeter 的參數供後續其他的 Http Request 當做 header，雖然已經可以符合核心目的，但用心檢查會發現存在個大缺失：Login 與目標 Api 在相同 Thread Group 下，這就表示我們修改的 Thread 數會同時套用在 Login 與目標 Api，這樣一來就變成同時進行了 Login 與目標 Api 的壓測，如果這是實際我們想要的測試情境也就沒問題，不過若只是想單獨取得目標 Api 的效能數據就需要做些調整了</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/64711506-48c8cb80-d4ec-11e9-8337-98a68d770855.png" alt="1issue1" /></p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/64711507-48c8cb80-d4ec-11e9-88b7-58eb2a6f13a0.png" alt="2issue2" /></p>
-
-<p>剛好趁這個機會順手紀錄一下設定方式，大致流程與設定方式會延續 <a href="https://blog.yowko.com/jmeter-decrypt-to-parameter/" target="_blank">[JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數</a></p>
+<p>最近專案可能會用到 InfluxDB，之前嘗試過的經驗主要是用在監控上，不是直接使用 C# 存取，所以趁著專案開始前先試試看可以如何存取，免得延誤專案時程</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Mojave 10.14.6</li>
-<li>JMeter 5.1.1</li>
-<li>基本設定請參考 <a href="https://blog.yowko.com/jmeter-decrypt-to-parameter/" target="_blank">[JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數</a></li>
+<li>.NET Core SDK 2.2.301 (.NET Core Runtime 2.2.6)</li>
+<li>Docker for Mac 2.1.0.2 (37877)</li>
+<li>InfluxDB v1.7.8</li>
+
+<li><p>NuGet package</p>
+
+<ul>
+<li>InfluxData.Net 8.0.1</li>
+</ul></li>
 </ol>
 
-<h2 id="jmeter-設定">JMeter 設定</h2>
+<h2 id="建立-influxdb-instance">建立 InfluxDB instance</h2>
+
+<ul>
+<li>8086 是 HTTP API port</li>
+<li><del>8083 是管理介面的 port</del></li>
+<li><del>透過環境變數 (INFLUXDB_ADMIN_ENABLED) 來啟用管理介面</del></li>
+<li>管理介面已在 InfluxDB 1.3.0 移除</li>
+<li>INFLUXDB_ADMIN_USER 未指定時將不會建立 管理者</li>
+<li>INFLUXDB_ADMIN_PASSWORD 設定管理者密碼，未指定時會直接在 standard out 顯示</li>
+<li>INFLUXDB_HTTP_AUTH_ENABLED 啟用認證</li>
+</ul>
+
+<p><del>
+    <code>bash
+    docker run -d -p 8086:8086 -p 8083:8083 -e INFLUXDB_ADMIN_ENABLED=true influxdb
+</code>
+</del></p>
+
+<pre><code class="language-bash">docker run -d -p 8086:8086 -e INFLUXDB_ADMIN_USER=admin -e INFLUXDB_ADMIN_PASSWORD=pass.123 -e INFLUXDB_HTTP_AUTH_ENABLED=true influxdb
+</code></pre>
+
+<h2 id="使用方式">使用方式</h2>
 
 <ol>
-<li><p>加入 setUp Thread Group</p>
+<li><p>建立 influxdb client</p>
 
-<blockquote>
-<p>讓目標 API 在實際測試前先執行 setUp Thread Group 的內容，進行暖機</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/64711508-48c8cb80-d4ec-11e9-9421-f7fcdad45ec3.png" alt="3setupthread" /></p></li>
-
-<li><p>將 Login 的相關設定移至 setUp Thread Group 中</p>
-
-<blockquote>
-<p>可以將之前設定的 Logic Controller 整個移過來即可</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/64711509-48c8cb80-d4ec-11e9-9a8f-cb1984eb628c.png" alt="4movelogin" /></p></li>
-
-<li><p>修改 JSR223 PostProcessor 中 JMeter 參數設定方式</p>
-
-<blockquote>
-<p>property 才能跨 thread 存取</p>
-</blockquote>
-
-<ul>
-<li><p>將原有的 variable 設定</p>
-
-<pre><code class="language-java">vars.put(&quot;token&quot;, json.getString(&quot;Token&quot;));
+<pre><code class="language-cs">var influxDbClient = new InfluxDbClient(&quot;http://localhost:8086/&quot;, &quot;admin&quot;, &quot;pass.123&quot;, InfluxDbVersion.Latest);
 </code></pre></li>
 
-<li><p>修改為 property 設定</p>
+<li><p>建立 Database</p>
 
-<pre><code class="language-java">props.put(&quot;token&quot;, json.getString(&quot;Token&quot;));
-</code></pre></li>
-</ul></li>
-
-<li><p>修改 HTTP Header Manager - Create User 取用</p>
-
-<ul>
-<li><p>原有說定</p>
-
-<pre><code class="language-java">${token}
+<pre><code class="language-cs">var dbName = &quot;testDb&quot;;
+var response = await influxDbClient.Database.CreateDatabaseAsync(&quot;testDb&quot;);
 </code></pre></li>
 
-<li><p>新設定</p>
+<li><p>Insert 資料</p>
 
-<pre><code class="language-java">${__property(token)}
+<pre><code class="language-cs">var pointToWrite = new Point()
+{
+    Name = &quot;yowkoTest&quot;, // serie/measurement/table to write into
+    Tags = new Dictionary&lt;string, object&gt;()
+    {
+        { &quot;SensorId&quot;, 8 },
+        { &quot;SerialNumber&quot;, &quot;00AF123B&quot; }
+    },
+    Fields = new Dictionary&lt;string, object&gt;()
+    {
+        { &quot;SensorState&quot;, &quot;active&quot; },
+        { &quot;Humidity&quot;, 431 },
+        { &quot;Temperature&quot;, 22.1 },
+        { &quot;Resistance&quot;, 34957 }
+    },
+    Timestamp = DateTime.UtcNow // optional (can be set to any DateTime moment)
+};
+
+var response = await influxDbClient.Client.WriteAsync(pointToWrite, dbName);
 </code></pre></li>
-</ul></li>
 
-<li><p>建議將 View Results Tree 移至 Test Plan 下</p>
+<li><p>Select 資料</p>
+
+<pre><code class="language-cs">var query = &quot;SELECT * FROM yowkoTest WHERE SensorState = 'active' &quot;;
+var response = await influxDbClient.Client.QueryAsync(query, dbName);
+</code></pre></li>
+
+<li><p>Update 資料</p>
 
 <blockquote>
-<p>可以同時顯示多個 thread 的執行結果</p>
+<p>influxDB 沒有專屬的 update 語法，可以透過 insert 相同 Timestamp 來覆蓋資料，不過僅限於 field 內容，如是 tag 會多一個資料</p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/64711511-49616200-d4ec-11e9-8ccc-97594d3be5cd.png" alt="5result" /></p></li>
+<pre><code class="language-cs">var now = DateTime.UtcNow;
+            
+var pointToWrite = new Point()
+{
+    Name = &quot;yowkoTest&quot;, // serie/measurement/table to write into
+    Tags = new Dictionary&lt;string, object&gt;()
+    {
+        { &quot;tag1&quot;, &quot;yowkoTag1&quot; }
+    },
+    Fields = new Dictionary&lt;string, object&gt;()
+    {
+        {&quot;purpose&quot;,&quot;forUpdate&quot;}
+    },
+    Timestamp =now // optional (can be set to any DateTime moment)
+};
+    
+var response = await influxDbClient.Client.WriteAsync(pointToWrite, dbName);
+
+var pointToWrite2 = new Point()
+{
+    Name = &quot;yowkoTest&quot;, // serie/measurement/table to write into
+    Tags = new Dictionary&lt;string, object&gt;()
+    {
+        { &quot;tag1&quot;, &quot;yowkoTag1&quot; }
+    },
+    Fields = new Dictionary&lt;string, object&gt;()
+    {
+        {&quot;purpose&quot;,&quot;updated&quot;}
+    },
+    Timestamp =now // optional (can be set to any DateTime moment)
+};
+var response2 = await influxDbClient.Client.WriteAsync(pointToWrite2, dbName);
+</code></pre></li>
+
+<li><p>Delete 資料</p>
+
+<pre><code class="language-cs">var query = &quot;DROP SERIES FROM yowkoTest WHERE SensorId = '8' &quot;;
+var response = await influxDbClient.Client.QueryAsync(query, dbName);
+</code></pre></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/64711506-48c8cb80-d4ec-11e9-8337-98a68d770855.png" alt="1issue1" /></p>
-
-<ul>
-<li><p>修改前：多個 thread 執行，Login 與 Create User 都會執行多次</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/64711507-48c8cb80-d4ec-11e9-88b7-58eb2a6f13a0.png" alt="2issue2" /></p></li>
-
-<li><p>修改後：多個 thread 執行，僅 Create User 執行多次，Login 只有一次</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/64711511-49616200-d4ec-11e9-8ccc-97594d3be5cd.png" alt="5result" /></p></li>
-</ul>
-
-<p>設定本身很簡單，但官網上的文件我暫時還沒上手該怎麼看懂XD</p>
+<p>InfluxDB 比較偏重 insert 與 select，對於 update 與 delete 支援度不好，我想應該是設計理論與用途的關係，不過對於相關的用法、名詞、特性還是不太熟悉，過陣子較上手些後再來筆記囉</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/jmeter-decrypt-to-parameter/" target="_blank">[JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數</a></li>
+<li><a href="https://hub.docker.com/_/influxdb" target="_blank">influxdb</a></li>
+<li><a href="https://docs.influxdata.com/influxdb/v0.13/concepts/api/" target="_blank">API Reference</a></li>
+<li><a href="https://www.itread01.com/content/1541065507.html" target="_blank">InfluxDB學習筆記</a></li>
 </ol>
 
     </div>
@@ -290,7 +333,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-09-11</span>
+    <span class="item-content">2019-09-15</span>
   </p>
   
   <p class="copyright-item">
@@ -312,7 +355,11 @@
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/jmeter/">JMeter</a>
+            <a href="https://blog.yowko.com/tags/c/">C#</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/influxdb/">InfluxDB</a>
           
         </div>
 
@@ -320,18 +367,11 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/azure-portal-access-azure-files/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">設定 Azure Portal 存取 Azure Storage Files</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/jmeter-decrypt-to-parameter/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/azure-portal-access-azure-files/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">[JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數</span>			
+            <span class="prev-text nav-default">設定 Azure Portal 存取 Azure Storage Files</span>			
           </a>
 		  </div>
       </nav>
@@ -342,7 +382,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/jmeter-set-get-variable-cross-thread\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/csharp-influxdb-curd\/';  
       
     };
 

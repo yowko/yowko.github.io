@@ -356,7 +356,7 @@
 <li><p>建立 StorageClass</p>
 
 <ul>
-<li><p>新增 <code>strageclass.yaml</code></p>
+<li><p>新增 <code>storageclass.yaml</code></p>
 
 <pre><code class="language-yaml">apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -366,9 +366,9 @@ provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 </code></pre></li>
 
-<li><p>使用 <code>strageclass.yaml</code> 建立 StorageClass</p>
+<li><p>使用 <code>stroageclass.yaml</code> 建立 StorageClass</p>
 
-<pre><code class="language-bash">kubectl apply -f strageclass.yaml
+<pre><code class="language-bash">kubectl apply -f storageclass.yaml
 </code></pre></li>
 
 <li><p>未建立錯誤 StorageClass</p>

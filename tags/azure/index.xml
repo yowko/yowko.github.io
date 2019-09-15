@@ -6,10 +6,19 @@
     <description>Recent content in Azure on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 26 Jan 2017 00:42:34 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Sep 2019 01:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/azure/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>設定 Azure Portal 存取 Azure Storage Files</title>
+      <link>https://blog.yowko.com/azure-portal-access-azure-files/</link>
+      <pubDate>Sat, 14 Sep 2019 01:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/azure-portal-access-azure-files/</guid>
+      <description>設定 Azure Portal 存取 Azure Storage Files 一直以來我需要 Linux 環境時都是建立在 Azure 上，一來是沒有自己的硬體，二來是可以無痛快速重建整個環境，練習 Kubernetes 更是如此，可以滿足動態增</description>
+    </item>
     
     <item>
       <title>Windows Server 2016 無法安裝 Azure Service Fabric - Runtime 及 SDK</title>
