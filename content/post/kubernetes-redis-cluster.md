@@ -133,7 +133,7 @@ slug: "kubernetes-redis-cluster"
 
 1. 建立 StorageClass
 
-    - 新增 `strageclass.yaml`
+    - 新增 `storageclass.yaml`
 
         ```yaml
         apiVersion: storage.k8s.io/v1
@@ -144,10 +144,10 @@ slug: "kubernetes-redis-cluster"
         volumeBindingMode: WaitForFirstConsumer
         ```
 
-    - 使用 `strageclass.yaml` 建立 StorageClass
+    - 使用 `stroageclass.yaml` 建立 StorageClass
 
         ```bash
-        kubectl apply -f strageclass.yaml
+        kubectl apply -f storageclass.yaml
         ```
 
     - 未建立錯誤 StorageClass
