@@ -6,10 +6,28 @@
     <description>Recent content in csharp on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 11 Aug 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 22 Sep 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/csharp/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[Benchmark] 使用 C# 對 InfluxDB insert 操作的效能數據</title>
+      <link>https://blog.yowko.com/csharp-influxdb-benchmark/</link>
+      <pubDate>Sun, 22 Sep 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/csharp-influxdb-benchmark/</guid>
+      <description>[Benchmark] 使用 C# 對 InfluxDB insert 操作的效能數據 之前筆記 使用 C# 存取 InfluxDB 紀錄了 C# 在 InfluxDB 的基本 CRUD，也提到新專案可能會使用 InfluxDB 儲存資料，在了解 C# 的基本用法後接著就來確</description>
+    </item>
+    
+    <item>
+      <title>C# - 將 Object 的 Property 與 Value 轉換為 Dictionary</title>
+      <link>https://blog.yowko.com/csharp-object-to-dictionary/</link>
+      <pubDate>Sat, 21 Sep 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/csharp-object-to-dictionary/</guid>
+      <description>C# - 將 Object 的 Property 與 Value 轉換為 Dictionary 之前筆記 使用 C# 存取 InfluxDB 提到正在嘗試導入 InfluxDB，POC 使用到的 library - InfluxData.Net 在儲存資料時僅接受 Dictionary，如</description>
+    </item>
     
     <item>
       <title>需要在 return 前自行 new ValueTask 嗎？</title>
