@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 22 Sep 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 28 Sep 2019 20:40:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ASP.NET Core gRPC 無法在 macOS 上啟動？！</title>
+      <link>https://blog.yowko.com/aspdotnet-core-grpc-macos/</link>
+      <pubDate>Sat, 28 Sep 2019 20:40:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-grpc-macos/</guid>
+      <description>ASP.NET Core gRPC 無法在 macOS 上啟動？！ 隨著 .NET Core 3 正式發表，也代表 gRPC 相關功能開始內建在 ASP.NET Core 3 中並由官方直接支援，前幾個月專案在團隊進行效能評估後已率先於 .NET Core</description>
+    </item>
     
     <item>
       <title>[Benchmark] 使用 C# 對 InfluxDB insert 操作的效能數據</title>

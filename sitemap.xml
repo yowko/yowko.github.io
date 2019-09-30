@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/aspdotnet-core-grpc-macos/</loc>
+    <lastmod>2019-09-28T20:40:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/csharp-influxdb-benchmark/</loc>
     <lastmod>2019-09-22T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -3553,7 +3560,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/asp.net-core/</loc>
-    <lastmod>2019-06-30T21:30:31+08:00</lastmod>
+    <lastmod>2019-09-28T20:40:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3979,7 +3986,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2019-09-22T21:30:31+08:00</lastmod>
+    <lastmod>2019-09-28T20:40:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4049,7 +4056,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/</loc>
-    <lastmod>2019-06-30T21:30:31+08:00</lastmod>
+    <lastmod>2019-09-28T20:40:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4154,7 +4161,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2019-09-22T21:30:31+08:00</lastmod>
+    <lastmod>2019-09-28T20:40:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4216,6 +4223,13 @@
   </url>
   
   <url>
+    <loc>https://blog.yowko.com/tags/grpc/</loc>
+    <lastmod>2019-08-01T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/tags/log4net/</loc>
     <lastmod>2018-09-24T23:23:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -4224,7 +4238,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/macos/</loc>
-    <lastmod>2019-01-27T21:30:31+08:00</lastmod>
+    <lastmod>2019-09-28T20:40:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
