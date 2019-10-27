@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lua on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/lua/</link>
+    <description>Recent content in Lua on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 26 Oct 2019 21:30:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/lua/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>在 Redis 中使用 Lua 的 Dictionary</title>
+      <link>https://blog.yowko.com/redis-lua-dcitionary/</link>
+      <pubDate>Sat, 26 Oct 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/redis-lua-dcitionary/</guid>
+      <description>在 Redis 中使用 Lua 的 Dictionary 最近幾周一直在趕專案進度，也累積了好幾篇筆記沒有動手，想著如果再不紀錄可能就想不起來當時遇到問題的情境了 ~~~ 最近專案主要都是使</description>
+    </item>
+    
+  </channel>
+</rss>
