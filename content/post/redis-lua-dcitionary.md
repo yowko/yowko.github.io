@@ -1,7 +1,7 @@
 ---
 title: "在 Redis 中使用 Lua 的 Dictionary"
 date: 2019-10-26T21:30:00+08:00
-lastmod: 2016-10-26T21:30:31+08:00
+lastmod: 2019-10-26T21:30:31+08:00
 draft: false
 tags: ["Redis","Lua"]
 slug: "redis-lua-dcitionary"
