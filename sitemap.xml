@@ -3,8 +3,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/zookeeper-cluster-cluster/</loc>
+    <lastmod>2019-11-02T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/redis-lua-dcitionary/</loc>
-    <lastmod>2016-10-26T21:30:31+08:00</lastmod>
+    <lastmod>2019-10-26T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -3670,6 +3677,13 @@
   </url>
   
   <url>
+    <loc>https://blog.yowko.com/tags/centos/</loc>
+    <lastmod>2019-11-02T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/tags/container/</loc>
     <lastmod>2019-03-07T01:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -3874,7 +3888,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/lua/</loc>
-    <lastmod>2016-10-26T21:30:31+08:00</lastmod>
+    <lastmod>2019-10-26T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4000,7 +4014,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2016-10-26T21:30:31+08:00</lastmod>
+    <lastmod>2019-11-02T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4035,7 +4049,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/redis/</loc>
-    <lastmod>2016-10-26T21:30:31+08:00</lastmod>
+    <lastmod>2019-10-26T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4175,7 +4189,14 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2016-10-26T21:30:31+08:00</lastmod>
+    <lastmod>2019-11-02T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/tags/zookeeper/</loc>
+    <lastmod>2019-11-02T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

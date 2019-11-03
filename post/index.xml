@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 26 Oct 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 02 Nov 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 CentOS 上安裝 Apache ZooKeeper cluster</title>
+      <link>https://blog.yowko.com/zookeeper-cluster-cluster/</link>
+      <pubDate>Sat, 02 Nov 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/zookeeper-cluster-cluster/</guid>
+      <description>在 CentOS 上安裝 Apache ZooKeeper cluster 之前開發時都透過 dcoker 來啟動，最近才猛然想起我沒有實際安裝過 Apache ZooKeeper cluster，趕緊趁著假日空閒時間惡補一下 Apache ZooKeeper cluster 安裝 只是小弟既</description>
+    </item>
     
     <item>
       <title>在 Redis 中使用 Lua 的 Dictionary</title>
