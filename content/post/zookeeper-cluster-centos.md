@@ -4,7 +4,7 @@ date: 2019-11-02T21:30:00+08:00
 lastmod: 2019-11-02T21:30:31+08:00
 draft: false
 tags: ["CentOS","ZooKeeper"]
-slug: "zookeeper-cluster-cluster"
+slug: "zookeeper-cluster-centos"
 ---
 
 ## 在 CentOS 上安裝 Apache ZooKeeper cluster
