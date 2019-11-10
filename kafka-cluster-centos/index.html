@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>在 Redis 中使用 Lua 的 Dictionary - Yowko&#39;s Notes</title>
+  <title>在 CentOS 上安裝 Apache Kafka cluster - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="在 Redis 中使用 Lua 的 Dictionary 最近幾周一直在趕專案進度，也累積了好幾篇筆記沒有動手，想著如果再不紀錄可能就想不起來當時遇到問題的情境了 ~~~ 最近專案主要都是使" />
+  <meta name="description" content="在 CentOS 上安裝 Apache Kafka cluster 之前筆記 在 CentOS 上安裝 Apache ZooKeeper cluster 紀錄到如何建立 ZooKeeper 的 cluster，雖然 ZooKeeper 還有其他用途，不過我主要打算用來與 Kafka 搭配做為 Message Queue，單" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/redis-lua-dcitionary/" />
+<link rel="canonical" href="https://blog.yowko.com/kafka-cluster-centos/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="在 Redis 中使用 Lua 的 Dictionary" />
-<meta property="og:description" content="在 Redis 中使用 Lua 的 Dictionary 最近幾周一直在趕專案進度，也累積了好幾篇筆記沒有動手，想著如果再不紀錄可能就想不起來當時遇到問題的情境了 ~~~ 最近專案主要都是使" />
+<meta property="og:title" content="在 CentOS 上安裝 Apache Kafka cluster" />
+<meta property="og:description" content="在 CentOS 上安裝 Apache Kafka cluster 之前筆記 在 CentOS 上安裝 Apache ZooKeeper cluster 紀錄到如何建立 ZooKeeper 的 cluster，雖然 ZooKeeper 還有其他用途，不過我主要打算用來與 Kafka 搭配做為 Message Queue，單" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/redis-lua-dcitionary/" /><meta property="article:published_time" content="2019-10-26T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-10-26T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/kafka-cluster-centos/" /><meta property="article:published_time" content="2019-11-10T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-11-10T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="在 Redis 中使用 Lua 的 Dictionary">
-<meta itemprop="description" content="在 Redis 中使用 Lua 的 Dictionary 最近幾周一直在趕專案進度，也累積了好幾篇筆記沒有動手，想著如果再不紀錄可能就想不起來當時遇到問題的情境了 ~~~ 最近專案主要都是使">
-
-
-<meta itemprop="datePublished" content="2019-10-26T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-10-26T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="547">
+<meta itemprop="name" content="在 CentOS 上安裝 Apache Kafka cluster">
+<meta itemprop="description" content="在 CentOS 上安裝 Apache Kafka cluster 之前筆記 在 CentOS 上安裝 Apache ZooKeeper cluster 紀錄到如何建立 ZooKeeper 的 cluster，雖然 ZooKeeper 還有其他用途，不過我主要打算用來與 Kafka 搭配做為 Message Queue，單">
 
 
+<meta itemprop="datePublished" content="2019-11-10T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-10T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="637">
 
-<meta itemprop="keywords" content="Redis,Lua," />
+
+
+<meta itemprop="keywords" content="CentOS,Kafka," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="在 Redis 中使用 Lua 的 Dictionary"/>
-<meta name="twitter:description" content="在 Redis 中使用 Lua 的 Dictionary 最近幾周一直在趕專案進度，也累積了好幾篇筆記沒有動手，想著如果再不紀錄可能就想不起來當時遇到問題的情境了 ~~~ 最近專案主要都是使"/>
+<meta name="twitter:title" content="在 CentOS 上安裝 Apache Kafka cluster"/>
+<meta name="twitter:description" content="在 CentOS 上安裝 Apache Kafka cluster 之前筆記 在 CentOS 上安裝 Apache ZooKeeper cluster 紀錄到如何建立 ZooKeeper 的 cluster，雖然 ZooKeeper 還有其他用途，不過我主要打算用來與 Kafka 搭配做為 Message Queue，單"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-10-26 </span>
+        <span class="post-time"> 2019-11-10 </span>
         
-        <span class="more-meta"> 約 547 字 </span>
+        <span class="more-meta"> 約 637 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,10 +162,12 @@
 <ul>
 <li>
 <ul>
-<li><a href="#在-redis-中使用-lua-的-dictionary">在 Redis 中使用 Lua 的 Dictionary</a></li>
+<li><a href="#在-centos-上安裝-apache-kafka-cluster">在 CentOS 上安裝 Apache Kafka cluster</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#情境說明">情境說明</a></li>
-<li><a href="#lua">Lua</a></li>
+<li><a href="#安裝-jdk">安裝 JDK</a></li>
+<li><a href="#為執行-kafka-建立專屬使用帳號">為執行 Kafka 建立專屬使用帳號</a></li>
+<li><a href="#下載並解壓-kafka">下載並解壓 Kafka</a></li>
+<li><a href="#啟動-kafka">啟動 Kafka</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,112 +183,211 @@
     <div class="post-content">
       
 
-<h2 id="在-redis-中使用-lua-的-dictionary">在 Redis 中使用 Lua 的 Dictionary</h2>
+<h2 id="在-centos-上安裝-apache-kafka-cluster">在 CentOS 上安裝 Apache Kafka cluster</h2>
 
-<p>最近幾周一直在趕專案進度，也累積了好幾篇筆記沒有動手，想著如果再不紀錄可能就想不起來當時遇到問題的情境了 ~~~</p>
-
-<p>最近專案主要都是使用 Lua 來存取 Redis，對於過去多數使用 c# 套件的我而言就是東撞個牆西踩個雷的，於是趕緊趁著專案空檔紀錄一下個人使用經驗(方便<del>專案有得抄</del>日後參考？)</p>
-
-<p>雖然在 Lua 之中並沒有 Dictionary，不過還是可以透過 <code>table</code> 來模擬，立馬來看看可以怎麼做吧</p>
+<p>之前筆記 <a href="https://blog.yowko.com/zookeeper-cluster-centos" target="_blank">在 CentOS 上安裝 Apache ZooKeeper cluster</a> 紀錄到如何建立 ZooKeeper 的 cluster，雖然 ZooKeeper 還有其他用途，不過我主要打算用來與 Kafka 搭配做為 Message Queue，單看這個使用情境而言，我必需來紀錄 Kafka + Zookeeper 的安裝過程  方便日後查閱囉</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
-<ol>
-<li>macOS Majave 10.14.6</li>
-
-<li><p>Redis 5.0.6</p>
-
 <blockquote>
-<p>使用 docker 啟動 redis instance</p>
+<p>安裝機 X 1，實際 cluster X 3，皆透過 Azure VM 來建立</p>
 </blockquote>
 
-<pre><code class="language-bash">docker run -d -p 6379:6379 redis
-</code></pre></li>
-
-<li><p>ZeroBrane Studio 1.80</p></li>
+<ol>
+<li>Linux (centos 7.7.1908)</li>
+<li>Kafka 2.3.1</li>
+<li>OpenJDK 11 JDK</li>
 </ol>
 
-<h2 id="情境說明">情境說明</h2>
+<h2 id="安裝-jdk">安裝 JDK</h2>
+
+<blockquote>
+<p>版本需高於 JVM 8</p>
+</blockquote>
+
+<pre><code class="language-bash">yum install java-11-openjdk-devel
+</code></pre>
+
+<h2 id="為執行-kafka-建立專屬使用帳號">為執行 Kafka 建立專屬使用帳號</h2>
+
+<p>建立 user 來執行 Kafka</p>
 
 <ol>
-<li><p>使用 <code>sets</code> 儲存所有 userId</p>
+<li><p>建立 <code>kafka</code> 使用者</p>
 
-<pre><code class="language-bash">SADD users 1 3 5
+<blockquote>
+<p><code>-m</code> 會連帶建立 <code>home</code> 目錄： <code>/home/kafka</code></p>
+</blockquote>
+
+<pre><code class="language-bash">useradd kafka -m
 </code></pre></li>
 
-<li><p>使用 <code>hashes</code> 儲存 user 資料</p>
+<li><p>設定預設執行 shell 的程式</p>
 
-<pre><code class="language-bash">HMSET userdata:1 name &quot;yowko&quot; email &quot;yowko@yowko.com&quot;
-HMSET userdata:3 name &quot;test&quot; email &quot;test@test.com&quot;
-HMSET userdata:5 name &quot;poc&quot; email &quot;poc@poc.com&quot;
+<pre><code class="language-bash">usermod --shell /bin/bash kafka
 </code></pre></li>
 
-<li><p>測試用資料結構</p>
+<li><p>設定密碼</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/67637098-16472680-f912-11e9-8922-c8579a97d1f2.png" alt="1datastructure" /></p></li>
+<pre><code class="language-bash">passwd kafka
+</code></pre></li>
+
+<li><p>讓 user <code>kafka</code> 有 <code>sudo</code> 權限</p>
+
+<pre><code class="language-bash">usermod -aG wheel kafka
+</code></pre></li>
 </ol>
 
-<h2 id="lua">Lua</h2>
+<h2 id="下載並解壓-kafka">下載並解壓 Kafka</h2>
 
-<pre><code class="language-lua">local allUsersKey=&quot;users&quot;
-local userdataPrefixKey=&quot;userdata&quot;
--- 取得所有 user
-local allUsers = redis.call(&quot;smembers&quot;,  allUsersKey)
+<ol>
+<li><p>建立下載用資料夾</p>
 
---逐一處理所有 user
-local results = {} for userIndex, userId in ipairs(allUsers) do
-  -- 單一 user 的 key
-  local userdataKey=userdataPrefixKey .. &quot;:&quot; .. userId
-  -- 取得單一 user 的所有屬性值
-  local getAll= redis.call(&quot;HGETALL&quot;, userdataKey)
-  -- 暫存欄位名稱
-  local tmpSubKey=&quot;&quot;
-  -- 處理所有欄位屬性
-  local tmpSubData = {} for index,value in ipairs (getAll) do
-    -- 如果 index 是單數則為欄位名稱，偶數為屬性值
-    if index % 2 == 1 then
-      tmpSubKey= value
-    else
-      -- 使用名稱設定 table 
-      tmpSubData[tmpSubKey]=value
-    end
-  end
-  -- 將個別 user 的所有屬性存入 table 中
-  results[userId]=tmpSubData
-end
+<pre><code class="language-bash">mkdir /home/kafka/Downloads
+</code></pre></li>
 
-return results
-</code></pre>
+<li><p>下載 Kafka</p>
+
+<pre><code class="language-bash">curl http://apache.stu.edu.tw/kafka/2.3.1/kafka_2.11-2.3.1.tgz -o /home/kafka/Downloads/kafka.tgz
+</code></pre></li>
+
+<li><p>解壓縮</p>
+
+<pre><code class="language-bash">cd /home/kafka &amp;&amp; tar -xvzf Downloads/kafka.tgz --strip 1
+</code></pre></li>
+
+<li><p>Zookeeper 啟動設定</p>
+
+<ul>
+<li><p>建立啟動文件</p>
+
+<pre><code class="language-bash">nano /etc/systemd/system/zookeeper.service
+</code></pre></li>
+
+<li><p>啟動文件內容</p>
+
+<pre><code class="language-txt">[Unit]
+Requires=network.target remote-fs.target
+After=network.target remote-fs.target
+
+[Service]
+Type=simple
+User=kafka
+ExecStart=/home/kafka/bin/zookeeper-server-start.sh /home/kafka/config/zookeeper.properties
+ExecStop=/home/kafka/bin/zookeeper-server-stop.sh
+Restart=on-abnormal
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></li>
+</ul></li>
+
+<li><p>Kafka 啟動設定</p>
+
+<ul>
+<li><p>建立啟動文件</p>
+
+<pre><code class="language-bash">vi /etc/systemd/system/kafka.service
+</code></pre></li>
+
+<li><p>啟動文件內容</p>
+
+<pre><code class="language-txt">[Unit]
+Requires=zookeeper.service
+After=zookeeper.service
+
+[Service]
+Type=simple
+User=kafka
+ExecStart=/bin/sh -c '/home/kafka/bin/kafka-server-start.sh /home/kafka/config/server.properties &gt; /home/kafka/kafka.log 2&gt;&amp;1'
+ExecStop=/home/kafka/bin/kafka-server-stop.sh
+Restart=on-abnormal
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></li>
+</ul></li>
+
+<li><p>Cluster 設定</p>
+
+<blockquote>
+<p>如果只需要 single node instance，可以略過這個步驟</p>
+</blockquote>
+
+<ul>
+<li><p>Zookeeper</p>
+
+<blockquote>
+<p>依實際 node 來做調整</p>
+</blockquote>
+
+<ul>
+<li><p>調整設定</p>
+
+<blockquote>
+<p>位置在 <code>/home/kafka/config/zookeeper.properties</code></p>
+</blockquote>
+
+<pre><code class="language-bash">echo initLimit=10 &gt;&gt; /home/kafka/config/zookeeper.properties
+echo syncLimit=5 &gt;&gt; /home/kafka/config/zookeeper.properties
+echo server.1=node1:2888:3888 &gt;&gt; /home/kafka/config/zookeeper.properties
+echo server.2=node2:2888:3888 &gt;&gt; /home/kafka/config/zookeeper.properties
+echo server.3=node3:2888:3888 &gt;&gt; /home/kafka/config/zookeeper.properties
+</code></pre></li>
+
+<li><p>加入 <code>myid</code> 設定</p>
+
+<blockquote>
+<p>位置請參照 <code>/home/kafka/config/zookeeper.properties</code> 的 <code>dataDir</code> 設定值，每個 node 的 myid 值需要唯一</p>
+</blockquote>
+
+<pre><code class="language-bash">echo 1 &gt;&gt; /tmp/zookeeper/myid
+</code></pre></li>
+</ul></li>
+
+<li><p>Kafka</p>
+
+<blockquote>
+<p>位置在 <code>/home/kafka/config/server.properties</code>，每個 node 都必需執行</p>
+</blockquote>
+
+<ul>
+<li><p>修改 <code>broker.id</code> 讓不同的 kafka instance 可以做出區隔，每個 node 的 broker.id 值需要唯一</p>
+
+<pre><code class="language-bash">sed -i 's/broker.id=0/broker.id=node1/g' /home/kafka/config/server.properties
+</code></pre></li>
+
+<li><p>修改 <code>zookeeper.connect</code> ，連線至 Zookeeper cluster 的位置</p>
+
+<pre><code class="language-bash">sed -i 's/zookeeper.connect=localhost:2181/zookeeper.connect=node1:2181,node2:2181,node3:2181/g' /home/kafka/config/server.properties
+</code></pre></li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h2 id="啟動-kafka">啟動 Kafka</h2>
+
+<ol>
+<li><p>啟動 Kafka 服務</p>
+
+<pre><code class="language-bash">systemctl start kafka
+</code></pre></li>
+
+<li><p>將 Kafka 設為隨開機啟動</p>
+
+<pre><code class="language-bash">systemctl enable kafka
+</code></pre></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
-<p>雖然透過上面的 lua script 可以模擬出 dictionary 的樣子，但實際使用上還是有限制，其中最大的問題就是無法直接輸出 table (以下列出差異)</p>
-
-<ul>
-<li><p>一般 table (正常輸出)</p>
-
-<blockquote>
-<p>table.insert(results,userId)</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/67637099-16dfbd00-f912-11e9-96bf-493702801b02.png" alt="2normaltable" /></p></li>
-
-<li><p>使用 Dictionary (未輸內容)</p>
-
-<blockquote>
-<p>results[userId]=tmpSubData</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/67637100-16dfbd00-f912-11e9-98a3-575588601154.png" alt="3dictionary" /></p></li>
-</ul>
-
-<p>至於該如何解決，請待下回筆記分享個人(不知道是不是正確)的做法</p>
+<p>有了上次安裝 ZooKeeper cluster 的經驗後，這次安裝 Kafka cluster 感覺比較上手些，不過安裝後重新看了一次步驟還是覺得相當麻煩，預計改天紀錄將上述各個步驟透過單一 shell script 來完成安裝，想必會方便許多</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="http://huli.logdown.com/posts/198866-lua-table" target="_blank">[Lua] Table使用手冊</a></li>
-<li><a href="https://michaelchen.tech/lua-programming/table/" target="_blank">[Lua] 程式設計教學：使用表 (table)</a></li>
+<li><a href="https://blog.yowko.com/zookeeper-cluster-centos" target="_blank">在 CentOS 上安裝 Apache ZooKeeper cluster</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-centos-7" target="_blank">How To Install Apache Kafka on CentOS 7</a></li>
 </ol>
 
     </div>
@@ -299,7 +400,7 @@ return results
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-10-26</span>
+    <span class="item-content">2019-11-10</span>
   </p>
   
   <p class="copyright-item">
@@ -321,11 +422,11 @@ return results
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
+            <a href="https://blog.yowko.com/tags/centos/">CentOS</a>
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/lua/">Lua</a>
+            <a href="https://blog.yowko.com/tags/kafka/">Kafka</a>
           
         </div>
 
@@ -333,18 +434,11 @@ return results
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/zookeeper-cluster-centos/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">在 CentOS 上安裝 Apache ZooKeeper cluster</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/aspdotnet-core-grpc-macos/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/zookeeper-cluster-centos/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">ASP.NET Core gRPC 無法在 macOS 上啟動？！</span>			
+            <span class="prev-text nav-default">在 CentOS 上安裝 Apache ZooKeeper cluster</span>			
           </a>
 		  </div>
       </nav>
@@ -355,7 +449,7 @@ return results
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/redis-lua-dcitionary\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/kafka-cluster-centos\/';  
       
     };
 
