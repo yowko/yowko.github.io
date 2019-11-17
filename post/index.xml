@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 10 Nov 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 16 Nov 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C# (.NET Core 2) 啟用 gRPC 壓縮</title>
+      <link>https://blog.yowko.com/dotnet-core-2-grpc-compression/</link>
+      <pubDate>Sat, 16 Nov 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-core-2-grpc-compression/</guid>
+      <description>C# (.NET Core 2) 啟用 gRPC 壓縮 目前專案在大資料量傳遞時會透過 gRPC stream，不過因為是非對稱式資料內容，採用 chunk byte 來傳輸，以避免單次 gRPC 的 message size 限制問題，但以</description>
+    </item>
+    
+    <item>
+      <title>C# (.NET Core 2) Log 與 Trace gRPC</title>
+      <link>https://blog.yowko.com/dotnet-core-2-log-grpc/</link>
+      <pubDate>Tue, 12 Nov 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-core-2-log-grpc/</guid>
+      <description>C# (.NET Core 2) Log 與 Trace gRPC gRPC 在 .NET Core 3 被官方宣告重點發展項目之一，而身為追求系統更快更好又愛嚐鮮的工程師團隊的一員，早在一年前的 .NET Core 2 專案中就用上了 gR</description>
+    </item>
     
     <item>
       <title>在 CentOS 上安裝 Apache Kafka cluster</title>

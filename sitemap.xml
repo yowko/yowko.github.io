@@ -3,6 +3,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/dotnet-core-2-grpc-compression/</loc>
+    <lastmod>2019-11-16T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/dotnet-core-2-log-grpc/</loc>
+    <lastmod>2019-11-12T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/kafka-cluster-centos/</loc>
     <lastmod>2019-11-10T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -4021,7 +4035,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2019-11-10T21:30:31+08:00</lastmod>
+    <lastmod>2019-11-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4196,7 +4210,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2019-11-10T21:30:31+08:00</lastmod>
+    <lastmod>2019-11-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4224,7 +4238,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/csharp/</loc>
-    <lastmod>2019-09-22T21:30:31+08:00</lastmod>
+    <lastmod>2019-11-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4259,14 +4273,14 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/grpc/</loc>
-    <lastmod>2019-08-01T21:30:31+08:00</lastmod>
+    <lastmod>2019-11-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/tags/grpc/</loc>
-    <lastmod>2019-08-01T21:30:31+08:00</lastmod>
+    <lastmod>2019-11-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
