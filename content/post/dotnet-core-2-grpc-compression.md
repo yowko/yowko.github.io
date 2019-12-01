@@ -3,7 +3,7 @@ title: "C# (.NET Core 2) 啟用 gRPC 壓縮"
 date: 2019-11-16T21:30:00+08:00
 lastmod: 2019-11-16T21:30:31+08:00
 draft: false
-tags: ["csharp","gRPC"]
+tags: ["csharp","gRPC","Benchmark"]
 slug: "dotnet-core-2-grpc-compression"
 ---
 

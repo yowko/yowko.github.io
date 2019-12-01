@@ -164,7 +164,7 @@ yum install java-11-openjdk-devel
         - 修改 `broker.id` 讓不同的 kafka instance 可以做出區隔，每個 node 的 broker.id 值需要唯一
 
             ```bash
-            sed -i 's/broker.id=0/broker.id=node1/g' /home/kafka/config/server.properties
+            sed -i 's/broker.id=0/broker.id=1/g' /home/kafka/config/server.properties
             ```
 
         - 修改 `zookeeper.connect` ，連線至 Zookeeper cluster 的位置
