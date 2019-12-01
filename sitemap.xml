@@ -3,6 +3,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/polly-after-retry/</loc>
+    <lastmod>2019-12-01T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/centos-kafkacat/</loc>
+    <lastmod>2019-12-01T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/kafka-cluster-centos-script/</loc>
+    <lastmod>2019-11-29T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/dotnet-core-2-grpc-compression/</loc>
     <lastmod>2019-11-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -3658,7 +3679,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/benchmark/</loc>
-    <lastmod>2019-09-22T21:30:31+08:00</lastmod>
+    <lastmod>2019-11-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3699,7 +3720,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/centos/</loc>
-    <lastmod>2019-11-10T21:30:31+08:00</lastmod>
+    <lastmod>2019-12-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3874,7 +3895,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/kafka/</loc>
-    <lastmod>2019-11-10T21:30:31+08:00</lastmod>
+    <lastmod>2019-12-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3882,6 +3903,13 @@
   <url>
     <loc>https://blog.yowko.com/tags/kubernetes/</loc>
     <lastmod>2019-08-15T01:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/tags/library/</loc>
+    <lastmod>2019-12-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4027,6 +4055,13 @@
   </url>
   
   <url>
+    <loc>https://blog.yowko.com/tags/polly/</loc>
+    <lastmod>2019-12-01T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/tags/postgresql/</loc>
     <lastmod>2019-02-17T20:40:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -4035,7 +4070,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2019-11-16T21:30:31+08:00</lastmod>
+    <lastmod>2019-12-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4210,7 +4245,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2019-11-16T21:30:31+08:00</lastmod>
+    <lastmod>2019-12-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4238,7 +4273,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/csharp/</loc>
-    <lastmod>2019-11-16T21:30:31+08:00</lastmod>
+    <lastmod>2019-12-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

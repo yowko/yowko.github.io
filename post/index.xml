@@ -6,10 +6,37 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 16 Nov 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 01 Dec 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Polly retry 之後的行為是？</title>
+      <link>https://blog.yowko.com/polly-after-retry/</link>
+      <pubDate>Sun, 01 Dec 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/polly-after-retry/</guid>
+      <description>Polly retry 之後的行為是？ 同事在追查 bug 時，問到在執行某個動作時使用的 Polly policy 來進行失敗重試，如果 policy 中設定的 retry 次數結束仍然失敗會發生什麼事？ 印象中之前測試</description>
+    </item>
+    
+    <item>
+      <title>在 CentOS 上使用 Kafkacat</title>
+      <link>https://blog.yowko.com/centos-kafkacat/</link>
+      <pubDate>Sun, 01 Dec 2019 10:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/centos-kafkacat/</guid>
+      <description>在 CentOS 上使用 Kafkacat 之前筆記 在CentOS 上安裝 Apache Kafka cluster 與 在 CentOS 上安裝 Apache Kafka cluster - One Script 都紀錄到如何在 CentOS 上安裝 Apache Kafka，不過順利安裝與成功安裝還是存在差異</description>
+    </item>
+    
+    <item>
+      <title>在 CentOS 上安裝 Apache Kafka cluster - One Script</title>
+      <link>https://blog.yowko.com/kafka-cluster-centos-script/</link>
+      <pubDate>Fri, 29 Nov 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kafka-cluster-centos-script/</guid>
+      <description>在 CentOS 上安裝 Apache Kafka cluster - One Script 之前筆記 在CentOS 上安裝 Apache Kafka cluster 紀錄到如何在CentOS 上安裝 Apache Kafka cluster，簡單說明了有哪些設定需要做修改以及</description>
+    </item>
     
     <item>
       <title>C# (.NET Core 2) 啟用 gRPC 壓縮</title>

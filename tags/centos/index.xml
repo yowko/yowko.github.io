@@ -6,10 +6,28 @@
     <description>Recent content in CentOS on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 10 Nov 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 01 Dec 2019 10:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/centos/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 CentOS 上使用 Kafkacat</title>
+      <link>https://blog.yowko.com/centos-kafkacat/</link>
+      <pubDate>Sun, 01 Dec 2019 10:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/centos-kafkacat/</guid>
+      <description>在 CentOS 上使用 Kafkacat 之前筆記 在CentOS 上安裝 Apache Kafka cluster 與 在 CentOS 上安裝 Apache Kafka cluster - One Script 都紀錄到如何在 CentOS 上安裝 Apache Kafka，不過順利安裝與成功安裝還是存在差異</description>
+    </item>
+    
+    <item>
+      <title>在 CentOS 上安裝 Apache Kafka cluster - One Script</title>
+      <link>https://blog.yowko.com/kafka-cluster-centos-script/</link>
+      <pubDate>Fri, 29 Nov 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kafka-cluster-centos-script/</guid>
+      <description>在 CentOS 上安裝 Apache Kafka cluster - One Script 之前筆記 在CentOS 上安裝 Apache Kafka cluster 紀錄到如何在CentOS 上安裝 Apache Kafka cluster，簡單說明了有哪些設定需要做修改以及</description>
+    </item>
     
     <item>
       <title>在 CentOS 上安裝 Apache Kafka cluster</title>

@@ -354,7 +354,7 @@ echo server.3=node3:2888:3888 &gt;&gt; /home/kafka/config/zookeeper.properties
 <ul>
 <li><p>修改 <code>broker.id</code> 讓不同的 kafka instance 可以做出區隔，每個 node 的 broker.id 值需要唯一</p>
 
-<pre><code class="language-bash">sed -i 's/broker.id=0/broker.id=node1/g' /home/kafka/config/server.properties
+<pre><code class="language-bash">sed -i 's/broker.id=0/broker.id=1/g' /home/kafka/config/server.properties
 </code></pre></li>
 
 <li><p>修改 <code>zookeeper.connect</code> ，連線至 Zookeeper cluster 的位置</p>
