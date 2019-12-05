@@ -6,10 +6,19 @@
     <description>Recent content in Lua on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 26 Oct 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 05 Dec 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/lua/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ZeroBraneStudio 無法在 macOS Catalina 中開啟？！</title>
+      <link>https://blog.yowko.com/zerobranestudio-macos-catalina/</link>
+      <pubDate>Thu, 05 Dec 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/zerobranestudio-macos-catalina/</guid>
+      <description>ZeroBraneStudio 無法在 macOS Catalina 中開啟？！ 上個禮拜專案終於告個段落，立馬按下了幾個 pending 的更新，其中一個就是 macOS Catalina，基本上使用沒有發生異常，但許多軟體設</description>
+    </item>
     
     <item>
       <title>在 Redis 中使用 Lua 的 Dictionary</title>
