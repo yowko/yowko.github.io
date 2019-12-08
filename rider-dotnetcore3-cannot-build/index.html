@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>ZeroBraneStudio 無法在 macOS Catalina 中開啟？！ - Yowko&#39;s Notes</title>
+  <title>JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="ZeroBraneStudio 無法在 macOS Catalina 中開啟？！ 上個禮拜專案終於告個段落，立馬按下了幾個 pending 的更新，其中一個就是 macOS Catalina，基本上使用沒有發生異常，但許多軟體設" />
+  <meta name="description" content="JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 前幾天 .NET Core 3.1 正式 release 了，身為新技術的愛好者，當然是立馬下載安裝試用囉，不過馬上就踩雷了XD 但是其他同事好像遇到沒" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/zerobranestudio-macos-catalina/" />
+<link rel="canonical" href="https://blog.yowko.com/rider-dotnetcore3-cannot-build/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="ZeroBraneStudio 無法在 macOS Catalina 中開啟？！" />
-<meta property="og:description" content="ZeroBraneStudio 無法在 macOS Catalina 中開啟？！ 上個禮拜專案終於告個段落，立馬按下了幾個 pending 的更新，其中一個就是 macOS Catalina，基本上使用沒有發生異常，但許多軟體設" />
+<meta property="og:title" content="JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄" />
+<meta property="og:description" content="JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 前幾天 .NET Core 3.1 正式 release 了，身為新技術的愛好者，當然是立馬下載安裝試用囉，不過馬上就踩雷了XD 但是其他同事好像遇到沒" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/zerobranestudio-macos-catalina/" /><meta property="article:published_time" content="2019-12-05T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-12-05T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/rider-dotnetcore3-cannot-build/" /><meta property="article:published_time" content="2019-12-07T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-12-07T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="ZeroBraneStudio 無法在 macOS Catalina 中開啟？！">
-<meta itemprop="description" content="ZeroBraneStudio 無法在 macOS Catalina 中開啟？！ 上個禮拜專案終於告個段落，立馬按下了幾個 pending 的更新，其中一個就是 macOS Catalina，基本上使用沒有發生異常，但許多軟體設">
-
-
-<meta itemprop="datePublished" content="2019-12-05T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-12-05T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="374">
+<meta itemprop="name" content="JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄">
+<meta itemprop="description" content="JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 前幾天 .NET Core 3.1 正式 release 了，身為新技術的愛好者，當然是立馬下載安裝試用囉，不過馬上就踩雷了XD 但是其他同事好像遇到沒">
 
 
+<meta itemprop="datePublished" content="2019-12-07T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-12-07T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="940">
 
-<meta itemprop="keywords" content="Redis,Lua,macOS," />
+
+
+<meta itemprop="keywords" content="dotnet core,macOS,Tools," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="ZeroBraneStudio 無法在 macOS Catalina 中開啟？！"/>
-<meta name="twitter:description" content="ZeroBraneStudio 無法在 macOS Catalina 中開啟？！ 上個禮拜專案終於告個段落，立馬按下了幾個 pending 的更新，其中一個就是 macOS Catalina，基本上使用沒有發生異常，但許多軟體設"/>
+<meta name="twitter:title" content="JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄"/>
+<meta name="twitter:description" content="JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 前幾天 .NET Core 3.1 正式 release 了，身為新技術的愛好者，當然是立馬下載安裝試用囉，不過馬上就踩雷了XD 但是其他同事好像遇到沒"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,10 +144,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-12-05 </span>
+        <span class="post-time"> 2019-12-07 </span>
         
-        <span class="more-meta"> 約 374 字 </span>
-          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+        <span class="more-meta"> 約 940 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
     </header>
@@ -162,11 +162,12 @@
 <ul>
 <li>
 <ul>
-<li><a href="#zerobranestudio-無法在-macos-catalina-中開啟">ZeroBraneStudio 無法在 macOS Catalina 中開啟？！</a></li>
+<li><a href="#jetbrains-rider-在升級-net-core-3-1-後無法編譯紀錄">JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#問題描述">問題描述</a></li>
 <li><a href="#錯誤訊息">錯誤訊息</a></li>
-<li><a href="#確認問題發生原因">確認問題發生原因</a></li>
-<li><a href="#如何解決">如何解決</a></li>
+<li><a href="#問題確認">問題確認</a></li>
+<li><a href="#解決方式">解決方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -182,78 +183,127 @@
     <div class="post-content">
       
 
-<h2 id="zerobranestudio-無法在-macos-catalina-中開啟">ZeroBraneStudio 無法在 macOS Catalina 中開啟？！</h2>
+<h2 id="jetbrains-rider-在升級-net-core-3-1-後無法編譯紀錄">JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄</h2>
 
-<p>上個禮拜專案終於告個段落，立馬按下了幾個 pending 的更新，其中一個就是 macOS Catalina，基本上使用沒有發生異常，但許多軟體設定跑掉，但問題也不太大就是有些不順手，直到今天要 debug redis lua 時才發現 ZeroBraneStudio 完全無法開啟，筆記一下</p>
+<p>前幾天 .NET Core 3.1 正式 release 了，身為新技術的愛好者，當然是立馬下載安裝試用囉，不過馬上就踩雷了XD 但是其他同事好像遇到沒有類似狀況，大概多少還是跟人品有些關聯 QQ</p>
+
+<p>最後問題有解決，但是原因不明，也再無法重現，紀錄一下供日後參考</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Catalina 10.15.1</li>
-<li>ZeroBrane Studio v1.80 (Oct 07 2018)</li>
+<li>.NET Core SDK 3.1.100</li>
+<li>JetBrains Rider 2019.2.3 (Build #RD-192.7317.11, built on October 16, 2019)</li>
+<li>msbuild 16.0.42.19328</li>
+</ol>
+
+<h2 id="問題描述">問題描述</h2>
+
+<p>前幾天升級 macOS Catalina 後，搭配的 .NET Core SDK 3.0.100 都還能正常編譯所有 <code>TargetFramework</code> 為 <code>netcoreapp3.0</code> 的專案，一升級 .NET Core SDK 3.1.100 後不論是既有專案或是新建專案都無法通過編譯。嘗試過下列方式，問題仍然存在無法解決</p>
+
+<ol>
+<li>重開 Rider</li>
+<li>升級 Rider</li>
+<li>重開機</li>
 </ol>
 
 <h2 id="錯誤訊息">錯誤訊息</h2>
 
 <ol>
+<li><p>既有專案</p>
+
+<ul>
 <li><p>錯誤截圖</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/70245142-8fa72400-17b0-11ea-87d1-1ea9dc21522b.png" alt="1error" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/70386733-25bc9380-19d7-11ea-8c74-4e5451baea80.png" alt="1existedproject" /></p></li>
 
 <li><p>訊息內容</p>
 
-<pre><code class="language-txt">無法打開應用程式『ZeroBraneStudio』
+<pre><code class="language-txt">Microsoft.NET.Sdk.FrameworkReferenceResolution.targets(283, 5): [NETSDK1073] The FrameworkReference 'Microsoft.AspNetCore.App' was not recognized
 </code></pre></li>
+</ul></li>
+
+<li><p>新建專案</p>
+
+<ul>
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/70386735-25bc9380-19d7-11ea-89c2-d9f1566cb56e.png" alt="2newproject" /></p></li>
+
+<li><p>訊息內容</p>
+
+<pre><code class="language-txt">Microsoft.Common.CurrentVersion.targets(4570, 5): [MSB3030] Could not copy the file &quot;/Users/yowko.tsai/POCs/TestRedisLuaDictionary/TestRedisLuaDictionary/obj/Debug/netcoreapp3.0/TestRedisLuaDictionary&quot; because it was not found.  
+</code></pre></li>
+</ul></li>
 </ol>
 
-<h2 id="確認問題發生原因">確認問題發生原因</h2>
+<h2 id="問題確認">問題確認</h2>
 
-<ol>
-<li><p>使用 bash 開啟 ZeroBraneStudio</p>
+<p>從上述新建專案的錯誤代碼，看來是 msbuild 的錯誤訊息，所嘗試分別使用 <code>msbuild</code> 及 <code>dotnet cli</code> 來 build 專案，<code>dotnet cli</code> 並未出現錯誤</p>
 
-<pre><code class="language-bash">open /Applications/ZeroBraneStudio.app
+<ul>
+<li><p>msbuild</p>
+
+<pre><code class="language-txt">Microsoft (R) Build Engine for Mono 16.0.42-preview+g804bde742b 版
+Copyright (C) Microsoft Corporation. 著作權所有，並保留一切權利。
+
+已經開始建置於 2019/12/6 下午 02:43:22。
+節點 1 (預設目標) 上的專案 &quot;/Users/yowko.tsai/POCs/TestRedisLuaDictionary/TestRedisLuaDictionary.sln&quot;。
+ValidateSolutionConfiguration:
+建置方案組態 &quot;Debug|Any CPU&quot;。
+專案 &quot;/Users/yowko.tsai/POCs/TestRedisLuaDictionary/TestRedisLuaDictionary.sln&quot; (1) 正在節點 1 (預設目標) 上建置 &quot;/Users/yowko.tsai/POCs/TestRedisLuaDictionary/TestRedisLuaDictionary/TestRedisLuaDictionary.csproj&quot; (2)。
+/Library/Frameworks/Mono.framework/Versions/5.18.0/lib/mono/msbuild/15.0/bin/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.TargetFrameworkInference.targets(137,5): error NETSDK1045: 目前的 .NET SDK 不支援以 .NET Core 3.0 作為目標。請以 .NET Core 2.1 或更低版本作為目 的 .NET SDK 版本。 [/Users/yowko.tsai/POCs/TestRedisLuaDictionary/TestRedisLuaDictionary/TestRedisLuaDictionary.csproj]
+專案 &quot;/Users/yowko.tsai/POCs/TestRedisLuaDictionary/TestRedisLuaDictionary/TestRedisLuaDictionary.csproj&quot; (預設目標) 建置完成 -- 失敗。
+專案 &quot;/Users/yowko.tsai/POCs/TestRedisLuaDictionary/TestRedisLuaDictionary.sln&quot; (預設目標) 建置完成 -- 失敗。
+
+建置失敗。
+
+&quot;/Users/yowko.tsai/POCs/TestRedisLuaDictionary/TestRedisLuaDictionary.sln&quot; (預設目標) (1) -&gt;
+&quot;/Users/yowko.tsai/POCs/TestRedisLuaDictionary/TestRedisLuaDictionary/TestRedisLuaDictionary.csproj&quot; (預設目標) (2) -&gt;
+(_CheckForUnsupportedNETCoreVersion 目標) -&gt; 
+/Library/Frameworks/Mono.framework/Versions/5.18.0/lib/mono/msbuild/15.0/bin/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.TargetFrameworkInference.targets(137,5): error NETSDK1045: 目前的 .NET SDK 不支援以 .NET Core 3.0 作為目標。請以 .NET Core 2.1 或更低版本作為.0 的 .NET SDK 版本。 [/Users/yowko.tsai/POCs/TestRedisLuaDictionary/TestRedisLuaDictionary/TestRedisLuaDictionary.csproj]
+
+    0 個警告
+    1 個錯誤
+
+經過時間 00:00:01.44
 </code></pre></li>
 
-<li><p>出現 <code>-10810</code> error</p>
+<li><p>dotnet cli</p>
 
-<pre><code class="language-txt">LSOpenURLsWithRole() failed with error -10810 for the file /Applications/ZeroBraneStudio.app.
-</code></pre>
+<pre><code class="language-txt">Microsoft (R) Build Engine version 16.4.0+e901037fe for .NET Core
+Copyright (C) Microsoft Corporation. All rights reserved.
 
-<p><img src="https://user-images.githubusercontent.com/3851540/70245143-8fa72400-17b0-11ea-96c8-1aca1a1e265d.png" alt="2newerror" /></p></li>
+Restore completed in 321.27 ms for /Users/yowko.tsai/POCs/TestRedisLuaDictionary/TestRedisLuaDictionary/TestRedisLuaDictionary.csproj.
+TestRedisLuaDictionary -&gt; /Users/yowko.tsai/POCs/TestRedisLuaDictionary/TestRedisLuaDictionary/bin/Debug/netcoreapp3.0/TestRedisLuaDictionary.dll
 
-<li><p>問題發生原因</p>
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
 
-<p>從 macOS Catalina 開始，32 位元 app 將不再與 macOS 相容，而目前 ZeroBraneStudio 官網提供下載的版本仍為 32bit</p></li>
-</ol>
-
-<h2 id="如何解決">如何解決</h2>
-
-<p>從官方 GitHub 的 issue - <a href="https://github.com/pkulchenko/ZeroBraneStudio/issues/1020" target="_blank">MacOS Catalina - fails to start</a> 翻到解決方式如下</p>
-
-<ol>
-<li><p>clone <code>all-binaries-190b</code> branch</p>
-
-<pre><code class="language-bash">git clone https://github.com/pkulchenko/ZeroBraneStudio.git -b all-binaries-190b
+Time Elapsed 00:00:02.74
 </code></pre></li>
+</ul>
 
-<li><p>直接執行 <code>zbstudio.sh</code></p>
+<h2 id="解決方式">解決方式</h2>
 
-<pre><code class="language-bash">cd ZeroBraneStudio &amp;&amp; sh zbstudio.sh
-</code></pre></li>
+<p>由上個動作可以確認是 <code>msbuild</code> 造成 JetBrains Rider 無法成功 build 專案的，我的做法是調整了 JetBrains Rider 的 Build Engine</p>
 
-<li><p>成功開啟</p>
+<ul>
+<li><p>Toolset and Build &ndash;&gt; Build Engine &ndash;&gt; 取消勾選 <code>Use ReSharper Build</code></p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/70245144-8fa72400-17b0-11ea-9462-19e1746c5113.png" alt="3success" /></p></li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/70386736-26552a00-19d7-11ea-957e-88e88e3ffaec.png" alt="3buildengine" /></p></li>
+</ul>
 
 <h2 id="心得">心得</h2>
 
-<p>我從 issue <a href="https://github.com/pkulchenko/ZeroBraneStudio/issues/1020" target="_blank">MacOS Catalina - fails to start</a> 看到官方在 <sup>10</sup>&frasl;<sub>25</sub> 說會不久即將更新，但過了一個多月還是沒看到，不知道是卡在哪邊，不過既然已經有個可以 work 的 branch，我想應該只是流程上的問題吧？！</p>
+<p>開頭有提到我嘗試解決問題的過程中，順利解決問題了就再也無法重現問現問題，指的便是 <code>調整 Rider 的 Build Engine</code> 動作，雖然重新勾選 <code>Use ReSharper Build</code> 也都可以順利 build project，我個人猜測是不是這個動作重設了 Rider 的設定值，不過既然已經無法重現問題，也無法再往下追查原因，留個紀錄當做備查，但我有想過會不會是 msbuild 版本造成的</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://github.com/pkulchenko/ZeroBraneStudio/issues/1020" target="_blank">MacOS Catalina - fails to start</a></li>
+<li><a href="https://github.com/Azure/service-fabric-issues/issues/788" target="_blank">Fabric MSBuild 1.6.3 MSB3030: Could not copy the file because it was not found</a></li>
 </ol>
 
     </div>
@@ -266,7 +316,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-12-05</span>
+    <span class="item-content">2019-12-07</span>
   </p>
   
   <p class="copyright-item">
@@ -287,16 +337,18 @@
 		  
           
 		    
-		    	
-            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
-          
 		    
+		      
 		    	
-            <a href="https://blog.yowko.com/tags/lua/">Lua</a>
+            <a href="https://blog.yowko.com/tags/dotnet-core/">.NET Core</a>
           
 		    
 		    	
             <a href="https://blog.yowko.com/tags/macos/">macOS</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
           
         </div>
 
@@ -304,18 +356,11 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/rider-dotnetcore3-cannot-build/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/polly-after-retry/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/zerobranestudio-macos-catalina/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">Polly retry 之後的行為是？</span>			
+            <span class="prev-text nav-default">ZeroBraneStudio 無法在 macOS Catalina 中開啟？！</span>			
           </a>
 		  </div>
       </nav>
@@ -326,7 +371,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/zerobranestudio-macos-catalina\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/rider-dotnetcore3-cannot-build\/';  
       
     };
 
