@@ -1,7 +1,7 @@
 ---
 title: "在 Redis 中使用 Lua 的 Dictionary"
 date: 2019-10-26T21:30:00+08:00
-lastmod: 2019-10-26T21:30:31+08:00
+lastmod: 2019-12-08T21:30:31+08:00
 draft: false
 tags: ["Redis","Lua"]
 slug: "redis-lua-dcitionary"
@@ -80,6 +80,59 @@ end
 
 return results
 ```
+
+- 結果
+
+  ```txt
+  {"1":{"name":"yowko","email":"yowko@yowko.com"},"3":{"name":"test","email":"test@test.com"},"5":{"name":"poc","email":"poc@poc.com"}}
+  ```
+
+## 另種實作
+
+> 測試功能時，發現原本的表示法在實際使用上有些缺點，改一下
+
+- Lua
+
+  ```lua
+  local allUsersKey="users"
+  local userdataPrefixKey="userdata"
+
+  -- 取得所有 user
+  local allUsers = redis.call("smembers",  allUsersKey)
+
+  --逐一處理所有 user
+  local results = {} for userIndex, userId in ipairs(allUsers) do
+    -- 單一 user 的 key
+    local userdataKey=userdataPrefixKey .. ":" .. userId
+    -- 取得單一 user 的所有屬性值
+    local getAll= redis.call("HGETALL", userdataKey)
+    -- 暫存欄位名稱
+    local tmpSubKey=""
+    -- 處理所有欄位屬性
+    local tmpSubData = {}
+    -- 將 userId 當做 object 的一個屬性
+    tmpSubData["userId"]=userId
+    for index,value in ipairs (getAll) do
+      -- 如果 index 是單數則為欄位名稱，偶數為屬性值
+      if index % 2 == 1 then
+        tmpSubKey= value
+      else
+        -- 使用名稱設定 table 
+        tmpSubData[tmpSubKey]=value
+      end
+    end
+    -- 將個別 user object 存入 table 中
+    table.insert(results, tmpSubData)
+  end
+
+  return results
+  ```
+
+- 結果
+
+  ```txt
+  [{"userId":"1","name":"yowko","email":"yowko@yowko.com"},{"userId":"3","name":"test","email":"test@test.com"},{"userId":"5","name":"poc","email":"poc@poc.com"}]
+  ```
 
 ## 心得
 
