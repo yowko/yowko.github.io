@@ -6,10 +6,28 @@
     <description>Recent content in csharp on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 01 Dec 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 09 Dec 2019 22:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/csharp/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C# 使用 Lua 取得 Redis 自訂複雜型別</title>
+      <link>https://blog.yowko.com/csharp-lua-redis-custom-type/</link>
+      <pubDate>Mon, 09 Dec 2019 22:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/csharp-lua-redis-custom-type/</guid>
+      <description>C# 使用 Lua 取得 Redis 自訂複雜型別 之前筆記 在 Redis 中使用 Lua 的 Dictionary 紀錄到在 Redis 中使用 Lua 時可以如何模擬並使用 Dictionary，而筆記最後也提到透過這樣的方式</description>
+    </item>
+    
+    <item>
+      <title>C# - Property 與 Value 的 Dictionary 轉為 Object</title>
+      <link>https://blog.yowko.com/property-value-dictionary-to-object/</link>
+      <pubDate>Mon, 09 Dec 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/property-value-dictionary-to-object/</guid>
+      <description>C# - Property 與 Value 的 Dictionary 轉為 Object 之前筆記 C# - 將 Object 的 Property 與 Value 轉換為 Dictionary 紀錄到將 C# object 的 property name 與 value 透過 dictionary 的資料型態存放，當時主要是為了配合 InfluxDB 的 insert 而做的筆記 ，想不到時</description>
+    </item>
     
     <item>
       <title>Polly retry 之後的行為是？</title>

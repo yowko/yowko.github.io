@@ -3,6 +3,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/csharp-lua-redis-custom-type/</loc>
+    <lastmod>2016-12-09T22:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/property-value-dictionary-to-object/</loc>
+    <lastmod>2019-12-09T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/rider-dotnetcore3-cannot-build/</loc>
     <lastmod>2019-12-07T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -66,8 +80,8 @@
   </url>
   
   <url>
-    <loc>https://blog.yowko.com/redis-lua-dcitionary/</loc>
-    <lastmod>2019-12-08T21:30:31+08:00</lastmod>
+    <loc>https://blog.yowko.com/redis-lua-dictionary/</loc>
+    <lastmod>2019-12-09T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -3951,7 +3965,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/lua/</loc>
-    <lastmod>2019-12-05T21:30:31+08:00</lastmod>
+    <lastmod>2016-12-09T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4084,7 +4098,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2019-12-07T21:30:31+08:00</lastmod>
+    <lastmod>2016-12-09T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4119,7 +4133,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/redis/</loc>
-    <lastmod>2019-12-05T21:30:31+08:00</lastmod>
+    <lastmod>2016-12-09T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4259,7 +4273,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2019-12-07T21:30:31+08:00</lastmod>
+    <lastmod>2016-12-09T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4287,7 +4301,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/csharp/</loc>
-    <lastmod>2019-12-01T21:30:31+08:00</lastmod>
+    <lastmod>2016-12-09T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

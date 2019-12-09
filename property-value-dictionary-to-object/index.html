@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>C# - Property 與 Value 的 Dictionary 轉為 Object - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="C# - Property 與 Value 的 Dictionary 轉為 Object 之前筆記 C# - 將 Object 的 Property 與 Value 轉換為 Dictionary 紀錄到將 C# object 的 property name 與 value 透過 dictionary 的資料型態存放，當時主要是為了配合 InfluxDB 的 insert 而做的筆記 ，想不到時" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.51" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/property-value-dictionary-to-object/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="C# - Property 與 Value 的 Dictionary 轉為 Object" />
+<meta property="og:description" content="C# - Property 與 Value 的 Dictionary 轉為 Object 之前筆記 C# - 將 Object 的 Property 與 Value 轉換為 Dictionary 紀錄到將 C# object 的 property name 與 value 透過 dictionary 的資料型態存放，當時主要是為了配合 InfluxDB 的 insert 而做的筆記 ，想不到時" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/property-value-dictionary-to-object/" /><meta property="article:published_time" content="2019-12-09T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2019-12-09T21:30:31&#43;08:00"/>
+
+<meta itemprop="name" content="C# - Property 與 Value 的 Dictionary 轉為 Object">
+<meta itemprop="description" content="C# - Property 與 Value 的 Dictionary 轉為 Object 之前筆記 C# - 將 Object 的 Property 與 Value 轉換為 Dictionary 紀錄到將 C# object 的 property name 與 value 透過 dictionary 的資料型態存放，當時主要是為了配合 InfluxDB 的 insert 而做的筆記 ，想不到時">
+
+
+<meta itemprop="datePublished" content="2019-12-09T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-12-09T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="870">
+
+
+
+<meta itemprop="keywords" content="csharp," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C# - Property 與 Value 的 Dictionary 轉為 Object"/>
+<meta name="twitter:description" content="C# - Property 與 Value 的 Dictionary 轉為 Object 之前筆記 C# - 將 Object 的 Property 與 Value 轉換為 Dictionary 紀錄到將 C# object 的 property name 與 value 透過 dictionary 的資料型態存放，當時主要是為了配合 InfluxDB 的 insert 而做的筆記 ，想不到時"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-09 </span>
+        
+        <span class="more-meta"> 約 870 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#c-property-與-value-的-dictionary-轉為-object">C# - Property 與 Value 的 Dictionary 轉為 Object</a></li>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#將-dictionary-轉為-object">將 Dictionary 轉為 object</a></li>
+<li><a href="#心得">心得</a></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="c-property-與-value-的-dictionary-轉為-object">C# - Property 與 Value 的 Dictionary 轉為 Object</h2>
+
+<p>之前筆記 <a href="https://blog.yowko.com/csharp-object-to-dictionary/" target="_blank">C# - 將 Object 的 Property 與 Value 轉換為 Dictionary</a> 紀錄到將 C# object 的 property name 與 value 透過 dictionary 的資料型態存放，當時主要是為了配合 InfluxDB 的 insert 而做的筆記 ，想不到時隔兩個月，竟然想要透過 property - value 的 dictionary 來轉回 C# object，有趣的是來源不是 InfluxDB 而是 Redis</p>
+
+<h2 id="基本環境說明">基本環境說明</h2>
+
+<ol>
+<li>macOS Catalina 10.15.1</li>
+<li>.NET Core SDK 3.1.100</li>
+
+<li><p>測試用程式碼</p>
+
+<ul>
+<li><p>model</p>
+
+<pre><code class="language-cs">public class User
+{
+    public int UserId { get; set; }
+
+    public string Name { get; set; }
+
+    public string Email { get; set; }
+}
+</code></pre></li>
+
+<li><p>假資料</p>
+
+<pre><code class="language-cs">User[] _user = new User[]
+    {
+        new User
+        {
+            UserId = 1,
+            Name = &quot;yowko&quot;,
+            Email = &quot;yowko@yowko.com&quot;
+        },
+        new User
+        {
+            UserId = 3,
+            Name = &quot;test&quot;,
+            Email = &quot;test@test.com&quot;
+        },
+        new User
+        {
+            UserId = 5,
+            Name = &quot;poc&quot;,
+            Email = &quot;poc@poc.com&quot;
+        },
+    };
+</code></pre></li>
+
+<li><p>將 object 轉為 dictionary</p>
+
+<blockquote>
+<p>之前筆記 <a href="https://blog.yowko.com/csharp-object-to-dictionary/" target="_blank">C# - 將 Object 的 Property 與 Value 轉換為 Dictionary</a> 中的程式只能轉換 reference type，這邊小改一下，讓 value type 也可以順利轉換 (但有 boxing 的效能損耗)</p>
+</blockquote>
+
+<pre><code class="language-cs">public static class PocoToDictionary
+{
+    private static readonly MethodInfo AddToDictionaryMethod = typeof(IDictionary&lt;string, object&gt;).GetMethod(&quot;Add&quot;);
+
+    private static readonly ConcurrentDictionary&lt;Type, Func&lt;object, IDictionary&lt;string, object&gt;&gt;&gt; Converters =
+        new ConcurrentDictionary&lt;Type, Func&lt;object, IDictionary&lt;string, object&gt;&gt;&gt;();
+
+    private static readonly ConstructorInfo DictionaryConstructor = typeof(Dictionary&lt;string, object&gt;)
+        .GetConstructors().FirstOrDefault(c =&gt; c.IsPublic &amp;&amp; !c.GetParameters().Any());
+
+    public static IDictionary&lt;string, object&gt; ExpressionToDictionary(this object obj) =&gt; obj == null
+        ? null
+        : Converters.GetOrAdd(obj.GetType(), o =&gt;
+        {
+            var outputType = typeof(IDictionary&lt;string, object&gt;);
+            var inputType = obj.GetType();
+            var inputExpression = Expression.Parameter(typeof(object), &quot;input&quot;);
+            var typedInputExpression = Expression.Convert(inputExpression, inputType);
+            var outputVariable = Expression.Variable(outputType, &quot;output&quot;);
+            var returnTarget = Expression.Label(outputType);
+            var body = new List&lt;Expression&gt;
+            {
+                Expression.Assign(outputVariable, Expression.New(DictionaryConstructor))
+            };
+            body.AddRange(
+                from prop in inputType.GetProperties(BindingFlags.Instance | BindingFlags.Public |
+                                                    BindingFlags.FlattenHierarchy)
+                where prop.CanRead &amp;&amp; (prop.PropertyType.IsPrimitive || prop.PropertyType == typeof(string))
+                let getExpression = Expression.Property(typedInputExpression, prop.GetMethod)
+                select Expression.Call(outputVariable, AddToDictionaryMethod, Expression.Constant(prop.Name),
+                    Expression.Convert(getExpression, typeof(object))));
+            body.Add(Expression.Return(returnTarget, outputVariable));
+            body.Add(Expression.Label(returnTarget, Expression.Constant(null, outputType)));
+            var lambdaExpression = Expression.Lambda&lt;Func&lt;object, IDictionary&lt;string, object&gt;&gt;&gt;(
+                Expression.Block(new[] {outputVariable}, body),
+                inputExpression);
+
+            return lambdaExpression.Compile();
+        })(obj);
+}
+</code></pre></li>
+
+<li><p>將各個 object 轉為 Dictionary list</p>
+
+<pre><code class="language-cs">public static List&lt;IDictionary&lt;string, object&gt;&gt; ByPocoToDictionary()
+{
+    var result = new List&lt;IDictionary&lt;string, object&gt;&gt;();
+    var h = 0;
+    foreach (var item in _user)
+    {
+        var dict = item.ExpressionToDictionary();
+        h = $&quot;{h}{dict.GetHashCode()}&quot;.GetHashCode();
+        result.Add(dict);
+    }
+    return result;
+}
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="將-dictionary-轉為-object">將 Dictionary 轉為 object</h2>
+
+<ol>
+<li><p>轉換程式</p>
+
+<pre><code class="language-cs">private static T DictionaryToObject&lt;T&gt;(IDictionary&lt;String, Object&gt; dictionary) where T : class, new()
+{
+    // 取得 T 所有 property
+    var myPropertyInfo = typeof(T).GetProperties();
+    // 將 property 的 name 轉為小寫當 key，value 為原始大小寫，讓傳入的資料無論大小寫皆可轉換
+    var properties = myPropertyInfo
+        .Select(a =&gt; new KeyValuePair&lt;string, string&gt;(a.Name.ToLowerInvariant(), a.Name))
+        .ToDictionary(a =&gt; a.Key, a =&gt; a.Value);
+
+    // 建立 T 實體
+    var instance = Activator.CreateInstance&lt;T&gt;();
+
+    //處理所有欄位
+    foreach (var (key, value) in dictionary)
+    {
+        var name = key.ToLowerInvariant();
+
+        //欄位名稱不存在就換下一個
+        if (!properties.TryGetValue(name, out var property)) continue;
+
+        var prop = typeof(T).GetProperty(property);
+
+        //依據不同型別來做轉換，只意思寫 int 與 string，請自行擴充
+        switch (prop.PropertyType)
+        {
+            case { } intType when intType == typeof(int):
+                prop.SetValue(instance, Convert.ToInt32(value), null);
+
+                break;
+            case { } stringType when stringType == typeof(string):
+                prop.SetValue(instance, Convert.ToString(value), null);
+
+                break;
+        }
+    }
+
+    return instance;
+}
+</code></pre></li>
+
+<li><p>實際使用</p>
+
+<pre><code class="language-cs">// 取得 users 的 dictionary list
+var result = ByPocoToDictionary();
+// 將 dictionary 再轉回 user
+var outputResult = result.Select(DictionaryToObject&lt;User&gt;);
+</code></pre></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>其實上次紀錄 <a href="https://blog.yowko.com/csharp-object-to-dictionary/" target="_blank">C# - 將 Object 的 Property 與 Value 轉換為 Dictionary</a> 時，我就覺得有些荒謬了，覺得這樣的需求沒什麼道理，使用情境很是侷限，想不到這次竟然還需要來個逆向操作，不過所幸有上次的經驗，讓這次的問題可以快速被解決，雖然可能會因為上次的既定印象反而限制了思考的方向而造成用了效能不佳的方法，但終究是多了解了一個可以解決問題的方法，不論好壞還是學到了</p>
+
+<h2 id="參考資訊">參考資訊</h2>
+
+<ol>
+<li><a href="https://blog.yowko.com/csharp-object-to-dictionary/" target="_blank">C# - 將 Object 的 Property 與 Value 轉換為 Dictionary</a></li>
+<li><a href="https://stackoverflow.com/questions/43080505/c-sharp-7-0-switch-on-system-type" target="_blank">Expression of type &lsquo;System.Int32&rsquo; cannot be used for return type &lsquo;System.Object&rsquo;</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-12-09</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    
+		      
+		    	
+            <a href="https://blog.yowko.com/tags/csharp/">C#</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/csharp-lua-redis-custom-type/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">C# 使用 Lua 取得 Redis 自訂複雜型別</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/rider-dotnetcore3-cannot-build/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/property-value-dictionary-to-object\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>
