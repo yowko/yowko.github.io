@@ -1,7 +1,7 @@
 ---
 title: "JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄"
 date: 2019-12-07T21:30:00+08:00
-lastmod: 2019-12-07T21:30:31+08:00
+lastmod: 2019-12-12T21:30:31+08:00
 draft: false
 tags: ["dotnet core","macOS","Tools"]
 slug: "rider-dotnetcore3-cannot-build"
@@ -9,7 +9,7 @@ slug: "rider-dotnetcore3-cannot-build"
 
 ## JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄
 
-前幾天 .NET Core 3.1 正式 release 了，身為新技術的愛好者，當然是立馬下載安裝試用囉，不過馬上就踩雷了XD 但是其他同事好像遇到沒有類似狀況，大概多少還是跟人品有些關聯 QQ
+前幾天 .NET Core 3.1 正式 release 了，身為新技術的愛好者，當然是立馬下載安裝試用囉，不過馬上就踩雷了XD 但是其他同事好像沒有遇到類似狀況，我想大概多少還是跟人品有些關聯 QQ
 
 最後問題有解決，但是原因不明，也再無法重現，紀錄一下供日後參考
 
