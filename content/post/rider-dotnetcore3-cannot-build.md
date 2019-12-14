@@ -1,13 +1,15 @@
 ---
 title: "JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄"
 date: 2019-12-07T21:30:00+08:00
-lastmod: 2019-12-12T21:30:31+08:00
+lastmod: 2019-12-14T15:30:31+08:00
 draft: false
 tags: ["dotnet core","macOS","Tools"]
 slug: "rider-dotnetcore3-cannot-build"
 ---
 
 ## JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄
+
+### <span style="color:red">已有更新版本，請參考 [JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 (更新)](https://blog.yowko.com/rider-dotnetcore31-cannot-build)<span>
 
 前幾天 .NET Core 3.1 正式 release 了，身為新技術的愛好者，當然是立馬下載安裝試用囉，不過馬上就踩雷了XD 但是其他同事好像沒有遇到類似狀況，我想大概多少還是跟人品有些關聯 QQ
 
@@ -104,7 +106,7 @@ slug: "rider-dotnetcore3-cannot-build"
 
 ## 解決方式
 
-由上個動作可以確認是 `msbuild` 造成 JetBrains Rider 無法成功 build 專案的，我的做法是調整了 JetBrains Rider 的 Build Engine
+~~由上個動作可以確認是 `msbuild` 造成 JetBrains Rider 無法成功 build 專案的，我的做法是調整了 JetBrains Rider 的 Build Engine~~ 經過測試關鍵似乎是 `dotnet build` 這個指令
 
 - Toolset and Build --> Build Engine --> 取消勾選 `Use ReSharper Build`
 
