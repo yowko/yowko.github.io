@@ -3,6 +3,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/rider-dotnetcore31-cannot-build/</loc>
+    <lastmod>2019-12-14T15:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/homebrew-cask-install-older-version/</loc>
+    <lastmod>2019-12-13T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/csharp-lua-redis-custom-type/</loc>
     <lastmod>2016-12-09T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -18,7 +32,7 @@
   
   <url>
     <loc>https://blog.yowko.com/rider-dotnetcore3-cannot-build/</loc>
-    <lastmod>2019-12-07T21:30:31+08:00</lastmod>
+    <lastmod>2019-12-14T15:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -4098,7 +4112,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2016-12-09T22:30:31+08:00</lastmod>
+    <lastmod>2019-12-14T15:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4175,7 +4189,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/tools/</loc>
-    <lastmod>2019-12-07T21:30:31+08:00</lastmod>
+    <lastmod>2019-12-14T15:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4273,7 +4287,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2016-12-09T22:30:31+08:00</lastmod>
+    <lastmod>2019-12-14T15:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4322,7 +4336,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/dotnet-core/</loc>
-    <lastmod>2019-12-07T21:30:31+08:00</lastmod>
+    <lastmod>2019-12-14T15:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4357,7 +4371,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/macos/</loc>
-    <lastmod>2019-12-07T21:30:31+08:00</lastmod>
+    <lastmod>2019-12-14T15:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

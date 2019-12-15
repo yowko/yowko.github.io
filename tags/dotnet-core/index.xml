@@ -6,10 +6,19 @@
     <description>Recent content in dotnet core on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 07 Dec 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Dec 2019 15:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/dotnet-core/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 (更新)</title>
+      <link>https://blog.yowko.com/rider-dotnetcore31-cannot-build/</link>
+      <pubDate>Sat, 14 Dec 2019 15:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/rider-dotnetcore31-cannot-build/</guid>
+      <description>JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 (更新) 前幾天的筆記 JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 提到在升級 .NET Core SDK 3.1.100 我就無法成功透過 JetBrains Rider 來 build project (無論是既有專案</description>
+    </item>
     
     <item>
       <title>JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄</title>
@@ -17,7 +26,7 @@
       <pubDate>Sat, 07 Dec 2019 21:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/rider-dotnetcore3-cannot-build/</guid>
-      <description>JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 前幾天 .NET Core 3.1 正式 release 了，身為新技術的愛好者，當然是立馬下載安裝試用囉，不過馬上就踩雷了XD 但是其他同事好像遇到沒</description>
+      <description>JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 已有更新版本，請參考 JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 (更新) 前幾天 .NET Core 3.1 正式 release 了，身為新技術的愛好者，當然是立馬</description>
     </item>
     
     <item>
