@@ -1,7 +1,7 @@
 ---
 title: "使用客製 config 在 kubenetes 上建立 Redis cluster"
-date: 2019-12-17T21:30:00+08:00
-lastmod: 2019-12-17T21:30:31+08:00
+date: 2019-12-17T23:30:00+08:00
+lastmod: 2019-12-17T23:30:31+08:00
 draft: false
 tags: ["Kubernetes","redis"]
 slug: "redis-config-cluster-kubernetes"
