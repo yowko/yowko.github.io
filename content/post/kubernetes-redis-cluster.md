@@ -1,7 +1,7 @@
 ---
 title: "在 Kubernetes 部署 Redis Cluster"
 date: 2019-08-15T01:30:00+08:00
-lastmod: 2019-08-15T01:30:31+08:00
+lastmod: 2019-12-17T01:30:31+08:00
 draft: false
 tags: ["Kubernetes","Redis"]
 slug: "kubernetes-redis-cluster"
@@ -39,7 +39,7 @@ slug: "kubernetes-redis-cluster"
 
 ## 安裝 KubeDB Operator
 
-> 以下使用 Helm 安裝，也可以使用 script 來執行安裝，請參考 [Installation Guide](https://kubedb.com/docs/0.12.0/setup/install/) 的 `Script` tab 內容
+> [請在 master node 上操作] 以下使用 Helm 安裝，也可以使用 script 來執行安裝，請參考 [Installation Guide](https://kubedb.com/docs/0.12.0/setup/install/) 的 `Script` tab 內容
 
 1. 加入 appscode (KudeDB 的開發公司) 的 helm repo
 
@@ -150,7 +150,7 @@ slug: "kubernetes-redis-cluster"
         kubectl apply -f storageclass.yaml
         ```
 
-    - 未建立錯誤 StorageClass
+    - 未建立錯誤 StorageClass (錯誤會出現在實際安裝 redis cluster 時)
 
         > 使用 `kubedb describe rd -n demo redis-cluster` 可以看到錯誤
 
@@ -170,12 +170,15 @@ slug: "kubernetes-redis-cluster"
 
     - 建立六個資料夾並給予權限
 
-        > 以下動作在 `node1` 上執行 (會影響 pv.yaml 設定)，請自行替換 {vol1} 直至建立 六 個資料夾
+        > 以下動作在 `node1` 上執行 (會影響 pv.yaml 設定)，請自行替換正確路徑直至建立 六 個資料夾
 
         ```bash
-        mkdir -p /mnt/disk/vol1
-        chcon -Rt svirt_sandbox_file_t /mnt/disk/vol1
-        chmod 777 /mnt/disk/vol1
+        mkdir -p /mnt/disk/vol1 && chcon -Rt svirt_sandbox_file_t /mnt/disk/vol1 && chmod 777 /mnt/disk/vol1
+        mkdir -p /mnt/disk/vol2 && chcon -Rt svirt_sandbox_file_t /mnt/disk/vol2 && chmod 777 /mnt/disk/vol2
+        mkdir -p /mnt/disk/vol3 && chcon -Rt svirt_sandbox_file_t /mnt/disk/vol3 && chmod 777 /mnt/disk/vol3
+        mkdir -p /mnt/disk/vol4 && chcon -Rt svirt_sandbox_file_t /mnt/disk/vol4 && chmod 777 /mnt/disk/vol4
+        mkdir -p /mnt/disk/vol5 && chcon -Rt svirt_sandbox_file_t /mnt/disk/vol5 && chmod 777 /mnt/disk/vol5
+        mkdir -p /mnt/disk/vol6 && chcon -Rt svirt_sandbox_file_t /mnt/disk/vol6 && chmod 777 /mnt/disk/vol6
         ```
 
     - 新增六個 pv.yaml
@@ -214,6 +217,18 @@ slug: "kubernetes-redis-cluster"
 
         ```bash
         kubectl apply -f pv1.yaml
+        ```
+
+        > 快速建立 六 個 pv
+
+        ```bash
+        kubectl create -f pv1.yaml -f pv2.yaml -f pv3.yaml -f pv4.yaml -f pv5.yaml -f pv6.yaml
+        ```
+
+        > 快速刪除 六 個 pv
+
+        ```bash
+        kubectl delete -f pv1.yaml -f pv2.yaml -f pv3.yaml -f pv4.yaml -f pv5.yaml -f pv6.yaml
         ```
 
     - 未建立 PV 錯誤
@@ -308,7 +323,7 @@ slug: "kubernetes-redis-cluster"
 2. 移除 KubeDB operator chart
 
     ```bash
-     helm del kubedb-operator --purge --no-hooks
+    helm del kubedb-operator --purge --no-hooks
     ```
 
 3. 移除 KubeDB catalog

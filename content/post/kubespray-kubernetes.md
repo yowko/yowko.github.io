@@ -1,7 +1,7 @@
 ---
 title: "透過 Kubespray 來架設 Kubernetes"
 date: 2019-07-13T21:30:00+08:00
-lastmod: 2019-07-13T21:30:31+08:00
+lastmod: 2019-12-15T21:30:31+08:00
 draft: false
 tags: ["Kubernetes"]
 slug: "kubespray-kubernetes"
@@ -100,13 +100,7 @@ slug: "kubespray-kubernetes"
     > 執行對象：ansible-client
 
     ```bash
-    yum -y install epel-release
-
-    yum -y install https://centos7.iuscommunity.org/ius-release.rpm
-
-    yum clean all && yum makecache
-
-    yum install -y python-pip python36 python-netaddr python36-pip ansible git
+    yum -y install epel-release && yum -y install https://centos7.iuscommunity.org/ius-release.rpm && yum clean all && yum makecache && yum install -y python-pip python36 python-netaddr python36-pip ansible git
     ```
 
 ## 透過 Kubespray 安裝
@@ -118,6 +112,12 @@ slug: "kubespray-kubernetes"
     > 2019/7/14 測試： `master` 仍無法順利完成安裝，需使用 `release-2.10` branch 最高僅能安裝 `Kubernetes v1.14.3`
 
     > 2019/9/6 測試：使用 `release-2.11` 可以順利安裝 `Kubernetes v1.15.3`
+
+    ```bash
+    git clone https://github.com/kubernetes-sigs/kubespray.git -b release-2.11
+    ```
+
+    > 2019/12/5 測試：使用 `release-2.12` 可以順利安裝 `Kubernetes v1.16.3`
 
     ```bash
     git clone https://github.com/kubernetes-sigs/kubespray.git -b release-2.11
@@ -180,6 +180,8 @@ slug: "kubespray-kubernetes"
     ```bash
     ansible-playbook -i inventory/k8s/inventory.ini cluster.yml -b -v -k
     ```
+
+> Kubernetes 的版本紀錄在 `inventory/k8s/group_vars/k8s-cluster/k8s-cluster.yml`
 
 ## 心得
 
