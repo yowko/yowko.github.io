@@ -58,15 +58,15 @@
 <meta property="og:description" content="在 Kubernetes 部署 Redis Cluster 最近在 Kubernetes 上部暑相關基礎服務，大部份的服務都有對應的 Helm 可以使用，沒有遇到太多問題，唯獨 Redis，因為團隊使用 Redis Cluster,，" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/kubernetes-redis-cluster/" /><meta property="article:published_time" content="2019-08-15T01:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-08-15T01:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2019-12-17T01:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="在 Kubernetes 部署 Redis Cluster">
 <meta itemprop="description" content="在 Kubernetes 部署 Redis Cluster 最近在 Kubernetes 上部暑相關基礎服務，大部份的服務都有對應的 Helm 可以使用，沒有遇到太多問題，唯獨 Redis，因為團隊使用 Redis Cluster,，">
 
 
 <meta itemprop="datePublished" content="2019-08-15T01:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-08-15T01:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="1380">
+<meta itemprop="dateModified" content="2019-12-17T01:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="1511">
 
 
 
@@ -146,8 +146,8 @@
       <div class="post-meta">
         <span class="post-time"> 2019-08-15 </span>
         
-        <span class="more-meta"> 約 1380 字 </span>
-          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        <span class="more-meta"> 約 1511 字 </span>
+          <span class="more-meta"> 預計閱讀 4 分鐘 </span>
         
       </div>
     </header>
@@ -253,7 +253,7 @@
 <h2 id="安裝-kubedb-operator">安裝 KubeDB Operator</h2>
 
 <blockquote>
-<p>以下使用 Helm 安裝，也可以使用 script 來執行安裝，請參考 <a href="https://kubedb.com/docs/0.12.0/setup/install/" target="_blank">Installation Guide</a> 的 <code>Script</code> tab 內容</p>
+<p>[請在 master node 上操作] 以下使用 Helm 安裝，也可以使用 script 來執行安裝，請參考 <a href="https://kubedb.com/docs/0.12.0/setup/install/" target="_blank">Installation Guide</a> 的 <code>Script</code> tab 內容</p>
 </blockquote>
 
 <ol>
@@ -371,7 +371,7 @@ volumeBindingMode: WaitForFirstConsumer
 <pre><code class="language-bash">kubectl apply -f storageclass.yaml
 </code></pre></li>
 
-<li><p>未建立錯誤 StorageClass</p>
+<li><p>未建立錯誤 StorageClass (錯誤會出現在實際安裝 redis cluster 時)</p>
 
 <blockquote>
 <p>使用 <code>kubedb describe rd -n demo redis-cluster</code> 可以看到錯誤</p>
@@ -399,12 +399,15 @@ volumeBindingMode: WaitForFirstConsumer
 <li><p>建立六個資料夾並給予權限</p>
 
 <blockquote>
-<p>以下動作在 <code>node1</code> 上執行 (會影響 pv.yaml 設定)，請自行替換 {vol1} 直至建立 六 個資料夾</p>
+<p>以下動作在 <code>node1</code> 上執行 (會影響 pv.yaml 設定)，請自行替換正確路徑直至建立 六 個資料夾</p>
 </blockquote>
 
-<pre><code class="language-bash">mkdir -p /mnt/disk/vol1
-chcon -Rt svirt_sandbox_file_t /mnt/disk/vol1
-chmod 777 /mnt/disk/vol1
+<pre><code class="language-bash">mkdir -p /mnt/disk/vol1 &amp;&amp; chcon -Rt svirt_sandbox_file_t /mnt/disk/vol1 &amp;&amp; chmod 777 /mnt/disk/vol1
+mkdir -p /mnt/disk/vol2 &amp;&amp; chcon -Rt svirt_sandbox_file_t /mnt/disk/vol2 &amp;&amp; chmod 777 /mnt/disk/vol2
+mkdir -p /mnt/disk/vol3 &amp;&amp; chcon -Rt svirt_sandbox_file_t /mnt/disk/vol3 &amp;&amp; chmod 777 /mnt/disk/vol3
+mkdir -p /mnt/disk/vol4 &amp;&amp; chcon -Rt svirt_sandbox_file_t /mnt/disk/vol4 &amp;&amp; chmod 777 /mnt/disk/vol4
+mkdir -p /mnt/disk/vol5 &amp;&amp; chcon -Rt svirt_sandbox_file_t /mnt/disk/vol5 &amp;&amp; chmod 777 /mnt/disk/vol5
+mkdir -p /mnt/disk/vol6 &amp;&amp; chcon -Rt svirt_sandbox_file_t /mnt/disk/vol6 &amp;&amp; chmod 777 /mnt/disk/vol6
 </code></pre></li>
 
 <li><p>新增六個 pv.yaml</p>
@@ -446,6 +449,20 @@ spec:
 </blockquote>
 
 <pre><code class="language-bash">kubectl apply -f pv1.yaml
+</code></pre>
+
+<blockquote>
+<p>快速建立 六 個 pv</p>
+</blockquote>
+
+<pre><code class="language-bash">kubectl create -f pv1.yaml -f pv2.yaml -f pv3.yaml -f pv4.yaml -f pv5.yaml -f pv6.yaml
+</code></pre>
+
+<blockquote>
+<p>快速刪除 六 個 pv</p>
+</blockquote>
+
+<pre><code class="language-bash">kubectl delete -f pv1.yaml -f pv2.yaml -f pv3.yaml -f pv4.yaml -f pv5.yaml -f pv6.yaml
 </code></pre></li>
 
 <li><p>未建立 PV 錯誤</p>
@@ -544,7 +561,7 @@ spec:
 
 <li><p>移除 KubeDB operator chart</p>
 
-<pre><code class="language-bash"> helm del kubedb-operator --purge --no-hooks
+<pre><code class="language-bash">helm del kubedb-operator --purge --no-hooks
 </code></pre></li>
 
 <li><p>移除 KubeDB catalog</p>
@@ -586,7 +603,7 @@ spec:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-08-15</span>
+    <span class="item-content">2019-12-17</span>
   </p>
   
   <p class="copyright-item">
