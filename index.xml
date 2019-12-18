@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 14 Dec 2019 15:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 17 Dec 2019 23:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用客製 config 在 kubenetes 上建立 Redis cluster</title>
+      <link>https://blog.yowko.com/redis-config-cluster-kubernetes/</link>
+      <pubDate>Tue, 17 Dec 2019 23:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/redis-config-cluster-kubernetes/</guid>
+      <description>使用客製 config 在 kubenetes 上建立 Redis cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 紀錄到如何使用 KubeDB Operator 來建立 redis cluster，不過之前筆記內容是透過預設值來進行安裝與設定，而在面對</description>
+    </item>
     
     <item>
       <title>JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 (更新)</title>

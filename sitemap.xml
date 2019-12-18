@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/redis-config-cluster-kubernetes/</loc>
+    <lastmod>2019-12-17T23:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/rider-dotnetcore31-cannot-build/</loc>
     <lastmod>2019-12-14T15:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -3944,7 +3951,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/kubernetes/</loc>
-    <lastmod>2019-12-17T01:30:31+08:00</lastmod>
+    <lastmod>2019-12-17T23:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4112,7 +4119,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2019-12-14T15:30:31+08:00</lastmod>
+    <lastmod>2019-12-17T23:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4287,7 +4294,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2019-12-14T15:30:31+08:00</lastmod>
+    <lastmod>2019-12-17T23:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4379,6 +4386,13 @@
   <url>
     <loc>https://blog.yowko.com/tags/protobuf/</loc>
     <lastmod>2019-03-16T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/tags/redis/</loc>
+    <lastmod>2016-12-09T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

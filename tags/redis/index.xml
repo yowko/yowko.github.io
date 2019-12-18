@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Redis on Yowko&#39;s Notes</title>
+    <title>redis on Yowko&#39;s Notes</title>
     <link>https://blog.yowko.com/tags/redis/</link>
-    <description>Recent content in Redis on Yowko&#39;s Notes</description>
+    <description>Recent content in redis on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Mon, 09 Dec 2019 22:30:00 +0800</lastBuildDate>
