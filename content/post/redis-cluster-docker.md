@@ -1,15 +1,18 @@
 ---
 title: "使用 docker 建立 Redis Cluster - 更新版"
 date: 2019-03-05T21:30:00+08:00
-lastmod: 2019-03-05T21:30:31+08:00
+lastmod: 2019-12-19T21:30:31+08:00
 draft: false
 tags: ["Container","Redis","Docker"]
 slug: "redis-cluster-docker"
 ---
-# 使用 docker 建立 Redis Cluster - 更新版
+
+## 使用 docker 建立 Redis Cluster - 更新版
+
 之前筆記 [使用 docker 建立 Redis Cluster](https://blog.yowko.com/docker-redis-cluster) 成功建立了 redis cluster，也測試過 sentinel 可以正常 failover，興高采烈測試程式碼時才發現有 bug：在加入 cluster 時使用的是 container ip 與 port (因為 redis cluster 不支援使用 host name)，以致 redis key 在不同 slot 間無法正確做移動，所以我們馬上來看看可以如何解決吧
 
 ## 基本環境說明
+
 1. macOS Mojave 10.14.2
 2. Docker Community 18.09.2
 3. docker-compose version 1.23.2, build 1110ad01
@@ -27,21 +30,24 @@ conn.GetDatabase().StringSetAsync("test1","test123").ConfigureAwait(false).GetAw
 ```
 
 ## 錯誤訊息
+
 - 訊息內容
 
-    ```
+    ```txt
     Key has MOVED from Endpoint 172.19.0.2:6379 and hashslot 4768 but CommandFlags.NoRedirect was specified - redirect not followed for SET test1. IOCP: (Busy=0,Free=1000,Min=8,Max=1000), WORKER: (Busy=0,Free=1023,Min=8,Max=1023), Local-CPU: n/a
     ```
+
 - 錯誤截圖
 
     ![1error](https://user-images.githubusercontent.com/3851540/53813231-1c118580-3f98-11e9-87ad-cb2dad93c8f1.png)
 
 ## Master 與 Slave node ：內容相同
+
 1. 準備 redis config
 
     > redis 預設未啟用 cluster，需要透過 config 來啟用
 
-    ```
+    ```txt
     # 指定 redis port
     port 6379
     # 啟用 cluster
@@ -57,11 +63,12 @@ conn.GetDatabase().StringSetAsync("test1","test123").ConfigureAwait(false).GetAw
     # 設定連線密碼
     requirepass pass.123
     ```
+
 2. 準備 dockerfile
 
     > 使用上述建立的 config 來啟動 redis
 
-    ```
+    ```dcokerfile
     FROM redis:5.0.3-alpine3.9
 
     MAINTAINER Yowko Tsai <yowko@yowko.com>
@@ -72,11 +79,12 @@ conn.GetDatabase().StringSetAsync("test1","test123").ConfigureAwait(false).GetAw
     ```
 
 ## Sentinel node ：內容不變
+
 1. 準備 sentinel 用的 config
 
     > 因為 redis cluster 有三個 node，所以 sentinel 需加入三組 replication 的 monitor
 
-    ```
+    ```config
     # sentinel port
     port 26379
     # bind ip
@@ -101,11 +109,12 @@ conn.GetDatabase().StringSetAsync("test1","test123").ConfigureAwait(false).GetAw
     sentinel parallel-syncs mymaster3 1
     sentinel failover-timeout mymaster3 10000
     ```
+
 2. 準備 dockerfile
 
     > 使用上述的 sentinel config 來啟動 sentinel
 
-    ```
+    ```dockerfile
     FROM redis:5.0.3-alpine3.9
 
     MAINTAINER Yowko Tsai <yowko@yowko.com>
@@ -121,7 +130,7 @@ conn.GetDatabase().StringSetAsync("test1","test123").ConfigureAwait(false).GetAw
 - 透過 redis-cli 建立 cluster 是 redis 5 加入的功能，已經無法使用 redis-trib.rb
 - 建立 cluster 時需要輸入 `yes` 確認加入
 
-    ```
+    ```dockerfile
     FROM redis:5.0.3-alpine3.9
 
     MAINTAINER Yowko Tsai <yowko@yowko.com>
@@ -252,7 +261,7 @@ networks:
 
 > 資料夾及檔案名稱只是範例，不需相同
 
-```
+```txt
 -- sentinel
     -- sentinel.conf
     -- dockerfile
@@ -265,7 +274,6 @@ networks:
 ```
 
 ![1folderstructure](https://user-images.githubusercontent.com/3851540/53691577-dbf5ab80-3dbb-11e9-88e4-8dbe0f922bb0.png)
-
 
 ## 建立  Redis Cluster 並確認運作正常：內容相同
 
@@ -303,6 +311,7 @@ networks:
     ```cmd
     route add 172.19.0.0 MASK 255.255.255.0 10.0.75.2
     ```
+
 - <font style="color:red">Docker for Mac 不支援該作法</font>
 
 ## 實際使用
@@ -313,20 +322,23 @@ networks:
 
     ```cs
     var configString= "172.19.0.2:6379,172.19.0.3:6379,172.19.0.4:6379,172.19.0.5:6379,172.19.0.6:6379,172.19.0.7:6379,password=pass.123,connectTimeout=10000,configCheckSeconds=3,allowAdmin=true";
-	ConfigurationOptions options = ConfigurationOptions.Parse(configString);
-	var conn = ConnectionMultiplexer.Connect(options);
-	conn.GetDatabase().StringSetAsync("test3","test123").ConfigureAwait(false).GetAwaiter().GetResult().Dump();
+    ConfigurationOptions options = ConfigurationOptions.Parse(configString);
+    var conn = ConnectionMultiplexer.Connect(options);
+    conn.GetDatabase().StringSetAsync("test3","test123").ConfigureAwait(false).GetAwaiter().GetResult().Dump();
     ```
+
 2. 依 key 將資料儲存至不同 node 上
 
     ![2result](https://user-images.githubusercontent.com/3851540/53813233-1caa1c00-3f98-11e9-856e-f9a91115bf75.png)
 
 ## 心得
+
 一心一意想要用 redis 5 來建立 cluster，結果反而最重要的功能沒有設定好，實在糟糕，幸虧沒有花太多時間發現問題，只是解法上依舊不甚滿意，尤其是 Docker for Mac 不支援：因為 Docker for Mac 與 Docker for Windows 及 Linux 不同，docker0 的網卡存在 vm 內部，沒辦法透過 ip route 來處理
 
 詳細的檔案內容都在：[yowko/docker-redis-5-cluster](https://github.com/yowko/docker-redis-5-cluster.git)
 
-# 參考資訊
+## 參考資訊
+
 1. [如何從 Winows docker host 透過 linux container ip 使用服務](https://blog.yowko.com/docker-host-access-linux-container-ip/)
 2. [使用 docker 建立 Redis Cluster](https://blog.yowko.com/docker-redis-cluster)
 3. [yowko/docker-redis-5-cluster](https://github.com/yowko/docker-redis-5-cluster.git)
