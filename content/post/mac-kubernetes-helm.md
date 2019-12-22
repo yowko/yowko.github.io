@@ -100,3 +100,4 @@ slug: "docker-mac-kubernetes-helm"
 
 1. [在Docker for Mac 上啟用Kubernetes](https://blog.yowko.com/docker-for-mac-kubernetes/)
 2. [使用 Homebrew 安裝舊版 Helm](https://blog.yowko.com/brew-install-specific-version-helm)
+3. [Mac Kubernetes 报 The connection to the server localhost:6443 was refused](https://blog.csdn.net/iaiot/article/details/85218642)
