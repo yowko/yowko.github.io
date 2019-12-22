@@ -14,7 +14,7 @@ slug: "brew-install-specific-version-helm"
 ## 基本環境說明
 
 1. macOS Catalina 10.15.1
-2. helm 
+2. helm 2.16.1
 
 ## 操作步驟
 
@@ -31,6 +31,12 @@ slug: "brew-install-specific-version-helm"
     ```
 
     ![1brewsearch](https://user-images.githubusercontent.com/3851540/71310201-5a573300-244c-11ea-8eb6-974f7c654dfd.png)
+
+3. 手動將 helm 加至環境變數中
+
+    ```bash
+    export PATH="/usr/local/opt/helm@2/bin:$PATH"
+    ```
 
 ## 錯誤訊息
 
