@@ -6,10 +6,28 @@
     <description>Recent content in Kubernetes on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 17 Dec 2019 23:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 22 Dec 2019 22:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>從 mac 使用 Container Ip 直連</title>
+      <link>https://blog.yowko.com/mac-access-container-ip-host/</link>
+      <pubDate>Sun, 22 Dec 2019 22:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mac-access-container-ip-host/</guid>
+      <description>從 mac 使用 Container Ip 直連 大約一年前開發環境從 Windows 轉換至 mac 後，開發上最痛苦的就是沒有 Visual Studio 可以用，痛苦指數第二高的我個人認為是 Docker for Mac 沒有 docker0 網卡 (這是已知的</description>
+    </item>
+    
+    <item>
+      <title>在 Docker for Mac 啟用 Kubernetes 後安裝 Helm</title>
+      <link>https://blog.yowko.com/docker-mac-kubernetes-helm/</link>
+      <pubDate>Sun, 22 Dec 2019 10:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-mac-kubernetes-helm/</guid>
+      <description>在 Docker for Mac 啟用 Kubernetes 後安裝 Helm 在之前筆記 在Docker for Mac 上啟用Kubernetes 中曾經紀錄到如果想在 mac 中嘗試 Kubernetes 可以透過 Docker Desktop for Mac 的內建功能來啟用 Kubernetes</description>
+    </item>
     
     <item>
       <title>使用客製 config 在 kubenetes 上建立 Redis cluster</title>
