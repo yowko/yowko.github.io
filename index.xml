@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 22 Dec 2019 22:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 25 Dec 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>讓 iOS 裝置可以存取自訂 domain</title>
+      <link>https://blog.yowko.com/ios-private-domain/</link>
+      <pubDate>Wed, 25 Dec 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ios-private-domain/</guid>
+      <description>讓 iOS 裝置可以存取自訂 domain 近幾年行動裝置的瀏覽量佔比有愈來愈高的趨勢，身為 web 工程師也得朝著 mobile first 的方向做調整優化，所以在不同行動裝置上做測試也在</description>
+    </item>
     
     <item>
       <title>從 mac 使用 Container Ip 直連</title>
