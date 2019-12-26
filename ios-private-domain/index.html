@@ -58,15 +58,15 @@
 <meta property="og:description" content="讓 iOS 裝置可以存取自訂 domain 近幾年行動裝置的瀏覽量佔比有愈來愈高的趨勢，身為 web 工程師也得朝著 mobile first 的方向做調整優化，所以在不同行動裝置上做測試也在" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/ios-private-domain/" /><meta property="article:published_time" content="2019-12-25T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-12-25T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2019-12-26T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="讓 iOS 裝置可以存取自訂 domain">
 <meta itemprop="description" content="讓 iOS 裝置可以存取自訂 domain 近幾年行動裝置的瀏覽量佔比有愈來愈高的趨勢，身為 web 工程師也得朝著 mobile first 的方向做調整優化，所以在不同行動裝置上做測試也在">
 
 
 <meta itemprop="datePublished" content="2019-12-25T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-12-25T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="776">
+<meta itemprop="dateModified" content="2019-12-26T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="845">
 
 
 
@@ -146,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-12-25 </span>
         
-        <span class="more-meta"> 約 776 字 </span>
+        <span class="more-meta"> 約 845 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -197,8 +197,10 @@
 <li><p>在內網中使用自訂 domain :<code>yowko.test</code></p>
 
 <blockquote>
-<p>修改 <code>etc/hosts</code>，將 <code>yowko.test</code> 指向特定內網 ip 獲取服務</p>
-</blockquote></li>
+<p>開發環境透過修改 <code>etc/hosts</code>，將 <code>yowko.test</code> 指向特定內網 ip 獲取服務,iOS 不認得自訂 domain</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/71453405-0c348d80-27c6-11ea-87e9-66616d444088.png" alt="19cannotaccess" /></p></li>
 </ol>
 
 <h2 id="設定方式">設定方式</h2>
@@ -255,7 +257,7 @@
 <li><p>使用 docker</p>
 
 <blockquote>
-<p>其他使用方式，請參考 dockerhub - <a href="https://hub.docker.com/r/mitmproxy/mitmproxy/" target="_blank">mitmproxy/mitmproxy</a></p>
+<p>其他使用方式，請參考 dockerhub - <a href="https://hub.docker.com/r/mitmproxy/mitmproxy/" target="_blank">mitmproxy/mitmproxy</a>，預設 mitmproxy 會使用 stdout 輸出資訊，如果使用 <code>-d</code> daemon 模式啟動， container 啟動完成就會直接 shutdown 了</p>
 </blockquote>
 
 <pre><code class="language-bash">docker run --rm -it -p 8080:8080 mitmproxy/mitmproxy
@@ -342,7 +344,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-12-25</span>
+    <span class="item-content">2019-12-26</span>
   </p>
   
   <p class="copyright-item">
