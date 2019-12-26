@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 25 Dec 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 26 Dec 2019 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>解決 Helm init 時出現找不到 tiller pod 問題</title>
+      <link>https://blog.yowko.com/helm-init-could-not-find-ready-tiller/</link>
+      <pubDate>Thu, 26 Dec 2019 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/helm-init-could-not-find-ready-tiller/</guid>
+      <description>解決 Helm init 時出現找不到 tiller pod 問題 這是在嘗試 Docker for Mac 上的 Kubernetes 與 Helm 時遇到的問題，成功版的安裝過程可以參考之前筆記 在Docker for Mac 啟用Kubernete</description>
+    </item>
     
     <item>
       <title>讓 iOS 裝置可以存取自訂 domain</title>
