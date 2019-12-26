@@ -1,7 +1,7 @@
 ---
 title: "讓 iOS 裝置可以存取自訂 domain"
 date: 2019-12-25T21:30:00+08:00
-lastmod: 2019-12-25T21:30:31+08:00
+lastmod: 2019-12-26T21:30:31+08:00
 draft: false
 tags: ["iOS","Tools","macOS"]
 slug: "ios-private-domain"
@@ -21,7 +21,9 @@ iOS 沒有 hosts file 可以設定，同事說可以透過 jb 來設定，我沒
 4. Mitmproxy 5
 5. 在內網中使用自訂 domain :`yowko.test`
 
-    > 修改 `etc/hosts`，將 `yowko.test` 指向特定內網 ip 獲取服務
+    > 開發環境透過修改 `etc/hosts`，將 `yowko.test` 指向特定內網 ip 獲取服務,iOS 不認得自訂 domain
+
+    ![19cannotaccess](https://user-images.githubusercontent.com/3851540/71453405-0c348d80-27c6-11ea-87e9-66616d444088.png)
 
 ## 設定方式
 
@@ -65,7 +67,7 @@ iOS 沒有 hosts file 可以設定，同事說可以透過 jb 來設定，我沒
 
     - 使用 docker
 
-        > 其他使用方式，請參考 dockerhub - [mitmproxy/mitmproxy](https://hub.docker.com/r/mitmproxy/mitmproxy/)
+        > 其他使用方式，請參考 dockerhub - [mitmproxy/mitmproxy](https://hub.docker.com/r/mitmproxy/mitmproxy/)，預設 mitmproxy 會使用 stdout 輸出資訊，如果使用 `-d` daemon 模式啟動， container 啟動完成就會直接 shutdown 了
 
         ```bash
         docker run --rm -it -p 8080:8080 mitmproxy/mitmproxy
