@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 26 Dec 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 07 Jan 2020 14:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Docker 建立 Nexus3 的 Image Registry</title>
+      <link>https://blog.yowko.com/nexus-docker-image-rergistry/</link>
+      <pubDate>Tue, 07 Jan 2020 14:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/nexus-docker-image-rergistry/</guid>
+      <description>使用 Docker 建立 Nexus3 的 Image Registry Nexus 全名是 nexus repository oss 是套免費 (有付費的 pro 版，差異請參考 COMPARE to PRO VERSION) 產出物倉庫，支援多種類型產出物(摘錄至 Manage these formats) Bower Docker Git LFS Maven npm NuGet PyPI Ruby Gems Yum</description>
+    </item>
     
     <item>
       <title>解決 Helm init 時出現找不到 tiller pod 問題</title>
