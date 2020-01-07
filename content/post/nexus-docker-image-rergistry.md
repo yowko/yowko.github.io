@@ -1,7 +1,7 @@
 ---
 title: "使用 Docker 建立 Nexus3 的 Image Registry"
-date: 2020-01-07T14:30:00+08:00
-lastmod: 2020-01-07T14:30:31+08:00
+date: 2020-01-07T21:30:00+08:00
+lastmod: 2020-01-07T21:30:31+08:00
 draft: false
 tags: ["Container","Docker","macOS"]
 slug: "nexus-docker-image-rergistry"
