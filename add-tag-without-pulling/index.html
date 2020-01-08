@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 Docker 建立 Nexus3 的 Image Registry - Yowko&#39;s Notes</title>
+  <title>不 Pull Image 直接新增 Image Tag - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 Docker 建立 Nexus3 的 Image Registry Nexus 全名是 nexus repository oss 是套免費 (有付費的 pro 版，差異請參考 COMPARE to PRO VERSION) 產出物倉庫，支援多種類型產出物(摘錄至 Manage these formats) Bower Docker Git LFS Maven npm NuGet PyPI Ruby Gems Yum" />
+  <meta name="description" content="不 Pull Image 直接新增 Image Tag 最近發現整個 CI/CD 的流程耗時愈來愈長，雖說隨著愈來愈多的功能、測試，時間變長是可以預期的，但還是想要儘可能做些優化，同事在檢查" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/nexus-docker-image-rergistry/" />
+<link rel="canonical" href="https://blog.yowko.com/add-tag-without-pulling/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="使用 Docker 建立 Nexus3 的 Image Registry" />
-<meta property="og:description" content="使用 Docker 建立 Nexus3 的 Image Registry Nexus 全名是 nexus repository oss 是套免費 (有付費的 pro 版，差異請參考 COMPARE to PRO VERSION) 產出物倉庫，支援多種類型產出物(摘錄至 Manage these formats) Bower Docker Git LFS Maven npm NuGet PyPI Ruby Gems Yum" />
+<meta property="og:title" content="不 Pull Image 直接新增 Image Tag" />
+<meta property="og:description" content="不 Pull Image 直接新增 Image Tag 最近發現整個 CI/CD 的流程耗時愈來愈長，雖說隨著愈來愈多的功能、測試，時間變長是可以預期的，但還是想要儘可能做些優化，同事在檢查" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/nexus-docker-image-rergistry/" /><meta property="article:published_time" content="2020-01-07T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-01-07T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/add-tag-without-pulling/" /><meta property="article:published_time" content="2020-01-08T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-01-08T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="使用 Docker 建立 Nexus3 的 Image Registry">
-<meta itemprop="description" content="使用 Docker 建立 Nexus3 的 Image Registry Nexus 全名是 nexus repository oss 是套免費 (有付費的 pro 版，差異請參考 COMPARE to PRO VERSION) 產出物倉庫，支援多種類型產出物(摘錄至 Manage these formats) Bower Docker Git LFS Maven npm NuGet PyPI Ruby Gems Yum">
+<meta itemprop="name" content="不 Pull Image 直接新增 Image Tag">
+<meta itemprop="description" content="不 Pull Image 直接新增 Image Tag 最近發現整個 CI/CD 的流程耗時愈來愈長，雖說隨著愈來愈多的功能、測試，時間變長是可以預期的，但還是想要儘可能做些優化，同事在檢查">
 
 
-<meta itemprop="datePublished" content="2020-01-07T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-01-07T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="646">
+<meta itemprop="datePublished" content="2020-01-08T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-01-08T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="623">
 
 
 
 <meta itemprop="keywords" content="Container,Docker,macOS," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 Docker 建立 Nexus3 的 Image Registry"/>
-<meta name="twitter:description" content="使用 Docker 建立 Nexus3 的 Image Registry Nexus 全名是 nexus repository oss 是套免費 (有付費的 pro 版，差異請參考 COMPARE to PRO VERSION) 產出物倉庫，支援多種類型產出物(摘錄至 Manage these formats) Bower Docker Git LFS Maven npm NuGet PyPI Ruby Gems Yum"/>
+<meta name="twitter:title" content="不 Pull Image 直接新增 Image Tag"/>
+<meta name="twitter:description" content="不 Pull Image 直接新增 Image Tag 最近發現整個 CI/CD 的流程耗時愈來愈長，雖說隨著愈來愈多的功能、測試，時間變長是可以預期的，但還是想要儘可能做些優化，同事在檢查"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-01-07 </span>
+        <span class="post-time"> 2020-01-08 </span>
         
-        <span class="more-meta"> 約 646 字 </span>
+        <span class="more-meta"> 約 623 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,10 +162,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#使用-docker-建立-nexus3-的-image-registry">使用 Docker 建立 Nexus3 的 Image Registry</a></li>
+<li><a href="#不-pull-image-直接新增-image-tag">不 Pull Image 直接新增 Image Tag</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#使用-docker-安裝">使用 Docker 安裝</a></li>
-<li><a href="#建立並設定-image-registry">建立並設定 Image Registry</a></li>
+<li><a href="#作法">作法</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,33 +180,9 @@
     <div class="post-content">
       
 
-<h2 id="使用-docker-建立-nexus3-的-image-registry">使用 Docker 建立 Nexus3 的 Image Registry</h2>
+<h2 id="不-pull-image-直接新增-image-tag">不 Pull Image 直接新增 Image Tag</h2>
 
-<p>Nexus 全名是 <code>nexus repository oss</code> 是套免費 (有付費的 <code>pro</code> 版，差異請參考 <a href="https://sonatype.drift.click/oss-vs-pro" target="_blank">COMPARE to PRO VERSION</a>) 產出物倉庫，支援多種類型產出物(摘錄至 <a href="https://www.sonatype.com/download-oss-sonatype" target="_blank">Manage these formats</a>)</p>
-
-<ul>
-<li>Bower</li>
-<li>Docker</li>
-<li>Git LFS</li>
-<li>Maven</li>
-<li>npm</li>
-<li>NuGet</li>
-<li>PyPI</li>
-<li>Ruby Gems</li>
-<li>Yum</li>
-<li>APT</li>
-<li>Conan</li>
-<li>R</li>
-<li>CPAN</li>
-<li>Raw (Universal)</li>
-<li>P2</li>
-<li>Helm</li>
-<li>ELPA</li>
-<li>Go</li>
-<li>CocoaPods</li>
-</ul>
-
-<p>雖然之前為了處理 CI/CD 相關要已經安裝過好幾次，雖然安裝過程簡單，也就是因為簡單讓我每次想紀錄時都覺得沒什麼內容，但每次安裝在設定時還是不免會忘東忘西，而這次安裝的間隔更久，忘得更徹底，於是興起了筆記的念頭</p>
+<p>最近發現整個 CI/CD 的流程耗時愈來愈長，雖說隨著愈來愈多的功能、測試，時間變長是可以預期的，但還是想要儘可能做些優化，同事在檢查 CI/CD flow 時發現 image retag step 耗時佔比較高，算是在不大改 CI/CD flow 前提中耗時最高的項目，於是列為優先調整項目，經過嘗試，確認可行，簡單紀錄一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -217,75 +192,62 @@
 <li>nexus 3.20.1</li>
 </ol>
 
-<h2 id="使用-docker-安裝">使用 Docker 安裝</h2>
+<h2 id="作法">作法</h2>
 
-<p>我的出發點是為了測試，所以沒有將實際的 artifact 儲存位置透過 volume 保留下來，這點要注意，詳細內容可以參考 docker hub 上的使用說明 <a href="https://hub.docker.com/r/sonatype/nexus3/" target="_blank">Sonatype Nexus3 Docker: sonatype/nexus3</a></p>
+<p>這邊會透過自建的 docker registry 來示範，完整建立方式可以參考之前筆記 <a href="https://blog.yowko.com/nexus-docker-image-rergistry" target="_blank">使用 Docker 建立 Nexus3 的 Image Registry</a>, 以 redis 為例，目前只有 <code>5.0.3</code> 的 tag</p>
 
-<pre><code class="language-bash">docker run -d -p 8081:8081 -p 8082:8082 --name nexus sonatype/nexus3
-</code></pre>
-
-<p>上面的指令，與 docker hub 上的使用說明多開了 <code>8082</code> port，這個部份留在後面設定 image registry 時再詳細說明</p>
-
-<h2 id="建立並設定-image-registry">建立並設定 Image Registry</h2>
-
-<ol>
-<li><p>首次登入需使用先取得密碼</p>
-
-<blockquote>
-<p>預設帳號：<code>admin</code>，成功登入後會要求修改密碼</p>
-</blockquote>
-
-<pre><code class="language-bash">docker exec -it nexus more /nexus-data/admin.password
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/71873590-89fb8000-315a-11ea-8b32-9759bee4ff98.png" alt="1login" /></p></li>
-
-<li><p>建立 Image Registry</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/71873592-8a941680-315a-11ea-9b03-9e66db8afffd.png" alt="2creattterepository" /></p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/71873593-8a941680-315a-11ea-8aac-f531ba802d53.png" alt="3dockerhosted" /></p>
-
-<p>repository 有三種模式</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/71984233-6a03b380-3263-11ea-8135-5134c4f06abb.png" alt="1onetag" /></p>
 
 <ul>
-<li>hosted：建立 private Docker registry</li>
-<li>proxy：可以指向其他外部的 Docker registry</li>
-<li>group：(官方建議模式) 將 <code>hosted</code> 與 <code>proxy</code> 綁在一起，讓 client 透過 group 來連線</li>
-</ul></li>
-
-<li><p>設定 Image Registry</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/71873595-8a941680-315a-11ea-8746-3af94c610ecc.png" alt="4setup" /></p>
-
-<ul>
-<li>設定 repository name</li>
-
-<li><p>設定 HTTP connector</p>
+<li><p>script</p>
 
 <blockquote>
-<p>這個就是 docker 多個一個 8082 port 的原因，如果沒有設定 http connector，我在執行 docker login 時一直出錯</p>
+<p>將下列 script 存為 <code>addtag.sh</code>(名稱可自取)</p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/71873597-8b2cad00-315a-11ea-873b-22a0a80b0e83.png" alt="5loginerror" /></p></li>
-</ul></li>
-</ol>
+<pre><code class="language-bash"># docker registry url
+REGISTRY_NAME=&quot;http://localhost:8082&quot;
+# image name
+REPOSITORY=redis
+# 舊 image tag
+TAG_OLD=5.0.3
+# 想要增加的 image tag
+TAG_NEW=latest
+# 這是固定值
+CONTENT_TYPE=&quot;application/vnd.docker.distribution.manifest.v2+json&quot;
+# 先取回 image 的 manifest
+MANIFEST=$(curl -v --user admin:pass.123 -H &quot;Accept: ${CONTENT_TYPE}&quot; &quot;${REGISTRY_NAME}/v2/${REPOSITORY}/manifests/${TAG_OLD}&quot;)
+# 為 image 增加 tag (-v --user username:password 指定 docker registry 的驗證)
+curl -v --user admin:pass.123 -X PUT -H &quot;Content-Type: ${CONTENT_TYPE}&quot; -d &quot;${MANIFEST}&quot; &quot;${REGISTRY_NAME}/v2/${REPOSITORY}/manifests/${TAG_NEW}&quot;
+</code></pre></li>
+
+<li><p>執行</p>
+
+<ul>
+<li>雖然使用的是 <code>put</code> 方法，但所有 image tag 都會被留下，不是刪除舊 tag 加入新 tag</li>
+<li>執行速度很快，省下了整個 image 的下載時間，直接透過 http request 將需要的 tag 存入 docker registry 中</li>
+</ul>
+
+<pre><code class="language-bash">sh addtag.sh
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/71984236-6a03b380-3263-11ea-82e0-5b7aa701481a.png" alt="3exeresult" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/71984235-6a03b380-3263-11ea-9909-45ca78bbda64.png" alt="2twotag" /></p></li>
+</ul>
 
 <h2 id="心得">心得</h2>
 
-<p>果然實際紀錄起來沒什麼內容，希望改天還有相關需求用到時可以節省一些環境建置的時間囉</p>
+<p>最近遇到某些需求時，常讓我意識到自己做法逐漸改變中，過去我遇到自己覺得不符合使用技術正統做法的需求時，我會極力想要將需求導向可以透過正統做法解決的那個方向，但最近我會選擇先滿足需求，我想了想倒不是不再遵從正統做法，而是思考起會不會過去以為的正統做法其實只是因為當時的需求不夠充份或是設計有缺漏而造成現在無法透過當時定義的正統做法來解決問題</p>
 
-<p>不過 Nexus 我個人覺得應該是存在著某些 bug 或是我沒有找到正確的使用方法，因為 UI 沒有強制需要設定 connector，但不設定 connector ，就無法正確執行 docker login，這樣根本不能算是個可用的 docker registrry 呀</p>
+<p>這次的例子也是，重覆為同一個 image 加上 tag，好像沒什麼必要，但我想可以實際解決問題、技術層面也原生支援，似乎也是個不錯解決方案</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://sonatype.drift.click/oss-vs-pro" target="_blank">COMPARE to PRO VERSION</a></li>
-<li><a href="https://www.sonatype.com/download-oss-sonatype" target="_blank">Manage these formats</a><a href="https://www.sonatype.com/download-oss-sonatype" target="_blank">Manage these formats</a></li>
-<li><a href="https://hub.docker.com/r/sonatype/nexus3/" target="_blank">Sonatype Nexus3 Docker: sonatype/nexus3</a></li>
-<li><a href="https://help.sonatype.com/repomanager3/formats/docker-registry/hosted-repository-for-docker-%28private-registry-for-docker%29?_ga=2.70488336.1037933046.1578291838-2065980777.1578291838" target="_blank">Hosted Repository for Docker (Private Registry for Docker)</a></li>
-<li><a href="https://help.sonatype.com/repomanager3/formats/docker-registry/proxy-repository-for-docker" target="_blank">Proxy Repository for Docker</a></li>
-<li><a href="https://help.sonatype.com/repomanager3/formats/docker-registry/grouping-docker-repositories" target="_blank">Grouping Docker Repositories</a></li>
+<li><a href="https://dille.name/blog/2018/09/20/how-to-tag-docker-images-without-pulling-them/" target="_blank">How to Tag #Docker Images without Pulling them</a></li>
+<li><a href="https://help.sonatype.com/repomanager3/security/security-setup-with-user-tokens" target="_blank">Accessing and Using Your User Token</a></li>
+<li><a href="https://blog.yowko.com/nexus-docker-image-rergistry" target="_blank">使用 Docker 建立 Nexus3 的 Image Registry</a></li>
 </ol>
 
     </div>
@@ -298,7 +260,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-01-07</span>
+    <span class="item-content">2020-01-08</span>
   </p>
   
   <p class="copyright-item">
@@ -336,18 +298,11 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/add-tag-without-pulling/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">不 Pull Image 直接新增 Image Tag</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/helm-init-could-not-find-ready-tiller/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/nexus-docker-image-rergistry/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">解決 Helm init 時出現找不到 tiller pod 問題</span>			
+            <span class="prev-text nav-default">使用 Docker 建立 Nexus3 的 Image Registry</span>			
           </a>
 		  </div>
       </nav>
@@ -358,7 +313,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/nexus-docker-image-rergistry\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/add-tag-without-pulling\/';  
       
     };
 

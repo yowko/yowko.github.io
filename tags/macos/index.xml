@@ -6,10 +6,19 @@
     <description>Recent content in macOS on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 07 Jan 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 08 Jan 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/macos/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>不 Pull Image 直接新增 Image Tag</title>
+      <link>https://blog.yowko.com/add-tag-without-pulling/</link>
+      <pubDate>Wed, 08 Jan 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/add-tag-without-pulling/</guid>
+      <description>不 Pull Image 直接新增 Image Tag 最近發現整個 CI/CD 的流程耗時愈來愈長，雖說隨著愈來愈多的功能、測試，時間變長是可以預期的，但還是想要儘可能做些優化，同事在檢查</description>
+    </item>
     
     <item>
       <title>使用 Docker 建立 Nexus3 的 Image Registry</title>

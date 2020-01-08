@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/add-tag-without-pulling/</loc>
+    <lastmod>2020-01-08T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/nexus-docker-image-rergistry/</loc>
     <lastmod>2020-01-07T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -3825,7 +3832,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/container/</loc>
-    <lastmod>2020-01-07T21:30:31+08:00</lastmod>
+    <lastmod>2020-01-08T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -3860,7 +3867,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/docker/</loc>
-    <lastmod>2020-01-07T21:30:31+08:00</lastmod>
+    <lastmod>2020-01-08T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4175,7 +4182,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2020-01-07T21:30:31+08:00</lastmod>
+    <lastmod>2020-01-08T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4350,7 +4357,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2020-01-07T21:30:31+08:00</lastmod>
+    <lastmod>2020-01-08T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4385,7 +4392,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/docker/</loc>
-    <lastmod>2020-01-07T21:30:31+08:00</lastmod>
+    <lastmod>2020-01-08T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4441,7 +4448,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/macos/</loc>
-    <lastmod>2020-01-07T21:30:31+08:00</lastmod>
+    <lastmod>2020-01-08T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
