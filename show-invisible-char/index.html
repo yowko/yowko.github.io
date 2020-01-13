@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>不 Pull Image 直接新增 Image Tag - Yowko&#39;s Notes</title>
+  <title>如何看到不可視字元 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="不 Pull Image 直接新增 Image Tag 最近發現整個 CI/CD 的流程耗時愈來愈長，雖說隨著愈來愈多的功能、測試，時間變長是可以預期的，但還是想要儘可能做些優化，同事在檢查" />
+  <meta name="description" content="如何看到不可視字元 今天同事遇到個奇異現象：編輯器上看來完全正常的檔案內容，實際執行時卻出現錯誤訊息；刪除提示錯誤位置後重新輸入，git 還真的" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/add-tag-without-pulling/" />
+<link rel="canonical" href="https://blog.yowko.com/show-invisible-char/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="不 Pull Image 直接新增 Image Tag" />
-<meta property="og:description" content="不 Pull Image 直接新增 Image Tag 最近發現整個 CI/CD 的流程耗時愈來愈長，雖說隨著愈來愈多的功能、測試，時間變長是可以預期的，但還是想要儘可能做些優化，同事在檢查" />
+<meta property="og:title" content="如何看到不可視字元" />
+<meta property="og:description" content="如何看到不可視字元 今天同事遇到個奇異現象：編輯器上看來完全正常的檔案內容，實際執行時卻出現錯誤訊息；刪除提示錯誤位置後重新輸入，git 還真的" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/add-tag-without-pulling/" /><meta property="article:published_time" content="2020-01-08T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-01-08T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/show-invisible-char/" /><meta property="article:published_time" content="2020-01-13T23:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-01-13T23:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="不 Pull Image 直接新增 Image Tag">
-<meta itemprop="description" content="不 Pull Image 直接新增 Image Tag 最近發現整個 CI/CD 的流程耗時愈來愈長，雖說隨著愈來愈多的功能、測試，時間變長是可以預期的，但還是想要儘可能做些優化，同事在檢查">
-
-
-<meta itemprop="datePublished" content="2020-01-08T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-01-08T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="623">
+<meta itemprop="name" content="如何看到不可視字元">
+<meta itemprop="description" content="如何看到不可視字元 今天同事遇到個奇異現象：編輯器上看來完全正常的檔案內容，實際執行時卻出現錯誤訊息；刪除提示錯誤位置後重新輸入，git 還真的">
 
 
+<meta itemprop="datePublished" content="2020-01-13T23:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-01-13T23:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="622">
 
-<meta itemprop="keywords" content="Container,Docker,macOS," />
+
+
+<meta itemprop="keywords" content="macOS,Tools,Windows 10," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="不 Pull Image 直接新增 Image Tag"/>
-<meta name="twitter:description" content="不 Pull Image 直接新增 Image Tag 最近發現整個 CI/CD 的流程耗時愈來愈長，雖說隨著愈來愈多的功能、測試，時間變長是可以預期的，但還是想要儘可能做些優化，同事在檢查"/>
+<meta name="twitter:title" content="如何看到不可視字元"/>
+<meta name="twitter:description" content="如何看到不可視字元 今天同事遇到個奇異現象：編輯器上看來完全正常的檔案內容，實際執行時卻出現錯誤訊息；刪除提示錯誤位置後重新輸入，git 還真的"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-01-08 </span>
+        <span class="post-time"> 2020-01-13 </span>
         
-        <span class="more-meta"> 約 623 字 </span>
+        <span class="more-meta"> 約 622 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,9 +162,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#不-pull-image-直接新增-image-tag">不 Pull Image 直接新增 Image Tag</a></li>
+<li><a href="#如何看到不可視字元">如何看到不可視字元</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#作法">作法</a></li>
+<li><a href="#狀況描述">狀況描述</a></li>
+<li><a href="#嘗試解決方式">嘗試解決方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,74 +181,93 @@
     <div class="post-content">
       
 
-<h2 id="不-pull-image-直接新增-image-tag">不 Pull Image 直接新增 Image Tag</h2>
+<h2 id="如何看到不可視字元">如何看到不可視字元</h2>
 
-<p>最近發現整個 CI/CD 的流程耗時愈來愈長，雖說隨著愈來愈多的功能、測試，時間變長是可以預期的，但還是想要儘可能做些優化，同事在檢查 CI/CD flow 時發現 image retag step 耗時佔比較高，算是在不大改 CI/CD flow 前提中耗時最高的項目，於是列為優先調整項目，經過嘗試，確認可行，簡單紀錄一下</p>
+<p>今天同事遇到個奇異現象：編輯器上看來完全正常的檔案內容，實際執行時卻出現錯誤訊息；刪除提示錯誤位置後重新輸入，git 還真的出現未 commit change ？！</p>
+
+<p>聽到相關描述，立馬讓我聯想偶爾會遇到的問題：不可視字元，過去頭一，兩次遇到這個問題常常都是想破頭、搞得人仰馬翻才解決，之前也曾經想紀錄過，但常常都是發生在十萬火急的時間點，實在無暇保留相關資料來紀錄，今天剛好藉由同事的問題來紀錄一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>macOS Catalina 10.15.2</li>
-<li>docker community 19.03.5</li>
-<li>nexus 3.20.1</li>
+<li>macOS Catalina 10.15.1</li>
+<li>Windows 10 1909</li>
+
+<li><p>Visual Studio Code Extension</p>
+
+<ul>
+<li>Highlight Bad Chars 0.0.3</li>
+<li>Gremlins tracker for Visual Studio Code 0.15.1</li>
+</ul></li>
 </ol>
 
-<h2 id="作法">作法</h2>
+<h2 id="狀況描述">狀況描述</h2>
 
-<p>這邊會透過自建的 docker registry 來示範，完整建立方式可以參考之前筆記 <a href="https://blog.yowko.com/nexus-docker-image-rergistry" target="_blank">使用 Docker 建立 Nexus3 的 Image Registry</a>, 以 redis 為例，目前只有 <code>5.0.3</code> 的 tag</p>
+<ol>
+<li><p>syntax error</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/71984233-6a03b380-3263-11ea-8135-5134c4f06abb.png" alt="1onetag" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/72267452-0ca0a580-365b-11ea-8a8f-1585ce076bc5.png" alt="1syntaxerror" /></p></li>
+
+<li><p>git 出現 change</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/72267453-0ca0a580-365b-11ea-8c96-20680a7b09bb.png" alt="2gitchange" /></p></li>
+</ol>
+
+<h2 id="嘗試解決方式">嘗試解決方式</h2>
 
 <ul>
-<li><p>script</p>
+<li><p>原始內容</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/72267457-0d393c00-365b-11ea-801d-758015237914.png" alt="4original" /></p></li>
+</ul>
+
+<ol>
+<li><p><code>vi</code> 編輯器</p>
 
 <blockquote>
-<p>將下列 script 存為 <code>addtag.sh</code>(名稱可自取)</p>
+<p>過去有些特殊字元曾經使用過這個方式解決問題，但這次無效</p>
 </blockquote>
 
-<pre><code class="language-bash"># docker registry url
-REGISTRY_NAME=&quot;http://localhost:8082&quot;
-# image name
-REPOSITORY=redis
-# 舊 image tag
-TAG_OLD=5.0.3
-# 想要增加的 image tag
-TAG_NEW=latest
-# 這是固定值
-CONTENT_TYPE=&quot;application/vnd.docker.distribution.manifest.v2+json&quot;
-# 先取回 image 的 manifest
-MANIFEST=$(curl -v --user admin:pass.123 -H &quot;Accept: ${CONTENT_TYPE}&quot; &quot;${REGISTRY_NAME}/v2/${REPOSITORY}/manifests/${TAG_OLD}&quot;)
-# 為 image 增加 tag (-v --user username:password 指定 docker registry 的驗證)
-curl -v --user admin:pass.123 -X PUT -H &quot;Content-Type: ${CONTENT_TYPE}&quot; -d &quot;${MANIFEST}&quot; &quot;${REGISTRY_NAME}/v2/${REPOSITORY}/manifests/${TAG_NEW}&quot;
-</code></pre></li>
+<p><code>:set list</code></p>
 
-<li><p>執行</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/72267456-0d393c00-365b-11ea-8359-274a5e447e46.png" alt="3vi" /></p></li>
 
-<ul>
-<li>雖然使用的是 <code>put</code> 方法，但所有 image tag 都會被留下，不是刪除舊 tag 加入新 tag</li>
-<li>執行速度很快，省下了整個 image 的下載時間，直接透過 http request 將需要的 tag 存入 docker registry 中</li>
-</ul>
+<li><p>Windows 環境使用 <code>Notepad++</code></p>
 
-<pre><code class="language-bash">sh addtag.sh
-</code></pre>
+<blockquote>
+<p>有些特殊字元在 <code>Notepad++</code> 中會顯示為方框，或是特殊符號，但本次也無效</p>
+</blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/71984236-6a03b380-3263-11ea-82e0-5b7aa701481a.png" alt="3exeresult" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/72267455-0ca0a580-365b-11ea-9c67-f08abafe0cf5.png" alt="2notepadd" /></p></li>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/71984235-6a03b380-3263-11ea-9909-45ca78bbda64.png" alt="2twotag" /></p></li>
-</ul>
+<li><p>Visual Studio Code Extension - Highlight Bad Chars</p>
+
+<blockquote>
+<p>會出現紅色 highlight，提示有特殊字元</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/72267458-0d393c00-365b-11ea-9e8a-f28c01372fe1.png" alt="5badchar" /></p></li>
+
+<li><p>Visual Studio Code Extension - Gremlins tracker for Visual Studio Code</p>
+
+<blockquote>
+<p>行數前面會出現鬼臉，hover 至特殊符號位置會出現對應的 unicode 代碼</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/72267459-0d393c00-365b-11ea-80fe-a077b2b3c385.png" alt="Gremlins" /></p></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
-<p>最近遇到某些需求時，常讓我意識到自己做法逐漸改變中，過去我遇到自己覺得不符合使用技術正統做法的需求時，我會極力想要將需求導向可以透過正統做法解決的那個方向，但最近我會選擇先滿足需求，我想了想倒不是不再遵從正統做法，而是思考起會不會過去以為的正統做法其實只是因為當時的需求不夠充份或是設計有缺漏而造成現在無法透過當時定義的正統做法來解決問題</p>
+<p>過去我在 <code>vi</code> 或是 <code>notepadd++</code> 就可以看出問題，今天這兩招完全無效，也激起我想找出這個字元的鬥志，雖然 <code>Visual Studio Code Extension - Highlight Bad Chars</code> 也可以看出有特殊字元，但一開始的出發點是為了筆記方便而裝的，遇到特殊字視反正就是直接刪掉重 key 就好，直到今天才找到 <code>Visual Studio Code Extension - Gremlins tracker for Visual Studio Code</code> 可以直接看到 unicode 更是便利呀，幸虧同事有遇到問題XD</p>
 
-<p>這次的例子也是，重覆為同一個 image 加上 tag，好像沒什麼必要，但我想可以實際解決問題、技術層面也原生支援，似乎也是個不錯解決方案</p>
+<p>不過同時我也想到如果問題是發生在 linux 環境中，vi 又看不出來，可能又是一陣兵慌馬亂了，我猜最後我可能是哪裡出現 syntax error 就刪哪裡重新輸入吧 ~~ 不知道還有沒有其他方式，請各位大師指教了</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://dille.name/blog/2018/09/20/how-to-tag-docker-images-without-pulling-them/" target="_blank">How to Tag #Docker Images without Pulling them</a></li>
-<li><a href="https://help.sonatype.com/repomanager3/security/security-setup-with-user-tokens" target="_blank">Accessing and Using Your User Token</a></li>
-<li><a href="https://blog.yowko.com/nexus-docker-image-rergistry" target="_blank">使用 Docker 建立 Nexus3 的 Image Registry</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=wengerk.highlight-bad-chars" target="_blank">Highlight Bad Chars</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=nhoizey.gremlins" target="_blank">Gremlins tracker for Visual Studio Code</a></li>
 </ol>
 
     </div>
@@ -260,7 +280,7 @@ curl -v --user admin:pass.123 -X PUT -H &quot;Content-Type: ${CONTENT_TYPE}&quot
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-01-08</span>
+    <span class="item-content">2020-01-13</span>
   </p>
   
   <p class="copyright-item">
@@ -282,15 +302,15 @@ curl -v --user admin:pass.123 -X PUT -H &quot;Content-Type: ${CONTENT_TYPE}&quot
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/container/">Container</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/docker/">Docker</a>
-          
-		    
-		    	
             <a href="https://blog.yowko.com/tags/macos/">macOS</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/windows-10/">Windows 10</a>
           
         </div>
 
@@ -298,18 +318,11 @@ curl -v --user admin:pass.123 -X PUT -H &quot;Content-Type: ${CONTENT_TYPE}&quot
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/show-invisible-char/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">如何看到不可視字元</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/nexus-docker-image-rergistry/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/add-tag-without-pulling/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">使用 Docker 建立 Nexus3 的 Image Registry</span>			
+            <span class="prev-text nav-default">不 Pull Image 直接新增 Image Tag</span>			
           </a>
 		  </div>
       </nav>
@@ -320,7 +333,7 @@ curl -v --user admin:pass.123 -X PUT -H &quot;Content-Type: ${CONTENT_TYPE}&quot
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/add-tag-without-pulling\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/show-invisible-char\/';  
       
     };
 
