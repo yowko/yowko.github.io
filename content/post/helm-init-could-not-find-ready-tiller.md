@@ -1,7 +1,7 @@
 ---
 title: "解決 Helm init 時出現找不到 tiller pod 問題"
 date: 2019-12-26T21:30:00+08:00
-lastmod: 2019-12-26T21:30:31+08:00
+lastmod: 2020-01-29T21:30:31+08:00
 draft: false
 tags: ["Container","Helm","Kubernetes","macOS"]
 slug: "helm-init-could-not-find-ready-tiller"
@@ -34,7 +34,7 @@ slug: "helm-init-could-not-find-ready-tiller"
 
     - 錯誤截圖
 
-        ![1error]()
+        ![1error](https://user-images.githubusercontent.com/3851540/73365824-e0865500-42e7-11ea-87c3-cea3c59a1d72.png)
 
 2. 逐步檢查相關內容
 
@@ -54,7 +54,7 @@ slug: "helm-init-could-not-find-ready-tiller"
         tiller-deploy-dc4f6cccd-95dcr            1/1     Running   0          101s
         ```
 
-        ![2getpod]()
+        ![2getpod](https://user-images.githubusercontent.com/3851540/73365825-e11eeb80-42e7-11ea-9b59-4fe9cb9bef14.png)
 
     - kubectl get deploy -n kube-system
 
@@ -64,7 +64,7 @@ slug: "helm-init-could-not-find-ready-tiller"
         tiller-deploy   1/1     1            1           45h
         ```
 
-        ![3getdeploy]()
+        ![3getdeploy](https://user-images.githubusercontent.com/3851540/73365827-e11eeb80-42e7-11ea-82d3-fc58e057d3eb.png)
 
     - ubectl describe pod tiller-deploy -n kube-system
 
@@ -125,7 +125,7 @@ slug: "helm-init-could-not-find-ready-tiller"
           Normal  Started    110s  kubelet, docker-desktop  Started container tiller
         ```
 
-        ![4describepod]()
+        ![4describepod](https://user-images.githubusercontent.com/3851540/73365828-e11eeb80-42e7-11ea-80cd-3e93dac9c251.png)
 
 ## 解決方式
 
@@ -137,7 +137,7 @@ helm init --client-only
 
 此時再重新安裝即正常
 
-![5deployed]()
+![5deployed](https://user-images.githubusercontent.com/3851540/73365829-e11eeb80-42e7-11ea-83ab-320367d80318.png)
 
 ## 心得
 
