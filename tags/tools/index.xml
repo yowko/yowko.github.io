@@ -6,10 +6,19 @@
     <description>Recent content in Tools on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 13 Jan 2020 23:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jan 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/tools/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>將打包好的 Helm Chart Push 至 Nexus</title>
+      <link>https://blog.yowko.com/helm-push-nexus/</link>
+      <pubDate>Tue, 28 Jan 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/helm-push-nexus/</guid>
+      <description>將打包好的 Helm Chart Push 至 Nexus 之前筆記 打包 Helm Chart 簡單紀錄該如何打包 Helm Chart，但打包後的 Helm Chart 如果無法提供其他 server 使用就失去意義了，所以延伸紀錄將打包後的</description>
+    </item>
     
     <item>
       <title>如何看到不可視字元</title>

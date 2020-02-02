@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JSON on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/json/</link>
+    <description>Recent content in JSON on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 02 Feb 2020 14:30:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/json/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[C#] 將 轉為 Dictionary 轉為 JSON</title>
+      <link>https://blog.yowko.com/dictionary-to-json/</link>
+      <pubDate>Sun, 02 Feb 2020 14:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dictionary-to-json/</guid>
+      <description>[C#] 將 轉為 Dictionary 轉為 JSON 之前筆記 [C#] 將 JSON 轉為 Dictionary 紀錄到如果將 JSON file 轉為 C# 的 Dictionary 來做後續加工處理，當然有 JSON to Dictionary 就需要有 Dictionary to JSON 囉 基本環境說明 macOS Catalina 10.15.2 .NET Core SDK 3.1.101 C# 8.0 程</description>
+    </item>
+    
+    <item>
+      <title>[C#] 將 JSON 轉為 Dictionary</title>
+      <link>https://blog.yowko.com/json-to-dictionary/</link>
+      <pubDate>Sat, 01 Feb 2020 14:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/json-to-dictionary/</guid>
+      <description>[C#] 將 JSON 轉為 Dictionary 使用 JSON 做為避免在程式中寫死固定值的解決方案是種常見做法，不過一旦系統日漸龐大複雜起來時，可能就需要有良好的管理方式或是流程，像是</description>
+    </item>
+    
+  </channel>
+</rss>

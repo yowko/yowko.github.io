@@ -6,10 +6,37 @@
     <description>Recent content in Helm on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 26 Dec 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 29 Jan 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/helm/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>將 ConfigMap 做為 Helm volume mount 的來源</title>
+      <link>https://blog.yowko.com/configmap-helm-volume-mount/</link>
+      <pubDate>Wed, 29 Jan 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/configmap-helm-volume-mount/</guid>
+      <description>將 ConfigMap 做為 Helm volume mount 的來源 有用過 container 的朋友相信對於 volume mount 有一定的了解，如果有用過 db 類型的 container (mysql、mongodb&amp;hellip;) 對於透過 docker-entrypoint-initdb.d 來建</description>
+    </item>
+    
+    <item>
+      <title>將打包好的 Helm Chart Push 至 Nexus</title>
+      <link>https://blog.yowko.com/helm-push-nexus/</link>
+      <pubDate>Tue, 28 Jan 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/helm-push-nexus/</guid>
+      <description>將打包好的 Helm Chart Push 至 Nexus 之前筆記 打包 Helm Chart 簡單紀錄該如何打包 Helm Chart，但打包後的 Helm Chart 如果無法提供其他 server 使用就失去意義了，所以延伸紀錄將打包後的</description>
+    </item>
+    
+    <item>
+      <title>打包 Helm Chart</title>
+      <link>https://blog.yowko.com/helm-package/</link>
+      <pubDate>Mon, 27 Jan 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/helm-package/</guid>
+      <description>打包 Helm Chart 最近專案常需要調整或建立 Helm Chart，但畢竟還不是很熟悉，常常用完一次過沒幾天就又忘記語法，同事都快被我煩死了，趁著假日簡單紀錄一下</description>
+    </item>
     
     <item>
       <title>解決 Helm init 時出現找不到 tiller pod 問題</title>
