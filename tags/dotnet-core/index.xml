@@ -6,10 +6,19 @@
     <description>Recent content in dotnet core on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 14 Dec 2019 15:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 08 Feb 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/dotnet-core/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[C#] 將 .NET Core 中的 Configuration 輸出為 JSON</title>
+      <link>https://blog.yowko.com/configuration-to-json/</link>
+      <pubDate>Sat, 08 Feb 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/configuration-to-json/</guid>
+      <description>[C#] 將 .NET Core 中的 Configuration 輸出為 JSON 之前筆記 [C#] 將 Dictionary 轉為 JSON 紀錄到 將 Dictionary 轉為 JSON 的方式，對 .NET Core 有些認識的朋友馬上就想到是為了處理 .NET Core Configuration，主</description>
+    </item>
     
     <item>
       <title>JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 (更新)</title>

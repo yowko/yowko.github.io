@@ -3,6 +3,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/install-redis-error/</loc>
+    <lastmod>2020-02-09T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/configuration-to-json/</loc>
+    <lastmod>2020-02-08T21:30:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/yum-install-redis5/</loc>
+    <lastmod>2020-02-08T10:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/dictionary-to-json/</loc>
     <lastmod>2020-02-02T14:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -3909,7 +3930,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/debug/</loc>
-    <lastmod>2018-11-05T00:42:34+08:00</lastmod>
+    <lastmod>2020-02-09T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4042,7 +4063,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/json/</loc>
-    <lastmod>2020-02-02T14:30:31+08:00</lastmod>
+    <lastmod>2020-02-08T21:30:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4091,7 +4112,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/linux/</loc>
-    <lastmod>2019-05-10T21:30:31+08:00</lastmod>
+    <lastmod>2020-02-09T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4259,7 +4280,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2020-02-02T14:30:31+08:00</lastmod>
+    <lastmod>2020-02-09T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4294,7 +4315,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/redis/</loc>
-    <lastmod>2016-12-09T22:30:31+08:00</lastmod>
+    <lastmod>2020-02-09T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4336,7 +4357,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/tools/</loc>
-    <lastmod>2020-01-28T21:30:31+08:00</lastmod>
+    <lastmod>2020-02-08T10:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4434,7 +4455,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2020-02-02T14:30:31+08:00</lastmod>
+    <lastmod>2020-02-09T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4462,7 +4483,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/csharp/</loc>
-    <lastmod>2020-02-02T14:30:31+08:00</lastmod>
+    <lastmod>2020-02-08T21:30:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4483,7 +4504,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/dotnet-core/</loc>
-    <lastmod>2019-12-14T15:30:31+08:00</lastmod>
+    <lastmod>2020-02-08T21:30:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4539,7 +4560,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/redis/</loc>
-    <lastmod>2016-12-09T22:30:31+08:00</lastmod>
+    <lastmod>2020-02-09T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

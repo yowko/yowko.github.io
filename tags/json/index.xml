@@ -6,18 +6,27 @@
     <description>Recent content in JSON on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 02 Feb 2020 14:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 08 Feb 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/json/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>[C#] 將 轉為 Dictionary 轉為 JSON</title>
+      <title>[C#] 將 .NET Core 中的 Configuration 輸出為 JSON</title>
+      <link>https://blog.yowko.com/configuration-to-json/</link>
+      <pubDate>Sat, 08 Feb 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/configuration-to-json/</guid>
+      <description>[C#] 將 .NET Core 中的 Configuration 輸出為 JSON 之前筆記 [C#] 將 Dictionary 轉為 JSON 紀錄到 將 Dictionary 轉為 JSON 的方式，對 .NET Core 有些認識的朋友馬上就想到是為了處理 .NET Core Configuration，主</description>
+    </item>
+    
+    <item>
+      <title>[C#] 將 Dictionary 轉為 JSON</title>
       <link>https://blog.yowko.com/dictionary-to-json/</link>
       <pubDate>Sun, 02 Feb 2020 14:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/dictionary-to-json/</guid>
-      <description>[C#] 將 轉為 Dictionary 轉為 JSON 之前筆記 [C#] 將 JSON 轉為 Dictionary 紀錄到如果將 JSON file 轉為 C# 的 Dictionary 來做後續加工處理，當然有 JSON to Dictionary 就需要有 Dictionary to JSON 囉 基本環境說明 macOS Catalina 10.15.2 .NET Core SDK 3.1.101 C# 8.0 程</description>
+      <description>[C#] 將 Dictionary 轉為 JSON 之前筆記 [C#] 將 JSON 轉為 Dictionary 紀錄到如果將 JSON file 轉為 C# 的 Dictionary 來做後續加工處理，當然有 JSON to Dictionary 就需要有 Dictionary to JSON 囉 基本環境說明 macOS Catalina 10.15.2 .NET Core SDK 3.1.101 C# 8.0 程式碼</description>
     </item>
     
     <item>

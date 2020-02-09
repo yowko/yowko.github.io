@@ -6,10 +6,19 @@
     <description>Recent content in Tools on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 28 Jan 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 08 Feb 2020 10:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/tools/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Yum 安裝 Redis 5</title>
+      <link>https://blog.yowko.com/yum-install-redis5/</link>
+      <pubDate>Sat, 08 Feb 2020 10:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/yum-install-redis5/</guid>
+      <description>使用 Yum 安裝 Redis 5 最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，嘗試過程中無意間發現不同的 yum repository 間有不同的 redis 套件版本，像是常用的 epel-release 上的 redis 就是 3.2.12，雖說</description>
+    </item>
     
     <item>
       <title>將打包好的 Helm Chart Push 至 Nexus</title>

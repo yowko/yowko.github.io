@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>安裝 Redis 時遇到的錯誤排除 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="安裝 Redis 時遇到的錯誤排除 之前筆記 使用 Yum 安裝 Redis 5 提到最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，也才發現幾個 yum package 的版本差異與 epel、ius 兩個 yum repository 的相依" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.51" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/install-redis-error/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="安裝 Redis 時遇到的錯誤排除" />
+<meta property="og:description" content="安裝 Redis 時遇到的錯誤排除 之前筆記 使用 Yum 安裝 Redis 5 提到最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，也才發現幾個 yum package 的版本差異與 epel、ius 兩個 yum repository 的相依" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/install-redis-error/" /><meta property="article:published_time" content="2020-02-09T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-02-09T21:30:31&#43;08:00"/>
+
+<meta itemprop="name" content="安裝 Redis 時遇到的錯誤排除">
+<meta itemprop="description" content="安裝 Redis 時遇到的錯誤排除 之前筆記 使用 Yum 安裝 Redis 5 提到最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，也才發現幾個 yum package 的版本差異與 epel、ius 兩個 yum repository 的相依">
+
+
+<meta itemprop="datePublished" content="2020-02-09T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-02-09T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="750">
+
+
+
+<meta itemprop="keywords" content="Linux,Redis,Debug," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="安裝 Redis 時遇到的錯誤排除"/>
+<meta name="twitter:description" content="安裝 Redis 時遇到的錯誤排除 之前筆記 使用 Yum 安裝 Redis 5 提到最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，也才發現幾個 yum package 的版本差異與 epel、ius 兩個 yum repository 的相依"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-09 </span>
+        
+        <span class="more-meta"> 約 750 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#安裝-redis-時遇到的錯誤排除">安裝 Redis 時遇到的錯誤排除</a></li>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#錯誤訊息與解決方式">錯誤訊息與解決方式</a></li>
+<li><a href="#心得">心得</a></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="安裝-redis-時遇到的錯誤排除">安裝 Redis 時遇到的錯誤排除</h2>
+
+<p>之前筆記 <a href="https://blog.yowko.com/yum-install-redis5" target="_blank">使用 Yum 安裝 Redis 5</a> 提到最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，也才發現幾個 yum package 的版本差異與 epel、ius 兩個 yum repository 的相依關係，除此之外過程中還遇到之前人工安裝時沒遇到的問題，覺得值得紀錄一下</p>
+
+<h2 id="基本環境說明">基本環境說明</h2>
+
+<ol>
+<li>Azure VM B1s (1 vcpu,1GiB memory)</li>
+<li>CentOS-based 7.7</li>
+<li>Redis 5.0.7</li>
+<li>epel-release.noarch 0:7-11</li>
+<li>ius-release.noarch 0:2-1.el7.ius</li>
+</ol>
+
+<h2 id="錯誤訊息與解決方式">錯誤訊息與解決方式</h2>
+
+<ol>
+<li><p>錯誤一</p>
+
+<ul>
+<li><p>現象：</p>
+
+<blockquote>
+<p>slave 或是某個 redis instnace service 無法啟動，個人經驗較常出現在 slave 或是第二個啟動的 redis instance 上</p>
+</blockquote></li>
+
+<li><p>錯誤訊息內容</p>
+
+<pre><code class="language-txt">Could not create server TCP listening socket 127.0.0.1:6380: bind: Permission denied
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/74103978-7a24f080-4b8b-11ea-9346-1942dfec44ed.png" alt="1tcpsocketdeny" /></p></li>
+
+<li><p>解決方式</p>
+
+<blockquote>
+<p>關閉 <code>SELinux</code>，但有安全疑慮時則建議使用 <code>semanage</code> 調整，以下僅示範關閉 <code>SELinux</code> 用法</p>
+
+<ul>
+<li><p><code>setenforce 0</code> 是針對當前 server 狀態</p></li>
+
+<li><p><code>/etc/selinux/config</code> 是避免重開機時 server 狀態被重置</p></li>
+</ul>
+</blockquote>
+
+<pre><code class="language-bash">setenforce 0 &amp;&amp; sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+</code></pre></li>
+</ul></li>
+
+<li><p>錯誤二</p>
+
+<ul>
+<li><p>現象：</p>
+
+<blockquote>
+<p>master、slave 服務正常啟動，但 master 執行 <code>redis-cli info replication</code> 顯示無連線的 slave;而 slave 執行 <code>redis-cli info replication</code> 則顯示 master 的狀態一直是 <code>down</code>，使用 <code>journalctl -xe</code> 檢查 master log 會出現錯誤訊息</p>
+</blockquote></li>
+
+<li><p>錯誤訊息內容</p>
+
+<pre><code class="language-txt">Failed opening the RDB file dump.rdb (in server root dir /) for saving: Permission denied
+
+Background saving error
+
+SYNC failed. BGSAVE child returned an error
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/74103981-7db87780-4b8b-11ea-9a20-c57921887d72.png" alt="2datapermission" /></p></li>
+
+<li><p>解決方式</p>
+
+<blockquote>
+<p>將 redis config 中的 <code>data</code> (預設為 <code>/</code>) 指向執行 redis service 使用者 (使用 yum 安裝，預設 user 為 <code>redis</code>) 有權限的路徑，權限需為 <code>755</code></p>
+</blockquote></li>
+</ul></li>
+
+<li><p>錯誤三</p>
+
+<ul>
+<li><p>現象：</p>
+
+<blockquote>
+<p>master、slave 服務正常啟動， master 與 slave 間的 sync 狀態也正常，但 sentinel service 未正常啟動，也無法正確執行 failover，使用 <code>journalctl -xe</code> 檢查時出現下列錯誤訊息</p>
+</blockquote></li>
+
+<li><p>錯誤訊息內容</p>
+
+<pre><code class="language-txt">Sentinel config file /etc/redis/redis_sentinel_26379.conf is not writable: Permission denied. Exiting...
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/74103982-7e510e00-4b8b-11ea-8d46-7483a0da3dc0.png" alt="3confignotwriteable" /></p></li>
+
+<li><p>解決方式</p>
+
+<blockquote>
+<p>grant sentinel config <code>寫入</code> 的權限給 service 的執行使用者(以 <code>redis</code> 為例)</p>
+</blockquote>
+
+<pre><code class="language-bash">setfacl -m u:redis:rw /etc/redis/redis_sentinel_26379.conf
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>過去安裝都是人工使用有 root 權限帳號進行安裝，幾乎沒遇到權限問題，透過這次使用 script 來進行遠端安裝，立馬讓過去權限不分的問題暴露出來XD</p>
+
+<p>原本以為自己對 Redis 還算熟悉，沒想到過去使用時忽略了不少權限設定上的細節，資安觀念薄弱讓 server 使用過大的權限來執行 Redis 服務，所幸還沒發生資料外漏或是駭客攻擊，不過還是相當慚愧呀，算是在出問題前學到了寶貴一課</p>
+
+<h2 id="參考資訊">參考資訊</h2>
+
+<ol>
+<li><a href="https://blog.yowko.com/yum-install-redis5" target="_blank">使用 Yum 安裝 Redis 5</a></li>
+<li><a href="https://stackoverflow.com/questions/53009361/redis-creating-server-tcp-listening-socket-6388-bind-permission-denied" target="_blank">Redis: Creating Server TCP listening socket *:6388: bind: Permission denied</a></li>
+<li><a href="https://stackoverflow.com/a/28686802/3600583" target="_blank">Redis: Failed opening .rdb for saving: Permission denied</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2020-02-09</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/debug/">Debug</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/configuration-to-json/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">[C#] 將 .NET Core 中的 Configuration 輸出為 JSON</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/install-redis-error\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

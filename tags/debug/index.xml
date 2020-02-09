@@ -6,10 +6,19 @@
     <description>Recent content in Debug on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 05 Nov 2018 00:42:34 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 09 Feb 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/debug/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>安裝 Redis 時遇到的錯誤排除</title>
+      <link>https://blog.yowko.com/install-redis-error/</link>
+      <pubDate>Sun, 09 Feb 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/install-redis-error/</guid>
+      <description>安裝 Redis 時遇到的錯誤排除 之前筆記 使用 Yum 安裝 Redis 5 提到最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，也才發現幾個 yum package 的版本差異與 epel、ius 兩個 yum repository 的相依</description>
+    </item>
     
     <item>
       <title>無法參考 App_Code 資料夾下的 class</title>
