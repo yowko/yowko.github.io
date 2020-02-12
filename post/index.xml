@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 09 Feb 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 12 Feb 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 CentOS 7 上安裝 Redis Replication (Redis 5)</title>
+      <link>https://blog.yowko.com/install-redis-replication/</link>
+      <pubDate>Wed, 12 Feb 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/install-redis-replication/</guid>
+      <description>在 CentOS 7 上安裝 Redis Replication (Redis 5) 之前筆記 安裝 Redis 時遇到的錯誤排除 紀錄到安裝 Redis Replication 時的幾個可能遇到的錯誤，經過數日小弟終於完成了初版可以一次安裝多個 Redis Replication 與 sentinel 的</description>
+    </item>
     
     <item>
       <title>安裝 Redis 時遇到的錯誤排除</title>
