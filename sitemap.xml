@@ -3,7 +3,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.yowko.com/install-redis-replication/</loc>
+    <loc>https://blog.yowko.com/install-redis/</loc>
     <lastmod>2020-02-12T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
