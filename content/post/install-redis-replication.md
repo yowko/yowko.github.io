@@ -4,7 +4,7 @@ date: 2020-02-12T21:30:00+08:00
 lastmod: 2020-02-12T21:30:31+08:00
 draft: false
 tags: ["Linux","Redis"]
-slug: "install-redis-replication"
+slug: "install-redis"
 ---
 
 ## 在 CentOS 7 上安裝 Redis Replication (Redis 5)
@@ -89,7 +89,7 @@ EOF
 
         echo ">>> Prepare redis service"
 
-cat <<EOF | sshpass -p pass.123 ssh root@${MASTER_IPs[$index]} "cat > /usr/lib/systemd/system/redis_${MASTER_PORTs[$index]}.service"
+cat <<EOF | sshpass -p pass.123 ssh root@${MASTER_IPs[$index]} "cat > /etc/systemd/system/redis_${MASTER_PORTs[$index]}.service"
 [Unit]
 Description=Redis persistent key-value database
 After=network.target
@@ -142,7 +142,7 @@ appendonly no
 EOF
 
         echo ">>> Prepare redis service"
-cat <<EOF | sshpass -p pass.123 ssh root@${SLAVE_IPs[$index]} "cat > /usr/lib/systemd/system/redis_${SLAVE_PORTs[$index]}.service"
+cat <<EOF | sshpass -p pass.123 ssh root@${SLAVE_IPs[$index]} "cat > /etc/systemd/system//redis_${SLAVE_PORTs[$index]}.service"
 [Unit]
 Description=Redis persistent key-value database
 After=network.target
@@ -203,7 +203,7 @@ EOF
 
         echo ">>> Prepare redis sentinel service"
 
-cat <<EOF | sshpass -p pass.123 ssh root@${SENTINEL_IPs[$index]} "cat > /usr/lib/systemd/system/redis_${SENTINEL_PORTs[$index]}.service"
+cat <<EOF | sshpass -p pass.123 ssh root@${SENTINEL_IPs[$index]} "cat > /etc/systemd/system/redis_${SENTINEL_PORTs[$index]}.service"
 [Unit]
 Description=Redis persistent key-value database
 After=network.target
