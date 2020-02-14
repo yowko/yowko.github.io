@@ -142,7 +142,7 @@ appendonly no
 EOF
 
         echo ">>> Prepare redis service"
-cat <<EOF | sshpass -p pass.123 ssh root@${SLAVE_IPs[$index]} "cat > /etc/systemd/system//redis_${SLAVE_PORTs[$index]}.service"
+cat <<EOF | sshpass -p pass.123 ssh root@${SLAVE_IPs[$index]} "cat > /etc/systemd/system/redis_${SLAVE_PORTs[$index]}.service"
 [Unit]
 Description=Redis persistent key-value database
 After=network.target
