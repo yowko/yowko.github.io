@@ -316,7 +316,7 @@ appendonly no
 EOF
 
         echo &quot;&gt;&gt;&gt; Prepare redis service&quot;
-cat &lt;&lt;EOF | sshpass -p pass.123 ssh root@${SLAVE_IPs[$index]} &quot;cat &gt; /etc/systemd/system//redis_${SLAVE_PORTs[$index]}.service&quot;
+cat &lt;&lt;EOF | sshpass -p pass.123 ssh root@${SLAVE_IPs[$index]} &quot;cat &gt; /etc/systemd/system/redis_${SLAVE_PORTs[$index]}.service&quot;
 [Unit]
 Description=Redis persistent key-value database
 After=network.target
