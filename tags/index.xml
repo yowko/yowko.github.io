@@ -75,6 +75,15 @@
     </item>
     
     <item>
+      <title>Ansible</title>
+      <link>https://blog.yowko.com/tags/ansible/</link>
+      <pubDate>Sun, 16 Feb 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/tags/ansible/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Azure</title>
       <link>https://blog.yowko.com/tags/azure/</link>
       <pubDate>Sat, 14 Sep 2019 01:30:00 +0800</pubDate>
@@ -410,7 +419,7 @@
     <item>
       <title>Linux</title>
       <link>https://blog.yowko.com/tags/linux/</link>
-      <pubDate>Wed, 12 Feb 2020 21:30:00 +0800</pubDate>
+      <pubDate>Sun, 16 Feb 2020 21:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/tags/linux/</guid>
       <description></description>
@@ -662,7 +671,7 @@
     <item>
       <title>Redis</title>
       <link>https://blog.yowko.com/tags/redis/</link>
-      <pubDate>Wed, 12 Feb 2020 21:30:00 +0800</pubDate>
+      <pubDate>Sun, 16 Feb 2020 21:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/tags/redis/</guid>
       <description></description>
@@ -959,7 +968,7 @@
     <item>
       <title>redis</title>
       <link>https://blog.yowko.com/tags/redis/</link>
-      <pubDate>Wed, 12 Feb 2020 21:30:00 +0800</pubDate>
+      <pubDate>Sun, 16 Feb 2020 21:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/tags/redis/</guid>
       <description></description>

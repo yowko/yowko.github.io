@@ -6,10 +6,28 @@
     <description>Recent content in Linux on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 12 Feb 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 16 Feb 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Redis Rename Config 後 Sentinel 無法正確執行 Failover</title>
+      <link>https://blog.yowko.com/redis-rename-config-sentinel-not-work/</link>
+      <pubDate>Sun, 16 Feb 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/redis-rename-config-sentinel-not-work/</guid>
+      <description>Redis Rename Config 後 Sentinel 無法正確執行 Failover 有些 Redis command (e.g. KEYS,SAVE) 在執行時會 block 其他操作，在 Redis 用量小時不明顯，但 Redis 日漸龐大後，執行這些 command 時會讓 Redis 被 block 的時間愈來愈長，最後可能</description>
+    </item>
+    
+    <item>
+      <title>使用 Ansible 安裝 Redis Replication</title>
+      <link>https://blog.yowko.com/ansible-install-redis/</link>
+      <pubDate>Fri, 14 Feb 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ansible-install-redis/</guid>
+      <description>使用 Ansible 安裝 Redis Replication 之前筆記 在 CentOS 7 上安裝 Redis Replication (Redis 5) 紀錄到使用單一 shell script 來安裝完整 Redis Replication (Master，Slave 與 Sentinell)，後來同事提到這類</description>
+    </item>
     
     <item>
       <title>在 CentOS 7 上安裝 Redis Replication (Redis 5)</title>
