@@ -15,9 +15,11 @@ slug: "ansible-when-http-status-code"
 
 ## 基本環境說明
 
-1. jenkins 2.204.2
-2. ansible 2.7.8
-3. absible script
+1. Azure 標準 B1ms (1 vcpu，2 GiB 記憶體)
+2. Centos 7.7
+3. jenkins 2.204.2
+4. ansible 2.7.8
+5. absible script
 
    - inventory.ini
 
