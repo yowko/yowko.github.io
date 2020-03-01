@@ -6,10 +6,28 @@
     <description>Recent content in InfluxDB on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 22 Sep 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2020 15:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/influxdb/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy</title>
+      <link>https://blog.yowko.com/ansible-influxdb-create-user-database-rententionpolicy/</link>
+      <pubDate>Sun, 01 Mar 2020 15:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ansible-influxdb-create-user-database-rententionpolicy/</guid>
+      <description>使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy 之前筆記 使用 Ansible 安裝 InfluxDB 紀錄到如何使用 Ansible 來安裝 InfluxDB，也提到透過 Ansible 安</description>
+    </item>
+    
+    <item>
+      <title>使用 Ansible 安裝 InfluxDB</title>
+      <link>https://blog.yowko.com/ansible-install-influxdb/</link>
+      <pubDate>Sun, 01 Mar 2020 12:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ansible-install-influxdb/</guid>
+      <description>使用 Ansible 安裝 InfluxDB 最近安裝實際 service instance 環境大多都用上了 Ansible，原本透過 Helm 安裝的 InfluxDB container 也想透過 Ansible 來建立實體 instance 不再使用 container，快速筆記一</description>
+    </item>
     
     <item>
       <title>[Benchmark] 使用 C# 對 InfluxDB insert 操作的效能數據</title>

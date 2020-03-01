@@ -6,10 +6,73 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 16 Feb 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2020 15:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy</title>
+      <link>https://blog.yowko.com/ansible-influxdb-create-user-database-rententionpolicy/</link>
+      <pubDate>Sun, 01 Mar 2020 15:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ansible-influxdb-create-user-database-rententionpolicy/</guid>
+      <description>使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy 之前筆記 使用 Ansible 安裝 InfluxDB 紀錄到如何使用 Ansible 來安裝 InfluxDB，也提到透過 Ansible 安</description>
+    </item>
+    
+    <item>
+      <title>使用 Ansible 安裝 InfluxDB</title>
+      <link>https://blog.yowko.com/ansible-install-influxdb/</link>
+      <pubDate>Sun, 01 Mar 2020 12:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ansible-install-influxdb/</guid>
+      <description>使用 Ansible 安裝 InfluxDB 最近安裝實際 service instance 環境大多都用上了 Ansible，原本透過 Helm 安裝的 InfluxDB container 也想透過 Ansible 來建立實體 instance 不再使用 container，快速筆記一</description>
+    </item>
+    
+    <item>
+      <title>Ansible 使用 Here document (cat &lt;&lt; EOF) 遇到的問題</title>
+      <link>https://blog.yowko.com/ansible-cat-eof/</link>
+      <pubDate>Sun, 01 Mar 2020 09:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ansible-cat-eof/</guid>
+      <description>Ansible 使用 Here document (cat &amp;lt;&amp;lt; EOF) 遇到的問題 這是在嘗試使用 Ansible 來輸出多行 config 時遇到的問題，實際例子可以參考 在 CentOS 7 上安裝 Redis Replication (Redis 5) 其中要準備 redis.conf 的部份就有使用到 Here document (cat &amp;lt;&amp;lt;</description>
+    </item>
+    
+    <item>
+      <title>Ansible 透過 Http Status Code 當做檢核條件</title>
+      <link>https://blog.yowko.com/ansible-when-http-status-code/</link>
+      <pubDate>Wed, 26 Feb 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ansible-when-http-status-code/</guid>
+      <description>Ansible 透過 Http Status Code 當做檢核條件 最近 Ansible 使用的機會較多，簡單紀錄一下平常可能遇到的情境與解決方式，一般情況下我都是透過單一個 playbook 來處理某個工作，如果需要</description>
+    </item>
+    
+    <item>
+      <title>在 Windows 上的 ASP.NET Core 中呼叫 gRPC</title>
+      <link>https://blog.yowko.com/windows-aspnetcore-grpc/</link>
+      <pubDate>Mon, 24 Feb 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/windows-aspnetcore-grpc/</guid>
+      <description>在 Windows 上的 ASP.NET Core 中呼叫 gRPC 現在的工作主力都在 mac 上，但最近在測試功能時覺得與過去認知不同，特別用 Windows 測試一下，證實在 Windows 平台上功能與印象相同，為了日後比</description>
+    </item>
+    
+    <item>
+      <title>在 macOS 上的 ASP.NET Core 中呼叫 gRPC</title>
+      <link>https://blog.yowko.com/macos-aspnetcore-grpc/</link>
+      <pubDate>Sun, 23 Feb 2020 22:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/macos-aspnetcore-grpc/</guid>
+      <description>在 macOS 上的 ASP.NET Core 中呼叫 gRPC 最近為了進行某個專案需求的 poc，需要建立基本的 gRPC Server 與 Cient，這才想到之前都是在 .NET Core 2 上使用 gRPC，還沒紀錄過 .NET Core</description>
+    </item>
+    
+    <item>
+      <title>在 macOS 上建立開發用 .NET Core 憑證</title>
+      <link>https://blog.yowko.com/macos-dotnet-cert/</link>
+      <pubDate>Sun, 23 Feb 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/macos-dotnet-cert/</guid>
+      <description>在 macOS 上建立開發用 .NET Core 憑證 現在的 web 環境幾乎都會要求 https，這樣的改變當然也套用在開發上，像是 HTTP/2 雖然在協定本身允許非加密的 HTTP 協定，但絕大部份</description>
+    </item>
     
     <item>
       <title>Redis Rename Config 後 Sentinel 無法正確執行 Failover</title>

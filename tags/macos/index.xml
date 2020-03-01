@@ -6,10 +6,28 @@
     <description>Recent content in macOS on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 14 Jan 2020 22:20:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 23 Feb 2020 22:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/macos/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 macOS 上的 ASP.NET Core 中呼叫 gRPC</title>
+      <link>https://blog.yowko.com/macos-aspnetcore-grpc/</link>
+      <pubDate>Sun, 23 Feb 2020 22:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/macos-aspnetcore-grpc/</guid>
+      <description>在 macOS 上的 ASP.NET Core 中呼叫 gRPC 最近為了進行某個專案需求的 poc，需要建立基本的 gRPC Server 與 Cient，這才想到之前都是在 .NET Core 2 上使用 gRPC，還沒紀錄過 .NET Core</description>
+    </item>
+    
+    <item>
+      <title>在 macOS 上建立開發用 .NET Core 憑證</title>
+      <link>https://blog.yowko.com/macos-dotnet-cert/</link>
+      <pubDate>Sun, 23 Feb 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/macos-dotnet-cert/</guid>
+      <description>在 macOS 上建立開發用 .NET Core 憑證 現在的 web 環境幾乎都會要求 https，這樣的改變當然也套用在開發上，像是 HTTP/2 雖然在協定本身允許非加密的 HTTP 協定，但絕大部份</description>
+    </item>
     
     <item>
       <title>從 mac 使用 Container Ip 直連 (更新版)</title>

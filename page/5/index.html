@@ -59,7 +59,7 @@
 <meta property="og:description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.yowko.com/" />
-<meta property="og:updated_time" content="2019-07-14T22:30:00&#43;08:00"/>
+<meta property="og:updated_time" content="2019-08-01T21:30:00&#43;08:00"/>
 
 <meta itemprop="name" content="Yowko&#39;s Notes">
 <meta itemprop="description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教">
@@ -135,6 +135,160 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/grpc-stream-chunk-client/">gRPC stream 如何傳送單一大物件 (Client 版)</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-08-01 </span>
+      
+      <span class="more-meta"> 約 960 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/grpc-stream-chunk-client/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/csharp-mongodb-waitqueuefullexception/">.Net Core 操作 MongoDB 出現 MongoWaitQueueFullException</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-07-28 </span>
+      
+      <span class="more-meta"> 約 881 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      .Net Core 操作 MongoDB 出現 MongoWaitQueueFullException 之前筆記 在 Docker Compose file 3 下限制 CPU 與 Memory 中提到同事反應說某個專案在執行時會造成 MongoDB CPU high，最後引發 docker service crash，一直沒有找到 root ca
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/csharp-mongodb-waitqueuefullexception/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/docker-compose-3-cpu-memory-limit/">在 Docker Compose file 3 下限制 CPU 與 Memory</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-07-24 </span>
+      
+      <span class="more-meta"> 約 707 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      在 Docker Compose file 3 下限制 CPU 與 Memory 這幾天某個 job 在進行最終階段測試時發現用到的某個 container 會出現 cpu high 的現象，而且狀況嚴重到會讓 docker process cpu 衝到 400% 以上，接著 docker service 掛了 XD
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/docker-compose-3-cpu-memory-limit/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/object-compare-in-test/">Test 中驗證 Object 是否相同的方法</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-07-23 </span>
+      
+      <span class="more-meta"> 約 884 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Test 中驗證 Object 是否相同的方法 最近花了不少時間在重構先前專案中的 Unit Test 與 Integration Test，其中對於 reference type 的物件比對有幾種不同的寫法 當然我個人大多配合團隊規範
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/object-compare-in-test/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/remove-dotnet-from-mac/">從 Mac 移除 .NET Core Runtime 與 SDK</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-07-22 </span>
+      
+      <span class="more-meta"> 約 624 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      從 Mac 移除 .NET Core Runtime 與 SDK 可以不時更新 .NET Core SDK 是幸福，也是痛苦; 幸福的是可以使用新的語言特性或是新功能，而痛苦的是不僅又有新的 feature 要學習適應還要想辦法移
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/remove-dotnet-from-mac/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/docker-for-mac-kubernetes/">在 Docker for Mac 上啟用 Kubernetes</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-07-21 </span>
+      
+      <span class="more-meta"> 約 362 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      在 Docker for Mac 上啟用 Kubernetes 現在工作的部暑都是透過 Kubernetes 來執行，不過我還是常常會卡東卡西，又不能老是使用團隊環境來練習，加上工作內部的資料也無法部署至自己建
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/docker-for-mac-kubernetes/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/homebrew-docker/">使用 Homebrew 安裝 Docker</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-07-20 </span>
+      
+      <span class="more-meta"> 約 427 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      使用 Homebrew 安裝 Docker 現在工作上都是使用 mac，但為了保留可以比較 macOS 與 Windows 在部份行為上的差異，自己的家用電腦一直都是 macbook pro 使用 bootcamp 開機直接進入 Windows 10，最近因
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/homebrew-docker/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -307,160 +461,6 @@
     </div>
     <div class="read-more">
       <a href="https://blog.yowko.com/grpc-8-resource-exhausted/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspdotnet-core-log-stackdriver/">在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-06-22 </span>
-      
-      <span class="more-meta"> 約 720 字 </span>
-        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver 之前剛好有個功能在內部環境運作時都一直出現錯誤，經過一輪測試後決定將功能搬至 GCP 的 GKE 上執行來確認問題是不是內部環境設定所
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/aspdotnet-core-log-stackdriver/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/csharp-grpc-stream-unit-test/">嘗試為gRPC 中的 stream RPC 加上 Unit Test</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-06-19 </span>
-      
-      <span class="more-meta"> 約 1222 字 </span>
-        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      嘗試為gRPC 中的 stream RPC 加上 Unit Test 之前筆記 C# 搭配 gRPC 中使用 stream RPC 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/csharp-grpc-stream-unit-test/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/csharp-grpc-stream/">C# 搭配 gRPC 中使用 stream RPC</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-06-16 </span>
-      
-      <span class="more-meta"> 約 859 字 </span>
-        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      C# 搭配 gRPC 中使用 stream RPC gRPC 允許使用四種則型的 service 方法： 簡單 RPC (simple RPC) 主機端串流 RPC (server-side streaming RPC) 用戶端串流 RPC (client-side streaming RPC) 雙向串流 RPC (bidirectional streaming RPC) 過去的筆記都是使用 簡單 RPC (simple RPC
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/csharp-grpc-stream/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspdotnet-core-controller-controllerbase/">ASP.NET Core 中 Controller 與 ControllerBase 的差別</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-06-09 </span>
-      
-      <span class="more-meta"> 約 335 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      ASP.NET Core 中 Controller 與 ControllerBase 的差別 之前筆記 ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 提到 AddMvc() 與 AddMvcCore() 的差別，今天剛好在整理如何從 Empty 專案加入 Web API 時聯想到似乎沒有很清楚實際差別，趁著自己查資
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/aspdotnet-core-controller-controllerbase/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore/">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-06-08 </span>
-      
-      <span class="more-meta"> 約 486 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 ASP.NET Core 將過去 ASP.NET MVC 與 ASP.NET Web API 兩套 framework 整合在一起，對於開發人員是種福音：不用再想到底該引用哪個 NameSpace、不用再為該繼承哪個
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/change-kafka-topic-partition/">調整 Kafka 中 Topic 的 Partition 數量</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-06-07 </span>
-      
-      <span class="more-meta"> 約 365 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      調整 Kafka 中 Topic 的 Partition 數量 最近積極在針對 Kafka 做些設定調整與效能測試，其中也包含了 Topic 的 Partition 數量產生的影響，也就常常需要調整 Topic 中的 Partition 數量來檢視對效能的影響，
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/change-kafka-topic-partition/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/create-kafka-topic/">建立 Kafka 的 Topic</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-06-07 </span>
-      
-      <span class="more-meta"> 約 590 字 </span>
-        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      調整 Kafka 中 Topic 的 Partition 數量 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/create-kafka-topic/" class="read-more-link">繼續閱讀</a>
     </div>
   </div>
 </article>
