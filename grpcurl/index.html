@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy - Yowko&#39;s Notes</title>
+  <title>使用 grpcurl 呼加 gRPC Service - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy 之前筆記 使用 Ansible 安裝 InfluxDB 紀錄到如何使用 Ansible 來安裝 InfluxDB，也提到透過 Ansible 安" />
+  <meta name="description" content="使用 grpcurl 呼加 gRPC Service 一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/ansible-influxdb-create-user-database-rententionpolicy/" />
+<link rel="canonical" href="https://blog.yowko.com/grpcurl/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,25 @@
 
 
 
-<meta property="og:title" content="使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy" />
-<meta property="og:description" content="使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy 之前筆記 使用 Ansible 安裝 InfluxDB 紀錄到如何使用 Ansible 來安裝 InfluxDB，也提到透過 Ansible 安" />
+<meta property="og:title" content="使用 grpcurl 呼加 gRPC Service" />
+<meta property="og:description" content="使用 grpcurl 呼加 gRPC Service 一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/ansible-influxdb-create-user-database-rententionpolicy/" /><meta property="article:published_time" content="2020-03-01T15:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-03-01T15:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/grpcurl/" /><meta property="article:published_time" content="2020-03-07T12:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-03-07T12:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy">
-<meta itemprop="description" content="使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy 之前筆記 使用 Ansible 安裝 InfluxDB 紀錄到如何使用 Ansible 來安裝 InfluxDB，也提到透過 Ansible 安">
-
-
-<meta itemprop="datePublished" content="2020-03-01T15:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-03-01T15:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="683">
+<meta itemprop="name" content="使用 grpcurl 呼加 gRPC Service">
+<meta itemprop="description" content="使用 grpcurl 呼加 gRPC Service 一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call">
 
 
+<meta itemprop="dateModified" content="2020-03-07T12:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="924">
 
-<meta itemprop="keywords" content="Ansible,InfluxDB," />
+
+
+<meta itemprop="keywords" content="gRPC,Tools," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy"/>
-<meta name="twitter:description" content="使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy 之前筆記 使用 Ansible 安裝 InfluxDB 紀錄到如何使用 Ansible 來安裝 InfluxDB，也提到透過 Ansible 安"/>
+<meta name="twitter:title" content="使用 grpcurl 呼加 gRPC Service"/>
+<meta name="twitter:description" content="使用 grpcurl 呼加 gRPC Service 一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +143,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-03-01 </span>
+        <span class="post-time"> 2020-03-07 </span>
         
-        <span class="more-meta"> 約 683 字 </span>
+        <span class="more-meta"> 約 924 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,10 +161,12 @@
 <ul>
 <li>
 <ul>
-<li><a href="#使用-ansible-安裝-influxdb-並建立-user-database-retention-policy">使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy</a></li>
+<li><a href="#使用-grpcurl-呼加-grpc-service">使用 grpcurl 呼加 gRPC Service</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#個別語法">個別語法</a></li>
-<li><a href="#實際語法">實際語法</a></li>
+<li><a href="#關於-grpcurl">關於 grpcurl</a></li>
+<li><a href="#安裝方式">安裝方式</a></li>
+<li><a href="#使用方式">使用方式</a></li>
+<li><a href="#可能遇到的錯誤">可能遇到的錯誤</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,164 +182,178 @@
     <div class="post-content">
       
 
-<h2 id="使用-ansible-安裝-influxdb-並建立-user-database-retention-policy">使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy</h2>
+<h2 id="使用-grpcurl-呼加-grpc-service">使用 grpcurl 呼加 gRPC Service</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/ansible-install-influxdb/" target="_blank">使用 Ansible 安裝 InfluxDB</a> 紀錄到如何使用 Ansible 來安裝 InfluxDB，也提到透過 Ansible 安裝 InfluxDB 與直接執行 script 來安裝 差異不大，不過透過 Ansible 安裝 InfluxDB 好處主要是在於後續建立 User，Database，Retention Policy 上，所以立馬來紀錄一下囉</p>
+<p>一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call 時我就會透過 <a href="https://appimage.github.io/BloomRPC/" target="_blank">BloomRPC</a> 這套 gui 工具來呼叫</p>
+
+<p>剛好前陣子開發用環境遇到問題，想要針對部署至 Kubernetes 中的服務進行測試、驗證功能，但服務同時啟動三個 pos 做 load balance，無法對每個 pod 上的服務做檢查，這時候就可以使用 grpcurl 來達成目的，下載 grpcurl 後，使用 grpcurl 透過每個 pod 的 cluster ip 來叫用服務，雖然使用難度不高，不過最近明顯感受到記憶力衰退，還是紀錄一下備忘，下次需要時就可以更快取用了</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>Azure 標準 B1ms (1 vcpu，2 GiB 記憶體)</li>
-<li>Centos 7.7</li>
-<li>ansible 2.7.8</li>
-<li>InfluxDB 1.7</li>
+<li>CentOS 7.7</li>
+<li>macOS Catalina 10.15.3</li>
+<li>Debian 10</li>
+<li>grpcurl v1.4.0</li>
 
-<li><p>ansible script</p>
+<li><p>測試用 proto</p>
+
+<pre><code class="language-txt">syntax = &quot;proto3&quot;;
+
+option csharp_namespace = &quot;GrpcMessages&quot;;
+
+package greet;
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings.
+message HelloReply {
+  string message = 1;
+}
+</code></pre></li>
+</ol>
+
+<h2 id="關於-grpcurl">關於 grpcurl</h2>
+
+<p>grpcurl 是一個命令列工具，主要目的是從 terminal 中呼叫 gRPC Service</p>
+
+<p>因為 gRPC 使用 protobuf 的關係，讓 <code>curl</code> 無法直呼叫 gRPC 服務，而 grpcurl 則使用 JSON 傳送訊息</p>
+
+<p>grpcurl 在 gRPC Service 支援的前提下可以使用 <code>reflection</code> 來取得 gRPC Service 的 schema (簡言之就是透過 <code>list</code> 方法列出目前的 gRPC Service 有哪些方法與所需參數)，但這個方法需要調整到程式碼部份，我個人還沒有嘗試，我單純透過 gRPC Service 所使用的 proto 檔來呼叫 gRPC 方法</p>
+
+<p>grpcurl 宣稱支援所有 gRPC 傳輸方式 (包含 streaming)，但我實際只用過 simple RPC 與 server-side streaming RPC，至於 client-side streaming RPC 與 bidirectional streaming RPC 暫時還沒測試</p>
+
+<h2 id="安裝方式">安裝方式</h2>
+
+<ol>
+<li><p>macOS</p>
+
+<pre><code class="language-bash">brew install grpcurl
+</code></pre></li>
+
+<li><p>CentOS</p>
 
 <ul>
-<li><p>inventory.ini</p>
+<li><p>下載 grpcurl</p>
 
-<pre><code class="language-ini">[influxdb]
-influx1 ansible_host=192.168.1.101 ansible_port=22 ip=192.168.1.101  ansible_user=yowko ansible_password=pass.123 ansible_become_password=pass.123
+<pre><code class="language-bash">curl -L -O https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz
 </code></pre></li>
 
-<li><p>install.yml</p>
+<li><p>解壓 grpcurl</p>
 
-<pre><code>---
-- name: Install Influxdb
-  gather_facts: false
-  hosts: influxdb
-  tasks:
-    - name: Add repo
-      shell:
-        cmd: |
-          cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/influxdb.repo
-          [influxdb]
-          name = InfluxDB Repository - RHEL \$releasever
-          baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/    stable
-          enabled = 1
-          gpgcheck = 1
-          gpgkey = https://repos.influxdata.com/influxdb.key
-          EOF
-    - name: Install influxdb
-      yum:
-        name: influxdb
-        state: latest
-    - name: Start influxdb Service
-      service:
-        name: influxdb
-        state: restarted
+<pre><code class="language-bash">tar -zxvf grpcurl_1.4.0_linux_x86_64.tar.gz
 </code></pre></li>
 </ul></li>
+
+<li><p>Debian (Ubuntu)</p>
+
+<ul>
+<li><p>更新 apt-get</p>
+
+<pre><code class="language-bash">apt-get update
+</code></pre></li>
+
+<li><p>安裝 wget</p>
+
+<pre><code class="language-bash"> apt-get install -y wget
+</code></pre></li>
+
+<li><p>下載 grpcurl</p>
+
+<pre><code class="language-bash">wget https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz
+</code></pre></li>
+
+<li><p>解壓 grpcurl</p>
+
+<pre><code class="language-bash">tar -zxvf grpcurl_1.4.0_linux_x86_64.tar.gz
+</code></pre></li>
+</ul></li>
+
+<li><p>透過 go 安裝 (source code)</p>
+
+<pre><code class="language-bash">go get github.com/fullstorydev/grpcurl
+go install github.com/fullstorydev/grpcurl/cmd/grpcurl
+</code></pre></li>
 </ol>
 
-<h2 id="個別語法">個別語法</h2>
-
-<ol>
-<li><p>create user</p>
-
-<pre><code>- name: Create a user
-  shell: |
-    curl -XPOST http://localhost:8086/query --data-urlencode &quot;q=CREATE USER admin WITH PASSWORD pass.123 WITH ALL PRIVILEGES&quot;
-</code></pre></li>
-
-<li><p>create database</p>
-
-<pre><code>- name: Create Database
-  shell: |
-    curl -XPOST http://localhost:8086/query --data-urlencode &quot;q=CREATE DATABASE yowko&quot;
-</code></pre></li>
-
-<li><p>create retention policy</p>
-
-<pre><code>- name: Create Retention Policy
-  shell: |
-    curl -XPOST http://localhost:8086/query --data-urlencode &quot;q=CREATE RETENTION POLICY yowko_test ON yowko DURATION 90d REPLICATION 1&quot;
-</code></pre></li>
-</ol>
-
-<h2 id="實際語法">實際語法</h2>
-
-<ol>
-<li>將可以設定的變數皆抽出來統一管理</li>
-
-<li><p>需要檢查 influxdb service 啟動與否</p>
+<h2 id="使用方式">使用方式</h2>
 
 <blockquote>
-<p>詳細內容可以參考之前筆記 <a href="https://blog.yowko.com/ansible-when-http-status-code" target="_blank">Ansible 透過 Http Status Code 當做檢核條件</a></p>
-</blockquote></li>
+<p>這邊我沒有額外調整 gRPC 的 flow (沒用到 reflection 功能)，只透過指定 proto 檔案的方式來呼叫 gRPC Service</p>
+</blockquote>
 
-<li><p>需要設定啟用 auth</p></li>
+<ul>
+<li><p>語法範例</p>
 
-<li><p>完整語法</p>
-
-<pre><code>---
-- name: Install Influxdb
-  gather_facts: false
-  vars:
-    influxdb_username: admin
-    influxdb_password: pass.123
-    influxdb_database_name: yowko
-    influxdb_rp_name: yowko_test
-    influxdb_url: http://localhost:8086
-  hosts: influxdb
-  tasks:
-    - name: Add repo
-      shell:
-        cmd: |
-          cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/influxdb.repo
-          [influxdb]
-          name = InfluxDB Repository - RHEL \$releasever
-          baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
-          enabled = 1
-          gpgcheck = 1
-          gpgkey = https://repos.influxdata.com/influxdb.key
-          EOF
-    - name: Install influxdb
-      yum:
-        name: influxdb
-        state: latest
-    - name: Start influxdb Service
-      service:
-        name: influxdb
-        state: restarted
-    - name: &quot;wait for InfluxDB to come up&quot;
-      uri:
-        url: &quot;{{influxdb_url}}/ping&quot;
-        status_code: 204
-      register: result
-      until: result.status == 204
-      retries: 60
-      delay: 1
-    - name: Create a user
-      shell: |
-        curl -XPOST {{influxdb_url}}/query --data-urlencode &quot;q=CREATE USER {    {influxdb_username}} WITH PASSWORD '{{influxdb_password}}' WITH ALL PRIVILEGES&quot;
-    - name: Create Database
-      shell: |
-        curl -XPOST {{influxdb_url}}/query --data-urlencode &quot;q=CREATE DATABASE {    {influxdb_database_name}}&quot;
-    - name: Create Retention Policy
-      shell: |
-        curl -XPOST {{influxdb_url}}/query --data-urlencode &quot;q=CREATE RETENTION POLICY {    {influxdb_rp_name}} ON {{influxdb_database_name}} DURATION 90d REPLICATION 1&quot;
-    - name: Enable http auth
-      shell: |
-        sed -i 's/# auth-enabled = false/auth-enabled = true/g' /etc/influxdb/influxdb.conf
-    - name: Restart influxdb Service
-      service:
-        name: influxdb
-        state: restarte
+<pre><code class="language-bash">grpcurl -d '{呼叫 method 的參數}' -import-path {proto 所在資料夾位置} -proto {proto 檔名} {gRPC-Server:port} {proto 檔中的 package name}.{service name}/{method name}
 </code></pre></li>
+
+<li><p>實際使用</p>
+
+<pre><code class="language-bash">grpcurl -d '{&quot;name&quot;:&quot;Yowko&quot;}' -import-path /Users/yowko.tsai/POCs/grpcurl/GrpcMessages/Protos -proto greet.proto localhost:5000 greet.Greeter/SayHello
+</code></pre></li>
+</ul>
+
+<h2 id="可能遇到的錯誤">可能遇到的錯誤</h2>
+
+<ol>
+<li><p>gRPC Service 未啟用 TLS</p>
+
+<ul>
+<li><p>錯誤訊息</p>
+
+<pre><code class="language-txt">Failed to dial target host &quot;localhost:5000&quot;: tls: first record does not look like a TLS handshake
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/76146403-65297780-60cd-11ea-8e6c-92d500d19249.png" alt="1error1" /></p></li>
+
+<li><p>解決方式</p>
+
+<blockquote>
+<p>使用 <code>-plaintext</code> 方式來呼叫 gRPC</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>參數格式錯誤</p>
+
+<ul>
+<li><p>錯誤訊息</p>
+
+<pre><code class="language-txt">Error invoking method &quot;greet.Greeter/SayHello&quot;: error getting request data: invalid character 'n' looking for beginning of object key string
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/76146404-678bd180-60cd-11ea-9dbc-9716c10d662f.png" alt="2error2" /></p></li>
+
+<li><p>解決方式</p>
+
+<blockquote>
+<p>重新檢視 <code>-d</code> 所傳遞參數需為 <code>json</code> 格式，且前後由 <code>''</code> 包覆</p>
+</blockquote></li>
+</ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>之前安裝測試時失敗了好幾次，主要是因為 InfluxDB 安裝後，服務啟動需要時間，Ansible 直接執行 http request 動作時會遇到 servive 尚未提供服務的問題，後來加上 InfluxDB 建立的 health check 確認之後就利完成本設定，最後修改 InfluxDB 的 auth 設定並重啟服務即可</p>
+<p>透過 <code>grpcurl</code> 工具就可以解決在沒有 gRPC gui 工具想要驗證 gRPC 內容的需求，而如同筆記一開始提過的 <code>grpcurl</code> 支援 gRPC 所有呼叫方式，也相對反應在 <code>grpcurl</code> 的參數上，可以設定的東西不少，不過很多參數我都沒有仔細了解，就是求個堪用、有辦法解決問題，或許慢慢再找時間試試透過 <code>grpcurl</code> 的各種呼叫方法與參數設定吧</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/ansible-install-influxdb/" target="_blank">使用 Ansible 安裝 InfluxDB</a></li>
-<li><a href="https://blog.yowko.com/ansible-when-http-status-code" target="_blank">Ansible 透過 Http Status Code 當做檢核條件</a></li>
-<li><a href="https://docs.influxdata.com/influxdb/v1.7/tools/api/" target="_blank">InfluxDB API reference</a></li>
+<li><a href="https://appimage.github.io/BloomRPC/" target="_blank">BloomRPC</a></li>
+<li><a href="https://github.com/fullstorydev/grpcurl" target="_blank">fullstorydev/grpcurl</a></li>
 </ol>
 
     </div>
@@ -351,7 +366,7 @@ influx1 ansible_host=192.168.1.101 ansible_port=22 ip=192.168.1.101  ansible_use
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-03-01</span>
+    <span class="item-content">2020-03-07</span>
   </p>
   
   <p class="copyright-item">
@@ -373,11 +388,11 @@ influx1 ansible_host=192.168.1.101 ansible_port=22 ip=192.168.1.101  ansible_use
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/ansible/">Ansible</a>
+            <a href="https://blog.yowko.com/tags/grpc/">gRPC</a>
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/influxdb/">InfluxDB</a>
+            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
           
         </div>
 
@@ -385,18 +400,11 @@ influx1 ansible_host=192.168.1.101 ansible_port=22 ip=192.168.1.101  ansible_use
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/grpcurl/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">使用 grpcurl 呼加 gRPC Service</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/ansible-install-influxdb/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/ansible-influxdb-create-user-database-rententionpolicy/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">使用 Ansible 安裝 InfluxDB</span>			
+            <span class="prev-text nav-default">使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy</span>			
           </a>
 		  </div>
       </nav>
@@ -407,7 +415,7 @@ influx1 ansible_host=192.168.1.101 ansible_port=22 ip=192.168.1.101  ansible_use
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/ansible-influxdb-create-user-database-rententionpolicy\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/grpcurl\/';  
       
     };
 
