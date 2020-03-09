@@ -1,5 +1,5 @@
 ---
-title: "使用 grpcurl 呼加 gRPC Service"
+title: "使用 grpcurl 呼叫 gRPC Service"
 date: 2020-03-7T12:30:00+08:00
 lastmod: 2020-03-07T12:30:31+08:00
 draft: false
@@ -7,7 +7,7 @@ tags: ["gRPC","Tools"]
 slug: "grpcurl"
 ---
 
-## 使用 grpcurl 呼加 gRPC Service
+## 使用 grpcurl 呼叫 gRPC Service
 
 一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call 時我就會透過 [BloomRPC](https://appimage.github.io/BloomRPC/) 這套 gui 工具來呼叫
 
