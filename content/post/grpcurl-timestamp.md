@@ -51,7 +51,7 @@ slug: "grpcurl-timestamp"
 1. 依 `timestamp` 定義指定：`seconds`,`nanos`
 
     ```bash
-    grpcurl -d '{"name":"Yowko","RequestTime":{"seconds":1583715969,"nanos":0}}' -plaintext -import-path /Users/yowko.tsai/POCs/DotnetCore3Jaeger/GrpcMessages/Protos -proto greet.proto localhost:5000 greet.Greeter/SayHello
+    grpcurl -d '{"name":"Yowko","RequestTime":{"seconds":1583715969,"nanos":0}}' -plaintext -import-path /Users/yowko.tsai/POCs/GrpcMessages/Protos -proto greet.proto localhost:5000 greet.Greeter/SayHello
     ```
 
 2. 錯誤訊息
@@ -87,7 +87,7 @@ slug: "grpcurl-timestamp"
 
 我覺得 `grpcurl` 的用法 (使用 `RFC 3339` 時間格式) 比較方便也相對直覺，只是因為之前主要使用 `bloomrpc` 的 `seconds`,`nanos` 設定方式而有的既定印象
 
-當時看到錯誤訊息：`json: cannot unmarshal object into Go value of type string` google 一些資料後一直沒找到正確解法，為了避免日後使用又遇到相同問題，簡單筆記一下
+當時看到錯誤訊息：`json: cannot unmarshal object into Go value of type string` google 一些資料後沒找到正確解法，為了避免日後使用又遇到相同問題，簡單筆記一下
 
 ## 參考資訊
 
