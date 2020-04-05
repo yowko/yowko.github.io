@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 09 Mar 2020 23:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 05 Apr 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>讓 Kafka 達成 Broadcast 效果</title>
+      <link>https://blog.yowko.com/kafka-broadcast-assign/</link>
+      <pubDate>Sun, 05 Apr 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kafka-broadcast-assign/</guid>
+      <description>讓 Kafka 達成 Broadcast 效果 Kafka 在處理訊息上主要是透過 Consumer GroupId + Topic + Partition 做為 Unique 的派送訊息基準，預設(未指定 Partition)下會由 Kafka 自行決定 Partition 在上述的原則下，如</description>
+    </item>
     
     <item>
       <title>使用 grpcurl 使用 Timestamp 參數呼叫 gRPC Service</title>
