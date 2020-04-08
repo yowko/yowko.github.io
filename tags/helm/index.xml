@@ -6,10 +6,19 @@
     <description>Recent content in Helm on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 29 Jan 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/helm/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 Helm 中依不同變數使用不同設定值</title>
+      <link>https://blog.yowko.com/helm-values-by-env/</link>
+      <pubDate>Wed, 08 Apr 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/helm-values-by-env/</guid>
+      <description>在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境</description>
+    </item>
     
     <item>
       <title>將 ConfigMap 做為 Helm volume mount 的來源</title>
