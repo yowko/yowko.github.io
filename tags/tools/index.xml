@@ -6,10 +6,19 @@
     <description>Recent content in Tools on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 09 Mar 2020 23:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/tools/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>取得 Consul 中的 Key/Value</title>
+      <link>https://blog.yowko.com/consul-kv-without-encoding/</link>
+      <pubDate>Sat, 11 Apr 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/consul-kv-without-encoding/</guid>
+      <description>取得 Consul 中的 kv 值 最近沒做什麼專案，大部份時間都在擔任 SRE，所以常常需要確認環境設定，因此打算簡單紀錄些平常工作用到的指令，避免每次急著要用時</description>
+    </item>
     
     <item>
       <title>使用 grpcurl 使用 Timestamp 參數呼叫 gRPC Service</title>

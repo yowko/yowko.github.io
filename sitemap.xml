@@ -3,6 +3,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/debian-container-install-dotnet-core-sdk/</loc>
+    <lastmod>2020-04-13T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/debian-container-broken-pipe/</loc>
+    <lastmod>2020-04-13T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/consul-kv-without-encoding/</loc>
+    <lastmod>2020-04-11T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/helm-values-by-env/</loc>
     <lastmod>2020-04-08T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -4013,8 +4034,15 @@
   </url>
   
   <url>
+    <loc>https://blog.yowko.com/tags/consul/</loc>
+    <lastmod>2020-04-11T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/tags/container/</loc>
-    <lastmod>2020-01-14T22:20:31+08:00</lastmod>
+    <lastmod>2020-04-13T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4217,7 +4245,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/linux/</loc>
-    <lastmod>2020-02-16T21:30:31+08:00</lastmod>
+    <lastmod>2020-04-13T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4385,7 +4413,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2020-04-08T21:30:31+08:00</lastmod>
+    <lastmod>2020-04-13T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4462,7 +4490,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/tools/</loc>
-    <lastmod>2020-03-10T08:30:31+08:00</lastmod>
+    <lastmod>2020-04-11T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4560,7 +4588,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2020-04-08T21:30:31+08:00</lastmod>
+    <lastmod>2020-04-13T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4609,7 +4637,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/dotnet-core/</loc>
-    <lastmod>2020-04-05T21:30:31+08:00</lastmod>
+    <lastmod>2020-04-13T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

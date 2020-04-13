@@ -59,7 +59,7 @@
 <meta property="og:description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.yowko.com/" />
-<meta property="og:updated_time" content="2020-02-08T21:30:00&#43;08:00"/>
+<meta property="og:updated_time" content="2020-02-14T21:30:00&#43;08:00"/>
 
 <meta itemprop="name" content="Yowko&#39;s Notes">
 <meta itemprop="description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教">
@@ -135,6 +135,72 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/ansible-install-redis/">使用 Ansible 安裝 Redis Replication</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-02-14 </span>
+      
+      <span class="more-meta"> 約 1074 字 </span>
+        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      使用 Ansible 安裝 Redis Replication 之前筆記 在 CentOS 7 上安裝 Redis Replication (Redis 5) 紀錄到使用單一 shell script 來安裝完整 Redis Replication (Master，Slave 與 Sentinell)，後來同事提到這類
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/ansible-install-redis/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/install-redis/">在 CentOS 7 上安裝 Redis Replication (Redis 5)</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-02-12 </span>
+      
+      <span class="more-meta"> 約 1693 字 </span>
+        <span class="more-meta"> 預計閱讀 4 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      在 CentOS 7 上安裝 Redis Replication (Redis 5) 之前筆記 安裝 Redis 時遇到的錯誤排除 紀錄到安裝 Redis Replication 時的幾個可能遇到的錯誤，經過數日小弟終於完成了初版可以一次安裝多個 Redis Replication 與 sentinel 的
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/install-redis/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/install-redis-error/">安裝 Redis 時遇到的錯誤排除</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-02-09 </span>
+      
+      <span class="more-meta"> 約 750 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      安裝 Redis 時遇到的錯誤排除 之前筆記 使用 Yum 安裝 Redis 5 提到最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，也才發現幾個 yum package 的版本差異與 epel、ius 兩個 yum repository 的相依
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/install-redis-error/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -395,72 +461,6 @@
     </div>
     <div class="read-more">
       <a href="https://blog.yowko.com/nexus-docker-image-rergistry/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/helm-init-could-not-find-ready-tiller/">解決 Helm init 時出現找不到 tiller pod 問題</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-12-26 </span>
-      
-      <span class="more-meta"> 約 556 字 </span>
-        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      解決 Helm init 時出現找不到 tiller pod 問題 這是在嘗試 Docker for Mac 上的 Kubernetes 與 Helm 時遇到的問題，成功版的安裝過程可以參考之前筆記 在Docker for Mac 啟用Kubernete
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/helm-init-could-not-find-ready-tiller/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/ios-private-domain/">讓 iOS 裝置可以存取自訂 domain</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-12-25 </span>
-      
-      <span class="more-meta"> 約 845 字 </span>
-        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      讓 iOS 裝置可以存取自訂 domain 近幾年行動裝置的瀏覽量佔比有愈來愈高的趨勢，身為 web 工程師也得朝著 mobile first 的方向做調整優化，所以在不同行動裝置上做測試也在
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/ios-private-domain/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/mac-access-container-ip-host/">從 mac 使用 Container Ip 直連</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-12-22 </span>
-      
-      <span class="more-meta"> 約 1054 字 </span>
-        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      從 mac 使用 Container Ip 直連 大約一年前開發環境從 Windows 轉換至 mac 後，開發上最痛苦的就是沒有 Visual Studio 可以用，痛苦指數第二高的我個人認為是 Docker for Mac 沒有 docker0 網卡 (這是已知的
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/mac-access-container-ip-host/" class="read-more-link">繼續閱讀</a>
     </div>
   </div>
 </article>
