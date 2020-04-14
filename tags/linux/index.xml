@@ -6,7 +6,7 @@
     <description>Recent content in Linux on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 13 Apr 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 13 Apr 2020 22:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>在 Debian container 中安裝 .NET Core SDK</title>
       <link>https://blog.yowko.com/debian-container-install-dotnet-core-sdk/</link>
-      <pubDate>Mon, 13 Apr 2020 21:30:00 +0800</pubDate>
+      <pubDate>Mon, 13 Apr 2020 22:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/debian-container-install-dotnet-core-sdk/</guid>
       <description>在 Debian container 中安裝 .NET Core SDK 之前筆記 在 Debian container 中無法成功註冊微軟金鑰 提到想要在 container 中利用 dotnet cli 做些測試，但經過 multi-stage builds 來建立 image 中只有 .NET Core runtime 沒有需要的 dotnet cli，所以</description>
