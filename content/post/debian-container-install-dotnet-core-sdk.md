@@ -1,7 +1,7 @@
 ---
 title: "在 Debian container 中安裝 .NET Core SDK"
-date: 2020-04-13T21:30:00+08:00
-lastmod: 2020-04-13T21:30:31+08:00
+date: 2020-04-13T22:30:00+08:00
+lastmod: 2020-04-13T22:30:31+08:00
 draft: false
 tags: ["Container","Linux","dotnet core"]
 slug: "debian-container-install-dotnet-core-sdk"
