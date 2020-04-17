@@ -58,15 +58,15 @@
 <meta property="og:description" content="如何在 windows 環境中使用指令來安裝程式 保哥在 Windows container 的課堂上考了我個問題：如果沒有 GUI 介面要如何安裝程式(e.g.更新 .NET Framework)，正確答案是" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/windows-silent-install/" /><meta property="article:published_time" content="2017-04-29T10:28:00&#43;08:00"/>
-<meta property="article:modified_time" content="2018-09-18T10:29:14&#43;08:00"/>
+<meta property="article:modified_time" content="2020-04-16T10:29:14&#43;08:00"/>
 
 <meta itemprop="name" content="如何在 windows 環境中使用指令來安裝程式">
 <meta itemprop="description" content="如何在 windows 環境中使用指令來安裝程式 保哥在 Windows container 的課堂上考了我個問題：如果沒有 GUI 介面要如何安裝程式(e.g.更新 .NET Framework)，正確答案是">
 
 
 <meta itemprop="datePublished" content="2017-04-29T10:28:00&#43;08:00" />
-<meta itemprop="dateModified" content="2018-09-18T10:29:14&#43;08:00" />
-<meta itemprop="wordCount" content="1957">
+<meta itemprop="dateModified" content="2020-04-16T10:29:14&#43;08:00" />
+<meta itemprop="wordCount" content="1958">
 
 
 
@@ -146,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2017-04-29 </span>
         
-        <span class="more-meta"> 約 1957 字 </span>
+        <span class="more-meta"> 約 1958 字 </span>
           <span class="more-meta"> 預計閱讀 4 分鐘 </span>
         
       </div>
@@ -160,14 +160,15 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#如何在-windows-環境中使用指令來安裝程式">如何在 windows 環境中使用指令來安裝程式</a>
+<li>
 <ul>
+<li><a href="#如何在-windows-環境中使用指令來安裝程式">如何在 windows 環境中使用指令來安裝程式</a></li>
 <li><a href="#參數說明">參數說明</a></li>
 <li><a href="#注意事項">注意事項</a></li>
 <li><a href="#實際使用">實際使用</a></li>
 <li><a href="#心得">心得</a></li>
-</ul></li>
 <li><a href="#參考資訊">參考資訊</a></li>
+</ul></li>
 </ul>
 </nav>
   </div>
@@ -180,7 +181,7 @@
     <div class="post-content">
       
 
-<h1 id="如何在-windows-環境中使用指令來安裝程式">如何在 windows 環境中使用指令來安裝程式</h1>
+<h2 id="如何在-windows-環境中使用指令來安裝程式">如何在 windows 環境中使用指令來安裝程式</h2>
 
 <p>保哥在 Windows container 的課堂上考了我個問題：如果沒有 GUI 介面要如何安裝程式(e.g.更新 .NET Framework)，正確答案是透過標準的 msi 檔安裝，而我只想到用 powershell 跟 chocolatey 安裝，查了資料發現實際上背景還是靠著 msiexec 的靜默模式</p>
 
@@ -290,7 +291,7 @@
 <li><p><code>/i</code>, <code>/x</code>, <code>/f[p|o|e|d|c|a|u|m|s|v]</code>, <code>/j[u|m]</code>, <code>/a</code>, <code>/p</code>, <code>/y</code> ,<code>/z</code> 不該同時使用</p>
 
 <blockquote>
-<p>例外：patch 管理安裝會同時使用 <code>/p</code>與<code>/</code></p>
+<p>例外：patch 管理安裝會同時使用 <code>/p</code>與<code>/a</code></p>
 </blockquote></li>
 
 <li><p><code>/t</code>, <code>/c</code>  <code>/g</code> 必需跟 <code>/j</code> 一起使用.</p></li>
@@ -312,7 +313,7 @@
 <li><p>指定屬性</p>
 
 <ul>
-<li>command line 屬性名稱都會被當做大寫處理，但實際屬性是區分大小寫的，詳細資訊可以參考 <a href="https://msdn.microsoft.com/zh-tw/library/windows/desktop/aa367437%28v=vs.85%29.aspx" target="_blank">About Properties</a></li>
+<li><p>command line 屬性名稱都會被當做大寫處理，但實際屬性是區分大小寫的，詳細資訊可以參考 <a href="https://msdn.microsoft.com/zh-tw/library/windows/desktop/aa367437%28v=vs.85%29.aspx" target="_blank">About Properties</a></p></li>
 
 <li><p>留意語法順序</p>
 
@@ -370,7 +371,7 @@
 
 <p>功能很多，尤其 advertise 跟 administrative 相關功能實在看不太懂XD，先紀錄一下以後用到時可以比較快上手就好, 如果有寫錯，請大家指教了</p>
 
-<h1 id="參考資訊">參考資訊</h1>
+<h2 id="參考資訊">參考資訊</h2>
 
 <ol>
 <li><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa367988%28v=vs.85%29.aspx" target="_blank">Command-Line Options</a></li>
@@ -386,7 +387,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-09-18</span>
+    <span class="item-content">2020-04-16</span>
   </p>
   
   <p class="copyright-item">
