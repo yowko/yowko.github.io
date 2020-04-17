@@ -1,20 +1,20 @@
 ---
 title: "如何在 windows 環境中使用指令來安裝程式"
 date: 2017-04-29T10:28:00+08:00
-lastmod: 2018-09-18T10:29:14+08:00
+lastmod: 2020-04-16T10:29:14+08:00
 draft: false
 tags: ["Tools","Windows"]
 slug: "windows-silent-install"
 aliases:
     - /2017/04/windows-silent-install.html
 ---
-# 如何在 windows 環境中使用指令來安裝程式
+## 如何在 windows 環境中使用指令來安裝程式
+
 保哥在 Windows container 的課堂上考了我個問題：如果沒有 GUI 介面要如何安裝程式(e.g.更新 .NET Framework)，正確答案是透過標準的 msi 檔安裝，而我只想到用 powershell 跟 chocolatey 安裝，查了資料發現實際上背景還是靠著 msiexec 的靜默模式
 
 既然不懂就來了解一下其中的用法吧
 
 ## 參數說明
-
 
 |Option|Parameters|Meaning|
 |--- |--- |--- |
@@ -33,69 +33,64 @@ aliases:
 |/c||宣傳產品的新執行個體. 必需跟`/t`一起使用. 這個選項從 Windows Server 2003 and Windows XP SP1 開始支援.|
 |/n|ProductCode|指定特定的產品執行個體.安裝產品多次可以利用產品代碼轉換來識別不同執行個體. 這個選項從 Windows Server 2003 and Windows XP SP1 開始支援.|
 
-
-
 ## 注意事項
 
-*   `/i`, `/x`, `/f[p|o|e|d|c|a|u|m|s|v]`, `/j[u|m]`, `/a`, `/p`, `/y` ,`/z` 不該同時使用
+* `/i`, `/x`, `/f[p|o|e|d|c|a|u|m|s|v]`, `/j[u|m]`, `/a`, `/p`, `/y` ,`/z` 不該同時使用
 
+    > 例外：patch 管理安裝會同時使用 `/p`與`/a`
 
-    > 例外：patch 管理安裝會同時使用 `/p`與`/`
-
-*   `/t`, `/c`  `/g` 必需跟 `/j` 一起使用.
-*   `/l` , `/q` 可以跟 `/i`, `/x`, `/f[p|o|e|d|c|a|u|m|s|v]`, `/j[u|m]`, `/a`, `/p` 一起使用
-*   `/n` 可以跟 `/i`, `/f`, `/x`,`/p`一起使用.
-
+* `/t`, `/c`  `/g` 必需跟 `/j` 一起使用.
+* `/l` , `/q` 可以跟 `/i`, `/x`, `/f[p|o|e|d|c|a|u|m|s|v]`, `/j[u|m]`, `/a`, `/p` 一起使用
+* `/n` 可以跟 `/i`, `/f`, `/x`,`/p`一起使用.
 
 ## 實際使用
 
-*   安裝
+* 安裝
 
     > `msiexec /i A:\Example.msi`
 
-*   指定屬性
+* 指定屬性
 
-    *   command line 屬性名稱都會被當做大寫處理，但實際屬性是區分大小寫的，詳細資訊可以參考 [About Properties](https://msdn.microsoft.com/zh-tw/library/windows/desktop/aa367437%28v=vs.85%29.aspx)
-    *   留意語法順序
+    * command line 屬性名稱都會被當做大寫處理，但實際屬性是區分大小寫的，詳細資訊可以參考 [About Properties](https://msdn.microsoft.com/zh-tw/library/windows/desktop/aa367437%28v=vs.85%29.aspx)
+    
+    * 留意語法順序
         
         > `msiexec /i A:\Example.msi PROPERTY=VALUE`
 
-    *   值有空格，請用`"`包
+    * 值有空格，請用`"`包
 
         > `msiexec /i A:\Example.msi PROPERTY="Embedded White Space"`
 
-    *   清除設定
-
+    * 清除設定
 
         > `msiexec /i A:\Example.msi PROPERTY=""`
 
-    *   如果值中有`"`，請再用 `""` 取代
-
+    * 如果值中有`"`，請再用 `""` 取代
 
         > `msiexec /i A:\Example.msi PROPERTY="Embedded ""Quotes"" White Space"`
 
-*  通知選項不分大小寫
+* 通知選項不分大小寫
 
     > `msiexec /JM msisample.msi /T transform.mst /LIME logfile.txt`
 
-*   支援多個安裝個體轉換
+* 支援多個安裝個體轉換
 
     > `msiexec /JM msisample.msi /T :instance1.mst;customization.mst /c /LIME logfile.txt`
 
-*   patch
+* patch
 
     > `msiexec /p msipatch.msp;msipatch2.msp /n {00000001-0002-0000-0000-624474736554} /qb`
 
-*  `/i` 與 `/p` 無法同時使用的做法
+* `/i` 與 `/p` 無法同時使用的做法
 
     > `msiexec /i A:\Example.msi PATCH=msipatch.msp;msipatch2.msp /qb`
 
-*   `/p` 與 `PATCH` 無法同時存在，`/p`會覆寫 `PATCH`
+* `/p` 與 `PATCH` 無法同時存在，`/p`會覆寫 `PATCH`
 
 ## 心得
 
 功能很多，尤其 advertise 跟 administrative 相關功能實在看不太懂XD，先紀錄一下以後用到時可以比較快上手就好, 如果有寫錯，請大家指教了
 
-# 參考資訊
+## 參考資訊
 
-1.  [Command-Line Options](https://msdn.microsoft.com/en-us/library/windows/desktop/aa367988%28v=vs.85%29.aspx)
+1. [Command-Line Options](https://msdn.microsoft.com/en-us/library/windows/desktop/aa367988%28v=vs.85%29.aspx)
