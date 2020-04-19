@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>EFK on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/efk/</link>
+    <description>Recent content in EFK on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 19 Apr 2020 21:30:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/efk/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>快速建立 EFK (Elasticsearch Fluentd Kibana) 環境</title>
+      <link>https://blog.yowko.com/docker-efk/</link>
+      <pubDate>Sun, 19 Apr 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-efk/</guid>
+      <description>快速建立 EFK (Elasticsearch Fluentd Kibana) 環境 在之前筆記 Fluentd 使用自定 Log 時間當做 Timestamp 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose (Elastic stack (ELK) on Docker)來快速建</description>
+    </item>
+    
+  </channel>
+</rss>
