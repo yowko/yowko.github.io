@@ -1,7 +1,7 @@
 ---
 title: "修改 Windows container 的預設 IP"
 date: 2017-09-03T23:06:00+08:00
-lastmod: 2017-09-03T23:06:20+08:00
+lastmod: 2020-05-02T23:06:20+08:00
 draft: false
 tags: ["docker","Windows Server 2016"]
 slug: "windows-container-ip-prefix"
@@ -30,39 +30,39 @@ aliases:
 
 > linux container 的修改方式請參考 [docker 無法連線至特定網段 (172.17.x.x)](https://blog.yowko.com/2017/09/docker-172-17-ip.html)
 
-1.  停止 docker service
+1. 停止 docker service
 
-    ```
+    ```ps1
     Stop-Service docker
     ```
 
-2.  刪除所有 container 網路設定
+2. 刪除所有 container 網路設定
 
-    ```
+    ```ps1
     Get-ContainerNetwork | Remove-ContainerNetwork -force
     ```
 
-3.  刪除 `NAT` (vSwitch 仍然保留)
+3. 刪除 `NAT` (vSwitch 仍然保留)
 
-    ```
+    ```ps1
     Get-NetNat | Remove-NetNat
     ```
 
-4.  建立新的 container 網路設定
+4. 建立新的 container 網路設定
 
-    ```
+    ```ps1
     New-ContainerNetwork –name yowkonat –Mode NAT –subnetprefix 192.168.1.0/24
     ```
 
     ![3newcontainernetwork](https://user-images.githubusercontent.com/3851540/30004098-7755c836-90fb-11e7-8b5a-b28530bd05c9.png)
 
-5.  重新啟動 docker service
+5. 重新啟動 docker service
 
-    ```
+    ```ps1
     Start-Service docker
     ```
 
-6.  實際效果
+6. 實際效果
 
     > 建立新的 container 後，已成功使用前面指定的 `192.168.1.*` ip
 

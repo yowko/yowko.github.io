@@ -21,60 +21,78 @@ slug: "fluentd-log-time"
     > 我只為了要本機方便開發測試，正式環境請勿這麼做。環境需要 elasticsearch + kibana，我懶得重頭開始架，就拿了 github 上的 docker-compose ([Elastic stack (ELK) on Docker](https://github.com/deviantony/docker-elk))來用
 
     ```yaml
-    version: '2'
+    version: '3.2'
 
     services:
-
-    elasticsearch:
+      elasticsearch:
         build:
-        context: elasticsearch/
-        args:
+          context: elasticsearch/
+          args:
             ELK_VERSION: $ELK_VERSION
         volumes:
-        - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+          - type: bind
+            source: ./elasticsearch/config/elasticsearch.yml
+            target: /usr/share/elasticsearch/config/elasticsearch.  yml
+            read_only: true
+          - type: volume
+            source: elasticsearch
+            target: /usr/share/elasticsearch/data
         ports:
-        - "9200:9200"
-        - "9300:9300"
+          - "9200:9200"
+          - "9300:9300"
         environment:
-        ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+          ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+          ELASTIC_PASSWORD: changeme
+          # Use single node discovery in order to disable   production mode and avoid bootstrap checks
+          # see https://www.elastic.co/guide/en/elasticsearch/  reference/current/bootstrap-checks.html
+          discovery.type: single-node
         networks:
-        - elk
-
-    logstash:
+          - elk
+    
+      logstash:
         build:
-        context: logstash/
-        args:
+          context: logstash/
+          args:
             ELK_VERSION: $ELK_VERSION
         volumes:
-        - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-        - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+          - type: bind
+            source: ./logstash/config/logstash.yml
+            target: /usr/share/logstash/config/logstash.yml
+            read_only: true
+          - type: bind
+            source: ./logstash/pipeline
+            target: /usr/share/logstash/pipeline
+            read_only: true
         ports:
-        - "5000:5000"
-        - "9600:9600"
+          - "5000:5000/tcp"
+          - "5000:5000/udp"
+          - "9600:9600"
         environment:
-        LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+          LS_JAVA_OPTS: "-Xmx256m -Xms256m"
         networks:
-        - elk
+          - elk
         depends_on:
-        - elasticsearch
-
-    kibana:
+          - elasticsearch
+    
+      kibana:
         build:
-        context: kibana/
-        args:
+          context: kibana/
+          args:
             ELK_VERSION: $ELK_VERSION
         volumes:
-        - ./kibana/config/:/usr/share/kibana/config:ro
+          - type: bind
+            source: ./kibana/config/kibana.yml
+            target: /usr/share/kibana/config/kibana.yml
+            read_only: true
         ports:
-        - "5601:5601"
+          - "5601:5601"
         networks:
-        - elk
+          - elk
         depends_on:
-        - elasticsearch
-
+          - elasticsearch
+    
     networks:
-
-    elk:
+      elk:
         driver: bridge
     ```
 
