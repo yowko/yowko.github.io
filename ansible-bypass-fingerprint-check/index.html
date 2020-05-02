@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>快速建立 EFK (Elasticsearch Fluentd Kibana) 環境 - Yowko&#39;s Notes</title>
+  <title>避免 Ansible 無法存取第一次登入的 Server - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境 在之前筆記 Fluentd 使用自定 Log 時間當做 Timestamp 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose (Elastic stack (ELK) on Docker)來快速建" />
+  <meta name="description" content="避免 Ansible 無法存取第一次登入的 Server 之前開始透過 Ansible 來安裝一組 server，原本想說腳本大致上也調得差不多了，結果新 server 一來，ansible playbook 所有 task 都沒" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/docker-efk/" />
+<link rel="canonical" href="https://blog.yowko.com/ansible-bypass-fingerprint-check/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境" />
-<meta property="og:description" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境 在之前筆記 Fluentd 使用自定 Log 時間當做 Timestamp 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose (Elastic stack (ELK) on Docker)來快速建" />
+<meta property="og:title" content="避免 Ansible 無法存取第一次登入的 Server" />
+<meta property="og:description" content="避免 Ansible 無法存取第一次登入的 Server 之前開始透過 Ansible 來安裝一組 server，原本想說腳本大致上也調得差不多了，結果新 server 一來，ansible playbook 所有 task 都沒" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/docker-efk/" /><meta property="article:published_time" content="2020-04-19T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-04-19T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/ansible-bypass-fingerprint-check/" /><meta property="article:published_time" content="2020-04-25T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-04-25T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境">
-<meta itemprop="description" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境 在之前筆記 Fluentd 使用自定 Log 時間當做 Timestamp 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose (Elastic stack (ELK) on Docker)來快速建">
-
-
-<meta itemprop="datePublished" content="2020-04-19T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-04-19T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="603">
+<meta itemprop="name" content="避免 Ansible 無法存取第一次登入的 Server">
+<meta itemprop="description" content="避免 Ansible 無法存取第一次登入的 Server 之前開始透過 Ansible 來安裝一組 server，原本想說腳本大致上也調得差不多了，結果新 server 一來，ansible playbook 所有 task 都沒">
 
 
+<meta itemprop="datePublished" content="2020-04-25T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-04-25T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="417">
 
-<meta itemprop="keywords" content="EFK,Tools," />
+
+
+<meta itemprop="keywords" content="Ansible,Linux," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境"/>
-<meta name="twitter:description" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境 在之前筆記 Fluentd 使用自定 Log 時間當做 Timestamp 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose (Elastic stack (ELK) on Docker)來快速建"/>
+<meta name="twitter:title" content="避免 Ansible 無法存取第一次登入的 Server"/>
+<meta name="twitter:description" content="避免 Ansible 無法存取第一次登入的 Server 之前開始透過 Ansible 來安裝一組 server，原本想說腳本大致上也調得差不多了，結果新 server 一來，ansible playbook 所有 task 都沒"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,10 +144,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-04-19 </span>
+        <span class="post-time"> 2020-04-25 </span>
         
-        <span class="more-meta"> 約 603 字 </span>
-          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        <span class="more-meta"> 約 417 字 </span>
+          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
     </header>
@@ -162,9 +162,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#快速建立-efk-elasticsearch-fluentd-kibana-環境">快速建立 EFK (Elasticsearch Fluentd Kibana) 環境</a></li>
+<li><a href="#避免-ansible-無法存取第一次登入的-server">避免 Ansible 無法存取第一次登入的 Server</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#使用方式">使用方式</a></li>
+<li><a href="#錯誤訊息">錯誤訊息</a></li>
+<li><a href="#設定方式">設定方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,152 +181,54 @@
     <div class="post-content">
       
 
-<h2 id="快速建立-efk-elasticsearch-fluentd-kibana-環境">快速建立 EFK (Elasticsearch Fluentd Kibana) 環境</h2>
+<h2 id="避免-ansible-無法存取第一次登入的-server">避免 Ansible 無法存取第一次登入的 Server</h2>
 
-<p>在之前筆記 <a href="https://blog.yowko.com/fluentd-log-time/" target="_blank">Fluentd 使用自定 Log 時間當做 Timestamp</a> 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose (<a href="https://github.com/deviantony/docker-elk" target="_blank">Elastic stack (ELK) on Docker</a>)來快速建立整個環境，這幾天有個 issue 需要 debug log parser rule 的問題，發現透過這樣的方式還是相當不便利，所以我來改個版</p>
+<p>之前開始透過 Ansible 來安裝一組 server，原本想說腳本大致上也調得差不多了，結果新 server 一來，ansible playbook 所有 task 都沒執行成功，仔細看了錯誤訊息，發現是 ssh 檢查遠端 server 的 fingerprint，未嘗登入過的就需要先手動允許連線，但 server 數量眾多，一一手動允許登入不切實際也不符合成本效益，更有違自動化的原則，所以查了資料，簡單備忘一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Catalina 10.15.4</li>
-<li>docker desktop community 2.2.0.5(43884)</li>
-
-<li><p>docker images</p>
-
-<ul>
-<li>elasticsearch:7.6.2</li>
-<li>kibana:7.6.2</li>
-
-<li><p>yowko/fluentd-elasticsearch:1.0.0</p>
-
-<blockquote>
-<p>詳細建立步驟請參考之前筆記 <a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a></p>
-</blockquote></li>
-</ul></li>
+<li>Azure VM - CentOS 7.7 標準 B2s (2 vcpu，4 GiB 記憶體)</li>
 </ol>
 
-<h2 id="使用方式">使用方式</h2>
-
-<blockquote>
-<p>大致結構還是參考 <a href="https://github.com/deviantony/docker-elk" target="_blank">Elastic stack (ELK) on Docker</a>，但預設移除 x-pack</p>
-</blockquote>
+<h2 id="錯誤訊息">錯誤訊息</h2>
 
 <ol>
-<li><p>各 service 設定檔</p>
+<li><p>訊息內容</p>
+
+<pre><code class="language-bash">fatal: [server1]: FAILED! =&gt; {&quot;msg&quot;: &quot;Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host's fingerprint to your known_hosts file to manage this host.&quot;}
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/80284177-7a2a9a80-874f-11ea-8abc-6ce758adf945.jpg" alt="1error" /></p></li>
+</ol>
 
 <ul>
-<li><p>./config/elasticsearch.yml</p>
+<li><p>直接使用 ssh 連線的提示</p>
 
-<pre><code class="language-yml">---
-cluster.name: &quot;docker-cluster&quot;
-network.host: 0.0.0.0
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/80284180-7d258b00-874f-11ea-9f93-043b9ba0753f.jpg" alt="2sshhint" /></p></li>
+</ul>
 
-<li><p>./config/fluent.conf</p>
-
-<pre><code class="language-config"># Input
-&lt;source&gt;
-    @type http
-    port 8888
-&lt;/source&gt;
-&lt;source&gt;
-    @type forward
-    port 24224
-&lt;/source&gt;
-# Output
-&lt;match *.**&gt;
-    @type elasticsearch
-    host 192.168.50.97
-    port 9200
-    logstash_format true
-&lt;/match&gt;
-</code></pre></li>
-
-<li><p>./config/kibana.yml</p>
-
-<pre><code class="language-yml">---
-server.name: kibana
-server.host: &quot;0&quot;
-elasticsearch.hosts: [ &quot;http://elasticsearch:9200&quot; ]
-</code></pre></li>
-</ul></li>
-
-<li><p>準備 ./dock-compose.yml</p>
-
-<pre><code class="language-yml">version: '3.2'
-
-services:
-  elasticsearch:
-    image: elasticsearch:7.6.2
-    volumes:
-      - type: bind
-        source: ./config/elasticsearch.yml
-        target: /usr/share/elasticsearch/config/elasticsearch.yml
-        read_only: true
-    ports:
-      - &quot;9200:9200&quot;
-      - &quot;9300:9300&quot;
-    environment:
-      ES_JAVA_OPTS: &quot;-Xmx256m -Xms256m&quot;
-      ELASTIC_PASSWORD: changeme
-      discovery.type: single-node
-    networks:
-      - elk
-
-  fluentd:
-    image: yowko/fluentd-elasticsearch:1.0.0
-    volumes:
-      - type: bind
-        source: ./config/fluent.conf
-        target: /fluentd/etc/fluent.conf
-    ports:
-      - &quot;24224:24224/tcp&quot;
-      - &quot;24224:24224/udp&quot;
-      - &quot;8888:8888&quot;
-    networks:
-      - elk
-    depends_on:
-      - elasticsearch
-
-  kibana:
-    image: kibana:7.6.2
-    volumes:
-      - type: bind
-        source: ./config/kibana.yml
-        target: /usr/share/kibana/config/kibana.yml
-        read_only: true
-    ports:
-      - &quot;5601:5601&quot;
-    networks:
-      - elk
-    depends_on:
-      - elasticsearch
-
-networks:
-  elk:
-    driver: bridge
-</code></pre></li>
-
-<li><p>使用 docker-compose 啟動 efk</p>
+<h2 id="設定方式">設定方式</h2>
 
 <blockquote>
-<p><code>--remove-orphans</code> 用來刪除不再存在 compose 中的資源，可加可不加</p>
+<p>設定 <code>ansible.cfg</code> 加入以下設定</p>
 </blockquote>
 
-<pre><code class="language-bash">docker-compose -f docker-compose.yml up -d --remove-orphans
-</code></pre></li>
-</ol>
+<pre><code class="language-txt">[defaults]
+host_key_checking = False
+</code></pre>
 
 <h2 id="心得">心得</h2>
 
-<p>剛接到任務要除錯時，想說我有筆記應該可以很快把環境建起來，沒想到照著筆記還是讓我卡了好一下，這才發現之前原來我是 clone 整個官方的 git repository 回來用，我現在會覺得這樣的 dependency 太重而放棄這麼做(clone 整個 repo 回來)，這才發現原來過去我沒有這種感覺XD - 我的立場：明明只是要起個環境，又不是想了解完整內容，還大費周章 clone 整個 repo，實在很沒必要，我只想專注在 debug 我遇到的問題，環境的設定步驟愈少愈好，也就順手紀錄一下，下次應該就可以更快速地建出環境了吧XD</p>
+<p>看到解決方式後  我立馬知道就是我自己沒有花時間搞清楚 Ansible 的設定方式，雖然我也知道略過官方文件直接動手不是個好做法：常常會以自己的理解弄出非正統的方式，但有時候就是沒那麼多時間耐住性子完整看完文件，可能就是因為我這個壞習慣才無法成為獨當一面的大師吧</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/fluentd-log-time/" target="_blank">Fluentd 使用自定 Log 時間當做 Timestamp</a></li>
-<li><a href="https://github.com/deviantony/docker-elk" target="_blank">Elastic stack (ELK) on Docker</a></li>
-<li><a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a></li>
+<li><a href="https://stackoverflow.com/questions/32297456/how-to-ignore-ansible-ssh-authenticity-checking" target="_blank">How to ignore ansible SSH authenticity checking?</a></li>
 </ol>
 
     </div>
@@ -338,7 +241,7 @@ networks:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-04-19</span>
+    <span class="item-content">2020-04-25</span>
   </p>
   
   <p class="copyright-item">
@@ -360,11 +263,11 @@ networks:
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/efk/">EFK</a>
+            <a href="https://blog.yowko.com/tags/ansible/">Ansible</a>
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
+            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
           
         </div>
 
@@ -372,18 +275,18 @@ networks:
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/ansible-bypass-fingerprint-check/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/fluentd-elasticsearch-index-name/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">避免 Ansible 無法存取第一次登入的 Server</span>			
+            <span class="next-text nav-default">Fluentd 指定 Elasticsearch Index 名稱</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/debian-container-install-dotnet-core-sdk/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/docker-efk/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">在 Debian container 中安裝 .NET Core SDK</span>			
+            <span class="prev-text nav-default">快速建立 EFK (Elasticsearch Fluentd Kibana) 環境</span>			
           </a>
 		  </div>
       </nav>
@@ -394,7 +297,7 @@ networks:
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/docker-efk\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/ansible-bypass-fingerprint-check\/';  
       
     };
 

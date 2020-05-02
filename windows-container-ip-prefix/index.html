@@ -58,14 +58,14 @@
 <meta property="og:description" content="之前文章 docker 無法連線至特定網段 (172.17.x.x) 分享了 docker 的 linux container bridge 會將特定 IP (172.17..) 的 request 導向 container 內部而造成無法存取特定 IP (172.17..) 問題，也介紹如何修改預設分配 IP 規則避免出現 172.17.. 的" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/windows-container-ip-prefix/" /><meta property="article:published_time" content="2017-09-03T23:06:00&#43;08:00"/>
-<meta property="article:modified_time" content="2017-09-03T23:06:20&#43;08:00"/>
+<meta property="article:modified_time" content="2020-05-02T23:06:20&#43;08:00"/>
 
 <meta itemprop="name" content="修改 Windows container 的預設 IP">
 <meta itemprop="description" content="之前文章 docker 無法連線至特定網段 (172.17.x.x) 分享了 docker 的 linux container bridge 會將特定 IP (172.17..) 的 request 導向 container 內部而造成無法存取特定 IP (172.17..) 問題，也介紹如何修改預設分配 IP 規則避免出現 172.17.. 的">
 
 
 <meta itemprop="datePublished" content="2017-09-03T23:06:00&#43;08:00" />
-<meta itemprop="dateModified" content="2017-09-03T23:06:20&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-02T23:06:20&#43;08:00" />
 <meta itemprop="wordCount" content="498">
 
 
@@ -212,29 +212,29 @@
 <ol>
 <li><p>停止 docker service</p>
 
-<pre><code>Stop-Service docker
+<pre><code class="language-ps1">Stop-Service docker
 </code></pre></li>
 
 <li><p>刪除所有 container 網路設定</p>
 
-<pre><code>Get-ContainerNetwork | Remove-ContainerNetwork -force
+<pre><code class="language-ps1">Get-ContainerNetwork | Remove-ContainerNetwork -force
 </code></pre></li>
 
 <li><p>刪除 <code>NAT</code> (vSwitch 仍然保留)</p>
 
-<pre><code>Get-NetNat | Remove-NetNat
+<pre><code class="language-ps1">Get-NetNat | Remove-NetNat
 </code></pre></li>
 
 <li><p>建立新的 container 網路設定</p>
 
-<pre><code>New-ContainerNetwork –name yowkonat –Mode NAT –subnetprefix 192.168.1.0/24
+<pre><code class="language-ps1">New-ContainerNetwork –name yowkonat –Mode NAT –subnetprefix 192.168.1.0/24
 </code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/30004098-7755c836-90fb-11e7-8b5a-b28530bd05c9.png" alt="3newcontainernetwork" /></p></li>
 
 <li><p>重新啟動 docker service</p>
 
-<pre><code>Start-Service docker
+<pre><code class="language-ps1">Start-Service docker
 </code></pre></li>
 
 <li><p>實際效果</p>
@@ -270,7 +270,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2017-09-03</span>
+    <span class="item-content">2020-05-02</span>
   </p>
   
   <p class="copyright-item">

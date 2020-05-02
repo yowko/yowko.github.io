@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 19 Apr 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 30 Apr 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Fluentd 指定 Elasticsearch Index 名稱</title>
+      <link>https://blog.yowko.com/fluentd-elasticsearch-index-name/</link>
+      <pubDate>Thu, 30 Apr 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/fluentd-elasticsearch-index-name/</guid>
+      <description>Fluentd 指定 Elasticsearch Index 名稱 最近在 debug Fluentd parser 時老是覺得 log 沒進到 Elasticsearch，後來索性把預設的 index 換掉，至少一眼就看得出來 index 有沒有被建立起來 - Fluentd 是不</description>
+    </item>
+    
+    <item>
+      <title>避免 Ansible 無法存取第一次登入的 Server</title>
+      <link>https://blog.yowko.com/ansible-bypass-fingerprint-check/</link>
+      <pubDate>Sat, 25 Apr 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ansible-bypass-fingerprint-check/</guid>
+      <description>避免 Ansible 無法存取第一次登入的 Server 之前開始透過 Ansible 來安裝一組 server，原本想說腳本大致上也調得差不多了，結果新 server 一來，ansible playbook 所有 task 都沒</description>
+    </item>
     
     <item>
       <title>快速建立 EFK (Elasticsearch Fluentd Kibana) 環境</title>

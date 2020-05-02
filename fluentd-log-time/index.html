@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2019-05-04T21:30:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-09-10T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="1415">
+<meta itemprop="wordCount" content="1476">
 
 
 
@@ -146,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-05-04 </span>
         
-        <span class="more-meta"> 約 1415 字 </span>
+        <span class="more-meta"> 約 1476 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -200,60 +200,78 @@
 <p>我只為了要本機方便開發測試，正式環境請勿這麼做。環境需要 elasticsearch + kibana，我懶得重頭開始架，就拿了 github 上的 docker-compose (<a href="https://github.com/deviantony/docker-elk" target="_blank">Elastic stack (ELK) on Docker</a>)來用</p>
 </blockquote>
 
-<pre><code class="language-yaml">version: '2'
+<pre><code class="language-yaml">version: '3.2'
 
 services:
-
-elasticsearch:
+  elasticsearch:
     build:
-    context: elasticsearch/
-    args:
+      context: elasticsearch/
+      args:
         ELK_VERSION: $ELK_VERSION
     volumes:
-    - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - type: bind
+        source: ./elasticsearch/config/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.  yml
+        read_only: true
+      - type: volume
+        source: elasticsearch
+        target: /usr/share/elasticsearch/data
     ports:
-    - &quot;9200:9200&quot;
-    - &quot;9300:9300&quot;
+      - &quot;9200:9200&quot;
+      - &quot;9300:9300&quot;
     environment:
-    ES_JAVA_OPTS: &quot;-Xmx256m -Xms256m&quot;
+      ES_JAVA_OPTS: &quot;-Xmx256m -Xms256m&quot;
+      ELASTIC_PASSWORD: changeme
+      # Use single node discovery in order to disable   production mode and avoid bootstrap checks
+      # see https://www.elastic.co/guide/en/elasticsearch/  reference/current/bootstrap-checks.html
+      discovery.type: single-node
     networks:
-    - elk
-
-logstash:
+      - elk
+    
+  logstash:
     build:
-    context: logstash/
-    args:
+      context: logstash/
+      args:
         ELK_VERSION: $ELK_VERSION
     volumes:
-    - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-    - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+      - type: bind
+        source: ./logstash/config/logstash.yml
+        target: /usr/share/logstash/config/logstash.yml
+        read_only: true
+      - type: bind
+        source: ./logstash/pipeline
+        target: /usr/share/logstash/pipeline
+        read_only: true
     ports:
-    - &quot;5000:5000&quot;
-    - &quot;9600:9600&quot;
+      - &quot;5000:5000/tcp&quot;
+      - &quot;5000:5000/udp&quot;
+      - &quot;9600:9600&quot;
     environment:
-    LS_JAVA_OPTS: &quot;-Xmx256m -Xms256m&quot;
+      LS_JAVA_OPTS: &quot;-Xmx256m -Xms256m&quot;
     networks:
-    - elk
+      - elk
     depends_on:
-    - elasticsearch
-
-kibana:
+      - elasticsearch
+    
+  kibana:
     build:
-    context: kibana/
-    args:
+      context: kibana/
+      args:
         ELK_VERSION: $ELK_VERSION
     volumes:
-    - ./kibana/config/:/usr/share/kibana/config:ro
+      - type: bind
+        source: ./kibana/config/kibana.yml
+        target: /usr/share/kibana/config/kibana.yml
+        read_only: true
     ports:
-    - &quot;5601:5601&quot;
+      - &quot;5601:5601&quot;
     networks:
-    - elk
+      - elk
     depends_on:
-    - elasticsearch
-
+      - elasticsearch
+    
 networks:
-
-elk:
+  elk:
     driver: bridge
 </code></pre></li>
 

@@ -6,10 +6,19 @@
     <description>Recent content in Linux on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 13 Apr 2020 22:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 25 Apr 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>避免 Ansible 無法存取第一次登入的 Server</title>
+      <link>https://blog.yowko.com/ansible-bypass-fingerprint-check/</link>
+      <pubDate>Sat, 25 Apr 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ansible-bypass-fingerprint-check/</guid>
+      <description>避免 Ansible 無法存取第一次登入的 Server 之前開始透過 Ansible 來安裝一組 server，原本想說腳本大致上也調得差不多了，結果新 server 一來，ansible playbook 所有 task 都沒</description>
+    </item>
     
     <item>
       <title>在 Debian container 中安裝 .NET Core SDK</title>

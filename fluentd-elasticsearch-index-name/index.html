@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>快速建立 EFK (Elasticsearch Fluentd Kibana) 環境 - Yowko&#39;s Notes</title>
+  <title>Fluentd 指定 Elasticsearch Index 名稱 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境 在之前筆記 Fluentd 使用自定 Log 時間當做 Timestamp 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose (Elastic stack (ELK) on Docker)來快速建" />
+  <meta name="description" content="Fluentd 指定 Elasticsearch Index 名稱 最近在 debug Fluentd parser 時老是覺得 log 沒進到 Elasticsearch，後來索性把預設的 index 換掉，至少一眼就看得出來 index 有沒有被建立起來 - Fluentd 是不" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/docker-efk/" />
+<link rel="canonical" href="https://blog.yowko.com/fluentd-elasticsearch-index-name/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境" />
-<meta property="og:description" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境 在之前筆記 Fluentd 使用自定 Log 時間當做 Timestamp 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose (Elastic stack (ELK) on Docker)來快速建" />
+<meta property="og:title" content="Fluentd 指定 Elasticsearch Index 名稱" />
+<meta property="og:description" content="Fluentd 指定 Elasticsearch Index 名稱 最近在 debug Fluentd parser 時老是覺得 log 沒進到 Elasticsearch，後來索性把預設的 index 換掉，至少一眼就看得出來 index 有沒有被建立起來 - Fluentd 是不" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/docker-efk/" /><meta property="article:published_time" content="2020-04-19T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-04-19T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/fluentd-elasticsearch-index-name/" /><meta property="article:published_time" content="2020-04-30T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-05-02T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境">
-<meta itemprop="description" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境 在之前筆記 Fluentd 使用自定 Log 時間當做 Timestamp 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose (Elastic stack (ELK) on Docker)來快速建">
+<meta itemprop="name" content="Fluentd 指定 Elasticsearch Index 名稱">
+<meta itemprop="description" content="Fluentd 指定 Elasticsearch Index 名稱 最近在 debug Fluentd parser 時老是覺得 log 沒進到 Elasticsearch，後來索性把預設的 index 換掉，至少一眼就看得出來 index 有沒有被建立起來 - Fluentd 是不">
 
 
-<meta itemprop="datePublished" content="2020-04-19T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-04-19T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="603">
+<meta itemprop="datePublished" content="2020-04-30T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-02T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="280">
 
 
 
 <meta itemprop="keywords" content="EFK,Tools," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境"/>
-<meta name="twitter:description" content="快速建立 EFK (Elasticsearch Fluentd Kibana) 環境 在之前筆記 Fluentd 使用自定 Log 時間當做 Timestamp 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose (Elastic stack (ELK) on Docker)來快速建"/>
+<meta name="twitter:title" content="Fluentd 指定 Elasticsearch Index 名稱"/>
+<meta name="twitter:description" content="Fluentd 指定 Elasticsearch Index 名稱 最近在 debug Fluentd parser 時老是覺得 log 沒進到 Elasticsearch，後來索性把預設的 index 換掉，至少一眼就看得出來 index 有沒有被建立起來 - Fluentd 是不"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,10 +144,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-04-19 </span>
+        <span class="post-time"> 2020-04-30 </span>
         
-        <span class="more-meta"> 約 603 字 </span>
-          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        <span class="more-meta"> 約 280 字 </span>
+          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
     </header>
@@ -162,9 +162,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#快速建立-efk-elasticsearch-fluentd-kibana-環境">快速建立 EFK (Elasticsearch Fluentd Kibana) 環境</a></li>
+<li><a href="#fluentd-指定-elasticsearch-index-名稱">Fluentd 指定 Elasticsearch Index 名稱</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#使用方式">使用方式</a></li>
+<li><a href="#目前狀況">目前狀況</a></li>
+<li><a href="#調整方式">調整方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,9 +181,9 @@
     <div class="post-content">
       
 
-<h2 id="快速建立-efk-elasticsearch-fluentd-kibana-環境">快速建立 EFK (Elasticsearch Fluentd Kibana) 環境</h2>
+<h2 id="fluentd-指定-elasticsearch-index-名稱">Fluentd 指定 Elasticsearch Index 名稱</h2>
 
-<p>在之前筆記 <a href="https://blog.yowko.com/fluentd-log-time/" target="_blank">Fluentd 使用自定 Log 時間當做 Timestamp</a> 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose (<a href="https://github.com/deviantony/docker-elk" target="_blank">Elastic stack (ELK) on Docker</a>)來快速建立整個環境，這幾天有個 issue 需要 debug log parser rule 的問題，發現透過這樣的方式還是相當不便利，所以我來改個版</p>
+<p>最近在 debug Fluentd parser 時老是覺得 log 沒進到 Elasticsearch，後來索性把預設的 index 換掉，至少一眼就看得出來 index 有沒有被建立起來 - Fluentd 是不是正常運作中</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -192,48 +193,43 @@
 
 <li><p>docker images</p>
 
+<blockquote>
+<p>詳細資訊可以參考之前筆記 <a href="https://blog.yowko.com/docker-efk" target="_blank">快速建立 EFK (Elasticsearch Fluentd Kibana) 環境</a></p>
+</blockquote>
+
 <ul>
 <li>elasticsearch:7.6.2</li>
 <li>kibana:7.6.2</li>
-
-<li><p>yowko/fluentd-elasticsearch:1.0.0</p>
-
-<blockquote>
-<p>詳細建立步驟請參考之前筆記 <a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a></p>
-</blockquote></li>
+<li>yowko/fluentd-elasticsearch:1.0.0</li>
 </ul></li>
 </ol>
 
-<h2 id="使用方式">使用方式</h2>
-
-<blockquote>
-<p>大致結構還是參考 <a href="https://github.com/deviantony/docker-elk" target="_blank">Elastic stack (ELK) on Docker</a>，但預設移除 x-pack</p>
-</blockquote>
-
-<ol>
-<li><p>各 service 設定檔</p>
+<h2 id="目前狀況">目前狀況</h2>
 
 <ul>
-<li><p>./config/elasticsearch.yml</p>
+<li><p>啟用 logstash_format</p>
 
-<pre><code class="language-yml">---
-cluster.name: &quot;docker-cluster&quot;
-network.host: 0.0.0.0
+<pre><code class="language-txt">logstash_format true
 </code></pre></li>
 
-<li><p>./config/fluent.conf</p>
+<li><p>Fluentd 預設會使用 <code>logstash-%Y.%m.%d</code> 做為 index name</p>
 
-<pre><code class="language-config"># Input
-&lt;source&gt;
-    @type http
-    port 8888
-&lt;/source&gt;
-&lt;source&gt;
-    @type forward
-    port 24224
-&lt;/source&gt;
-# Output
-&lt;match *.**&gt;
+<blockquote>
+<p>會覆寫 <code>index_name</code> 設定</p>
+</blockquote>
+
+<p>![1logformat]()</p></li>
+</ul>
+
+<h2 id="調整方式">調整方式</h2>
+
+<ol>
+<li><p>方法一： <code>logstash_format</code> 搭配 <code>logstash_prefix</code></p>
+
+<ul>
+<li><p>設定內容</p>
+
+<pre><code class="language-txt">&lt;match *.**&gt;
     @type elasticsearch
     host 192.168.50.97
     port 9200
@@ -241,91 +237,39 @@ network.host: 0.0.0.0
 &lt;/match&gt;
 </code></pre></li>
 
-<li><p>./config/kibana.yml</p>
+<li><p>實際效果</p>
 
-<pre><code class="language-yml">---
-server.name: kibana
-server.host: &quot;0&quot;
-elasticsearch.hosts: [ &quot;http://elasticsearch:9200&quot; ]
-</code></pre></li>
+<p>![2logstashprefix]()</p></li>
 </ul></li>
 
-<li><p>準備 ./dock-compose.yml</p>
+<li><p>方法二： 使用 <code>index_name</code></p>
 
-<pre><code class="language-yml">version: '3.2'
+<ul>
+<li><p>設定內容</p>
 
-services:
-  elasticsearch:
-    image: elasticsearch:7.6.2
-    volumes:
-      - type: bind
-        source: ./config/elasticsearch.yml
-        target: /usr/share/elasticsearch/config/elasticsearch.yml
-        read_only: true
-    ports:
-      - &quot;9200:9200&quot;
-      - &quot;9300:9300&quot;
-    environment:
-      ES_JAVA_OPTS: &quot;-Xmx256m -Xms256m&quot;
-      ELASTIC_PASSWORD: changeme
-      discovery.type: single-node
-    networks:
-      - elk
-
-  fluentd:
-    image: yowko/fluentd-elasticsearch:1.0.0
-    volumes:
-      - type: bind
-        source: ./config/fluent.conf
-        target: /fluentd/etc/fluent.conf
-    ports:
-      - &quot;24224:24224/tcp&quot;
-      - &quot;24224:24224/udp&quot;
-      - &quot;8888:8888&quot;
-    networks:
-      - elk
-    depends_on:
-      - elasticsearch
-
-  kibana:
-    image: kibana:7.6.2
-    volumes:
-      - type: bind
-        source: ./config/kibana.yml
-        target: /usr/share/kibana/config/kibana.yml
-        read_only: true
-    ports:
-      - &quot;5601:5601&quot;
-    networks:
-      - elk
-    depends_on:
-      - elasticsearch
-
-networks:
-  elk:
-    driver: bridge
+<pre><code class="language-txt">&lt;match *.**&gt;
+    @type elasticsearch
+    host 192.168.50.97
+    port 9200
+    index_name yowkotest
+&lt;/match&gt;
 </code></pre></li>
 
-<li><p>使用 docker-compose 啟動 efk</p>
+<li><p>實際效果</p>
 
-<blockquote>
-<p><code>--remove-orphans</code> 用來刪除不再存在 compose 中的資源，可加可不加</p>
-</blockquote>
-
-<pre><code class="language-bash">docker-compose -f docker-compose.yml up -d --remove-orphans
-</code></pre></li>
+<p>![3indexname]()</p></li>
+</ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>剛接到任務要除錯時，想說我有筆記應該可以很快把環境建起來，沒想到照著筆記還是讓我卡了好一下，這才發現之前原來我是 clone 整個官方的 git repository 回來用，我現在會覺得這樣的 dependency 太重而放棄這麼做(clone 整個 repo 回來)，這才發現原來過去我沒有這種感覺XD - 我的立場：明明只是要起個環境，又不是想了解完整內容，還大費周章 clone 整個 repo，實在很沒必要，我只想專注在 debug 我遇到的問題，環境的設定步驟愈少愈好，也就順手紀錄一下，下次應該就可以更快速地建出環境了吧XD</p>
+<p>雖然只是小小設定，但每次忘記都要重新查資料也滿花時間的，趁著這次機會簡單筆記一下，加深印象，之後忘記要找資料也可以比較快囉</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/fluentd-log-time/" target="_blank">Fluentd 使用自定 Log 時間當做 Timestamp</a></li>
-<li><a href="https://github.com/deviantony/docker-elk" target="_blank">Elastic stack (ELK) on Docker</a></li>
-<li><a href="https://blog.yowko.com/fluentd-elasticsearch-docker/" target="_blank">Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image</a></li>
+<li><a href="https://blog.yowko.com/docker-efk" target="_blank">快速建立 EFK (Elasticsearch Fluentd Kibana) 環境</a></li>
+<li><a href="https://docs.fluentd.org/output/elasticsearch#parameters" target="_blank">elasticsearch</a></li>
 </ol>
 
     </div>
@@ -338,7 +282,7 @@ networks:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-04-19</span>
+    <span class="item-content">2020-05-02</span>
   </p>
   
   <p class="copyright-item">
@@ -372,18 +316,11 @@ networks:
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/ansible-bypass-fingerprint-check/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">避免 Ansible 無法存取第一次登入的 Server</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/debian-container-install-dotnet-core-sdk/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/ansible-bypass-fingerprint-check/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">在 Debian container 中安裝 .NET Core SDK</span>			
+            <span class="prev-text nav-default">避免 Ansible 無法存取第一次登入的 Server</span>			
           </a>
 		  </div>
       </nav>
@@ -394,7 +331,7 @@ networks:
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/docker-efk\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/fluentd-elasticsearch-index-name\/';  
       
     };
 
