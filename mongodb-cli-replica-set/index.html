@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Fluentd 指定 Elasticsearch Index 名稱 - Yowko&#39;s Notes</title>
+  <title>MongoDB Cli Replica Set 連線方式 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="Fluentd 指定 Elasticsearch Index 名稱 最近在 debug Fluentd parser 時老是覺得 log 沒進到 Elasticsearch，後來索性把預設的 index 換掉，至少一眼就看得出來 index 有沒有被建立起來 - Fluentd 是不" />
+  <meta name="description" content="MongoDB Cli Replica Set 連線方式 這是在建立 MongoDB patch 資料自動化流程時遇到的問題：需要進行 MongoDB data patch 的開發人員將需要執行的 MongoDB script 提供 .js 格式的檔案，再透過 MongoDB Cli 來匯入執行 從一" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/fluentd-elasticsearch-index-name/" />
+<link rel="canonical" href="https://blog.yowko.com/mongodb-cli-replica-set/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="Fluentd 指定 Elasticsearch Index 名稱" />
-<meta property="og:description" content="Fluentd 指定 Elasticsearch Index 名稱 最近在 debug Fluentd parser 時老是覺得 log 沒進到 Elasticsearch，後來索性把預設的 index 換掉，至少一眼就看得出來 index 有沒有被建立起來 - Fluentd 是不" />
+<meta property="og:title" content="MongoDB Cli Replica Set 連線方式" />
+<meta property="og:description" content="MongoDB Cli Replica Set 連線方式 這是在建立 MongoDB patch 資料自動化流程時遇到的問題：需要進行 MongoDB data patch 的開發人員將需要執行的 MongoDB script 提供 .js 格式的檔案，再透過 MongoDB Cli 來匯入執行 從一" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/fluentd-elasticsearch-index-name/" /><meta property="article:published_time" content="2020-04-30T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-05-02T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/mongodb-cli-replica-set/" /><meta property="article:published_time" content="2020-05-09T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-05-09T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="Fluentd 指定 Elasticsearch Index 名稱">
-<meta itemprop="description" content="Fluentd 指定 Elasticsearch Index 名稱 最近在 debug Fluentd parser 時老是覺得 log 沒進到 Elasticsearch，後來索性把預設的 index 換掉，至少一眼就看得出來 index 有沒有被建立起來 - Fluentd 是不">
-
-
-<meta itemprop="datePublished" content="2020-04-30T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-05-02T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="280">
+<meta itemprop="name" content="MongoDB Cli Replica Set 連線方式">
+<meta itemprop="description" content="MongoDB Cli Replica Set 連線方式 這是在建立 MongoDB patch 資料自動化流程時遇到的問題：需要進行 MongoDB data patch 的開發人員將需要執行的 MongoDB script 提供 .js 格式的檔案，再透過 MongoDB Cli 來匯入執行 從一">
 
 
+<meta itemprop="datePublished" content="2020-05-09T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-09T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="359">
 
-<meta itemprop="keywords" content="EFK,Tools," />
+
+
+<meta itemprop="keywords" content="MongoDB," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Fluentd 指定 Elasticsearch Index 名稱"/>
-<meta name="twitter:description" content="Fluentd 指定 Elasticsearch Index 名稱 最近在 debug Fluentd parser 時老是覺得 log 沒進到 Elasticsearch，後來索性把預設的 index 換掉，至少一眼就看得出來 index 有沒有被建立起來 - Fluentd 是不"/>
+<meta name="twitter:title" content="MongoDB Cli Replica Set 連線方式"/>
+<meta name="twitter:description" content="MongoDB Cli Replica Set 連線方式 這是在建立 MongoDB patch 資料自動化流程時遇到的問題：需要進行 MongoDB data patch 的開發人員將需要執行的 MongoDB script 提供 .js 格式的檔案，再透過 MongoDB Cli 來匯入執行 從一"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-04-30 </span>
+        <span class="post-time"> 2020-05-09 </span>
         
-        <span class="more-meta"> 約 280 字 </span>
+        <span class="more-meta"> 約 359 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -162,10 +162,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#fluentd-指定-elasticsearch-index-名稱">Fluentd 指定 Elasticsearch Index 名稱</a></li>
+<li><a href="#mongodb-cli-replica-set-連線方式">MongoDB Cli Replica Set 連線方式</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#目前狀況">目前狀況</a></li>
-<li><a href="#調整方式">調整方式</a></li>
+<li><a href="#問題與解決方式">問題與解決方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,95 +180,81 @@
     <div class="post-content">
       
 
-<h2 id="fluentd-指定-elasticsearch-index-名稱">Fluentd 指定 Elasticsearch Index 名稱</h2>
+<h2 id="mongodb-cli-replica-set-連線方式">MongoDB Cli Replica Set 連線方式</h2>
 
-<p>最近在 debug Fluentd parser 時老是覺得 log 沒進到 Elasticsearch，後來索性把預設的 index 換掉，至少一眼就看得出來 index 有沒有被建立起來 - Fluentd 是不是正常運作中</p>
+<p>這是在建立 MongoDB patch 資料自動化流程時遇到的問題：需要進行 MongoDB data patch 的開發人員將需要執行的 MongoDB script 提供 <code>.js</code> 格式的檔案，再透過 MongoDB Cli 來匯入執行</p>
+
+<p>從一開始的 single node 到後期的 MongoDB Replica Set 運作上都相當正常，最近因為網路問題有時會造成 MongoDB Replica Set failover 而出現錯誤;問題原因是沒有調整到 MongoDB Cli 匯入 script 所使用的連線資訊，簡單筆記一下，需要人工手動執行時才不用大費周章去查 jenkinsfile</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Catalina 10.15.4</li>
 <li>docker desktop community 2.2.0.5(43884)</li>
+<li>MongoDB 4.2.6</li>
 
-<li><p>docker images</p>
+<li><p>show.js</p>
 
-<blockquote>
-<p>詳細資訊可以參考之前筆記 <a href="https://blog.yowko.com/docker-efk" target="_blank">快速建立 EFK (Elasticsearch Fluentd Kibana) 環境</a></p>
-</blockquote>
-
-<ul>
-<li>elasticsearch:7.6.2</li>
-<li>kibana:7.6.2</li>
-<li>yowko/fluentd-elasticsearch:1.0.0</li>
-</ul></li>
+<pre><code class="language-js">show databases;
+</code></pre></li>
 </ol>
 
-<h2 id="目前狀況">目前狀況</h2>
+<h2 id="問題與解決方式">問題與解決方式</h2>
 
 <ul>
-<li><p>啟用 logstash_format</p>
+<li><p>問題：未使用 replica set 來連線 failover 後無法正常執行</p>
 
-<pre><code class="language-txt">logstash_format true
+<ul>
+<li><p>連線方式：指定 <code>host</code> 與 <code>port</code></p>
+
+<pre><code class="language-bash">mongo -host localhost -port 27017 &lt; show.js
 </code></pre></li>
 
-<li><p>Fluentd 預設會使用 <code>logstash-%Y.%m.%d</code> 做為 index name</p>
+<li><p>錯誤訊息</p>
 
-<blockquote>
-<p>會覆寫 <code>index_name</code> 設定</p>
-</blockquote>
+<pre><code class="language-txt">2020-05-09T22:47:22.603+0800 E  QUERY    [js] uncaught exception: Error: listDatabases failed:{
+    &quot;operationTime&quot; : Timestamp(1589035642, 1),
+    &quot;ok&quot; : 0,
+    &quot;errmsg&quot; : &quot;not master and slaveOk=false&quot;,
+    &quot;code&quot; : 13435,
+    &quot;codeName&quot; : &quot;NotMasterNoSlaveOk&quot;,
+    &quot;$clusterTime&quot; : {
+        &quot;clusterTime&quot; : Timestamp(1589035642, 1),
+        &quot;signature&quot; : {
+            &quot;hash&quot; : BinData(0, &quot;AAAAAAAAAAAAAAAAAAAAAAAAAAA=&quot;),
+            &quot;keyId&quot; : NumberLong(0)
+        }
+    }
+} :
+</code></pre></li>
 
-<p>![1logformat]()</p></li>
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/81478816-3d33cd00-9252-11ea-8d18-975e912231b7.jpg" alt="1error" /></p></li>
+</ul></li>
+
+<li><p>解決方式：使用完整連線字串</p>
+
+<ul>
+<li><p>連線方式</p>
+
+<pre><code class="language-bash">mongo &quot;mongodb://localhost:27017,localhost:27027,localhost:27037/?replicaSet=rs0&quot; &lt; show.js
+</code></pre></li>
+
+<li><p>實際結果</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/81478818-3efd9080-9252-11ea-8fcf-d8f6dbfe1809.jpg" alt="2result" /></p></li>
+</ul></li>
 </ul>
-
-<h2 id="調整方式">調整方式</h2>
-
-<ol>
-<li><p>方法一： <code>logstash_format</code> 搭配 <code>logstash_prefix</code></p>
-
-<ul>
-<li><p>設定內容</p>
-
-<pre><code class="language-txt">&lt;match *.**&gt;
-    @type elasticsearch
-    host 192.168.50.97
-    port 9200
-    logstash_format true
-&lt;/match&gt;
-</code></pre></li>
-
-<li><p>實際效果</p>
-
-<p>![2logstashprefix]()</p></li>
-</ul></li>
-
-<li><p>方法二： 使用 <code>index_name</code></p>
-
-<ul>
-<li><p>設定內容</p>
-
-<pre><code class="language-txt">&lt;match *.**&gt;
-    @type elasticsearch
-    host 192.168.50.97
-    port 9200
-    index_name yowkotest
-&lt;/match&gt;
-</code></pre></li>
-
-<li><p>實際效果</p>
-
-<p>![3indexname]()</p></li>
-</ul></li>
-</ol>
 
 <h2 id="心得">心得</h2>
 
-<p>雖然只是小小設定，但每次忘記都要重新查資料也滿花時間的，趁著這次機會簡單筆記一下，加深印象，之後忘記要找資料也可以比較快囉</p>
+<p>一直以為 mongo cli 只能透過參數設定來連線，查了資料才發現原來可以使用完整連線字串，相當方便呀</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/docker-efk" target="_blank">快速建立 EFK (Elasticsearch Fluentd Kibana) 環境</a></li>
-<li><a href="https://docs.fluentd.org/output/elasticsearch#parameters" target="_blank">elasticsearch</a></li>
+<li><a href="https://docs.mongodb.com/manual/mongo/" target="_blank">The mongo Shell</a></li>
 </ol>
 
     </div>
@@ -282,7 +267,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-05-02</span>
+    <span class="item-content">2020-05-09</span>
   </p>
   
   <p class="copyright-item">
@@ -304,11 +289,7 @@
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/efk/">EFK</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
+            <a href="https://blog.yowko.com/tags/mongodb/">MongoDB</a>
           
         </div>
 
@@ -316,18 +297,18 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/mongodb-cli-replica-set/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/docker-compose-mongodb-replica-set/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">MongoDB Cli Replica Set 連線方式</span>			
+            <span class="next-text nav-default">Docker Compose 建立 MongoDB Replica Set</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/ansible-bypass-fingerprint-check/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/fluentd-elasticsearch-index-name/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">避免 Ansible 無法存取第一次登入的 Server</span>			
+            <span class="prev-text nav-default">Fluentd 指定 Elasticsearch Index 名稱</span>			
           </a>
 		  </div>
       </nav>
@@ -338,7 +319,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/fluentd-elasticsearch-index-name\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/mongodb-cli-replica-set\/';  
       
     };
 

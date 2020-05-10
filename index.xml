@@ -6,10 +6,28 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 30 Apr 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 10 May 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker Compose 建立 MongoDB Replica Set</title>
+      <link>https://blog.yowko.com/docker-compose-mongodb-replica-set/</link>
+      <pubDate>Sun, 10 May 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-compose-mongodb-replica-set/</guid>
+      <description>Docker Compose 建立 MongoDB Replica Set 因為之前筆記 MongoDB Cli Replica Set 連線方式 需要建立測試環境，想起最早之前的筆記 使用 docker 建立 MongoDB Replica Set 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB</description>
+    </item>
+    
+    <item>
+      <title>MongoDB Cli Replica Set 連線方式</title>
+      <link>https://blog.yowko.com/mongodb-cli-replica-set/</link>
+      <pubDate>Sat, 09 May 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mongodb-cli-replica-set/</guid>
+      <description>MongoDB Cli Replica Set 連線方式 這是在建立 MongoDB patch 資料自動化流程時遇到的問題：需要進行 MongoDB data patch 的開發人員將需要執行的 MongoDB script 提供 .js 格式的檔案，再透過 MongoDB Cli 來匯入執行 從一</description>
+    </item>
     
     <item>
       <title>Fluentd 指定 Elasticsearch Index 名稱</title>
