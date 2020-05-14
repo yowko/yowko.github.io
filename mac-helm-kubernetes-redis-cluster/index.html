@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Docker Compose 建立 MongoDB Replica Set - Yowko&#39;s Notes</title>
+  <title>使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="Docker Compose 建立 MongoDB Replica Set 因為之前筆記 MongoDB Cli Replica Set 連線方式 需要建立測試環境，想起最早之前的筆記 使用 docker 建立 MongoDB Replica Set 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB" />
+  <meta name="description" content="使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/docker-compose-mongodb-replica-set/" />
+<link rel="canonical" href="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="Docker Compose 建立 MongoDB Replica Set" />
-<meta property="og:description" content="Docker Compose 建立 MongoDB Replica Set 因為之前筆記 MongoDB Cli Replica Set 連線方式 需要建立測試環境，想起最早之前的筆記 使用 docker 建立 MongoDB Replica Set 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB" />
+<meta property="og:title" content="使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster" />
+<meta property="og:description" content="使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/docker-compose-mongodb-replica-set/" /><meta property="article:published_time" content="2020-05-10T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-05-10T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" /><meta property="article:published_time" content="2020-05-14T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-05-14T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="Docker Compose 建立 MongoDB Replica Set">
-<meta itemprop="description" content="Docker Compose 建立 MongoDB Replica Set 因為之前筆記 MongoDB Cli Replica Set 連線方式 需要建立測試環境，想起最早之前的筆記 使用 docker 建立 MongoDB Replica Set 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB">
-
-
-<meta itemprop="datePublished" content="2020-05-10T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-05-10T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="433">
+<meta itemprop="name" content="使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster">
+<meta itemprop="description" content="使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完">
 
 
+<meta itemprop="datePublished" content="2020-05-14T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-14T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="445">
 
-<meta itemprop="keywords" content="MongoDB," />
+
+
+<meta itemprop="keywords" content="Kubernetes,Helm,Redis,macOS," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Docker Compose 建立 MongoDB Replica Set"/>
-<meta name="twitter:description" content="Docker Compose 建立 MongoDB Replica Set 因為之前筆記 MongoDB Cli Replica Set 連線方式 需要建立測試環境，想起最早之前的筆記 使用 docker 建立 MongoDB Replica Set 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB"/>
+<meta name="twitter:title" content="使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster"/>
+<meta name="twitter:description" content="使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-05-10 </span>
+        <span class="post-time"> 2020-05-14 </span>
         
-        <span class="more-meta"> 約 433 字 </span>
+        <span class="more-meta"> 約 445 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -162,9 +162,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#docker-compose-建立-mongodb-replica-set">Docker Compose 建立 MongoDB Replica Set</a></li>
+<li><a href="#使用-helm-在-kubernetes-上安裝-redis-cluster">使用 Helm 在 Kubernetes 上安裝 Redis Cluster</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#使用方式">使用方式</a></li>
+<li><a href="#安裝方式">安裝方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,97 +180,102 @@
     <div class="post-content">
       
 
-<h2 id="docker-compose-建立-mongodb-replica-set">Docker Compose 建立 MongoDB Replica Set</h2>
+<h2 id="使用-helm-在-kubernetes-上安裝-redis-cluster">使用 Helm 在 Kubernetes 上安裝 Redis Cluster</h2>
 
-<p>因為之前筆記 <a href="https://blog.yowko.com/mongodb-cli-replica-set/" target="_blank">MongoDB Cli Replica Set 連線方式</a> 需要建立測試環境，想起最早之前的筆記 <a href="https://blog.yowko.com/docker-mongodb-replica-set/" target="_blank">使用 docker 建立 MongoDB Replica Set</a> 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB Replica Set 方式的念頭</p>
+<p>之前筆記 <a href="https://blog.yowko.com/kubernetes-redis-cluster/" target="_blank">在 Kubernetes 部署 Redis Cluster</a> 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完整模擬出測試環境的方式，但每次都重新安裝 Kubernetes 實在有些大廢周章，所以興起在 macOS 上簡單建立環境的想法，順手筆記一下  以免之後要用到又找好一陣子</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Catalina 10.15.4</li>
-<li>docker desktop community 2.2.0.5(43884)</li>
-<li>MongoDB 4.2.6</li>
-</ol>
 
-<h2 id="使用方式">使用方式</h2>
-
-<ol>
-<li><p>docker-compose.yml</p>
+<li><p>docker desktop community 2.2.0.5(43884)</p>
 
 <ul>
-<li><p>將三個 mongo instance 完整分開，以利於 host 機器的 port mapping</p>
+<li>Kubernetes v1.15.5</li>
+</ul></li>
 
-<blockquote>
-<p>mongod 啟動指令中設定 <code>--port</code> 即可</p>
-</blockquote></li>
+<li><p>Helm v3.2.1</p></li>
 
-<li><p>透過 docker-compose 的 <code>healthcheck</code> 功能來設定 MongoDB Replica Set</p></li>
-</ul>
+<li><p>Redis image 5.0.7</p></li>
+</ol>
 
-<pre><code class="language-yml">version: &quot;3.7&quot;
-services:
-  mongo1:
-    container_name: mongo1
-    image: mongo
-    ports:
-      - 27017:27017
-    restart: always
-    entrypoint: [ &quot;mongod&quot;,&quot;--port&quot;,&quot;27017&quot;, &quot;--bind_ip_all&quot;,   &quot;--replSet&quot;, &quot;rs0&quot; ]
-  mongo2:
-    container_name: mongo2
-    image: mongo
-    ports:
-      - 27027:27027
-    restart: always
-    entrypoint: [ &quot;mongod&quot;,&quot;--port&quot;,&quot;27027&quot;, &quot;--bind_ip_all&quot;,   &quot;--replSet&quot;, &quot;rs0&quot; ]
-  mongo3:
-    container_name: mongo3
-    image: mongo
-    ports:
-      - 27037:27037
-    restart: always
-    entrypoint: [ &quot;mongod&quot;,&quot;--port&quot;,&quot;27037&quot;, &quot;--bind_ip_all&quot;,   &quot;--replSet&quot;, &quot;rs0&quot; ]
-    healthcheck:
-      test: [&quot;CMD&quot;,&quot;mongo&quot;,&quot;--host&quot;,&quot;mongo1&quot;,&quot;--port&quot;,&quot;27017&quot;,  &quot;--eval&quot;, 'rs.initiate( { _id : &quot;rs0&quot;,members: [{ _id: 0,     host: &quot;mongo1:27017&quot; },{ _id: 1, host: &quot;mongo2:27027&quot; },{   _id: 2, host: &quot;mongo3:27037&quot; }   ]})']
-      interval: 15s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
+<h2 id="安裝方式">安裝方式</h2>
+
+<ol>
+<li><p>註冊 Helm repository</p>
+
+<pre><code class="language-bash">helm repo add inspur https://inspur-iop.github.io/charts
 </code></pre></li>
 
-<li><p>設定 hosts</p>
+<li><p>建立 kubernetes namespace</p>
+
+<pre><code class="language-bash">kubectl create ns redis
+</code></pre></li>
+
+<li><p>安裝 Redis Cluster</p>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">helm install {helm release name} {helm chart} --namespace {kuberrnetes namespace} --set persistentVolume.storageClass={kubernetes storageClass}
+</code></pre></li>
+
+<li><p>範例</p>
 
 <blockquote>
-<p>mongo 內部只認得設定 Replica Set 的 member host，但 host 機器不認得 container name</p>
+<p>storageClass 不給的話裝不起來，這邊使用 docker for MAC 的 Kubernetes 內建 storageClass - <code>hostpath</code></p>
 </blockquote>
 
-<pre><code class="language-bash">sudo echo &quot;127.0.0.1 mongo1\n127.0.0.1 mongo2\n127.0.0.1 mongo3&quot; &gt;&gt; /etc/hosts
+<pre><code class="language-bash">helm install redis-cluster inspur/redis-cluster --namespace redis --set persistentVolume.storageClass=hostpath
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/81954996-215a6d80-963c-11ea-93f4-d4f561295009.jpg" alt="2created" /></p></li>
+
+<li><p>未指定 storageClass 錯誤</p>
+
+<ul>
+<li><p>錯誤訊息</p>
+
+<pre><code class="language-txt">Error: failed post-install: timed out waiting for the condition
 </code></pre></li>
 
-<li><p>啟動 MongoDB Replica Set</p>
+<li><p>錯誤截圖</p>
 
-<blockquote>
-<p>執行指令後需要等個幾十秒才會設定完成</p>
-</blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/81954993-20294080-963c-11ea-82c9-dabb00baabe0.jpg" alt="1errorr" /></p></li>
+</ul></li>
+</ul></li>
 
-<pre><code class="language-bash">docker-compose up -d
-</code></pre></li>
+<li><p>驗證安裝結果</p>
+
+<ul>
+<li><p>確認 cluster 是否被正確建立</p>
+
+<pre><code class="language-bash">redis-cli -c -h redis-cluster-shard0-announce-0.redis.svc.cluster.local -p 6379 cluster info
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/81955001-228b9a80-963c-11ea-8fe4-0590bb0f46fd.jpg" alt="3clusterinfo" /></p></li>
+
+<li><p>cluster 是否有三組 master-clase</p>
+
+<pre><code class="language-bash">redis-cli -c -h redis-cluster-shard0-announce-0.redis.svc.cluster.local -p 6379 cluster nodes
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/81955002-23243100-963c-11ea-95ea-2df0eff91dad.jpg" alt="4clusternodes" /></p></li>
+</ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>跟之前 <a href="https://blog.yowko.com/docker-mongodb-replica-set/" target="_blank">使用 docker 建立 MongoDB Replica Set</a> 相比，少了一個 <code>creator</code> 的 dockerfile 需要維護 (之前多一個 <code>creator</code> 是因為 mongo 啟動當下無法立即接受連線，而我嘗試 sleep 也失敗，不得已才多一個 container 來暫解)，整體說來更為簡潔，也因為將各個 instance 完整切開，所以從外部的連線也可以正常運作</p>
+<p>之前在 <a href="https://blog.yowko.com/kubernetes-redis-cluster/" target="_blank">在 Kubernetes 部署 Redis Cluster</a> 時找到最適合的 Helm char 就是 Kubedb 所製作的版本 (其他的 Helm 只建立了 Redis Replication - Master-Slave)，但 Kubedb 在安裝設定上實在相當繁瑣，最近因為升級 Helm 3，重新搜尋這才找到較為便利的版本</p>
 
-<p>source code 請參考 <a href="https://github.com/yowko/docker-compose-create-mongodb-replica-set" target="_blank">yowko/docker-compose-create-mongodb-replica-set</a></p>
+<p>另外之前在 Kubernetes 的 storageClass 設定上也讓我相當苦手，剛好嘗試了一下 docker for MAC 的內建功能，可真的大大降低了設定門檻呀</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/mongodb-cli-replica-set/" target="_blank">MongoDB Cli Replica Set 連線方式</a></li>
-<li><a href="https://blog.yowko.com/docker-mongodb-replica-set/" target="_blank">使用 docker 建立 MongoDB Replica Set</a></li>
-<li><a href="https://docs.mongodb.com/manual/reference/program/mongod/" target="_blank">mongod</a></li>
-<li><a href="https://docs.docker.com/compose/compose-file/#healthcheck" target="_blank">Compose file version 3 reference</a></li>
-<li><a href="https://github.com/yowko/docker-compose-create-mongodb-replica-set" target="_blank">yowko/docker-compose-create-mongodb-replica-set</a></li>
+<li><a href="https://blog.yowko.com/kubernetes-redis-cluster/" target="_blank">在 Kubernetes 部署 Redis Cluster</a></li>
+<li><a href="https://hub.helm.sh/charts/inspur/redis-cluster" target="_blank">redis-cluster</a></li>
 </ol>
 
     </div>
@@ -283,7 +288,7 @@ services:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-05-10</span>
+    <span class="item-content">2020-05-14</span>
   </p>
   
   <p class="copyright-item">
@@ -305,7 +310,19 @@ services:
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/mongodb/">MongoDB</a>
+            <a href="https://blog.yowko.com/tags/kubernetes/">Kubernetes</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/helm/">Helm</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/macos/">macOS</a>
           
         </div>
 
@@ -313,18 +330,11 @@ services:
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/mongodb-cli-replica-set/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/docker-compose-mongodb-replica-set/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">MongoDB Cli Replica Set 連線方式</span>			
+            <span class="prev-text nav-default">Docker Compose 建立 MongoDB Replica Set</span>			
           </a>
 		  </div>
       </nav>
@@ -335,7 +345,7 @@ services:
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/docker-compose-mongodb-replica-set\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/mac-helm-kubernetes-redis-cluster\/';  
       
     };
 

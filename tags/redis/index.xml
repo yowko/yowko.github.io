@@ -6,10 +6,19 @@
     <description>Recent content in redis on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 16 Feb 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 14 May 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/redis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster</title>
+      <link>https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/</link>
+      <pubDate>Thu, 14 May 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/</guid>
+      <description>使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完</description>
+    </item>
     
     <item>
       <title>Redis Rename Config 後 Sentinel 無法正確執行 Failover</title>
