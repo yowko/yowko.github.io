@@ -6,10 +6,28 @@
     <description>Recent content in docker on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 29 Jan 2020 14:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2020 22:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Docker Compose 建立 Redis Cluster</title>
+      <link>https://blog.yowko.com/docker-compose-redis-cluster/</link>
+      <pubDate>Tue, 19 May 2020 22:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-compose-redis-cluster/</guid>
+      <description>使用 Docker Compose 建立 Redis Cluster 之前類似的主題至少有四、五篇，其中最後一版 使用 docker 建立 Redis Cluster - 更新版 已經滿足自己在全 container 環境中的測試需求，雖然該篇筆記下方有網友提</description>
+    </item>
+    
+    <item>
+      <title>傳遞參數來執行 Docker Compose</title>
+      <link>https://blog.yowko.com/docker-compose-pass-parameter/</link>
+      <pubDate>Tue, 19 May 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-compose-pass-parameter/</guid>
+      <description>傳遞參數來執行 Docker Compose 為了能動態決定 Docker Compose 中所使用到的參數值可以透過 environment variable , .env file 另外個人更偏好在執行 docker-compose up 時直接指定變數值，因為這樣一來不必設定 environment variable r</description>
+    </item>
     
     <item>
       <title>使用 Docker 版 Nginx 建立靜態頁面網站</title>

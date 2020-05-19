@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster - Yowko&#39;s Notes</title>
+  <title>使用 Docker Compose 建立 Redis Cluster - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完" />
+  <meta name="description" content="使用 Docker Compose 建立 Redis Cluster 之前類似的主題至少有四、五篇，其中最後一版 使用 docker 建立 Redis Cluster - 更新版 已經滿足自己在全 container 環境中的測試需求，雖然該篇筆記下方有網友提" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" />
+<link rel="canonical" href="https://blog.yowko.com/docker-compose-redis-cluster/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster" />
-<meta property="og:description" content="使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完" />
+<meta property="og:title" content="使用 Docker Compose 建立 Redis Cluster" />
+<meta property="og:description" content="使用 Docker Compose 建立 Redis Cluster 之前類似的主題至少有四、五篇，其中最後一版 使用 docker 建立 Redis Cluster - 更新版 已經滿足自己在全 container 環境中的測試需求，雖然該篇筆記下方有網友提" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" /><meta property="article:published_time" content="2020-05-14T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-05-14T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/docker-compose-redis-cluster/" /><meta property="article:published_time" content="2020-05-19T22:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-05-19T22:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster">
-<meta itemprop="description" content="使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完">
-
-
-<meta itemprop="datePublished" content="2020-05-14T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-05-14T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="445">
+<meta itemprop="name" content="使用 Docker Compose 建立 Redis Cluster">
+<meta itemprop="description" content="使用 Docker Compose 建立 Redis Cluster 之前類似的主題至少有四、五篇，其中最後一版 使用 docker 建立 Redis Cluster - 更新版 已經滿足自己在全 container 環境中的測試需求，雖然該篇筆記下方有網友提">
 
 
+<meta itemprop="datePublished" content="2020-05-19T22:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-19T22:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="717">
 
-<meta itemprop="keywords" content="Kubernetes,Helm,Redis,macOS," />
+
+
+<meta itemprop="keywords" content="Redis,Docker," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster"/>
-<meta name="twitter:description" content="使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完"/>
+<meta name="twitter:title" content="使用 Docker Compose 建立 Redis Cluster"/>
+<meta name="twitter:description" content="使用 Docker Compose 建立 Redis Cluster 之前類似的主題至少有四、五篇，其中最後一版 使用 docker 建立 Redis Cluster - 更新版 已經滿足自己在全 container 環境中的測試需求，雖然該篇筆記下方有網友提"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,10 +144,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-05-14 </span>
+        <span class="post-time"> 2020-05-19 </span>
         
-        <span class="more-meta"> 約 445 字 </span>
-          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+        <span class="more-meta"> 約 717 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
     </header>
@@ -162,9 +162,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#使用-helm-在-kubernetes-上安裝-redis-cluster">使用 Helm 在 Kubernetes 上安裝 Redis Cluster</a></li>
+<li><a href="#使用-docker-compose-建立-redis-cluster">使用 Docker Compose 建立 Redis Cluster</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝方式">安裝方式</a></li>
+<li><a href="#設定方式">設定方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,102 +180,221 @@
     <div class="post-content">
       
 
-<h2 id="使用-helm-在-kubernetes-上安裝-redis-cluster">使用 Helm 在 Kubernetes 上安裝 Redis Cluster</h2>
+<h2 id="使用-docker-compose-建立-redis-cluster">使用 Docker Compose 建立 Redis Cluster</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/kubernetes-redis-cluster/" target="_blank">在 Kubernetes 部署 Redis Cluster</a> 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完整模擬出測試環境的方式，但每次都重新安裝 Kubernetes 實在有些大廢周章，所以興起在 macOS 上簡單建立環境的想法，順手筆記一下  以免之後要用到又找好一陣子</p>
+<p>之前類似的主題至少有四、五篇，其中最後一版 <a href="https://blog.yowko.com/redis-cluster-docker/" target="_blank">使用 docker 建立 Redis Cluster - 更新版</a> 已經滿足自己在全 container 環境中的測試需求，雖然該篇筆記下方有網友提到想要將 redis cluster 允許對外連線，當下我並沒有花時間去了解需求跟解決問題，直到最近專案需要才又調整一版</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Catalina 10.15.4</li>
 
-<li><p>docker desktop community 2.2.0.5(43884)</p>
+<li><p>docker desktop community 2.3.0.2(45183)</p>
 
 <ul>
-<li>Kubernetes v1.15.5</li>
+<li>Engine 19.03.8</li>
+<li>Compose 1.25.5</li>
 </ul></li>
 
-<li><p>Helm v3.2.1</p></li>
+<li><p>images</p>
 
-<li><p>Redis image 5.0.7</p></li>
+<ul>
+<li>redis 6.0.3</li>
+<li>redis 5.0.9 (測試可用)</li>
+</ul></li>
 </ol>
 
-<h2 id="安裝方式">安裝方式</h2>
+<h2 id="設定方式">設定方式</h2>
 
 <ol>
-<li><p>註冊 Helm repository</p>
-
-<pre><code class="language-bash">helm repo add inspur https://inspur-iop.github.io/charts
-</code></pre></li>
-
-<li><p>建立 kubernetes namespace</p>
-
-<pre><code class="language-bash">kubectl create ns redis
-</code></pre></li>
-
-<li><p>安裝 Redis Cluster</p>
+<li><p>專案結構</p>
 
 <ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">helm install {helm release name} {helm chart} --namespace {kuberrnetes namespace} --set persistentVolume.storageClass={kubernetes storageClass}
-</code></pre></li>
-
-<li><p>範例</p>
-
-<blockquote>
-<p>storageClass 不給的話裝不起來，這邊使用 docker for MAC 的 Kubernetes 內建 storageClass - <code>hostpath</code></p>
-</blockquote>
-
-<pre><code class="language-bash">helm install redis-cluster inspur/redis-cluster --namespace redis --set persistentVolume.storageClass=hostpath
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/81954996-215a6d80-963c-11ea-93f4-d4f561295009.jpg" alt="2created" /></p></li>
-
-<li><p>未指定 storageClass 錯誤</p>
+<li>redis 資料夾
 
 <ul>
-<li><p>錯誤訊息</p>
-
-<pre><code class="language-txt">Error: failed post-install: timed out waiting for the condition
-</code></pre></li>
-
-<li><p>錯誤截圖</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/81954993-20294080-963c-11ea-82c9-dabb00baabe0.jpg" alt="1errorr" /></p></li>
+<li>dockerfile</li>
+<li>rediscluster.conf</li>
 </ul></li>
-</ul></li>
+<li>docker-compose.yml</li>
+<li>README.md</li>
+</ul>
 
-<li><p>驗證安裝結果</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/82350893-7b897300-9a2e-11ea-9343-752d89f2cfb6.jpg" alt="1folder" /></p></li>
+
+<li><p>建立 redis cluster node</p>
 
 <ul>
-<li><p>確認 cluster 是否被正確建立</p>
+<li><p>dockerfile</p>
 
-<pre><code class="language-bash">redis-cli -c -h redis-cluster-shard0-announce-0.redis.svc.cluster.local -p 6379 cluster info
-</code></pre>
+<pre><code class="language-dockerfile">FROM redis:6.0.3
 
-<p><img src="https://user-images.githubusercontent.com/3851540/81955001-228b9a80-963c-11ea-8fe4-0590bb0f46fd.jpg" alt="3clusterinfo" /></p></li>
+MAINTAINER Yowko Tsai &lt;yowko@yowko.com&gt;
 
-<li><p>cluster 是否有三組 master-clase</p>
+COPY rediscluster.conf /etc/redis/rediscluster.conf
+ENTRYPOINT redis-server /etc/redis/rediscluster.conf
+</code></pre></li>
 
-<pre><code class="language-bash">redis-cli -c -h redis-cluster-shard0-announce-0.redis.svc.cluster.local -p 6379 cluster nodes
-</code></pre>
+<li><p>rediscluster.conf</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/81955002-23243100-963c-11ea-95ea-2df0eff91dad.jpg" alt="4clusternodes" /></p></li>
+<pre><code class="language-config"># ip
+bind 0.0.0.0
+# 啟用 cluster
+cluster-enabled yes
+# 指定 cluster config 檔案
+cluster-config-file nodes.conf
+# 指定 node 無法連線時間
+cluster-node-timeout 5000
+
+#設置主服務的連接密碼
+masterauth pass.123
+#設置從服務的連接密碼
+requirepass pass.123
+</code></pre></li>
 </ul></li>
+
+<li><p>docker-compose</p>
+
+<pre><code class="language-dock-compose">version: '3.4'
+    
+services:
+  redis-node1:
+    build:
+      context: redis
+      network: host
+    ports:
+      - &quot;7000:7000&quot;
+      - &quot;17000:17000&quot;
+    restart: always
+    entrypoint: [redis-server, /etc/redis/rediscluster.conf, --port,&quot;7000&quot;, --cluster-announce-ip,&quot;${ip}&quot;]
+  redis-node2:
+    build:
+      context: redis
+      network: host
+    ports:
+      - &quot;7001:7001&quot;
+      - &quot;17001:17001&quot;
+    restart: always
+    entrypoint: [redis-server, /etc/redis/rediscluster.conf,--port,&quot;7001&quot;,--cluster-announce-ip,&quot;${ip}&quot;]
+  redis-node3:
+    build:
+      context: redis
+      network: host
+    ports:
+      - &quot;7002:7002&quot;
+      - &quot;17002:17002&quot;
+    restart: always
+    entrypoint: [redis-server, /etc/redis/rediscluster.conf,--port,&quot;7002&quot;,--cluster-announce-ip,&quot;${ip}&quot;]
+  redis-node4:
+    build:
+      context: redis
+      network: host
+    ports:
+      - &quot;7003:7003&quot;
+      - &quot;17003:17003&quot;
+    restart: always
+    entrypoint: [redis-server, /etc/redis/rediscluster.conf,--port,&quot;7003&quot;,--cluster-announce-ip,&quot;${ip}&quot;]
+    depends_on:
+      - redis-node1
+      - redis-node2
+      - redis-node3
+  redis-node5:
+    build:
+      context: redis
+      network: host
+    ports:
+      - &quot;7004:7004&quot;
+      - &quot;17004:17004&quot;
+    restart: always
+    entrypoint: [redis-server, /etc/redis/rediscluster.conf,--port,&quot;7004&quot;,--cluster-announce-ip,&quot;${ip}&quot;]
+    depends_on:
+      - redis-node1
+      - redis-node2
+      - redis-node3
+  redis-node6:
+    build:
+      context: redis
+      network: host
+    ports:
+      - &quot;7005:7005&quot;
+      - &quot;17005:17005&quot;
+    restart: always
+    entrypoint: [redis-server, /etc/redis/rediscluster.conf,--port,&quot;7005&quot;,--cluster-announce-ip,&quot;${ip}&quot;]
+    depends_on:
+      - redis-node1
+      - redis-node2
+      - redis-node3
+  redis-cluster-creator:
+    image: redis:6.0.3
+    entrypoint: [/bin/sh,-c,'echo &quot;yes&quot; | redis-cli -a pass.123 --cluster create ${ip}:7000 ${ip}:7001 ${ip}:7002 ${ip}:7003 ${ip}:7004 ${ip}:7005 --cluster-replicas 1']
+    depends_on:
+      - redis-node1
+      - redis-node2
+      - redis-node3
+      - redis-node4
+      - redis-node5
+      - redis-node6
+</code></pre></li>
+
+<li><p>使用方式</p>
+
+<pre><code class="language-bash">ip=$(ipconfig getifaddr en0) docker-compose up -d --build
+</code></pre></li>
+
+<li><p>實際效果</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/82350899-7cbaa000-9a2e-11ea-9a77-393618b6395c.jpg" alt="2clusterinfo" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/82350903-7debcd00-9a2e-11ea-843b-1897799dcb0b.jpg" alt="3clusternodes" /></p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>之前在 <a href="https://blog.yowko.com/kubernetes-redis-cluster/" target="_blank">在 Kubernetes 部署 Redis Cluster</a> 時找到最適合的 Helm char 就是 Kubedb 所製作的版本 (其他的 Helm 只建立了 Redis Replication - Master-Slave)，但 Kubedb 在安裝設定上實在相當繁瑣，最近因為升級 Helm 3，重新搜尋這才找到較為便利的版本</p>
+<p>這次的調整優化項目有</p>
 
-<p>另外之前在 Kubernetes 的 storageClass 設定上也讓我相當苦手，剛好嘗試了一下 docker for MAC 的內建功能，可真的大大降低了設定門檻呀</p>
+<ol>
+<li><p>不需自行額外建立 network</p>
+
+<blockquote>
+<p>使用 host</p>
+</blockquote></li>
+
+<li><p>不需指定每個 container ip</p>
+
+<blockquote>
+<p>自行分配，但 cluster node 間溝通透過 host ip 與 port</p>
+</blockquote></li>
+
+<li><p>不需寫死 master-slave</p>
+
+<blockquote>
+<p>由 redis cluster 的內部機制處理</p>
+</blockquote></li>
+
+<li><p>不需自行使用 dockerfile 建立三個 sentinel</p>
+
+<blockquote>
+<p>由 redis cluster 的內部機制處理 (之前 ip 跟 port 寫太死，需要自行控制)</p>
+</blockquote></li>
+
+<li><p>不需自行使用 dockerfile 來設定 cluster</p>
+
+<blockquote>
+<p>透過 docker compose 中的 service 來進行(之前我試不出 override entrypoint 的做法)</p>
+</blockquote></li>
+</ol>
+
+<p>經過以上這些調整，就可以讓外部 redis client 連線至這次建立的 redis cluster 但還是要再次提醒這個做法<span style="color:red">僅適合用於測試</span></p>
+
+<p>除此之外，我比較喜歡這樣透過 dockerfile 搭配 docker-compose 的做法，像是 helm 或是 docker-machine 這種包裝過多，一眼很難看透的做法對我來說就像是個黑箱，你不知道裡面包了什麼、script 安不安全、是不是多執行了什麼讓效能大降之類的</p>
+
+<p>完整 source code 請參考 <a href="https://github.com/yowko/docker-compose-redis-cluster" target="_blank">yowko/docker-compose-redis-cluster</a></p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/kubernetes-redis-cluster/" target="_blank">在 Kubernetes 部署 Redis Cluster</a></li>
-<li><a href="https://hub.helm.sh/charts/inspur/redis-cluster" target="_blank">redis-cluster</a></li>
+<li><a href="https://blog.yowko.com/redis-cluster-docker/" target="_blank">使用 docker 建立 Redis Cluster - 更新版</a></li>
+<li><a href="https://blog.yowko.com/docker-compose-pass-parameter" target="_blank">傳遞參數來執行 Docker Compose</a></li>
 </ol>
 
     </div>
@@ -288,7 +407,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-05-14</span>
+    <span class="item-content">2020-05-19</span>
   </p>
   
   <p class="copyright-item">
@@ -310,19 +429,11 @@
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/kubernetes/">Kubernetes</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/helm/">Helm</a>
-          
-		    
-		    	
             <a href="https://blog.yowko.com/tags/redis/">Redis</a>
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/macos/">macOS</a>
+            <a href="https://blog.yowko.com/tags/docker/">Docker</a>
           
         </div>
 
@@ -330,18 +441,11 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/docker-compose-pass-parameter/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">傳遞參數來執行 Docker Compose</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/docker-compose-mongodb-replica-set/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/docker-compose-pass-parameter/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">Docker Compose 建立 MongoDB Replica Set</span>			
+            <span class="prev-text nav-default">傳遞參數來執行 Docker Compose</span>			
           </a>
 		  </div>
       </nav>
@@ -352,7 +456,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/mac-helm-kubernetes-redis-cluster\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/docker-compose-redis-cluster\/';  
       
     };
 

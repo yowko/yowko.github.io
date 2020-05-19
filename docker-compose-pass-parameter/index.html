@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster - Yowko&#39;s Notes</title>
+  <title>傳遞參數來執行 Docker Compose - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完" />
+  <meta name="description" content="傳遞參數來執行 Docker Compose 為了能動態決定 Docker Compose 中所使用到的參數值可以透過 environment variable , .env file 另外個人更偏好在執行 docker-compose up 時直接指定變數值，因為這樣一來不必設定 environment variable r" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" />
+<link rel="canonical" href="https://blog.yowko.com/docker-compose-pass-parameter/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster" />
-<meta property="og:description" content="使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完" />
+<meta property="og:title" content="傳遞參數來執行 Docker Compose" />
+<meta property="og:description" content="傳遞參數來執行 Docker Compose 為了能動態決定 Docker Compose 中所使用到的參數值可以透過 environment variable , .env file 另外個人更偏好在執行 docker-compose up 時直接指定變數值，因為這樣一來不必設定 environment variable r" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" /><meta property="article:published_time" content="2020-05-14T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-05-14T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/docker-compose-pass-parameter/" /><meta property="article:published_time" content="2020-05-19T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-05-19T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster">
-<meta itemprop="description" content="使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完">
-
-
-<meta itemprop="datePublished" content="2020-05-14T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-05-14T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="445">
+<meta itemprop="name" content="傳遞參數來執行 Docker Compose">
+<meta itemprop="description" content="傳遞參數來執行 Docker Compose 為了能動態決定 Docker Compose 中所使用到的參數值可以透過 environment variable , .env file 另外個人更偏好在執行 docker-compose up 時直接指定變數值，因為這樣一來不必設定 environment variable r">
 
 
+<meta itemprop="datePublished" content="2020-05-19T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-19T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="368">
 
-<meta itemprop="keywords" content="Kubernetes,Helm,Redis,macOS," />
+
+
+<meta itemprop="keywords" content="Redis,Docker," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster"/>
-<meta name="twitter:description" content="使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完"/>
+<meta name="twitter:title" content="傳遞參數來執行 Docker Compose"/>
+<meta name="twitter:description" content="傳遞參數來執行 Docker Compose 為了能動態決定 Docker Compose 中所使用到的參數值可以透過 environment variable , .env file 另外個人更偏好在執行 docker-compose up 時直接指定變數值，因為這樣一來不必設定 environment variable r"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-05-14 </span>
+        <span class="post-time"> 2020-05-19 </span>
         
-        <span class="more-meta"> 約 445 字 </span>
+        <span class="more-meta"> 約 368 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -162,9 +162,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#使用-helm-在-kubernetes-上安裝-redis-cluster">使用 Helm 在 Kubernetes 上安裝 Redis Cluster</a></li>
+<li><a href="#傳遞參數來執行-docker-compose">傳遞參數來執行 Docker Compose</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝方式">安裝方式</a></li>
+<li><a href="#設定方式">設定方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,102 +180,85 @@
     <div class="post-content">
       
 
-<h2 id="使用-helm-在-kubernetes-上安裝-redis-cluster">使用 Helm 在 Kubernetes 上安裝 Redis Cluster</h2>
+<h2 id="傳遞參數來執行-docker-compose">傳遞參數來執行 Docker Compose</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/kubernetes-redis-cluster/" target="_blank">在 Kubernetes 部署 Redis Cluster</a> 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完整模擬出測試環境的方式，但每次都重新安裝 Kubernetes 實在有些大廢周章，所以興起在 macOS 上簡單建立環境的想法，順手筆記一下  以免之後要用到又找好一陣子</p>
+<p>為了能動態決定 Docker Compose 中所使用到的參數值可以透過 <code>environment variable</code> , <code>.env</code> file 另外個人更偏好在執行 docker-compose up 時直接指定變數值，因為這樣一來不必設定 environment variable r而擔心造成汙染，也不需要多一個檔案，顯得更簡潔</p>
+
+<p>這是個簡單的語法，也因為太簡單，這不知道是我第幾次查資料了，剛好最近筆記都是走這類沒營養的內容，超適合藉這個機會紀錄一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Catalina 10.15.4</li>
 
-<li><p>docker desktop community 2.2.0.5(43884)</p>
+<li><p>docker desktop community 2.3.0.2(45183)</p>
 
 <ul>
-<li>Kubernetes v1.15.5</li>
+<li>Engine 19.03.8</li>
+<li>Compose 1.25.5</li>
 </ul></li>
-
-<li><p>Helm v3.2.1</p></li>
-
-<li><p>Redis image 5.0.7</p></li>
 </ol>
 
-<h2 id="安裝方式">安裝方式</h2>
-
-<ol>
-<li><p>註冊 Helm repository</p>
-
-<pre><code class="language-bash">helm repo add inspur https://inspur-iop.github.io/charts
-</code></pre></li>
-
-<li><p>建立 kubernetes namespace</p>
-
-<pre><code class="language-bash">kubectl create ns redis
-</code></pre></li>
-
-<li><p>安裝 Redis Cluster</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">helm install {helm release name} {helm chart} --namespace {kuberrnetes namespace} --set persistentVolume.storageClass={kubernetes storageClass}
-</code></pre></li>
-
-<li><p>範例</p>
+<h2 id="設定方式">設定方式</h2>
 
 <blockquote>
-<p>storageClass 不給的話裝不起來，這邊使用 docker for MAC 的 Kubernetes 內建 storageClass - <code>hostpath</code></p>
+<p>我個人最常用的就是將 host ip 傳進去 docker compose 中做為 service bind 的參數，因為 ip 可能會變動，常態性將 ip 寫死在 docker compose 中，不時會遇到 ip 變了造成 service 沒有正確啟動而多花了不少時間在 debug</p>
 </blockquote>
 
-<pre><code class="language-bash">helm install redis-cluster inspur/redis-cluster --namespace redis --set persistentVolume.storageClass=hostpath
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/81954996-215a6d80-963c-11ea-93f4-d4f561295009.jpg" alt="2created" /></p></li>
-
-<li><p>未指定 storageClass 錯誤</p>
+<ul>
+<li><p>直接寫死 ip</p>
 
 <ul>
-<li><p>錯誤訊息</p>
+<li><p>yaml</p>
 
-<pre><code class="language-txt">Error: failed post-install: timed out waiting for the condition
+<pre><code class="language-yaml">version: &quot;3&quot;
+services:
+  test:
+    image: busybox
+    entrypoint: [ echo,192.168.1.112 ]
 </code></pre></li>
 
-<li><p>錯誤截圖</p>
+<li><p>啟動：<code>docker-compose up</code></p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/81954993-20294080-963c-11ea-82c9-dabb00baabe0.jpg" alt="1errorr" /></p></li>
-</ul></li>
+<pre><code class="language-bash">docker-compose up
+</code></pre></li>
+
+<li><p>結果</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/82342682-80492980-9a24-11ea-8bc1-7c99f30484b5.jpg" alt="1old" /></p></li>
 </ul></li>
 
-<li><p>驗證安裝結果</p>
+<li><p>使用參數</p>
 
 <ul>
-<li><p>確認 cluster 是否被正確建立</p>
+<li><p>yaml</p>
 
-<pre><code class="language-bash">redis-cli -c -h redis-cluster-shard0-announce-0.redis.svc.cluster.local -p 6379 cluster info
-</code></pre>
+<pre><code class="language-yaml">version: &quot;3&quot;
+services:
+  test:
+    image: busybox
+    entrypoint: [ echo,&quot;${ip}&quot; ]
+</code></pre></li>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/81955001-228b9a80-963c-11ea-8fe4-0590bb0f46fd.jpg" alt="3clusterinfo" /></p></li>
+<li><p>啟動：<code>docker-compose up</code></p>
 
-<li><p>cluster 是否有三組 master-clase</p>
+<pre><code class="language-bash">ip=$(ipconfig getifaddr en0) docker-compose up
+</code></pre></li>
 
-<pre><code class="language-bash">redis-cli -c -h redis-cluster-shard0-announce-0.redis.svc.cluster.local -p 6379 cluster nodes
-</code></pre>
+<li><p>結果</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/81955002-23243100-963c-11ea-95ea-2df0eff91dad.jpg" alt="4clusternodes" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/82342690-817a5680-9a24-11ea-8af1-f8a36909f325.jpg" alt="2new" /></p></li>
 </ul></li>
-</ol>
+</ul>
 
 <h2 id="心得">心得</h2>
 
-<p>之前在 <a href="https://blog.yowko.com/kubernetes-redis-cluster/" target="_blank">在 Kubernetes 部署 Redis Cluster</a> 時找到最適合的 Helm char 就是 Kubedb 所製作的版本 (其他的 Helm 只建立了 Redis Replication - Master-Slave)，但 Kubedb 在安裝設定上實在相當繁瑣，最近因為升級 Helm 3，重新搜尋這才找到較為便利的版本</p>
-
-<p>另外之前在 Kubernetes 的 storageClass 設定上也讓我相當苦手，剛好嘗試了一下 docker for MAC 的內建功能，可真的大大降低了設定門檻呀</p>
+<p>簡單的使用方式跟流程，簡單筆記一下  減少自己查資料時間</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/kubernetes-redis-cluster/" target="_blank">在 Kubernetes 部署 Redis Cluster</a></li>
-<li><a href="https://hub.helm.sh/charts/inspur/redis-cluster" target="_blank">redis-cluster</a></li>
+<li><a href="https://stackoverflow.com/questions/35093256/how-do-i-pass-an-argument-along-with-docker-compose-up" target="_blank">How do i pass an argument along with docker-compose up</a></li>
 </ol>
 
     </div>
@@ -288,7 +271,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-05-14</span>
+    <span class="item-content">2020-05-19</span>
   </p>
   
   <p class="copyright-item">
@@ -310,19 +293,11 @@
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/kubernetes/">Kubernetes</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/helm/">Helm</a>
-          
-		    
-		    	
             <a href="https://blog.yowko.com/tags/redis/">Redis</a>
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/macos/">macOS</a>
+            <a href="https://blog.yowko.com/tags/docker/">Docker</a>
           
         </div>
 
@@ -330,18 +305,18 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/docker-compose-pass-parameter/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/docker-compose-redis-cluster/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">傳遞參數來執行 Docker Compose</span>			
+            <span class="next-text nav-default">使用 Docker Compose 建立 Redis Cluster</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/docker-compose-mongodb-replica-set/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">Docker Compose 建立 MongoDB Replica Set</span>			
+            <span class="prev-text nav-default">使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster</span>			
           </a>
 		  </div>
       </nav>
@@ -352,7 +327,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/mac-helm-kubernetes-redis-cluster\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/docker-compose-pass-parameter\/';  
       
     };
 
