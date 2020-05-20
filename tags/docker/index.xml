@@ -152,7 +152,7 @@
       <pubDate>Tue, 05 Mar 2019 21:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/redis-cluster-docker/</guid>
-      <description>使用 docker 建立 Redis Cluster - 更新版 之前筆記 使用 docker 建立 Redis Cluster 成功建立了 redis cluster，也測試過 sentinel 可以正常 failover，興高采烈測試程式碼時才發現有 bu</description>
+      <description>使用 docker 建立 Redis Cluster - 更新版 請參考新版內容 使用 Docker Compose 建立 Redis Cluster 之前筆記 使用 docker 建立 Redis Cluster 成功建立了 redis cluster，也測試過 sentinel 可以正常 failover，興</description>
     </item>
     
     <item>
@@ -161,7 +161,7 @@
       <pubDate>Sat, 02 Mar 2019 21:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/docker-redis-cluster/</guid>
-      <description>使用 docker 建立 Redis Cluster 請參考新版內容 使用 docker 建立 Redis Cluster - 更新版 之前筆記 使用 docker 建立 Redis Master-Slave Replication Instance 紀錄到使用 docker 來建立 Redis 一個 Master node、一個 Slave node 以及三個 sentinel node 的 rep</description>
+      <description>使用 docker 建立 Redis Cluster 請參考新版內容 使用 docker 建立 Redis Cluster - 更新版 請參考新版內容 使用 Docker Compose 建立 Redis Cluster 之前筆記 使用 docker 建立 Redis Master-Slave Replication Instance 紀錄到使用 docker 來建立 Redis 一個 Master node</description>
     </item>
     
     <item>
