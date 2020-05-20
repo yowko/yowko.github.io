@@ -9,6 +9,8 @@ slug: "redis-cluster-docker"
 
 ## 使用 docker 建立 Redis Cluster - 更新版
 
+<font style="color:red">請參考新版內容 [使用 Docker Compose 建立 Redis Cluster](https://blog.yowko.com/docker-compose-redis-cluster/)</font>
+
 之前筆記 [使用 docker 建立 Redis Cluster](https://blog.yowko.com/docker-redis-cluster) 成功建立了 redis cluster，也測試過 sentinel 可以正常 failover，興高采烈測試程式碼時才發現有 bug：在加入 cluster 時使用的是 container ip 與 port (因為 redis cluster 不支援使用 host name)，以致 redis key 在不同 slot 間無法正確做移動，所以我們馬上來看看可以如何解決吧
 
 ## 基本環境說明
@@ -336,6 +338,8 @@ networks:
 一心一意想要用 redis 5 來建立 cluster，結果反而最重要的功能沒有設定好，實在糟糕，幸虧沒有花太多時間發現問題，只是解法上依舊不甚滿意，尤其是 Docker for Mac 不支援：因為 Docker for Mac 與 Docker for Windows 及 Linux 不同，docker0 的網卡存在 vm 內部，沒辦法透過 ip route 來處理
 
 詳細的檔案內容都在：[yowko/docker-redis-5-cluster](https://github.com/yowko/docker-redis-5-cluster.git)
+
+<font style="color:red">請參考新版內容 [使用 Docker Compose 建立 Redis Cluster](https://blog.yowko.com/docker-compose-redis-cluster/)</font>
 
 ## 參考資訊
 
