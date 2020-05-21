@@ -3617,7 +3617,7 @@
       <pubDate>Thu, 25 May 2017 01:00:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/kafka-client-produce-consume/</guid>
-      <description>使用 .Net client 連線至 Apache Kafka 收發訊息 繼之前紀錄 如何在 Windows OS 安裝 Apache Kafka 到現在默默地過了兩個月XD，直到最近才有時間可以再開始進行 MQ 相關功能比較，經過初步比較</description>
+      <description>使用 .Net client 連線至 Apache Kafka 收發訊息 .NET Core 用法可以參考 讓 Kafka 達成 Broadcast 效果 繼之前紀錄 如何在 Windows OS 安裝 Apache Kafka 到現在默默地過了兩個月XD，直到最近才有時間可以再開始進</description>
     </item>
     
     <item>
