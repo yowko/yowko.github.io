@@ -1,7 +1,7 @@
 ---
 title: "使用 docker 建立 Redis Cluster - 更新版"
 date: 2019-03-05T21:30:00+08:00
-lastmod: 2019-12-19T21:30:31+08:00
+lastmod: 2020-05-19T21:30:31+08:00
 draft: false
 tags: ["Container","Redis","Docker"]
 slug: "redis-cluster-docker"
