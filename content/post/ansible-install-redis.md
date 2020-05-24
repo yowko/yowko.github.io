@@ -1,7 +1,7 @@
 ---
 title: "使用 Ansible 安裝 Redis Replication"
 date: 2020-02-14T21:30:00+08:00
-lastmod: 2020-02-14T21:30:31+08:00
+lastmod: 2020-05-24T21:30:31+08:00
 draft: false
 tags: ["Linux","Redis","Ansible"]
 slug: "ansible-install-redis"
@@ -102,7 +102,7 @@ slug: "ansible-install-redis"
     - inventory.ini
   
         ```yml
-        redis-nodes]
+        [redis-nodes]
         node11 ansible_host=10.0.0.4  ip=10.0.0.4  ansible_user=root ansible_password=pass.123 ansible_become_password=pass.123
         node12 ansible_host=10.0.0.12 ip=10.0.0.12  ansible_user=root ansible_password=pass.123 ansible_become_password=pass.123
         ```
