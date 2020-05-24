@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 Yum 安裝 Redis 5 - Yowko&#39;s Notes</title>
+  <title>清除 Git Commit 紀錄 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 Yum 安裝 Redis 5 最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，嘗試過程中無意間發現不同的 yum repository 間有不同的 redis 套件版本，像是常用的 epel-release 上的 redis 就是 3.2.12，雖說" />
+  <meta name="description" content="清除 Git Commit 紀錄 為了加快 Git clone 的速度，在之前筆記 加快大型 GIT Repository 下載速度(指定 depth) 曾經紀錄到使用 --depth 參數，用來限縮 clone 的資料量，只是預設情境下大家不會刻意加" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/yum-install-redis5/" />
+<link rel="canonical" href="https://blog.yowko.com/clean-git-commit-history/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="使用 Yum 安裝 Redis 5" />
-<meta property="og:description" content="使用 Yum 安裝 Redis 5 最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，嘗試過程中無意間發現不同的 yum repository 間有不同的 redis 套件版本，像是常用的 epel-release 上的 redis 就是 3.2.12，雖說" />
+<meta property="og:title" content="清除 Git Commit 紀錄" />
+<meta property="og:description" content="清除 Git Commit 紀錄 為了加快 Git clone 的速度，在之前筆記 加快大型 GIT Repository 下載速度(指定 depth) 曾經紀錄到使用 --depth 參數，用來限縮 clone 的資料量，只是預設情境下大家不會刻意加" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/yum-install-redis5/" /><meta property="article:published_time" content="2020-02-08T10:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-05-24T10:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/clean-git-commit-history/" /><meta property="article:published_time" content="2020-05-23T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-05-23T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="使用 Yum 安裝 Redis 5">
-<meta itemprop="description" content="使用 Yum 安裝 Redis 5 最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，嘗試過程中無意間發現不同的 yum repository 間有不同的 redis 套件版本，像是常用的 epel-release 上的 redis 就是 3.2.12，雖說">
-
-
-<meta itemprop="datePublished" content="2020-02-08T10:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-05-24T10:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="499">
+<meta itemprop="name" content="清除 Git Commit 紀錄">
+<meta itemprop="description" content="清除 Git Commit 紀錄 為了加快 Git clone 的速度，在之前筆記 加快大型 GIT Repository 下載速度(指定 depth) 曾經紀錄到使用 --depth 參數，用來限縮 clone 的資料量，只是預設情境下大家不會刻意加">
 
 
+<meta itemprop="datePublished" content="2020-05-23T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-23T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="644">
 
-<meta itemprop="keywords" content="Linux,Redis,Tools," />
+
+
+<meta itemprop="keywords" content="Git," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 Yum 安裝 Redis 5"/>
-<meta name="twitter:description" content="使用 Yum 安裝 Redis 5 最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，嘗試過程中無意間發現不同的 yum repository 間有不同的 redis 套件版本，像是常用的 epel-release 上的 redis 就是 3.2.12，雖說"/>
+<meta name="twitter:title" content="清除 Git Commit 紀錄"/>
+<meta name="twitter:description" content="清除 Git Commit 紀錄 為了加快 Git clone 的速度，在之前筆記 加快大型 GIT Repository 下載速度(指定 depth) 曾經紀錄到使用 --depth 參數，用來限縮 clone 的資料量，只是預設情境下大家不會刻意加"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,10 +144,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-02-08 </span>
+        <span class="post-time"> 2020-05-23 </span>
         
-        <span class="more-meta"> 約 499 字 </span>
-          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+        <span class="more-meta"> 約 644 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
     </header>
@@ -162,9 +162,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#使用-yum-安裝-redis-5">使用 Yum 安裝 Redis 5</a></li>
+<li><a href="#清除-git-commit-紀錄">清除 Git Commit 紀錄</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝方式">安裝方式</a></li>
+<li><a href="#操作流程">操作流程</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,135 +180,112 @@
     <div class="post-content">
       
 
-<h2 id="使用-yum-安裝-redis-5">使用 Yum 安裝 Redis 5</h2>
+<h2 id="清除-git-commit-紀錄">清除 Git Commit 紀錄</h2>
 
-<p>最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，嘗試過程中無意間發現不同的 yum repository 間有不同的 redis 套件版本，像是常用的 <code>epel-release</code> 上的 redis 就是 <code>3.2.12</code>，雖說主要功能不受影響，但細微的設定或是新版本功能就無法使用，順手紀錄該如何使用 yum 在 CentOS 上安裝 Redis 5</p>
+<p>為了加快 Git clone 的速度，在之前筆記 <a href="https://blog.yowko.com/git-clone-depth/" target="_blank">加快大型 GIT Repository 下載速度(指定 depth)</a> 曾經紀錄到使用 <code>--depth</code> 參數，用來限縮 clone 的資料量，只是預設情境下大家不會刻意加上這個參數，都是被 clone 時間嚇個幾次才會加，有時不免還是會忘記XD</p>
+
+<p>最近專案告了個段落，所以決定將開發時期的 commit history 都清除，來個重新開始，順手紀錄一下以供參考</p>
+
+<p>之前有類似需求，我都會直接刪除整個 <code>.git</code> 資料夾，不過近期的專案都有好幾個 submodule，為了避免重新 add submodule 的麻煩以及可能的錯誤，所以才改用別的方式</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>Azure VM B1s (1 vcpu,1GiB memory)</li>
-<li>CentOS-based 7.7</li>
-<li>Redis 5.0.7</li>
-<li>epel-release.noarch 0:7-11</li>
-<li>ius-release.noarch 0:2-1.el7.ius</li>
+<li>macOS Catalina 10.15.4</li>
+<li>git version 2.23.0</li>
+
+<li><p>以 gitlab 為例，原 commit 紀錄如下</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/82733251-33779280-9d45-11ea-905b-3ef42a107dce.jpg" alt="1original" /></p></li>
 </ol>
 
-<h2 id="安裝方式">安裝方式</h2>
-
-<ul>
-<li><p>預設的 yum repo</p>
-
-<ul>
-<li><p>透過 <code>yum repolist</code> 可以列出當前安裝的 yum repo 清單</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/74078486-4bf9c080-4a66-11ea-958a-3055ea1116ad.png" alt="1defaultrepo" /></p></li>
-
-<li><p>預設 repo 未包含 redis package，無法透過 yum 來安裝 redis</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/74078488-4ef4b100-4a66-11ea-8343-45a303c4b0b9.png" alt="2noredis" /></p></li>
-</ul></li>
-
-<li><p>使用 epel repo</p>
-
-<ul>
-<li><p>安裝 epel repo</p>
-
-<blockquote>
-<p>repo 安裝需要 <code>root</code> 權限，如果不是 <code>root</code> user，請加 <code>sudo</code></p>
-</blockquote>
-
-<pre><code class="language-sudo">yum install -y epel-release
-</code></pre></li>
-
-<li><p>epel 中 redis 的版本是 <code>3.2.12</code></p>
-
-<blockquote>
-<p>找出 redis 的 package name</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/74078489-4f8d4780-4a66-11ea-9572-28b659b0e31b.png" alt="3epelredis" /></p>
-
-<blockquote>
-<p>使用 <code>yum info</code> 來檢視 package 詳細資訊</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/74078490-50be7480-4a66-11ea-831f-9a4075f55b7a.png" alt="4redisversion" /></p></li>
-</ul></li>
-
-<li><p>使用 IUS repo</p>
-
-<ul>
-<li><p>安裝 IUS repo</p>
-
-<blockquote>
-<p>因 ius 相依於 epel repo ，如果沒安裝過要連帶安裝 epel-release package，以下提供兩種語法皆可正確完成安裝</p>
-</blockquote>
+<h2 id="操作流程">操作流程</h2>
 
 <ol>
-<li><p>社群版語法</p>
+<li><p>gitlab ui 操作解除 repo master protected (為了可以 force push)</p>
 
 <blockquote>
-<p>2020/05/24 確認已無法使用</p>
+<p>gitlab 與 github 皆有類似保護 master 不被 force push 的機制</p>
 </blockquote>
 
-<p><del>yum install -y  <a href="https://centos7.iuscommunity.org/ius-release.rpm" target="_blank">https://centos7.iuscommunity.org/ius-release.rpm</a></del></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/82733253-35d9ec80-9d45-11ea-9bb7-621d2e463da0.jpg" alt="2unprotected" /></p></li>
+
+<li><p>在 master  上打 tag 留下舊資料 (optional)</p>
 
 <blockquote>
-<p>請改用以下指令</p>
+<p>這個動作是為了需要查找過去 commit 而做的 (觀察期後沒有使用需求，即可刪除該 tag)，如果百分之百確認沒這個需求，這個步驟可以省略</p>
 </blockquote>
 
-<pre><code class="language-bash">yump install -y https://repo.ius.io/ius-release-el7.rpm
+<pre><code class="language-bash">git checkout master &amp;&amp; git tag final
 </code></pre></li>
 
-<li><p>官網版語法</p>
-
-<pre><code class="language-bash">yum install -y https://repo.ius.io/ius-release-el7.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-</code></pre></li>
-</ol></li>
-
-<li><p>多了 redis 4 與 5</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/74078492-51570b00-4a66-11ea-810a-62468d310676.png" alt="5redis45" /></p>
+<li><p>執行 squash</p>
 
 <blockquote>
-<p>redis 5 的版本是 <code>5.0.7</code></p>
+<p>建立一個全新且獨立的 branch <code>tmp</code></p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/74078493-51570b00-4a66-11ea-98a0-211228629854.png" alt="6redis5info" /></p></li>
-
-<li><p>安裝 Redis 5</p>
-
-<pre><code class="language-bash">yum install -y redis5
+<pre><code class="language-bash">git checkout --orphan tmp &amp;&amp; git commit -m &quot;squash&quot;
 </code></pre></li>
 
-<li><p>啟動 redis</p>
+<li><p>取代 master</p>
 
 <blockquote>
-<p>service 的內容，在安裝當下已經建立，詳細內容可以看 <code>/usr/lib/systemd/system/redis.service</code></p>
+<p>刪除舊 <code>master</code> 並用 <code>tmp</code> 替換 master</p>
 </blockquote>
 
-<pre><code class="language-bash">systemctl start redis
+<pre><code class="language-bash">git branch -D master &amp;&amp; git branch -m master
 </code></pre></li>
 
-<li><p>確認版本</p>
+<li><p>刪除 remote 其他 branch</p>
 
-<pre><code class="language-bash">redis-cli info server
-</code></pre>
+<blockquote>
+<p>刪除 remote 上除了 <code>master</code> 外的所有 branch，避免殘留</p>
+</blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/74078494-51efa180-4a66-11ea-96db-c73a0ea64c84.png" alt="7redisversion" /></p></li>
-</ul></li>
-</ul>
+<pre><code class="language-bash">REMOTE=&quot;origin&quot; &amp;&amp; MASTER=&quot;master&quot; &amp;&amp; git branch -r |  grep &quot;^  ${REMOTE}/&quot; | sed &quot;s|^  ${REMOTE}/|:|&quot; | grep -v &quot;^:HEAD&quot; | grep -v &quot;^:${MASTER}$&quot; | xargs git push ${REMOTE}
+</code></pre></li>
+
+<li><p>force push</p>
+
+<blockquote>
+<p>用整理後新版的 master 取代 remote 的 master</p>
+</blockquote>
+
+<pre><code class="language-bash">git push -f origin master &amp;&amp; git push --tags
+</code></pre></li>
+
+<li><p>清除 local 舊資料 (optional)</p>
+
+<blockquote>
+<p>清除 local 不需要的舊資料</p>
+</blockquote>
+
+<pre><code class="language-bash">git gc --aggressive --prune=all
+</code></pre></li>
+
+<li><p>完成示意</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/82733254-36728300-9d45-11ea-8fce-caf9a2be7ecb.jpg" alt="3done" /></p>
+
+<blockquote>
+<p>如果前面有打上 tag，就可以在 branch 選擇該 tag，再勾選 <code>Begin with the selected commit</code> 來顯示過去紀錄</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/82733255-370b1980-9d45-11ea-873c-25322bff893c.jpg" alt="4tag" /></p></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
-<p>反覆測試安裝 redis 的過程才留意到原來 epel repo 中的 redis 版本停留在 <code>3.2.12</code>，這才注意到 ius 的便利以及 ius 相依於 epel 的關係，原以為是沒什麼營養的指令紀錄，仔細端詳也是有不少學問的嘛，有刻意筆記果然是正確的決定</p>
+<p>如果撇除需要保留 submodule 的緣故，我想我更喜歡直接刪除 <code>.git</code> 資料夾，感覺更直接XD</p>
+
+<p>不過依我後知後覺的個性，要不是有這樣的需求  我也不會去嘗試不同做法，剛好多學了個處理方式囉</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://ius.io/" target="_blank">IUS</a></li>
-<li><a href="https://plone.lucidsolutions.co.nz/linux/centos/ius-repository-for-centos-7" target="_blank">IUS Repository for CentOS 7</a></li>
+<li><a href="https://gist.github.com/stephenhardy/5470814" target="_blank">stephenhardy/git-clearHistory</a></li>
+<li><a href="https://blog.yowko.com/git-clone-depth/" target="_blank">加快大型 GIT Repository 下載速度(指定 depth)</a></li>
 </ol>
 
     </div>
@@ -321,7 +298,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-05-24</span>
+    <span class="item-content">2020-05-23</span>
   </p>
   
   <p class="copyright-item">
@@ -343,15 +320,7 @@
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
+            <a href="https://blog.yowko.com/tags/git/">Git</a>
           
         </div>
 
@@ -359,18 +328,18 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/configuration-to-json/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/git-pull-after-force-push/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">[C#] 將 .NET Core 中的 Configuration 輸出為 JSON</span>			
+            <span class="next-text nav-default">Git Force Push 後如何更新 Repository</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/dictionary-to-json/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/docker-compose-redis-cluster/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">[C#] 將 Dictionary 轉為 JSON</span>			
+            <span class="prev-text nav-default">使用 Docker Compose 建立 Redis Cluster</span>			
           </a>
 		  </div>
       </nav>
@@ -381,7 +350,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/yum-install-redis5\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/clean-git-commit-history\/';  
       
     };
 

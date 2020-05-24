@@ -3,6 +3,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/git-pull-after-force-push/</loc>
+    <lastmod>2020-05-23T22:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/clean-git-commit-history/</loc>
+    <lastmod>2020-05-23T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/docker-compose-redis-cluster/</loc>
     <lastmod>2020-05-19T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -165,7 +179,7 @@
   
   <url>
     <loc>https://blog.yowko.com/ansible-install-redis/</loc>
-    <lastmod>2020-02-14T21:30:31+08:00</lastmod>
+    <lastmod>2020-05-24T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -193,7 +207,7 @@
   
   <url>
     <loc>https://blog.yowko.com/yum-install-redis5/</loc>
-    <lastmod>2020-02-08T10:30:31+08:00</lastmod>
+    <lastmod>2020-05-24T10:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -4189,7 +4203,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/git/</loc>
-    <lastmod>2019-02-19T20:40:30+08:00</lastmod>
+    <lastmod>2020-05-23T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4476,7 +4490,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2020-05-19T22:30:31+08:00</lastmod>
+    <lastmod>2020-05-23T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4651,7 +4665,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2020-05-19T22:30:31+08:00</lastmod>
+    <lastmod>2020-05-23T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 19 May 2020 22:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 23 May 2020 22:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Git Force Push 後如何更新 Repository</title>
+      <link>https://blog.yowko.com/git-pull-after-force-push/</link>
+      <pubDate>Sat, 23 May 2020 22:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/git-pull-after-force-push/</guid>
+      <description>Git Force Push 後如何更新 Repository 在之前筆記 清除 Git Commit 紀錄 提到打算將開發時期的 commit history 都清除，來個重新開始，但在完成 repository 整理後，團隊其他人還是得繼續往下開發，在找不</description>
+    </item>
+    
+    <item>
+      <title>清除 Git Commit 紀錄</title>
+      <link>https://blog.yowko.com/clean-git-commit-history/</link>
+      <pubDate>Sat, 23 May 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/clean-git-commit-history/</guid>
+      <description>清除 Git Commit 紀錄 為了加快 Git clone 的速度，在之前筆記 加快大型 GIT Repository 下載速度(指定 depth) 曾經紀錄到使用 --depth 參數，用來限縮 clone 的資料量，只是預設情境下大家不會刻意加</description>
+    </item>
     
     <item>
       <title>使用 Docker Compose 建立 Redis Cluster</title>
