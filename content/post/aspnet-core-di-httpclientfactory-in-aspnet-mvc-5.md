@@ -1,7 +1,7 @@
 ---
 title: "在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory"
 date: 2019-01-14T23:45:00+08:00
-lastmod: 2019-01-14T23:44:30+08:00
+lastmod: 2020-06-01T09:44:30+08:00
 draft: false
 tags: ["C#","dotnet core","ASP.NET MVC"]
 slug: "aspnet-core-di-httpclientfactory-in-aspnet-mvc-5"
@@ -24,7 +24,9 @@ slug: "aspnet-core-di-httpclientfactory-in-aspnet-mvc-5"
     ```
     Install-Package Microsoft.Extensions.DependencyInjection 
     ``` 
-- .NET CLI
+- ~~.NET CLI~~
+
+    update: 2020/06/01 經保哥提醒，才發現我從別篇筆記抄 install package template 過來，只改了 package name，沒留意到 .NET Framework 不能使用 .NET CLI 安裝套件
 
     ```
     dotnet add package Microsoft.Extensions.DependencyInjection
