@@ -26,11 +26,9 @@ slug: "aspnet-core-di-httpclientfactory-in-aspnet-mvc-5"
     ``` 
 - ~~.NET CLI~~
 
-    update: 2020/06/01 經保哥提醒，才發現我從別篇筆記抄 install package template 過來，只改了 package name，沒留意到 .NET Framework 不能使用 .NET CLI 安裝套件
+    > <span style="color:red">update:</span> 2020/06/01 經保哥提醒，才發現我從別篇筆記抄 install package template 過來，只改了 package name，沒留意到 .NET Framework 不能使用 .NET CLI 安裝套件
 
-    ```
-    dotnet add package Microsoft.Extensions.DependencyInjection
-    ```
+    ~~dotnet add package Microsoft.Extensions.DependencyInjection~~
 
 ## 2. 在 `Startup.cs` 中加入 `ConfigureServices` 方法
 
