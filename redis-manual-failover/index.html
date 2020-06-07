@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Git Force Push 後如何更新 Repository - Yowko&#39;s Notes</title>
+  <title>手動觸發 Redis failover - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="Git Force Push 後如何更新 Repository 在之前筆記 清除 Git Commit 紀錄 提到打算將開發時期的 commit history 都清除，來個重新開始，但在完成 repository 整理後，團隊其他人還是得繼續往下開發，在找不" />
+  <meta name="description" content="手動觸發 Redis failover 之前筆記 手動觸發 MongoDB failover 紀錄到如何透過 mongo cli 來進行 failover 今天接著紀錄如何使用 redis cli 來進行 failover 停止服務可以分為： server level (服務運作的實體機器無法提供" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/git-pull-after-force-push/" />
+<link rel="canonical" href="https://blog.yowko.com/redis-manual-failover/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="Git Force Push 後如何更新 Repository" />
-<meta property="og:description" content="Git Force Push 後如何更新 Repository 在之前筆記 清除 Git Commit 紀錄 提到打算將開發時期的 commit history 都清除，來個重新開始，但在完成 repository 整理後，團隊其他人還是得繼續往下開發，在找不" />
+<meta property="og:title" content="手動觸發 Redis failover" />
+<meta property="og:description" content="手動觸發 Redis failover 之前筆記 手動觸發 MongoDB failover 紀錄到如何透過 mongo cli 來進行 failover 今天接著紀錄如何使用 redis cli 來進行 failover 停止服務可以分為： server level (服務運作的實體機器無法提供" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/git-pull-after-force-push/" /><meta property="article:published_time" content="2020-05-23T22:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-05-23T22:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/redis-manual-failover/" /><meta property="article:published_time" content="2020-06-07T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-06-07T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="Git Force Push 後如何更新 Repository">
-<meta itemprop="description" content="Git Force Push 後如何更新 Repository 在之前筆記 清除 Git Commit 紀錄 提到打算將開發時期的 commit history 都清除，來個重新開始，但在完成 repository 整理後，團隊其他人還是得繼續往下開發，在找不">
-
-
-<meta itemprop="datePublished" content="2020-05-23T22:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-05-23T22:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="334">
+<meta itemprop="name" content="手動觸發 Redis failover">
+<meta itemprop="description" content="手動觸發 Redis failover 之前筆記 手動觸發 MongoDB failover 紀錄到如何透過 mongo cli 來進行 failover 今天接著紀錄如何使用 redis cli 來進行 failover 停止服務可以分為： server level (服務運作的實體機器無法提供">
 
 
+<meta itemprop="datePublished" content="2020-06-07T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-07T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="569">
 
-<meta itemprop="keywords" content="Git," />
+
+
+<meta itemprop="keywords" content="Redis," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Git Force Push 後如何更新 Repository"/>
-<meta name="twitter:description" content="Git Force Push 後如何更新 Repository 在之前筆記 清除 Git Commit 紀錄 提到打算將開發時期的 commit history 都清除，來個重新開始，但在完成 repository 整理後，團隊其他人還是得繼續往下開發，在找不"/>
+<meta name="twitter:title" content="手動觸發 Redis failover"/>
+<meta name="twitter:description" content="手動觸發 Redis failover 之前筆記 手動觸發 MongoDB failover 紀錄到如何透過 mongo cli 來進行 failover 今天接著紀錄如何使用 redis cli 來進行 failover 停止服務可以分為： server level (服務運作的實體機器無法提供"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,10 +144,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-05-23 </span>
+        <span class="post-time"> 2020-06-07 </span>
         
-        <span class="more-meta"> 約 334 字 </span>
-          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+        <span class="more-meta"> 約 569 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
     </header>
@@ -162,10 +162,11 @@
 <ul>
 <li>
 <ul>
-<li><a href="#git-force-push-後如何更新-repository">Git Force Push 後如何更新 Repository</a></li>
+<li><a href="#手動觸發-redis-failover">手動觸發 Redis failover</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#錯誤訊息">錯誤訊息</a></li>
-<li><a href="#解決方式">解決方式</a></li>
+<li><a href="#確認-redis-master-語法">確認 redis master 語法</a></li>
+<li><a href="#在-redis-replication-上進行-failover">在 Redis Replication 上進行 failover</a></li>
+<li><a href="#在-redis-cluster-上進行-failover">在 Redis Cluster 上進行 failover</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,64 +182,160 @@
     <div class="post-content">
       
 
-<h2 id="git-force-push-後如何更新-repository">Git Force Push 後如何更新 Repository</h2>
+<h2 id="手動觸發-redis-failover">手動觸發 Redis failover</h2>
 
-<p>在之前筆記 <a href="https://blog.yowko.com/clean-git-commit-history/" target="_blank">清除 Git Commit 紀錄</a> 提到打算將開發時期的 commit history 都清除，來個重新開始，但在完成 repository 整理後，團隊其他人還是得繼續往下開發，在找不到共同的 parent commit 下，<code>git pull</code> 無法正確執行，今天就來紀錄一下該如何不重新 clone 而取得 repository 的更新內容</p>
+<p>之前筆記 <a href="https://blog.yowko.com/mongodb-manual-failover" target="_blank">手動觸發 MongoDB failover</a> 紀錄到如何透過 mongo cli 來進行 failover</p>
+
+<p>今天接著紀錄如何使用 redis cli 來進行 failover</p>
+
+<p>停止服務可以分為：</p>
+
+<ol>
+<li><p>server level (服務運作的實體機器無法提供服務運行：停機 or 網路斷線)</p>
+
+<blockquote>
+<p>驗證方式：機器 reboot 或是拔除網路線</p>
+</blockquote></li>
+
+<li><p>service level (服務異常：資源不足、服務本身出現錯誤&hellip;.)</p>
+
+<blockquote>
+<p>驗證方式：停止 service process 或是 使用 service 指令執行</p>
+</blockquote></li>
+</ol>
+
+<p>今天只會紀錄針對 redis service 進行 failover 的部份</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>macOS Catalina 10.15.4</li>
-<li>git version 2.23.0</li>
-</ol>
+<li>macOS Catalina 10.15.5</li>
+<li>docker desktop community 2.3.0.3(45519)</li>
 
-<h2 id="錯誤訊息">錯誤訊息</h2>
+<li><p>docker images</p>
 
-<ol>
-<li><p>訊息內容</p>
+<ul>
+<li>redis 6.0.4</li>
 
-<pre><code class="language-txt">From https://gitlab.com/yowko/xunit.net.testgenerator_test
-  a1c4acd...1caf56a master     -&gt; origin/master  (forced update)
-  [new tag]         final      -&gt; final
-fatal: refusing to merge unrelated histories
-</code></pre></li>
-
-<li><p>錯誤截圖</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/82734036-b51def00-9d4a-11ea-9ac0-355155a1dc4b.jpg" alt="1error" /></p></li>
-</ol>
-
-<h2 id="解決方式">解決方式</h2>
-
-<ol>
-<li><p>直接使用新版：<code>reset</code></p>
+<li><p>redis replication</p>
 
 <blockquote>
-<p>推薦使用，流程比較簡單直覺</p>
-</blockquote>
+<p>建立方式請參考之前筆記 <a href="https://blog.yowko.com/docker-redis-master-slave-replication/" target="_blank">使用 docker 建立 Redis Master-Slave Replication Instance</a></p>
+</blockquote></li>
 
-<pre><code class="language-bash">git reset origin/master --hard
-</code></pre></li>
-
-<li><p>將 local 的變更重新加至新 master 上：<code>rebase</code></p>
+<li><p>redis cluster</p>
 
 <blockquote>
-<p>需要手動調整 conflict</p>
+<p>建立方式請參考之前筆記 <a href="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" target="_blank">使用 Helm 在 Kubernetes 上安裝 Redis Cluster</a></p>
+</blockquote></li>
+</ul></li>
+</ol>
+
+<h2 id="確認-redis-master-語法">確認 redis master 語法</h2>
+
+<blockquote>
+<p>指令是針對 redis sentinel 的，記得連線至 redis sentinel</p>
 </blockquote>
 
-<pre><code class="language-bash">git rebase -i origin/master
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">redis-cli [-h {redis ip}] [-p {redis port}] [-a {redis auth password}] SENTINEL get-master-addr-by-name {master name}
 </code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">redis-cli -p 26379 SENTINEL get-master-addr-by-name mymaster
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/83971312-660cb800-a90d-11ea-8ad7-f7d598d022f4.jpg" alt="1getmaster" /></p></li>
+</ul>
+
+<h2 id="在-redis-replication-上進行-failover">在 Redis Replication 上進行 failover</h2>
+
+<blockquote>
+<p>兩種方式擇一即可，各有優缺點</p>
+</blockquote>
+
+<ol>
+<li><p>讓 master 暫時停止回應</p>
+
+<blockquote>
+<p>需要對 <code>master</code> 下指令</p>
+</blockquote>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">redis-cli [-h {redis ip}] [-p {redis port}] [-a {redis auth password}] DEBUG sleep {秒數}
+</code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">redis-cli -p 6379 DEBUG sleep 30
+</code></pre></li>
+
+<li><p>成功 failover</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/83971313-673de500-a90d-11ea-9bd0-1dc4152070dd.jpg" alt="2failover" /></p></li>
+</ul></li>
+
+<li><p>sentinel api</p>
+
+<blockquote>
+<p>指令是針對 redis sentinel 的，記得連線至 redis sentinel</p>
+</blockquote>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">redis-cli [-h {redis ip}] [-p {redis port}] [-a {redis auth password}] SENTINEL failover {master name}
+</code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">redis-cli -p 6379 SENTINEL failover mymaster
+</code></pre></li>
+
+<li><p>成功 failover</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/83971314-67d67b80-a90d-11ea-8115-a56622ec1f29.jpg" alt="3sentinelapi" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="在-redis-cluster-上進行-failover">在 Redis Cluster 上進行 failover</h2>
+
+<blockquote>
+<p>指令需要下在 cluster replica (slave) node 上，會將該 replica 提昇為 master</p>
+</blockquote>
+
+<ol>
+<li><p>語法</p>
+
+<pre><code class="language-bash">redis-cli -h {cluster replica(slave) host} -p {cluster slave port} cluster failover
+</code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">redis-cli -h redis-cluster-shard0-announce-1.redis.svc.cluster.local -p 6379 cluster failover
+</code></pre></li>
+
+<li><p>成功 failover</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/83971315-686f1200-a90d-11ea-8cf5-f1be0d379e09.jpg" alt="4clusterfailover" /></p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>好一陣子沒有純粹使用 git cli 來操作，的確生疏不少，一部份原因是我個人無法捨棄 GUI 畫出來的 commit graph，雖然需要看的機會比想像的少得多，但最重要的主因還是不想記那麼多 git command，還要擔心下錯指令XD</p>
+<p>redis 的手動 failover 在實際執行上有較多限制：指令的對象有較嚴格的規定，但仔細想想也是合理，failover 雖然是簡單的指令，但難免對於正式服務造成異動，在指令的執行條件上有較多規範以預防人為問題出現操作錯誤是件好事</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/clean-git-commit-history/" target="_blank">清除 Git Commit 紀錄</a></li>
-<li><a href="https://stackoverflow.com/a/9813888" target="_blank">Git pull after forced update</a></li>
+<li><a href="https://blog.yowko.com/docker-redis-master-slave-replication/" target="_blank">使用 docker 建立 Redis Master-Slave Replication Instance</a></li>
+<li><a href="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" target="_blank">使用 Helm 在 Kubernetes 上安裝 Redis Cluster</a></li>
+<li><a href="https://redis.io/topics/sentinel" target="_blank">Redis Sentinel Documentation</a></li>
+<li><a href="https://redis.io/commands/cluster-failover" target="_blank">CLUSTER FAILOVER [FORCE|TAKEOVER]</a></li>
 </ol>
 
     </div>
@@ -251,7 +348,7 @@ fatal: refusing to merge unrelated histories
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-05-23</span>
+    <span class="item-content">2020-06-07</span>
   </p>
   
   <p class="copyright-item">
@@ -273,7 +370,7 @@ fatal: refusing to merge unrelated histories
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/git/">Git</a>
+            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
           
         </div>
 
@@ -281,18 +378,11 @@ fatal: refusing to merge unrelated histories
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/redis-batch-delete-by-pattern/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">批次刪除 Redis 特定 Key</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/clean-git-commit-history/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/mongodb-manual-failover/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">清除 Git Commit 紀錄</span>			
+            <span class="prev-text nav-default">手動觸發 MongoDB failover</span>			
           </a>
 		  </div>
       </nav>
@@ -303,7 +393,7 @@ fatal: refusing to merge unrelated histories
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/git-pull-after-force-push\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/redis-manual-failover\/';  
       
     };
 

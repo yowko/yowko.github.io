@@ -6,10 +6,28 @@
     <description>Recent content in redis on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 19 May 2020 22:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 07 Jun 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/redis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>手動觸發 Redis failover</title>
+      <link>https://blog.yowko.com/redis-manual-failover/</link>
+      <pubDate>Sun, 07 Jun 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/redis-manual-failover/</guid>
+      <description>手動觸發 Redis failover 之前筆記 手動觸發 MongoDB failover 紀錄到如何透過 mongo cli 來進行 failover 今天接著紀錄如何使用 redis cli 來進行 failover 停止服務可以分為： server level (服務運作的實體機器無法提供</description>
+    </item>
+    
+    <item>
+      <title>批次刪除 Redis 特定 Key</title>
+      <link>https://blog.yowko.com/redis-batch-delete-by-pattern/</link>
+      <pubDate>Sat, 06 Jun 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/redis-batch-delete-by-pattern/</guid>
+      <description>批次刪除 Redis 特定 Key 將 Redis 當做 Cache Server 是滿普遍的做法，修改 Cache 內容格式也是常見的，不過程式部署時連帶清空 redis 可能就不是預設 sop 了 最近專案就遇到類似問題： Redis 預</description>
+    </item>
     
     <item>
       <title>使用 Docker Compose 建立 Redis Cluster</title>
