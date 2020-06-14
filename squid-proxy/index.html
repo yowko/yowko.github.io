@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>手動觸發 Redis failover - Yowko&#39;s Notes</title>
+  <title>安裝 Squid Proxy - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="手動觸發 Redis failover 之前筆記 手動觸發 MongoDB failover 紀錄到如何透過 mongo cli 來進行 failover 今天接著紀錄如何使用 redis cli 來進行 failover 停止服務可以分為： server level (服務運作的實體機器無法提供" />
+  <meta name="description" content="安裝 Squid Proxy 專案有個需求是跟 partner 之間的溝通只限定於註冊過的 server ip，雖然在資安的考量下是很常見的做法，但對於實際的營運上不免會有些限制：像是如果只綁" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/redis-manual-failover/" />
+<link rel="canonical" href="https://blog.yowko.com/squid-proxy/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="手動觸發 Redis failover" />
-<meta property="og:description" content="手動觸發 Redis failover 之前筆記 手動觸發 MongoDB failover 紀錄到如何透過 mongo cli 來進行 failover 今天接著紀錄如何使用 redis cli 來進行 failover 停止服務可以分為： server level (服務運作的實體機器無法提供" />
+<meta property="og:title" content="安裝 Squid Proxy" />
+<meta property="og:description" content="安裝 Squid Proxy 專案有個需求是跟 partner 之間的溝通只限定於註冊過的 server ip，雖然在資安的考量下是很常見的做法，但對於實際的營運上不免會有些限制：像是如果只綁" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/redis-manual-failover/" /><meta property="article:published_time" content="2020-06-07T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-06-07T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/squid-proxy/" /><meta property="article:published_time" content="2020-06-13T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-06-13T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="手動觸發 Redis failover">
-<meta itemprop="description" content="手動觸發 Redis failover 之前筆記 手動觸發 MongoDB failover 紀錄到如何透過 mongo cli 來進行 failover 今天接著紀錄如何使用 redis cli 來進行 failover 停止服務可以分為： server level (服務運作的實體機器無法提供">
-
-
-<meta itemprop="datePublished" content="2020-06-07T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-06-07T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="569">
+<meta itemprop="name" content="安裝 Squid Proxy">
+<meta itemprop="description" content="安裝 Squid Proxy 專案有個需求是跟 partner 之間的溝通只限定於註冊過的 server ip，雖然在資安的考量下是很常見的做法，但對於實際的營運上不免會有些限制：像是如果只綁">
 
 
+<meta itemprop="datePublished" content="2020-06-13T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-13T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="994">
 
-<meta itemprop="keywords" content="Redis," />
+
+
+<meta itemprop="keywords" content="Linux,Netowrk," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="手動觸發 Redis failover"/>
-<meta name="twitter:description" content="手動觸發 Redis failover 之前筆記 手動觸發 MongoDB failover 紀錄到如何透過 mongo cli 來進行 failover 今天接著紀錄如何使用 redis cli 來進行 failover 停止服務可以分為： server level (服務運作的實體機器無法提供"/>
+<meta name="twitter:title" content="安裝 Squid Proxy"/>
+<meta name="twitter:description" content="安裝 Squid Proxy 專案有個需求是跟 partner 之間的溝通只限定於註冊過的 server ip，雖然在資安的考量下是很常見的做法，但對於實際的營運上不免會有些限制：像是如果只綁"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-06-07 </span>
+        <span class="post-time"> 2020-06-13 </span>
         
-        <span class="more-meta"> 約 569 字 </span>
+        <span class="more-meta"> 約 994 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,11 +162,11 @@
 <ul>
 <li>
 <ul>
-<li><a href="#手動觸發-redis-failover">手動觸發 Redis failover</a></li>
+<li><a href="#安裝-squid-proxy">安裝 Squid Proxy</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#確認-redis-master-語法">確認 redis master 語法</a></li>
-<li><a href="#在-redis-replication-上進行-failover">在 Redis Replication 上進行 failover</a></li>
-<li><a href="#在-redis-cluster-上進行-failover">在 Redis Cluster 上進行 failover</a></li>
+<li><a href="#基本安裝">基本安裝</a></li>
+<li><a href="#使用方式">使用方式</a></li>
+<li><a href="#設定-trasparnet-mode">設定 trasparnet mode</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -182,160 +182,213 @@
     <div class="post-content">
       
 
-<h2 id="手動觸發-redis-failover">手動觸發 Redis failover</h2>
+<h2 id="安裝-squid-proxy">安裝 Squid Proxy</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/mongodb-manual-failover" target="_blank">手動觸發 MongoDB failover</a> 紀錄到如何透過 mongo cli 來進行 failover</p>
+<p>專案有個需求是跟 partner 之間的溝通只限定於註冊過的 server ip，雖然在資安的考量下是很常見的做法，但對於實際的營運上不免會有些限制：像是如果只綁定某一台 server，這樣一來在服務快速成長的期間 server 擴展的即時性會比較差；如果只綁在 load balancer 上也有類似問題，沒辦法跨機房，這時候可以透過架設 proxy server 並將該 proxy server ip 註冊至 partner 端的方式來處理，這麼一來只要 proxy server 正常運作，後面 server 就可以擁有配置的彈性</p>
 
-<p>今天接著紀錄如何使用 redis cli 來進行 failover</p>
-
-<p>停止服務可以分為：</p>
-
-<ol>
-<li><p>server level (服務運作的實體機器無法提供服務運行：停機 or 網路斷線)</p>
-
-<blockquote>
-<p>驗證方式：機器 reboot 或是拔除網路線</p>
-</blockquote></li>
-
-<li><p>service level (服務異常：資源不足、服務本身出現錯誤&hellip;.)</p>
-
-<blockquote>
-<p>驗證方式：停止 service process 或是 使用 service 指令執行</p>
-</blockquote></li>
-</ol>
-
-<p>今天只會紀錄針對 redis service 進行 failover 的部份</p>
+<p>過去都是 infra 同事協助設定，這次自己來，剛好趁這個機會學習一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>macOS Catalina 10.15.5</li>
-<li>docker desktop community 2.3.0.3(45519)</li>
-
-<li><p>docker images</p>
-
-<ul>
-<li>redis 6.0.4</li>
-
-<li><p>redis replication</p>
-
-<blockquote>
-<p>建立方式請參考之前筆記 <a href="https://blog.yowko.com/docker-redis-master-slave-replication/" target="_blank">使用 docker 建立 Redis Master-Slave Replication Instance</a></p>
-</blockquote></li>
-
-<li><p>redis cluster</p>
-
-<blockquote>
-<p>建立方式請參考之前筆記 <a href="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" target="_blank">使用 Helm 在 Kubernetes 上安裝 Redis Cluster</a></p>
-</blockquote></li>
-</ul></li>
+<li>Azure VM 標準 B2s (2 vcpu，4 GiB 記憶體)</li>
+<li>CentOS 7.7</li>
+<li>Squid 3.5.20</li>
 </ol>
 
-<h2 id="確認-redis-master-語法">確認 redis master 語法</h2>
+<h2 id="基本安裝">基本安裝</h2>
 
-<blockquote>
-<p>指令是針對 redis sentinel 的，記得連線至 redis sentinel</p>
-</blockquote>
+<ol>
+<li><p>透過 yum 安裝</p>
 
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">redis-cli [-h {redis ip}] [-p {redis port}] [-a {redis auth password}] SENTINEL get-master-addr-by-name {master name}
+<pre><code class="language-bash">yum install -y squid
 </code></pre></li>
 
-<li><p>範例</p>
+<li><p>調整 config</p>
 
-<pre><code class="language-bash">redis-cli -p 26379 SENTINEL get-master-addr-by-name mymaster
+<blockquote>
+<p>預設位置 <code>/etc/squid/squid.conf</code></p>
+</blockquote>
+
+<pre><code class="language-bash">vi /etc/squid/squid.conf
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/83971312-660cb800-a90d-11ea-8ad7-f7d598d022f4.jpg" alt="1getmaster" /></p></li>
-</ul>
-
-<h2 id="在-redis-replication-上進行-failover">在 Redis Replication 上進行 failover</h2>
-
 <blockquote>
-<p>兩種方式擇一即可，各有優缺點</p>
+<p>預設 config 如下</p>
 </blockquote>
 
-<ol>
-<li><p>讓 master 暫時停止回應</p>
+<pre><code class="language-conf">#
+# Recommended minimum configuration:
+#
 
-<blockquote>
-<p>需要對 <code>master</code> 下指令</p>
-</blockquote>
+# Example rule allowing access from your local networks.
+# Adapt to list your (internal) IP networks from where browsing
+# should be allowed
+acl localnet src 10.0.0.0/8 # RFC1918 possible internal network
+acl localnet src 172.16.0.0/12  # RFC1918 possible internal     network
+acl localnet src 192.168.0.0/16 # RFC1918 possible internal     network
+acl localnet src fc00::/7       # RFC 4193 local private    network range
+acl localnet src fe80::/10      # RFC 4291 link-local (directly     plugged) machines
 
-<ul>
-<li><p>語法</p>
+acl SSL_ports port 443
+acl Safe_ports port 80      # http
+acl Safe_ports port 21      # ftp
+acl Safe_ports port 443     # https
+acl Safe_ports port 70      # gopher
+acl Safe_ports port 210     # wais
+acl Safe_ports port 1025-65535  # unregistered ports
+acl Safe_ports port 280     # http-mgmt
+acl Safe_ports port 488     # gss-http
+acl Safe_ports port 591     # filemaker
+acl Safe_ports port 777     # multiling http
+acl CONNECT method CONNECT
 
-<pre><code class="language-bash">redis-cli [-h {redis ip}] [-p {redis port}] [-a {redis auth password}] DEBUG sleep {秒數}
+#
+# Recommended minimum Access Permission configuration:
+#
+# Deny requests to certain unsafe ports
+http_access deny !Safe_ports
+
+# Deny CONNECT to other than secure SSL ports
+http_access deny CONNECT !SSL_ports
+
+# Only allow cachemgr access from localhost
+http_access allow localhost manager
+http_access deny manager
+
+# We strongly recommend the following be uncommented to protect     innocent
+# web applications running on the proxy server who think the    only
+# one who can access services on &quot;localhost&quot; is a local user
+#http_access deny to_localhost
+
+#
+# INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS
+#
+
+# Example rule allowing access from your local networks.
+# Adapt localnet in the ACL section to list your (internal) IP  networks
+# from where browsing should be allowed
+http_access allow localnet
+http_access allow localhost
+
+# And finally deny all other access to this proxy
+http_access deny all
+
+# Squid normally listens to port 3128
+http_port 3128
+
+# Uncomment and adjust the following to add a disk cache    directory.
+#cache_dir ufs /var/spool/squid 100 16 256
+
+# Leave coredumps in the first cache dir
+coredump_dir /var/spool/squid
+
+#
+# Add any of your own refresh_pattern entries above these.
+#
+refresh_pattern ^ftp:       1440    20% 10080
+refresh_pattern ^gopher:    1440    0%  1440
+refresh_pattern -i (/cgi-bin/|\?) 0 0%  0
+refresh_pattern .       0   20% 4320
 </code></pre></li>
 
-<li><p>範例</p>
+<li><p>直接啟動 squid</p>
 
-<pre><code class="language-bash">redis-cli -p 6379 DEBUG sleep 30
+<pre><code class="language-bash">/usr/sbin/squid start
 </code></pre></li>
 
-<li><p>成功 failover</p>
+<li><p>確認啟動</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/83971313-673de500-a90d-11ea-9bd0-1dc4152070dd.jpg" alt="2failover" /></p></li>
-</ul></li>
+<pre><code class="language-bash">netstat -tulnp | grep squid
+</code></pre>
 
-<li><p>sentinel api</p>
-
-<blockquote>
-<p>指令是針對 redis sentinel 的，記得連線至 redis sentinel</p>
-</blockquote>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">redis-cli [-h {redis ip}] [-p {redis port}] [-a {redis auth password}] SENTINEL failover {master name}
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">redis-cli -p 6379 SENTINEL failover mymaster
-</code></pre></li>
-
-<li><p>成功 failover</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/83971314-67d67b80-a90d-11ea-8115-a56622ec1f29.jpg" alt="3sentinelapi" /></p></li>
-</ul></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/84596036-db3c3800-ae8d-11ea-8df1-cebaa8445270.jpg" alt="1start" /></p></li>
 </ol>
 
-<h2 id="在-redis-cluster-上進行-failover">在 Redis Cluster 上進行 failover</h2>
+<ul>
+<li><p>可設為開機啟動服務</p>
 
-<blockquote>
-<p>指令需要下在 cluster replica (slave) node 上，會將該 replica 提昇為 master</p>
-</blockquote>
+<pre><code class="language-bash">systemctl enable squid
+</code></pre></li>
+</ul>
+
+<h2 id="使用方式">使用方式</h2>
 
 <ol>
-<li><p>語法</p>
+<li><p>一般存取網頁</p>
 
-<pre><code class="language-bash">redis-cli -h {cluster replica(slave) host} -p {cluster slave port} cluster failover
+<pre><code class="language-bash">curl -L https://blog.yowko.com/
 </code></pre></li>
 
-<li><p>範例</p>
+<li><p>確認透過 squid proxy 存取正常</p>
 
-<pre><code class="language-bash">redis-cli -h redis-cluster-shard0-announce-1.redis.svc.cluster.local -p 6379 cluster failover
+<pre><code class="language-bash">curl -x http://127.0.0.1:3128 -L https://blog.yowko.com/
 </code></pre></li>
 
-<li><p>成功 failover</p>
+<li><p>檢視 squid log 的存取紀錄</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/83971315-686f1200-a90d-11ea-8cf5-f1be0d379e09.jpg" alt="4clusterfailover" /></p></li>
+<blockquote>
+<p>預設位置 <code>/var/log/squid/access.log</code></p>
+</blockquote>
+
+<pre><code class="language-bash">cat /var/log/squid/access.log
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/84596038-dd05fb80-ae8d-11ea-9f42-3f629c7b1ef8.jpg" alt="2accesslog" /></p></li>
+</ol>
+
+<h2 id="設定-trasparnet-mode">設定 trasparnet mode</h2>
+
+<p>透過上面範例可以發現每次發送 request 都要指定 proxy，我相信便利性會大打折扣，下面就是透過將 squid 設定為 trasparnet mode 並搭配 nat 設定從網路層攔劫特定 request</p>
+
+<ol>
+<li><p>調整 config</p>
+
+<ul>
+<li><p>原始設定</p>
+
+<pre><code class="language-conf">http_port 3128
+</code></pre></li>
+
+<li><p>新設定</p>
+
+<blockquote>
+<p>3.0 之前使用 <code>transparent</code>，3.1 開始改用 <code>intercept</code></p>
+</blockquote>
+
+<pre><code class="language-conf">http_port 3128
+http_port 3129 intercept
+</code></pre></li>
+</ul></li>
+
+<li><p>設定 iptables</p>
+
+<blockquote>
+<ol>
+<li>避免 <code>squid</code> 服務會一直轉導至自己身上形成無窮迴圈</li>
+<li>將 port 80 的 request 都改由 squid intercept 處理</li>
+</ol>
+</blockquote>
+
+<pre><code class="language-bash">iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -m owner --uid-owner squid -j RETURN
+iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 3129
+</code></pre></li>
+
+<li><p>直接 curl 就可以發現經由 squid proxy 處理</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/84596039-dd05fb80-ae8d-11ea-813a-76c526ff039d.jpg" alt="3transparent" /></p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>redis 的手動 failover 在實際執行上有較多限制：指令的對象有較嚴格的規定，但仔細想想也是合理，failover 雖然是簡單的指令，但難免對於正式服務造成異動，在指令的執行條件上有較多規範以預防人為問題出現操作錯誤是件好事</p>
+<p>經由簡單的設定，現在有了一個簡易的 proxy server，不過這個 proxy server 在 transparent mode 下因為 https 關係會出現錯誤，接著我們再來看看如何設定 https 的解析吧 - <a href="https://blog.yowko.com/squid-proxy-https" target="_blank">Squid Proxy Https 設定</a></p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/docker-redis-master-slave-replication/" target="_blank">使用 docker 建立 Redis Master-Slave Replication Instance</a></li>
-<li><a href="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" target="_blank">使用 Helm 在 Kubernetes 上安裝 Redis Cluster</a></li>
-<li><a href="https://redis.io/topics/sentinel" target="_blank">Redis Sentinel Documentation</a></li>
-<li><a href="https://redis.io/commands/cluster-failover" target="_blank">CLUSTER FAILOVER [FORCE|TAKEOVER]</a></li>
+<li><a href="https://www.reddit.com/r/sysadmin/comments/a67hly/squid_proxy_a_short_guide_forward_transparent/" target="_blank">Squid proxy - a short guide (forward &amp; transparent proxy examples, SSL bumping, links to guides)</a></li>
+<li><a href="http://www.squid-cache.org/Versions/v3/3.5/cfgman/http_port.html" target="_blank">http_port</a></li>
+<li><a href="https://blog.yowko.com/squid-proxy-https" target="_blank">Squid Proxy Https 設定</a></li>
 </ol>
 
     </div>
@@ -348,7 +401,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-06-07</span>
+    <span class="item-content">2020-06-13</span>
   </p>
   
   <p class="copyright-item">
@@ -370,7 +423,11 @@
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
+            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/netowrk/">Netowrk</a>
           
         </div>
 
@@ -378,18 +435,18 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/squid-proxy/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/squid-proxy-https/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">安裝 Squid Proxy</span>			
+            <span class="next-text nav-default">Squid Proxy Https 設定</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/mongodb-manual-failover/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/redis-manual-failover/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">手動觸發 MongoDB failover</span>			
+            <span class="prev-text nav-default">手動觸發 Redis failover</span>			
           </a>
 		  </div>
       </nav>
@@ -400,7 +457,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/redis-manual-failover\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/squid-proxy\/';  
       
     };
 

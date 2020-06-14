@@ -6,10 +6,28 @@
     <description>Recent content in Linux on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 25 Apr 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 14 Jun 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Squid Proxy Https 設定</title>
+      <link>https://blog.yowko.com/squid-proxy-https/</link>
+      <pubDate>Sun, 14 Jun 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/squid-proxy-https/</guid>
+      <description>Squid Proxy Https 設定 依據之前筆記 安裝 Squid Proxy 比照相同方式設定 https 的 request 無法取得正確回應 以下設定方式直接套用，會出現錯誤 iptables -t nat -A OUTPUT -p tcp -m tcp --dport 443 -m owner --uid-owner squid -j RETURN iptables -t nat</description>
+    </item>
+    
+    <item>
+      <title>安裝 Squid Proxy</title>
+      <link>https://blog.yowko.com/squid-proxy/</link>
+      <pubDate>Sat, 13 Jun 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/squid-proxy/</guid>
+      <description>安裝 Squid Proxy 專案有個需求是跟 partner 之間的溝通只限定於註冊過的 server ip，雖然在資安的考量下是很常見的做法，但對於實際的營運上不免會有些限制：像是如果只綁</description>
+    </item>
     
     <item>
       <title>避免 Ansible 無法存取第一次登入的 Server</title>
