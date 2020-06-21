@@ -161,7 +161,17 @@ slug: "squid-proxy"
 
 透過上面範例可以發現每次發送 request 都要指定 proxy，我相信便利性會大打折扣，下面就是透過將 squid 設定為 trasparnet mode 並搭配 nat 設定從網路層攔劫特定 request
 
-1. 調整 config
+1. 確定 os 層可以進行 ip forward
+
+    > 避免開機後遺失，請修改 `/etc/sysctl.conf`
+
+    ```bash
+    sysctl -w net.ipv4.ip_forward=1
+    sysctl -w net.ipv6.conf.all.forwarding=1
+    sysctl -w net.ipv4.conf.all.send_redirects=0
+    ```
+
+2. 調整 config
 
     - 原始設定
 
@@ -178,7 +188,7 @@ slug: "squid-proxy"
         http_port 3129 intercept
         ```
 
-2. 設定 iptables
+3. 設定 iptables
 
     > 1. 避免 `squid` 服務會一直轉導至自己身上形成無窮迴圈
     > 2. 將 port 80 的 request 都改由 squid intercept 處理
@@ -188,7 +198,7 @@ slug: "squid-proxy"
     iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 3129
     ```
 
-3. 直接 curl 就可以發現經由 squid proxy 處理
+4. 直接 curl 就可以發現經由 squid proxy 處理
 
     ![3transparent](https://user-images.githubusercontent.com/3851540/84596039-dd05fb80-ae8d-11ea-813a-76c526ff039d.jpg)
 

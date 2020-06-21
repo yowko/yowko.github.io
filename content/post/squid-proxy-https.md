@@ -85,7 +85,7 @@ iptables -t nat -A OUTPUT -p tcp -m tcp --dport 443 -j REDIRECT --to-ports 3129
     ssl_bump stare step2
     ssl_bump bump step3
     sslproxy_cert_error allow all
-    https_port 3130 intercept ssl-bump  generate-host-certificates=on  dynamic_cert_mem_cache_size=4MB  cert=/etc/squid/cert/myCA.pem  key=/etc/squid/cert/myCA.pem
+    https_port 3130 intercept ssl-bump  generate-host-certificates=on dynamic_cert_mem_cache_size=4MB cert=/etc/squid/cert/myCA.pem key=/etc/squid/cert/myCA.pem
     sslcrtd_program /usr/lib64/squid/ssl_crtd -s /var/lib/ssl_db -M 4MB
     ```
 
