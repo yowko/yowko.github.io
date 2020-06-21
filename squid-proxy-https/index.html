@@ -269,7 +269,7 @@ acl step3 at_step SslBump3
 ssl_bump stare step2
 ssl_bump bump step3
 sslproxy_cert_error allow all
-https_port 3130 intercept ssl-bump  generate-host-certificates=on  dynamic_cert_mem_cache_size=4MB  cert=/etc/squid/cert/myCA.pem  key=/etc/squid/cert/myCA.pem
+https_port 3130 intercept ssl-bump  generate-host-certificates=on dynamic_cert_mem_cache_size=4MB cert=/etc/squid/cert/myCA.pem key=/etc/squid/cert/myCA.pem
 sslcrtd_program /usr/lib64/squid/ssl_crtd -s /var/lib/ssl_db -M 4MB
 </code></pre></li>
 
@@ -342,6 +342,13 @@ iptables -t nat -A OUTPUT -p tcp -m tcp --dport 443 -j REDIRECT --to-ports 3130
       
       <nav class="post-nav">
         
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/mitmproxy/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">安裝 Mitmproxy</span>			
+          </a>
+		  </div>
 		  <div>
         
           <a class="prev" href="https://blog.yowko.com/squid-proxy/" style="float: none;">

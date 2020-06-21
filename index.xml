@@ -6,10 +6,37 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 14 Jun 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jun 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mitmproxy 啟用 Https</title>
+      <link>https://blog.yowko.com/mitmproxy-https/</link>
+      <pubDate>Sun, 21 Jun 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mitmproxy-https/</guid>
+      <description>Mitmproxy 啟用 Https 之前筆記 安裝 Mitmproxy 提到 Mitmproxy 在存取 https 資源時會出現問題，雖然在 curl 使用時加上 --insecure 或是 -k 就可以避免問題，但是總覺得麻煩也不夠漂亮，所以順手紀錄解決方</description>
+    </item>
+    
+    <item>
+      <title>將 Mitmproxy log 存至檔案</title>
+      <link>https://blog.yowko.com/mitmproxy-log-to-file/</link>
+      <pubDate>Sun, 21 Jun 2020 18:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mitmproxy-log-to-file/</guid>
+      <description>將 Mitmproxy log 存至檔案 之前筆記 安裝 Mitmproxy 提到雖然 Mitmproxy 提供了互動式且資訊豐富的存取紀錄，但這對於日常維運上不方便，一般沒有問題時不會有人去看 log，但覺得行</description>
+    </item>
+    
+    <item>
+      <title>安裝 Mitmproxy</title>
+      <link>https://blog.yowko.com/mitmproxy/</link>
+      <pubDate>Sat, 20 Jun 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mitmproxy/</guid>
+      <description>安裝 Mitmproxy 之前筆記 安裝 Squid Proxy 提到為了加強與 Partner 間資料介接交換時的安全性，所以在 server 間會需要互相 trust ip，但這麼一來在業務增長時就會失去彈性，所以打算透過</description>
+    </item>
     
     <item>
       <title>Squid Proxy Https 設定</title>

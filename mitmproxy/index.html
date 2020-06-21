@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>安裝 Squid Proxy - Yowko&#39;s Notes</title>
+  <title>安裝 Mitmproxy - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="安裝 Squid Proxy 專案有個需求是跟 partner 之間的溝通只限定於註冊過的 server ip，雖然在資安的考量下是很常見的做法，但對於實際的營運上不免會有些限制：像是如果只綁" />
+  <meta name="description" content="安裝 Mitmproxy 之前筆記 安裝 Squid Proxy 提到為了加強與 Partner 間資料介接交換時的安全性，所以在 server 間會需要互相 trust ip，但這麼一來在業務增長時就會失去彈性，所以打算透過" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/squid-proxy/" />
+<link rel="canonical" href="https://blog.yowko.com/mitmproxy/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="安裝 Squid Proxy" />
-<meta property="og:description" content="安裝 Squid Proxy 專案有個需求是跟 partner 之間的溝通只限定於註冊過的 server ip，雖然在資安的考量下是很常見的做法，但對於實際的營運上不免會有些限制：像是如果只綁" />
+<meta property="og:title" content="安裝 Mitmproxy" />
+<meta property="og:description" content="安裝 Mitmproxy 之前筆記 安裝 Squid Proxy 提到為了加強與 Partner 間資料介接交換時的安全性，所以在 server 間會需要互相 trust ip，但這麼一來在業務增長時就會失去彈性，所以打算透過" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/squid-proxy/" /><meta property="article:published_time" content="2020-06-13T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-06-13T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/mitmproxy/" /><meta property="article:published_time" content="2020-06-20T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-06-20T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="安裝 Squid Proxy">
-<meta itemprop="description" content="安裝 Squid Proxy 專案有個需求是跟 partner 之間的溝通只限定於註冊過的 server ip，雖然在資安的考量下是很常見的做法，但對於實際的營運上不免會有些限制：像是如果只綁">
+<meta itemprop="name" content="安裝 Mitmproxy">
+<meta itemprop="description" content="安裝 Mitmproxy 之前筆記 安裝 Squid Proxy 提到為了加強與 Partner 間資料介接交換時的安全性，所以在 server 間會需要互相 trust ip，但這麼一來在業務增長時就會失去彈性，所以打算透過">
 
 
-<meta itemprop="datePublished" content="2020-06-13T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-06-13T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="1025">
+<meta itemprop="datePublished" content="2020-06-20T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-20T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="592">
 
 
 
 <meta itemprop="keywords" content="Linux,Netowrk," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="安裝 Squid Proxy"/>
-<meta name="twitter:description" content="安裝 Squid Proxy 專案有個需求是跟 partner 之間的溝通只限定於註冊過的 server ip，雖然在資安的考量下是很常見的做法，但對於實際的營運上不免會有些限制：像是如果只綁"/>
+<meta name="twitter:title" content="安裝 Mitmproxy"/>
+<meta name="twitter:description" content="安裝 Mitmproxy 之前筆記 安裝 Squid Proxy 提到為了加強與 Partner 間資料介接交換時的安全性，所以在 server 間會需要互相 trust ip，但這麼一來在業務增長時就會失去彈性，所以打算透過"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,10 +144,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-06-13 </span>
+        <span class="post-time"> 2020-06-20 </span>
         
-        <span class="more-meta"> 約 1025 字 </span>
-          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
+        <span class="more-meta"> 約 592 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
     </header>
@@ -162,11 +162,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#安裝-squid-proxy">安裝 Squid Proxy</a></li>
+<li><a href="#安裝-mitmproxy">安裝 Mitmproxy</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
 <li><a href="#基本安裝">基本安裝</a></li>
 <li><a href="#使用方式">使用方式</a></li>
-<li><a href="#設定-trasparnet-mode">設定 trasparnet mode</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -182,224 +181,114 @@
     <div class="post-content">
       
 
-<h2 id="安裝-squid-proxy">安裝 Squid Proxy</h2>
+<h2 id="安裝-mitmproxy">安裝 Mitmproxy</h2>
 
-<p>專案有個需求是跟 partner 之間的溝通只限定於註冊過的 server ip，雖然在資安的考量下是很常見的做法，但對於實際的營運上不免會有些限制：像是如果只綁定某一台 server，這樣一來在服務快速成長的期間 server 擴展的即時性會比較差；如果只綁在 load balancer 上也有類似問題，沒辦法跨機房，這時候可以透過架設 proxy server 並將該 proxy server ip 註冊至 partner 端的方式來處理，這麼一來只要 proxy server 正常運作，後面 server 就可以擁有配置的彈性</p>
+<p>之前筆記 <a href="https://blog.yowko.com/squid-proxy" target="_blank">安裝 Squid Proxy</a> 提到為了加強與 Partner 間資料介接交換時的安全性，所以在 server 間會需要互相 trust ip，但這麼一來在業務增長時就會失去彈性，所以打算透過加入 proxy server 來進行 trust，讓後續可能新加入的 server 只要透過該 proxy server 就可以正常運作</p>
 
-<p>過去都是 infra 同事協助設定，這次自己來，剛好趁這個機會學習一下</p>
+<p>嘗試過 <code>Squid</code>，設定方式可以參考 <a href="https://blog.yowko.com/squid-proxy" target="_blank">安裝 Squid Proxy</a> 與 <a href="https://blog,yowko.com/squid-proxy-https" target="_blank">Squid Proxy Https 設定</a>，但因為 <code>Squid</code> 不支援 https 轉發 http，在使用上有限制，所以今天就來試試 <code>Mitmproxy</code></p>
+
+<p>說到 <code>Mitmproxy</code>，其實也不算陌生，之前在 <a href="https://blog.yowko.com/ios-private-domain/" target="_blank">讓iOS 裝置可以存取自訂domain - Yowko&rsquo;s Notes</a> 就是透過這套工具來達成目的，而這次情境比較正式，改用安裝實體服務方式來紀錄</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>Azure VM 標準 B2s (2 vcpu，4 GiB 記憶體)</li>
 <li>CentOS 7.7</li>
-<li>Squid 3.5.20</li>
+<li>python 3.6.8</li>
+<li>pipx 0.15.4.0</li>
+<li>Mitmproxy v5.1.1</li>
 </ol>
 
 <h2 id="基本安裝">基本安裝</h2>
 
+<blockquote>
+<p>官方建議使用 binary 來安裝，但我到 <a href="https://mitmproxy.org/downloads/" target="_blank">download 頁面</a> 提到可以用 <code>brew</code>, <code>pip</code>, <code>WSL</code>, or <code>Docker</code></p>
+</blockquote>
+
 <ol>
-<li><p>透過 yum 安裝</p>
-
-<pre><code class="language-bash">yum install -y squid
-</code></pre></li>
-
-<li><p>調整 config</p>
+<li><p>安裝 python3</p>
 
 <blockquote>
-<p>預設位置 <code>/etc/squid/squid.conf</code></p>
+<p>python 3.6 以上版本</p>
 </blockquote>
 
-<pre><code class="language-bash">vi /etc/squid/squid.conf
+<pre><code class="language-bash">yum install -y python3
+</code></pre></li>
+
+<li><p>安裝 pipx</p>
+
+<pre><code class="language-bash">python3 -m pip install --user pipx
+python3 -m pipx ensurepath
 </code></pre>
 
 <blockquote>
-<p>預設 config 如下</p>
+<p>個人有重新登入套用新的環境變數</p>
 </blockquote>
 
-<pre><code class="language-conf">#
-# Recommended minimum configuration:
-#
-
-# Example rule allowing access from your local networks.
-# Adapt to list your (internal) IP networks from where browsing
-# should be allowed
-acl localnet src 10.0.0.0/8 # RFC1918 possible internal network
-acl localnet src 172.16.0.0/12  # RFC1918 possible internal     network
-acl localnet src 192.168.0.0/16 # RFC1918 possible internal     network
-acl localnet src fc00::/7       # RFC 4193 local private    network range
-acl localnet src fe80::/10      # RFC 4291 link-local (directly     plugged) machines
-
-acl SSL_ports port 443
-acl Safe_ports port 80      # http
-acl Safe_ports port 21      # ftp
-acl Safe_ports port 443     # https
-acl Safe_ports port 70      # gopher
-acl Safe_ports port 210     # wais
-acl Safe_ports port 1025-65535  # unregistered ports
-acl Safe_ports port 280     # http-mgmt
-acl Safe_ports port 488     # gss-http
-acl Safe_ports port 591     # filemaker
-acl Safe_ports port 777     # multiling http
-acl CONNECT method CONNECT
-
-#
-# Recommended minimum Access Permission configuration:
-#
-# Deny requests to certain unsafe ports
-http_access deny !Safe_ports
-
-# Deny CONNECT to other than secure SSL ports
-http_access deny CONNECT !SSL_ports
-
-# Only allow cachemgr access from localhost
-http_access allow localhost manager
-http_access deny manager
-
-# We strongly recommend the following be uncommented to protect     innocent
-# web applications running on the proxy server who think the    only
-# one who can access services on &quot;localhost&quot; is a local user
-#http_access deny to_localhost
-
-#
-# INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS
-#
-
-# Example rule allowing access from your local networks.
-# Adapt localnet in the ACL section to list your (internal) IP  networks
-# from where browsing should be allowed
-http_access allow localnet
-http_access allow localhost
-
-# And finally deny all other access to this proxy
-http_access deny all
-
-# Squid normally listens to port 3128
-http_port 3128
-
-# Uncomment and adjust the following to add a disk cache    directory.
-#cache_dir ufs /var/spool/squid 100 16 256
-
-# Leave coredumps in the first cache dir
-coredump_dir /var/spool/squid
-
-#
-# Add any of your own refresh_pattern entries above these.
-#
-refresh_pattern ^ftp:       1440    20% 10080
-refresh_pattern ^gopher:    1440    0%  1440
-refresh_pattern -i (/cgi-bin/|\?) 0 0%  0
-refresh_pattern .       0   20% 4320
+<pre><code class="language-bash">pipx completions
 </code></pre></li>
 
-<li><p>直接啟動 squid</p>
+<li><p>使用 pipx 安裝</p>
 
-<pre><code class="language-bash">/usr/sbin/squid start
+<pre><code class="language-bash">pipx install mitmproxy
 </code></pre></li>
-
-<li><p>確認啟動</p>
-
-<pre><code class="language-bash">netstat -tulnp | grep squid
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/84596036-db3c3800-ae8d-11ea-8df1-cebaa8445270.jpg" alt="1start" /></p></li>
 </ol>
-
-<ul>
-<li><p>可設為開機啟動服務</p>
-
-<pre><code class="language-bash">systemctl enable squid
-</code></pre></li>
-</ul>
 
 <h2 id="使用方式">使用方式</h2>
 
 <ol>
-<li><p>一般存取網頁</p>
-
-<pre><code class="language-bash">curl -L https://blog.yowko.com/
-</code></pre></li>
-
-<li><p>確認透過 squid proxy 存取正常</p>
-
-<pre><code class="language-bash">curl -x http://127.0.0.1:3128 -L https://blog.yowko.com/
-</code></pre></li>
-
-<li><p>檢視 squid log 的存取紀錄</p>
+<li><p>啟動 mitmproxy</p>
 
 <blockquote>
-<p>預設位置 <code>/var/log/squid/access.log</code></p>
+<p>預設為 <code>8080</code></p>
 </blockquote>
 
-<pre><code class="language-bash">cat /var/log/squid/access.log
+<pre><code class="language-bash">mitmproxy
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/84596038-dd05fb80-ae8d-11ea-9f42-3f629c7b1ef8.jpg" alt="2accesslog" /></p></li>
-</ol>
-
-<h2 id="設定-trasparnet-mode">設定 trasparnet mode</h2>
-
-<p>透過上面範例可以發現每次發送 request 都要指定 proxy，我相信便利性會大打折扣，下面就是透過將 squid 設定為 trasparnet mode 並搭配 nat 設定從網路層攔劫特定 request</p>
-
-<ol>
-<li><p>確定 os 層可以進行 ip forward</p>
-
 <blockquote>
-<p>避免開機後遺失，請修改 <code>/etc/sysctl.conf</code></p>
+<p><code>--listen-port</code> : 指定 proxy port 為 <code>9000</code></p>
 </blockquote>
 
-<pre><code class="language-bash">sysctl -w net.ipv4.ip_forward=1
-sysctl -w net.ipv6.conf.all.forwarding=1
-sysctl -w net.ipv4.conf.all.send_redirects=0
+<pre><code class="language-bash">mitmproxy --listen-port 9000
 </code></pre></li>
 
-<li><p>調整 config</p>
+<li><p>藉由 mitmproxy 存取 web page</p>
 
-<ul>
-<li><p>原始設定</p>
-
-<pre><code class="language-conf">http_port 3128
+<pre><code class="language-bash">curl -x localhost:9000 -k -L https://blog.yowko.com
 </code></pre></li>
 
-<li><p>新設定</p>
+<li><p>測試結果</p>
 
-<blockquote>
-<p>3.0 之前使用 <code>transparent</code>，3.1 開始改用 <code>intercept</code></p>
-</blockquote>
-
-<pre><code class="language-conf">http_port 3128
-http_port 3129 intercept
-</code></pre></li>
-</ul></li>
-
-<li><p>設定 iptables</p>
-
-<blockquote>
-<ol>
-<li>避免 <code>squid</code> 服務會一直轉導至自己身上形成無窮迴圈</li>
-<li>將 port 80 的 request 都改由 squid intercept 處理</li>
-</ol>
-</blockquote>
-
-<pre><code class="language-bash">iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -m owner --uid-owner squid -j RETURN
-iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 3129
-</code></pre></li>
-
-<li><p>直接 curl 就可以發現經由 squid proxy 處理</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/84596039-dd05fb80-ae8d-11ea-813a-76c526ff039d.jpg" alt="3transparent" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/85227747-d9d0b980-b411-11ea-9b7b-d0e0adaf61cd.jpg" alt="1result" /></p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>經由簡單的設定，現在有了一個簡易的 proxy server，不過這個 proxy server 在 transparent mode 下因為 https 關係會出現錯誤，接著我們再來看看如何設定 https 的解析吧 - <a href="https://blog.yowko.com/squid-proxy-https" target="_blank">Squid Proxy Https 設定</a></p>
+<p>Mitmproxy 在設定上比起 Squid 顯得更單純，不過這也不一定是好事，像是</p>
+
+<ol>
+<li>預設的 port、mode 都需要查文件才知道，沒辦法從 config file 中看出來</li>
+<li>log 部份雖然比起 Squid 有更好的互動性跟更多資訊，但預設在 console 輸出對於正式服務還是沒那麼方便</li>
+<li>https 驗證上會比嚴格， curl 使用時都需要加上 <code>insecure</code></li>
+</ol>
+
+<ul>
+<li><p>log 處理方式請參考 <a href="https://blog.yowko.com/mitmproxy-log-to-file" target="_blank">將 Mitmproxy log 存至檔案</a></p></li>
+
+<li><p>https 請參考 <a href="https://blog.yowko.com/mitmproxy-https" target="_blank">Mitmproxy 啟用 Https</a></p></li>
+</ul>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://www.reddit.com/r/sysadmin/comments/a67hly/squid_proxy_a_short_guide_forward_transparent/" target="_blank">Squid proxy - a short guide (forward &amp; transparent proxy examples, SSL bumping, links to guides)</a></li>
-<li><a href="http://www.squid-cache.org/Versions/v3/3.5/cfgman/http_port.html" target="_blank">http_port</a></li>
-<li><a href="https://blog.yowko.com/squid-proxy-https" target="_blank">Squid Proxy Https 設定</a></li>
+<li><a href="https://mitmproxy.org/" target="_blank">mitmproxy</a></li>
+<li><a href="https://docs.mitmproxy.org/stable/overview-installation/#installation-from-the-python-package-index-pypi" target="_blank">Installation</a></li>
+<li><a href="https://blog.yowko.com/squid-proxy" target="_blank">安裝 Squid Proxy</a></li>
+<li><a href="https://blog,yowko.com/squid-proxy-https" target="_blank">Squid Proxy Https 設定</a></li>
+<li><a href="https://blog.yowko.com/ios-private-domain/" target="_blank">讓iOS 裝置可以存取自訂domain - Yowko&rsquo;s Notes</a></li>
+<li><a href="https://blog.yowko.com/mitmproxy-log-to-file" target="_blank">將 Mitmproxy log 存至檔案</a></li>
+<li><a href="https://blog.yowko.com/mitmproxy-https" target="_blank">Mitmproxy 啟用 Https</a></li>
 </ol>
 
     </div>
@@ -412,7 +301,7 @@ iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 3129
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-06-13</span>
+    <span class="item-content">2020-06-20</span>
   </p>
   
   <p class="copyright-item">
@@ -446,18 +335,18 @@ iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 3129
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/squid-proxy-https/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/mitmproxy-log-to-file/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">Squid Proxy Https 設定</span>			
+            <span class="next-text nav-default">將 Mitmproxy log 存至檔案</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/redis-manual-failover/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/squid-proxy-https/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">手動觸發 Redis failover</span>			
+            <span class="prev-text nav-default">Squid Proxy Https 設定</span>			
           </a>
 		  </div>
       </nav>
@@ -468,7 +357,7 @@ iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 3129
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/squid-proxy\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/mitmproxy\/';  
       
     };
 
