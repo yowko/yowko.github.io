@@ -16,6 +16,8 @@ slug: "mitmproxy-https"
 1. Azure VM 標準 B2s (2 vcpu，4 GiB 記憶體)
 2. CentOS 7.7
 3. Mitmproxy v5.1.1
+4. Python 3.6.8
+5. OpenSSL 1.1.1g  21 Apr 2020
 
 ## 安裝步驟
 
