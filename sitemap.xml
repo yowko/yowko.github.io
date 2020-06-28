@@ -3,6 +3,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/helm-check-values-null/</loc>
+    <lastmod>2020-06-28T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/kubernetes-custom-domain/</loc>
+    <lastmod>2020-06-27T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/redsocks/</loc>
+    <lastmod>2020-06-26T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/mitmproxy-transparent/</loc>
+    <lastmod>2020-06-25T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/mitmproxy-https/</loc>
     <lastmod>2020-06-21T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -4273,7 +4301,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/helm/</loc>
-    <lastmod>2020-05-14T21:30:31+08:00</lastmod>
+    <lastmod>2020-06-28T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4364,7 +4392,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/kubernetes/</loc>
-    <lastmod>2020-05-14T21:30:31+08:00</lastmod>
+    <lastmod>2020-06-28T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4378,7 +4406,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/linux/</loc>
-    <lastmod>2020-06-21T21:30:31+08:00</lastmod>
+    <lastmod>2020-06-26T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4462,7 +4490,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/netowrk/</loc>
-    <lastmod>2020-06-21T21:30:31+08:00</lastmod>
+    <lastmod>2020-06-26T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4553,7 +4581,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2020-06-21T21:30:31+08:00</lastmod>
+    <lastmod>2020-06-28T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4728,7 +4756,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2020-06-21T21:30:31+08:00</lastmod>
+    <lastmod>2020-06-28T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

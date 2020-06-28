@@ -59,7 +59,7 @@
 <meta property="og:description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.yowko.com/" />
-<meta property="og:updated_time" content="2020-06-21T21:30:00&#43;08:00"/>
+<meta property="og:updated_time" content="2020-06-28T21:30:00&#43;08:00"/>
 
 <meta itemprop="name" content="Yowko&#39;s Notes">
 <meta itemprop="description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教">
@@ -138,11 +138,99 @@
     
       <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/helm-check-values-null/">在 Helm (Go Template) 中檢查 Value 是否有值</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-06-28 </span>
+      
+      <span class="more-meta"> 約 829 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      在 Helm (Go Template) 中檢查 Value 是否有值 這個需求是延續之前筆記 在 Kubernetes 中使用自訂 Domain 而來的，其中提到某些服務會掛在自訂 domain 下，但內網測試環境可能因為無法對外連線 (連
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/helm-check-values-null/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/kubernetes-custom-domain/">在 Kubernetes 中使用自訂 Domain</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-06-27 </span>
+      
+      <span class="more-meta"> 約 390 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      在 Kubernetes 中使用自訂 Domain 在之前筆記 在 Windows 環境將特定網址指向不同 IP 與 讓 iOS 裝置可以存取自訂 domain 中都有提到過自訂域名的用法，大意就是避免因為 server ip 更動就要調整程
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/kubernetes-custom-domain/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/redsocks/">安裝 Redsocks</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-06-26 </span>
+      
+      <span class="more-meta"> 約 762 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      安裝 Redsocks 之前一連串幾篇筆記分別紀錄到 Squid 與 Mitmproxy 的使用方式，但因為 Squid 不支援 https 轉 http、Mitmproxy 不支援 transparent 與 upstream 並行，最後找到 Redsocks 可以滿足使用情
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/redsocks/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/mitmproxy-transparent/">Mitmproxy 啟用 Transparent mode</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-06-25 </span>
+      
+      <span class="more-meta"> 約 672 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Mitmproxy 啟用 Transparent mode 之前筆記 安裝 Squid Proxy 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/mitmproxy-transparent/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/mitmproxy-https/">Mitmproxy 啟用 Https</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-06-21 </span>
       
-      <span class="more-meta"> 約 369 字 </span>
+      <span class="more-meta"> 約 376 字 </span>
         <span class="more-meta"> 預計閱讀 1 分鐘 </span>
     </div>
   </header>
@@ -373,94 +461,6 @@
     </div>
     <div class="read-more">
       <a href="https://blog.yowko.com/docker-compose-redis-cluster/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/docker-compose-pass-parameter/">傳遞參數來執行 Docker Compose</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-05-19 </span>
-      
-      <span class="more-meta"> 約 368 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      傳遞參數來執行 Docker Compose 為了能動態決定 Docker Compose 中所使用到的參數值可以透過 environment variable , .env file 另外個人更偏好在執行 docker-compose up 時直接指定變數值，因為這樣一來不必設定 environment variable r
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/docker-compose-pass-parameter/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/">使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-05-14 </span>
-      
-      <span class="more-meta"> 約 445 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/docker-compose-mongodb-replica-set/">Docker Compose 建立 MongoDB Replica Set</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-05-10 </span>
-      
-      <span class="more-meta"> 約 433 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Docker Compose 建立 MongoDB Replica Set 因為之前筆記 MongoDB Cli Replica Set 連線方式 需要建立測試環境，想起最早之前的筆記 使用 docker 建立 MongoDB Replica Set 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/docker-compose-mongodb-replica-set/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/mongodb-cli-replica-set/">MongoDB Cli Replica Set 連線方式</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-05-09 </span>
-      
-      <span class="more-meta"> 約 359 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      MongoDB Cli Replica Set 連線方式 這是在建立 MongoDB patch 資料自動化流程時遇到的問題：需要進行 MongoDB data patch 的開發人員將需要執行的 MongoDB script 提供 .js 格式的檔案，再透過 MongoDB Cli 來匯入執行 從一
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/mongodb-cli-replica-set/" class="read-more-link">繼續閱讀</a>
     </div>
   </div>
 </article>

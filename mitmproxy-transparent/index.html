@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>在 Helm 中依不同變數使用不同設定值 - Yowko&#39;s Notes</title>
+  <title>Mitmproxy 啟用 Transparent mode - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境" />
+  <meta name="description" content="Mitmproxy 啟用 Transparent mode 之前筆記 安裝 Squid Proxy 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/helm-values-by-env/" />
+<link rel="canonical" href="https://blog.yowko.com/mitmproxy-transparent/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="在 Helm 中依不同變數使用不同設定值" />
-<meta property="og:description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境" />
+<meta property="og:title" content="Mitmproxy 啟用 Transparent mode" />
+<meta property="og:description" content="Mitmproxy 啟用 Transparent mode 之前筆記 安裝 Squid Proxy 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/helm-values-by-env/" /><meta property="article:published_time" content="2020-04-08T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-04-08T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/mitmproxy-transparent/" /><meta property="article:published_time" content="2020-06-25T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-06-25T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="在 Helm 中依不同變數使用不同設定值">
-<meta itemprop="description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境">
-
-
-<meta itemprop="datePublished" content="2020-04-08T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-04-08T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="788">
+<meta itemprop="name" content="Mitmproxy 啟用 Transparent mode">
+<meta itemprop="description" content="Mitmproxy 啟用 Transparent mode 之前筆記 安裝 Squid Proxy 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特">
 
 
+<meta itemprop="datePublished" content="2020-06-25T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-25T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="672">
 
-<meta itemprop="keywords" content="Helm," />
+
+
+<meta itemprop="keywords" content="Linux,Netowrk," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="在 Helm 中依不同變數使用不同設定值"/>
-<meta name="twitter:description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境"/>
+<meta name="twitter:title" content="Mitmproxy 啟用 Transparent mode"/>
+<meta name="twitter:description" content="Mitmproxy 啟用 Transparent mode 之前筆記 安裝 Squid Proxy 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-04-08 </span>
+        <span class="post-time"> 2020-06-25 </span>
         
-        <span class="more-meta"> 約 788 字 </span>
+        <span class="more-meta"> 約 672 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,9 +162,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#在-helm-中依不同變數使用不同設定值">在 Helm 中依不同變數使用不同設定值</a></li>
-<li><a href="#基本環境變數">基本環境變數</a></li>
-<li><a href="#修改方式">修改方式</a></li>
+<li><a href="#mitmproxy-啟用-transparent-mode">Mitmproxy 啟用 Transparent mode</a></li>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#設定方式">設定方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,194 +180,99 @@
     <div class="post-content">
       
 
-<h2 id="在-helm-中依不同變數使用不同設定值">在 Helm 中依不同變數使用不同設定值</h2>
+<h2 id="mitmproxy-啟用-transparent-mode">Mitmproxy 啟用 Transparent mode</h2>
 
-<p>Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境間可以透過參數來決定其中部署與設定的差異，之前使用方式是利用 <code>helm install</code> 時加上 <code>--set</code> 來指定參數，但如此一來就會讓這些設定值散落在 Helm 的 <code>values.yaml</code> 與安裝的 script 中，不僅增加管理難度也讓 debug 變得複雜</p>
+<p>之前筆記 <a href="https://blog.yowko.com/squid-proxy" target="_blank">安裝 Squid Proxy</a> 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特定 request，今天就來紀錄一下 Mitmproxy 如何設定 trasparnet mode</p>
 
-<p>為了解決這種狀況，我打算讓 Helm 可以依不同環境變數使用不同 <code>values.yaml</code> 內容，嘗試幾種做法後，找到一種不是很漂亮但可以暫時解決問題的方法，先紀錄一下，我再繼續嘗試其他做法</p>
-
-<h2 id="基本環境變數">基本環境變數</h2>
+<h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>macOS Catalina 10.15.4</li>
-
-<li><p>docker desktop community 2.2.0.4(43472)</p>
-
-<ul>
-<li>Engine 19.03.8</li>
-<li>Kubernetes v1.15.5</li>
-</ul></li>
-
-<li><p>Helm v2.16.1</p></li>
-
-<li><p>原始 Helm chart 結構與內容</p>
-
-<blockquote>
-<p>主要核心概念是新建一個 helm chart (<code>helm create testenv</code>)，再移除所有用不到的內容</p>
-</blockquote>
-
-<ul>
-<li><p>testenv</p>
-
-<ul>
-<li>charts</li>
-
-<li><p>templates</p>
-
-<ul>
-<li><p>test.yml</p>
-
-<pre><code class="language-yml">apiVersion: v1
-kind: Service
-metadata:
-    env: {{.Values.env}}
-    targeturl: {{.Values.targeturl}}
-</code></pre></li>
-</ul></li>
-
-<li><p>.helmignore</p>
-
-<pre><code class="language-yml"># Patterns to ignore when building packages.
-# This supports shell glob matching, relative path matching, and
-# negation (prefixed with !). Only one pattern per line.
-.DS_Store
-# Common VCS dirs
-.git/
-.gitignore
-.bzr/
-.bzrignore
-.hg/
-.hgignore
-.svn/
-# Common backup files
-*.swp
-*.bak
-*.tmp
-*~
-# Various IDEs
-.project
-.idea/
-*.tmproj
-.vscode/
-</code></pre></li>
-
-<li><p>Chart.yml</p>
-
-<pre><code class="language-yml">apiVersion: v1
-appVersion: &quot;1.0&quot;
-description: A Helm chart for Kubernetes
-name: testenv
-version: 0.1.0
-</code></pre></li>
-
-<li><p>values.yml</p>
-
-<pre><code class="language-yml">env: dev
-
-targeturl: blog.yowko.com
-</code></pre></li>
-</ul></li>
-</ul></li>
+<li>Azure VM 標準 B2s (2 vcpu，4 GiB 記憶體)</li>
+<li>CentOS 7.7</li>
+<li>Mitmproxy v5.1.1</li>
+<li>Python 3.6.8</li>
+<li>OpenSSL 1.1.1g  21 Apr 2020</li>
 </ol>
 
-<h2 id="修改方式">修改方式</h2>
-
-<ol>
-<li><p>將不同環境的設定值加至 <code>values.yml</code></p>
-
-<pre><code class="language-yml">env: dev
-
-targeturl:
-  dev: dev.yowko.com
-  staging: staging.yowko.com
-  uat: uat.yowko.com
-  prod: prod.yowko.com
-</code></pre></li>
-
-<li><p>修改 template 的取值方式</p>
+<h2 id="設定方式">設定方式</h2>
 
 <blockquote>
-<p>透過 <code>.Values.env</code> 至 <code>.Values.targeturl</code> 這個 dictionary 中取值 (會取出陣列)，再取第一筆資料</p>
+<p>我使用單一 server 來模擬，設定上略有不同</p>
 </blockquote>
 
-<pre><code class="language-yaml">apiVersion: v1
-kind: Service
-metadata:
-    name: {{.Values.env}}
-    targeturl: {{pluck .Values.env .Values.targeturl | first}}
-</code></pre></li>
-
-<li><p>使用方式</p>
+<ol>
+<li><p>確保 os 允許 IP Forward</p>
 
 <blockquote>
-<p>這邊透過 <code>--dry-run --debug</code> 來輸出 render 的結果</p>
+<p>如果希望重開機仍保留設定，需要修改 <code>/etc/sysctl.conf</code></p>
+</blockquote>
+
+<pre><code class="language-bash">sysctl -w net.ipv4.ip_forward=1
+sysctl -w net.ipv6.conf.all.forwarding=1
+</code></pre></li>
+
+<li><p>建立啟動 mitmproxy 用 user</p>
+
+<blockquote>
+<p>沒有建立專用 user，在 iptable 設定時就無法針對 mitmproxy 的 request 做排除，會出現無窮迴圈</p>
+</blockquote>
+
+<pre><code class="language-bash">sudo useradd --create-home mitmproxyuser
+sudo -u mitmproxyuser bash -c 'cd ~ &amp;&amp; pip3 install --user mitmproxy'
+</code></pre></li>
+
+<li><p>iptable</p>
+
+<pre><code class="language-bash">iptables -t nat -A OUTPUT -p tcp -m owner ! --uid-owner mitmproxyuser --dport 80 -j REDIRECT --to-port 8080
+iptables -t nat -A OUTPUT -p tcp -m owner ! --uid-owner mitmproxyuser --dport 443 -j REDIRECT --to-port 8080
+ip6tables -t nat -A OUTPUT -p tcp -m owner ! --uid-owner mitmproxyuser --dport 80 -j REDIRECT --to-port 8080
+ip6tables -t nat -A OUTPUT -p tcp -m owner ! --uid-owner mitmproxyuser --dport 443 -j REDIRECT --to-port 8080
+</code></pre></li>
+
+<li><p>調整啟動方式</p>
+
+<blockquote>
+<p><code>Mitmproxy</code> 要設定成 trasparnet mode 的方式很簡單，只要在啟動 Mitmproxy 時加上 <code>--mode transparent</code>，不過因為 iptable nat 這層需要額外動手腳，所以會多些步驟</p>
+</blockquote>
+
+<pre><code class="language-bash">sudo -u mitmproxyuser bash -c '$HOME/.local/bin/mitmproxy --mode transparent'
+</code></pre></li>
+
+<li><p>https</p>
+
+<blockquote>
+<p>transparent mode 下的 https 讓我吃了點苦頭：一直遇到憑證無法通過 curl 驗證問題</p>
 </blockquote>
 
 <ul>
-<li><p>修改前</p>
+<li><p>複製憑證</p>
 
 <blockquote>
-<p>helm install ./ &ndash;dry-run &ndash;debug</p>
+<p>將之前筆記 <a href="https://blog.yowko.com/mitmproxy-https" target="_blank">Mitmproxy 啟用 Https</a> 建立的憑證複製新建立的 mitmproxy 執行 user 預設目錄中</p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/78741543-2fa5d180-798c-11ea-8338-aa058b4aa0e7.png" alt="1before" /></p></li>
+<pre><code class="language-bash">/bin/cp ~/.mitmproxy/*.* /home/mitmproxyuser/.mitmproxy/
+</code></pre></li>
 
-<li><p>修改後</p>
+<li><p>重新啟動 mitmproxy</p>
 
-<blockquote>
-<p>helm install ./ &ndash;dry-run &ndash;debug &ndash;set env=staging</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/78741546-316f9500-798c-11ea-985a-6f36564e206c.png" alt="2after" /></p></li>
+<pre><code class="language-bash">sudo -u mitmproxyuser bash -c '$HOME/.local/bin/mitmproxy --mode transparent'
+</code></pre></li>
 </ul></li>
-
-<li><p>避免 <code>env</code> 不在定義清單中 (預先給定預設值)</p>
-
-<blockquote>
-<p>helm install ./ &ndash;dry-run &ndash;debug &ndash;set env=staging12</p>
-</blockquote>
-
-<pre><code class="language-yml">apiVersion: v1
-kind: Service
-metadata:
-    name: {{.Values.env}}
-    targeturl: {{pluck .Values.env .Values.targeturl | first | default .Values.targeturl.dev}}
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/78741547-32a0c200-798c-11ea-84b1-64033b7386bb.png" alt="3exception" /></p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>我認為可能有問題的點：</p>
+<p>不確定是不是我設定的情境比較特別，找了些文章都沒有解決我的問題：<code>curl</code> https resource 會出現憑證驗證失敗，雖然在執行 curl 時加上 <code>-k</code> 或是 <code>--insecure</code> 就可以暫時避開問題，但就是覺得不夠漂亮，最後才試出複製憑證的方法，不過我還是沒有很清楚整個機制，大意上跟 <a href="https://blog.yowko.com/mitmproxy-https" target="_blank">Mitmproxy 啟用 Https</a> 的流程相同，而不同 user 會讀取不同的憑證路徑，所以將建立過的憑證複製至新 user 的憑證位置就可以了</p>
 
-<ol>
-<li><p>Helm 3 也許有更適合的做法</p>
-
-<blockquote>
-<p>目前團隊還沒使用，暫時不花時間研究</p>
-</blockquote></li>
-
-<li><p>所有的 Value 都放在一起，可能比較亂</p>
-
-<blockquote>
-<p>有時間會再嘗試拆分檔案，再依變數來 include 對應內容</p>
-</blockquote></li>
-
-<li><p>有其他專家認為應該使用 subchart</p>
-
-<blockquote>
-<p>這個是我覺得可能是最正統的做法，但也還沒機會嘗試</p>
-</blockquote></li>
-</ol>
-
-<p>找資料過程中，發現有不少人會提出 <code>helm install -f {env}-values.yaml</code>，我不這麼用的原因是：這樣的做法需要將 <code>{env}-values.yaml</code> 複製至 Helm 的 client 端，這麼一來就失去透過透過 Helm 部署的好處 - 除了透過 Helm repository 下載 Helm chart 之外還要額外複製 values 檔，既不好管理，也讓整個部署變得複雜</p>
+<p>但最後還是沒有選用 mitmproxy，原因是 mitmproxy 不支援同時使用 upstream 跟 transparent</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://github.com/helm/helm/issues/2620#issuecomment-314719592" target="_blank">Charts with different set of values for each environment</a></li>
-<li><a href="https://blog.gmem.cc/gotpl" target="_blank">Go语言中的模板引擎</a></li>
+<li><a href="https://blog.yowko.com/squid-proxy" target="_blank">安裝 Squid Proxy</a></li>
+<li><a href="https://blog.yowko.com/mitmproxy-https" target="_blank">Mitmproxy 啟用 Https</a></li>
+<li><a href="https://docs.mitmproxy.org/stable/howto-transparent/" target="_blank">Transparent Proxying</a></li>
 </ol>
 
     </div>
@@ -380,7 +285,7 @@ metadata:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-04-08</span>
+    <span class="item-content">2020-06-25</span>
   </p>
   
   <p class="copyright-item">
@@ -402,7 +307,11 @@ metadata:
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/helm/">Helm</a>
+            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/netowrk/">Netowrk</a>
           
         </div>
 
@@ -410,18 +319,18 @@ metadata:
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/consul-kv-without-encoding/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/redsocks/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">取得 Consul 中的 Key/Value</span>			
+            <span class="next-text nav-default">安裝 Redsocks</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/kafka-broadcast-assign/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/mitmproxy-https/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">讓 Kafka 達成 Broadcast 效果</span>			
+            <span class="prev-text nav-default">Mitmproxy 啟用 Https</span>			
           </a>
 		  </div>
       </nav>
@@ -432,7 +341,7 @@ metadata:
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/helm-values-by-env\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/mitmproxy-transparent\/';  
       
     };
 

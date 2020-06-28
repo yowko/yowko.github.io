@@ -6,10 +6,28 @@
     <description>Recent content in Netowrk on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 21 Jun 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 26 Jun 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/netowrk/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>安裝 Redsocks</title>
+      <link>https://blog.yowko.com/redsocks/</link>
+      <pubDate>Fri, 26 Jun 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/redsocks/</guid>
+      <description>安裝 Redsocks 之前一連串幾篇筆記分別紀錄到 Squid 與 Mitmproxy 的使用方式，但因為 Squid 不支援 https 轉 http、Mitmproxy 不支援 transparent 與 upstream 並行，最後找到 Redsocks 可以滿足使用情</description>
+    </item>
+    
+    <item>
+      <title>Mitmproxy 啟用 Transparent mode</title>
+      <link>https://blog.yowko.com/mitmproxy-transparent/</link>
+      <pubDate>Thu, 25 Jun 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mitmproxy-transparent/</guid>
+      <description>Mitmproxy 啟用 Transparent mode 之前筆記 安裝 Squid Proxy 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特</description>
+    </item>
     
     <item>
       <title>Mitmproxy 啟用 Https</title>

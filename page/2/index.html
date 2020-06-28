@@ -59,7 +59,7 @@
 <meta property="og:description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.yowko.com/" />
-<meta property="og:updated_time" content="2020-04-30T21:30:00&#43;08:00"/>
+<meta property="og:updated_time" content="2020-05-19T21:30:00&#43;08:00"/>
 
 <meta itemprop="name" content="Yowko&#39;s Notes">
 <meta itemprop="description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教">
@@ -135,6 +135,94 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/docker-compose-pass-parameter/">傳遞參數來執行 Docker Compose</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-05-19 </span>
+      
+      <span class="more-meta"> 約 368 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      傳遞參數來執行 Docker Compose 為了能動態決定 Docker Compose 中所使用到的參數值可以透過 environment variable , .env file 另外個人更偏好在執行 docker-compose up 時直接指定變數值，因為這樣一來不必設定 environment variable r
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/docker-compose-pass-parameter/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/">使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-05-14 </span>
+      
+      <span class="more-meta"> 約 445 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      使用 Helm 在 Kubernetes 上安裝 Redis Cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/docker-compose-mongodb-replica-set/">Docker Compose 建立 MongoDB Replica Set</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-05-10 </span>
+      
+      <span class="more-meta"> 約 433 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Docker Compose 建立 MongoDB Replica Set 因為之前筆記 MongoDB Cli Replica Set 連線方式 需要建立測試環境，想起最早之前的筆記 使用 docker 建立 MongoDB Replica Set 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/docker-compose-mongodb-replica-set/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/mongodb-cli-replica-set/">MongoDB Cli Replica Set 連線方式</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-05-09 </span>
+      
+      <span class="more-meta"> 約 359 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      MongoDB Cli Replica Set 連線方式 這是在建立 MongoDB patch 資料自動化流程時遇到的問題：需要進行 MongoDB data patch 的開發人員將需要執行的 MongoDB script 提供 .js 格式的檔案，再透過 MongoDB Cli 來匯入執行 從一
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/mongodb-cli-replica-set/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -373,94 +461,6 @@
     </div>
     <div class="read-more">
       <a href="https://blog.yowko.com/ansible-influxdb-create-user-database-rententionpolicy/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/ansible-install-influxdb/">使用 Ansible 安裝 InfluxDB</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-03-01 </span>
-      
-      <span class="more-meta"> 約 348 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      使用 Ansible 安裝 InfluxDB 最近安裝實際 service instance 環境大多都用上了 Ansible，原本透過 Helm 安裝的 InfluxDB container 也想透過 Ansible 來建立實體 instance 不再使用 container，快速筆記一
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/ansible-install-influxdb/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/ansible-cat-eof/">Ansible 使用 Here document (cat &lt;&lt; EOF) 遇到的問題</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-03-01 </span>
-      
-      <span class="more-meta"> 約 624 字 </span>
-        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Ansible 使用 Here document (cat &lt;&lt; EOF) 遇到的問題 這是在嘗試使用 Ansible 來輸出多行 config 時遇到的問題，實際例子可以參考 在 CentOS 7 上安裝 Redis Replication (Redis 5) 其中要準備 redis.conf 的部份就有使用到 Here document (cat &lt;&lt;
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/ansible-cat-eof/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/ansible-when-http-status-code/">Ansible 透過 Http Status Code 當做檢核條件</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-02-26 </span>
-      
-      <span class="more-meta"> 約 611 字 </span>
-        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Ansible 透過 Http Status Code 當做檢核條件 最近 Ansible 使用的機會較多，簡單紀錄一下平常可能遇到的情境與解決方式，一般情況下我都是透過單一個 playbook 來處理某個工作，如果需要
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/ansible-when-http-status-code/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/windows-aspnetcore-grpc/">在 Windows 上的 ASP.NET Core 中呼叫 gRPC</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-02-24 </span>
-      
-      <span class="more-meta"> 約 447 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      在 Windows 上的 ASP.NET Core 中呼叫 gRPC 現在的工作主力都在 mac 上，但最近在測試功能時覺得與過去認知不同，特別用 Windows 測試一下，證實在 Windows 平台上功能與印象相同，為了日後比
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/windows-aspnetcore-grpc/" class="read-more-link">繼續閱讀</a>
     </div>
   </div>
 </article>

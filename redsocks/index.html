@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>在 Helm 中依不同變數使用不同設定值 - Yowko&#39;s Notes</title>
+  <title>安裝 Redsocks - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境" />
+  <meta name="description" content="安裝 Redsocks 之前一連串幾篇筆記分別紀錄到 Squid 與 Mitmproxy 的使用方式，但因為 Squid 不支援 https 轉 http、Mitmproxy 不支援 transparent 與 upstream 並行，最後找到 Redsocks 可以滿足使用情" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/helm-values-by-env/" />
+<link rel="canonical" href="https://blog.yowko.com/redsocks/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="在 Helm 中依不同變數使用不同設定值" />
-<meta property="og:description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境" />
+<meta property="og:title" content="安裝 Redsocks" />
+<meta property="og:description" content="安裝 Redsocks 之前一連串幾篇筆記分別紀錄到 Squid 與 Mitmproxy 的使用方式，但因為 Squid 不支援 https 轉 http、Mitmproxy 不支援 transparent 與 upstream 並行，最後找到 Redsocks 可以滿足使用情" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/helm-values-by-env/" /><meta property="article:published_time" content="2020-04-08T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-04-08T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/redsocks/" /><meta property="article:published_time" content="2020-06-26T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-06-26T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="在 Helm 中依不同變數使用不同設定值">
-<meta itemprop="description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境">
-
-
-<meta itemprop="datePublished" content="2020-04-08T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-04-08T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="788">
+<meta itemprop="name" content="安裝 Redsocks">
+<meta itemprop="description" content="安裝 Redsocks 之前一連串幾篇筆記分別紀錄到 Squid 與 Mitmproxy 的使用方式，但因為 Squid 不支援 https 轉 http、Mitmproxy 不支援 transparent 與 upstream 並行，最後找到 Redsocks 可以滿足使用情">
 
 
+<meta itemprop="datePublished" content="2020-06-26T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-26T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="762">
 
-<meta itemprop="keywords" content="Helm," />
+
+
+<meta itemprop="keywords" content="Linux,Netowrk," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="在 Helm 中依不同變數使用不同設定值"/>
-<meta name="twitter:description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境"/>
+<meta name="twitter:title" content="安裝 Redsocks"/>
+<meta name="twitter:description" content="安裝 Redsocks 之前一連串幾篇筆記分別紀錄到 Squid 與 Mitmproxy 的使用方式，但因為 Squid 不支援 https 轉 http、Mitmproxy 不支援 transparent 與 upstream 並行，最後找到 Redsocks 可以滿足使用情"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-04-08 </span>
+        <span class="post-time"> 2020-06-26 </span>
         
-        <span class="more-meta"> 約 788 字 </span>
+        <span class="more-meta"> 約 762 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,9 +162,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#在-helm-中依不同變數使用不同設定值">在 Helm 中依不同變數使用不同設定值</a></li>
-<li><a href="#基本環境變數">基本環境變數</a></li>
-<li><a href="#修改方式">修改方式</a></li>
+<li><a href="#安裝-redsocks">安裝 Redsocks</a></li>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#設定步驟">設定步驟</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,194 +180,140 @@
     <div class="post-content">
       
 
-<h2 id="在-helm-中依不同變數使用不同設定值">在 Helm 中依不同變數使用不同設定值</h2>
+<h2 id="安裝-redsocks">安裝 Redsocks</h2>
 
-<p>Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境間可以透過參數來決定其中部署與設定的差異，之前使用方式是利用 <code>helm install</code> 時加上 <code>--set</code> 來指定參數，但如此一來就會讓這些設定值散落在 Helm 的 <code>values.yaml</code> 與安裝的 script 中，不僅增加管理難度也讓 debug 變得複雜</p>
+<p>之前一連串幾篇筆記分別紀錄到 <code>Squid</code> 與 <code>Mitmproxy</code> 的使用方式，但因為 <code>Squid</code> 不支援 https 轉 http、<code>Mitmproxy</code> 不支援 transparent 與 upstream 並行，最後找到 <code>Redsocks</code> 可以滿足使用情境，所以今天來紀錄 Redsocks 的設定</p>
 
-<p>為了解決這種狀況，我打算讓 Helm 可以依不同環境變數使用不同 <code>values.yaml</code> 內容，嘗試幾種做法後，找到一種不是很漂亮但可以暫時解決問題的方法，先紀錄一下，我再繼續嘗試其他做法</p>
+<p>今天紀錄的部份是假設上層有 squid proxy 的情境下做的設定，請特別留意</p>
 
-<h2 id="基本環境變數">基本環境變數</h2>
+<h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>macOS Catalina 10.15.4</li>
-
-<li><p>docker desktop community 2.2.0.4(43472)</p>
-
-<ul>
-<li>Engine 19.03.8</li>
-<li>Kubernetes v1.15.5</li>
-</ul></li>
-
-<li><p>Helm v2.16.1</p></li>
-
-<li><p>原始 Helm chart 結構與內容</p>
-
-<blockquote>
-<p>主要核心概念是新建一個 helm chart (<code>helm create testenv</code>)，再移除所有用不到的內容</p>
-</blockquote>
-
-<ul>
-<li><p>testenv</p>
-
-<ul>
-<li>charts</li>
-
-<li><p>templates</p>
-
-<ul>
-<li><p>test.yml</p>
-
-<pre><code class="language-yml">apiVersion: v1
-kind: Service
-metadata:
-    env: {{.Values.env}}
-    targeturl: {{.Values.targeturl}}
-</code></pre></li>
-</ul></li>
-
-<li><p>.helmignore</p>
-
-<pre><code class="language-yml"># Patterns to ignore when building packages.
-# This supports shell glob matching, relative path matching, and
-# negation (prefixed with !). Only one pattern per line.
-.DS_Store
-# Common VCS dirs
-.git/
-.gitignore
-.bzr/
-.bzrignore
-.hg/
-.hgignore
-.svn/
-# Common backup files
-*.swp
-*.bak
-*.tmp
-*~
-# Various IDEs
-.project
-.idea/
-*.tmproj
-.vscode/
-</code></pre></li>
-
-<li><p>Chart.yml</p>
-
-<pre><code class="language-yml">apiVersion: v1
-appVersion: &quot;1.0&quot;
-description: A Helm chart for Kubernetes
-name: testenv
-version: 0.1.0
-</code></pre></li>
-
-<li><p>values.yml</p>
-
-<pre><code class="language-yml">env: dev
-
-targeturl: blog.yowko.com
-</code></pre></li>
-</ul></li>
-</ul></li>
+<li>Azure VM 標準 B2s (2 vcpu，4 GiB 記憶體)</li>
+<li>CentOS 7.7</li>
+<li>libevent-devel 2.0.21</li>
+<li>gcc 4.8.5</li>
 </ol>
 
-<h2 id="修改方式">修改方式</h2>
+<h2 id="設定步驟">設定步驟</h2>
 
 <ol>
-<li><p>將不同環境的設定值加至 <code>values.yml</code></p>
+<li><p>建立執行 redsocks 專用 user</p>
 
-<pre><code class="language-yml">env: dev
+<blockquote>
+<p>這是為了後續方便控制 iptable，避免出現無窮迴圈的轉導</p>
+</blockquote>
 
-targeturl:
-  dev: dev.yowko.com
-  staging: staging.yowko.com
-  uat: uat.yowko.com
-  prod: prod.yowko.com
+<pre><code class="language-bash">useradd --create-home redsocksuser
 </code></pre></li>
 
-<li><p>修改 template 的取值方式</p>
+<li><p>安裝相依套件</p>
 
-<blockquote>
-<p>透過 <code>.Values.env</code> 至 <code>.Values.targeturl</code> 這個 dictionary 中取值 (會取出陣列)，再取第一筆資料</p>
-</blockquote>
-
-<pre><code class="language-yaml">apiVersion: v1
-kind: Service
-metadata:
-    name: {{.Values.env}}
-    targeturl: {{pluck .Values.env .Values.targeturl | first}}
+<pre><code class="language-bash">yum install libevent-devel git gcc
 </code></pre></li>
 
-<li><p>使用方式</p>
+<li><p>下載 Redsocks 原始碼</p>
 
 <blockquote>
-<p>這邊透過 <code>--dry-run --debug</code> 來輸出 render 的結果</p>
+<p>我沒找到 rpm 可以直接安裝，需要自行 build source code</p>
 </blockquote>
 
-<ul>
-<li><p>修改前</p>
+<pre><code class="language-bash">git clone https://github.com/darkk/redsocks
+</code></pre></li>
 
-<blockquote>
-<p>helm install ./ &ndash;dry-run &ndash;debug</p>
-</blockquote>
+<li><p>編譯 Redsocks</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/78741543-2fa5d180-798c-11ea-8338-aa058b4aa0e7.png" alt="1before" /></p></li>
+<pre><code class="language-bash">cd ~/redsocks &amp;&amp; make
+</code></pre></li>
 
-<li><p>修改後</p>
+<li><p>將編譯好的 redsocks binary 指定 user 可存取位置</p>
 
-<blockquote>
-<p>helm install ./ &ndash;dry-run &ndash;debug &ndash;set env=staging</p>
-</blockquote>
+<pre><code class="language-bash">cp redsocks /home/redsocksuser/
+</code></pre></li>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/78741546-316f9500-798c-11ea-985a-6f36564e206c.png" alt="2after" /></p></li>
-</ul></li>
+<li><p>在指定 user 可存取位置中建立 config</p>
 
-<li><p>避免 <code>env</code> 不在定義清單中 (預先給定預設值)</p>
-
-<blockquote>
-<p>helm install ./ &ndash;dry-run &ndash;debug &ndash;set env=staging12</p>
-</blockquote>
-
-<pre><code class="language-yml">apiVersion: v1
-kind: Service
-metadata:
-    name: {{.Values.env}}
-    targeturl: {{pluck .Values.env .Values.targeturl | first | default .Values.targeturl.dev}}
+<pre><code class="language-bash">vi /home/redsocksuser/redsocks.conf
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/78741547-32a0c200-798c-11ea-84b1-64033b7386bb.png" alt="3exception" /></p></li>
+<blockquote>
+<p>如需參考完整 confif 範例可以參考 <code>redsocks.conf.example</code></p>
+</blockquote>
+
+<pre><code class="language-conf">base {
+    log_debug = on;
+    log_info = on;
+    log = stderr;
+    daemon = off;
+    redirector = iptables;
+}
+redsocks {
+
+    local_ip = 127.0.0.1;
+    local_port = 12345;
+
+    // 以下是上層 proxy 的相關設定，請依實際情況修改
+    ip = 10.0.0.12;
+    port = 3128;
+    type = http-connect;
+    login = &quot;yowko&quot;;
+    password = &quot;pass.123&quot;;
+}
+</code></pre></li>
+
+<li><p>修改 iptables</p>
+
+<ul>
+<li><p>建立專屬的 chain</p>
+
+<pre><code class="language-bash">iptables -t nat -N REDSOCKS
+</code></pre></li>
+
+<li><p>將 user <code>root</code> (依個別情境調整) 發動對外的 port 為 <code>443</code> 的 request 導向 REDSOCKS</p>
+
+<pre><code class="language-bash">iptables -t nat -A OUTPUT -p tcp -m owner --uid-owner root --dport 443 -j REDSOCKS
+</code></pre></li>
+
+<li><p>將 REDSOCKS 的 request 導向 port <code>12345</code></p>
+
+<pre><code class="language-bash">iptables -t nat -A REDSOCKS -p tcp -j REDIRECT --to-ports 12345
+</code></pre></li>
+
+<li><p>如果想要開機直接套用</p>
+
+<blockquote>
+<p>儲存目前 iptable 設定</p>
+</blockquote>
+
+<pre><code class="language-bash">iptables-save &gt; /etc/sysconfig/iptables
+</code></pre>
+
+<blockquote>
+<p>開機直接套用已儲存的 iptable 設定</p>
+</blockquote>
+
+<pre><code class="language-bash"> echo &quot;iptables-restore &lt; /etc/sysconfig/iptables&quot; &gt;&gt; /etc/rc.d/rc.local &amp;&amp; chmod +x /etc/rc.d/rc.local
+</code></pre></li>
+</ul></li>
+
+<li><p>啟動 redsocks</p>
+
+<pre><code class="language-bash">sudo -u redsocksuser bash -c '/home/redsocksuser/redsocks -c /home/redsocksuser/redsocks.conf'
+</code></pre></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>我認為可能有問題的點：</p>
+<p>一連測試了 <code>Squid</code>、<code>Mtimproxy</code> 與 <code>Redsocks</code>，最後終於選定了使用 <code>Redsocks</code>，主因就是如之前說的 <code>Squid</code> 不支援 https 轉 http (原有系統上游已經建立 <code>Squid</code>，避免影響現有服務不想動它)、<code>Mitmproxy</code> 不支援 transparent 與 upstream 並行 (沒辦法只用 <code>Mitmproxy</code> 就將 request 導向上游的 <code>Squid</code>)</p>
 
-<ol>
-<li><p>Helm 3 也許有更適合的做法</p>
-
-<blockquote>
-<p>目前團隊還沒使用，暫時不花時間研究</p>
-</blockquote></li>
-
-<li><p>所有的 Value 都放在一起，可能比較亂</p>
-
-<blockquote>
-<p>有時間會再嘗試拆分檔案，再依變數來 include 對應內容</p>
-</blockquote></li>
-
-<li><p>有其他專家認為應該使用 subchart</p>
-
-<blockquote>
-<p>這個是我覺得可能是最正統的做法，但也還沒機會嘗試</p>
-</blockquote></li>
-</ol>
-
-<p>找資料過程中，發現有不少人會提出 <code>helm install -f {env}-values.yaml</code>，我不這麼用的原因是：這樣的做法需要將 <code>{env}-values.yaml</code> 複製至 Helm 的 client 端，這麼一來就失去透過透過 Helm 部署的好處 - 除了透過 Helm repository 下載 Helm chart 之外還要額外複製 values 檔，既不好管理，也讓整個部署變得複雜</p>
+<p>雖然最後成功達成目的，但過程比較像是運氣好，因為 <code>Redsocks</code> 比較知名的是使用 <code>Socks5</code>，而我一直試不出正確設定，試試 <code>http-connect</code> 還真的可行，至於為什麼 <code>Socks5</code> 為什麼不能用，我個人猜測是因為上游的 <code>Squid</code> 是 http proxy 的關係，但我沒把握，身為一個商管科系出身的工程師，網路相關知識都是我很難跨越的痛呀(仔細想想好像不止網路 ~~~)</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://github.com/helm/helm/issues/2620#issuecomment-314719592" target="_blank">Charts with different set of values for each environment</a></li>
-<li><a href="https://blog.gmem.cc/gotpl" target="_blank">Go语言中的模板引擎</a></li>
+<li><a href="https://crosp.net/blog/administration/install-configure-redsocks-proxy-centos-linux/" target="_blank">How to install and configure Redsocks on Centos Linux</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/80942720" target="_blank">Centos 7 下配置 redsocks 代理</a></li>
+<li><a href="https://github.com/darkk/redsocks/blob/master/redsocks.service" target="_blank">redsocks/redsocks.service</a></li>
 </ol>
 
     </div>
@@ -380,7 +326,7 @@ metadata:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-04-08</span>
+    <span class="item-content">2020-06-26</span>
   </p>
   
   <p class="copyright-item">
@@ -402,7 +348,11 @@ metadata:
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/helm/">Helm</a>
+            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/netowrk/">Netowrk</a>
           
         </div>
 
@@ -410,18 +360,18 @@ metadata:
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/consul-kv-without-encoding/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/kubernetes-custom-domain/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">取得 Consul 中的 Key/Value</span>			
+            <span class="next-text nav-default">在 Kubernetes 中使用自訂 Domain</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/kafka-broadcast-assign/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/mitmproxy-transparent/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">讓 Kafka 達成 Broadcast 效果</span>			
+            <span class="prev-text nav-default">Mitmproxy 啟用 Transparent mode</span>			
           </a>
 		  </div>
       </nav>
@@ -432,7 +382,7 @@ metadata:
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/helm-values-by-env\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/redsocks\/';  
       
     };
 

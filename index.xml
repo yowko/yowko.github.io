@@ -6,10 +6,46 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 21 Jun 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 28 Jun 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 Helm (Go Template) 中檢查 Value 是否有值</title>
+      <link>https://blog.yowko.com/helm-check-values-null/</link>
+      <pubDate>Sun, 28 Jun 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/helm-check-values-null/</guid>
+      <description>在 Helm (Go Template) 中檢查 Value 是否有值 這個需求是延續之前筆記 在 Kubernetes 中使用自訂 Domain 而來的，其中提到某些服務會掛在自訂 domain 下，但內網測試環境可能因為無法對外連線 (連</description>
+    </item>
+    
+    <item>
+      <title>在 Kubernetes 中使用自訂 Domain</title>
+      <link>https://blog.yowko.com/kubernetes-custom-domain/</link>
+      <pubDate>Sat, 27 Jun 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kubernetes-custom-domain/</guid>
+      <description>在 Kubernetes 中使用自訂 Domain 在之前筆記 在 Windows 環境將特定網址指向不同 IP 與 讓 iOS 裝置可以存取自訂 domain 中都有提到過自訂域名的用法，大意就是避免因為 server ip 更動就要調整程</description>
+    </item>
+    
+    <item>
+      <title>安裝 Redsocks</title>
+      <link>https://blog.yowko.com/redsocks/</link>
+      <pubDate>Fri, 26 Jun 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/redsocks/</guid>
+      <description>安裝 Redsocks 之前一連串幾篇筆記分別紀錄到 Squid 與 Mitmproxy 的使用方式，但因為 Squid 不支援 https 轉 http、Mitmproxy 不支援 transparent 與 upstream 並行，最後找到 Redsocks 可以滿足使用情</description>
+    </item>
+    
+    <item>
+      <title>Mitmproxy 啟用 Transparent mode</title>
+      <link>https://blog.yowko.com/mitmproxy-transparent/</link>
+      <pubDate>Thu, 25 Jun 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mitmproxy-transparent/</guid>
+      <description>Mitmproxy 啟用 Transparent mode 之前筆記 安裝 Squid Proxy 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特</description>
+    </item>
     
     <item>
       <title>Mitmproxy 啟用 Https</title>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>在 Helm 中依不同變數使用不同設定值 - Yowko&#39;s Notes</title>
+  <title>在 Helm (Go Template) 中檢查 Value 是否有值 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境" />
+  <meta name="description" content="在 Helm (Go Template) 中檢查 Value 是否有值 這個需求是延續之前筆記 在 Kubernetes 中使用自訂 Domain 而來的，其中提到某些服務會掛在自訂 domain 下，但內網測試環境可能因為無法對外連線 (連" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/helm-values-by-env/" />
+<link rel="canonical" href="https://blog.yowko.com/helm-check-values-null/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="在 Helm 中依不同變數使用不同設定值" />
-<meta property="og:description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境" />
+<meta property="og:title" content="在 Helm (Go Template) 中檢查 Value 是否有值" />
+<meta property="og:description" content="在 Helm (Go Template) 中檢查 Value 是否有值 這個需求是延續之前筆記 在 Kubernetes 中使用自訂 Domain 而來的，其中提到某些服務會掛在自訂 domain 下，但內網測試環境可能因為無法對外連線 (連" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/helm-values-by-env/" /><meta property="article:published_time" content="2020-04-08T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-04-08T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/helm-check-values-null/" /><meta property="article:published_time" content="2020-06-28T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-06-28T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="在 Helm 中依不同變數使用不同設定值">
-<meta itemprop="description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境">
-
-
-<meta itemprop="datePublished" content="2020-04-08T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-04-08T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="788">
+<meta itemprop="name" content="在 Helm (Go Template) 中檢查 Value 是否有值">
+<meta itemprop="description" content="在 Helm (Go Template) 中檢查 Value 是否有值 這個需求是延續之前筆記 在 Kubernetes 中使用自訂 Domain 而來的，其中提到某些服務會掛在自訂 domain 下，但內網測試環境可能因為無法對外連線 (連">
 
 
+<meta itemprop="datePublished" content="2020-06-28T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-28T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="829">
 
-<meta itemprop="keywords" content="Helm," />
+
+
+<meta itemprop="keywords" content="Kubernetes,Helm," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="在 Helm 中依不同變數使用不同設定值"/>
-<meta name="twitter:description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境"/>
+<meta name="twitter:title" content="在 Helm (Go Template) 中檢查 Value 是否有值"/>
+<meta name="twitter:description" content="在 Helm (Go Template) 中檢查 Value 是否有值 這個需求是延續之前筆記 在 Kubernetes 中使用自訂 Domain 而來的，其中提到某些服務會掛在自訂 domain 下，但內網測試環境可能因為無法對外連線 (連"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-04-08 </span>
+        <span class="post-time"> 2020-06-28 </span>
         
-        <span class="more-meta"> 約 788 字 </span>
+        <span class="more-meta"> 約 829 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,8 +162,8 @@
 <ul>
 <li>
 <ul>
-<li><a href="#在-helm-中依不同變數使用不同設定值">在 Helm 中依不同變數使用不同設定值</a></li>
-<li><a href="#基本環境變數">基本環境變數</a></li>
+<li><a href="#在-helm-go-template-中檢查-value-是否有值">在 Helm (Go Template) 中檢查 Value 是否有值</a></li>
+<li><a href="#基本環境說明">基本環境說明</a></li>
 <li><a href="#修改方式">修改方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
@@ -180,34 +180,35 @@
     <div class="post-content">
       
 
-<h2 id="在-helm-中依不同變數使用不同設定值">在 Helm 中依不同變數使用不同設定值</h2>
+<h2 id="在-helm-go-template-中檢查-value-是否有值">在 Helm (Go Template) 中檢查 Value 是否有值</h2>
 
-<p>Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境間可以透過參數來決定其中部署與設定的差異，之前使用方式是利用 <code>helm install</code> 時加上 <code>--set</code> 來指定參數，但如此一來就會讓這些設定值散落在 Helm 的 <code>values.yaml</code> 與安裝的 script 中，不僅增加管理難度也讓 debug 變得複雜</p>
+<p>這個需求是延續之前筆記 <a href="https://blog.yowko.com/kubernetes-custom-domain" target="_blank">在 Kubernetes 中使用自訂 Domain</a> 而來的，其中提到某些服務會掛在自訂 domain 下，但內網測試環境可能因為無法對外連線 (連不到外部 dns) 或是成本考慮，不一定會註冊 domain，但在外網環境時為了方便測試，註冊 domain 就是常見的</p>
 
-<p>為了解決這種狀況，我打算讓 Helm 可以依不同環境變數使用不同 <code>values.yaml</code> 內容，嘗試幾種做法後，找到一種不是很漂亮但可以暫時解決問題的方法，先紀錄一下，我再繼續嘗試其他做法</p>
+<p>所以就出現這個需求：在內網環境部署時需要加上 hostalias 才能正確存取服務；但外網環境加上 hostalias 可能反而出現未即時更新 ip 而造成無法存取服務的狀況，所以今天就來快速紀錄一下在 Helm (Go Template) 中檢查 Value 是否有值，以 render 出不同內容</p>
 
-<h2 id="基本環境變數">基本環境變數</h2>
+<h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>macOS Catalina 10.15.4</li>
+<li>macOS Catalina 10.15.5</li>
 
-<li><p>docker desktop community 2.2.0.4(43472)</p>
+<li><p>docker desktop community 2.3.0.3(45519)</p>
 
 <ul>
-<li>Engine 19.03.8</li>
-<li>Kubernetes v1.15.5</li>
+<li>Kubernetes v1.16.5</li>
 </ul></li>
 
-<li><p>Helm v2.16.1</p></li>
+<li><p>Helm v3.2.1</p></li>
+
+<li><p>images</p>
+
+<ul>
+<li>praqma/network-multitool</li>
+</ul></li>
 
 <li><p>原始 Helm chart 結構與內容</p>
 
-<blockquote>
-<p>主要核心概念是新建一個 helm chart (<code>helm create testenv</code>)，再移除所有用不到的內容</p>
-</blockquote>
-
 <ul>
-<li><p>testenv</p>
+<li><p>checkvalue</p>
 
 <ul>
 <li>charts</li>
@@ -215,13 +216,25 @@
 <li><p>templates</p>
 
 <ul>
-<li><p>test.yml</p>
+<li><p>deployment.yml</p>
 
-<pre><code class="language-yml">apiVersion: v1
-kind: Service
+<pre><code class="language-yml">apiVersion: apps/v1
+kind: Deployment
 metadata:
-    env: {{.Values.env}}
-    targeturl: {{.Values.targeturl}}
+  name: checkvalue
+spec:
+  selector:
+    matchLabels:
+      name: checkvalue
+  template:
+    metadata:
+      labels:
+        name: checkvalue
+    spec:
+      containers:
+        - name: checkvalue
+          image: praqma/network-multitool
+          imagePullPolicy: Always
 </code></pre></li>
 </ul></li>
 
@@ -256,15 +269,29 @@ metadata:
 <pre><code class="language-yml">apiVersion: v1
 appVersion: &quot;1.0&quot;
 description: A Helm chart for Kubernetes
-name: testenv
+name: checkvalue
 version: 0.1.0
 </code></pre></li>
 
-<li><p>values.yml</p>
+<li><p>values.yml (空檔案)</p>
 
-<pre><code class="language-yml">env: dev
+<blockquote>
+<p>用來模擬外網環境 (有註冊 domain)，也是預設值</p>
+</blockquote>
 
-targeturl: blog.yowko.com
+<pre><code class="language-yml"></code></pre></li>
+
+<li><p>withvalues.yml</p>
+
+<blockquote>
+<p>用來模擬內網環境 (沒有註冊 domain)</p>
+</blockquote>
+
+<pre><code class="language-yaml">  hostaliases:
+    ip: &quot;192.168.50.97&quot;
+    hostnames:
+    - &quot;yowkotest.com&quot;
+    - &quot;testyowko.com&quot;
 </code></pre></li>
 </ul></li>
 </ul></li>
@@ -272,102 +299,162 @@ targeturl: blog.yowko.com
 
 <h2 id="修改方式">修改方式</h2>
 
-<ol>
-<li><p>將不同環境的設定值加至 <code>values.yml</code></p>
-
-<pre><code class="language-yml">env: dev
-
-targeturl:
-  dev: dev.yowko.com
-  staging: staging.yowko.com
-  uat: uat.yowko.com
-  prod: prod.yowko.com
-</code></pre></li>
-
-<li><p>修改 template 的取值方式</p>
+<p>使用 <code>sprig</code> 語法中的 <code>kindIs</code> function 來進行檢查</p>
 
 <blockquote>
-<p>透過 <code>.Values.env</code> 至 <code>.Values.targeturl</code> 這個 dictionary 中取值 (會取出陣列)，再取第一筆資料</p>
+<p>下列兩者方式皆可行，請依實際情境調整</p>
 </blockquote>
 
-<pre><code class="language-yaml">apiVersion: v1
-kind: Service
-metadata:
-    name: {{.Values.env}}
-    targeturl: {{pluck .Values.env .Values.targeturl | first}}
-</code></pre></li>
-
-<li><p>使用方式</p>
+<ol>
+<li><p>檢查是否為 <code>null</code></p>
 
 <blockquote>
-<p>這邊透過 <code>--dry-run --debug</code> 來輸出 render 的結果</p>
+<p>我嘗試使用 <code>!</code> 會有問題</p>
 </blockquote>
 
 <ul>
-<li><p>修改前</p>
+<li><p>檢查語法範例</p>
 
-<blockquote>
-<p>helm install ./ &ndash;dry-run &ndash;debug</p>
-</blockquote>
+<pre><code class="language-yaml">    {{- if kindIs &quot;invalid&quot; .Values.hostaliases }}
+    {{else}}
+    hostAliases:
+    - ip: {{ .Values.application.hostaliases.ip | quote}}
+      hostnames:
+      {{- range $hostname := .Values.application.hostaliases.hostnames }}
+      - {{$hostname | quote}}
+      {{- end }}
+    {{- end }}
+</code></pre></li>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/78741543-2fa5d180-798c-11ea-8338-aa058b4aa0e7.png" alt="1before" /></p></li>
+<li><p>完整 yaml</p>
 
-<li><p>修改後</p>
-
-<blockquote>
-<p>helm install ./ &ndash;dry-run &ndash;debug &ndash;set env=staging</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/78741546-316f9500-798c-11ea-985a-6f36564e206c.png" alt="2after" /></p></li>
-</ul></li>
-
-<li><p>避免 <code>env</code> 不在定義清單中 (預先給定預設值)</p>
-
-<blockquote>
-<p>helm install ./ &ndash;dry-run &ndash;debug &ndash;set env=staging12</p>
-</blockquote>
-
-<pre><code class="language-yml">apiVersion: v1
-kind: Service
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
 metadata:
-    name: {{.Values.env}}
-    targeturl: {{pluck .Values.env .Values.targeturl | first | default .Values.targeturl.dev}}
+  name: checkvalue
+spec:
+  selector:
+    matchLabels:
+      name: checkvalue
+  template:
+    metadata:
+      labels:
+        name: checkvalue
+    spec:
+      {{- if kindIs &quot;invalid&quot; .Values.hostaliases }}
+      {{else}}
+      hostAliases:
+      - ip: {{ .Values.hostaliases.ip | quote}}
+        hostnames:
+        {{- range $hostname := .Values.hostaliases.hostnames }}
+        - {{$hostname | quote}}
+        {{- end }}
+      {{- end }}
+      containers:
+        - name: checkvalue
+          image: praqma/network-multitool
+          imagePullPolicy: Always
+</code></pre></li>
+
+<li><p>實際效果</p>
+
+<ul>
+<li><p>預設值 (values.yaml)</p>
+
+<pre><code class="language-bash">helm template checkvalue ./checkvalue
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/78741547-32a0c200-798c-11ea-84b1-64033b7386bb.png" alt="3exception" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/85950364-e2d00680-b98e-11ea-83af-11889b1fb737.jpg" alt="1invaliddefault" /></p></li>
+
+<li><p>給值 (withvalues.yaml)</p>
+
+<pre><code class="language-bash">helm template -f  checkvalue/withvalues.yaml checkvalue ./checkvalue
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/85950366-e499ca00-b98e-11ea-85bd-a1263aa950d8.jpg" alt="1invaliddefault" /></p></li>
+</ul></li>
+</ul></li>
+
+<li><p>檢查是否為 <code>特定格式</code></p>
+
+<blockquote>
+<p>這邊以 <code>map</code> 為例</p>
+</blockquote>
+
+<ul>
+<li><p>檢查語法範例</p>
+
+<pre><code class="language-yaml">    {{- if kindIs &quot;map&quot; .Values.hostaliases}}
+    hostAliases:
+    - ip: {{ .Values.hostaliases.ip | quote}}
+      hostnames:
+      {{- range $hostname := .Values.hostaliases.hostnames }}
+      - {{$hostname | quote}}
+      {{- end }}
+    {{- end }}
+</code></pre></li>
+
+<li><p>完整 yaml</p>
+
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkvalue
+spec:
+  selector:
+    matchLabels:
+      name: checkvalue
+  template:
+    metadata:
+      labels:
+        name: checkvalue
+    spec:
+      {{- if kindIs &quot;map&quot; .Values.hostaliases}}
+      hostAliases:
+      - ip: {{ .Values.hostaliases.ip | quote}}
+        hostnames:
+        {{- range $hostname := .Values.hostaliases.hostnames }}
+        - {{$hostname | quote}}
+        {{- end }}
+      {{- end }}
+      containers:
+        - name: checkvalue
+          image: praqma/network-multitool
+          imagePullPolicy: Always
+</code></pre></li>
+
+<li><p>實際效果</p>
+
+<ul>
+<li><p>預設值 (values.yaml)</p>
+
+<pre><code class="language-bash">helm template checkvalue ./checkvalue
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/85950367-e5326080-b98e-11ea-92d0-ce9802793e7a.jpg" alt="3mapdefault" /></p></li>
+
+<li><p>給值 (withvalues.yaml)</p>
+
+<pre><code class="language-bash">helm template -f  checkvalue/withvalues.yaml checkvalue ./checkvalue
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/85950369-e5caf700-b98e-11ea-9aa1-72f219ad0ca2.jpg" alt="4mapvalue" /></p></li>
+</ul></li>
+</ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>我認為可能有問題的點：</p>
+<p>原則上兩種作法差不多，硬要說的話 <code>kindIs &quot;invalid&quot;</code> 因為沒辦法使用 <code>not</code> (<code>!</code>) 所以在沒有給值時會多一行空白；除此之外直接使用 <code>kindIs &quot;map&quot;</code> 在程式碼數量上比較少，所以一般情境下我會選用這個方式</p>
 
-<ol>
-<li><p>Helm 3 也許有更適合的做法</p>
-
-<blockquote>
-<p>目前團隊還沒使用，暫時不花時間研究</p>
-</blockquote></li>
-
-<li><p>所有的 Value 都放在一起，可能比較亂</p>
-
-<blockquote>
-<p>有時間會再嘗試拆分檔案，再依變數來 include 對應內容</p>
-</blockquote></li>
-
-<li><p>有其他專家認為應該使用 subchart</p>
-
-<blockquote>
-<p>這個是我覺得可能是最正統的做法，但也還沒機會嘗試</p>
-</blockquote></li>
-</ol>
-
-<p>找資料過程中，發現有不少人會提出 <code>helm install -f {env}-values.yaml</code>，我不這麼用的原因是：這樣的做法需要將 <code>{env}-values.yaml</code> 複製至 Helm 的 client 端，這麼一來就失去透過透過 Helm 部署的好處 - 除了透過 Helm repository 下載 Helm chart 之外還要額外複製 values 檔，既不好管理，也讓整個部署變得複雜</p>
+<p>另外如果一開始對 values 的格式沒把握，可以透過 <code>kindOf .Values.hostaliases</code> 先取得 values 格式後再來寫判斷式</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://github.com/helm/helm/issues/2620#issuecomment-314719592" target="_blank">Charts with different set of values for each environment</a></li>
-<li><a href="https://blog.gmem.cc/gotpl" target="_blank">Go语言中的模板引擎</a></li>
+<li><a href="https://blog.yowko.com/kubernetes-custom-domain" target="_blank">在 Kubernetes 中使用自訂 Domain</a></li>
+<li><a href="https://github.com/Masterminds/sprig/issues/53#issuecomment-483414063" target="_blank">Clarification: nil vs empty string</a></li>
+<li><a href="http://masterminds.github.io/sprig/reflection.html" target="_blank">Reflection Functions</a></li>
 </ol>
 
     </div>
@@ -380,7 +467,7 @@ metadata:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-04-08</span>
+    <span class="item-content">2020-06-28</span>
   </p>
   
   <p class="copyright-item">
@@ -402,6 +489,10 @@ metadata:
           
 		    
 		    	
+            <a href="https://blog.yowko.com/tags/kubernetes/">Kubernetes</a>
+          
+		    
+		    	
             <a href="https://blog.yowko.com/tags/helm/">Helm</a>
           
         </div>
@@ -410,18 +501,11 @@ metadata:
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/consul-kv-without-encoding/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">取得 Consul 中的 Key/Value</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/kafka-broadcast-assign/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/kubernetes-custom-domain/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">讓 Kafka 達成 Broadcast 效果</span>			
+            <span class="prev-text nav-default">在 Kubernetes 中使用自訂 Domain</span>			
           </a>
 		  </div>
       </nav>
@@ -432,7 +516,7 @@ metadata:
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/helm-values-by-env\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/helm-check-values-null\/';  
       
     };
 
