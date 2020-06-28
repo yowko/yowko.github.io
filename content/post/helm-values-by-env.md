@@ -27,17 +27,17 @@ Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是�
     > 主要核心概念是新建一個 helm chart (`helm create testenv`)，再移除所有用不到的內容
 
     - testenv
-      - charts
-      - templates
-        - test.yml
+        - charts
+        - templates
+            - test.yml
 
-            ```yml
-            apiVersion: v1
-            kind: Service
-            metadata:
-                env: {{.Values.env}}
-                targeturl: {{.Values.targeturl}}
-            ```
+                ```yml
+                apiVersion: v1
+                kind: Service
+                metadata:
+                    env: {{.Values.env}}
+                    targeturl: {{.Values.targeturl}}
+                ```
 
         - .helmignore
 
