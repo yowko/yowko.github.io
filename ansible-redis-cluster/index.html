@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Ansible 安裝 Redis Cluster - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Replication 更新版 紀錄了以 ansible 內建 function 為主的 redis replication 安裝 script，順手紀錄一下 redis cluster 的安裝方式 基本環境說明 Azure VM B2s (2 vcpu,4GiB memory) CentOS-based 7.7 Redis 5.0.7 epel-release.noarch 0:7-11" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.51" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/ansible-redis-cluster/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="Ansible 安裝 Redis Cluster" />
+<meta property="og:description" content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Replication 更新版 紀錄了以 ansible 內建 function 為主的 redis replication 安裝 script，順手紀錄一下 redis cluster 的安裝方式 基本環境說明 Azure VM B2s (2 vcpu,4GiB memory) CentOS-based 7.7 Redis 5.0.7 epel-release.noarch 0:7-11" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/ansible-redis-cluster/" /><meta property="article:published_time" content="2020-07-05T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-07-05T21:30:31&#43;08:00"/>
+
+<meta itemprop="name" content="Ansible 安裝 Redis Cluster">
+<meta itemprop="description" content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Replication 更新版 紀錄了以 ansible 內建 function 為主的 redis replication 安裝 script，順手紀錄一下 redis cluster 的安裝方式 基本環境說明 Azure VM B2s (2 vcpu,4GiB memory) CentOS-based 7.7 Redis 5.0.7 epel-release.noarch 0:7-11">
+
+
+<meta itemprop="datePublished" content="2020-07-05T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-05T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="794">
+
+
+
+<meta itemprop="keywords" content="Ansible,Redis," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ansible 安裝 Redis Cluster"/>
+<meta name="twitter:description" content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Replication 更新版 紀錄了以 ansible 內建 function 為主的 redis replication 安裝 script，順手紀錄一下 redis cluster 的安裝方式 基本環境說明 Azure VM B2s (2 vcpu,4GiB memory) CentOS-based 7.7 Redis 5.0.7 epel-release.noarch 0:7-11"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<link href='https://raw.githubusercontent.com/yowko/picsbed/master/opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-07-05 </span>
+        
+        <span class="more-meta"> 約 794 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#ansible-安裝-redis-cluster">Ansible 安裝 Redis Cluster</a></li>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#安裝語法">安裝語法</a></li>
+<li><a href="#yml">```yml</a></li>
+<li><a href="#yml-1">```yml</a></li>
+<li><a href="#yaml">```yaml</a></li>
+<li><a href="#yml-2">```yml</a></li>
+<li><a href="#yml-3">```yml</a></li>
+<li><a href="#yml-4">```yml</a></li>
+<li><a href="#yml-5">```yml</a></li>
+<li><a href="#yml-6">```yml</a></li>
+<li><a href="#心得">心得</a></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="ansible-安裝-redis-cluster">Ansible 安裝 Redis Cluster</h2>
+
+<p>之前筆記 <a href="https://blog.yowko.com/ansible-redis-replication" target="_blank">Ansible 安裝 Redis Replication 更新版</a> 紀錄了以 ansible 內建 function 為主的 redis replication 安裝 script，順手紀錄一下 redis cluster 的安裝方式</p>
+
+<h2 id="基本環境說明">基本環境說明</h2>
+
+<ol>
+<li>Azure VM B2s (2 vcpu,4GiB memory)</li>
+<li>CentOS-based 7.7</li>
+<li>Redis 5.0.7</li>
+<li>epel-release.noarch 0:7-11</li>
+<li>ius-release.noarch 0:2-1.el7.ius</li>
+<li>ansible 2.9.10</li>
+<li>python 2.7.15</li>
+</ol>
+
+<h2 id="安裝語法">安裝語法</h2>
+
+<ol>
+<li><p>專案結構</p>
+
+<ul>
+<li>roles
+
+<ul>
+<li>redis-replication
+
+<ul>
+<li>handlers
+
+<ul>
+<li>main.yml</li>
+</ul></li>
+<li>tasks
+
+<ul>
+<li>checkdir.yml</li>
+<li>createcluster.yml</li>
+<li>installredis.yml</li>
+<li>installtools.yml</li>
+<li>main.yml</li>
+<li>prepareservice.yml</li>
+<li>prepareredisconfig.yml</li>
+<li>uninstall.yml</li>
+<li>upgrade.yml</li>
+</ul></li>
+<li>templates
+
+<ul>
+<li>config.j2</li>
+<li>service.j2</li>
+</ul></li>
+<li>vars
+
+<ul>
+<li>main.yml</li>
+</ul></li>
+<li>inventories
+
+<ul>
+<li>dev.ini</li>
+</ul></li>
+<li>README.md</li>
+</ul></li>
+</ul></li>
+<li>ansible.cfg</li>
+<li>main.yml</li>
+</ul></li>
+
+<li><p>完整內容</p>
+
+<ul>
+<li><p>roles</p>
+
+<ul>
+<li><p>redis-replication</p>
+
+<ul>
+<li><p>handlers</p>
+
+<ul>
+<li><p>main.yml</p>
+
+<h2 id="yml">```yml</h2>
+
+<ul>
+<li>name: &ldquo;Restart Redis Service&rdquo;
+listen: restart-service
+systemd:
+name: &ldquo;redis_{{redis_port}}&rdquo;
+daemon_reload: yes
+enabled: yes
+state: restarted
+```</li>
+</ul></li>
+</ul></li>
+
+<li><p>tasks</p>
+
+<ul>
+<li><p>checkdir.yml</p>
+
+<h2 id="yml-1">```yml</h2>
+
+<ul>
+<li>name: Ensures dir exists
+file:
+path: &ldquo;{{ item.folder }}&rdquo;
+state: directory
+mode: 0755
+owner: redis
+recurse: yes
+```</li>
+</ul></li>
+
+<li><p>createcluster.yml</p>
+
+<h2 id="yaml">```yaml</h2>
+
+<ul>
+<li><p>name: Create Cluster debug
+debug:
+msg: redis-cli -a {{redispass}} &ndash;cluster-replicas 1 &ndash;cluster create {% for redis_node in groups[&lsquo;redis_all&rsquo;] %}{{ hostvars[redis_node][&lsquo;redis_ip&rsquo;] }}:{{ hostvars[redis_node][&lsquo;redis_port&rsquo;] }} {% endfor %}</p></li>
+
+<li><p>name: Create Cluster
+shell: |
+echo &ldquo;yes&rdquo; |redis-cli -a {{redispass}} &ndash;cluster-replicas 1 &ndash;cluster create {% for redis_node in groups[&lsquo;redis_all&rsquo;] %}{{ hostvars[redis_node][&lsquo;redis_ip&rsquo;] }}:{{ hostvars[redis_node][&lsquo;redis_port&rsquo;] }} {% endfor %}
+```</p></li>
+</ul></li>
+
+<li><p>installredis.yml</p>
+
+<h2 id="yml-2">```yml</h2>
+
+<ul>
+<li>name: Install Redis
+yum:
+name: &ldquo;{{redisversion}}&rdquo;
+state: latest
+```</li>
+</ul></li>
+
+<li><p>installtools.yml</p>
+
+<p>```yml</p>
+
+<ul>
+<li><p>name: Install IUS
+yum:
+name:</p>
+
+<ul>
+<li><a href="https://repo.ius.io/ius-release-el7.rpm" target="_blank">https://repo.ius.io/ius-release-el7.rpm</a></li>
+<li><a href="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm" target="_blank">https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</a>
+state: latest
+<br /></li>
+</ul></li>
+
+<li><p>include_tasks: installredis.yml</p></li>
+
+<li><p>include_tasks: checkdir.yml
+with_items:</p>
+
+<ul>
+<li>{folder: &ldquo;/etc/redis&rdquo;}
+<br /></li>
+</ul></li>
+
+<li><p>name: Remove default redis service
+shell: |
+systemctl disable redis</p></li>
+
+<li><p>name: Delete redis service
+file:
+path: &ldquo;{{ item }}&rdquo;
+state: absent
+with_items:</p>
+
+<ul>
+<li>/usr/lib/systemd/system/redis.service</li>
+<li>/etc/systemd/system/redis.service.d</li>
+<li>/etc/systemd/system/redis-sentinel.service.d
+<br /></li>
+</ul></li>
+
+<li><p>name: Disable SELinux
+shell: |
+setenforce 0
+sed -i &rsquo;s/SELINUX=enforcing/SELINUX=disabled/g&rsquo; /etc/selinux/config</p></li>
+
+<li><p>name: Allow Overcommit Memory
+sysctl:
+name: vm.overcommit_memory
+value: &ldquo;1&rdquo;
+state: present
+reload: yes
+ignoreerrors: yes</p></li>
+
+<li><p>name: Stop and disable firewalld.
+service:
+name: firewalld
+state: stopped
+enabled: False
+```</p></li>
+</ul></li>
+
+<li><p>main.yml</p>
+
+<h2 id="yml-3">```yml</h2>
+
+<ul>
+<li><p>include_tasks: uninstall.yml
+when: action == &lsquo;uninstall&rsquo; or action == &lsquo;reinstall&rsquo;</p></li>
+
+<li><p>include_tasks: installtools.yml
+when: action == &lsquo;install&rsquo;</p></li>
+
+<li><p>include_tasks: upgrade.yml
+when: action == &lsquo;upgrade&rsquo;</p></li>
+
+<li><p>include_tasks: prepareservice.yml
+when: action == &lsquo;install&rsquo; or action == &lsquo;reinstall&rsquo;</p></li>
+
+<li><p>include_tasks: prepareredisconfig.yml
+when: action != &lsquo;uninstall&rsquo;</p></li>
+
+<li><p>name: Restart Service
+debug:
+msg: restart service
+notify: restart-service
+changed_when: true
+when: action == &lsquo;restart&rsquo;</p></li>
+
+<li><p>meta: flush_handlers</p></li>
+
+<li><p>include_tasks: createcluster.yml
+run_once: true
+when: action == &lsquo;install&rsquo; or action == &lsquo;reinstall&rsquo;
+```</p></li>
+</ul></li>
+
+<li><p>prepareservice.yml</p>
+
+<h2 id="yml-4">```yml</h2>
+
+<ul>
+<li>name: Prepare services
+template:
+src: service.j2
+dest: &ldquo;/etc/systemd/system/redis_{{redis_port}}.service&rdquo;
+owner: redis
+```
+<br /></li>
+</ul></li>
+
+<li><p>prepareredisconfig.yml</p>
+
+<h2 id="yml-5">```yml</h2>
+
+<ul>
+<li><p>include_tasks: checkdir.yml
+with_items:</p>
+
+<ul>
+<li>{folder: &ldquo;/etc/redis/redis_{{ redis_port }}&ldquo;}
+<br /></li>
+</ul></li>
+
+<li><p>name: Prepare Master Configs
+template:
+src: config.j2
+dest: &ldquo;/etc/redis/redis_{{ redis_port }}.conf&rdquo;
+owner: redis
+notify: restart-service
+```</p></li>
+</ul></li>
+
+<li><p>uninstall.yml</p>
+
+<p>```yml</p>
+
+<ul>
+<li><p>name: Stop Service
+service:
+name: &ldquo;redis_{{redis_port}}&rdquo;
+state: stopped</p></li>
+
+<li><p>name: Disable Service
+shell: |
+systemctl disable redis_{{redis_port}}</p></li>
+
+<li><p>name: Delete config
+file:
+path: &ldquo;{{ item }}&rdquo;
+state: absent
+with_items:</p>
+
+<ul>
+<li>/etc/redis/redis_{{redis_port}}.conf</li>
+<li>/etc/systemd/system/redis_{{redis_port}}.service</li>
+</ul></li>
+</ul>
+
+<p>```</p></li>
+
+<li><p>upgrade.yml</p>
+
+<h2 id="yml-6">```yml</h2>
+
+<ul>
+<li>include_tasks: installredis.yml
+```</li>
+</ul></li>
+</ul></li>
+
+<li><p>templates</p>
+
+<ul>
+<li><p>config.j2</p>
+
+<pre><code class="language-j2">dir /etc/redis/redis_{{redis_port}}
+bind {{redis_ip}} 127.0.0.1
+requirepass {{redispass}}
+masterauth {{redispass}}
+port {{redis_port}}
+pidfile /var/run/redis_{{redis_port}}.pid
+maxclients 100000
+# 啟用 redis cluster
+cluster-enabled yes
+# 每個 node 需要獨立，cluster 自行維護使用，不需人為介入
+cluster-config-file nodes_{{redis_port}}.conf
+# node 判斷失效的時間
+cluster-node-timeout 5000
+maxmemory-policy volatile-lru
+loglevel notice
+</code></pre></li>
+
+<li><p>service.j2</p>
+
+<pre><code class="language-j2">[Unit]
+Description=Redis persistent key-value database
+After=network.target
+After=network-online.target
+Wants=network-online.target
+                    
+[Service]
+ExecStart=/usr/bin/redis-server /etc/redis/redis_{{redis_port}}.conf --supervised systemd
+                    
+ExecStop=/usr/libexec/redis-shutdown
+Type=notify
+User=redis
+Group=redis
+RuntimeDirectory=redis_{{redis_port}}
+RuntimeDirectoryMode=0755
+                    
+[Install]
+WantedBy=multi-user.target
+</code></pre></li>
+</ul></li>
+
+<li><p>vars</p>
+
+<ul>
+<li><p>main.yml</p>
+
+<pre><code class="language-yml">action: update
+redispass: pass.123
+redisversion: redis5-5.0.7-1.el7.ius
+</code></pre></li>
+</ul></li>
+
+<li><p>inventories</p>
+
+<ul>
+<li><p>dev.ini</p>
+
+<pre><code class="language-ini">[redis_all]
+redis1 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7000
+redis2 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7001
+redis3 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7002
+redis4 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7003
+redis5 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7004
+redis6 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7005
+</code></pre></li>
+</ul></li>
+
+<li><p>README.md</p>
+
+<pre><code class="language-txt">## 全新安裝
+
+    ```bash
+    ansible-playbook -i roles/redis-replication/inventories/dev.ini -e &quot;action=install&quot; main.yml
+    ```
+
+## 重新安裝
+
+    &gt; 先 uninstall 並排除安裝基本套件
+
+    ```bash
+    ansible-playbook -i roles/redis-replication/inventories/dev.ini -e                 &quot;action=reinstall&quot; main.yml
+    ```
+
+## 更新 config
+
+    ```bash
+    ansible-playbook -i roles/redis-replication/inventories/dev.ini main.yml
+    ```
+
+## 升級
+
+    ```
+    ansible-playbook -i roles/redis-replication/inventories/dev.ini -e &quot;action=upgrade&quot; main.yml
+    ```
+## restart service
+
+    ```
+    ansible-playbook -i roles/redis-replication/inventories/dev.ini -e &quot;action=restart&quot; main.yml
+    ```
+</code></pre></li>
+</ul></li>
+</ul></li>
+
+<li><p>ansible.cfg</p>
+
+<pre><code class="language-conf">[ironman]
+roles_path = ./roles
+
+[defaults]
+host_key_checking = False
+</code></pre></li>
+
+<li><p>main.yml</p>
+
+<p>```yaml</p>
+
+<ul>
+<li>hosts: redis_all
+roles:
+
+<ul>
+<li>redis-cluster
+```</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>完整程式碼請參考 <a href="https://github.com/yowko/ansible-redis-cluster" target="_blank">ansible-redis-cluster</a></p>
+
+<p>安裝方式跟 redis-replication 一樣，而流程甚至更簡單：不用自行管理 master、slave 與 sentinel，不過中間還是有些需要注意的重點</p>
+
+<ol>
+<li>建立 cluster 前需要確保所有 redis service 都已啟動 (flush_handlers)</li>
+<li>另外是 cluster 的建立行為只需要執行一次 (<code>run_once: true</code>)</li>
+</ol>
+
+<h2 id="參考資訊">參考資訊</h2>
+
+<ol>
+<li><a href="https://blog.yowko.com/ansible-redis-replication" target="_blank">Ansible 安裝 Redis Replication 更新版</a></li>
+<li><a href="https://github.com/yowko/ansible-redis-cluster" target="_blank">ansible-redis-cluster</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2020-07-05</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/ansible/">Ansible</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/ansible-redis-replication/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">Ansible 安裝 Redis Replication 更新版</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/ansible-redis-cluster\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/yowko.tsai" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

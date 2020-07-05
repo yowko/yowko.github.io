@@ -6,10 +6,28 @@
     <description>Recent content in Ansible on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 25 Apr 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/ansible/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ansible 安裝 Redis Cluster</title>
+      <link>https://blog.yowko.com/ansible-redis-cluster/</link>
+      <pubDate>Sun, 05 Jul 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ansible-redis-cluster/</guid>
+      <description>Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Replication 更新版 紀錄了以 ansible 內建 function 為主的 redis replication 安裝 script，順手紀錄一下 redis cluster 的安裝方式 基本環境說明 Azure VM B2s (2 vcpu,4GiB memory) CentOS-based 7.7 Redis 5.0.7 epel-release.noarch 0:7-11</description>
+    </item>
+    
+    <item>
+      <title>Ansible 安裝 Redis Replication 更新版</title>
+      <link>https://blog.yowko.com/ansible-redis-replication/</link>
+      <pubDate>Sat, 04 Jul 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ansible-redis-replication/</guid>
+      <description>Ansible 安裝 Redis Replication 更新版 之前筆記 使用 Ansible 安裝 Redis Replication 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼</description>
+    </item>
     
     <item>
       <title>避免 Ansible 無法存取第一次登入的 Server</title>
