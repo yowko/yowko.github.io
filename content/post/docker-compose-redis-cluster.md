@@ -1,7 +1,7 @@
 ---
 title: "使用 Docker Compose 建立 Redis Cluster"
 date: 2020-05-19T22:30:00+08:00
-lastmod: 2020-05-19T22:30:31+08:00
+lastmod: 2020-07-07T22:30:31+08:00
 draft: false
 tags: ["Redis","Docker"]
 slug: "docker-compose-redis-cluster"
@@ -76,7 +76,6 @@ slug: "docker-compose-redis-cluster"
       redis-node1:
         build:
           context: redis
-          network: host
         ports:
           - "7000:7000"
           - "17000:17000"
@@ -85,7 +84,6 @@ slug: "docker-compose-redis-cluster"
       redis-node2:
         build:
           context: redis
-          network: host
         ports:
           - "7001:7001"
           - "17001:17001"
@@ -94,7 +92,6 @@ slug: "docker-compose-redis-cluster"
       redis-node3:
         build:
           context: redis
-          network: host
         ports:
           - "7002:7002"
           - "17002:17002"
@@ -103,7 +100,6 @@ slug: "docker-compose-redis-cluster"
       redis-node4:
         build:
           context: redis
-          network: host
         ports:
           - "7003:7003"
           - "17003:17003"
@@ -116,7 +112,6 @@ slug: "docker-compose-redis-cluster"
       redis-node5:
         build:
           context: redis
-          network: host
         ports:
           - "7004:7004"
           - "17004:17004"
@@ -129,7 +124,6 @@ slug: "docker-compose-redis-cluster"
       redis-node6:
         build:
           context: redis
-          network: host
         ports:
           - "7005:7005"
           - "17005:17005"
@@ -169,7 +163,7 @@ slug: "docker-compose-redis-cluster"
 
 1. 不需自行額外建立 network
 
-    > 使用 host
+    > ~~使用 host~~ 經網友提醒後重新 review，發現不需要
 
 2. 不需指定每個 container ip
 
