@@ -58,15 +58,15 @@
 <meta property="og:description" content="使用 Elastic Stack (ELK) 來監控 MongoDB 之前筆記 Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana) 提到因為想要將部份系統資料餵進 ELK 用來監控及除錯，順手紀錄 Windows 平台上架設 Elastic Stack (ELK - Elasticsearch , Logstash ," />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/elk-mongodb-monitor/" /><meta property="article:published_time" content="2018-05-12T00:23:00&#43;08:00"/>
-<meta property="article:modified_time" content="2018-10-06T00:23:54&#43;08:00"/>
+<meta property="article:modified_time" content="2020-07-11T00:23:54&#43;08:00"/>
 
 <meta itemprop="name" content="使用 Elastic Stack (ELK) 來監控 MongoDB">
 <meta itemprop="description" content="使用 Elastic Stack (ELK) 來監控 MongoDB 之前筆記 Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana) 提到因為想要將部份系統資料餵進 ELK 用來監控及除錯，順手紀錄 Windows 平台上架設 Elastic Stack (ELK - Elasticsearch , Logstash ,">
 
 
 <meta itemprop="datePublished" content="2018-05-12T00:23:00&#43;08:00" />
-<meta itemprop="dateModified" content="2018-10-06T00:23:54&#43;08:00" />
-<meta itemprop="wordCount" content="1058">
+<meta itemprop="dateModified" content="2020-07-11T00:23:54&#43;08:00" />
+<meta itemprop="wordCount" content="1252">
 
 
 
@@ -146,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-05-12 </span>
         
-        <span class="more-meta"> 約 1058 字 </span>
+        <span class="more-meta"> 約 1252 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -213,15 +213,54 @@
         password: pass.123
             
         # 第二種：使用 [mongodb://][user:pass@]host[:port]
-        # hosts: [&quot;mongodb://admin:pass.123@127.0.0.1:27017&quot;,&quot;mongodb://admin:pass.123@127.0.0.1:27027&quot;]
-
+        # hosts: [&quot;mongodb://admin:pass.123@127.0.0.1:27017&quot;,&quot;mongodb://admin:pass.    123@127.0.0.1:27027&quot;]
+    
     # 將結果輸出至 elasticsearch
     output.elasticsearch:
-    # elasticsearch url
-    hosts: [&quot;localhost:9200&quot;]
-    # 指定進 elasticsearch 的 index 名稱 (%{+yyyy.ww} 是 yaml 的時間格式)
-    index: &quot;localhost-mongodb-%{+yyyy.ww}&quot;
+        # elasticsearch url
+        hosts: [&quot;localhost:9200&quot;]
+        # 指定進 elasticsearch 的 index 名稱 (%{+yyyy.ww} 是 yaml 的時間格式)
+        index: &quot;localhost-mongodb-%{+yyyy.ww}&quot;
+    
+    # template 是用來在 Elasticsearch 中設定 mapping ，預設就是啟用的
+    # 指定 template 名稱
+    setup.template.name: &quot;localhost-mongodb&quot;
+    # 設定 template mapping 的 pattern 
+    setup.template.pattern: &quot;localhost-mongodb-*&quot;
+    # 指定產生的欄位
+    setup.template.fields: &quot;${path.config}/fields.yml&quot;
+    # 複寫已存在的 template
+    setup.template.overwrite: true
+</code></pre>
 
+<blockquote>
+<p>2020/07/11 更新</p>
+</blockquote>
+
+<pre><code class="language-yml">    metricbeat.modules:
+    - module: mongodb
+      metricsets: [&quot;dbstats&quot;, &quot;status&quot;, &quot;collstats&quot;, &quot;metrics&quot;, &quot;replstatus&quot;]
+      # 指定輪詢間隔
+      period: 10s
+      enabled: true
+        
+      # 連線方式有兩種
+      # 連線的帳號需要有 admin database 的權限
+      # arbiter 沒有實際 db ，無法使用預設 field 設定匯入 index
+      # 第一種：mongo 的 host 與 port 跟 username/ passwork 分開放
+      hosts: [&quot;localhost:27017&quot;,&quot;localhost:27027&quot;]
+      username: admin
+      password: pass.123
+          
+      # 第二種：使用 [mongodb://][user:pass@]host[:port]
+      # hosts: [&quot;mongodb://admin:pass.123@127.0.0.1:27017&quot;,&quot;mongodb://admin:pass.123@127.0.0.1:27027&quot;]
+        
+    # 將結果輸出至 elasticsearch
+    output.elasticsearch:
+      # elasticsearch url
+      hosts: [&quot;localhost:9200&quot;]
+      # 指定進 elasticsearch 的 index 名稱 (%{+yyyy.ww} 是 yaml 的時間格式)
+      index: &quot;localhost-mongodb-%{+yyyy.ww}&quot;
     # template 是用來在 Elasticsearch 中設定 mapping ，預設就是啟用的
     # 指定 template 名稱
     setup.template.name: &quot;localhost-mongodb&quot;
@@ -357,7 +396,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-10-06</span>
+    <span class="item-content">2020-07-11</span>
   </p>
   
   <p class="copyright-item">

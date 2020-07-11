@@ -58,15 +58,15 @@
 <meta property="og:description" content="使用 Docker Compose 建立 Redis Cluster 之前類似的主題至少有四、五篇，其中最後一版 使用 docker 建立 Redis Cluster - 更新版 已經滿足自己在全 container 環境中的測試需求，雖然該篇筆記下方有網友提" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/docker-compose-redis-cluster/" /><meta property="article:published_time" content="2020-05-19T22:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-05-19T22:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-07-07T22:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="使用 Docker Compose 建立 Redis Cluster">
 <meta itemprop="description" content="使用 Docker Compose 建立 Redis Cluster 之前類似的主題至少有四、五篇，其中最後一版 使用 docker 建立 Redis Cluster - 更新版 已經滿足自己在全 container 環境中的測試需求，雖然該篇筆記下方有網友提">
 
 
 <meta itemprop="datePublished" content="2020-05-19T22:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-05-19T22:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="717">
+<meta itemprop="dateModified" content="2020-07-07T22:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="725">
 
 
 
@@ -146,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-05-19 </span>
         
-        <span class="more-meta"> 約 717 字 </span>
+        <span class="more-meta"> 約 725 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -261,7 +261,6 @@ services:
   redis-node1:
     build:
       context: redis
-      network: host
     ports:
       - &quot;7000:7000&quot;
       - &quot;17000:17000&quot;
@@ -270,7 +269,6 @@ services:
   redis-node2:
     build:
       context: redis
-      network: host
     ports:
       - &quot;7001:7001&quot;
       - &quot;17001:17001&quot;
@@ -279,7 +277,6 @@ services:
   redis-node3:
     build:
       context: redis
-      network: host
     ports:
       - &quot;7002:7002&quot;
       - &quot;17002:17002&quot;
@@ -288,7 +285,6 @@ services:
   redis-node4:
     build:
       context: redis
-      network: host
     ports:
       - &quot;7003:7003&quot;
       - &quot;17003:17003&quot;
@@ -301,7 +297,6 @@ services:
   redis-node5:
     build:
       context: redis
-      network: host
     ports:
       - &quot;7004:7004&quot;
       - &quot;17004:17004&quot;
@@ -314,7 +309,6 @@ services:
   redis-node6:
     build:
       context: redis
-      network: host
     ports:
       - &quot;7005:7005&quot;
       - &quot;17005:17005&quot;
@@ -356,7 +350,7 @@ services:
 <li><p>不需自行額外建立 network</p>
 
 <blockquote>
-<p>使用 host</p>
+<p><del>使用 host</del> 經網友提醒後重新 review，發現不需要</p>
 </blockquote></li>
 
 <li><p>不需指定每個 container ip</p>
@@ -407,7 +401,7 @@ services:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-05-19</span>
+    <span class="item-content">2020-07-07</span>
   </p>
   
   <p class="copyright-item">
