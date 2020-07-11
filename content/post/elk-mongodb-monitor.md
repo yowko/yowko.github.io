@@ -1,7 +1,7 @@
 ---
 title: "使用 Elastic Stack (ELK) 來監控 MongoDB"
 date: 2018-05-12T00:23:00+08:00
-lastmod: 2018-10-06T00:23:54+08:00
+lastmod: 2020-07-11T00:23:54+08:00
 draft: false
 tags: ["ELK","MongoDB","Monitoring"]
 slug: "elk-mongodb-monitor"
@@ -14,11 +14,12 @@ aliases:
 首先第一個目標就是為原本沒有監控機制的 MongoDB  加上基本的效能監控。在同事強力的協助下，終於排除困難將 MongoDB 效能資訊餵進 ELK，過程況狀不斷，如果不紀錄相信一週後我就再也做不出來了，就來看該如何設定吧
 
 ## 安裝 Metricbeat
+
 1. 下載 [Metricbeat](https://www.elastic.co/downloads/beats/metricbeat) 並解壓縮
 2. 準備 Metricbeat 的 yaml 檔 ：`mongodb.yml` 檔名可自訂
-    
+
     > 下載的 Metricbeat 中有一份 `metricbeat.reference.yml` 包含許多不同 module 的設定值可以用來參考
-    
+
     ```yml
         metricbeat.modules:
         - module: mongodb
@@ -35,15 +36,15 @@ aliases:
             password: pass.123
             
             # 第二種：使用 [mongodb://][user:pass@]host[:port]
-            # hosts: ["mongodb://admin:pass.123@127.0.0.1:27017","mongodb://admin:pass.123@127.0.0.1:27027"]
-
+            # hosts: ["mongodb://admin:pass.123@127.0.0.1:27017","mongodb://admin:pass.    123@127.0.0.1:27027"]
+    
         # 將結果輸出至 elasticsearch
         output.elasticsearch:
-        # elasticsearch url
-        hosts: ["localhost:9200"]
-        # 指定進 elasticsearch 的 index 名稱 (%{+yyyy.ww} 是 yaml 的時間格式)
-        index: "localhost-mongodb-%{+yyyy.ww}"
-
+            # elasticsearch url
+            hosts: ["localhost:9200"]
+            # 指定進 elasticsearch 的 index 名稱 (%{+yyyy.ww} 是 yaml 的時間格式)
+            index: "localhost-mongodb-%{+yyyy.ww}"
+    
         # template 是用來在 Elasticsearch 中設定 mapping ，預設就是啟用的
         # 指定 template 名稱
         setup.template.name: "localhost-mongodb"
@@ -53,7 +54,46 @@ aliases:
         setup.template.fields: "${path.config}/fields.yml"
         # 複寫已存在的 template
         setup.template.overwrite: true
-    ``` 
+    ```
+
+    > 2020/07/11 更新
+
+    ```yml
+        metricbeat.modules:
+        - module: mongodb
+          metricsets: ["dbstats", "status", "collstats", "metrics", "replstatus"]
+          # 指定輪詢間隔
+          period: 10s
+          enabled: true
+        
+          # 連線方式有兩種
+          # 連線的帳號需要有 admin database 的權限
+          # arbiter 沒有實際 db ，無法使用預設 field 設定匯入 index
+          # 第一種：mongo 的 host 與 port 跟 username/ passwork 分開放
+          hosts: ["localhost:27017","localhost:27027"]
+          username: admin
+          password: pass.123
+          
+          # 第二種：使用 [mongodb://][user:pass@]host[:port]
+          # hosts: ["mongodb://admin:pass.123@127.0.0.1:27017","mongodb://admin:pass.123@127.0.0.1:27027"]
+        
+        # 將結果輸出至 elasticsearch
+        output.elasticsearch:
+          # elasticsearch url
+          hosts: ["localhost:9200"]
+          # 指定進 elasticsearch 的 index 名稱 (%{+yyyy.ww} 是 yaml 的時間格式)
+          index: "localhost-mongodb-%{+yyyy.ww}"
+        # template 是用來在 Elasticsearch 中設定 mapping ，預設就是啟用的
+        # 指定 template 名稱
+        setup.template.name: "localhost-mongodb"
+        # 設定 template mapping 的 pattern 
+        setup.template.pattern: "localhost-mongodb-*"
+        # 指定產生的欄位
+        setup.template.fields: "${path.config}/fields.yml"
+        # 複寫已存在的 template
+        setup.template.overwrite: true
+    ```
+
 3. 啟動 Metricbeat
     - 語法 
         
