@@ -58,15 +58,15 @@
 <meta property="og:description" content="使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set 之前在筆記 使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set (Single Node) 紀錄到如何使用 docker compose 建立啟用 auth 機制的單一 node MongoDB Replica Set，但單一 node 的 MongoDB Replica Set 對我來說不" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth/" /><meta property="article:published_time" content="2020-07-12T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-07-12T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-07-13T09:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set">
 <meta itemprop="description" content="使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set 之前在筆記 使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set (Single Node) 紀錄到如何使用 docker compose 建立啟用 auth 機制的單一 node MongoDB Replica Set，但單一 node 的 MongoDB Replica Set 對我來說不">
 
 
 <meta itemprop="datePublished" content="2020-07-12T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-07-12T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="811">
+<meta itemprop="dateModified" content="2020-07-13T09:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="863">
 
 
 
@@ -146,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-07-12 </span>
         
-        <span class="more-meta"> 約 811 字 </span>
+        <span class="more-meta"> 約 863 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -217,8 +217,8 @@ services:
     volumes:
       - ./keyfile:/keyfile
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=pass.123
+      - MONGO_INITDB_ROOT_USERNAME=${username}
+      - MONGO_INITDB_ROOT_PASSWORD=${password}
     ports:
       - 27047:27047
     healthcheck:
@@ -230,11 +230,11 @@ services:
           &quot;--port&quot;,
           &quot;27047&quot;,
           &quot;-u&quot;,
-          &quot;root&quot;,
+          &quot;${username}&quot;,
           &quot;-p&quot;,
-          &quot;pass.123&quot;,
+          &quot;${password}&quot;,
           &quot;--eval&quot;,
-          'rs.initiate( { _id : &quot;rs0&quot;,members: [{ _id: 0,host: &quot;mongotmp:27047&quot; }]}) ;db.getSiblingDB(&quot;admin&quot;).createUser({user: &quot;application&quot;,pwd: &quot;pass.123&quot;,roles: [{role: &quot;userAdminAnyDatabase&quot;,db:&quot;admin&quot;},{role: &quot;clusterAdmin&quot;,db:&quot;admin&quot;}]})',
+          'rs.initiate( { _id : &quot;rs0&quot;,members: [{ _id: 0,host: &quot;mongotmp:27047&quot; }]});db.getSiblingDB(&quot;admin&quot;).createUser({user: &quot;${username}&quot;,pwd: &quot;${password}&quot;,roles: [{role: &quot;userAdminAnyDatabase&quot;,db:&quot;admin&quot;},{role: &quot;clusterAdmin&quot;,db:&quot;admin&quot;}]})',
         ]
       interval: 10s
       start_period: 10s
@@ -268,9 +268,9 @@ services:
           &quot;27047&quot;,
           &quot;admin&quot;,
           &quot;-u&quot;,
-          &quot;root&quot;,
+          &quot;${username}&quot;,
           &quot;-p&quot;,
-          &quot;pass.123&quot;,
+          &quot;${password}&quot;,
           &quot;--eval&quot;,
           'rs.add( { host: &quot;mongo2:27027&quot;} )',
         ]
@@ -307,9 +307,9 @@ services:
           &quot;27047&quot;,
           &quot;admin&quot;,
           &quot;-u&quot;,
-          &quot;root&quot;,
+          &quot;${username}&quot;,
           &quot;-p&quot;,
-          &quot;pass.123&quot;,
+          &quot;${password}&quot;,
           &quot;--eval&quot;,
           'rs.add( { host: &quot;mongo3:27037&quot;} )',
         ]
@@ -347,11 +347,11 @@ services:
           &quot;27047&quot;,
           &quot;admin&quot;,
           &quot;-u&quot;,
-          &quot;root&quot;,
+          &quot;${username}&quot;,
           &quot;-p&quot;,
-          &quot;pass.123&quot;,
+          &quot;${password}&quot;,
           &quot;--eval&quot;,
-          'rs.add( { host: &quot;mongo1:27017&quot;} );db.adminCommand( { replSetStepDown: 1,  force:true } );',
+          'rs.add( { host: &quot;mongo1:27017&quot;} );db.adminCommand( { replSetStepDown: 1,force:true } );',
         ]
       interval: 10s
       start_period: 40s
@@ -371,7 +371,7 @@ services:
     depends_on:
       - mongo1
     healthcheck:
-      test: /usr/bin/mongo &quot;mongodb://root:pass.123@mongo1:27017,mongo2:27027,mongo3:27037/admin?replicaSet=rs0&quot; --eval 'rs.remove(&quot;mongotmp:27047&quot;)'
+      test: /usr/bin/mongo &quot;mongodb://${username}:${password}@mongo1:27017,mongo2:27027,mongo3:27037/admin?replicaSet=rs0&quot; --eval 'rs.remove(&quot;mongotmp:27047&quot;)'
       interval: 10s
       start_period: 45s
     command:
@@ -384,6 +384,24 @@ services:
       ]
 </code></pre></li>
 
+<li><p>直接使用 docker compose 啟動</p>
+
+<blockquote>
+<p>如果想要移除中繼 container ，請直接跳至 <code>步驟 4</code> 或是執行此步驟後手動移除</p>
+</blockquote>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">username={username} password={password} docker-compose up -d
+</code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">username=root password=pass.123 docker-compose up -d
+</code></pre></li>
+</ul></li>
+
 <li><p>(optional) 將移除非必要 container 包裝成 shell</p>
 
 <blockquote>
@@ -393,7 +411,7 @@ services:
 <ul>
 <li><p>start.sh</p>
 
-<pre><code class="language-bash">docker-compose up -d
+<pre><code class="language-bash">username=root password=pass.123 docker-compose up -d
 sleep 50
 docker-compose stop mongotmp remover
 </code></pre></li>
@@ -478,7 +496,7 @@ docker-compose stop mongotmp remover
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-07-12</span>
+    <span class="item-content">2020-07-13</span>
   </p>
   
   <p class="copyright-item">
