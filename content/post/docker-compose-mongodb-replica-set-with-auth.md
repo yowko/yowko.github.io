@@ -1,7 +1,7 @@
 ---
 title: "使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set"
 date: 2020-07-12T21:30:00+08:00
-lastmod: 2020-07-12T21:30:31+08:00
+lastmod: 2020-07-13T09:30:31+08:00
 draft: false
 tags: ["MongoDB","Docker"]
 slug: "docker-compose-mongodb-replica-set-with-auth"
@@ -40,8 +40,8 @@ slug: "docker-compose-mongodb-replica-set-with-auth"
         volumes:
           - ./keyfile:/keyfile
         environment:
-          - MONGO_INITDB_ROOT_USERNAME=root
-          - MONGO_INITDB_ROOT_PASSWORD=pass.123
+          - MONGO_INITDB_ROOT_USERNAME=${username}
+          - MONGO_INITDB_ROOT_PASSWORD=${password}
         ports:
           - 27047:27047
         healthcheck:
@@ -53,11 +53,11 @@ slug: "docker-compose-mongodb-replica-set-with-auth"
               "--port",
               "27047",
               "-u",
-              "root",
+              "${username}",
               "-p",
-              "pass.123",
+              "${password}",
               "--eval",
-              'rs.initiate( { _id : "rs0",members: [{ _id: 0,host: "mongotmp:27047" }]}) ;db.getSiblingDB("admin").createUser({user: "application",pwd: "pass.123",roles: [{role: "userAdminAnyDatabase",db:"admin"},{role: "clusterAdmin",db:"admin"}]})',
+              'rs.initiate( { _id : "rs0",members: [{ _id: 0,host: "mongotmp:27047" }]});db.getSiblingDB("admin").createUser({user: "${username}",pwd: "${password}",roles: [{role: "userAdminAnyDatabase",db:"admin"},{role: "clusterAdmin",db:"admin"}]})',
             ]
           interval: 10s
           start_period: 10s
@@ -91,9 +91,9 @@ slug: "docker-compose-mongodb-replica-set-with-auth"
               "27047",
               "admin",
               "-u",
-              "root",
+              "${username}",
               "-p",
-              "pass.123",
+              "${password}",
               "--eval",
               'rs.add( { host: "mongo2:27027"} )',
             ]
@@ -130,9 +130,9 @@ slug: "docker-compose-mongodb-replica-set-with-auth"
               "27047",
               "admin",
               "-u",
-              "root",
+              "${username}",
               "-p",
-              "pass.123",
+              "${password}",
               "--eval",
               'rs.add( { host: "mongo3:27037"} )',
             ]
@@ -170,11 +170,11 @@ slug: "docker-compose-mongodb-replica-set-with-auth"
               "27047",
               "admin",
               "-u",
-              "root",
+              "${username}",
               "-p",
-              "pass.123",
+              "${password}",
               "--eval",
-              'rs.add( { host: "mongo1:27017"} );db.adminCommand( { replSetStepDown: 1,  force:true } );',
+              'rs.add( { host: "mongo1:27017"} );db.adminCommand( { replSetStepDown: 1,force:true } );',
             ]
           interval: 10s
           start_period: 40s
@@ -194,7 +194,7 @@ slug: "docker-compose-mongodb-replica-set-with-auth"
         depends_on:
           - mongo1
         healthcheck:
-          test: /usr/bin/mongo "mongodb://root:pass.123@mongo1:27017,mongo2:27027,mongo3:27037/admin?replicaSet=rs0" --eval 'rs.remove("mongotmp:27047")'
+          test: /usr/bin/mongo "mongodb://${username}:${password}@mongo1:27017,mongo2:27027,mongo3:27037/admin?replicaSet=rs0" --eval 'rs.remove("mongotmp:27047")'
           interval: 10s
           start_period: 45s
         command:
@@ -207,14 +207,30 @@ slug: "docker-compose-mongodb-replica-set-with-auth"
           ]
     ```
 
-3. (optional) 將移除非必要 container 包裝成 shell
+3. 直接使用 docker compose 啟動
+
+    > 如果想要移除中繼 container ，請直接跳至 `步驟 4` 或是執行此步驟後手動移除
+
+    - 語法
+
+        ```bash
+        username={username} password={password} docker-compose up -d
+        ```
+
+    - 範例
+
+        ```bash
+        username=root password=pass.123 docker-compose up -d
+        ```
+
+4. (optional) 將移除非必要 container 包裝成 shell
 
     > 把中介性質的 container 停掉，不在意資源使用狀況的話，這個步驟可以直接略過
 
     - start.sh
 
         ```bash
-        docker-compose up -d
+        username=root password=pass.123 docker-compose up -d
         sleep 50
         docker-compose stop mongotmp remover
         ```
@@ -225,7 +241,7 @@ slug: "docker-compose-mongodb-replica-set-with-auth"
         sh ./start.sh
         ```
 
-4. 實際使用
+5. 實際使用
 
     - 沒有提供 auth，無法取得 replica set 資訊
 
