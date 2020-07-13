@@ -229,11 +229,23 @@ slug: "docker-compose-mongodb-replica-set-with-auth"
 
     - start.sh
 
-        ```bash
-        username=root password=pass.123 docker-compose up -d
-        sleep 50
-        docker-compose stop mongotmp remover
-        ```
+        > 請記得將 username 與 password 換成需要的值
+
+        - 語法
+
+            ```bash
+            username={username} password={password} docker-compose up -d
+            sleep 50
+            docker-compose stop mongotmp remover
+            ```
+
+        - 範例
+
+            ```bash
+            username=root password=pass.123 docker-compose up -d
+            sleep 50
+            docker-compose stop mongotmp remover
+            ```
 
     - 啟動 mongodb replica set
 
