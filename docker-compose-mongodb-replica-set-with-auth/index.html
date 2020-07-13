@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2020-07-12T21:30:00&#43;08:00" />
 <meta itemprop="dateModified" content="2020-07-13T09:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="863">
+<meta itemprop="wordCount" content="891">
 
 
 
@@ -146,7 +146,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-07-12 </span>
         
-        <span class="more-meta"> 約 863 字 </span>
+        <span class="more-meta"> 約 891 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -411,10 +411,25 @@ services:
 <ul>
 <li><p>start.sh</p>
 
+<blockquote>
+<p>請記得將 username 與 password 換成需要的值</p>
+</blockquote>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">username={username} password={password} docker-compose up -d
+sleep 50
+docker-compose stop mongotmp remover
+</code></pre></li>
+
+<li><p>範例</p>
+
 <pre><code class="language-bash">username=root password=pass.123 docker-compose up -d
 sleep 50
 docker-compose stop mongotmp remover
 </code></pre></li>
+</ul></li>
 
 <li><p>啟動 mongodb replica set</p>
 
