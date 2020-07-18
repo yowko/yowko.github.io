@@ -1,7 +1,7 @@
 ---
 title: "使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set"
 date: 2020-07-12T21:30:00+08:00
-lastmod: 2020-07-14T09:30:31+08:00
+lastmod: 2020-07-18T09:30:31+08:00
 draft: false
 tags: ["MongoDB","Docker"]
 slug: "docker-compose-mongodb-replica-set-with-auth"
@@ -242,6 +242,7 @@ slug: "docker-compose-mongodb-replica-set-with-auth"
         - 範例
 
             ```bash
+            chmod 400 keyfile
             username=root password=pass.123 docker-compose up -d
             sleep 50
             docker-compose stop mongotmp remover
@@ -267,7 +268,7 @@ slug: "docker-compose-mongodb-replica-set-with-auth"
 
 完整程式碼請參考 [yowko/docker-compose-mongodb-replica-set-with-auth](https://github.com/yowko/docker-compose-mongodb-replica-set-with-auth)
 
-> 經同事測試後提醒，直接下載完整程式碼如果沒有重新產生 keyfile，請記得調整下載的 keyfile 權限 `chmod 400 keyfile`
+> 經同事測試後提醒，直接下載完整程式碼如果沒有重新產生 keyfile，如果是自行執行 `docker-compose up`，請記得調整下載的 keyfile 權限 `chmod 400 keyfile` (這個動作已加入 `start.sh`)
 
 雖然 mongo 用了好多年了，但每次遇到 mongo 不論是什麼角色，mongo 還是常常讓我覺得棘手，這次也一樣：反覆看著官方文件，還是不知道問題出在哪兒、該如何解決XD
 

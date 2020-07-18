@@ -81,7 +81,7 @@ slug: "docker-compose-mongodb-replica-set-with-auth-standalone"
 2. mongod 啟動時加上 `--auth`
 3. 使用 `healthcheck` 來建立 replica set 與 grant user 權限
 
-雖然筆記內容符合 
+雖然筆記內容符合
 
 1. `Replica Set`
 2. 有 auth 機制
