@@ -6,10 +6,28 @@
     <description>Recent content in Git on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 23 May 2020 22:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jul 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Git Submodule partial clone</title>
+      <link>https://blog.yowko.com/git-submodule-partial-clone/</link>
+      <pubDate>Sun, 19 Jul 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/git-submodule-partial-clone/</guid>
+      <description>Git Submodule partial clone 之前筆記 Git partial clone 嘗試了期待已久的 partial clone 功能，雖然跟預期有落差，但對於想要的目標有了不同想法 之前以為 partial clone 可以在既有 repo 的內容中，疉加另個 repo 的</description>
+    </item>
+    
+    <item>
+      <title>Git partial clone</title>
+      <link>https://blog.yowko.com/git-partial-clone/</link>
+      <pubDate>Sat, 18 Jul 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/git-partial-clone/</guid>
+      <description>Git partial clone Git 2.19.0 發表了 Partial Clone 功能，技術細節可以參考 Partial Clone Design Notes 這功能從我開始使用 Git 就覺得需要了，因為 Git 跟過去中央式版控不同，不是以路徑為使用基準，所以沒</description>
+    </item>
     
     <item>
       <title>Git Force Push 後如何更新 Repository</title>

@@ -6,10 +6,19 @@
     <description>Recent content in Linux on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 26 Jun 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 18 Jul 2020 16:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>執行 apt-get update 時遇到 GPG KEYEXPIRED</title>
+      <link>https://blog.yowko.com/debian-keyexpired/</link>
+      <pubDate>Sat, 18 Jul 2020 16:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/debian-keyexpired/</guid>
+      <description>執行 apt-get update 時遇到 GPG KEYEXPIRED 這是在追查 kafka 問題時，使用 docker-compose 建立 local 環境時，在 kafka container 內透過 apt-get 安裝工具來調整 kafka 設定值時遇到的狀況 google 之後還試了好幾種方法才解決問題，</description>
+    </item>
     
     <item>
       <title>安裝 Redsocks</title>
