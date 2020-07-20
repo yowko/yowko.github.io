@@ -163,7 +163,7 @@ Git 2.19.0 發表了 Partial Clone 功能，技術細節可以參考 [Partial Cl
 
 雖然測試完了，但也發現功能跟預想的不太一樣：原本想的是 partial clone 可以另個 repo 的部份內容加至當前 repo 中，但測試完發現功能比較像一開始 git 的設計原理：為了避免下載大檔，是不是很難懂，請看下圖
 
-![1result]()
+![1result](https://user-images.githubusercontent.com/3851540/87876656-3b357980-ca0c-11ea-9e63-f97c7e03f968.jpg)
 
 原本存在的內容，因為 branch 不同，而在 checkout 後就不見，跟原本預想的加入 partial clone 不同，我想也許可以透過 submodule 與 partial clone 的組合來達成原本的目標，不過有機會再試囉
 
