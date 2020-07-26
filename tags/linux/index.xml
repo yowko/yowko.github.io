@@ -6,10 +6,19 @@
     <description>Recent content in Linux on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 18 Jul 2020 16:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED</title>
+      <link>https://blog.yowko.com/container-gpg-keyexpired/</link>
+      <pubDate>Sun, 26 Jul 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/container-gpg-keyexpired/</guid>
+      <description>Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED 之前筆記 執行 apt-get update 時遇到 GPG KEYEXPIRED 紀錄到在使用 image : confluentinc/cp-kafka:5.5.0 建立 container 後需要安裝其他套件，但 apt-get update 卻遇到 GPG KEYEXPIRED 的錯誤，當時透過進到 container 中手動調整</description>
+    </item>
     
     <item>
       <title>執行 apt-get update 時遇到 GPG KEYEXPIRED</title>

@@ -6,10 +6,28 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 19 Jul 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED</title>
+      <link>https://blog.yowko.com/container-gpg-keyexpired/</link>
+      <pubDate>Sun, 26 Jul 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/container-gpg-keyexpired/</guid>
+      <description>Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED 之前筆記 執行 apt-get update 時遇到 GPG KEYEXPIRED 紀錄到在使用 image : confluentinc/cp-kafka:5.5.0 建立 container 後需要安裝其他套件，但 apt-get update 卻遇到 GPG KEYEXPIRED 的錯誤，當時透過進到 container 中手動調整</description>
+    </item>
+    
+    <item>
+      <title>讓特定 message 在 kafka 中可以有順序性</title>
+      <link>https://blog.yowko.com/kafka-message-immutable-sequence/</link>
+      <pubDate>Sat, 25 Jul 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kafka-message-immutable-sequence/</guid>
+      <description>讓特定 message 在 kafka 中可以有順序性 之前專案為了保證 message 的順序性捨棄當時還在 0.8 版的 kafka 而選用 RabbitMQ，雖然 RabbitMQ 在效能數據上跟 kafka 不是同個量級水準，但已</description>
+    </item>
     
     <item>
       <title>Git Submodule partial clone</title>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Git Submodule partial clone - Yowko&#39;s Notes</title>
+  <title>讓特定 message 在 kafka 中可以有順序性 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="Git Submodule partial clone 之前筆記 Git partial clone 嘗試了期待已久的 partial clone 功能，雖然跟預期有落差，但對於想要的目標有了不同想法 之前以為 partial clone 可以在既有 repo 的內容中，疉加另個 repo 的" />
+  <meta name="description" content="讓特定 message 在 kafka 中可以有順序性 之前專案為了保證 message 的順序性捨棄當時還在 0.8 版的 kafka 而選用 RabbitMQ，雖然 RabbitMQ 在效能數據上跟 kafka 不是同個量級水準，但已" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/git-submodule-partial-clone/" />
+<link rel="canonical" href="https://blog.yowko.com/kafka-message-immutable-sequence/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="Git Submodule partial clone" />
-<meta property="og:description" content="Git Submodule partial clone 之前筆記 Git partial clone 嘗試了期待已久的 partial clone 功能，雖然跟預期有落差，但對於想要的目標有了不同想法 之前以為 partial clone 可以在既有 repo 的內容中，疉加另個 repo 的" />
+<meta property="og:title" content="讓特定 message 在 kafka 中可以有順序性" />
+<meta property="og:description" content="讓特定 message 在 kafka 中可以有順序性 之前專案為了保證 message 的順序性捨棄當時還在 0.8 版的 kafka 而選用 RabbitMQ，雖然 RabbitMQ 在效能數據上跟 kafka 不是同個量級水準，但已" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/git-submodule-partial-clone/" /><meta property="article:published_time" content="2020-07-19T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-07-19T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/kafka-message-immutable-sequence/" /><meta property="article:published_time" content="2020-07-25T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-07-25T21:30:00&#43;08:00"/>
 
-<meta itemprop="name" content="Git Submodule partial clone">
-<meta itemprop="description" content="Git Submodule partial clone 之前筆記 Git partial clone 嘗試了期待已久的 partial clone 功能，雖然跟預期有落差，但對於想要的目標有了不同想法 之前以為 partial clone 可以在既有 repo 的內容中，疉加另個 repo 的">
-
-
-<meta itemprop="datePublished" content="2020-07-19T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-07-19T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="730">
+<meta itemprop="name" content="讓特定 message 在 kafka 中可以有順序性">
+<meta itemprop="description" content="讓特定 message 在 kafka 中可以有順序性 之前專案為了保證 message 的順序性捨棄當時還在 0.8 版的 kafka 而選用 RabbitMQ，雖然 RabbitMQ 在效能數據上跟 kafka 不是同個量級水準，但已">
 
 
+<meta itemprop="datePublished" content="2020-07-25T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-25T21:30:00&#43;08:00" />
+<meta itemprop="wordCount" content="662">
 
-<meta itemprop="keywords" content="Git," />
+
+
+<meta itemprop="keywords" content="Kafka,csharp," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Git Submodule partial clone"/>
-<meta name="twitter:description" content="Git Submodule partial clone 之前筆記 Git partial clone 嘗試了期待已久的 partial clone 功能，雖然跟預期有落差，但對於想要的目標有了不同想法 之前以為 partial clone 可以在既有 repo 的內容中，疉加另個 repo 的"/>
+<meta name="twitter:title" content="讓特定 message 在 kafka 中可以有順序性"/>
+<meta name="twitter:description" content="讓特定 message 在 kafka 中可以有順序性 之前專案為了保證 message 的順序性捨棄當時還在 0.8 版的 kafka 而選用 RabbitMQ，雖然 RabbitMQ 在效能數據上跟 kafka 不是同個量級水準，但已"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-07-19 </span>
+        <span class="post-time"> 2020-07-25 </span>
         
-        <span class="more-meta"> 約 730 字 </span>
+        <span class="more-meta"> 約 662 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,7 +162,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#git-submodule-partial-clone">Git Submodule partial clone</a></li>
+<li><a href="#讓特定-message-在-kafka-中可以有順序性">讓特定 message 在 kafka 中可以有順序性</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
 <li><a href="#設定方式">設定方式</a></li>
 <li><a href="#心得">心得</a></li>
@@ -180,176 +180,122 @@
     <div class="post-content">
       
 
-<h2 id="git-submodule-partial-clone">Git Submodule partial clone</h2>
+<h2 id="讓特定-message-在-kafka-中可以有順序性">讓特定 message 在 kafka 中可以有順序性</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/git-partial-clone" target="_blank">Git partial clone</a> 嘗試了期待已久的 partial clone 功能，雖然跟預期有落差，但對於想要的目標有了不同想法</p>
+<p>之前專案為了保證 message 的順序性捨棄當時還在 0.8 版的 kafka 而選用 RabbitMQ，雖然 RabbitMQ 在效能數據上跟 kafka 不是同個量級水準，但已能充份滿足當時專案的效能需求；幾年後的新專案，因為有強烈的效能需求，所以改用 kafka，雖然也擔心過 message 順序性問題，幸虧同事夠力在流程面先避開可能的問題，剛好趁著最近看了不少 Kafk 的問題，順帶紀錄一下該如何讓 kafka 中的 message 有順序性</p>
 
-<p>之前以為 partial clone 可以在既有 repo 的內容中，疉加另個 repo 的部份內容，但嘗試下來：取得 repo 的部份內容這個沒有問題，但卻不是疉加，而是取代覆蓋，但這也讓我想到是不是可以使用 submodule 加上 partitial clone 來達成目的，打鐵趁熱立馬來紀錄一下</p>
+<p>因為 kafka 的 message 順序性是基於 topic partition，所以如果 topic 僅使用到單一 partition，原則上可以假定 message 都是有順序性的，因此今天的紀錄也是為了 topic 使用到多個 partition 的</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Catalina 10.15.5</li>
-<li>git version 2.27.0</li>
-<li>GitLab.com (GitLab 13.1)</li>
+<li>docker desktop community 2.3.0.3 (45519)</li>
 
-<li><p>範例專案</p>
-
-<ul>
-<li><p>partial-clone</p>
-
-<blockquote>
-<p>模擬共用專案，提供給其他 application 參考，放在 <a href="https://gitlab.com/yowko/partial-clone" target="_blank">GitLab partial-clone repo</a> </p>
-</blockquote>
+<li><p>docker images</p>
 
 <ul>
-<li>moduleA
+<li>zookeeper 3.5.5</li>
+<li>kafka 5.0.1</li>
+</ul></li>
+
+<li><p>.NET Core SDK 3.1.301</p></li>
+
+<li><p>NuGet packages</p>
 
 <ul>
-<li>a-1.txt</li>
-<li>a-2.txt</li>
-</ul></li>
-<li>moduleB
-
-<ul>
-<li>b-1.txt</li>
-<li>b-2.txt</li>
-<li>b-3.txt</li>
-</ul></li>
-<li>moduleC
-
-<ul>
-<li>c-1.txt</li>
-</ul></li>
+<li>Confluent.Kafka 1.5.0</li>
 </ul></li>
 
-<li><p>application</p>
+<li><p>Kafka producer sample code</p>
 
-<ul>
-<li>README.md</li>
-</ul></li>
-</ul></li>
+<pre><code class="language-cs">var config = new ProducerConfig {BootstrapServers = &quot;localhost:9092&quot;};
+using var p = new ProducerBuilder&lt;Null, string&gt;(config).Build();
+try
+{
+   for (int i = 0; i &lt; 10; i++)
+    {
+        var dr = await p.ProduceAsync(&quot;test-topic&quot;, new Message&lt;Null, string&gt; { Value=$&quot;test_{i}&quot;});
+
+        // 列出 message 存放的 topic:partition@offset
+        Console.WriteLine($&quot;Delivered '{dr.Value}' to {dr.Topic}:{dr.Partition}@{dr.TopicPartitionOffset.Offset}&quot;);
+    }
+
+}
+catch (ProduceException&lt;Null, string&gt; e)
+{
+    Console.WriteLine($&quot;Delivery failed: {e.Error.Reason}&quot;);
+}
+</code></pre></li>
 </ol>
 
 <h2 id="設定方式">設定方式</h2>
 
 <ol>
-<li><p>建立 <code>.gitfilterspec</code></p>
+<li><p>調整 kafka producer config</p>
 
 <blockquote>
-<p>提供給其他 repo 進行 partial clone 的 repo (以我的範例就是 <code>partial-clone</code> )中加入 <code>.gitfilterspec</code></p>
-
-<ul>
-<li>只有在這個檔案中明確列出的路徑才會被下載 (前提是正確設定)</li>
-<li>建議依據需求建立各個路徑的 <code>.gitfilterspec</code> (如果 <code>moduleA</code> 會單獨被參考使用就單獨建立一個 <code>.gitfilterspec</code> 檔案；<code>moduleB</code> 與 <code>moduleC</code> 會同時被參考使用可以使用同一個 <code>.gitfilterspec</code> 檔案)</li>
-</ul>
+<p>使用 <code>Partitioner = Partitioner.Murmur2Random</code></p>
 </blockquote>
 
-<ul>
-<li><p>moduleA/.gitfilterspec</p>
-
-<pre><code class="language-txt">moduleA/
+<pre><code class="language-cs">var config = new ProducerConfig {
+    BootstrapServers = &quot;localhost:9092&quot;,
+    Partitioner = Partitioner.Murmur2Random
+    };
 </code></pre></li>
 
-<li><p>.gitfilterspec</p>
-
-<pre><code class="language-txt">moduleB/
-moduleC/
-</code></pre></li>
-</ul></li>
-
-<li><p>設定 submodule</p>
+<li><p>為 kafka message 增加 key</p>
 
 <blockquote>
-<p>這個動作是我覺得整個概念最大缺陷，因為 <code>git submodule add</code> 預設會直接下載整個 repo</p>
+<p>加入 key 的用途與 redis 的 hash tags 相同，kafka 會讓相同的 key 放在同個 partition 上以達成 message 順序性；以 key 為 int 為例</p>
 </blockquote>
 
+<pre><code class="language-cs">using var p = new ProducerBuilder&lt;int, string&gt;(config).Build();
+try
+{
+    for (int i = 0; i &lt; 10; i++)
+    {
+        var dr = await p.ProduceAsync(&quot;test-topic&quot;, new Message&lt;int, string&gt; { Key = i,Value=$&quot;test_{i}&quot; });
+        Console.WriteLine($&quot;Delivered '{dr.Value}' to {dr.Topic}:{dr.Partition}@{dr.TopicPartitionOffset.Offset}&quot;);
+    }
+}
+catch (ProduceException&lt;Null, string&gt; e)
+{
+    Console.WriteLine($&quot;Delivery failed: {e.Error.Reason}&quot;);
+}
+</code></pre></li>
+
+<li><p>前後差異</p>
+
 <ul>
-<li><p>語法</p>
+<li><p>調整前：每個 message 都是隨機分配 partition</p>
 
-<pre><code class="language-bash">git submodule add {git uri} {path}
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/88482247-a940ea00-cf92-11ea-8dde-f9d3581b9b3f.png" alt="1random1" /></p>
 
-<li><p>範例</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/88482248-ac3bda80-cf92-11ea-953a-60115ce316ed.png" alt="2random2" /></p>
 
-<pre><code class="language-bash">git submodule add git@gitlab.com:yowko/partial-clone.git modules
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/88482249-acd47100-cf92-11ea-934c-2c25dff61f49.png" alt="3random3" /></p></li>
+
+<li><p>調整後：相同 key 會放在同個 partition</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/88482250-ad6d0780-cf92-11ea-9c09-b451e26a50ff.png" alt="4murmur1" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/88482251-ae059e00-cf92-11ea-92c6-4106c51177f3.png" alt="5murmur2" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/88482252-ae9e3480-cf92-11ea-855f-62be9ad39a33.png" alt="6murmur3" /></p></li>
 </ul></li>
-
-<li><p>針對特定資料夾啟用以路徑為條件的 partial clone (sparse checkout)</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">git -C {submodule path} config core.sparseCheckout true
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">git -C modules config core.sparseCheckout true
-</code></pre></li>
-</ul></li>
-
-<li><p>設定 partial clone 的路徑條件 (sparse checkout)</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">git archive --format=tar --remote={git uri} {branch}:{folder path} -- {filename} | tar -O -xf - &gt;&gt;.git/modules/{submodule folder name}/info/sparse-checkout
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">git archive --format=tar --remote=git@gitlab.com:yowko/partial-clone.git master:moduleA -- .gitfilterspec | tar -O -xf - &gt;&gt;.git/modules/modules/info/sparse-checkout
-</code></pre></li>
-</ul></li>
-
-<li><p>使用 partial clone filter 來更新 submodule</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">git submodule update --force --checkout {submodule folder}
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">git submodule update --force --checkout modules
-</code></pre></li>
-</ul></li>
-
-<li><p>套用 submodule 更新</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">git submodule update --remote {submodule folder}
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">git submodule update --remote modules
-</code></pre></li>
-</ul>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/87876711-9ebfa700-ca0c-11ea-9798-1f25980f17f8.jpg" alt="2submoduleupdate" /></p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/87876709-9cf5e380-ca0c-11ea-8e07-68eb3c9cebff.jpg" alt="1submoduleinit" /></p>
+<p>我沒有特別花時間去查 kafka 在哪個版本加入以 key 做為 partitioner，但嘗試查了 partitioner 的定義，只是沒找到相關說明</p>
 
-<p>上圖呈現了我覺得這個做最大的缺陷：一開始 submodule 會下載所有內容，待 partial clone 的設定完成後執行 submodule update 才會是預期狀態，但如果可以找到讓 submodule 一開始不要執行 init 的設定，做法就更漂亮了</p>
-
-<p>另外實驗過程中，我發現了另個 &ldquo;特性&rdquo;，partial clone 的相關設定跟 git hook 有一樣的問題，都是每個環境需要獨立設定的，沒辦法跟著 repo 走，所以在使用上較為繁瑣，希望日後有機會改善 (或者只是我用錯而已XD)</p>
+<p>整體說起來，設定算是簡單，但對於不熟悉的人，關鍵字並不好下，加上文件上也沒有特別提到，包含 partitioner 設定值的相關說明也沒有，稍嫌可惜，不過也可能是我個粗心沒看清楚而已，再請大家指教了</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/git-partial-clone" target="_blank">Git partial clone</a></li>
-<li><a href="https://stackoverflow.com/a/2467629" target="_blank">How to sparsely checkout only one single file from a git repository?</a></li>
-<li><a href="https://stackoverflow.com/questions/45688121/how-to-do-submodule-sparse-checkout-with-git" target="_blank">How to do submodule sparse-checkout with Git?</a></li>
-<li><a href="https://www.vogella.com/tutorials/GitSubmodules/article.html" target="_blank">Using submodules in Git - Tutorial</a></li>
+<li><a href="https://github.com/confluentinc/confluent-kafka-dotnet/issues/885#issuecomment-483254508" target="_blank">How to do a same partitioner on C# like Java (Scala)</a></li>
 </ol>
 
     </div>
@@ -362,7 +308,7 @@ moduleC/
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-07-19</span>
+    <span class="item-content">2020-07-25</span>
   </p>
   
   <p class="copyright-item">
@@ -384,7 +330,13 @@ moduleC/
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/git/">Git</a>
+            <a href="https://blog.yowko.com/tags/kafka/">Kafka</a>
+          
+		    
+		    
+		      
+		    	
+            <a href="https://blog.yowko.com/tags/csharp/">C#</a>
           
         </div>
 
@@ -392,18 +344,18 @@ moduleC/
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/kafka-message-immutable-sequence/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/container-gpg-keyexpired/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">讓特定 message 在 kafka 中可以有順序性</span>			
+            <span class="next-text nav-default">Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/git-partial-clone/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/git-submodule-partial-clone/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">Git partial clone</span>			
+            <span class="prev-text nav-default">Git Submodule partial clone</span>			
           </a>
 		  </div>
       </nav>
@@ -414,7 +366,7 @@ moduleC/
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/git-submodule-partial-clone\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/kafka-message-immutable-sequence\/';  
       
     };
 

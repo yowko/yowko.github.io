@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Git Submodule partial clone - Yowko&#39;s Notes</title>
+  <title>Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="Git Submodule partial clone 之前筆記 Git partial clone 嘗試了期待已久的 partial clone 功能，雖然跟預期有落差，但對於想要的目標有了不同想法 之前以為 partial clone 可以在既有 repo 的內容中，疉加另個 repo 的" />
+  <meta name="description" content="Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED 之前筆記 執行 apt-get update 時遇到 GPG KEYEXPIRED 紀錄到在使用 image : confluentinc/cp-kafka:5.5.0 建立 container 後需要安裝其他套件，但 apt-get update 卻遇到 GPG KEYEXPIRED 的錯誤，當時透過進到 container 中手動調整" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/git-submodule-partial-clone/" />
+<link rel="canonical" href="https://blog.yowko.com/container-gpg-keyexpired/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="Git Submodule partial clone" />
-<meta property="og:description" content="Git Submodule partial clone 之前筆記 Git partial clone 嘗試了期待已久的 partial clone 功能，雖然跟預期有落差，但對於想要的目標有了不同想法 之前以為 partial clone 可以在既有 repo 的內容中，疉加另個 repo 的" />
+<meta property="og:title" content="Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED" />
+<meta property="og:description" content="Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED 之前筆記 執行 apt-get update 時遇到 GPG KEYEXPIRED 紀錄到在使用 image : confluentinc/cp-kafka:5.5.0 建立 container 後需要安裝其他套件，但 apt-get update 卻遇到 GPG KEYEXPIRED 的錯誤，當時透過進到 container 中手動調整" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/git-submodule-partial-clone/" /><meta property="article:published_time" content="2020-07-19T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-07-19T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/container-gpg-keyexpired/" /><meta property="article:published_time" content="2020-07-26T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-07-26T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="Git Submodule partial clone">
-<meta itemprop="description" content="Git Submodule partial clone 之前筆記 Git partial clone 嘗試了期待已久的 partial clone 功能，雖然跟預期有落差，但對於想要的目標有了不同想法 之前以為 partial clone 可以在既有 repo 的內容中，疉加另個 repo 的">
-
-
-<meta itemprop="datePublished" content="2020-07-19T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-07-19T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="730">
+<meta itemprop="name" content="Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED">
+<meta itemprop="description" content="Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED 之前筆記 執行 apt-get update 時遇到 GPG KEYEXPIRED 紀錄到在使用 image : confluentinc/cp-kafka:5.5.0 建立 container 後需要安裝其他套件，但 apt-get update 卻遇到 GPG KEYEXPIRED 的錯誤，當時透過進到 container 中手動調整">
 
 
+<meta itemprop="datePublished" content="2020-07-26T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-26T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="708">
 
-<meta itemprop="keywords" content="Git," />
+
+
+<meta itemprop="keywords" content="Linux,Docker," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Git Submodule partial clone"/>
-<meta name="twitter:description" content="Git Submodule partial clone 之前筆記 Git partial clone 嘗試了期待已久的 partial clone 功能，雖然跟預期有落差，但對於想要的目標有了不同想法 之前以為 partial clone 可以在既有 repo 的內容中，疉加另個 repo 的"/>
+<meta name="twitter:title" content="Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED"/>
+<meta name="twitter:description" content="Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED 之前筆記 執行 apt-get update 時遇到 GPG KEYEXPIRED 紀錄到在使用 image : confluentinc/cp-kafka:5.5.0 建立 container 後需要安裝其他套件，但 apt-get update 卻遇到 GPG KEYEXPIRED 的錯誤，當時透過進到 container 中手動調整"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -144,9 +144,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-07-19 </span>
+        <span class="post-time"> 2020-07-26 </span>
         
-        <span class="more-meta"> 約 730 字 </span>
+        <span class="more-meta"> 約 708 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -162,9 +162,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#git-submodule-partial-clone">Git Submodule partial clone</a></li>
+<li><a href="#container-中執行-apt-get-update-時遇到-gpg-keyexpired">Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#設定方式">設定方式</a></li>
+<li><a href="#錯誤訊息">錯誤訊息</a></li>
+<li><a href="#解決方式">解決方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -180,176 +181,177 @@
     <div class="post-content">
       
 
-<h2 id="git-submodule-partial-clone">Git Submodule partial clone</h2>
+<h2 id="container-中執行-apt-get-update-時遇到-gpg-keyexpired">Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/git-partial-clone" target="_blank">Git partial clone</a> 嘗試了期待已久的 partial clone 功能，雖然跟預期有落差，但對於想要的目標有了不同想法</p>
-
-<p>之前以為 partial clone 可以在既有 repo 的內容中，疉加另個 repo 的部份內容，但嘗試下來：取得 repo 的部份內容這個沒有問題，但卻不是疉加，而是取代覆蓋，但這也讓我想到是不是可以使用 submodule 加上 partitial clone 來達成目的，打鐵趁熱立馬來紀錄一下</p>
+<p>之前筆記 <a href="https://blog.yowko.com/debian-keyexpired/" target="_blank">執行 apt-get update 時遇到 GPG KEYEXPIRED</a> 紀錄到在使用 image : <code>confluentinc/cp-kafka:5.5.0</code> 建立 container 後需要安裝其他套件，但 apt-get update 卻遇到 GPG KEYEXPIRED 的錯誤，當時透過進到 container 中手動調整 source 的內容，但這樣一來對於常要重建環境的我來說，實在有些困擾：每次重建環境有問題，需要 debug 時就要進到 container 中手動調整，所以我興起了直接修改 image 的想法，簡單紀錄一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Catalina 10.15.5</li>
-<li>git version 2.27.0</li>
-<li>GitLab.com (GitLab 13.1)</li>
+<li>docker desktop community 2.3.0.3(45519)</li>
 
-<li><p>範例專案</p>
+<li><p>docker images</p>
 
 <ul>
-<li><p>partial-clone</p>
+<li><p>confluentinc/cp-kafka:5.5.0</p>
 
 <blockquote>
-<p>模擬共用專案，提供給其他 application 參考，放在 <a href="https://gitlab.com/yowko/partial-clone" target="_blank">GitLab partial-clone repo</a> </p>
-</blockquote>
-
-<ul>
-<li>moduleA
-
-<ul>
-<li>a-1.txt</li>
-<li>a-2.txt</li>
-</ul></li>
-<li>moduleB
-
-<ul>
-<li>b-1.txt</li>
-<li>b-2.txt</li>
-<li>b-3.txt</li>
-</ul></li>
-<li>moduleC
-
-<ul>
-<li>c-1.txt</li>
-</ul></li>
-</ul></li>
-
-<li><p>application</p>
-
-<ul>
-<li>README.md</li>
-</ul></li>
+<p>Debian GNU/Linux 8 (jessie)</p>
+</blockquote></li>
 </ul></li>
 </ol>
 
-<h2 id="設定方式">設定方式</h2>
+<h2 id="錯誤訊息">錯誤訊息</h2>
 
 <ol>
-<li><p>建立 <code>.gitfilterspec</code></p>
+<li><p>訊息內容</p>
 
-<blockquote>
-<p>提供給其他 repo 進行 partial clone 的 repo (以我的範例就是 <code>partial-clone</code> )中加入 <code>.gitfilterspec</code></p>
-
-<ul>
-<li>只有在這個檔案中明確列出的路徑才會被下載 (前提是正確設定)</li>
-<li>建議依據需求建立各個路徑的 <code>.gitfilterspec</code> (如果 <code>moduleA</code> 會單獨被參考使用就單獨建立一個 <code>.gitfilterspec</code> 檔案；<code>moduleB</code> 與 <code>moduleC</code> 會同時被參考使用可以使用同一個 <code>.gitfilterspec</code> 檔案)</li>
-</ul>
-</blockquote>
-
-<ul>
-<li><p>moduleA/.gitfilterspec</p>
-
-<pre><code class="language-txt">moduleA/
+<pre><code class="language-txt">W: GPG error: http://archive.debian.org jessie Release: The following signatures were invalid: KEYEXPIRED 1587841717
 </code></pre></li>
 
-<li><p>.gitfilterspec</p>
+<li><p>錯誤截圖</p>
 
-<pre><code class="language-txt">moduleB/
-moduleC/
-</code></pre></li>
-</ul></li>
-
-<li><p>設定 submodule</p>
-
-<blockquote>
-<p>這個動作是我覺得整個概念最大缺陷，因為 <code>git submodule add</code> 預設會直接下載整個 repo</p>
-</blockquote>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">git submodule add {git uri} {path}
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">git submodule add git@gitlab.com:yowko/partial-clone.git modules
-</code></pre></li>
-</ul></li>
-
-<li><p>針對特定資料夾啟用以路徑為條件的 partial clone (sparse checkout)</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">git -C {submodule path} config core.sparseCheckout true
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">git -C modules config core.sparseCheckout true
-</code></pre></li>
-</ul></li>
-
-<li><p>設定 partial clone 的路徑條件 (sparse checkout)</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">git archive --format=tar --remote={git uri} {branch}:{folder path} -- {filename} | tar -O -xf - &gt;&gt;.git/modules/{submodule folder name}/info/sparse-checkout
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">git archive --format=tar --remote=git@gitlab.com:yowko/partial-clone.git master:moduleA -- .gitfilterspec | tar -O -xf - &gt;&gt;.git/modules/modules/info/sparse-checkout
-</code></pre></li>
-</ul></li>
-
-<li><p>使用 partial clone filter 來更新 submodule</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">git submodule update --force --checkout {submodule folder}
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">git submodule update --force --checkout modules
-</code></pre></li>
-</ul></li>
-
-<li><p>套用 submodule 更新</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">git submodule update --remote {submodule folder}
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">git submodule update --remote modules
-</code></pre></li>
-</ul>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/87876711-9ebfa700-ca0c-11ea-9798-1f25980f17f8.jpg" alt="2submoduleupdate" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/87849408-faaa0300-c91a-11ea-986d-156f88459477.jpg" alt="1error" /></p></li>
 </ol>
+
+<h2 id="解決方式">解決方式</h2>
+
+<blockquote>
+<p>直接修改 dockerfile，在 build image 時就直接修改 source</p>
+</blockquote>
+
+<ul>
+<li><p>原始 dockerfile</p>
+
+<pre><code class="language-dockerfile">#
+# Copyright 2016 Confluent Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+    
+FROM confluentinc/cp-base
+    
+ARG COMMIT_ID=unknown
+LABEL io.confluent.docker.git.id=$COMMIT_ID
+ARG BUILD_NUMBER=-1
+LABEL io.confluent.docker.build.number=$BUILD_NUMBER
+    
+MAINTAINER partner-support@confluent.io
+LABEL io.confluent.docker=true
+    
+# allow arg override of required env params
+ARG KAFKA_ZOOKEEPER_CONNECT
+ENV KAFKA_ZOOKEEPER_CONNECT=${KAFKA_ZOOKEEPER_CONNECT}
+ARG KAFKA_ADVERTISED_LISTENERS
+ENV KAFKA_ADVERTISED_LISTENERS=${KAFKA_ADVERTISED_LISTENERS}
+    
+ENV COMPONENT=kafka
+    
+# primary
+EXPOSE 9092
+    
+RUN echo &quot;===&gt; installing ${COMPONENT}...&quot; \
+    &amp;&amp; apt-get update &amp;&amp; apt-get install -y confluent-kafka-${SCALA_VERSION}=${CONFLUENT_VERSION}${CONFLUENT_PLATFORM_LABEL}-${CONFLUENT_DEB_VERSION} \
+    \
+    &amp;&amp; echo &quot;===&gt; clean up ...&quot;  \
+    &amp;&amp; apt-get clean &amp;&amp; rm -rf /tmp/* /var/lib/apt/lists/* \
+    \
+    &amp;&amp; echo &quot;===&gt; Setting up ${COMPONENT} dirs...&quot; \
+    &amp;&amp; mkdir -p /var/lib/${COMPONENT}/data /etc/${COMPONENT}/secrets\
+    &amp;&amp; chmod -R ag+w /etc/${COMPONENT} /var/lib/${COMPONENT}/data /etc/${COMPONENT}/secrets \
+    &amp;&amp; chown -R root:root /var/log/kafka /var/log/confluent /var/lib/kafka /var/lib/zookeeper
+    
+    
+VOLUME [&quot;/var/lib/${COMPONENT}/data&quot;, &quot;/etc/${COMPONENT}/secrets&quot;]
+    
+COPY include/etc/confluent/docker /etc/confluent/docker
+    
+CMD [&quot;/etc/confluent/docker/run&quot;]
+</code></pre></li>
+
+<li><p>修改後 dockerfile</p>
+
+<blockquote>
+<p>多了 <code>sed -i 's;http://archive.debian.org/debian/;http://deb.debian.org/debian/;' /etc/apt/sources.list \</code></p>
+</blockquote>
+
+<pre><code class="language-dockerfile">#
+# Copyright 2016 Confluent Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+    
+FROM confluentinc/cp-base
+    
+ARG COMMIT_ID=unknown
+LABEL io.confluent.docker.git.id=$COMMIT_ID
+ARG BUILD_NUMBER=-1
+LABEL io.confluent.docker.build.number=$BUILD_NUMBER
+    
+MAINTAINER partner-support@confluent.io
+LABEL io.confluent.docker=true
+    
+# allow arg override of required env params
+ARG KAFKA_ZOOKEEPER_CONNECT
+ENV KAFKA_ZOOKEEPER_CONNECT=${KAFKA_ZOOKEEPER_CONNECT}
+ARG KAFKA_ADVERTISED_LISTENERS
+ENV KAFKA_ADVERTISED_LISTENERS=${KAFKA_ADVERTISED_LISTENERS}
+    
+ENV COMPONENT=kafka
+    
+# primary
+EXPOSE 9092
+    
+RUN echo &quot;===&gt; installing ${COMPONENT}...&quot; \
+    &amp;&amp; sed -i 's;http://archive.debian.org/debian/;http://deb.debian.org/debian/;' /etc/apt/sources.list \
+    &amp;&amp; apt-get update &amp;&amp; apt-get install -y confluent-kafka-${SCALA_VERSION}=${CONFLUENT_VERSION}${CONFLUENT_PLATFORM_LABEL}-${CONFLUENT_DEB_VERSION} \
+    \
+    &amp;&amp; echo &quot;===&gt; clean up ...&quot;  \
+    &amp;&amp; apt-get clean &amp;&amp; rm -rf /tmp/* /var/lib/apt/lists/* \
+    \
+    &amp;&amp; echo &quot;===&gt; Setting up ${COMPONENT} dirs...&quot; \
+    &amp;&amp; mkdir -p /var/lib/${COMPONENT}/data /etc/${COMPONENT}/secrets\
+    &amp;&amp; chmod -R ag+w /etc/${COMPONENT} /var/lib/${COMPONENT}/data /etc/${COMPONENT}/secrets \
+    &amp;&amp; chown -R root:root /var/log/kafka /var/log/confluent /var/lib/kafka /var/lib/zookeeper
+    
+    
+VOLUME [&quot;/var/lib/${COMPONENT}/data&quot;, &quot;/etc/${COMPONENT}/secrets&quot;]
+    
+COPY include/etc/confluent/docker /etc/confluent/docker
+    
+CMD [&quot;/etc/confluent/docker/run&quot;]
+</code></pre></li>
+</ul>
 
 <h2 id="心得">心得</h2>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/87876709-9cf5e380-ca0c-11ea-8e07-68eb3c9cebff.jpg" alt="1submoduleinit" /></p>
+<p>完整程式碼請參考 <a href="https://github.com/yowko/cp-kafka" target="_blank">yowko/cp-kafka</a></p>
 
-<p>上圖呈現了我覺得這個做最大的缺陷：一開始 submodule 會下載所有內容，待 partial clone 的設定完成後執行 submodule update 才會是預期狀態，但如果可以找到讓 submodule 一開始不要執行 init 的設定，做法就更漂亮了</p>
-
-<p>另外實驗過程中，我發現了另個 &ldquo;特性&rdquo;，partial clone 的相關設定跟 git hook 有一樣的問題，都是每個環境需要獨立設定的，沒辦法跟著 repo 走，所以在使用上較為繁瑣，希望日後有機會改善 (或者只是我用錯而已XD)</p>
+<p>這個問題應該只是暫時性的，我猜測應該很快就會獲得修正，在那之前就先擋著先吧</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/git-partial-clone" target="_blank">Git partial clone</a></li>
-<li><a href="https://stackoverflow.com/a/2467629" target="_blank">How to sparsely checkout only one single file from a git repository?</a></li>
-<li><a href="https://stackoverflow.com/questions/45688121/how-to-do-submodule-sparse-checkout-with-git" target="_blank">How to do submodule sparse-checkout with Git?</a></li>
-<li><a href="https://www.vogella.com/tutorials/GitSubmodules/article.html" target="_blank">Using submodules in Git - Tutorial</a></li>
+<li><a href="https://github.com/confluentinc/cp-docker-images/issues/849#issuecomment-626771381" target="_blank">[cp-base] Apt-get update is broken. The following signatures were invalid: KEYEXPIRED 1587841717</a></li>
 </ol>
 
     </div>
@@ -362,7 +364,7 @@ moduleC/
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-07-19</span>
+    <span class="item-content">2020-07-26</span>
   </p>
   
   <p class="copyright-item">
@@ -384,7 +386,11 @@ moduleC/
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/git/">Git</a>
+            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/docker/">Docker</a>
           
         </div>
 
@@ -392,18 +398,11 @@ moduleC/
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/kafka-message-immutable-sequence/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">讓特定 message 在 kafka 中可以有順序性</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/git-partial-clone/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/kafka-message-immutable-sequence/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">Git partial clone</span>			
+            <span class="prev-text nav-default">讓特定 message 在 kafka 中可以有順序性</span>			
           </a>
 		  </div>
       </nav>
@@ -414,7 +413,7 @@ moduleC/
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/git-submodule-partial-clone\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/container-gpg-keyexpired\/';  
       
     };
 

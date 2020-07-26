@@ -6,10 +6,19 @@
     <description>Recent content in csharp on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 08 Feb 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jul 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/csharp/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>讓特定 message 在 kafka 中可以有順序性</title>
+      <link>https://blog.yowko.com/kafka-message-immutable-sequence/</link>
+      <pubDate>Sat, 25 Jul 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kafka-message-immutable-sequence/</guid>
+      <description>讓特定 message 在 kafka 中可以有順序性 之前專案為了保證 message 的順序性捨棄當時還在 0.8 版的 kafka 而選用 RabbitMQ，雖然 RabbitMQ 在效能數據上跟 kafka 不是同個量級水準，但已</description>
+    </item>
     
     <item>
       <title>[C#] 將 .NET Core 中的 Configuration 輸出為 JSON</title>

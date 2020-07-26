@@ -59,7 +59,7 @@
 <meta property="og:description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.yowko.com/" />
-<meta property="og:updated_time" content="2020-04-13T21:30:00&#43;08:00"/>
+<meta property="og:updated_time" content="2020-04-19T21:30:00&#43;08:00"/>
 
 <meta itemprop="name" content="Yowko&#39;s Notes">
 <meta itemprop="description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教">
@@ -135,6 +135,50 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/docker-efk/">快速建立 EFK (Elasticsearch Fluentd Kibana) 環境</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-04-19 </span>
+      
+      <span class="more-meta"> 約 603 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      快速建立 EFK (Elasticsearch Fluentd Kibana) 環境 在之前筆記 Fluentd 使用自定 Log 時間當做 Timestamp 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose (Elastic stack (ELK) on Docker)來快速建
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/docker-efk/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/debian-container-install-dotnet-core-sdk/">在 Debian container 中安裝 .NET Core SDK</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-04-13 </span>
+      
+      <span class="more-meta"> 約 357 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      在 Debian container 中安裝 .NET Core SDK 之前筆記 在 Debian container 中無法成功註冊微軟金鑰 提到想要在 container 中利用 dotnet cli 做些測試，但經過 multi-stage builds 來建立 image 中只有 .NET Core runtime 沒有需要的 dotnet cli，所以
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/debian-container-install-dotnet-core-sdk/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -417,50 +461,6 @@
     </div>
     <div class="read-more">
       <a href="https://blog.yowko.com/macos-dotnet-cert/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/redis-rename-config-sentinel-not-work/">Redis Rename Config 後 Sentinel 無法正確執行 Failover</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-02-16 </span>
-      
-      <span class="more-meta"> 約 781 字 </span>
-        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Redis Rename Config 後 Sentinel 無法正確執行 Failover 有些 Redis command (e.g. KEYS,SAVE) 在執行時會 block 其他操作，在 Redis 用量小時不明顯，但 Redis 日漸龐大後，執行這些 command 時會讓 Redis 被 block 的時間愈來愈長，最後可能
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/redis-rename-config-sentinel-not-work/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/ansible-install-redis/">使用 Ansible 安裝 Redis Replication</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-02-14 </span>
-      
-      <span class="more-meta"> 約 1074 字 </span>
-        <span class="more-meta"> 預計閱讀 3 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      使用 Ansible 安裝 Redis Replication 之前筆記 在 CentOS 7 上安裝 Redis Replication (Redis 5) 紀錄到使用單一 shell script 來安裝完整 Redis Replication (Master，Slave 與 Sentinell)，後來同事提到這類
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/ansible-install-redis/" class="read-more-link">繼續閱讀</a>
     </div>
   </div>
 </article>
