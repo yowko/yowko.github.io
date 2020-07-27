@@ -157,7 +157,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
 
   [params.social]                                         # 社交链接
     a-email = "mailto:yowko@yowko.com"
-    d-facebook = "https://www.facebook.com/yowko.tsai"
+    #d-facebook = "https://www.facebook.com/yowko.tsai"
     e-linkedin = "https://www.linkedin.com/in/yowko/"
     #f-google = "https://plus.google.com/u/0/+YowkoTsai"
     g-github = "https://github.com/yowko"
