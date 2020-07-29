@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+    <ShortName>YowkoNotes</ShortName>
+    <Description>搜尋 Yowko's Notes 部落格文章</Description>
+    <Tags>Yowko's Notes</Tags>
+    <Image height="16" width="16" type="image/vnd.microsoft.icon">https://blog.yowko.com/favicon-16x16.png</Image>
+    <Contact>yowko@yowko.com</Contact>
+    <Url type="text/html" template="https://blog.yowko.com/search?q={searchTerms}"/>
+</OpenSearchDescription>
