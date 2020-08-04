@@ -58,15 +58,15 @@
 <meta property="og:description" content="Ansible 安裝 Redis Replication 更新版 之前筆記 使用 Ansible 安裝 Redis Replication 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/ansible-redis-replication/" /><meta property="article:published_time" content="2020-07-04T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-07-04T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-08-04T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="Ansible 安裝 Redis Replication 更新版">
 <meta itemprop="description" content="Ansible 安裝 Redis Replication 更新版 之前筆記 使用 Ansible 安裝 Redis Replication 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼">
 
 
 <meta itemprop="datePublished" content="2020-07-04T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-07-04T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="827">
+<meta itemprop="dateModified" content="2020-08-04T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="851">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-07-04 </span>
         
-        <span class="more-meta"> 約 827 字 </span>
+        <span class="more-meta"> 約 851 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -167,13 +167,6 @@
 <li><a href="#基本環境說明">基本環境說明</a></li>
 <li><a href="#安裝語法">安裝語法</a></li>
 <li><a href="#yml">```yml</a></li>
-<li><a href="#yml-1">```yml</a></li>
-<li><a href="#yml-2">```yml</a></li>
-<li><a href="#yml-3">```yml</a></li>
-<li><a href="#yml-4">```yml</a></li>
-<li><a href="#yml-5">```yml</a></li>
-<li><a href="#yml-6">```yml</a></li>
-<li><a href="#yml-7">```yml</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -271,232 +264,200 @@
 <li><p>handlers</p>
 
 <ul>
-<li><p>main.yml</p>
+<li>main.yml</li>
+</ul>
 
-<h2 id="yml">```yml</h2>
-
-<ul>
-<li>name: &ldquo;Restart Redis Service&rdquo;
-listen: restart-service
-systemd:
-name: &ldquo;redis_{{redis_port}}&rdquo;
-daemon_reload: yes
-enabled: yes
-state: restarted
-```</li>
-</ul></li>
-</ul></li>
+<pre><code class="language-yml">  ---
+  - name: &quot;Restart Redis Service&quot;
+    listen: restart-service
+    systemd:
+      name: &quot;redis_{{redis_port}}&quot;
+      daemon_reload: yes
+      enabled: yes
+      state: restarted
+</code></pre></li>
 
 <li><p>tasks</p>
 
 <ul>
-<li><p>checkdir.yml</p>
-
-<h2 id="yml-1">```yml</h2>
-
-<ul>
-<li>name: Ensures dir exists
-file:
-path: &ldquo;{{ item.folder }}&rdquo;
-state: directory
-mode: 0755
-owner: redis
-recurse: yes
-```</li>
-</ul></li>
-
-<li><p>installredis.yml</p>
-
-<h2 id="yml-2">```yml</h2>
-
-<ul>
-<li>name: Install Redis
-yum:
-name: &ldquo;{{redisversion}}&rdquo;
-state: latest
-```</li>
-</ul></li>
-
-<li><p>installtools.yml</p>
-
-<p>```yml</p>
-
-<ul>
-<li><p>name: Install IUS
-yum:
-name:</p>
-
-<ul>
-<li><a href="https://repo.ius.io/ius-release-el7.rpm" target="_blank">https://repo.ius.io/ius-release-el7.rpm</a></li>
-<li><a href="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm" target="_blank">https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</a>
-state: latest
-<br /></li>
-</ul></li>
-
-<li><p>include_tasks: installredis.yml</p></li>
-
-<li><p>include_tasks: checkdir.yml
-with_items:</p>
-
-<ul>
-<li>{folder: &ldquo;/etc/redis&rdquo;}
-<br /></li>
-</ul></li>
-
-<li><p>name: Remove default redis service
-shell: |
-systemctl disable redis</p></li>
-
-<li><p>name: Delete redis service
-file:
-path: &ldquo;{{ item }}&rdquo;
-state: absent
-with_items:</p>
-
-<ul>
-<li>/usr/lib/systemd/system/redis.service</li>
-<li>/etc/systemd/system/redis.service.d</li>
-<li>/etc/systemd/system/redis-sentinel.service.d
-<br /></li>
-</ul></li>
-
-<li><p>name: Disable SELinux
-shell: |
-setenforce 0
-sed -i &rsquo;s/SELINUX=enforcing/SELINUX=disabled/g&rsquo; /etc/selinux/config</p></li>
-
-<li><p>name: Allow Overcommit Memory
-sysctl:
-name: vm.overcommit_memory
-value: &ldquo;1&rdquo;
-state: present
-reload: yes
-ignoreerrors: yes</p></li>
-
-<li><p>name: Stop and disable firewalld.
-service:
-name: firewalld
-state: stopped
-enabled: False
-```</p></li>
-</ul></li>
-
-<li><p>main.yml</p>
-
-<h2 id="yml-3">```yml</h2>
-
-<ul>
-<li><p>include_tasks: uninstall.yml
-when: action == &lsquo;uninstall&rsquo; or action == &lsquo;reinstall&rsquo;</p></li>
-
-<li><p>include_tasks: installtools.yml
-when: action == &lsquo;install&rsquo;</p></li>
-
-<li><p>include_tasks: upgrade.yml
-when: action == &lsquo;upgrade&rsquo;</p></li>
-
-<li><p>include_tasks: prepareservice.yml
-when: action == &lsquo;install&rsquo; or action == &lsquo;reinstall&rsquo;</p></li>
-
-<li><p>include_tasks: prepareredisconfig.yml
-when: action != &lsquo;uninstall&rsquo;</p></li>
-
-<li><p>include_tasks: preparesentinelconfig.yml
-when: action != &lsquo;uninstall&rsquo;
-```</p></li>
-</ul></li>
-
-<li><p>prepareservice.yml</p>
-
-<h2 id="yml-4">```yml</h2>
-
-<ul>
-<li>name: Prepare services
-template:
-src: service.j2
-dest: &ldquo;/etc/systemd/system/redis_{{redis_port}}.service&rdquo;
-owner: redis
-```
-<br /></li>
-</ul></li>
-
-<li><p>prepareredisconfig.yml</p>
-
-<h2 id="yml-5">```yml</h2>
-
-<ul>
-<li><p>include_tasks: checkdir.yml
-with_items:</p>
-
-<ul>
-<li>{folder: &ldquo;/etc/redis/redis_{{ redis_port }}&ldquo;}
-<br /></li>
-</ul></li>
-
-<li><p>name: Prepare Master Configs
-template:
-src: config.j2
-dest: &ldquo;/etc/redis/redis_{{ redis_port }}.conf&rdquo;
-owner: redis
-when: redis_role == &ldquo;master&rdquo; or redis_role == &ldquo;slave&rdquo;
-notify: restart-service
-```</p></li>
-</ul></li>
-
-<li><p>preparesentinelconfig.yml</p>
-
-<h2 id="yml-6">```yml</h2>
-
-<ul>
-<li><p>include_tasks: checkdir.yml
-with_items:</p>
-
-<ul>
-<li>{folder: &ldquo;/etc/redis&rdquo;}
-<br /></li>
-</ul></li>
-
-<li><p>name: Prepare Sentinel Configs
-template:
-src: sentinel.j2
-dest: &ldquo;/etc/redis/redis_{{redis_port}}.conf&rdquo;
-owner: redis
-when: redis_role == &ldquo;sentinel&rdquo;
-notify: restart-service
-```</p></li>
-</ul></li>
-
-<li><p>uninstall.yml</p>
-
-<p>```yml</p>
-
-<ul>
-<li><p>name: Stop Service
-service:
-name: &ldquo;redis_{{redis_port}}&rdquo;
-state: stopped</p></li>
-
-<li><p>name: Disable Service
-shell: |
-systemctl disable redis_{{redis_port}}</p></li>
-
-<li><p>name: Delete config
-file:
-path: &ldquo;{{ item }}&rdquo;
-state: absent
-with_items:</p>
-
-<ul>
-<li>/etc/redis/redis_{{redis_port}}.conf</li>
-<li>/etc/systemd/system/redis_{{redis_port}}.service</li>
-</ul></li>
+<li>checkdir.yml</li>
 </ul>
 
-<p>```</p></li>
+<pre><code class="language-yml">  ---
+  - name: Ensures dir exists
+    file:
+      path: &quot;{{ item.folder }}&quot;
+      state: directory
+      mode: 0755
+      owner: redis
+      recurse: yes
+</code></pre>
 
+<ul>
+<li>installredis.yml</li>
+</ul>
+
+<pre><code class="language-yml">  ---
+  - name: Install Redis
+    yum:
+      name: &quot;{{redisversion}}&quot;
+      state: latest
+</code></pre>
+
+<ul>
+<li>installtools.yml</li>
+</ul>
+
+<pre><code class="language-yml">  - name: Install IUS
+    yum:
+      name:
+        - https://repo.ius.io/ius-release-el7.rpm
+        - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      state: latest
+                  
+  - include_tasks: installredis.yml
+                  
+  - include_tasks: checkdir.yml
+    with_items:
+    - {folder: &quot;/etc/redis&quot;}
+                  
+  - name: Remove default redis service
+    shell: |
+      systemctl disable redis
+                  
+  - name: Delete redis service
+    file: 
+      path: &quot;{{ item }}&quot;
+      state: absent
+    with_items: 
+      - /usr/lib/systemd/system/redis.service
+      - /etc/systemd/system/redis.service.d
+      - /etc/systemd/system/redis-sentinel.service.d
+                  
+  - name: Disable SELinux
+    shell: |
+      setenforce 0
+      sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+                  
+  - name: Allow Overcommit Memory
+    sysctl:
+      name: vm.overcommit_memory
+      value: &quot;1&quot;
+      state: present
+      reload: yes
+      ignoreerrors: yes
+                  
+  - name: Stop and disable firewalld.
+    service:
+      name: firewalld
+      state: stopped
+      enabled: False
+</code></pre>
+
+<ul>
+<li>main.yml
+<br /></li>
+</ul>
+
+<pre><code class="language-yml">  ---
+  - include_tasks: uninstall.yml
+    when: action == 'uninstall' or action == 'reinstall'
+                  
+  - include_tasks: installtools.yml
+    when: action == 'install'
+                  
+  - include_tasks: upgrade.yml
+    when: action == 'upgrade'
+                  
+  - include_tasks: prepareservice.yml
+    when: action == 'install' or action == 'reinstall'
+                  
+  - include_tasks: prepareredisconfig.yml
+    when: action != 'uninstall'
+                  
+  - include_tasks: preparesentinelconfig.yml
+    when: action != 'uninstall'
+</code></pre>
+
+<ul>
+<li>prepareservice.yml
+<br /></li>
+</ul>
+
+<pre><code class="language-yml">  ---
+  - name: Prepare services
+    template:
+      src: service.j2
+      dest: &quot;/etc/systemd/system/redis_{{redis_port}}.service&quot;
+      owner: redis
+</code></pre>
+
+<ul>
+<li>prepareredisconfig.yml
+<br /></li>
+</ul>
+
+<pre><code class="language-yml">  ---
+  - include_tasks: checkdir.yml
+    with_items: 
+    - {folder: &quot;/etc/redis/redis_{{ redis_port }}&quot;}
+                  
+  - name: Prepare Master Configs
+    template:
+      src: config.j2
+      dest: &quot;/etc/redis/redis_{{ redis_port }}.conf&quot;
+      owner: redis
+    when: redis_role == &quot;master&quot; or redis_role == &quot;slave&quot;
+    notify: restart-service
+</code></pre>
+
+<ul>
+<li>preparesentinelconfig.yml
+<br /></li>
+</ul>
+
+<pre><code class="language-yml">  ---
+  - include_tasks: checkdir.yml
+    with_items: 
+    - {folder: &quot;/etc/redis&quot;}
+                  
+  - name: Prepare Sentinel Configs
+    template:
+      src: sentinel.j2
+      dest: &quot;/etc/redis/redis_{{redis_port}}.conf&quot;
+      owner: redis
+    when: redis_role == &quot;sentinel&quot;
+    notify: restart-service
+</code></pre>
+
+<ul>
+<li>uninstall.yml
+<br /></li>
+</ul>
+
+<pre><code class="language-yml">  - name: Stop Service
+    service:
+      name: &quot;redis_{{redis_port}}&quot;
+      state: stopped
+                  
+  - name: Disable Service
+    shell: |
+      systemctl disable redis_{{redis_port}}
+                  
+  - name: Delete config
+    file:
+      path: &quot;{{ item }}&quot;
+      state: absent
+    with_items:
+      - /etc/redis/redis_{{redis_port}}.conf
+      - /etc/systemd/system/redis_{{redis_port}}.service
+
+</code></pre>
+
+<ul>
 <li><p>upgrade.yml</p>
 
-<h2 id="yml-7">```yml</h2>
+<h2 id="yml">```yml</h2>
 
 <ul>
 <li>include_tasks: installredis.yml
@@ -653,20 +614,13 @@ roles_path = ./roles
 host_key_checking = False
 </code></pre></li>
 
-<li><p>main.yml</p>
+<li><p>main.yml</p></li>
+</ul>
 
-<p>```yaml</p>
-
-<ul>
-<li>hosts: redis_all
-roles:
-
-<ul>
-<li>redis-replication
-```</li>
-</ul></li>
-</ul></li>
-</ul></li>
+<pre><code class="language-yaml">  - hosts: redis_all
+    roles:
+      - redis-replication
+</code></pre></li>
 </ol>
 
 <h2 id="心得">心得</h2>
@@ -694,7 +648,7 @@ roles:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-07-04</span>
+    <span class="item-content">2020-08-04</span>
   </p>
   
   <p class="copyright-item">
