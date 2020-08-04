@@ -166,7 +166,6 @@
 <li><a href="#ansible-安裝-redis-replication-更新版">Ansible 安裝 Redis Replication 更新版</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
 <li><a href="#安裝語法">安裝語法</a></li>
-<li><a href="#yml">```yml</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -455,15 +454,13 @@
 </code></pre>
 
 <ul>
-<li><p>upgrade.yml</p>
+<li>upgrade.yml
+<br /></li>
+</ul>
 
-<h2 id="yml">```yml</h2>
-
-<ul>
-<li>include_tasks: installredis.yml
-```</li>
-</ul></li>
-</ul></li>
+<pre><code class="language-yml">  ---
+  - include_tasks: installredis.yml
+</code></pre></li>
 
 <li><p>templates</p>
 
