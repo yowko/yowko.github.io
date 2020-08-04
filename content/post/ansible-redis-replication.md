@@ -233,10 +233,10 @@ slug: "ansible-redis-replication"
                 
                 - upgrade.yml
             
-                    ```yml
-                    ---
-                    - include_tasks: installredis.yml
-                    ```
+                  ```yml
+                  ---
+                  - include_tasks: installredis.yml
+                  ```
 
             - templates
                 - config.j2
