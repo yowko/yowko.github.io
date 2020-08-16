@@ -6,10 +6,19 @@
     <description>Recent content in Ansible on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 05 Jul 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 16 Aug 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/ansible/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ansible 安裝 Redis Cluster (更新版)</title>
+      <link>https://blog.yowko.com/ansible-redis-cluster-update/</link>
+      <pubDate>Sun, 16 Aug 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ansible-redis-cluster-update/</guid>
+      <description>Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Cluster 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整</description>
+    </item>
     
     <item>
       <title>Ansible 安裝 Redis Cluster</title>
@@ -17,7 +26,7 @@
       <pubDate>Sun, 05 Jul 2020 21:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/ansible-redis-cluster/</guid>
-      <description>Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Replication 更新版 紀錄了以 ansible 內建 function 為主的 redis replication 安裝 script，順手紀錄一下 redis cluster 的安裝方式 基本環境說明 Azure VM B2s (2 vcpu,4GiB memory) CentOS-based 7.7 Redis 5.0.7 epel-release.noarch 0:7-11</description>
+      <description>Ansible 安裝 Redis Cluster 已有更新版，請參考 Ansible 安裝 Redis Cluster (更新版) 之前筆記 Ansible 安裝 Redis Replication 更新版 紀錄了以 ansible 內建 function 為主的 redis replication 安裝 script，順手紀錄一下 redis cluster 的安裝方</description>
     </item>
     
     <item>

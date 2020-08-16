@@ -6,10 +6,28 @@
     <description>Recent content in Linux on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 26 Jul 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 16 Aug 2020 14:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CentOS 使用 yum 安裝 Redis6</title>
+      <link>https://blog.yowko.com/centos-yum-redis6/</link>
+      <pubDate>Sun, 16 Aug 2020 14:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/centos-yum-redis6/</guid>
+      <description>CentOS 使用 yum 安裝 Redis6 之前筆記 使用 Yum 安裝 Redis 5 中提到預設的 centos yum repository 中僅能安裝 redis3，透過使用 ius repository 才能使用 yum 來安裝 redis5，不過 redis6 已經問市一陣子</description>
+    </item>
+    
+    <item>
+      <title>在 Centos 上新增磁區</title>
+      <link>https://blog.yowko.com/centos-add-disk/</link>
+      <pubDate>Sat, 08 Aug 2020 20:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/centos-add-disk/</guid>
+      <description>在 Centos 上新增磁區 最近在調整公司的 Ansible 各 service 的安裝腳本，而身為工程師出身的 SRE，當然不能沒有測試呀。之前寫單一目的 ansible role 時，都是透過建立 azure vm 來進行測</description>
+    </item>
     
     <item>
       <title>Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED</title>

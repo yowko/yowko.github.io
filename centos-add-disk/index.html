@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 Yum 安裝 Redis 5 - Yowko&#39;s Notes</title>
+  <title>在 Centos 上新增磁區 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 Yum 安裝 Redis 5 最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，嘗試過程中無意間發現不同的 yum repository 間有不同的 redis 套件版本，像是常用的 epel-release 上的 redis 就是 3.2.12，雖說" />
+  <meta name="description" content="在 Centos 上新增磁區 最近在調整公司的 Ansible 各 service 的安裝腳本，而身為工程師出身的 SRE，當然不能沒有測試呀。之前寫單一目的 ansible role 時，都是透過建立 azure vm 來進行測" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/yum-install-redis5/" />
+<link rel="canonical" href="https://blog.yowko.com/centos-add-disk/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="使用 Yum 安裝 Redis 5" />
-<meta property="og:description" content="使用 Yum 安裝 Redis 5 最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，嘗試過程中無意間發現不同的 yum repository 間有不同的 redis 套件版本，像是常用的 epel-release 上的 redis 就是 3.2.12，雖說" />
+<meta property="og:title" content="在 Centos 上新增磁區" />
+<meta property="og:description" content="在 Centos 上新增磁區 最近在調整公司的 Ansible 各 service 的安裝腳本，而身為工程師出身的 SRE，當然不能沒有測試呀。之前寫單一目的 ansible role 時，都是透過建立 azure vm 來進行測" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/yum-install-redis5/" /><meta property="article:published_time" content="2020-02-08T10:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-08-09T10:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/centos-add-disk/" /><meta property="article:published_time" content="2020-08-08T20:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-08-08T20:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="使用 Yum 安裝 Redis 5">
-<meta itemprop="description" content="使用 Yum 安裝 Redis 5 最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，嘗試過程中無意間發現不同的 yum repository 間有不同的 redis 套件版本，像是常用的 epel-release 上的 redis 就是 3.2.12，雖說">
-
-
-<meta itemprop="datePublished" content="2020-02-08T10:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-08-09T10:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="499">
+<meta itemprop="name" content="在 Centos 上新增磁區">
+<meta itemprop="description" content="在 Centos 上新增磁區 最近在調整公司的 Ansible 各 service 的安裝腳本，而身為工程師出身的 SRE，當然不能沒有測試呀。之前寫單一目的 ansible role 時，都是透過建立 azure vm 來進行測">
 
 
+<meta itemprop="datePublished" content="2020-08-08T20:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-08-08T20:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="550">
 
-<meta itemprop="keywords" content="Linux,Redis,Tools," />
+
+
+<meta itemprop="keywords" content="Azure,Linux," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 Yum 安裝 Redis 5"/>
-<meta name="twitter:description" content="使用 Yum 安裝 Redis 5 最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，嘗試過程中無意間發現不同的 yum repository 間有不同的 redis 套件版本，像是常用的 epel-release 上的 redis 就是 3.2.12，雖說"/>
+<meta name="twitter:title" content="在 Centos 上新增磁區"/>
+<meta name="twitter:description" content="在 Centos 上新增磁區 最近在調整公司的 Ansible 各 service 的安裝腳本，而身為工程師出身的 SRE，當然不能沒有測試呀。之前寫單一目的 ansible role 時，都是透過建立 azure vm 來進行測"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,10 +145,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-02-08 </span>
+        <span class="post-time"> 2020-08-08 </span>
         
-        <span class="more-meta"> 約 499 字 </span>
-          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+        <span class="more-meta"> 約 550 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
     </header>
@@ -163,9 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#使用-yum-安裝-redis-5">使用 Yum 安裝 Redis 5</a></li>
+<li><a href="#在-centos-上新增磁區">在 Centos 上新增磁區</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝方式">安裝方式</a></li>
+<li><a href="#設定方式">設定方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,135 +181,149 @@
     <div class="post-content">
       
 
-<h2 id="使用-yum-安裝-redis-5">使用 Yum 安裝 Redis 5</h2>
+<h2 id="在-centos-上新增磁區">在 Centos 上新增磁區</h2>
 
-<p>最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，嘗試過程中無意間發現不同的 yum repository 間有不同的 redis 套件版本，像是常用的 <code>epel-release</code> 上的 redis 就是 <code>3.2.12</code>，雖說主要功能不受影響，但細微的設定或是新版本功能就無法使用，順手紀錄該如何使用 yum 在 CentOS 上安裝 Redis 5</p>
+<p>最近在調整公司的 Ansible 各 service 的安裝腳本，而身為工程師出身的 SRE，當然不能沒有測試呀。之前寫單一目的 ansible role 時，都是透過建立 azure vm 來進行測試，這次調整所有 service 也不例外，不過卻因為 service 太多，造成 azure vm 的內建 disk 爆滿，重建了幾次 vm 後，決定簡單紀錄一下，加速自己的操作</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>Azure VM B1s (1 vcpu,1GiB memory)</li>
-<li>CentOS-based 7.7</li>
-<li>Redis 5.0.7</li>
-<li>epel-release.noarch 0:7-11</li>
-<li>ius-release.noarch 0:2-1.el7.ius</li>
+<li><p>Azure VM</p>
+
+<ul>
+<li>Standard_B2S 2vcpu 4GiB memory</li>
+</ul></li>
+
+<li><p>OS image</p>
+
+<ul>
+<li>CentOS 7.7 Free (Cognosys Inc.)</li>
+</ul></li>
+
+<li><p>預設僅有 30g OS 暫存磁碟，加掛 128g 資料磁碟</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/89710747-43078e80-d9b8-11ea-9627-c2de7204132d.png" alt="1adddisk" /></p></li>
 </ol>
 
-<h2 id="安裝方式">安裝方式</h2>
-
-<ul>
-<li><p>預設的 yum repo</p>
-
-<ul>
-<li><p>透過 <code>yum repolist</code> 可以列出當前安裝的 yum repo 清單</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/74078486-4bf9c080-4a66-11ea-958a-3055ea1116ad.png" alt="1defaultrepo" /></p></li>
-
-<li><p>預設 repo 未包含 redis package，無法透過 yum 來安裝 redis</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/74078488-4ef4b100-4a66-11ea-8343-45a303c4b0b9.png" alt="2noredis" /></p></li>
-</ul></li>
-
-<li><p>使用 epel repo</p>
-
-<ul>
-<li><p>安裝 epel repo</p>
-
-<blockquote>
-<p>repo 安裝需要 <code>root</code> 權限，如果不是 <code>root</code> user，請加 <code>sudo</code></p>
-</blockquote>
-
-<pre><code class="language-sudo">yum install -y epel-release
-</code></pre></li>
-
-<li><p>epel 中 redis 的版本是 <code>3.2.12</code></p>
-
-<blockquote>
-<p>找出 redis 的 package name</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/74078489-4f8d4780-4a66-11ea-9572-28b659b0e31b.png" alt="3epelredis" /></p>
-
-<blockquote>
-<p>使用 <code>yum info</code> 來檢視 package 詳細資訊</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/74078490-50be7480-4a66-11ea-831f-9a4075f55b7a.png" alt="4redisversion" /></p></li>
-</ul></li>
-
-<li><p>使用 IUS repo</p>
-
-<ul>
-<li><p>安裝 IUS repo</p>
-
-<blockquote>
-<p>因 ius 相依於 epel repo ，如果沒安裝過要連帶安裝 epel-release package，以下提供兩種語法皆可正確完成安裝</p>
-</blockquote>
+<h2 id="設定方式">設定方式</h2>
 
 <ol>
-<li><p>社群版語法</p>
+<li><p>確認磁區掛載狀況</p>
 
 <blockquote>
-<p>2020/05/24 確認已無法使用</p>
+<p>額外的 128g 資料磁碟尚未掛載</p>
 </blockquote>
 
-<p><del>yum install -y  <a href="https://centos7.iuscommunity.org/ius-release.rpm" target="_blank">https://centos7.iuscommunity.org/ius-release.rpm</a></del></p>
-
-<blockquote>
-<p>請改用以下指令</p>
-</blockquote>
-
-<pre><code class="language-bash">yum install -y https://repo.ius.io/ius-release-el7.rpm
-</code></pre></li>
-
-<li><p>官網版語法</p>
-
-<pre><code class="language-bash">yum install -y https://repo.ius.io/ius-release-el7.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-</code></pre></li>
-</ol></li>
-
-<li><p>多了 redis 4 與 5</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/74078492-51570b00-4a66-11ea-810a-62468d310676.png" alt="5redis45" /></p>
-
-<blockquote>
-<p>redis 5 的版本是 <code>5.0.7</code></p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/74078493-51570b00-4a66-11ea-98a0-211228629854.png" alt="6redis5info" /></p></li>
-
-<li><p>安裝 Redis 5</p>
-
-<pre><code class="language-bash">yum install -y redis5
-</code></pre></li>
-
-<li><p>啟動 redis</p>
-
-<blockquote>
-<p>service 的內容，在安裝當下已經建立，詳細內容可以看 <code>/usr/lib/systemd/system/redis.service</code></p>
-</blockquote>
-
-<pre><code class="language-bash">systemctl start redis
-</code></pre></li>
-
-<li><p>確認版本</p>
-
-<pre><code class="language-bash">redis-cli info server
+<pre><code class="language-bash">df -lh
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/74078494-51efa180-4a66-11ea-96db-c73a0ea64c84.png" alt="7redisversion" /></p></li>
-</ul></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/89710748-46027f00-d9b8-11ea-86d2-a4b88a0a2dc5.png" alt="2dflh" /></p></li>
+
+<li><p>確認當下 disk 狀態</p>
+
+<blockquote>
+<p><code>/dev/sdc</code> 還沒有分割</p>
+</blockquote>
+
+<pre><code class="language-bash">fdisk -l
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/89710749-469b1580-d9b8-11ea-802e-95ec0f8c0800.png" alt="3fdisk" /></p></li>
+
+<li><p>分割磁碟</p>
+
+<blockquote>
+<p><code>/dev/sdc</code> 請依實際情況調整(可能不是在 <code>/dev/sdc</code>)</p>
+</blockquote>
+
+<pre><code class="language-bash">fdisk /dev/sdc
+</code></pre>
+
+<ul>
+<li><code>n</code>:新增分割區</li>
+<li><code>p</code>:<code>primary partition</code></li>
+<li>直接 enter :default <code>1</code></li>
+<li>直接 enter :start sector default 2048</li>
+<li>直接 enter :end sector default 最大值</li>
+<li><code>w</code>:重新讀取設定</li>
 </ul>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/89710751-4733ac00-d9b8-11ea-9486-76341eb0262f.png" alt="4fdisknew" /></p></li>
+
+<li><p>確認磁碟分割效果</p>
+
+<blockquote>
+<p>檢查磁碟分割是否成功</p>
+</blockquote>
+
+<pre><code class="language-bash"> fdisk -l /dev/sdc
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/89710752-47cc4280-d9b8-11ea-840a-c813f2db4cdc.png" alt="5fdiskcheck" /></p></li>
+
+<li><p>format disk</p>
+
+<blockquote>
+<p>磁區名稱請依實際狀況調整</p>
+</blockquote>
+
+<pre><code class="language-bash">mkfs -t xfs /dev/sdc1
+</code></pre>
+
+<p>或是</p>
+
+<pre><code class="language-bash">mkfs.xfs -f /dev/sdc1
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/89710753-4864d900-d9b8-11ea-9de3-801e762d0b38.png" alt="6format" /></p></li>
+
+<li><p>掛載</p>
+
+<blockquote>
+<p>將剛 format 完成的磁區掛載供使用</p>
+</blockquote>
+
+<ul>
+<li><p>取得磁區的 UUID</p>
+
+<pre><code class="language-bash">blkid
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/89710754-4864d900-d9b8-11ea-9211-be8fb924f5aa.png" alt="7blkid" /></p></li>
+
+<li><p>修改 <code>/etc/fstab</code></p>
+
+<blockquote>
+<p>將新增的磁區 UUID 掛載至指定的路徑下</p>
+</blockquote>
+
+<pre><code class="language-bash">vi /etc/fstab
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/89710755-48fd6f80-d9b8-11ea-810c-aa1514384728.png" alt="8mount" /></p></li>
+</ul></li>
+
+<li><p>實際效果</p>
+
+<blockquote>
+<p>掛載後執行 <code>reboot</code> 或是 <code>mount /root</code> 就可以看到效果了</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/89710756-48fd6f80-d9b8-11ea-9d5e-9a5d04d2316a.png" alt="9result" /></p></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
-<p>反覆測試安裝 redis 的過程才留意到原來 epel repo 中的 redis 版本停留在 <code>3.2.12</code>，這才注意到 ius 的便利以及 ius 相依於 epel 的關係，原以為是沒什麼營養的指令紀錄，仔細端詳也是有不少學問的嘛，有刻意筆記果然是正確的決定</p>
+<p>原本想要直接擴充 <code>/</code>，但一直試不出來，急著要測試腳本，就留待改天再試吧</p>
+
+<p>查資料的過程中，一直找到 LVM (Logical Volume Manager)、VG ( Logical Volume Group)、PV (Physical Volume) 相關設從，但 azure vm 預設沒用到這些設定，派不上用場，不過就資料看起來比較接近原本我想要的方式</p>
+
+<p>另外我就不懂 Azure 為什麼不開放我直接擴充 OS disk，讓我花了不少時間</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://ius.io/" target="_blank">IUS</a></li>
-<li><a href="https://plone.lucidsolutions.co.nz/linux/centos/ius-repository-for-centos-7" target="_blank">IUS Repository for CentOS 7</a></li>
+<li><a href="https://blog.gtwang.org/linux/linux-add-format-mount-harddisk/" target="_blank">替 Linux 新增硬碟（磁碟分割、格式化與掛載）</a></li>
 </ol>
 
     </div>
@@ -322,7 +336,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-08-09</span>
+    <span class="item-content">2020-08-08</span>
   </p>
   
   <p class="copyright-item">
@@ -344,15 +358,11 @@
           
 		    
 		    	
+            <a href="https://blog.yowko.com/tags/azure/">Azure</a>
+          
+		    
+		    	
             <a href="https://blog.yowko.com/tags/linux/">Linux</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
           
         </div>
 
@@ -360,18 +370,18 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/configuration-to-json/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/centos-yum-redis6/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">[C#] 將 .NET Core 中的 Configuration 輸出為 JSON</span>			
+            <span class="next-text nav-default">CentOS 使用 yum 安裝 Redis6</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/dictionary-to-json/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/container-gpg-keyexpired/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">[C#] 將 Dictionary 轉為 JSON</span>			
+            <span class="prev-text nav-default">Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED</span>			
           </a>
 		  </div>
       </nav>
@@ -382,7 +392,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/yum-install-redis5\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/centos-add-disk\/';  
       
     };
 

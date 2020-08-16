@@ -3,6 +3,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/ansible-redis-cluster-update/</loc>
+    <lastmod>2020-08-16T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/centos-yum-redis6/</loc>
+    <lastmod>2020-08-16T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/centos-add-disk/</loc>
+    <lastmod>2020-08-08T20:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/container-gpg-keyexpired/</loc>
     <lastmod>2020-07-26T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -53,7 +74,7 @@
   
   <url>
     <loc>https://blog.yowko.com/ansible-redis-cluster/</loc>
-    <lastmod>2020-07-05T21:30:31+08:00</lastmod>
+    <lastmod>2020-08-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -354,7 +375,7 @@
   
   <url>
     <loc>https://blog.yowko.com/yum-install-redis5/</loc>
-    <lastmod>2020-05-24T10:30:31+08:00</lastmod>
+    <lastmod>2020-08-09T10:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -4183,14 +4204,14 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/ansible/</loc>
-    <lastmod>2020-07-05T21:30:31+08:00</lastmod>
+    <lastmod>2020-08-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/tags/azure/</loc>
-    <lastmod>2019-09-14T01:30:31+08:00</lastmod>
+    <lastmod>2020-08-08T20:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4469,7 +4490,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/linux/</loc>
-    <lastmod>2020-07-26T21:30:31+08:00</lastmod>
+    <lastmod>2020-08-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4644,7 +4665,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2020-07-26T21:30:31+08:00</lastmod>
+    <lastmod>2020-08-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4679,7 +4700,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/redis/</loc>
-    <lastmod>2020-07-05T21:30:31+08:00</lastmod>
+    <lastmod>2020-08-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4819,7 +4840,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2020-07-26T21:30:31+08:00</lastmod>
+    <lastmod>2020-08-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4924,7 +4945,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/redis/</loc>
-    <lastmod>2020-07-05T21:30:31+08:00</lastmod>
+    <lastmod>2020-08-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
