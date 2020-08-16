@@ -9,6 +9,8 @@ slug: "ansible-redis-cluster"
 
 ## Ansible 安裝 Redis Cluster
 
+<span style="color:red">已有更新版，請參考 [Ansible 安裝 Redis Cluster (更新版)](https://blog.yowko.com/ansible-redis-cluster-update) </style>
+
 之前筆記 [Ansible 安裝 Redis Replication 更新版](https://blog.yowko.com/ansible-redis-replication) 紀錄了以 ansible 內建 function 為主的 redis replication 安裝 script，順手紀錄一下 redis cluster 的安裝方式
 
 ## 基本環境說明
@@ -25,7 +27,7 @@ slug: "ansible-redis-cluster"
 
 1. 專案結構
     - roles
-        - redis-replication
+        - redis-cluster
             - handlers
                 - main.yml
             - tasks
@@ -52,7 +54,7 @@ slug: "ansible-redis-cluster"
 2. 完整內容
 
     - roles
-        - redis-replication
+        - redis-cluster
             - handlers
                 - main.yml
 
@@ -261,7 +263,6 @@ slug: "ansible-redis-cluster"
                   maxmemory-policy volatile-lru
                   loglevel notice
                   ```
-                
 
                 - service.j2
 
@@ -271,21 +272,21 @@ slug: "ansible-redis-cluster"
                   After=network.target
                   After=network-online.target
                   Wants=network-online.target
-                  
+
                   [Service]
                   ExecStart=/usr/bin/redis-server /etc/redis/redis_{{redis_port}}.conf --supervisedsystemd
-                  
-                  ExecStop=/usr/libexec/redis-shutdown
+
+                  ExecStop=/usr/libexec/redis-shutdown  redis_{{redis_port}}
                   Type=notify
                   User=redis
                   Group=redis
                   RuntimeDirectory=redis_{{redis_port}}
                   RuntimeDirectoryMode=0755
-                  
+
                   [Install]
                   WantedBy=multi-user.target
                   ```
-                
+
             - vars
                 - main.yml
 
@@ -369,6 +370,8 @@ slug: "ansible-redis-cluster"
 
 1. 建立 cluster 前需要確保所有 redis service 都已啟動 (flush_handlers)
 2. 另外是 cluster 的建立行為只需要執行一次 (`run_once: true`)
+
+<span style="color:red">已有更新版，請參考 [Ansible 安裝 Redis Cluster (更新版)](https://blog.yowko.com/ansible-redis-cluster-update) </style>
 
 ## 參考資訊
 
