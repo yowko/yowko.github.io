@@ -1,7 +1,7 @@
 ---
 title: "Ansible 安裝 Redis Cluster"
 date: 2020-07-05T21:30:00+08:00
-lastmod: 2020-07-05T21:30:31+08:00
+lastmod: 2020-08-16T21:30:31+08:00
 draft: false
 tags: ["Ansible","Redis"]
 slug: "ansible-redis-cluster"
@@ -56,292 +56,292 @@ slug: "ansible-redis-cluster"
             - handlers
                 - main.yml
 
-                    ```yml
-                    ---
-                    - name: "Restart Redis Service"
-                      listen: restart-service
-                      systemd:
-                        name: "redis_{{redis_port}}"
-                        daemon_reload: yes
-                        enabled: yes
-                        state: restarted
-                    ```
+                  ```yml
+                  ---
+                  - name: "Restart Redis Service"
+                    listen: restart-service
+                    systemd:
+                      name: "redis_{{redis_port}}"
+                      daemon_reload: yes
+                      enabled: yes
+                      state: restarted
+                  ```
 
             - tasks
                 - checkdir.yml
 
-                    ```yml
-                    ---
-                    - name: Ensures dir exists
-                      file:
-                        path: "{{ item.folder }}"
-                        state: directory
-                        mode: 0755
-                        owner: redis
-                        recurse: yes
-                    ```
+                  ```yml
+                  ---
+                  - name: Ensures dir exists
+                    file:
+                      path: "{{ item.folder }}"
+                      state: directory
+                      mode: 0755
+                      owner: redis
+                      recurse: yes
+                  ```
                 - createcluster.yml
 
-                    ```yaml
-                    ---
-                    - name: Create Cluster debug
-                      debug:
-                        msg: redis-cli -a {{redispass}} --cluster-replicas 1 --cluster create {% for redis_node in groups['redis_all'] %}{{ hostvars[redis_node]['redis_ip'] }}:{{ hostvars[redis_node]['redis_port'] }} {% endfor %}
+                  ```yaml
+                  ---
+                  - name: Create Cluster debug
+                    debug:
+                      msg: redis-cli -a {{redispass}} --cluster-replicas 1 --cluster create {% for redis_node in groups['redis_all'] %}{{ hostvars[redis_node]['redis_ip'] }}:{{ hostvars[redis_node]['redis_port'] }} {% endfor %}
 
-                    - name: Create Cluster
-                      shell: |
-                        echo "yes" |redis-cli -a {{redispass}} --cluster-replicas 1 --cluster create {% for redis_node in groups['redis_all'] %}{{ hostvars[redis_node]['redis_ip'] }}:{{ hostvars[redis_node]['redis_port'] }} {% endfor %}
-                    ```
+                  - name: Create Cluster
+                    shell: |
+                      echo "yes" |redis-cli -a {{redispass}} --cluster-replicas 1 --cluster create {% for redis_node in groups['redis_all'] %}{{ hostvars[redis_node]['redis_ip'] }}:{{ hostvars[redis_node]['redis_port'] }} {% endfor %}
+                  ```
 
                 - installredis.yml
 
-                    ```yml
-                    ---
-                    - name: Install Redis
-                      yum:
-                        name: "{{redisversion}}"
-                        state: latest
-                    ```
+                  ```yml
+                  ---
+                  - name: Install Redis
+                    yum:
+                      name: "{{redisversion}}"
+                      state: latest
+                  ```
 
                 - installtools.yml
 
-                    ```yml
-                    - name: Install IUS
-                      yum:
-                        name: 
-                          - https://repo.ius.io/ius-release-el7.rpm
-                          - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-                        state: latest
-                    
-                    - include_tasks: installredis.yml
-                    
-                    - include_tasks: checkdir.yml
-                      with_items:
-                      - {folder: "/etc/redis"}
-                    
-                    - name: Remove default redis service
-                      shell: |
-                        systemctl disable redis
-                    
-                    - name: Delete redis service
-                      file: 
-                        path: "{{ item }}"
-                        state: absent
-                      with_items: 
-                        - /usr/lib/systemd/system/redis.service
-                        - /etc/systemd/system/redis.service.d
-                        - /etc/systemd/system/redis-sentinel.service.d
-                    
-                    - name: Disable SELinux
-                      shell: |
-                        setenforce 0
-                        sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
-                    
-                    - name: Allow Overcommit Memory
-                      sysctl:
-                        name: vm.overcommit_memory
-                        value: "1"
-                        state: present
-                        reload: yes
-                        ignoreerrors: yes
-                    
-                    - name: Stop and disable firewalld.
-                      service:
-                        name: firewalld
-                        state: stopped
-                        enabled: False
-                    ```
+                  ```yml
+                  - name: Install IUS
+                    yum:
+                      name: 
+                        - https://repo.ius.io/ius-release-el7.rpm
+                        - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+                      state: latest
+                  
+                  - include_tasks: installredis.yml
+                  
+                  - include_tasks: checkdir.yml
+                    with_items:
+                    - {folder: "/etc/redis"}
+                  
+                  - name: Remove default redis service
+                    shell: |
+                      systemctl disable redis
+                  
+                  - name: Delete redis service
+                    file: 
+                      path: "{{ item }}"
+                      state: absent
+                    with_items: 
+                      - /usr/lib/systemd/system/redis.service
+                      - /etc/systemd/system/redis.service.d
+                      - /etc/systemd/system/redis-sentinel.service.d
+                  
+                  - name: Disable SELinux
+                    shell: |
+                      setenforce 0
+                      sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+                  
+                  - name: Allow Overcommit Memory
+                    sysctl:
+                      name: vm.overcommit_memory
+                      value: "1"
+                      state: present
+                      reload: yes
+                      ignoreerrors: yes
+                  
+                  - name: Stop and disable firewalld.
+                    service:
+                      name: firewalld
+                      state: stopped
+                      enabled: False
+                  ```
                 
                 - main.yml
                 
-                    ```yml
-                    ---
-                    - include_tasks: uninstall.yml
-                      when: action == 'uninstall' or action == 'reinstall'
-                    
-                    - include_tasks: installtools.yml
-                      when: action == 'install'
-                    
-                    - include_tasks: upgrade.yml
-                      when: action == 'upgrade'
-                    
-                    - include_tasks: prepareservice.yml
-                      when: action == 'install' or action == 'reinstall'
-                    
-                    - include_tasks: prepareredisconfig.yml
-                      when: action != 'uninstall'
-                    
-                    - name: Restart Service
-                      debug:
-                        msg: restart service
-                      notify: restart-service
-                      changed_when: true
-                      when: action == 'restart'
-                    
-                    - meta: flush_handlers
-                    
-                    - include_tasks: createcluster.yml
-                      run_once: true
-                      when: action == 'install' or action == 'reinstall'
-                    ```
+                  ```yml
+                  ---
+                  - include_tasks: uninstall.yml
+                    when: action == 'uninstall' or action == 'reinstall'
+                  
+                  - include_tasks: installtools.yml
+                    when: action == 'install'
+                  
+                  - include_tasks: upgrade.yml
+                    when: action == 'upgrade'
+                  
+                  - include_tasks: prepareservice.yml
+                    when: action == 'install' or action == 'reinstall'
+                  
+                  - include_tasks: prepareredisconfig.yml
+                    when: action != 'uninstall'
+                  
+                  - name: Restart Service
+                    debug:
+                      msg: restart service
+                    notify: restart-service
+                    changed_when: true
+                    when: action == 'restart'
+                  
+                  - meta: flush_handlers
+                  
+                  - include_tasks: createcluster.yml
+                    run_once: true
+                    when: action == 'install' or action == 'reinstall'
+                  ```
                 
                 - prepareservice.yml
                 
-                    ```yml
-                    ---
-                    - name: Prepare services
-                      template:
-                        src: service.j2
-                        dest: "/etc/systemd/system/redis_{{redis_port}}.service"
-                        owner: redis
-                    ```
+                  ```yml
+                  ---
+                  - name: Prepare services
+                    template:
+                      src: service.j2
+                      dest: "/etc/systemd/system/redis_{{redis_port}}.service"
+                      owner: redis
+                  ```
                 
                 - prepareredisconfig.yml
                 
-                    ```yml
-                    ---
-                    - include_tasks: checkdir.yml
-                      with_items: 
-                      - {folder: "/etc/redis/redis_{{ redis_port }}"}
-                    
-                    - name: Prepare Master Configs
-                      template:
-                        src: config.j2
-                        dest: "/etc/redis/redis_{{ redis_port }}.conf"
-                        owner: redis
-                      notify: restart-service
-                    ```
+                  ```yml
+                  ---
+                  - include_tasks: checkdir.yml
+                    with_items: 
+                    - {folder: "/etc/redis/redis_{{ redis_port }}"}
+                  
+                  - name: Prepare Master Configs
+                    template:
+                      src: config.j2
+                      dest: "/etc/redis/redis_{{ redis_port }}.conf"
+                      owner: redis
+                    notify: restart-service
+                  ```
                 
                 - uninstall.yml
                 
-                    ```yml
-                    - name: Stop Service
-                      service:
-                        name: "redis_{{redis_port}}"
-                        state: stopped
-                    
-                    - name: Disable Service
-                      shell: |
-                        systemctl disable redis_{{redis_port}}
-                    
-                    - name: Delete config
-                      file: 
-                        path: "{{ item }}"
-                        state: absent
-                      with_items:
-                        - /etc/redis/redis_{{redis_port}}.conf
-                        - /etc/systemd/system/redis_{{redis_port}}.service
+                  ```yml
+                  - name: Stop Service
+                    service:
+                      name: "redis_{{redis_port}}"
+                      state: stopped
+                  
+                  - name: Disable Service
+                    shell: |
+                      systemctl disable redis_{{redis_port}}
+                  
+                  - name: Delete config
+                    file: 
+                      path: "{{ item }}"
+                      state: absent
+                    with_items:
+                      - /etc/redis/redis_{{redis_port}}.conf
+                      - /etc/systemd/system/redis_{{redis_port}}.service
 
-                    ```
+                  ```
                 
                 - upgrade.yml
             
-                    ```yml
-                    ---
-                    - include_tasks: installredis.yml
-                    ```
+                  ```yml
+                  ---
+                  - include_tasks: installredis.yml
+                  ```
 
             - templates
                 - config.j2
                 
-                    ```j2
-                    dir /etc/redis/redis_{{redis_port}}
-                    bind {{redis_ip}} 127.0.0.1
-                    requirepass {{redispass}}
-                    masterauth {{redispass}}
-                    port {{redis_port}}
-                    pidfile /var/run/redis_{{redis_port}}.pid
-                    maxclients 100000
-                    # 啟用 redis cluster
-                    cluster-enabled yes
-                    # 每個 node 需要獨立，cluster 自行維護使用，不需人為介入
-                    cluster-config-file nodes_{{redis_port}}.conf
-                    # node 判斷失效的時間
-                    cluster-node-timeout 5000
-                    maxmemory-policy volatile-lru
-                    loglevel notice
-                    ```
+                  ```j2
+                  dir /etc/redis/redis_{{redis_port}}
+                  bind {{redis_ip}} 127.0.0.1
+                  requirepass {{redispass}}
+                  masterauth {{redispass}}
+                  port {{redis_port}}
+                  pidfile /var/run/redis_{{redis_port}}.pid
+                  maxclients 100000
+                  # 啟用 redis cluster
+                  cluster-enabled yes
+                  # 每個 node 需要獨立，cluster 自行維護使用，不需人為介入
+                  cluster-config-file nodes_{{redis_port}}.conf
+                  # node 判斷失效的時間
+                  cluster-node-timeout 5000
+                  maxmemory-policy volatile-lru
+                  loglevel notice
+                  ```
                 
 
                 - service.j2
 
-                    ```j2
-                    [Unit]
-                    Description=Redis persistent key-value database
-                    After=network.target
-                    After=network-online.target
-                    Wants=network-online.target
-                    
-                    [Service]
-                    ExecStart=/usr/bin/redis-server /etc/redis/redis_{{redis_port}}.conf --supervised systemd
-                    
-                    ExecStop=/usr/libexec/redis-shutdown
-                    Type=notify
-                    User=redis
-                    Group=redis
-                    RuntimeDirectory=redis_{{redis_port}}
-                    RuntimeDirectoryMode=0755
-                    
-                    [Install]
-                    WantedBy=multi-user.target
-                    ```
+                  ```j2
+                  [Unit]
+                  Description=Redis persistent key-value database
+                  After=network.target
+                  After=network-online.target
+                  Wants=network-online.target
+                  
+                  [Service]
+                  ExecStart=/usr/bin/redis-server /etc/redis/redis_{{redis_port}}.conf --supervisedsystemd
+                  
+                  ExecStop=/usr/libexec/redis-shutdown
+                  Type=notify
+                  User=redis
+                  Group=redis
+                  RuntimeDirectory=redis_{{redis_port}}
+                  RuntimeDirectoryMode=0755
+                  
+                  [Install]
+                  WantedBy=multi-user.target
+                  ```
                 
             - vars
                 - main.yml
 
-                    ```yml
-                    action: update
-                    redispass: pass.123
-                    redisversion: redis5-5.0.7-1.el7.ius
-                    ```
+                  ```yml
+                  action: update
+                  redispass: pass.123
+                  redisversion: redis5-5.0.7-1.el7.ius
+                  ```
 
             - inventories
                 - dev.ini
 
-                    ```ini
-                    [redis_all]
-                    redis1 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7000
-                    redis2 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7001
-                    redis3 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7002
-                    redis4 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7003
-                    redis5 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7004
-                    redis6 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7005
-                    ```
+                  ```ini
+                  [redis_all]
+                  redis1 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7000
+                  redis2 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7001
+                  redis3 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7002
+                  redis4 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7003
+                  redis5 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7004
+                  redis6 ansible_host=127.0.0.1 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_port=7005
+                  ```
 
             - README.md
 
-                ```txt
-                ## 全新安裝
+              ```txt
+              ## 全新安裝
 
-                    ```bash
-                    ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "action=install" main.yml
-                    ```
+                  ```bash
+                  ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "action=install" main.yml
+                  ```
 
-                ## 重新安裝
+              ## 重新安裝
 
-                    > 先 uninstall 並排除安裝基本套件
+                  > 先 uninstall 並排除安裝基本套件
 
-                    ```bash
-                    ansible-playbook -i roles/redis-replication/inventories/dev.ini -e                 "action=reinstall" main.yml
-                    ```
+                  ```bash
+                  ansible-playbook -i roles/redis-replication/inventories/dev.ini -e                 "action=reinstall" main.yml
+                  ```
 
-                ## 更新 config
+              ## 更新 config
 
-                    ```bash
-                    ansible-playbook -i roles/redis-replication/inventories/dev.ini main.yml
-                    ```
+                  ```bash
+                  ansible-playbook -i roles/redis-replication/inventories/dev.ini main.yml
+                  ```
 
-                ## 升級
+              ## 升級
 
-                    ```
-                    ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "action=upgrade" main.yml
-                    ```
-                ## restart service
+                  ```
+                  ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "action=upgrade" main.yml
+                  ```
+              ## restart service
 
-                    ```
-                    ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "action=restart" main.yml
-                    ```
-                ```
+                  ```
+                  ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "action=restart" main.yml
+                  ```
+              ```
 
     - ansible.cfg
 
@@ -355,11 +355,11 @@ slug: "ansible-redis-cluster"
 
     - main.yml
 
-        ```yaml
-        - hosts: redis_all
-          roles:
-            - redis-cluster
-        ```
+      ```yaml
+      - hosts: redis_all
+        roles:
+          - redis-cluster
+      ```
 
 ## 心得
 

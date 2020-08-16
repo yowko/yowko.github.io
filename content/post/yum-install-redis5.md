@@ -1,7 +1,7 @@
 ---
 title: "使用 Yum 安裝 Redis 5"
 date: 2020-02-08T10:30:00+08:00
-lastmod: 2020-05-24T10:30:31+08:00
+lastmod: 2020-08-09T10:30:31+08:00
 draft: false
 tags: ["Linux","Redis","Tools"]
 slug: "yum-install-redis5"
@@ -66,7 +66,7 @@ slug: "yum-install-redis5"
             > 請改用以下指令
 
             ```bash
-            yump install -y https://repo.ius.io/ius-release-el7.rpm
+            yum install -y https://repo.ius.io/ius-release-el7.rpm
             ```
 
         2. 官網版語法
