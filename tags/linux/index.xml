@@ -6,10 +6,19 @@
     <description>Recent content in Linux on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 16 Aug 2020 14:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 16 Aug 2020 16:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>yum 安裝指定版本套件</title>
+      <link>https://blog.yowko.com/yum-specific-version/</link>
+      <pubDate>Sun, 16 Aug 2020 16:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/yum-specific-version/</guid>
+      <description>yum 安裝指定版本套件 這個問題起因於要追查線上問題，但另建環境卻怎樣也模擬不出錯誤，後來才發現另建的環境使用的套件是較新版本，原本的 bug 也被修復；</description>
+    </item>
     
     <item>
       <title>CentOS 使用 yum 安裝 Redis6</title>

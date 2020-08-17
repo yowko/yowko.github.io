@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>CentOS 使用 yum 安裝 Redis6 - Yowko&#39;s Notes</title>
+  <title>yum 安裝指定版本套件 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="CentOS 使用 yum 安裝 Redis6 之前筆記 使用 Yum 安裝 Redis 5 中提到預設的 centos yum repository 中僅能安裝 redis3，透過使用 ius repository 才能使用 yum 來安裝 redis5，不過 redis6 已經問市一陣子" />
+  <meta name="description" content="yum 安裝指定版本套件 這個問題起因於要追查線上問題，但另建環境卻怎樣也模擬不出錯誤，後來才發現另建的環境使用的套件是較新版本，原本的 bug 也被修復；" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/centos-yum-redis6/" />
+<link rel="canonical" href="https://blog.yowko.com/yum-specific-version/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="CentOS 使用 yum 安裝 Redis6" />
-<meta property="og:description" content="CentOS 使用 yum 安裝 Redis6 之前筆記 使用 Yum 安裝 Redis 5 中提到預設的 centos yum repository 中僅能安裝 redis3，透過使用 ius repository 才能使用 yum 來安裝 redis5，不過 redis6 已經問市一陣子" />
+<meta property="og:title" content="yum 安裝指定版本套件" />
+<meta property="og:description" content="yum 安裝指定版本套件 這個問題起因於要追查線上問題，但另建環境卻怎樣也模擬不出錯誤，後來才發現另建的環境使用的套件是較新版本，原本的 bug 也被修復；" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/centos-yum-redis6/" /><meta property="article:published_time" content="2020-08-16T14:30:00&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/yum-specific-version/" /><meta property="article:published_time" content="2020-08-16T16:30:00&#43;08:00"/>
 <meta property="article:modified_time" content="2020-08-16T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="CentOS 使用 yum 安裝 Redis6">
-<meta itemprop="description" content="CentOS 使用 yum 安裝 Redis6 之前筆記 使用 Yum 安裝 Redis 5 中提到預設的 centos yum repository 中僅能安裝 redis3，透過使用 ius repository 才能使用 yum 來安裝 redis5，不過 redis6 已經問市一陣子">
+<meta itemprop="name" content="yum 安裝指定版本套件">
+<meta itemprop="description" content="yum 安裝指定版本套件 這個問題起因於要追查線上問題，但另建環境卻怎樣也模擬不出錯誤，後來才發現另建的環境使用的套件是較新版本，原本的 bug 也被修復；">
 
 
-<meta itemprop="datePublished" content="2020-08-16T14:30:00&#43;08:00" />
+<meta itemprop="datePublished" content="2020-08-16T16:30:00&#43;08:00" />
 <meta itemprop="dateModified" content="2020-08-16T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="399">
+<meta itemprop="wordCount" content="505">
 
 
 
-<meta itemprop="keywords" content="Redis,Linux," />
+<meta itemprop="keywords" content="Linux," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CentOS 使用 yum 安裝 Redis6"/>
-<meta name="twitter:description" content="CentOS 使用 yum 安裝 Redis6 之前筆記 使用 Yum 安裝 Redis 5 中提到預設的 centos yum repository 中僅能安裝 redis3，透過使用 ius repository 才能使用 yum 來安裝 redis5，不過 redis6 已經問市一陣子"/>
+<meta name="twitter:title" content="yum 安裝指定版本套件"/>
+<meta name="twitter:description" content="yum 安裝指定版本套件 這個問題起因於要追查線上問題，但另建環境卻怎樣也模擬不出錯誤，後來才發現另建的環境使用的套件是較新版本，原本的 bug 也被修復；"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -147,8 +147,8 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-16 </span>
         
-        <span class="more-meta"> 約 399 字 </span>
-          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+        <span class="more-meta"> 約 505 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
     </header>
@@ -163,9 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#centos-使用-yum-安裝-redis6">CentOS 使用 yum 安裝 Redis6</a></li>
+<li><a href="#yum-安裝指定版本套件">yum 安裝指定版本套件</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝方式">安裝方式</a></li>
+<li><a href="#安裝步驟">安裝步驟</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,81 +181,111 @@
     <div class="post-content">
       
 
-<h2 id="centos-使用-yum-安裝-redis6">CentOS 使用 yum 安裝 Redis6</h2>
+<h2 id="yum-安裝指定版本套件">yum 安裝指定版本套件</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/yum-install-redis5/" target="_blank">使用 Yum 安裝 Redis 5</a> 中提到預設的 centos yum repository 中僅能安裝 redis3，透過使用 ius repository 才能使用 yum 來安裝 redis5，不過 redis6 已經問市一陣子，但 ius repository 尚未推出對應的更新，為了能使用 yum 來安裝 redis6，找了其他 yum repository，簡單快速紀錄一下</p>
+<p>這個問題起因於要追查線上問題，但另建環境卻怎樣也模擬不出錯誤，後來才發現另建的環境使用的套件是較新版本，原本的 bug 也被修復；另個常見狀況是因為新版本的功能尚未穩定，或是有 breaking change 需要同步調整程式碼，所以必需鎖定在某個特定版本上</p>
+
+<p>雖說是個簡單語法，但使用頻率不高，讓我每次都要重新查語法，所以趁著休假空檔簡單紀錄一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>Azure VM B2s (2 vcpu,4GiB memory)</li>
 <li>OpenLogic 7.7</li>
-<li>Redis 6.0.6</li>
+<li>Redis 5.0.9</li>
 </ol>
 
-<h2 id="安裝方式">安裝方式</h2>
+<h2 id="安裝步驟">安裝步驟</h2>
 
 <ol>
-<li><p>下載 rpm</p>
+<li><p>確認可用版本</p>
 
-<pre><code class="language-bash">curl -L -O http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+<pre><code class="language-bash">yum list redis --showduplicates
 </code></pre>
 
-<p>或是</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/90332015-d447b800-dfeb-11ea-952d-bb1e748d52ff.png" alt="1listduplicate" /></p></li>
 
-<pre><code class="language-bash">wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-</code></pre></li>
+<li><p>版本資訊拆解</p>
 
-<li><p>安裝 remi rpm</p>
-
-<pre><code class="language-bash">rpm -Uvh remi-release-7.rpm
-</code></pre></li>
-
-<li><p>安裝 redis6</p>
+<p>第一個步驟取得的資訊內容如下</p>
 
 <blockquote>
-<p>透過 <code>yum info redis</code> 發現 <code>redis</code> 這個 package name 已是 redis6.0.6 (如果想要安裝其他版本，可以參考之前筆記 <a href="https://blog.yowko.com/yum-specific-version" target="_blank">yum 安裝指定版本套件</a>)</p>
+<p><code>{package name}-{arch}    {version}-{release}    {repo name}</code></p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/90330536-03582c80-dfe0-11ea-84a4-cc75c7899fea.png" alt="1yuminfo" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/90332017-d6aa1200-dfeb-11ea-87af-e7eb1605a058.png" alt="2detailinfo" /></p></li>
 
-<pre><code class="language-bash">yum install -y redis
+<li><p>確認詳細資訊 (optional)</p>
+
+<blockquote>
+<p>這個步驟可省略，僅用來確認 package 的各項詳細資訊</p>
+</blockquote>
+
+<ul>
+<li><p>完整語法：</p>
+
+<pre><code class="language-bash">yum info {package name}-{version}-{release}.{arch}
 </code></pre></li>
 
-<li><p>驗明正身</p>
+<li><p>完整語法範例</p>
 
-<pre><code class="language-bash">redis-server --version
+<pre><code class="language-bash">yum info redis-5.0.9-1.el7.remi.x86_64
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/90330539-05ba8680-dfe0-11ea-8e37-8316d4f30600.png" alt="2redisversion" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/90332018-d742a880-dfeb-11ea-925b-efbb8dfd739d.png" alt="3infofull" /></p></li>
+
+<li><p>簡易語法：</p>
+
+<pre><code class="language-bash">yum info {package name}-{version}
+</code></pre></li>
+
+<li><p>簡易語法範例：</p>
+
+<pre><code class="language-bash">yum info redis-5.0.9
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/90332019-d7db3f00-dfeb-11ea-8373-b111fd8917b5.png" alt="4infosimple" /></p></li>
+</ul></li>
+
+<li><p>實際安裝</p>
+
+<ul>
+<li><p>完整語法：</p>
+
+<pre><code class="language-bash">yum install -y {package name}-{version}-{release}.{arch}
+</code></pre></li>
+
+<li><p>完整語法範例</p>
+
+<pre><code class="language-bash">yum install -y redis-5.0.9-1.el7.remi.x86_64
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/90332020-d7db3f00-dfeb-11ea-95de-966be6b3b198.png" alt="5installfull" /></p></li>
+
+<li><p>簡易語法：</p>
+
+<pre><code class="language-bash">yum install -y {package name}-{version}
+</code></pre></li>
+
+<li><p>簡易語法範例：</p>
+
+<pre><code class="language-bash">yum install -y redis-5.0.9
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/90332021-d873d580-dfeb-11ea-8d0d-061c14df2d10.png" alt="5installsimple" /></p></li>
+</ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>同事問到為什麼要堅持用 yum 安裝相關服務，明明可以自己從 source code build 起？ 我個人的想法：</p>
+<p>透過 yum 安裝指定版本套件，有時候還是無法安裝到想要的版本；舉例來說：幾個月前當時我們用的最新版是 <code>redis 5.0.7</code> 但現在最新版變成了 <code>redis 6.0.6</code>，這期間短暫出現過的 <code>redis 6.0.4</code> `<code>redis 6.0.3</code> 甚至於 <code>redis 5.0.7</code> 都已經沒出現 yum list 中了，redis 5 系統僅留下 <code>redis 5.0.9</code></p>
 
-<ol>
-<li>步驟較少也較單純</li>
-</ol>
-
-<blockquote>
-<p>我只想安裝相關功能，不想另外花心思前置安裝中繼編譯的套件與下載原始碼、後續刪除中繼套件跟原始碼，步驟愈多就愈容易出錯也愈不容易維護</p>
-</blockquote>
-
-<ol>
-<li><p>執行時間較短</p>
-
-<blockquote>
-<p>這個原因跟第一點有關連，因為少了 build 的動作，會縮短一些時間</p>
-</blockquote></li>
-</ol>
+<p>以結果來看，推測是只留下大版本中的最後一版，所以如果真的有不能升級的需求，可能還是自行保留 rpm 最為妥當</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/yum-install-redis5/" target="_blank">使用 Yum 安裝 Redis 5</a></li>
-<li><a href="https://blog.yowko.com/yum-specific-version" target="_blank">yum 安裝指定版本套件</a></li>
-<li><a href="https://www.unixmen.com/install-remi-repository-rhel-centos-scientific-linux-76-x5-x-fedora-201918/" target="_blank">Install REMI Repository On RHEL, CentOS, Scientific Linux <sup>7</sup>&frasl;<sub>6</sub>.x/5.x And Fedora 20/19/18</a></li>
+<li><a href="https://www.thegeekdiary.com/centos-rhel-how-to-install-a-specific-version-of-rpm-package-using-yum/" target="_blank">CentOS / RHEL : How to install a specific version of rpm package using YUM</a></li>
 </ol>
 
     </div>
@@ -290,10 +320,6 @@
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
-          
-		    
-		    	
             <a href="https://blog.yowko.com/tags/linux/">Linux</a>
           
         </div>
@@ -302,18 +328,18 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/yum-specific-version/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/ansible-redis-cluster-update/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">yum 安裝指定版本套件</span>			
+            <span class="next-text nav-default">Ansible 安裝 Redis Cluster (更新版)</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/centos-add-disk/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/centos-yum-redis6/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">在 Centos 上新增磁區</span>			
+            <span class="prev-text nav-default">CentOS 使用 yum 安裝 Redis6</span>			
           </a>
 		  </div>
       </nav>
@@ -324,7 +350,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/centos-yum-redis6\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/yum-specific-version\/';  
       
     };
 

@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>https://blog.yowko.com/yum-specific-version/</loc>
+    <lastmod>2020-08-16T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/centos-yum-redis6/</loc>
     <lastmod>2020-08-16T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
