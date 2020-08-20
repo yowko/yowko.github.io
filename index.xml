@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 16 Aug 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 18 Aug 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>kubectl patch 錯誤</title>
+      <link>https://blog.yowko.com/kubectl-patch-fail/</link>
+      <pubDate>Tue, 18 Aug 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kubectl-patch-fail/</guid>
+      <description>kubectl patch 錯誤 這件事實在太瞎了，不得不紀錄一下 這幾天正在進行團隊各環境的 service 升級，其中的重點就是 kubernetes 版本，重新 refactor 所有 ansible scripts 後，終於沒有出錯，但在部署時都</description>
+    </item>
     
     <item>
       <title>Ansible 安裝 Redis Cluster (更新版)</title>
