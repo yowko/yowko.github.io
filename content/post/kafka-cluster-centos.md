@@ -1,7 +1,7 @@
 ---
 title: "在 CentOS 上安裝 Apache Kafka cluster"
 date: 2019-11-10T21:30:00+08:00
-lastmod: 2019-11-10T21:30:31+08:00
+lastmod: 2020-08-26T21:30:31+08:00
 draft: false
 tags: ["CentOS","Kafka"]
 slug: "kafka-cluster-centos"
@@ -45,7 +45,7 @@ yum install java-11-openjdk-devel
     usermod --shell /bin/bash kafka
     ```
 
-3. 設定密碼
+3. 設定密碼 (optional)
 
     ```bash
     passwd kafka
@@ -67,6 +67,8 @@ yum install java-11-openjdk-devel
 
 2. 下載 Kafka
 
+    > 版本資訊請參考 [https://kafka.apache.org/downloads](https://kafka.apache.org/downloads)
+
     ```bash
     curl http://apache.stu.edu.tw/kafka/2.3.1/kafka_2.11-2.3.1.tgz -o /home/kafka/Downloads/kafka.tgz
     ```
@@ -82,7 +84,7 @@ yum install java-11-openjdk-devel
     - 建立啟動文件
 
         ```bash
-        nano /etc/systemd/system/zookeeper.service
+        vi /etc/systemd/system/zookeeper.service
         ```
 
     - 啟動文件內容
