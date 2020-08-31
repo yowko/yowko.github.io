@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>gRPC on Yowko&#39;s Notes</title>
+    <title>grpc on Yowko&#39;s Notes</title>
     <link>https://blog.yowko.com/tags/grpc/</link>
-    <description>Recent content in gRPC on Yowko&#39;s Notes</description>
+    <description>Recent content in grpc on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 09 Mar 2020 23:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/grpc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 ASP.NET Core middleware 進行 gRPC healthy check</title>
+      <link>https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check/</link>
+      <pubDate>Mon, 31 Aug 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check/</guid>
+      <description>使用 ASP.NET Core middleware 進行 gRPC healthy check 這個需求來自於某次的 issue：有個 service 的回應時好時壞，沒有規律，這讓我想起當年在壽險公司資訊部門使用 asp 提供服務的故事，當</description>
+    </item>
     
     <item>
       <title>使用 grpcurl 使用 Timestamp 參數呼叫 gRPC Service</title>

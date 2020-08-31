@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>在 CentOS 上安裝 Apache Kafka cluster - Yowko&#39;s Notes</title>
+  <title>使用 ASP.NET Core middleware 進行 gRPC healthy check - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="在 CentOS 上安裝 Apache Kafka cluster 之前筆記 在 CentOS 上安裝 Apache ZooKeeper cluster 紀錄到如何建立 ZooKeeper 的 cluster，雖然 ZooKeeper 還有其他用途，不過我主要打算用來與 Kafka 搭配做為 Message Queue，單" />
+  <meta name="description" content="使用 ASP.NET Core middleware 進行 gRPC healthy check 這個需求來自於某次的 issue：有個 service 的回應時好時壞，沒有規律，這讓我想起當年在壽險公司資訊部門使用 asp 提供服務的故事，當" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/kafka-cluster-centos/" />
+<link rel="canonical" href="https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="在 CentOS 上安裝 Apache Kafka cluster" />
-<meta property="og:description" content="在 CentOS 上安裝 Apache Kafka cluster 之前筆記 在 CentOS 上安裝 Apache ZooKeeper cluster 紀錄到如何建立 ZooKeeper 的 cluster，雖然 ZooKeeper 還有其他用途，不過我主要打算用來與 Kafka 搭配做為 Message Queue，單" />
+<meta property="og:title" content="使用 ASP.NET Core middleware 進行 gRPC healthy check" />
+<meta property="og:description" content="使用 ASP.NET Core middleware 進行 gRPC healthy check 這個需求來自於某次的 issue：有個 service 的回應時好時壞，沒有規律，這讓我想起當年在壽險公司資訊部門使用 asp 提供服務的故事，當" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/kafka-cluster-centos/" /><meta property="article:published_time" content="2019-11-10T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-08-26T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check/" /><meta property="article:published_time" content="2020-08-31T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-08-31T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="在 CentOS 上安裝 Apache Kafka cluster">
-<meta itemprop="description" content="在 CentOS 上安裝 Apache Kafka cluster 之前筆記 在 CentOS 上安裝 Apache ZooKeeper cluster 紀錄到如何建立 ZooKeeper 的 cluster，雖然 ZooKeeper 還有其他用途，不過我主要打算用來與 Kafka 搭配做為 Message Queue，單">
-
-
-<meta itemprop="datePublished" content="2019-11-10T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-08-26T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="646">
+<meta itemprop="name" content="使用 ASP.NET Core middleware 進行 gRPC healthy check">
+<meta itemprop="description" content="使用 ASP.NET Core middleware 進行 gRPC healthy check 這個需求來自於某次的 issue：有個 service 的回應時好時壞，沒有規律，這讓我想起當年在壽險公司資訊部門使用 asp 提供服務的故事，當">
 
 
+<meta itemprop="datePublished" content="2020-08-31T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-08-31T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="907">
 
-<meta itemprop="keywords" content="CentOS,Kafka," />
+
+
+<meta itemprop="keywords" content="asp.net core,gRPC," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="在 CentOS 上安裝 Apache Kafka cluster"/>
-<meta name="twitter:description" content="在 CentOS 上安裝 Apache Kafka cluster 之前筆記 在 CentOS 上安裝 Apache ZooKeeper cluster 紀錄到如何建立 ZooKeeper 的 cluster，雖然 ZooKeeper 還有其他用途，不過我主要打算用來與 Kafka 搭配做為 Message Queue，單"/>
+<meta name="twitter:title" content="使用 ASP.NET Core middleware 進行 gRPC healthy check"/>
+<meta name="twitter:description" content="使用 ASP.NET Core middleware 進行 gRPC healthy check 這個需求來自於某次的 issue：有個 service 的回應時好時壞，沒有規律，這讓我想起當年在壽險公司資訊部門使用 asp 提供服務的故事，當"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2019-11-10 </span>
+        <span class="post-time"> 2020-08-31 </span>
         
-        <span class="more-meta"> 約 646 字 </span>
+        <span class="more-meta"> 約 907 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -163,12 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#在-centos-上安裝-apache-kafka-cluster">在 CentOS 上安裝 Apache Kafka cluster</a></li>
+<li><a href="#使用-asp-net-core-middleware-進行-grpc-healthy-check">使用 ASP.NET Core middleware 進行 gRPC healthy check</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝-jdk">安裝 JDK</a></li>
-<li><a href="#為執行-kafka-建立專屬使用帳號">為執行 Kafka 建立專屬使用帳號</a></li>
-<li><a href="#下載並解壓-kafka">下載並解壓 Kafka</a></li>
-<li><a href="#啟動-kafka">啟動 Kafka</a></li>
+<li><a href="#設定方式">設定方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -184,215 +181,164 @@
     <div class="post-content">
       
 
-<h2 id="在-centos-上安裝-apache-kafka-cluster">在 CentOS 上安裝 Apache Kafka cluster</h2>
+<h2 id="使用-asp-net-core-middleware-進行-grpc-healthy-check">使用 ASP.NET Core middleware 進行 gRPC healthy check</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/zookeeper-cluster-centos" target="_blank">在 CentOS 上安裝 Apache ZooKeeper cluster</a> 紀錄到如何建立 ZooKeeper 的 cluster，雖然 ZooKeeper 還有其他用途，不過我主要打算用來與 Kafka 搭配做為 Message Queue，單看這個使用情境而言，我必需來紀錄 Kafka + Zookeeper 的安裝過程  方便日後查閱囉</p>
+<p>這個需求來自於某次的 issue：有個 service 的回應時好時壞，沒有規律，這讓我想起當年在壽險公司資訊部門使用 asp 提供服務的故事，當時也是出現相同的徵兆：雖然兩者相差十幾年、技術也天差地北，但同樣的服務都有時正常有時錯誤</p>
+
+<p>後續 debug 過程中歸納出兩者都有提供多個 serrvice instance：目前專案是透過 kubernetes 設定 3 個 pods，而之前壽險公司是有 8 組 iis 提供服務，時好時壞是因為只有部份 service instance 有問題，之前懷疑過程式版本不一致，但目前系統都是以 image 做為 deploy 的基礎單位，暫時排除，加上重啟該 service instance 後就會正常，不過實際真正造成問題的原因還是沒找到：每次遇到這問題時都是異常已造成使用者問題沒有充足時間慢慢 debug</p>
+
+<p>因為每次遇到這狀況都是 restart service 讓服務恢復正常，所以就想讓重啟這件事變成自動化，而在那之前最重要的就是辨別出異常，立馬來看看可以怎麼做吧</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
-<blockquote>
-<p>安裝機 X 1，實際 cluster X 3，皆透過 Azure VM 來建立</p>
-</blockquote>
-
 <ol>
-<li>Linux (centos 7.7.1908)</li>
-<li>Kafka 2.3.1</li>
-<li>OpenJDK 11 JDK</li>
+<li>Azure VM 標準 B2s (2 vcpu，4 GiB 記憶體)</li>
+<li>Windows 10 version 1809 (OS Build 17763.1397)</li>
+<li>.NET Core SDK 3.1.401</li>
+<li>預設 gRPC Server 專案範本</li>
 </ol>
 
-<h2 id="安裝-jdk">安裝 JDK</h2>
-
-<blockquote>
-<p>版本需高於 JVM 8</p>
-</blockquote>
-
-<pre><code class="language-bash">yum install java-11-openjdk-devel
-</code></pre>
-
-<h2 id="為執行-kafka-建立專屬使用帳號">為執行 Kafka 建立專屬使用帳號</h2>
-
-<p>建立 user 來執行 Kafka</p>
+<h2 id="設定方式">設定方式</h2>
 
 <ol>
-<li><p>建立 <code>kafka</code> 使用者</p>
+<li><p>調整 proto 產出的程式碼方式為 <code>Both</code></p>
 
 <blockquote>
-<p><code>-m</code> 會連帶建立 <code>home</code> 目錄： <code>/home/kafka</code></p>
+<p>預設為 <code>Server</code></p>
 </blockquote>
 
-<pre><code class="language-bash">useradd kafka -m
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/91734988-40c2d980-ebde-11ea-8964-c35f653075f3.png" alt="1grpcboth" /></p></li>
 
-<li><p>設定預設執行 shell 的程式</p>
-
-<pre><code class="language-bash">usermod --shell /bin/bash kafka
-</code></pre></li>
-
-<li><p>設定密碼 (optional)</p>
-
-<pre><code class="language-bash">passwd kafka
-</code></pre></li>
-
-<li><p>讓 user <code>kafka</code> 有 <code>sudo</code> 權限</p>
-
-<pre><code class="language-bash">usermod -aG wheel kafka
-</code></pre></li>
-</ol>
-
-<h2 id="下載並解壓-kafka">下載並解壓 Kafka</h2>
-
-<ol>
-<li><p>建立下載用資料夾</p>
-
-<pre><code class="language-bash">mkdir /home/kafka/Downloads
-</code></pre></li>
-
-<li><p>下載 Kafka</p>
+<li><p>實做 grpc check</p>
 
 <blockquote>
-<p>版本資訊請參考 <a href="https://kafka.apache.org/downloads" target="_blank">https://kafka.apache.org/downloads</a></p>
+<p>這邊透過 di 取得預設範本中的 gRPC client</p>
 </blockquote>
 
-<pre><code class="language-bash">curl http://apache.stu.edu.tw/kafka/2.3.1/kafka_2.11-2.3.1.tgz -o /home/kafka/Downloads/kafka.tgz
+<pre><code class="language-cs">public class GreeterHealthChecker : IHealthCheck
+{
+    private readonly Greeter.GreeterClient _client;
+
+    public GreeterHealthChecker(Greeter.GreeterClient client)
+    {
+        _client = client;
+    }
+
+    public async Task&lt;HealthCheckResult&gt; CheckHealthAsync(
+        HealthCheckContext context,
+        CancellationToken cancellationToken = default(CancellationToken))
+    {
+        //以下就是自訂檢查邏輯
+        var reply = await _client.SayHelloAsync(
+            new HelloRequest {Name = &quot;GreeterClient&quot;});
+
+        if ( reply.Message == &quot;Hello GreeterClient&quot;)
+        {
+            return HealthCheckResult.Healthy(&quot;A healthy result.&quot;);
+        }
+
+        return  HealthCheckResult.Unhealthy(&quot;An unhealthy result.&quot;);
+    }
+}
 </code></pre></li>
 
-<li><p>解壓縮</p>
-
-<pre><code class="language-bash">cd /home/kafka &amp;&amp; tar -xvzf Downloads/kafka.tgz --strip 1
-</code></pre></li>
-
-<li><p>Zookeeper 啟動設定</p>
-
-<ul>
-<li><p>建立啟動文件</p>
-
-<pre><code class="language-bash">vi /etc/systemd/system/zookeeper.service
-</code></pre></li>
-
-<li><p>啟動文件內容</p>
-
-<pre><code class="language-txt">[Unit]
-Requires=network.target remote-fs.target
-After=network.target remote-fs.target
-
-[Service]
-Type=simple
-User=kafka
-ExecStart=/home/kafka/bin/zookeeper-server-start.sh /home/kafka/config/zookeeper.properties
-ExecStop=/home/kafka/bin/zookeeper-server-stop.sh
-Restart=on-abnormal
-
-[Install]
-WantedBy=multi-user.target
-</code></pre></li>
-</ul></li>
-
-<li><p>Kafka 啟動設定</p>
-
-<ul>
-<li><p>建立啟動文件</p>
-
-<pre><code class="language-bash">vi /etc/systemd/system/kafka.service
-</code></pre></li>
-
-<li><p>啟動文件內容</p>
-
-<pre><code class="language-txt">[Unit]
-Requires=zookeeper.service
-After=zookeeper.service
-
-[Service]
-Type=simple
-User=kafka
-ExecStart=/bin/sh -c '/home/kafka/bin/kafka-server-start.sh /home/kafka/config/server.properties &gt; /home/kafka/kafka.log 2&gt;&amp;1'
-ExecStop=/home/kafka/bin/kafka-server-stop.sh
-Restart=on-abnormal
-
-[Install]
-WantedBy=multi-user.target
-</code></pre></li>
-</ul></li>
-
-<li><p>Cluster 設定</p>
+<li><p>註冊 health check</p>
 
 <blockquote>
-<p>如果只需要 single node instance，可以略過這個步驟</p>
+<p><code>Startup.cs</code> 的 <code>ConfigureServices</code> 加上 <code>services.AddHealthChecks();</code></p>
 </blockquote>
 
-<ul>
-<li><p>Zookeeper</p>
+<pre><code class="language-cs">public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        //....其他需要註冊
+        //將上方自訂 health check 方法加至 health check 檢查中
+        services.AddHealthChecks().AddCheck&lt;GreeterHealthChecker&gt;(&quot;GRPC_health_check&quot;);
+    }
+}
+</code></pre></li>
+
+<li><p>註冊 gRPC client</p>
 
 <blockquote>
-<p>依實際 node 來做調整</p>
+<p><code>Startup.cs</code> 的 <code>ConfigureServices</code> 加上 <code>services.AddGrpcClient();</code></p>
 </blockquote>
 
-<ul>
-<li><p>調整設定</p>
+<pre><code class="language-cs">public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        //....其他需要註冊
+        //將上方自訂 health check 方法加至 health check 檢查中
+        services.AddHealthChecks().AddCheck&lt;GreeterHealthChecker&gt;(&quot;GRPC_health_check&quot;);
+        //將本身提供 gRPC 服務的 endpoint 加至 gRPC client factory 中
+        services.AddGrpcClient&lt;Greeter.GreeterClient&gt;(o =&gt;
+        {
+            o.Address = new Uri(&quot;https://localhost:5001&quot;);
+        });
+    }
+}
+</code></pre></li>
+
+<li><p>加上 health check 的 endpoint</p>
 
 <blockquote>
-<p>位置在 <code>/home/kafka/config/zookeeper.properties</code></p>
+<p><code>Startup.cs</code> 的 <code>Configure</code> 加上 <code>endpoints.MapHealthChecks(&quot;/health&quot;);</code></p>
 </blockquote>
 
-<pre><code class="language-bash">echo initLimit=10 &gt;&gt; /home/kafka/config/zookeeper.properties
-echo syncLimit=5 &gt;&gt; /home/kafka/config/zookeeper.properties
-echo server.1=node1:2888:3888 &gt;&gt; /home/kafka/config/zookeeper.properties
-echo server.2=node2:2888:3888 &gt;&gt; /home/kafka/config/zookeeper.properties
-echo server.3=node3:2888:3888 &gt;&gt; /home/kafka/config/zookeeper.properties
+<pre><code class="language-cs">public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
+
+    app.UseRouting();
+
+    app.UseEndpoints(endpoints =&gt;
+    {
+        // health checks
+        endpoints.MapHealthChecks(&quot;/health&quot;);
+
+        endpoints.MapGrpcService&lt;GreeterService&gt;();
+
+        endpoints.MapGet(&quot;/&quot;,
+            async context =&gt;
+            {
+                await context.Response.WriteAsync(
+                    &quot;Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909&quot;);
+            });
+    });
+}
 </code></pre></li>
 
-<li><p>加入 <code>myid</code> 設定</p>
+<li><p>實際效果</p>
 
-<blockquote>
-<p>位置請參照 <code>/home/kafka/config/zookeeper.properties</code> 的 <code>dataDir</code> 設定值，每個 node 的 myid 值需要唯一</p>
-</blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/91734999-43253380-ebde-11ea-9362-7f18a6ce659d.png" alt="2unhealthy" /></p>
 
-<pre><code class="language-bash">echo 1 &gt;&gt; /tmp/zookeeper/myid
-</code></pre></li>
-</ul></li>
-
-<li><p>Kafka</p>
-
-<blockquote>
-<p>位置在 <code>/home/kafka/config/server.properties</code>，每個 node 都必需執行</p>
-</blockquote>
-
-<ul>
-<li><p>修改 <code>broker.id</code> 讓不同的 kafka instance 可以做出區隔，每個 node 的 broker.id 值需要唯一</p>
-
-<pre><code class="language-bash">sed -i 's/broker.id=0/broker.id=1/g' /home/kafka/config/server.properties
-</code></pre></li>
-
-<li><p>修改 <code>zookeeper.connect</code> ，連線至 Zookeeper cluster 的位置</p>
-
-<pre><code class="language-bash">sed -i 's/zookeeper.connect=localhost:2181/zookeeper.connect=node1:2181,node2:2181,node3:2181/g' /home/kafka/config/server.properties
-</code></pre></li>
-</ul></li>
-</ul></li>
-</ol>
-
-<h2 id="啟動-kafka">啟動 Kafka</h2>
-
-<ol>
-<li><p>啟動 Kafka 服務</p>
-
-<pre><code class="language-bash">systemctl start kafka
-</code></pre></li>
-
-<li><p>將 Kafka 設為隨開機啟動</p>
-
-<pre><code class="language-bash">systemctl enable kafka
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/91735000-43bdca00-ebde-11ea-96d3-0363fb334ccc.png" alt="3healthy" /></p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>有了上次安裝 ZooKeeper cluster 的經驗後，這次安裝 Kafka cluster 感覺比較上手些，不過安裝後重新看了一次步驟還是覺得相當麻煩，預計改天紀錄將上述各個步驟透過單一 shell script 來完成安裝，想必會方便許多</p>
+<p>現在團隊的主力開發環境是 macOS，但今天紀錄的這個做法在 macOS 上會失效，錯誤的緣頭是 aspsettings.json 中的 <code>Kestrel.EndpointDefaults.Protocols=&quot;Http2&quot;</code> 至於原因我猜測與之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-grpc-macos/" target="_blank">ASP.NET Core gRPC 無法在 macOS 上啟動？！</a> 提到的 macOS 不支援具有 TLS 的 ASP.NET Core gRPC 服務有關：只要啟用了 <code>Kestrel.EndpointDefaults.Protocols=&quot;Http2&quot;</code> ASP.NET Core 中的 http endpoint 就無法正確存取，但這問題這麼大不可能沒人反應呀，我覺得可能是我設定的問題</p>
+
+<p>錯誤畫面如下：</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/91735002-43bdca00-ebde-11ea-93d5-3b6dce66ed2e.png" alt="4error" /></p>
+
+<p>相同程式碼在 Windows 下的畫面</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/91735005-44566080-ebde-11ea-8f6b-e6ccddb430d1.png" alt="5normal" /></p>
+
+<p>有看到其他做法，這幾日有空再嘗試看看，敬請期待</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/zookeeper-cluster-centos" target="_blank">在 CentOS 上安裝 Apache ZooKeeper cluster</a></li>
-<li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-centos-7" target="_blank">How To Install Apache Kafka on CentOS 7</a></li>
+<li><a href="https://blog.yowko.com/aspdotnet-core-grpc-macos/" target="_blank">ASP.NET Core gRPC 無法在 macOS 上啟動？！</a></li>
+<li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/host-and-deploy/health-checks" target="_blank">ASP.NET Core 中的健康狀態檢查</a></li>
 </ol>
 
     </div>
@@ -405,7 +351,7 @@ echo server.3=node3:2888:3888 &gt;&gt; /home/kafka/config/zookeeper.properties
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-08-26</span>
+    <span class="item-content">2020-08-31</span>
   </p>
   
   <p class="copyright-item">
@@ -427,11 +373,11 @@ echo server.3=node3:2888:3888 &gt;&gt; /home/kafka/config/zookeeper.properties
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/centos/">CentOS</a>
+            <a href="https://blog.yowko.com/tags/asp.net-core/">asp.net core</a>
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/kafka/">Kafka</a>
+            <a href="https://blog.yowko.com/tags/grpc/">gRPC</a>
           
         </div>
 
@@ -439,18 +385,11 @@ echo server.3=node3:2888:3888 &gt;&gt; /home/kafka/config/zookeeper.properties
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/dotnet-core-2-log-grpc/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">C# (.NET Core 2) Log 與 Trace gRPC</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/zookeeper-cluster-centos/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/kubectl-patch-fail/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">在 CentOS 上安裝 Apache ZooKeeper cluster</span>			
+            <span class="prev-text nav-default">kubectl patch 錯誤</span>			
           </a>
 		  </div>
       </nav>
@@ -461,7 +400,7 @@ echo server.3=node3:2888:3888 &gt;&gt; /home/kafka/config/zookeeper.properties
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/kafka-cluster-centos\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/aspdotnet-core-middleware-grpc-healthy-check\/';  
       
     };
 
