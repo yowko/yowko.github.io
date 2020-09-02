@@ -69,4 +69,4 @@ aliases:
 # 參考資訊
 1. [A .NET Build Server Without Visual Studio](http://nickberardi.com/a-net-build-server-without-visual-studio/)
 2. [How to build .NET 4.6 Framework app without Visual Studio installed?](http://stackoverflow.com/questions/32070490/how-to-build-net-4-6-framework-app-without-visual-studio-installed)
-3. [Installing NuGet](https://docs.microsoft.com/zh-tw/nuget/guides/install-nuget)
+3. [Installing NuGet](https://docs.microsoft.com/zh-tw/nuget/guides/install-nuget?WT.mc_id=DOP-MVP-5002594)

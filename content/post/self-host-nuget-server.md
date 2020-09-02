@@ -116,4 +116,4 @@ aliases:
 
 # 參考資訊
 
-1.  [NuGet.Server](https://docs.microsoft.com/en-us/nuget/hosting-packages/nuget-server)
+1.  [NuGet.Server](https://docs.microsoft.com/en-us/nuget/hosting-packages/nuget-server?WT.mc_id=DOP-MVP-5002594)

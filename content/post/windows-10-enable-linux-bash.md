@@ -99,4 +99,4 @@ aliases:
 
 # 參考資訊
 
-1.  [Install the Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+1.  [Install the Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10?WT.mc_id=DOP-MVP-5002594)

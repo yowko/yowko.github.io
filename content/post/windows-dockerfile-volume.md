@@ -134,7 +134,7 @@ windows 的 volume 用法跟 linux 不太相同，不同的點在於對符號的
 
 # 參考資訊
 
-1.  [Dockerfile on Windows](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/manage-windows-dockerfile)
+1.  [Dockerfile on Windows](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/manage-windows-dockerfile?WT.mc_id=DOP-MVP-5002594)
 2.  [使用 dockerfile 建立 Windows Container 版 Jenkins](https://blog.yowko.com/2017/08/dockerfile-windows-container-jenkins.html)
 3.  [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 4.  [深入理解Docker Volume（一）](http://dockone.io/article/128)

@@ -86,5 +86,5 @@ aliases:
 ![13vsssms](https://user-images.githubusercontent.com/3851540/40586515-915d20be-61f5-11e8-96fe-e64b5de39d50.png)
 
 # 參考資訊
-1. [rowversion (Transact-SQL)](https://docs.microsoft.com/zh-tw/sql/t-sql/data-types/rowversion-transact-sql?view=sql-server-2017)
+1. [rowversion (Transact-SQL)](https://docs.microsoft.com/zh-tw/sql/t-sql/data-types/rowversion-transact-sql?view=sql-server-2017&WT.mc_id=DOP-MVP-5002594)
 2. [EF Concurrency Mode Fixed + MVC](https://sellsbrothers.com/12699)

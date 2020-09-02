@@ -131,5 +131,5 @@ aliases:
 1.  [使用 Common.Logging 搭配 NLog 及 Log4Net](https://blog.yowko.com/2017/07/common-logging.html)
 2.  [使用 NuGet Package Explorer 建立 NuGet 套件](https://blog.yowko.com/2017/07/nuget-package-explorer.html)
 3.  [自建 NuGet Server](https://blog.yowko.com/2017/07/self-host-nuget-server.html)
-4.  [Transforming source code and configuration files](https://docs.microsoft.com/en-us/nuget/create-packages/source-and-config-file-transformations)
+4.  [Transforming source code and configuration files](https://docs.microsoft.com/en-us/nuget/create-packages/source-and-config-file-transformations?WT.mc_id=DOP-MVP-5002594)
 5.  [NuGet](https://www.nuget.org/)

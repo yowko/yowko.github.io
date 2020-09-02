@@ -332,6 +332,6 @@ slug: "httpclient-issue"
 4. [Single instance of reusable HttpClient](https://codereview.stackexchange.com/questions/69950/single-instance-of-reusable-httpclient)
 5. [HttpClient, it lives, and it is glorious](http://www.bizcoder.com/httpclient-it-lives-and-it-is-glorious)
 6. [netstat 指令用法,及狀態說明](http://blog.jangmt.com/2010/10/netstat.html) 
-7. [HttpClient Class](https://docs.microsoft.com/zh-tw/dotnet/api/system.net.http.httpclient)
+7. [HttpClient Class](https://docs.microsoft.com/zh-tw/dotnet/api/system.net.http.httpclient?WT.mc_id=DOP-MVP-5002594)
 8. [在 Windows 上遇到非常多 TIME_WAIT 連線時應如何處理](https://blog.miniasp.com/post/2010/11/17/How-to-deal-with-TIME_WAIT-problem-under-Windows.aspx)
 9. [在 Windows 環境將特定網址指向不同 IP](https://blog.yowko.com/windows-host-file)

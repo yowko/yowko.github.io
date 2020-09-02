@@ -123,4 +123,4 @@ ASP.NET Core 雖然相對麻煩了些，但讓實際開發人員處理這類細�
 
 # 參考資訊
 1. [Accept x-www-form-urlencoded in Web API .Net Core](https://stackoverflow.com/a/49042444/3600583)
-2. [ASP.NET Web API 中傳送 HTML 表單資料： form-urlencoded 資料](https://docs.microsoft.com/zh-tw/aspnet/web-api/overview/advanced/sending-html-form-data-part-1)
+2. [ASP.NET Web API 中傳送 HTML 表單資料： form-urlencoded 資料](https://docs.microsoft.com/zh-tw/aspnet/web-api/overview/advanced/sending-html-form-data-part-1?WT.mc_id=DOP-MVP-5002594)

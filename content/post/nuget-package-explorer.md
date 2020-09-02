@@ -167,11 +167,11 @@ NuGet Package Explorer 可以讓我們簡單快速地建立 NuGet Package，也�
 
 ## 心得
 
-NuGet Package Explorer 是個簡便工具，用它來建立 NuGet Package 可以省下不少時間。當然也可以透過 NuGet CLI 來建立 NuGet Package，但使用 NuGet CLI 來建立 package 相對繁瑣許多，如果有興趣可以參考 [Creating NuGet packages](https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package)
+NuGet Package Explorer 是個簡便工具，用它來建立 NuGet Package 可以省下不少時間。當然也可以透過 NuGet CLI 來建立 NuGet Package，但使用 NuGet CLI 來建立 package 相對繁瑣許多，如果有興趣可以參考 [Creating NuGet packages](https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package?WT.mc_id=DOP-MVP-5002594)
 
 之前建立 NuGet Package 時常常覺得設定很簡單，不用特別記，但幾次下來發現每次要建立時還是要找一下設定，回想一下該做什麼，不過跟 NuGet CLI 比還是方便不少，透過幾個簡單步驟就能擁有自己的 NuGet Package 了
 
 # 參考資訊
 
 1.  [NuGetPackageExplorer/NuGetPackageExplorer](https://github.com/NuGetPackageExplorer/NuGetPackageExplorer)
-2.  [Creating NuGet packages](https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package)
+2.  [Creating NuGet packages](https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package?WT.mc_id=DOP-MVP-5002594)

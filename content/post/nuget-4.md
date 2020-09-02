@@ -80,6 +80,6 @@ aliases:
 
 # 參考資料
 1. [Announcing NuGet 4.0 RTM](http://blog.nuget.org/20170308/Announcing-NuGet-4.0-RTM.html)
-2. [Dependency Resolution](https://docs.microsoft.com/en-us/nuget/consume-packages/dependency-resolution)
-3. [Creating a Package](https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package)
-4. [4.0 RTM Release Notes](https://docs.microsoft.com/en-us/nuget/release-notes/nuget-4.0-rtm)
+2. [Dependency Resolution](https://docs.microsoft.com/en-us/nuget/consume-packages/dependency-resolution?WT.mc_id=DOP-MVP-5002594)
+3. [Creating a Package](https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package?WT.mc_id=DOP-MVP-5002594)
+4. [4.0 RTM Release Notes](https://docs.microsoft.com/en-us/nuget/release-notes/nuget-4.0-rtm?WT.mc_id=DOP-MVP-5002594)

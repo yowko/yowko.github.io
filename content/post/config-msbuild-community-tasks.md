@@ -62,7 +62,7 @@ aliases:
 ## 在共用資料夾中新增共用的參數設定檔
 
 *   檔案不需要跟特定專案放在一起，方便與其他專案共用
-*   關於 element 的詳細說明可以參考 [MSBuild Properties](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-properties)
+*   關於 element 的詳細說明可以參考 [MSBuild Properties](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-properties?WT.mc_id=DOP-MVP-5002594)
 
 
 1.  使用 xml 格式

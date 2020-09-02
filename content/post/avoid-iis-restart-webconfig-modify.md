@@ -124,7 +124,7 @@ slug: "avoid-iis-restart-webconfig-modify"
 # 參考資訊
 1. [How to prevent an ASP.NET application restarting when the web.config is modified?](https://stackoverflow.com/questions/613824/how-to-prevent-an-asp-net-application-restarting-when-the-web-config-is-modified)
 2. [關於 ASP.NET File Change Notification (FCN) 的一些事](https://blog.yowko.com/fcn/)
-3. [HttpRuntimeSection.WaitChangeNotification Property](https://docs.microsoft.com/en-us/dotnet/api/system.web.configuration.httpruntimesection.waitchangenotification)
-4. [HttpRuntimeSection.MaxWaitChangeNotification Property](https://docs.microsoft.com/en-us/dotnet/api/system.web.configuration.httpruntimesection.maxwaitchangenotification)
+3. [HttpRuntimeSection.WaitChangeNotification Property](https://docs.microsoft.com/en-us/dotnet/api/system.web.configuration.httpruntimesection.waitchangenotification?WT.mc_id=DOP-MVP-5002594)
+4. [HttpRuntimeSection.MaxWaitChangeNotification Property](https://docs.microsoft.com/en-us/dotnet/api/system.web.configuration.httpruntimesection.maxwaitchangenotification?WT.mc_id=DOP-MVP-5002594)
 5. [IIS Application Domain and Pool Recycling](https://www.treeloop.com/blog/iis-application-domain-and-pool-recycling)
 6. [ApplicationPoolRecycling.DisallowRotationOnConfigChange Property](https://msdn.microsoft.com/en-us/library/microsoft.web.administration.applicationpoolrecycling.disallowrotationonconfigchange%28v=vs.90%29.aspx?f=255&MSPPError=-2147217396)

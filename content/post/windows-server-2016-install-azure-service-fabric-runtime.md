@@ -9,7 +9,7 @@ aliases:
     - /2017/01/windows-server-2016-install-azure-service-fabric-runtime.html
 ---
 # Windows Server 2016 無法安裝 Azure Service Fabric - Runtime 及 SDK
-最近看了不少 Azure 服務的介紹以及應用，其中有一些內容提到 Azure Service Fabric，所以想要實際使用並測試看看，結果發現 Windows Server 2016 未被列在官方的支援的作業系統版本中(可以參考[準備您的開發環境](https://docs.microsoft.com/zh-tw/azure/service-fabric/service-fabric-get-started))，直覺不可能，所以動手試裝看看
+最近看了不少 Azure 服務的介紹以及應用，其中有一些內容提到 Azure Service Fabric，所以想要實際使用並測試看看，結果發現 Windows Server 2016 未被列在官方的支援的作業系統版本中(可以參考[準備您的開發環境](https://docs.microsoft.com/zh-tw/azure/service-fabric/service-fabric-get-started?WT.mc_id=DOP-MVP-5002594))，直覺不可能，所以動手試裝看看
 
 ## 安裝 `Service Fabric` Runtime、SDK 和工具
 
@@ -46,6 +46,6 @@ aliases:
 
 
 # 參考資料
-1. [準備您的開發環境](https://docs.microsoft.com/zh-tw/azure/service-fabric/service-fabric-get-started)
+1. [準備您的開發環境](https://docs.microsoft.com/zh-tw/azure/service-fabric/service-fabric-get-started?WT.mc_id=DOP-MVP-5002594)
 2. [How To : Install Windows Azure Pack : Service Bus 1.1 (Windows Service Bus 1.1)](http://www.enterpriseframework.com/post/how-to-install-windows-azure-pack-service-bus-1-1-windows-service-bus-1-1)
 3. [Visual C++ Redistributable for Visual Studio 2012 Update 4](https://www.microsoft.com/en-us/download/confirmation.aspx?id=30679)

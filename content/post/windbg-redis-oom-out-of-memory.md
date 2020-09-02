@@ -34,7 +34,7 @@ Session 的優劣相信大家心中各有自己的標準，沒有絕對一致的
     > 可以為 WinDbg 設定儲存 symbol 的暫存路徑避免重複下載，詳情可以參考 [WinDbg 設定 symbol file path 的四種方法](https://blog.yowko.com/2018/06/windbg-symbol-file-path.html)
 5. 載入 CLR 偵錯模組
     
-    > .cordll -ve -l，詳細資訊請參考 [.cordll (Control CLR Debugging)](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-cordll--control-clr-debugging-)
+    > .cordll -ve -l，詳細資訊請參考 [.cordll (Control CLR Debugging)](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-cordll--control-clr-debugging-?WT.mc_id=DOP-MVP-5002594)
     
     - `-ve` ：開啟詳細資訊
     - `-l` ：載入 CLR debug 模組
@@ -74,5 +74,5 @@ Session 的優劣相信大家心中各有自己的標準，沒有絕對一致的
 1. [使用 Redis 當做 ASP.NET MVC 的 Session State Server](https://blog.yowko.com/2017/01/redis-aspnet-mvc-session-state-server.html)
 2. [WinDBG 出現 SOS does not support the current target architecture ?!](https://blog.yowko.com/2018/01/windbg-sos-does-not-support-current.html)
 3. [WinDbg 設定 symbol file path 的四種方法](https://blog.yowko.com/2018/06/windbg-symbol-file-path.html)
-4. [.cordll (Control CLR Debugging)](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-cordll--control-clr-debugging-)
+4. [.cordll (Control CLR Debugging)](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-cordll--control-clr-debugging-?WT.mc_id=DOP-MVP-5002594)
 5. [Redis with Resque and Rails: ERR command not allowed when used memory > 'maxmemory'](https://stackoverflow.com/questions/9987832/redis-with-resque-and-rails-err-command-not-allowed-when-used-memory-maxmemo)

@@ -100,8 +100,8 @@ aliases:
 
 # 參考資訊
 1. [Running an application targeted for net461: Could not load file or assembly 'System.Runtime, Version=4.1.0.0](https://github.com/dotnet/standard/issues/295)
-2. [<assemblyBinding> Element for <runtime>](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/assemblybinding-element-for-runtime)
-3. [Configuring Assembly Binding Redirection](https://docs.microsoft.com/en-us/dotnet/framework/deployment/configuring-assembly-binding-redirection)
-4. [Side-by-Side Execution in the .NET Framework](https://docs.microsoft.com/en-us/dotnet/framework/deployment/side-by-side-execution)
-5. [Redirecting Assembly Versions](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/redirect-assembly-versions)
-6. [How to: Enable and Disable Automatic Binding Redirection](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/how-to-enable-and-disable-automatic-binding-redirection)
+2. [<assemblyBinding> Element for <runtime>](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/assemblybinding-element-for-runtime?WT.mc_id=DOP-MVP-5002594)
+3. [Configuring Assembly Binding Redirection](https://docs.microsoft.com/en-us/dotnet/framework/deployment/configuring-assembly-binding-redirection?WT.mc_id=DOP-MVP-5002594)
+4. [Side-by-Side Execution in the .NET Framework](https://docs.microsoft.com/en-us/dotnet/framework/deployment/side-by-side-execution?WT.mc_id=DOP-MVP-5002594)
+5. [Redirecting Assembly Versions](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/redirect-assembly-versions?WT.mc_id=DOP-MVP-5002594)
+6. [How to: Enable and Disable Automatic Binding Redirection](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/how-to-enable-and-disable-automatic-binding-redirection?WT.mc_id=DOP-MVP-5002594)

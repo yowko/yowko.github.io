@@ -147,4 +147,4 @@ aliases:
 2.  [Where is the IIS Express configuration / metabase file found?](https://stackoverflow.com/questions/12946476/where-is-the-iis-express-configuration-metabase-file-found)
 3.  [Where Is Machine.Config?](https://stackoverflow.com/questions/2325473/where-is-machine-config)
 4.  [machine.config and processmodel with IIS express](https://stackoverflow.com/questions/4762204/machine-config-and-processmodel-with-iis-express)
-5.  [The Configuration System in IIS 7](https://docs.microsoft.com/en-us/iis/get-started/planning-your-iis-architecture/the-configuration-system-in-iis-7)
+5.  [The Configuration System in IIS 7](https://docs.microsoft.com/en-us/iis/get-started/planning-your-iis-architecture/the-configuration-system-in-iis-7?WT.mc_id=DOP-MVP-5002594)

@@ -497,6 +497,6 @@ OData 從 2013 年首次出現後就吸引不少技術人員目光，剛好當�
 
 # 參考資訊
 
-1.  [OData in ASP.NET Web API](https://docs.microsoft.com/en-us/aspnet/web-api/overview/odata-support-in-aspnet-web-api/)
+1.  [OData in ASP.NET Web API](https://docs.microsoft.com/en-us/aspnet/web-api/overview/odata-support-in-aspnet-web-api?WT.mc_id=DOP-MVP-5002594)
 2.  [OData Error: The query specified in the URI is not valid. The property cannot be used in the query option](https://stackoverflow.com/questions/39515218/odata-error-the-query-specified-in-the-uri-is-not-valid-the-property-cannot-be)
 3.  [GETTING STARTED WITH WEB API AND ODATA V4 PART 1](https://damienbod.com/2014/06/10/getting-started-with-web-api-and-odata-v4/)

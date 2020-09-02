@@ -35,7 +35,7 @@ aliases:
     APPCMD (command) (object-type) <identifier> < /parameter1:value1 ... >*
     ``` 
     
-    > 語法詳細介紹請參考 [Getting Started with AppCmd.exe](https://docs.microsoft.com/zh-tw/iis/get-started/getting-started-with-iis/getting-started-with-appcmdexe)
+    > 語法詳細介紹請參考 [Getting Started with AppCmd.exe](https://docs.microsoft.com/zh-tw/iis/get-started/getting-started-with-iis/getting-started-with-appcmdexe?WT.mc_id=DOP-MVP-5002594)
 
 ## 問題描述
 - 使用 IIS Manager
@@ -96,5 +96,5 @@ aliases:
 雖然 google 一下就可以發現 [Error hresult :80004001 , message : Command execution failed. Not implemented](https://stackoverflow.com/questions/38593856/error-hresult-80004001-message-command-execution-failed-not-implemented) 有正確解決方法，但 IIS Manage GUI 沒有出現任何訊息與 AppCmd.exe 模糊的錯誤訊息，對於解決問題幫助不大呀
 
 # 參考資訊
-1. [Getting Started with AppCmd.exe](https://docs.microsoft.com/zh-tw/iis/get-started/getting-started-with-iis/getting-started-with-appcmdexe)
+1. [Getting Started with AppCmd.exe](https://docs.microsoft.com/zh-tw/iis/get-started/getting-started-with-iis/getting-started-with-appcmdexe?WT.mc_id=DOP-MVP-5002594)
 2. [Error hresult :80004001 , message : Command execution failed. Not implemented](https://stackoverflow.com/questions/38593856/error-hresult-80004001-message-command-execution-failed-not-implemented)

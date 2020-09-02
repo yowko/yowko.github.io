@@ -15,7 +15,7 @@ slug: "remove-dotnet-from-mac"
 
 過去 .NET Framework 時代的做法是直接取代舊版本，到了 .NET Core 時代則允許同時存在不同版本的 .NET Core SDK，讓開發人員自行選擇使用版本，當然是立意良善，不過像是 .NET Core 1 SDK，我相信絕對不會再用到，如果沒有手動移除它就還是一直留在電腦中，雖然不造成影響，但總是心裡有些疙瘩：既佔空間又怕誤用
 
-過去都是透過 [如何移除 .NET Core 執行階段和 SDK](https://docs.microsoft.com/zh-tw/dotnet/core/versions/remove-runtime-sdk-versions?tabs=macos) 的步驟來執行移除，但我老是覺得步驟有點冗餘，另外讓我更不能接受的事有時候會刪不乾淨 (猜測是部份檔案仍在使用中而無法刪除)
+過去都是透過 [如何移除 .NET Core 執行階段和 SDK](https://docs.microsoft.com/zh-tw/dotnet/core/versions/remove-runtime-sdk-versions?tabs=macos&WT.mc_id=DOP-MVP-5002594) 的步驟來執行移除，但我老是覺得步驟有點冗餘，另外讓我更不能接受的事有時候會刪不乾淨 (猜測是部份檔案仍在使用中而無法刪除)
 
 今天趁著再次更新 .NET Core SDK 之餘，順手筆記一下
 
@@ -59,6 +59,6 @@ slug: "remove-dotnet-from-mac"
 
 ## 參考資訊
 
-1. [如何移除 .NET Core 執行階段和 SDK](https://docs.microsoft.com/zh-tw/dotnet/core/versions/remove-runtime-sdk-versions?tabs=macos)
+1. [如何移除 .NET Core 執行階段和 SDK](https://docs.microsoft.com/zh-tw/dotnet/core/versions/remove-runtime-sdk-versions?tabs=macos&WT.mc_id=DOP-MVP-5002594)
 2. [Steps to uninstall a DotNet CLI version on Mac OS X](https://gist.github.com/sandrovicente/5590f5ac993d9d7fef038fd2858efcc3)
 3. [dotnet/cli/scripts/obtain/uninstall/dotnet-uninstall-pkgs.sh](https://github.com/dotnet/cli/blob/master/scripts/obtain/uninstall/dotnet-uninstall-pkgs.sh)

@@ -126,7 +126,7 @@ aliases:
 # 參考資訊
 
 1.  [How to post file to ASP.NET Web Api 2](https://stackoverflow.com/questions/33387764/how-to-post-file-to-asp-net-web-api-2)
-2.  [Sending HTML Form Data in ASP.NET Web API: File Upload and Multipart MIME](https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/sending-html-form-data-part-2)
+2.  [Sending HTML Form Data in ASP.NET Web API: File Upload and Multipart MIME](https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/sending-html-form-data-part-2?WT.mc_id=DOP-MVP-5002594)
 3.  [MultipartFormDataStreamProvider 類別](https://msdn.microsoft.com/zh-tw/library/system.net.http.multipartformdatastreamprovider%28v=vs.118%29.aspx)
 4.  [ASP.NET WebApi: MultipartDataMediaFormatter](https://www.codeproject.com/Tips/652633/ASP-NET-WebApi-MultipartDataMediaFormatter)
 5.  [ASP.NET WebApi: MultipartDataMediaFormatter](https://www.codeproject.com/Tips/652633/ASP-NET-WebApi-MultipartDataMediaFormatter)

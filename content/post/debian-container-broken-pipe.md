@@ -63,4 +63,4 @@ slug: "debian-container-broken-pipe"
 ## 參考資訊
 
 1. [.NET Core Runtime](https://hub.docker.com/_/microsoft-dotnet-core-runtime/)
-2. [Debian 10 Package Manager - Install .NET Core](https://docs.microsoft.com/zh-tw/dotnet/core/install/linux-package-manager-debian10)
+2. [Debian 10 Package Manager - Install .NET Core](https://docs.microsoft.com/zh-tw/dotnet/core/install/linux-package-manager-debian10?WT.mc_id=DOP-MVP-5002594)

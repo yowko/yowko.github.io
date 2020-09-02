@@ -73,4 +73,4 @@ slug: "macos-dotnet-cert"
 
 1. [HTTP/2](https://zh.wikipedia.org/wiki/HTTP)
 2. [Troubleshooting .NET Core Dev Certs on MacOS](https://dev.to/cesarcodes/troubleshooting-net-core-dev-certs-on-macos-179d)
-3. [Enforce HTTPS in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-3.1&tabs=visual-studio#troubleshoot-certificate-problems)
+3. [Enforce HTTPS in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-3.1&tabs=visual-studio&WT.mc_id=DOP-MVP-5002594#troubleshoot-certificate-problems)

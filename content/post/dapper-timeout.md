@@ -155,6 +155,6 @@ var result = cn.Query<DateTime>(sql,commandTimeout:60);
 
 1. [SqlConnection.ConnectionTimeout](https://msdn.microsoft.com/zh-tw/library/system.data.sqlclient.sqlconnection.connectiontimeout%28v=vs.110%29.aspx)
 2. [SqlCommand.CommandTimeout](https://msdn.microsoft.com/zh-tw/library/system.data.sqlclient.sqlcommand.commandtimeout%28v=vs.110%29.aspx)
-3. [Context Connections vs. Regular Connections](https://docs.microsoft.com/en-us/sql/relational-databases/clr-integration/data-access/context-connections-vs-regular-connections?view=sql-server-2017)
+3. [Context Connections vs. Regular Connections](https://docs.microsoft.com/en-us/sql/relational-databases/clr-integration/data-access/context-connections-vs-regular-connections?view=sql-server-2017&WT.mc_id=DOP-MVP-5002594)
 4. [C# 中Sql 執行超時的問題](http://fecbob.pixnet.net/blog/post/38121651-c%23-中sql-執行超時的問題)
 5. [Adjusting CommandTimeout in Dapper.NET?](https://stackoverflow.com/questions/8794858/adjusting-commandtimeout-in-dapper-net)

@@ -15,7 +15,7 @@ aliases:
 
 ## 關於 GetType 方法
 
-> 官方文件可以參考 [Object.GetType Method](https://docs.microsoft.com/en-us/dotnet/api/system.object.gettype)
+> 官方文件可以參考 [Object.GetType Method](https://docs.microsoft.com/en-us/dotnet/api/system.object.gettype?WT.mc_id=DOP-MVP-5002594)
 
 1.  `Object` class 所實作的方法
 
@@ -65,4 +65,4 @@ aliases:
 # 參考資訊
 
 1.  [LINQ to Objects VS LINQ to Entities](https://blog.yowko.com/2017/07/linq-to-objects-vs-linq-to-entities.html)
-2.  [Object.GetType Method](https://docs.microsoft.com/en-us/dotnet/api/system.object.gettype)
+2.  [Object.GetType Method](https://docs.microsoft.com/en-us/dotnet/api/system.object.gettype?WT.mc_id=DOP-MVP-5002594)

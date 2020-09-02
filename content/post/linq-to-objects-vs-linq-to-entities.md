@@ -13,14 +13,14 @@ aliases:
 
 ## LINQ 概觀
 
-![LINQ overview](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/media/dpue-linqtoadonetoverview-bpuedev11.gif)圖片出處 [LINQ and ADO.NET](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/linq-and-ado-net)
+![LINQ overview](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/media/dpue-linqtoadonetoverview-bpuedev11.gif?WT.mc_id=DOP-MVP-5002594)圖片出處 [LINQ and ADO.NET](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/linq-and-ado-net?WT.mc_id=DOP-MVP-5002594)
 
 ## LINQ to Objects
 
 Visual Basic 與 C# 依據語言特性而在 LINQ to Objects 的行為上有些不同(以下內容針對 C#)
 
-1.  [LINQ to Objects (Visual Basic)](https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/concepts/linq/linq-to-objects)
-2.  [LINQ to Objects (C#)](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/linq-to-objects)
+1.  [LINQ to Objects (Visual Basic)](https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/concepts/linq/linq-to-objects?WT.mc_id=DOP-MVP-5002594)
+2.  [LINQ to Objects (C#)](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/linq-to-objects?WT.mc_id=DOP-MVP-5002594)
 
 
     *   是一系統針對 `IEnumerable` 及 `IEnumerable<T>` 的擴充方法

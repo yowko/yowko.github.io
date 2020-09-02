@@ -111,4 +111,4 @@ aliases:
 2.  [How to get the values of an enum into a SelectList](https://stackoverflow.com/questions/1110070/how-to-get-the-values-of-an-enum-into-a-selectlist)
 3.  [有 EnumDropDownListFor 為什麼還要客製 Enum to Dropdownlist ？！](https://blog.yowko.com/2017/02/customize-asp-dot-net-mvc-enum-to-dropdownlist.html)
 4.  [Can you loop through all enum values?](https://stackoverflow.com/questions/972307/can-you-loop-through-all-enum-values)
-5.  [Query Syntax and Method Syntax in LINQ (C#)](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/query-syntax-and-method-syntax-in-linq)
+5.  [Query Syntax and Method Syntax in LINQ (C#)](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/query-syntax-and-method-syntax-in-linq?WT.mc_id=DOP-MVP-5002594)

@@ -102,4 +102,4 @@ slug: "aspdotnet-core-mvc-stop-by-itself"
 
 # 參考資訊
 1. [如何以編程方式重啟 ASP.NET Core 網站](http://www.dalbll.com/Group/Topic/ASP.NET/7315)
-2. [IApplicationLifetime Interface](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime?view=aspnetcore-2.2)
+2. [IApplicationLifetime Interface](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime?WT.mc_id=DOP-MVP-5002594)

@@ -127,6 +127,6 @@ aliases:
 # 參考資訊
 
 1.  [MSBuild Conditions](https://msdn.microsoft.com/en-us/library/7szfhaft.aspx)
-2.  [MSBuild Conditional Constructs](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditional-constructs)
+2.  [MSBuild Conditional Constructs](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditional-constructs?WT.mc_id=DOP-MVP-5002594)
 3.  [專案間如何共用 config 設定 - 使用 MSBuildExtensionPack](https://blog.yowko.com/2017/08/shared-config.html)
 4.  [專案間如何共用 config 設定 - 使用 MSBuild Community Tasks](https://blog.yowko.com/2017/08/config-msbuild-community-tasks.html)

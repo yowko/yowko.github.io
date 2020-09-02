@@ -145,4 +145,4 @@ Redis 是一套 Open Source ，Memory base 的 Key-Value 儲存資料庫，由�
 2. [Redis 官網](https://redis.io)
 3. [Release of Redis on Windows from Github](https://github.com/MSOpenTech/redis/releases)
 4. [Redis On Windows - Part Two](http://www.c-sharpcorner.com/article/redis-on-windows-part-two/)
-5. [Azure Redis 快取的 ASP.NET 工作階段狀態提供者](https://docs.microsoft.com/zh-tw/azure/redis-cache/cache-aspnet-session-state-provider)
+5. [Azure Redis 快取的 ASP.NET 工作階段狀態提供者](https://docs.microsoft.com/zh-tw/azure/redis-cache/cache-aspnet-session-state-provider?WT.mc_id=DOP-MVP-5002594)

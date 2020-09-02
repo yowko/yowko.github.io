@@ -85,7 +85,7 @@ slug: "aspdotnetcore-webapi-406-not-acceptable"
 
 ## 參考資訊
 
-1. [在 ASP.NET Core Web API 中格式化回應資料](https://docs.microsoft.com/zh-tw/aspnet/core/web-api/advanced/formatting?view=aspnetcore-2.2)
+1. [在 ASP.NET Core Web API 中格式化回應資料](https://docs.microsoft.com/zh-tw/aspnet/core/web-api/advanced/formatting?WT.mc_id=DOP-MVP-5002594)
 2. [The difference between AddMvc() and AddMvcCore()](https://offering.solutions/blog/articles/2017/02/07/the-difference-between-addmvc-and-addmvccore/)
 3. [從 Empty 建立 ASP.NET Core Web API](https://blog.yowko.com/add-webapi-to-aspdotnetcore-empty/)
 4. [ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別](https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore/)

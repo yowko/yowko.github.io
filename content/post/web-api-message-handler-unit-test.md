@@ -330,7 +330,7 @@ aliases:
 
 # 參考資訊
 
-1.  [HTTP Message Handlers in ASP.NET Web API](https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/http-message-handlers)
+1.  [HTTP Message Handlers in ASP.NET Web API](https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/http-message-handlers?WT.mc_id=DOP-MVP-5002594)
 2.  [Unit testing Web API message handlers](http://blog.chatekar.com/unit-testing-web-api-message-handlers/)
 3.  [ASP.NET Web API Series - Part 6: MessageHandler explained](http://byterot.blogspot.tw/2012/05/aspnet-web-api-series-messagehandler.html)
 4.  [ASP.NET Web API Series - Part 7: Real world Message Handlers](http://byterot.blogspot.tw/2012/05/aspnet-web-api-messagehandler-real.html)

@@ -63,4 +63,4 @@ aliases:
 
 1.  [逐步解說：使用 XCOPY 部署 ASP.NET Web 應用程式](https://msdn.microsoft.com/zh-tw/library/f735abw9%28v=vs.100%29.aspx)
 2.  [HOW TO：準備部署 Web 專案](https://msdn.microsoft.com/zh-tw/library/ff925031%28v=vs.100%29.aspx)
-3.  [ASP.NET 核心模組的組態參考](https://docs.microsoft.com/zh-tw/aspnet/core/hosting/aspnet-core-module)
+3.  [ASP.NET 核心模組的組態參考](https://docs.microsoft.com/zh-tw/aspnet/core/hosting/aspnet-core-module?WT.mc_id=DOP-MVP-5002594)

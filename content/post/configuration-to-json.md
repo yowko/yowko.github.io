@@ -146,6 +146,6 @@ slug: "configuration-to-json"
 
 ## 參考資訊
 
-1. [ConfigurationRoot.GetChildren](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.configurationroot.getchildren?view=dotnet-plat-ext-3.1)
-2. [ConfigurationSection.GetChildren](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.configurationsection.getchildren?view=dotnet-plat-ext-3.1)
+1. [ConfigurationRoot.GetChildren](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.configurationroot.getchildren?view=dotnet-plat-ext-3.1&WT.mc_id=DOP-MVP-5002594)
+2. [ConfigurationSection.GetChildren](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.configurationsection.getchildren?view=dotnet-plat-ext-3.1&WT.mc_id=DOP-MVP-5002594)
 3. [[C#] 將 Dictionary 轉為 JSON](https://blog.yowko.com/dictionary-to-json)

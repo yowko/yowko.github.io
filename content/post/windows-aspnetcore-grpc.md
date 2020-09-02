@@ -56,7 +56,7 @@ slug: "windows-aspnetcore-grpc"
 
 ## 參考資訊
 
-1. [搭配 ASP.NET Core 的 gRPC 服務](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/aspnetcore?view=aspnetcore-3.1&tabs=visual-studio)
-2. [.NET Core 上的 gRPC 簡介](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/?view=aspnetcore-3.1)
-3. [教學課程：在 ASP.NET Core 中建立 gRPC 用戶端和伺服器](https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/grpc/grpc-start?view=aspnetcore-3.1&tabs=visual-studio)
+1. [搭配 ASP.NET Core 的 gRPC 服務](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/aspnetcore?view=aspnetcore-3.1&tabs=visual-studio&WT.mc_id=DOP-MVP-5002594)
+2. [.NET Core 上的 gRPC 簡介](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/?view=aspnetcore-3.1&WT.mc_id=DOP-MVP-5002594)
+3. [教學課程：在 ASP.NET Core 中建立 gRPC 用戶端和伺服器](https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/grpc/grpc-start?view=aspnetcore-3.1&tabs=visual-studio&WT.mc_id=DOP-MVP-5002594)
 4. [在 macOS 上的 ASP.NET Core 中呼叫 gRPC](https://blog.yowko.com/macos-aspnetcore-grpc)

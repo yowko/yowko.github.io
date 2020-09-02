@@ -241,5 +241,5 @@ aliases:
 
 1.  [HttpClient 類別](https://msdn.microsoft.com/zh-tw/library/system.net.http.httpclient%28v=vs.110%29.aspx)
 2.  [HttpClient](https://www.dotnetperls.com/httpclient)
-3.  [Calling a Web API From a .NET Client (C#)](https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client)
+3.  [Calling a Web API From a .NET Client (C#)](https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client?WT.mc_id=DOP-MVP-5002594)
 4.  [Simple C# .NET 4.5 HTTPClient Request Using Basic Auth and Proxy](https://www.snip2code.com/Snippet/13895/Simple-C---NET-4-5-HTTPClient-Request-Us)

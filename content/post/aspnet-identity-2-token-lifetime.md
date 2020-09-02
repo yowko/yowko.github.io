@@ -114,4 +114,4 @@ aliases:
 # 參考資訊
 
 1.  [Email Token Expiring After 15 mins - Asp Identity 2.0 API](https://stackoverflow.com/questions/27152612/email-token-expiring-after-15-mins-asp-identity-2-0-api)
-2.  [ccount Confirmation and Password Recovery with ASP.NET Identity (C#)](https://docs.microsoft.com/en-us/aspnet/identity/overview/features-api/account-confirmation-and-password-recovery-with-aspnet-identity)
+2.  [ccount Confirmation and Password Recovery with ASP.NET Identity (C#)](https://docs.microsoft.com/en-us/aspnet/identity/overview/features-api/account-confirmation-and-password-recovery-with-aspnet-identity?WT.mc_id=DOP-MVP-5002594)

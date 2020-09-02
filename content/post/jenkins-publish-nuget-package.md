@@ -178,7 +178,7 @@ NuGet Packager 是 Visual Studio 專案範本，得透過 Visual Studio 擴充�
 
 1.  [使用 NuGet Package Explorer 建立 NuGet 套件](https://blog.yowko.com/2017/07/nuget-package-explorer.html)
 2.  [如何使用 Jenkins 2 建置 .NET 專案](https://blog.yowko.com/2017/02/jenkins-2-build-dotnet-project.html)
-3.  [NuGet CLI reference](https://docs.microsoft.com/en-us/nuget/tools/nuget-exe-cli-reference)
+3.  [NuGet CLI reference](https://docs.microsoft.com/en-us/nuget/tools/nuget-exe-cli-reference?WT.mc_id=DOP-MVP-5002594)
 4.  [從Visual Studio發佈NuGet Package的好幫手－NuGet Packager](http://blog.darkthread.net/post-2016-04-28-nuget-packager.aspx)
 5.  [Use Jenkins to restore and publish packages](https://www.visualstudio.com/en-us/docs/package/build/jenkins)
 6.  [NuGet Packager](https://marketplace.visualstudio.com/items?itemName=OveAndersen.NuGetPackager)

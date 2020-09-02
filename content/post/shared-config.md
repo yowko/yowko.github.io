@@ -61,7 +61,7 @@ MSBuildExtensionPack 是一個 MSBuild 的擴充套件，大大地強化了 MSBu
 ## 在共用資料夾中新增共用的參數設定檔
 
 *   檔案不需要跟特定專案放在一起，方便與其他專案共用
-*   關於 element 的詳細說明可以參考 [MSBuild Properties](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-properties)
+*   關於 element 的詳細說明可以參考 [MSBuild Properties](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-properties?WT.mc_id=DOP-MVP-5002594)
 
 
 1.  使用 xml 格式
@@ -269,5 +269,5 @@ MSBuildExtensionPack 是一個 MSBuild 的擴充套件，大大地強化了 MSBu
 # 參考資訊
 
 1.  [MSBuildExtensionPack](https://github.com/mikefourie/MSBuildExtensionPack)
-2.  [MSBuild Properties](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-properties)
+2.  [MSBuild Properties](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-properties?WT.mc_id=DOP-MVP-5002594)
 3.  [Special Characters to Escape](https://msdn.microsoft.com/en-us/library/bb546106.aspx)

@@ -39,12 +39,12 @@ aliases:
     
     >![4nugethttp](https://user-images.githubusercontent.com/3851540/38285932-37eea4fa-37f5-11e8-9080-181f4267f0ef.png) 
 
-3. NuGet 安裝 `Microsoft.AspNet.WebApi.Core` (根據 Microsoft docs 上文章 - [Unit Testing ASP.NET Web API 2](https://docs.microsoft.com/en-us/aspnet/web-api/overview/testing-and-debugging/unit-testing-with-aspnet-web-api))
+3. NuGet 安裝 `Microsoft.AspNet.WebApi.Core` (根據 Microsoft docs 上文章 - [Unit Testing ASP.NET Web API 2](https://docs.microsoft.com/en-us/aspnet/web-api/overview/testing-and-debugging/unit-testing-with-aspnet-web-api?WT.mc_id=DOP-MVP-5002594))
     
     >![5webapicore](https://user-images.githubusercontent.com/3851540/38285933-38196d3e-37f5-11e8-9754-89daafc9dee4.png)
 
 ## 心得
-在 [Unit Testing ASP.NET Web API 2](https://docs.microsoft.com/en-us/aspnet/web-api/overview/testing-and-debugging/unit-testing-with-aspnet-web-api) 文章下方對於加入 `Microsoft.AspNet.WebApi.Core` 有許多不同意見，至於到底該不該採用這個方式相信大家都有個自看法，如果不喜歡這個方式也可以考慮只加入缺的 `System.Web.Http`，但我個人是傾向使用  `Microsoft.AspNet.WebApi.Core` 原因是這次遇到 `System.Web.Http` 問題，不同情境可能會有其他參考的需要
+在 [Unit Testing ASP.NET Web API 2](https://docs.microsoft.com/en-us/aspnet/web-api/overview/testing-and-debugging/unit-testing-with-aspnet-web-api?WT.mc_id=DOP-MVP-5002594) 文章下方對於加入 `Microsoft.AspNet.WebApi.Core` 有許多不同意見，至於到底該不該採用這個方式相信大家都有個自看法，如果不喜歡這個方式也可以考慮只加入缺的 `System.Web.Http`，但我個人是傾向使用  `Microsoft.AspNet.WebApi.Core` 原因是這次遇到 `System.Web.Http` 問題，不同情境可能會有其他參考的需要
 
 # 參考資訊
-1. [Unit Testing ASP.NET Web API 2](https://docs.microsoft.com/en-us/aspnet/web-api/overview/testing-and-debugging/unit-testing-with-aspnet-web-api)
+1. [Unit Testing ASP.NET Web API 2](https://docs.microsoft.com/en-us/aspnet/web-api/overview/testing-and-debugging/unit-testing-with-aspnet-web-api?WT.mc_id=DOP-MVP-5002594)

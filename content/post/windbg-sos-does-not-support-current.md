@@ -124,4 +124,4 @@ aliases:
 2.  [Common WinDbg Commands (Thematically Grouped)](http://windbg.info/doc/1-common-cmds.html)
 3.  [Download Debugging tools for Windows](https://developer.microsoft.com/en-us/windows/hardware/download-windbg)
 4.  [SOS does not support the current target architecture](https://stackoverflow.com/questions/16422577/sos-does-not-support-the-current-target-architecture/16422887)
-5.  [Debugging Tools for Windows (WinDbg, KD, CDB, NTSD)](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/index)
+5.  [Debugging Tools for Windows (WinDbg, KD, CDB, NTSD)](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/index?WT.mc_id=DOP-MVP-5002594)

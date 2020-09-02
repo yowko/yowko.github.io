@@ -128,5 +128,5 @@ slug: "string-isnullorempty-isnullorwhitespace"
 
 # 參考資訊
 1. [#80 寫程式的參考準測 (coding guideline) - C# 篇](http://www.woolycsnote.tw/2018/11/80-coding-guideline-c.html)
-2. [String.IsNullOrEmpty(String) Method](https://docs.microsoft.com/en-us/dotnet/api/system.string.isnullorempty)
-3. [String.IsNullOrWhiteSpace(String) Method](https://docs.microsoft.com/en-us/dotnet/api/system.string.isnullorwhitespace)
+2. [String.IsNullOrEmpty(String) Method](https://docs.microsoft.com/en-us/dotnet/api/system.string.isnullorempty?WT.mc_id=DOP-MVP-5002594)
+3. [String.IsNullOrWhiteSpace(String) Method](https://docs.microsoft.com/en-us/dotnet/api/system.string.isnullorwhitespace?WT.mc_id=DOP-MVP-5002594)

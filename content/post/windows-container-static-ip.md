@@ -54,4 +54,4 @@ aliases:
 # 參考資訊
 
 1.  [How To Assign A Static IP Address To A Windows Container](https://www.ntweekly.com/?p=14891)
-2.  [Windows 容器的網路功能](https://docs.microsoft.com/zh-tw/virtualization/windowscontainers/manage-containers/container-networking)
+2.  [Windows 容器的網路功能](https://docs.microsoft.com/zh-tw/virtualization/windowscontainers/manage-containers/container-networking?WT.mc_id=DOP-MVP-5002594)

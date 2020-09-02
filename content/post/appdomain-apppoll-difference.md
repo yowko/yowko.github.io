@@ -89,6 +89,6 @@ IIS 重啟可能由兩個部份觸發：
 # 參考資訊
 1. [Application vs. AppDomain](https://weblogs.asp.net/owscott/application-vs-appdomain)
 2. [IIS Application Domain and Pool Recycling](https://www.treeloop.com/blog/iis-application-domain-and-pool-recycling)
-3. [IIS Application Pool](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc735247%28v=ws.10%29)
-4. [Application Pools <applicationPools>](https://docs.microsoft.com/en-us/iis/configuration/system.applicationhost/applicationpools/)
+3. [IIS Application Pool](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc735247%28v=ws.10%29?WT.mc_id=DOP-MVP-5002594)
+4. [Application Pools <applicationPools>](https://docs.microsoft.com/en-us/iis/configuration/system.applicationhost/applicationpools?WT.mc_id=DOP-MVP-5002594)
 5. [Difference between Application Pool and Application Domain](https://social.msdn.microsoft.com/Forums/vstudio/en-US/fd865e35-a2ee-41b8-b112-5913f15c96f2/difference-between-application-pool-and-application-domain?forum=clr)

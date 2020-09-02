@@ -119,6 +119,6 @@ Windows 10 雖然不是原生支援 Windows Server container(透過 Hyper-V 支�
 Windows 因為系統本身大小的問題，在取得 base image 或是建立 container 時執行速度都比 Linux 慢上不少，除此之外整體使用體驗與 Linux 環境幾乎相同，不由得佩服 Microsoft 的決心，Windows container 非常值得期待，想必會在 .Net 開發界有不小的衝擊
 
 # 參考資訊
-1.  [Windows Containers on Windows 10](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-10)
-2.  [Windows 10 上的 Windows 容器](https://docs.microsoft.com/zh-tw/virtualization/windowscontainers/quick-start/quick-start-windows-10)
+1.  [Windows Containers on Windows 10](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-10?WT.mc_id=DOP-MVP-5002594)
+2.  [Windows 10 上的 Windows 容器](https://docs.microsoft.com/zh-tw/virtualization/windowscontainers/quick-start/quick-start-windows-10?WT.mc_id=DOP-MVP-5002594)
 3.  [如何在 Windows 10 同時安裝與執行 Windows 與 Linux 容器 (Docker)](http://blog.miniasp.com/post/2016/11/22/Run-Linux-and-Windows-Containers-on-Windows-10.aspx)

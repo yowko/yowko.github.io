@@ -103,5 +103,5 @@ Windows Server 2016 是第一個原生支援 Docker 的 Windows 作業系統，�
          ![13active](https://cloud.githubusercontent.com/assets/3851540/25586233/0ba47fd8-2ed1-11e7-9414-ff73207ccfdc.png)
 
 # 參考資訊
-1.  [Windows Containers Quick Start](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/)
-2.  [Windows Containers on Windows Server](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server)
+1.  [Windows Containers Quick Start](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/?WT.mc_id=DOP-MVP-5002594)
+2.  [Windows Containers on Windows Server](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server?WT.mc_id=DOP-MVP-5002594)

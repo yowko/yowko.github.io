@@ -141,6 +141,6 @@ slug: "dotnet-core-middieware-unit-test"
 
 ## 參考資訊
 
-1. [撰寫自訂的 ASP.NET Core 中介軟體](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/middleware/write?view=aspnetcore-2.2)
+1. [撰寫自訂的 ASP.NET Core 中介軟體](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/middleware/write?view=aspnetcore-2.2&WT.mc_id=DOP-MVP-5002594)
 2. [ASP.NET Core 2.1 middlewares part 2: Unit test a custom middleware](http://anthonygiretti.com/2018/09/04/asp-net-core-2-1-middlewares-part2-unit-test-a-custom-middleware/)
 3. 

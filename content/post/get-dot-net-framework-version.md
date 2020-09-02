@@ -17,7 +17,7 @@ aliases:
 
 ## .Net Framework 版本
 
-[如何：判斷安裝的 .NET Framework 版本](https://docs.microsoft.com/zh-tw/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed)，微軟網站上有完整的教學，教大家如何看 .Net Framework 版本 節錄如下
+[如何：判斷安裝的 .NET Framework 版本](https://docs.microsoft.com/zh-tw/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed?WT.mc_id=DOP-MVP-5002594)，微軟網站上有完整的教學，教大家如何看 .Net Framework 版本 節錄如下
 
 |Release DWORD 的值|版本|
 |--- |--- |
@@ -103,7 +103,7 @@ aliases:
 
 # 參考資訊
 
-1.  [如何：判斷安裝的 .NET Framework 版本](https://docs.microsoft.com/zh-tw/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed)
+1.  [如何：判斷安裝的 .NET Framework 版本](https://docs.microsoft.com/zh-tw/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed?WT.mc_id=DOP-MVP-5002594)
 2.  [How to run a PowerShell script?](https://stackoverflow.com/questions/2035193/how-to-run-a-powershell-script)
 3.  [Windows PowerShell Tip of the Week](https://technet.microsoft.com/en-us/library/ee692803.aspx)
 4.  [More succinct way of getting a registry value as a string than (Get-ItemProperty $key $valueName).*VALUENAME*?](https://stackoverflow.com/questions/16318211/more-succinct-way-of-getting-a-registry-value-as-a-string-than-get-itemproperty)

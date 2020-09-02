@@ -159,5 +159,5 @@ Generic Host 適合用來 host 不需處理 http request 的應用程式，以 g
 
 1. [在 .NET Core console 上使用 Dependency Injection - DI](https://blog.yowko.com/dotnet-core-console-di/)
 2. [使用 ASP.NET Core 2.2 來 Host gRPC Server](https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/)
-3. [ASP.NET Core 基本概念](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/index?view=aspnetcore-2.2&tabs=macos#host)
-4. [.NET 泛型主機](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.2)
+3. [ASP.NET Core 基本概念](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/index?view=aspnetcore-2.2&tabs=macos&WT.mc_id=DOP-MVP-5002594#host)
+4. [.NET 泛型主機](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.2&WT.mc_id=DOP-MVP-5002594)

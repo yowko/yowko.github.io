@@ -50,7 +50,7 @@ slug: "debian-container-install-dotnet-core-sdk"
 
 ## 心得
 
-之前安裝時卡在 `gpg` (詳細內容可以參考前筆記 [在 Debian container 中無法成功註冊微軟金鑰](https://blog.yowko.com/debian-container-broken-pipe))，一排除後大致上就沒問題了，我將 [Debian 10 Package Manager - Install .NET Core](https://docs.microsoft.com/zh-tw/dotnet/core/install/linux-package-manager-debian10) 上的步驟做了些省略(能省則省，但除了 `1` 之外，其他動作都可做可不做)：
+之前安裝時卡在 `gpg` (詳細內容可以參考前筆記 [在 Debian container 中無法成功註冊微軟金鑰](https://blog.yowko.com/debian-container-broken-pipe))，一排除後大致上就沒問題了，我將 [Debian 10 Package Manager - Install .NET Core](https://docs.microsoft.com/zh-tw/dotnet/core/install/linux-package-manager-debian10?WT.mc_id=DOP-MVP-5002594) 上的步驟做了些省略(能省則省，但除了 `1` 之外，其他動作都可做可不做)：
 
 1. container 中不能使用 sudo
 2. 權限調整可以跳過
@@ -59,4 +59,4 @@ slug: "debian-container-install-dotnet-core-sdk"
 ## 參考資訊
 
 1. [在 Debian container 中無法成功註冊微軟金鑰](https://blog.yowko.com/debian-container-broken-pipe)
-2. [Debian 10 Package Manager - Install .NET Core](https://docs.microsoft.com/zh-tw/dotnet/core/install/linux-package-manager-debian10)
+2. [Debian 10 Package Manager - Install .NET Core](https://docs.microsoft.com/zh-tw/dotnet/core/install/linux-package-manager-debian10?WT.mc_id=DOP-MVP-5002594)

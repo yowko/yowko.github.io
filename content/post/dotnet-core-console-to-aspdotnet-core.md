@@ -170,5 +170,5 @@ public void ConfigureServices(IServiceCollection services)
 ## 參考資訊
 
 1. [在 .NET Core console 上使用 Dependency Injection - DI](https://blog.yowko.com/dotnet-core-console-di/)
-2. [ASP.NET Core 基本概念](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/?view=aspnetcore-2.2&tabs=macos)
-3. [ASP.NET Core 中的應用程式啟動](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/startup?view=aspnetcore-2.2)
+2. [ASP.NET Core 基本概念](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/?view=aspnetcore-2.2&tabs=macos&WT.mc_id=DOP-MVP-5002594)
+3. [ASP.NET Core 中的應用程式啟動](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/startup?view=aspnetcore-2.2&WT.mc_id=DOP-MVP-5002594)

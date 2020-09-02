@@ -99,7 +99,7 @@ aliases:
     - 預設值：`false`
 - encoding
     
-    > 指定 email 的編碼格式，詳細清單請參考 [Encoding Class](https://docs.microsoft.com/he-il/dotnet/api/system.text.encoding?view=netframework-4.7#Remarks), 使用 Encoding 的 name
+    > 指定 email 的編碼格式，詳細清單請參考 [Encoding Class](https://docs.microsoft.com/he-il/dotnet/api/system.text.encoding?view=netframework-4.7&?WT.mc_id=DOP-MVP-5002594#Remarks), 使用 Encoding 的 name
     
     - 接受 `Encoding` 格式
     - 預設值：`UTF-8` 

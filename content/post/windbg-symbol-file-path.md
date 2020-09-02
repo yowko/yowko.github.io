@@ -76,6 +76,6 @@ SETX _NT_SYMBOL_PATH srv*D:\Symbol*https://msdl.microsoft.com/download/symbols
 
 
 # 參考資訊
-1. [Setting Symbol and Executable Image Paths in WinDbg](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/setting-symbol-and-source-paths-in-windbg)
-2. [Symbol path for Windows debuggers](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/symbol-path)
+1. [Setting Symbol and Executable Image Paths in WinDbg](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/setting-symbol-and-source-paths-in-windbg?WT.mc_id=DOP-MVP-5002594)
+2. [Symbol path for Windows debuggers](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/symbol-path?WT.mc_id=DOP-MVP-5002594)
 3. [Setting and getting windows environment variables from the command prompt?](https://superuser.com/questions/79612/setting-and-getting-windows-environment-variables-from-the-command-prompt)

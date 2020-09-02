@@ -153,4 +153,4 @@ slug: "aspdotnet-core-middleware-grpc-healthy-check"
 ## 參考資訊
 
 1. [ASP.NET Core gRPC 無法在 macOS 上啟動？！](https://blog.yowko.com/aspdotnet-core-grpc-macos/)
-2. [ASP.NET Core 中的健康狀態檢查](https://docs.microsoft.com/zh-tw/aspnet/core/host-and-deploy/health-checks)
+2. [ASP.NET Core 中的健康狀態檢查](https://docs.microsoft.com/zh-tw/aspnet/core/host-and-deploy/health-checks?WT.mc_id=DOP-MVP-5002594)

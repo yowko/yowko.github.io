@@ -114,6 +114,6 @@ Windows 使用 tns 連線 Oracle 的問題卡了好幾天，表面上主要原�
 
 1.  [Cannot update PATH variable in a windows docker container](https://forums.docker.com/t/cannot-update-path-variable-in-a-windows-docker-container/30960)
 2.  [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
-3.  [Windows 上的 Dockerfile](https://docs.microsoft.com/zh-tw/virtualization/windowscontainers/manage-docker/manage-windows-dockerfile)
-4.  [Migrating ASP.NET MVC Applications to Windows Containers](https://docs.microsoft.com/en-us/aspnet/mvc/overview/deployment/docker-aspnetmvc)
+3.  [Windows 上的 Dockerfile](https://docs.microsoft.com/zh-tw/virtualization/windowscontainers/manage-docker/manage-windows-dockerfile?WT.mc_id=DOP-MVP-5002594)
+4.  [Migrating ASP.NET MVC Applications to Windows Containers](https://docs.microsoft.com/en-us/aspnet/mvc/overview/deployment/docker-aspnetmvc?WT.mc_id=DOP-MVP-5002594)
 5.  [不用安裝 Oracle Client 使用 C# 透過 tnsnamses.ora 連結 Oracle](https://blog.yowko.com/2017/11/c-sharp-oracle-tns-without-client.html)

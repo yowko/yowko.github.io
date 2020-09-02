@@ -114,9 +114,9 @@ aliases:
 
 我實際測試下 <span style="color:red">Visual Studio 2015 與 Visual Studio 2017 行為皆相同，上述幾個方法都適用</span>
 
-行為與官方文件 - [Configuring NuGet behavior](https://docs.microsoft.com/en-us/nuget/consume-packages/configuring-nuget-behavior) 有落差：官方說 `.nuget` 的用法僅適用於 NuGet 3.3 及以前版本，但我測試 NuGet 4.1.0.2450 一樣可用；幾個預設 config 位置並不好找，檔案也不一定預設存在，不確定是文件上的問題還是行為正在調整
+行為與官方文件 - [Configuring NuGet behavior](https://docs.microsoft.com/en-us/nuget/consume-packages/configuring-nuget-behavior?WT.mc_id=DOP-MVP-5002594) 有落差：官方說 `.nuget` 的用法僅適用於 NuGet 3.3 及以前版本，但我測試 NuGet 4.1.0.2450 一樣可用；幾個預設 config 位置並不好找，檔案也不一定預設存在，不確定是文件上的問題還是行為正在調整
 
 # 參考資訊
 
 1.  [指定 NuGet packages 存放位置](https://blog.yowko.com/2017/06/nuget-folder.html)
-2.  [Configuring NuGet behavior](https://docs.microsoft.com/en-us/nuget/consume-packages/configuring-nuget-behavior)
+2.  [Configuring NuGet behavior](https://docs.microsoft.com/en-us/nuget/consume-packages/configuring-nuget-behavior?WT.mc_id=DOP-MVP-5002594)

@@ -86,8 +86,8 @@ slug: "azure-portal-access-azure-files"
 
 ## 參考資訊
 
-1. [Use the Azure portal to access blob or queue data](https://docs.microsoft.com/en-us/azure/storage/common/storage-access-blobs-queues-portal)
-2. [Azure Storage redundancy](https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy)
-3. [Azure storage account overview](https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview)
-4. [Create a storage account](https://docs.microsoft.com/en-us/azure/storage/common/storage-quickstart-create-account)
-5. [Configure Azure Storage firewalls and virtual networks](https://docs.microsoft.com/en-us/azure/storage/common/storage-network-security)
+1. [Use the Azure portal to access blob or queue data](https://docs.microsoft.com/en-us/azure/storage/common/storage-access-blobs-queues-portal?WT.mc_id=DOP-MVP-5002594)
+2. [Azure Storage redundancy](https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy?WT.mc_id=DOP-MVP-5002594)
+3. [Azure storage account overview](https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview?WT.mc_id=DOP-MVP-5002594)
+4. [Create a storage account](https://docs.microsoft.com/en-us/azure/storage/common/storage-quickstart-create-account?WT.mc_id=DOP-MVP-5002594)
+5. [Configure Azure Storage firewalls and virtual networks](https://docs.microsoft.com/en-us/azure/storage/common/storage-network-security?WT.mc_id=DOP-MVP-5002594)

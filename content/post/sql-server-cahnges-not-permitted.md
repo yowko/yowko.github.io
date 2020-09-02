@@ -59,5 +59,5 @@ aliases:
 
 # 參考資訊
 
-1.  [Save (Not Permitted) Dialog Box](https://docs.microsoft.com/en-us/sql/ssms/visual-db-tools/save-not-permitted-dialog-box)
+1.  [Save (Not Permitted) Dialog Box](https://docs.microsoft.com/en-us/sql/ssms/visual-db-tools/save-not-permitted-dialog-box?WT.mc_id=DOP-MVP-5002594)
 2.  [當您嘗試在 SQL Server 中儲存的資料表時，出現錯誤訊息: 「 儲存變更並不允許"](https://support.microsoft.com/zh-hk/help/956176/error-message-when-you-try-to-save-a-table-in-sql-server-saving-changes-is-not-permitted)

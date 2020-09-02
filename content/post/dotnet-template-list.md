@@ -143,4 +143,4 @@ slug: "dotnet-template-list"
 
 
 # 參考資訊
-1. [dotnet new](https://docs.microsoft.com/zh-tw/dotnet/core/tools/dotnet-new)
+1. [dotnet new](https://docs.microsoft.com/zh-tw/dotnet/core/tools/dotnet-new?WT.mc_id=DOP-MVP-5002594)

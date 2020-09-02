@@ -96,5 +96,5 @@ Windows Server 2016 經過與 dcoker 公司共同重新設計架構，已經支�
         ![14installed](https://cloud.githubusercontent.com/assets/3851540/25576206/cf89227e-2e8f-11e7-8cf0-16f9c8b9795d.png)
 
 # 參考資訊
-1.  [System requirements for Hyper-V on Windows Server 2016](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/System-requirements-for-Hyper-V-on-Windows)
-2.  [Install the Hyper-V role on Windows Server 2016](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/get-started/install-the-hyper-v-role-on-windows-server)
+1.  [System requirements for Hyper-V on Windows Server 2016](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/System-requirements-for-Hyper-V-on-Windows?WT.mc_id=DOP-MVP-5002594)
+2.  [Install the Hyper-V role on Windows Server 2016](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/get-started/install-the-hyper-v-role-on-windows-server?WT.mc_id=DOP-MVP-5002594)

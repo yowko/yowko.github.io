@@ -125,5 +125,5 @@ SQL script 執行緩慢偶爾就會出現在討論的話題中，script 優化�
 
 # 參考資訊
 
-1.  [SET STATISTICS TIME (Transact-SQL)](https://docs.microsoft.com/ZH-tw/sql/t-sql/statements/set-statistics-time-transact-sql)
+1.  [SET STATISTICS TIME (Transact-SQL)](https://docs.microsoft.com/ZH-tw/sql/t-sql/statements/set-statistics-time-transact-sql?WT.mc_id=DOP-MVP-5002594)
 2.  [Show Query Execution Time](http://www.sqlserver.info/management-studio/show-query-execution-time/)

@@ -265,5 +265,5 @@ DAC 首次出現於 SQL Server 2008 R2 ，但直至今日經過了這麼久時�
 
 
 # 參考資訊
-1.  [Data-tier Applications](https://docs.microsoft.com/en-us/sql/relational-databases/data-tier-applications/data-tier-applications)
+1.  [Data-tier Applications](https://docs.microsoft.com/en-us/sql/relational-databases/data-tier-applications/data-tier-applications?WT.mc_id=DOP-MVP-5002594)
 2.  [SQL Server 資料庫版本控管](https://channel9.msdn.com/Series/SQL-PASS-TAIWAN/SQL-Server-realase-management)

@@ -200,7 +200,7 @@ Assembly|Microsoft.Extensions.Caching.Memory.dll|System.Runtime.Caching.dll
 
 ## 參考資訊
 
-1. [MemoryCache Class](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.caching.memorycache?view=netframework-4.8)
-2. [MemoryCache Class](https://docs.microsoft.com/zh-tw/dotnet/api/microsoft.extensions.caching.memory.memorycache?view=aspnetcore-2.2)
-3. [快取在記憶體中的 ASP.NET Core](https://docs.microsoft.com/zh-tw/aspnet/core/performance/caching/memory?view=aspnetcore-2.2)
+1. [MemoryCache Class](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.caching.memorycache?view=netframework-4.8&WT.mc_id=DOP-MVP-5002594)
+2. [MemoryCache Class](https://docs.microsoft.com/zh-tw/dotnet/api/microsoft.extensions.caching.memory.memorycache?WT.mc_id=DOP-MVP-5002594)
+3. [快取在記憶體中的 ASP.NET Core](https://docs.microsoft.com/zh-tw/aspnet/core/performance/caching/memory?WT.mc_id=DOP-MVP-5002594)
 4. [Getting started with ASP.NET Core 2](https://github.com/NLog/NLog.Web/wiki/Getting-started-with-ASP.NET-Core-2)

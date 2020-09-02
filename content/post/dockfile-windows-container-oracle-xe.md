@@ -170,6 +170,6 @@ Windows container 版本的 oracle 問題卡了好幾天，經過上百次的嘗
 
 # 參考資訊
 
-1.  [Windows 上的 Dockerfile](https://docs.microsoft.com/zh-tw/virtualization/windowscontainers/manage-docker/manage-windows-dockerfile)
+1.  [Windows 上的 Dockerfile](https://docs.microsoft.com/zh-tw/virtualization/windowscontainers/manage-docker/manage-windows-dockerfile?WT.mc_id=DOP-MVP-5002594)
 2.  [Powershell - How to use 「remove-item」 with multiple selectors and wildcards?](https://superuser.com/questions/1045045/powershell-how-to-use-remove-item-with-multiple-selectors-and-wildcards)
 3.  [How to Fix 'ORA-12505, TNS:listener does not currently know of SID given in connect descriptor'](https://chartio.com/resources/tutorials/how-to-fix-ora-12505-tns-listener-does-not-currently-know-of-sid-given-in-connect-descriptor/)

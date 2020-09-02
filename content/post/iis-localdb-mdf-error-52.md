@@ -103,7 +103,7 @@ aliases:
 
     *   SQL Server 2016 - [Microsoft® SQL Server® 2016 Service Pack 1 Express](https://www.microsoft.com/zh-tw/download/details.aspx?id=54284)
 
-        > 相關介紹：[SQL Server 2016 Express LocalDB](https://docs.microsoft.com/zh-tw/sql/database-engine/configure-windows/sql-server-2016-express-localdb)
+        > 相關介紹：[SQL Server 2016 Express LocalDB](https://docs.microsoft.com/zh-tw/sql/database-engine/configure-windows/sql-server-2016-express-localdb?WT.mc_id=DOP-MVP-5002594)
 
 ## 心得
 
@@ -114,4 +114,4 @@ aliases:
 1.  [Web Application publishing in IIS with .MDF database file](https://forums.asp.net/t/2090050.aspx?Web+Application+publishing+in+IIS+with+MDF+database+file)
 2.  [[LocalDB] Connecting to LocalDB failed [Error Code 52]](http://jaryl-lan.blogspot.tw/2014/08/localdb-connection-to-localdb-failed.html)
 3.  [SQL Server 2014 Express LocalDB](https://msdn.microsoft.com/en-US/library/hh510202%28SQL.120%29.aspx)
-4.  [SQL Server 2016 Express LocalDB](https://docs.microsoft.com/zh-tw/sql/database-engine/configure-windows/sql-server-2016-express-localdb)
+4.  [SQL Server 2016 Express LocalDB](https://docs.microsoft.com/zh-tw/sql/database-engine/configure-windows/sql-server-2016-express-localdb?WT.mc_id=DOP-MVP-5002594)

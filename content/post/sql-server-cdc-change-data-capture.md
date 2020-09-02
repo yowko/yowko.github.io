@@ -263,5 +263,5 @@ aliases:
 
 # 參考資訊
 
-1.  [關於異動資料擷取 (SQL Server)](https://docs.microsoft.com/zh-tw/sql/relational-databases/track-changes/about-change-data-capture-sql-server)
+1.  [關於異動資料擷取 (SQL Server)](https://docs.microsoft.com/zh-tw/sql/relational-databases/track-changes/about-change-data-capture-sql-server?WT.mc_id=DOP-MVP-5002594)
 2.  [Introduction to Change Data Capture (CDC) in SQL Server 2008](https://www.simple-talk.com/sql/learn-sql-server/introduction-to-change-data-capture-cdc-in-sql-server-2008/)

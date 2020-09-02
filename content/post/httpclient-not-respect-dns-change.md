@@ -166,5 +166,5 @@ slug: "httpclient-not-respect-dns-change"
 2. [Singleton HttpClient doesn't respect DNS changes](https://github.com/dotnet/corefx/issues/11224#issuecomment-271195770)
 3. [system.net.http.httpclient does not respect dns update in a timely manner](https://social.msdn.microsoft.com/Forums/sqlserver/en-US/39af7077-fbb5-4a8c-a4b9-42a73aa96b8a/systemnethttphttpclient-does-not-respect-dns-update-in-a-timely-manner?forum=wcf)
 4. [Beware of the .NET HttpClient](http://www.nimaara.com/2016/11/01/beware-of-the-net-httpclient/)
-5. [ServicePoint.ConnectionLeaseTimeout Property](https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepoint.connectionleasetimeout?redirectedfrom=MSDN&view=netframework-4.7.2#System_Net_ServicePoint_ConnectionLeaseTimeout)
-6. [ServicePointManager.DnsRefreshTimeout Property](https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2)
+5. [ServicePoint.ConnectionLeaseTimeout Property](https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepoint.connectionleasetimeout?redirectedfrom=MSDN&view=netframework-4.7.2&WT.mc_id=DOP-MVP-5002594#System_Net_ServicePoint_ConnectionLeaseTimeout)
+6. [ServicePointManager.DnsRefreshTimeout Property](https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2&WT.mc_id=DOP-MVP-5002594)

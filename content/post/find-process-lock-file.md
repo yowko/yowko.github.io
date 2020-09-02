@@ -31,7 +31,7 @@ aliases:
 
     > 以前最常用的是個名叫 unlock 的小工具，它可以協助關閉使用特定檔案的程式，讓原本無法執行的刪除或是移動操作可以順利進行，但現在病毒氾濫不免讓人憂心這樣的小工具會不會有木馬，而我漸漸地也不使用這樣的小工具了
 
-2.  官方工具 - [Microsoft/SysInternals Process Explorer](https://docs.microsoft.com/zh-tw/sysinternals/downloads/process-explorer)
+2.  官方工具 - [Microsoft/SysInternals Process Explorer](https://docs.microsoft.com/zh-tw/sysinternals/downloads/process-explorer?WT.mc_id=DOP-MVP-5002594)
 
 
     *   程式主選單 Find --> Find Handle or DLL..
@@ -75,5 +75,5 @@ aliases:
 
 # 參考資訊
 
-1.  [Microsoft/SysInternals Process Explorer](https://docs.microsoft.com/zh-tw/sysinternals/downloads/process-explorer)
+1.  [Microsoft/SysInternals Process Explorer](https://docs.microsoft.com/zh-tw/sysinternals/downloads/process-explorer?WT.mc_id=DOP-MVP-5002594)
 2.  [Find out which process is locking a file or folder in Windows](https://superuser.com/questions/117902/find-out-which-process-is-locking-a-file-or-folder-in-windows)

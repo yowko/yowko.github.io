@@ -75,7 +75,7 @@ slug: "dotnet-core-console-di"
 
 今天想要透過 console 寫個小工具時發現沒有用 DI 連要寫個 log 用起來都覺得怪，這也讓我聯想到 ASP.NET Core 都可以透過 Program 的 Main 來設定並啟動 host，反而 console project 沒有走相同流程？！
 
-查了文件 [Host in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/index) 有提到 host 有兩種 API 負責應用程式啟動及 lifetime 管理
+查了文件 [Host in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/index?WT.mc_id=DOP-MVP-5002594) 有提到 host 有兩種 API 負責應用程式啟動及 lifetime 管理
 
 - `Web Host`
 
@@ -182,7 +182,7 @@ slug: "dotnet-core-console-di"
 
 # 參考資料
 
-1. [Host in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/index)
+1. [Host in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/index?WT.mc_id=DOP-MVP-5002594)
 2. [Using IHost .net core console applications](https://garywoodfine.com/ihost-net-core-console-applications/)
 3. [Dependency injection in .NET Core Console Application](https://korytiak.com/Home/BlogPost?PostName=Dependency%20injection%20in%20.NET%20Core%20Console%20Application)
 4. [NET Core Console App Dependency Injection and User Secrets](https://long2know.com/2018/02/net-core-console-app-dependency-injection-and-user-secrets/)

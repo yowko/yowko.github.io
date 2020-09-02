@@ -211,6 +211,6 @@ ALTER TABLE "AspNetUserLogins"
 # 參考資訊
 
 1.  [ASP.NET MVC5 - Keeping Users in Oracle Database](https://stackoverflow.com/questions/28878718/asp-net-mvc5-keeping-users-in-oracle-database)
-2.  [Introduction to ASP.NET Identity](https://docs.microsoft.com/en-us/aspnet/identity/overview/getting-started/introduction-to-aspnet-identity)
+2.  [Introduction to ASP.NET Identity](https://docs.microsoft.com/en-us/aspnet/identity/overview/getting-started/introduction-to-aspnet-identity?WT.mc_id=DOP-MVP-5002594)
 3.  [Oracle 用戶、對象權限、系統權限](http://fatlinuxguy.blogspot.tw/2012/01/oracle.html)
 4.  [在 Windows 下安裝 Oracle 11g XE (Express Edition)](https://www.oschina.net/question/12_27650)
