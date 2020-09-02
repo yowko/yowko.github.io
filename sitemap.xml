@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check/</loc>
-    <lastmod>2020-08-31T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -263,14 +263,14 @@
   
   <url>
     <loc>https://blog.yowko.com/debian-container-install-dotnet-core-sdk/</loc>
-    <lastmod>2020-04-13T22:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/debian-container-broken-pipe/</loc>
-    <lastmod>2020-04-13T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -340,21 +340,21 @@
   
   <url>
     <loc>https://blog.yowko.com/windows-aspnetcore-grpc/</loc>
-    <lastmod>2020-02-24T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/macos-aspnetcore-grpc/</loc>
-    <lastmod>2020-02-23T22:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/macos-dotnet-cert/</loc>
-    <lastmod>2020-02-23T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -389,7 +389,7 @@
   
   <url>
     <loc>https://blog.yowko.com/configuration-to-json/</loc>
-    <lastmod>2020-02-08T21:30:00+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -620,7 +620,7 @@
   
   <url>
     <loc>https://blog.yowko.com/aspdotnet-core-grpc-macos/</loc>
-    <lastmod>2019-09-28T20:40:30+08:00</lastmod>
+    <lastmod>2020-09-01T20:40:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -648,7 +648,7 @@
   
   <url>
     <loc>https://blog.yowko.com/azure-portal-access-azure-files/</loc>
-    <lastmod>2019-09-14T01:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T01:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -760,7 +760,7 @@
   
   <url>
     <loc>https://blog.yowko.com/remove-dotnet-from-mac/</loc>
-    <lastmod>2019-07-22T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -816,14 +816,14 @@
   
   <url>
     <loc>https://blog.yowko.com/aspdotnetcore-webapi-406-not-acceptable/</loc>
-    <lastmod>2019-06-30T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/add-webapi-to-aspdotnetcore-empty/</loc>
-    <lastmod>2019-06-29T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -900,7 +900,7 @@
   
   <url>
     <loc>https://blog.yowko.com/generichost-grpc-server/</loc>
-    <lastmod>2019-05-26T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -914,7 +914,7 @@
   
   <url>
     <loc>https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core/</loc>
-    <lastmod>2019-05-21T19:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T19:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -928,14 +928,14 @@
   
   <url>
     <loc>https://blog.yowko.com/aspdotnet-core-imemorycache-registerpostevictioncallback/</loc>
-    <lastmod>2019-05-14T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/aspdotnet-core-mvc-stop-by-itself/</loc>
-    <lastmod>2019-05-12T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -970,7 +970,7 @@
   
   <url>
     <loc>https://blog.yowko.com/dotnet-core-middieware-unit-test/</loc>
-    <lastmod>2019-04-28T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1222,7 +1222,7 @@
   
   <url>
     <loc>https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/</loc>
-    <lastmod>2019-01-16T23:44:30+08:00</lastmod>
+    <lastmod>2020-09-01T23:44:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1236,7 +1236,7 @@
   
   <url>
     <loc>https://blog.yowko.com/httpclient-not-respect-dns-change/</loc>
-    <lastmod>2018-01-05T23:44:30+08:00</lastmod>
+    <lastmod>2020-09-01T23:44:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1257,14 +1257,14 @@
   
   <url>
     <loc>https://blog.yowko.com/appdomain-apppoll-difference/</loc>
-    <lastmod>2018-12-22T23:44:30+08:00</lastmod>
+    <lastmod>2020-09-01T23:44:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/httpclient-issue/</loc>
-    <lastmod>2018-12-31T23:44:30+08:00</lastmod>
+    <lastmod>2020-09-01T23:44:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1278,7 +1278,7 @@
   
   <url>
     <loc>https://blog.yowko.com/dotnet-core-console-di/</loc>
-    <lastmod>2018-11-28T23:44:30+08:00</lastmod>
+    <lastmod>2020-09-01T23:44:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1299,21 +1299,21 @@
   
   <url>
     <loc>https://blog.yowko.com/dotnet-template-list/</loc>
-    <lastmod>2018-11-18T00:42:34+08:00</lastmod>
+    <lastmod>2020-09-01T00:42:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/string-isnullorempty-isnullorwhitespace/</loc>
-    <lastmod>2018-11-17T00:42:34+08:00</lastmod>
+    <lastmod>2020-09-01T00:42:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/avoid-iis-restart-webconfig-modify/</loc>
-    <lastmod>2018-11-14T00:42:34+08:00</lastmod>
+    <lastmod>2020-09-01T00:42:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1376,7 +1376,7 @@
   
   <url>
     <loc>https://blog.yowko.com/aspnet-core-x-www-form-urlencoded/</loc>
-    <lastmod>2018-10-10T02:44:00+08:00</lastmod>
+    <lastmod>2020-09-01T02:44:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1432,14 +1432,14 @@
   
   <url>
     <loc>https://blog.yowko.com/nlog-mail/</loc>
-    <lastmod>2018-10-24T23:03:31+08:00</lastmod>
+    <lastmod>2020-09-01T23:03:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/windbg-redis-oom-out-of-memory/</loc>
-    <lastmod>2018-10-07T15:41:07+08:00</lastmod>
+    <lastmod>2020-09-01T15:41:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1460,21 +1460,21 @@
   
   <url>
     <loc>https://blog.yowko.com/system-io-fileloadexception-assembly/</loc>
-    <lastmod>2018-10-07T00:39:29+08:00</lastmod>
+    <lastmod>2020-09-01T00:39:29+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/hresult-80004001-not-implemented/</loc>
-    <lastmod>2018-10-07T01:25:36+08:00</lastmod>
+    <lastmod>2020-09-01T01:25:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/windbg-symbol-file-path/</loc>
-    <lastmod>2018-10-07T00:49:42+08:00</lastmod>
+    <lastmod>2020-09-01T00:49:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1530,7 +1530,7 @@
   
   <url>
     <loc>https://blog.yowko.com/entityframework-6-concurrency/</loc>
-    <lastmod>2018-10-06T21:54:55+08:00</lastmod>
+    <lastmod>2020-09-01T21:54:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1621,7 +1621,7 @@
   
   <url>
     <loc>https://blog.yowko.com/dapper-timeout/</loc>
-    <lastmod>2018-10-06T23:34:43+08:00</lastmod>
+    <lastmod>2020-09-01T23:34:43+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1670,7 +1670,7 @@
   
   <url>
     <loc>https://blog.yowko.com/unit-test-need-systemwebhttp/</loc>
-    <lastmod>2018-04-08T10:48:18+08:00</lastmod>
+    <lastmod>2020-09-01T10:48:18+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1747,7 +1747,7 @@
   
   <url>
     <loc>https://blog.yowko.com/windows-10-enable-linux-bash/</loc>
-    <lastmod>2018-10-03T15:31:33+08:00</lastmod>
+    <lastmod>2020-09-01T15:31:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1775,7 +1775,7 @@
   
   <url>
     <loc>https://blog.yowko.com/iis-localdb-mdf-error-52/</loc>
-    <lastmod>2018-10-03T00:36:58+08:00</lastmod>
+    <lastmod>2020-09-01T00:36:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1789,7 +1789,7 @@
   
   <url>
     <loc>https://blog.yowko.com/enum-to-selectlist/</loc>
-    <lastmod>2018-10-03T02:53:41+08:00</lastmod>
+    <lastmod>2020-09-01T02:53:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1803,7 +1803,7 @@
   
   <url>
     <loc>https://blog.yowko.com/windbg-sos-does-not-support-current/</loc>
-    <lastmod>2018-10-03T02:00:12+08:00</lastmod>
+    <lastmod>2020-09-01T02:00:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1894,7 +1894,7 @@
   
   <url>
     <loc>https://blog.yowko.com/aspnet-web-api-415-unsupported-media/</loc>
-    <lastmod>2018-10-02T23:33:46+08:00</lastmod>
+    <lastmod>2020-09-01T23:33:46+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1943,7 +1943,7 @@
   
   <url>
     <loc>https://blog.yowko.com/aspnet-identity-2-token-lifetime/</loc>
-    <lastmod>2018-09-30T00:37:27+08:00</lastmod>
+    <lastmod>2020-09-01T00:37:27+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1985,7 +1985,7 @@
   
   <url>
     <loc>https://blog.yowko.com/windows-container-tns-oracle/</loc>
-    <lastmod>2018-09-30T00:07:19+08:00</lastmod>
+    <lastmod>2020-09-01T00:07:19+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2027,7 +2027,7 @@
   
   <url>
     <loc>https://blog.yowko.com/windows-container-static-ip/</loc>
-    <lastmod>2018-09-28T00:47:32+08:00</lastmod>
+    <lastmod>2020-09-01T00:47:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2041,7 +2041,7 @@
   
   <url>
     <loc>https://blog.yowko.com/dockfile-windows-container-oracle-xe/</loc>
-    <lastmod>2018-09-28T22:27:43+08:00</lastmod>
+    <lastmod>2020-09-01T22:27:43+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2146,7 +2146,7 @@
   
   <url>
     <loc>https://blog.yowko.com/iis-app-offline/</loc>
-    <lastmod>2018-09-27T00:45:41+08:00</lastmod>
+    <lastmod>2020-09-01T00:45:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2202,7 +2202,7 @@
   
   <url>
     <loc>https://blog.yowko.com/aspnet-web-api-odata/</loc>
-    <lastmod>2018-09-27T00:50:39+08:00</lastmod>
+    <lastmod>2020-09-01T00:50:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2244,7 +2244,7 @@
   
   <url>
     <loc>https://blog.yowko.com/aspnet-identity-2-entityframework-oracle/</loc>
-    <lastmod>2018-09-26T01:01:23+08:00</lastmod>
+    <lastmod>2020-09-01T01:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2272,14 +2272,14 @@
   
   <url>
     <loc>https://blog.yowko.com/windows-dockerfile-volume/</loc>
-    <lastmod>2018-09-26T02:18:08+08:00</lastmod>
+    <lastmod>2020-09-01T02:18:08+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/get-dot-net-framework-version/</loc>
-    <lastmod>2018-09-26T22:08:39+08:00</lastmod>
+    <lastmod>2020-09-01T22:08:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2363,7 +2363,7 @@
   
   <url>
     <loc>https://blog.yowko.com/windows-container-ip-prefix/</loc>
-    <lastmod>2020-05-02T23:06:20+08:00</lastmod>
+    <lastmod>2020-09-01T23:06:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2461,21 +2461,21 @@
   
   <url>
     <loc>https://blog.yowko.com/msbuild-condition/</loc>
-    <lastmod>2018-09-24T23:23:33+08:00</lastmod>
+    <lastmod>2020-09-01T23:23:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/config-msbuild-community-tasks/</loc>
-    <lastmod>2018-09-24T23:28:38+08:00</lastmod>
+    <lastmod>2020-09-01T23:28:38+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/shared-config/</loc>
-    <lastmod>2018-09-24T00:24:22+08:00</lastmod>
+    <lastmod>2020-09-01T00:24:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2496,7 +2496,7 @@
   
   <url>
     <loc>https://blog.yowko.com/find-process-lock-file/</loc>
-    <lastmod>2018-09-24T23:23:27+08:00</lastmod>
+    <lastmod>2020-09-01T23:23:27+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2545,14 +2545,14 @@
   
   <url>
     <loc>https://blog.yowko.com/gettype/</loc>
-    <lastmod>2018-09-24T22:30:15+08:00</lastmod>
+    <lastmod>2020-09-01T22:30:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/nuget-install-folder/</loc>
-    <lastmod>2018-09-24T23:25:05+08:00</lastmod>
+    <lastmod>2020-09-01T23:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2601,7 +2601,7 @@
   
   <url>
     <loc>https://blog.yowko.com/nuget-add-config-for-v2/</loc>
-    <lastmod>2018-09-24T18:16:58+08:00</lastmod>
+    <lastmod>2020-09-01T18:16:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2615,7 +2615,7 @@
   
   <url>
     <loc>https://blog.yowko.com/jenkins-publish-nuget-package/</loc>
-    <lastmod>2018-09-24T23:23:21+08:00</lastmod>
+    <lastmod>2020-09-01T23:23:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2629,7 +2629,7 @@
   
   <url>
     <loc>https://blog.yowko.com/linq-to-objects-vs-linq-to-entities/</loc>
-    <lastmod>2017-07-17T23:20:51+08:00</lastmod>
+    <lastmod>2020-09-01T23:20:51+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2664,14 +2664,14 @@
   
   <url>
     <loc>https://blog.yowko.com/nuget-package-explorer/</loc>
-    <lastmod>2018-09-23T23:11:42+08:00</lastmod>
+    <lastmod>2020-09-01T23:11:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/self-host-nuget-server/</loc>
-    <lastmod>2018-09-23T22:07:18+08:00</lastmod>
+    <lastmod>2020-09-01T22:07:18+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2741,7 +2741,7 @@
   
   <url>
     <loc>https://blog.yowko.com/stopwatch-in-sql-server/</loc>
-    <lastmod>2018-09-23T23:53:40+08:00</lastmod>
+    <lastmod>2020-09-01T23:53:40+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2755,7 +2755,7 @@
   
   <url>
     <loc>https://blog.yowko.com/sql-server-cdc-change-data-capture/</loc>
-    <lastmod>2018-09-23T23:28:12+08:00</lastmod>
+    <lastmod>2020-09-01T23:28:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2769,7 +2769,7 @@
   
   <url>
     <loc>https://blog.yowko.com/iis-express-50019-config-duplicate/</loc>
-    <lastmod>2018-09-23T21:00:56+08:00</lastmod>
+    <lastmod>2020-09-01T21:00:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2783,7 +2783,7 @@
   
   <url>
     <loc>https://blog.yowko.com/web-api-message-handler-unit-test/</loc>
-    <lastmod>2018-09-23T12:18:44+08:00</lastmod>
+    <lastmod>2020-09-01T12:18:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2797,7 +2797,7 @@
   
   <url>
     <loc>https://blog.yowko.com/sql-server-cahnges-not-permitted/</loc>
-    <lastmod>2018-09-23T21:30:12+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2881,7 +2881,7 @@
   
   <url>
     <loc>https://blog.yowko.com/httpclient/</loc>
-    <lastmod>2018-12-15T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -3119,7 +3119,7 @@
   
   <url>
     <loc>https://blog.yowko.com/windows-10-docker/</loc>
-    <lastmod>2018-09-18T01:08:03+08:00</lastmod>
+    <lastmod>2020-09-01T01:08:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -3147,7 +3147,7 @@
   
   <url>
     <loc>https://blog.yowko.com/windows-server-2016-docker/</loc>
-    <lastmod>2018-09-18T01:00:04+08:00</lastmod>
+    <lastmod>2020-09-01T01:00:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -3161,7 +3161,7 @@
   
   <url>
     <loc>https://blog.yowko.com/windows-server-2016-hyper-v/</loc>
-    <lastmod>2018-09-18T01:00:08+08:00</lastmod>
+    <lastmod>2020-09-01T01:00:08+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -3287,7 +3287,7 @@
   
   <url>
     <loc>https://blog.yowko.com/sql-server-dac/</loc>
-    <lastmod>2018-09-17T02:39:51+08:00</lastmod>
+    <lastmod>2020-09-01T02:39:51+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -3462,7 +3462,7 @@
   
   <url>
     <loc>https://blog.yowko.com/nuget-4/</loc>
-    <lastmod>2018-09-13T00:42:34+08:00</lastmod>
+    <lastmod>2020-09-01T00:42:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -3749,7 +3749,7 @@
   
   <url>
     <loc>https://blog.yowko.com/dotnet-jenkins/</loc>
-    <lastmod>2018-09-11T00:42:34+08:00</lastmod>
+    <lastmod>2020-09-01T00:42:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -3833,14 +3833,14 @@
   
   <url>
     <loc>https://blog.yowko.com/redis-aspnet-mvc-session-state-server/</loc>
-    <lastmod>2018-09-10T00:42:34+08:00</lastmod>
+    <lastmod>2020-09-01T00:42:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/windows-server-2016-install-azure-service-fabric-runtime/</loc>
-    <lastmod>2018-09-10T00:42:34+08:00</lastmod>
+    <lastmod>2020-09-01T00:42:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -4176,14 +4176,14 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/asp.net-core/</loc>
-    <lastmod>2019-09-28T20:40:30+08:00</lastmod>
+    <lastmod>2020-09-01T20:40:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/tags/asp.net-core-mvc/</loc>
-    <lastmod>2019-05-14T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4204,21 +4204,21 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/asp.net-web-api/</loc>
-    <lastmod>2018-11-14T00:42:34+08:00</lastmod>
+    <lastmod>2020-09-01T00:42:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/tags/asp.net-web-api/</loc>
-    <lastmod>2018-10-10T02:44:00+08:00</lastmod>
+    <lastmod>2020-09-01T02:44:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/tags/asp.net-webapi/</loc>
-    <lastmod>2019-06-30T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4267,7 +4267,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/cache/</loc>
-    <lastmod>2019-05-14T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4301,7 +4301,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/container/</loc>
-    <lastmod>2020-04-13T22:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4364,7 +4364,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/entityframework/</loc>
-    <lastmod>2018-10-06T21:54:55+08:00</lastmod>
+    <lastmod>2020-09-01T21:54:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4434,14 +4434,14 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/iis/</loc>
-    <lastmod>2018-12-22T23:44:30+08:00</lastmod>
+    <lastmod>2020-09-01T23:44:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/tags/iis-express/</loc>
-    <lastmod>2018-09-23T21:00:56+08:00</lastmod>
+    <lastmod>2020-09-01T21:00:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4462,7 +4462,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/json/</loc>
-    <lastmod>2020-02-08T21:30:00+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4518,7 +4518,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/localdb/</loc>
-    <lastmod>2018-10-03T00:36:58+08:00</lastmod>
+    <lastmod>2020-09-01T00:36:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4539,7 +4539,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/msbuild/</loc>
-    <lastmod>2018-09-24T23:23:33+08:00</lastmod>
+    <lastmod>2020-09-01T23:23:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4553,7 +4553,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/mac/</loc>
-    <lastmod>2019-07-22T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4581,7 +4581,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/nlog/</loc>
-    <lastmod>2018-10-24T23:03:31+08:00</lastmod>
+    <lastmod>2020-09-01T23:03:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4686,7 +4686,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2020-08-31T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4756,7 +4756,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/</loc>
-    <lastmod>2019-09-28T20:40:30+08:00</lastmod>
+    <lastmod>2020-09-01T20:40:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4819,14 +4819,14 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/windbg/</loc>
-    <lastmod>2018-10-07T15:41:07+08:00</lastmod>
+    <lastmod>2020-09-01T15:41:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/tags/windows/</loc>
-    <lastmod>2020-02-24T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4847,7 +4847,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/windows-service/</loc>
-    <lastmod>2018-10-07T00:39:29+08:00</lastmod>
+    <lastmod>2020-09-01T00:39:29+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4861,7 +4861,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2020-08-31T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4875,7 +4875,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/asp.net-core/</loc>
-    <lastmod>2020-08-31T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4903,14 +4903,14 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/dotnet/</loc>
-    <lastmod>2019-01-16T23:44:30+08:00</lastmod>
+    <lastmod>2020-09-01T23:44:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/tags/dotnet-core/</loc>
-    <lastmod>2020-04-13T22:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T22:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4924,14 +4924,14 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/grpc/</loc>
-    <lastmod>2020-08-31T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yowko.com/tags/grpc/</loc>
-    <lastmod>2020-08-31T21:30:31+08:00</lastmod>
+    <lastmod>2020-09-01T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4987,7 +4987,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/web.config/</loc>
-    <lastmod>2018-11-14T00:42:34+08:00</lastmod>
+    <lastmod>2020-09-01T00:42:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
