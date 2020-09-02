@@ -1,7 +1,7 @@
 ---
 title: "IIS 存取 LocalDB (.MDF) 時出現 Error 52"
 date: 2018-02-04T00:01:00+08:00
-lastmod: 2018-10-03T00:36:58+08:00
+lastmod: 2020-09-01T00:36:58+08:00
 draft: false
 tags: ["IIS","LocalDB","SQL Server"]
 slug: "iis-localdb-mdf-error-52"

@@ -1,7 +1,7 @@
 ---
 title: "使用 ASP.NET Web API 建立 OData 服務"
 date: 2017-10-12T00:50:00+08:00
-lastmod: 2018-09-27T00:50:39+08:00
+lastmod: 2020-09-01T00:50:39+08:00
 draft: false
 tags: ["ASP.NET Web API","EntityFramework","OData"]
 slug: "aspnet-web-api-odata"

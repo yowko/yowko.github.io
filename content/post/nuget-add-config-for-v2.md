@@ -1,7 +1,7 @@
 ---
 title: "設定 NuGet Package 安裝時自動加入 Config 區段 (For NuGet feed v2)"
 date: 2017-07-23T18:16:00+08:00
-lastmod: 2018-09-24T18:16:58+08:00
+lastmod: 2020-09-01T18:16:58+08:00
 draft: false
 tags: ["套件","NuGet","web.config"]
 slug: "nuget-add-config-for-v2"

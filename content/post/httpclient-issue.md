@@ -1,7 +1,7 @@
 ---
 title: "探討 HttpClient 可能的問題"
 date: 2018-12-10T23:45:00+08:00
-lastmod: 2018-12-31T23:44:30+08:00
+lastmod: 2020-09-01T23:44:30+08:00
 draft: false
 tags: ["C#"]
 slug: "httpclient-issue"

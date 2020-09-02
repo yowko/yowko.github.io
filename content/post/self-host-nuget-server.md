@@ -1,7 +1,7 @@
 ---
 title: "自建 NuGet Server"
 date: 2017-07-11T22:07:00+08:00
-lastmod: 2018-09-23T22:07:18+08:00
+lastmod: 2020-09-01T22:07:18+08:00
 draft: false
 tags: ["套件","NuGet"]
 slug: "self-host-nuget-server"

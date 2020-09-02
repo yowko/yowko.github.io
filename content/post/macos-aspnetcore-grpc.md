@@ -1,7 +1,7 @@
 ---
 title: "在 macOS 上的 ASP.NET Core 中呼叫 gRPC"
 date: 2020-02-23T22:30:00+08:00
-lastmod: 2020-02-23T22:30:31+08:00
+lastmod: 2020-09-01T22:30:31+08:00
 draft: false
 tags: ["macOS","dotnet core","gRPC"]
 slug: "macos-aspnetcore-grpc"

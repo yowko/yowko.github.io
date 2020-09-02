@@ -1,7 +1,7 @@
 ---
 title: "改 ASP.NET Identity 2 的 Token 時效"
 date: 2017-12-15T00:37:00+08:00
-lastmod: 2018-09-30T00:37:27+08:00
+lastmod: 2020-09-01T00:37:27+08:00
 draft: false
 tags: ["ASP.NET Identity"]
 slug: "aspnet-identity-2-token-lifetime"

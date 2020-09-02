@@ -1,7 +1,7 @@
 ---
 title: "使用 SQL Server CDC (Change Data Capture) 來追蹤資料變更"
 date: 2017-06-29T23:28:00+08:00
-lastmod: 2018-09-23T23:28:12+08:00
+lastmod: 2020-09-01T23:28:12+08:00
 draft: false
 tags: ["SQL Server"]
 slug: "sql-server-cdc-change-data-capture"

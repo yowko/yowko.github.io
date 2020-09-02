@@ -1,7 +1,7 @@
 ---
 title: "ASP.NET Core gRPC 無法在 macOS 上啟動？！"
 date: 2019-09-28T20:40:00+08:00
-lastmod: 2019-09-28T20:40:30+08:00
+lastmod: 2020-09-01T20:40:30+08:00
 draft: false
 tags: ["ASP.NET Core","grpc","macOS"]
 slug: "aspdotnet-core-grpc-macos"

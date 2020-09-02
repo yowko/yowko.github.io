@@ -1,7 +1,7 @@
 ---
 title: "將 IIS 站台離線做法 - 使用 App_offline.htm"
 date: 2017-10-27T00:45:00+08:00
-lastmod: 2018-09-27T00:45:41+08:00
+lastmod: 2020-09-01T00:45:41+08:00
 draft: false
 tags: ["IIS"]
 slug: "iis-app-offline"

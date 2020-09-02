@@ -1,7 +1,7 @@
 ---
 title: "從 Mac 移除 .NET Core Runtime 與 SDK"
 date: 2019-07-22T21:30:00+08:00
-lastmod: 2019-07-22T21:30:31+08:00
+lastmod: 2020-09-01T21:30:31+08:00
 draft: false
 tags: ["dotnet core","Mac"]
 slug: "remove-dotnet-from-mac"

@@ -1,7 +1,7 @@
 ---
 title: "關於 ASP.NET Core IMemoryCache RegisterPostEvictionCallback 的觸發時機"
 date: 2019-05-14T21:30:00+08:00
-lastmod: 2019-05-14T21:30:31+08:00
+lastmod: 2020-09-01T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core MVC","ASP.NET Core","Cache"]
 slug: "aspdotnet-core-imemorycache-registerpostevictioncallback"

@@ -1,7 +1,7 @@
 ---
 title: "[C#] 將 .NET Core 中的 Configuration 輸出為 JSON"
 date: 2020-02-08T21:30:00+08:00
-lastmod: 2020-02-81T21:30:31+08:00
+lastmod: 2020-09-01T21:30:31+08:00
 draft: false
 tags: ["csharp","JSON","dotnet core"]
 slug: "configuration-to-json"

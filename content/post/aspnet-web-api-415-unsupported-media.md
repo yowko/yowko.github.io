@@ -1,7 +1,7 @@
 ---
 title: "ASP.NET Web API 上傳檔案出現 415 Unsupported Media Type 錯誤"
 date: 2017-12-25T23:33:00+08:00
-lastmod: 2018-10-02T23:33:46+08:00
+lastmod: 2020-09-01T23:33:46+08:00
 draft: false
 tags: ["ASP.NET Web API"]
 slug: "aspnet-web-api-415-unsupported-media"

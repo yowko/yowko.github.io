@@ -1,7 +1,7 @@
 ---
 title: "在 macOS 上建立開發用 .NET Core 憑證"
 date: 2020-02-23T21:30:00+08:00
-lastmod: 2020-02-23T21:30:31+08:00
+lastmod: 2020-09-01T21:30:31+08:00
 draft: false
 tags: ["macOS","dotnet core"]
 slug: "macos-dotnet-cert"

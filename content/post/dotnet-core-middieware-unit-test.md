@@ -1,7 +1,7 @@
 ---
 title: "為 .NET Core Middleware 加上 Unit Test"
 date: 2019-04-28T21:30:00+08:00
-lastmod: 2019-04-28T21:30:31+08:00
+lastmod: 2020-09-01T21:30:31+08:00
 draft: false
 tags: ["dotnet core","Unit Test"]
 slug: "dotnet-core-middieware-unit-test"

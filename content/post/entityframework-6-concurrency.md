@@ -1,7 +1,7 @@
 ---
 title: "如何避免多個 Entity Framework 6 instance 造成資料覆蓋問題 (DB First - SQL Server)"
 date: 2018-05-27T21:54:00+08:00
-lastmod: 2018-10-06T21:54:55+08:00
+lastmod: 2020-09-01T21:54:55+08:00
 draft: false
 tags: ["ASP.NET MVC","EntityFramework","SQL Server"]
 slug: "entityframework-6-concurrency"

@@ -1,7 +1,7 @@
 ---
 title: "C# 使用 Dapper 連線 DB 時指定逾時時間 (timeout)：0x80004005"
 date: 2018-04-22T23:34:00+08:00
-lastmod: 2018-10-06T23:34:43+08:00
+lastmod: 2020-09-01T23:34:43+08:00
 draft: false
 tags: ["套件","C#","Dapper","SQL Server"]
 slug: "dapper-timeout"

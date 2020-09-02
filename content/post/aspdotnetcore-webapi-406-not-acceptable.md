@@ -1,7 +1,7 @@
 ---
 title: "ASP.NET Core WebAPI 回應 406 Not Acceptable"
 date: 2019-06-30T21:30:00+08:00
-lastmod: 2019-06-30T21:30:31+08:00
+lastmod: 2020-09-01T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","ASP.NET WebAPI"]
 slug: "aspdotnetcore-webapi-406-not-acceptable"

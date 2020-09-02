@@ -1,7 +1,7 @@
 ---
 title: "NuGet 4.0 的特色"
 date: 2017-03-15T02:43:34+08:00
-lastmod: 2018-09-13T00:42:34+08:00
+lastmod: 2020-09-01T00:42:34+08:00
 draft: false
 tags: ["NuGet"]
 slug: "nuget-4"

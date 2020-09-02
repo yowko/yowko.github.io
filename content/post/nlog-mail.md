@@ -1,7 +1,7 @@
 ---
 title: "讓 NLog 發送 Mail "
 date: 2018-07-17T23:03:00+08:00
-lastmod: 2018-10-24T23:03:31+08:00
+lastmod: 2020-09-01T23:03:31+08:00
 draft: false
 tags: ["套件","NLog"]
 slug: "nlog-mail"

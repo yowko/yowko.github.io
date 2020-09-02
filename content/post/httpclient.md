@@ -1,7 +1,7 @@
 ---
 title: "使用 HttpClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源"
 date: 2017-06-14T21:30:00+08:00
-lastmod: 2018-12-15T21:30:31+08:00
+lastmod: 2020-09-01T21:30:31+08:00
 draft: false
 tags: ["C#"]
 slug: "httpclient"

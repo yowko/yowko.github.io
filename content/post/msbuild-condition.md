@@ -1,7 +1,7 @@
 ---
 title: "依編譯參數來決定 config 內容"
 date: 2017-08-14T23:23:00+08:00
-lastmod: 2018-09-24T23:23:33+08:00
+lastmod: 2020-09-01T23:23:33+08:00
 draft: false
 tags: ["MSBuild","web.config"]
 slug: "msbuild-condition"

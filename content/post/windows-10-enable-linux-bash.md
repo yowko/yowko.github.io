@@ -1,7 +1,7 @@
 ---
 title: "在 Windows 10 上啟用 Linux Bash Shell"
 date: 2018-02-20T15:31:00+08:00
-lastmod: 2018-10-03T15:31:33+08:00
+lastmod: 2020-09-01T15:31:33+08:00
 draft: false
 tags: ["Linux","Windows 10"]
 slug: "windows-10-enable-linux-bash"

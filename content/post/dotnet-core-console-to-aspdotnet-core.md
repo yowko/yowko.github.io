@@ -1,7 +1,7 @@
 ---
 title: "將 .NET Core Console 專案轉換為 ASP.NET Core"
 date: 2019-05-21T19:30:00+08:00
-lastmod: 2019-05-21T19:30:31+08:00
+lastmod: 2020-09-01T19:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","dotnet core"]
 slug: "dotnet-core-console-to-aspdotnet-core"

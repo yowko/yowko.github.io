@@ -1,7 +1,7 @@
 ---
 title: "在 Windows 上的 ASP.NET Core 中呼叫 gRPC"
 date: 2020-02-24T21:30:00+08:00
-lastmod: 2020-02-24T21:30:31+08:00
+lastmod: 2020-09-01T21:30:31+08:00
 draft: false
 tags: ["Windows","dotnet core","gRPC"]
 slug: "windows-aspnetcore-grpc"

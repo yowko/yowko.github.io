@@ -1,7 +1,7 @@
 ---
 title: "LINQ to Objects VS LINQ to Entities"
 date: 2017-07-17T23:20:00+08:00
-lastmod: 2017-07-17T23:20:51+08:00
+lastmod: 2020-09-01T23:20:51+08:00
 draft: false
 tags: ["C#"]
 slug: "linq-to-objects-vs-linq-to-entities"

@@ -1,7 +1,7 @@
 ---
 title: "在 .NET Core 與 .NET Framework 上使用 HttpClientFactory"
 date: 2019-01-16T23:45:00+08:00
-lastmod: 2019-01-16T23:44:30+08:00
+lastmod: 2020-09-01T23:44:30+08:00
 draft: false
 tags: ["C#","dotnet core","dotnet"]
 slug: "httpclientfactory-dotnet-core-dotnet-framework"

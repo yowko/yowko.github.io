@@ -1,7 +1,7 @@
 ---
 title: "關於指定 NuGet 安裝資料夾"
 date: 2017-07-29T23:25:00+08:00
-lastmod: 2018-09-24T23:25:05+08:00
+lastmod: 2020-09-01T23:25:05+08:00
 draft: false
 tags: ["NuGet","Visual Studio"]
 slug: "nuget-install-folder"

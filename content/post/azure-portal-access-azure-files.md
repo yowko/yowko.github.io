@@ -1,7 +1,7 @@
 ---
 title: "設定 Azure Portal 存取 Azure Storage Files"
 date: 2019-09-14T01:30:00+08:00
-lastmod: 2019-09-14T01:30:31+08:00
+lastmod: 2020-09-01T01:30:31+08:00
 draft: false
 tags: ["Azure"]
 slug: "azure-portal-access-azure-files"

@@ -1,7 +1,7 @@
 ---
 title: "ASP.NET Identity 2 使用 EntityFramework 搭配 Oracle"
 date: 2017-09-30T01:01:00+08:00
-lastmod: 2018-09-26T01:01:23+08:00
+lastmod: 2020-09-01T01:01:23+08:00
 draft: false
 tags: ["ASP.NET Identity","EntityFramework","Oracle"]
 slug: "aspnet-identity-2-entityframework-oracle"

@@ -1,7 +1,7 @@
 ---
 title: "IIS Express 出現 500.19 - 0x800700b7 錯誤？！"
 date: 2017-06-28T21:00:00+08:00
-lastmod: 2018-09-23T21:00:56+08:00
+lastmod: 2020-09-01T21:00:56+08:00
 draft: false
 tags: ["Debug","IIS Express","web.config"]
 slug: "iis-express-50019-config-duplicate"

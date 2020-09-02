@@ -1,7 +1,7 @@
 ---
 title: "Windows Dockerfile 如何指定 VOLUME"
 date: 2017-09-26T02:18:00+08:00
-lastmod: 2018-09-26T02:18:08+08:00
+lastmod: 2020-09-01T02:18:08+08:00
 draft: false
 tags: ["Docker"]
 slug: "windows-dockerfile-volume"

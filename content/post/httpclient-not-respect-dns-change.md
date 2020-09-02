@@ -1,7 +1,7 @@
 ---
 title: "HttpClient 無法反應 DNS 異動的解決方式"
 date: 2019-01-05T23:45:00+08:00
-lastmod: 2018-01-05T23:44:30+08:00
+lastmod: 2020-09-01T23:44:30+08:00
 draft: false
 tags: ["C#","Benchmark"]
 slug: "httpclient-not-respect-dns-change"

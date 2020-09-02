@@ -1,7 +1,7 @@
 ---
 title: "在 Windows Container 使用 tns 連線 Oracle"
 date: 2017-11-22T00:07:00+08:00
-lastmod: 2018-09-30T00:07:19+08:00
+lastmod: 2020-09-01T00:07:19+08:00
 draft: false
 tags: ["Docker","Oracle","Windows 10","Windows Server 2016"]
 slug: "windows-container-tns-oracle"

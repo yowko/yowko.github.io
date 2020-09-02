@@ -1,7 +1,7 @@
 ---
 title: "Windows Server 2016 無法安裝 Azure Service Fabric - Runtime 及 SDK"
 date: 2017-01-26T00:42:34+08:00
-lastmod: 2018-09-10T00:42:34+08:00
+lastmod: 2020-09-01T00:42:34+08:00
 draft: false
 tags: ["Windows Server 2016","Azure"]
 slug: "windows-server-2016-install-azure-service-fabric-runtime"

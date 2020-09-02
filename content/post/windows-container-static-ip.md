@@ -1,7 +1,7 @@
 ---
 title: "Windows Container 使用固定 IP"
 date: 2017-11-16T00:47:00+08:00
-lastmod: 2018-09-28T00:47:32+08:00
+lastmod: 2020-09-01T00:47:32+08:00
 draft: false
 tags: ["Docker","Windows 10","Windows Server 2016"]
 slug: "windows-container-static-ip"

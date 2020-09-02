@@ -1,7 +1,7 @@
 ---
 title: "在 Debian container 中無法成功註冊微軟金鑰"
 date: 2020-04-13T21:30:00+08:00
-lastmod: 2020-04-13T21:30:31+08:00
+lastmod: 2020-09-01T21:30:31+08:00
 draft: false
 tags: ["Container","Linux"]
 slug: "debian-container-broken-pipe"

@@ -1,7 +1,7 @@
 ---
 title: "讓 ASP.NET Core MVC 自行停止運作"
 date: 2019-05-12T21:30:00+08:00
-lastmod: 2019-05-12T21:30:31+08:00
+lastmod: 2020-09-01T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core MVC","ASP.NET Core"]
 slug: "aspdotnet-core-mvc-stop-by-itself"

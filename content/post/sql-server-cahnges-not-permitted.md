@@ -1,7 +1,7 @@
 ---
 title: "SQL Server 無法修改資料表定義？！"
 date: 2017-06-23T21:30:00+08:00
-lastmod: 2018-09-23T21:30:12+08:00
+lastmod: 2020-09-01T21:30:12+08:00
 draft: false
 tags: ["SQL Server"]
 slug: "sql-server-cahnges-not-permitted"

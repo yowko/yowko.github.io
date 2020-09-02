@@ -1,7 +1,7 @@
 ---
 title: "關於 GetType 的一些事"
 date: 2017-07-30T22:30:00+08:00
-lastmod: 2018-09-24T22:30:15+08:00
+lastmod: 2020-09-01T22:30:15+08:00
 draft: false
 tags: ["C#"]
 slug: "gettype"

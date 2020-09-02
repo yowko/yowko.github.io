@@ -1,7 +1,7 @@
 ---
 title: "WinDbg 設定 symbol file path 的四種方法"
 date: 2018-06-18T00:49:00+08:00
-lastmod: 2018-10-07T00:49:42+08:00
+lastmod: 2020-09-01T00:49:42+08:00
 draft: false
 tags: ["Debug","WinDBG"]
 slug: "windbg-symbol-file-path"

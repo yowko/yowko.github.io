@@ -1,7 +1,7 @@
 ---
 title: "Application Domain 與 Application Pool 的差異"
 date: 2018-12-22T23:45:00+08:00
-lastmod: 2018-12-22T23:44:30+08:00
+lastmod: 2020-09-01T23:44:30+08:00
 draft: false
 tags: ["dotnet","IIS"]
 slug: "appdomain-apppoll-difference"

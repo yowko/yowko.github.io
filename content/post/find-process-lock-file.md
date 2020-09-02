@@ -1,7 +1,7 @@
 ---
 title: "找到咬住檔案的程式 - 解決無法刪除或移動檔案"
 date: 2017-08-08T23:23:00+08:00
-lastmod: 2018-09-24T23:23:27+08:00
+lastmod: 2020-09-01T23:23:27+08:00
 draft: false
 tags: ["Debug","Tools"]
 slug: "find-process-lock-file"

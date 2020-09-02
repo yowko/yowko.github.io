@@ -1,7 +1,7 @@
 ---
 title: "在 .NET Core console 上使用 Dependency Injection - DI"
 date: 2018-11-28T23:45:00+08:00
-lastmod: 2018-11-28T23:44:30+08:00
+lastmod: 2020-09-01T23:44:30+08:00
 draft: false
 tags: ["C#","dotnet core"]
 slug: "dotnet-core-console-di"

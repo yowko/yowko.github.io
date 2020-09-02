@@ -1,7 +1,7 @@
 ---
 title: "從 Empty 建立 ASP.NET Core Web API"
 date: 2019-06-29T21:30:00+08:00
-lastmod: 2019-06-29T21:30:31+08:00
+lastmod: 2020-09-01T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core"]
 slug: "add-webapi-to-aspdotnetcore-empty"

@@ -1,7 +1,7 @@
 ---
 title: "專案間如何共用 config 設定 - 使用 MSBuildExtensionPack"
 date: 2017-08-13T00:24:00+08:00
-lastmod: 2018-09-24T00:24:22+08:00
+lastmod: 2020-09-01T00:24:22+08:00
 draft: false
 tags: ["套件","MSBuild","web.config"]
 slug: "shared-config"

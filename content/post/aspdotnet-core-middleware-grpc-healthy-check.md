@@ -1,7 +1,7 @@
 ---
 title: "使用 ASP.NET Core middleware 進行 gRPC healthy check"
 date: 2020-08-31T21:30:00+08:00
-lastmod: 2020-08-31T21:30:31+08:00
+lastmod: 2020-09-01T21:30:31+08:00
 draft: false
 tags: ["asp.net core","gRPC"]
 slug: "aspdotnet-core-middleware-grpc-healthy-check"

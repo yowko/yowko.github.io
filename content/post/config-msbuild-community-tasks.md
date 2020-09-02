@@ -1,7 +1,7 @@
 ---
 title: "專案間如何共用 config 設定 - 使用 MSBuild Community Tasks"
 date: 2017-08-13T23:28:00+08:00
-lastmod: 2018-09-24T23:28:38+08:00
+lastmod: 2020-09-01T23:28:38+08:00
 draft: false
 tags: ["套件","MSBuild"]
 slug: "config-msbuild-community-tasks"

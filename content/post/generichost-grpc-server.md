@@ -1,7 +1,7 @@
 ---
 title: "使用 GenericHost 來 Host gRPC Server"
 date: 2019-05-26T21:30:00+08:00
-lastmod: 2019-05-26T21:30:31+08:00
+lastmod: 2020-09-01T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","gRPC","dotnet core"]
 slug: "generichost-grpc-server"

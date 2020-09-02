@@ -1,7 +1,7 @@
 ---
 title: "全新的 Jenkins .NET Build Server 該安裝什麼"
 date: 2017-02-07T00:42:34+08:00
-lastmod: 2018-09-11T00:42:34+08:00
+lastmod: 2020-09-01T00:42:34+08:00
 draft: false
 tags: ["Jenkins","DevOps"]
 slug: "dotnet-jenkins"

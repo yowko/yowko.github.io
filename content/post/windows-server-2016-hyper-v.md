@@ -1,7 +1,7 @@
 ---
 title: "如何在 Windows Server 2016 上安裝 Hyper-V"
 date: 2017-05-02T01:00:00+08:00
-lastmod: 2018-09-18T01:00:08+08:00
+lastmod: 2020-09-01T01:00:08+08:00
 draft: false
 tags: ["Windows Server 2016"]
 slug: "windows-server-2016-hyper-v"

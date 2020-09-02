@@ -1,7 +1,7 @@
 ---
 title: "應該使用 IsNullOrEmpty 還是 IsNullOrWhiteSpace"
 date: 2018-11-17T00:42:34+08:00
-lastmod: 2018-17-17T00:42:34+08:00
+lastmod: 2020-09-01T00:42:34+08:00
 draft: false
 tags: ["C#"]
 slug: "string-isnullorempty-isnullorwhitespace"

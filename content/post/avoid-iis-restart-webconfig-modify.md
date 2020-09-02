@@ -1,7 +1,7 @@
 ---
 title: "修改 web.config 可以不讓 IIS 自動重啟？！"
 date: 2018-11-14T00:42:34+08:00
-lastmod: 2018-11-14T00:42:34+08:00
+lastmod: 2020-09-01T00:42:34+08:00
 draft: false
 tags: ["IIS","ASP.NET MVC","ASP.NET WEB API","web.config"]
 slug: "avoid-iis-restart-webconfig-modify"

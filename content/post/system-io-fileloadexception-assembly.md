@@ -1,7 +1,7 @@
 ---
 title: "System.IO.FileLoadException : Could not load file or assembly (0x80131040)"
 date: 2018-07-09T00:39:00+08:00
-lastmod: 2018-10-07T00:39:29+08:00
+lastmod: 2020-09-01T00:39:29+08:00
 draft: false
 tags: ["Debug","Windows Service"]
 slug: "system-io-fileloadexception-assembly"

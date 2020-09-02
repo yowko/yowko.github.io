@@ -1,7 +1,7 @@
 ---
 title: "如何得知電腦上 .Net FrameWork 版本？ - 使用 PowerShell"
 date: 2017-09-22T00:01:00+08:00
-lastmod: 2018-09-26T22:08:39+08:00
+lastmod: 2020-09-01T22:08:39+08:00
 draft: false
 tags: ["PowerShell"]
 slug: "get-dot-net-framework-version"

@@ -1,7 +1,7 @@
 ---
 title: "讓 ASP.NET Web API 與 ASP.NET Core 可以支援 x-www-form-urlencoded"
 date: 2018-10-01T02:44:00+08:00
-lastmod: 2018-10-10T02:44:00+08:00
+lastmod: 2020-09-01T02:44:00+08:00
 draft: false
 tags: ["ASP.NET Core","ASP.NET Web API"]
 slug: "aspnet-core-x-www-form-urlencoded"

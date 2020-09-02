@@ -1,7 +1,7 @@
 ---
 title: "ASP.NET Web API Unit Test 出現需要加入 `System.Web.Http` 參考錯誤"
 date: 2018-04-08T10:48:00+08:00
-lastmod: 2018-04-08T10:48:18+08:00
+lastmod: 2020-09-01T10:48:18+08:00
 draft: false
 tags: ["ASP.NET Web API","Unit Test"]
 slug: "unit-test-need-systemwebhttp"

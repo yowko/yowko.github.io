@@ -1,7 +1,7 @@
 ---
 title: "Jenkins 自動 Publish NuGet Package"
 date: 2017-07-20T23:49:00+08:00
-lastmod: 2018-09-24T23:23:21+08:00
+lastmod: 2020-09-01T23:23:21+08:00
 draft: false
 tags: ["套件","Jenkins","NuGet","Visual Studio"]
 slug: "jenkins-publish-nuget-package"

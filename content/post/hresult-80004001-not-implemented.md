@@ -1,7 +1,7 @@
 ---
 title: "解決無法使用 IIS Manager 及 AppCmd.exe 列出 Worker Processes 的 Request"
 date: 2018-06-25T01:25:00+08:00
-lastmod: 2018-10-07T01:25:36+08:00
+lastmod: 2020-09-01T01:25:36+08:00
 draft: false
 tags: ["Debug","IIS","Windows 10","Windows Server 2016"]
 slug: "hresult-80004001-not-implemented"

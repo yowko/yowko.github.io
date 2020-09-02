@@ -1,7 +1,7 @@
 ---
 title: "Enum To List<SelectListItem> 及 Enum To SelectList"
 date: 2018-01-30T02:53:00+08:00
-lastmod: 2018-10-03T02:53:41+08:00
+lastmod: 2020-09-01T02:53:41+08:00
 draft: false
 tags: ["C#"]
 slug: "enum-to-selectlist"

@@ -1,7 +1,7 @@
 ---
 title: "如何得知 script 執行時間 - Stopwatch in SQL Server ？！"
 date: 2017-06-30T23:53:00+08:00
-lastmod: 2018-09-23T23:53:40+08:00
+lastmod: 2020-09-01T23:53:40+08:00
 draft: false
 tags: ["SQL Server"]
 slug: "stopwatch-in-sql-server"

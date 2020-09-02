@@ -1,7 +1,7 @@
 ---
 title: "使用 Redis 當做 ASP.NET MVC 的 Session State Server"
 date: 2017-01-27T00:42:34+08:00
-lastmod: 2018-09-10T00:42:34+08:00
+lastmod: 2020-09-01T00:42:34+08:00
 draft: false
 tags: ["ASP.NET MVC","Redis"]
 slug: "redis-aspnet-mvc-session-state-server"

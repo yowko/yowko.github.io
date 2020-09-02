@@ -1,7 +1,7 @@
 ---
 title: "你認識 SQL Server 的資料層應用程式(Data-tier Applications - DAC)嗎?"
 date: 2017-04-14T02:39:00+08:00
-lastmod: 2018-09-17T02:39:51+08:00
+lastmod: 2020-09-01T02:39:51+08:00
 draft: false
 tags: ["SQL Server"]
 slug: "sql-server-dac"

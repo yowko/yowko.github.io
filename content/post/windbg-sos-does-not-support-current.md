@@ -1,7 +1,7 @@
 ---
 title: "WinDBG 出現 SOS does not support the current target architecture ?!"
 date: 2018-01-28T02:00:00+08:00
-lastmod: 2018-10-03T02:00:12+08:00
+lastmod: 2020-09-01T02:00:12+08:00
 draft: false
 tags: ["Debug","IIS","WinDBG"]
 slug: "windbg-sos-does-not-support-current"

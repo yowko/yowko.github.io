@@ -1,7 +1,7 @@
 ---
 title: "列出當下環境可以使用的 .NET Core 專案範本"
 date: 2018-11-18T00:42:34+08:00
-lastmod: 2018-11-18T00:42:34+08:00
+lastmod: 2020-09-01T00:42:34+08:00
 draft: false
 tags: ["dotnet core"]
 slug: "dotnet-template-list"

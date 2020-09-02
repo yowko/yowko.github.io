@@ -1,7 +1,7 @@
 ---
 title: "如何在 Windows Server 2016 安裝 Docker"
 date: 2017-05-04T01:00:00+08:00
-lastmod: 2018-09-18T01:00:04+08:00
+lastmod: 2020-09-01T01:00:04+08:00
 draft: false
 tags: ["Docker","Windows Server 2016"]
 slug: "windows-server-2016-docker"
