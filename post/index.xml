@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 31 Aug 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 06 Sep 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 ASP.NET Core BackgroundService 進行 gRPC healthy check</title>
+      <link>https://blog.yowko.com/aspdotnet-core-backgroundservice-grpc-healthy-check/</link>
+      <pubDate>Sun, 06 Sep 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-backgroundservice-grpc-healthy-check/</guid>
+      <description>使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check 紀錄到如何使用 ASP.NET Core 內建的 Health Check middleware 來進行 gRPC service 的檢查，當時有看到 Steve Gordon 的 HEALTH CHECKS WITH GRPC AND ASP.NET CORE 3.0 使用 serive 本身的</description>
+    </item>
     
     <item>
       <title>使用 ASP.NET Core middleware 進行 gRPC healthy check</title>
