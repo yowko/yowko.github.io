@@ -30,7 +30,7 @@ slug: "aspdotnet-core-middleware-grpc-healthy-check"
 
     ![1grpcboth](https://user-images.githubusercontent.com/3851540/91734988-40c2d980-ebde-11ea-8964-c35f653075f3.png)
 
-2. 實做 grpc check
+2. 透過 IHealthCheck 實做 grpc check
 
     > 這邊透過 di 取得預設範本中的 gRPC client
 
@@ -99,7 +99,7 @@ slug: "aspdotnet-core-middleware-grpc-healthy-check"
     }
     ```
 
-5. 加上 health check 的 endpoint
+5. 加上提供查詢 health check 結果的 endpoint
 
     > `Startup.cs` 的 `Configure` 加上 `endpoints.MapHealthChecks("/health");`
 
@@ -115,7 +115,7 @@ slug: "aspdotnet-core-middleware-grpc-healthy-check"
 
         app.UseEndpoints(endpoints =>
         {
-            // health checks
+            // 提供查詢 health checks 結果的 endpoint
             endpoints.MapHealthChecks("/health");
 
             endpoints.MapGrpcService<GreeterService>();
@@ -150,7 +150,10 @@ slug: "aspdotnet-core-middleware-grpc-healthy-check"
 
 有看到其他做法，這幾日有空再嘗試看看，敬請期待
 
+完整程式碼請參考：[yowko/GrpcHealthCheck](https://github.com/yowko/GrpcHealthCheck)
+
 ## 參考資訊
 
 1. [ASP.NET Core gRPC 無法在 macOS 上啟動？！](https://blog.yowko.com/aspdotnet-core-grpc-macos/)
 2. [ASP.NET Core 中的健康狀態檢查](https://docs.microsoft.com/zh-tw/aspnet/core/host-and-deploy/health-checks?WT.mc_id=DOP-MVP-5002594)
+3. [yowko/GrpcHealthCheck](https://github.com/yowko/GrpcHealthCheck)
