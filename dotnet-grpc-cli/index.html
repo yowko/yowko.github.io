@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 grpcurl 呼叫 gRPC Service - Yowko&#39;s Notes</title>
+  <title>使用 dotnet-grpc-cli 取得 gRPC Service 內容 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 grpcurl 呼叫 gRPC Service 一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call" />
+  <meta name="description" content="使用 dotnet-grpc-cli 取得 gRPC Service 內容 之前筆記 使用 grpc-cli 呼叫 gRPC Service 紀錄到 gprc 官方 command line tool 的使用方式，後來偶爾間發現竟然有 dotnet 版：dotnet-grpc-cli，還是 C# 撰寫的" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/grpcurl/" />
+<link rel="canonical" href="https://blog.yowko.com/dotnet-grpc-cli/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="使用 grpcurl 呼叫 gRPC Service" />
-<meta property="og:description" content="使用 grpcurl 呼叫 gRPC Service 一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call" />
+<meta property="og:title" content="使用 dotnet-grpc-cli 取得 gRPC Service 內容" />
+<meta property="og:description" content="使用 dotnet-grpc-cli 取得 gRPC Service 內容 之前筆記 使用 grpc-cli 呼叫 gRPC Service 紀錄到 gprc 官方 command line tool 的使用方式，後來偶爾間發現竟然有 dotnet 版：dotnet-grpc-cli，還是 C# 撰寫的" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/grpcurl/" /><meta property="article:published_time" content="2020-03-07T12:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-03-07T12:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/dotnet-grpc-cli/" /><meta property="article:published_time" content="2020-09-13T12:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-09-13T12:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="使用 grpcurl 呼叫 gRPC Service">
-<meta itemprop="description" content="使用 grpcurl 呼叫 gRPC Service 一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call">
-
-
-<meta itemprop="datePublished" content="2020-03-07T12:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-03-07T12:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="924">
+<meta itemprop="name" content="使用 dotnet-grpc-cli 取得 gRPC Service 內容">
+<meta itemprop="description" content="使用 dotnet-grpc-cli 取得 gRPC Service 內容 之前筆記 使用 grpc-cli 呼叫 gRPC Service 紀錄到 gprc 官方 command line tool 的使用方式，後來偶爾間發現竟然有 dotnet 版：dotnet-grpc-cli，還是 C# 撰寫的">
 
 
+<meta itemprop="datePublished" content="2020-09-13T12:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-09-13T12:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="338">
 
-<meta itemprop="keywords" content="gRPC,Tools," />
+
+
+<meta itemprop="keywords" content="gRPC,dotnet," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 grpcurl 呼叫 gRPC Service"/>
-<meta name="twitter:description" content="使用 grpcurl 呼叫 gRPC Service 一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call"/>
+<meta name="twitter:title" content="使用 dotnet-grpc-cli 取得 gRPC Service 內容"/>
+<meta name="twitter:description" content="使用 dotnet-grpc-cli 取得 gRPC Service 內容 之前筆記 使用 grpc-cli 呼叫 gRPC Service 紀錄到 gprc 官方 command line tool 的使用方式，後來偶爾間發現竟然有 dotnet 版：dotnet-grpc-cli，還是 C# 撰寫的"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,10 +145,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-03-07 </span>
+        <span class="post-time"> 2020-09-13 </span>
         
-        <span class="more-meta"> 約 924 字 </span>
-          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        <span class="more-meta"> 約 338 字 </span>
+          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
     </header>
@@ -163,12 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#使用-grpcurl-呼叫-grpc-service">使用 grpcurl 呼叫 gRPC Service</a></li>
-<li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#關於-grpcurl">關於 grpcurl</a></li>
-<li><a href="#安裝方式">安裝方式</a></li>
-<li><a href="#使用方式">使用方式</a></li>
-<li><a href="#可能遇到的錯誤">可能遇到的錯誤</a></li>
+<li><a href="#使用-dotnet-grpc-cli-取得-grpc-service-內容">使用 dotnet-grpc-cli 取得 gRPC Service 內容</a></li>
+<li><a href="#基本環境設定">基本環境設定</a></li>
+<li><a href="#安裝與使用">安裝與使用</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -184,178 +181,125 @@
     <div class="post-content">
       
 
-<h2 id="使用-grpcurl-呼叫-grpc-service">使用 grpcurl 呼叫 gRPC Service</h2>
+<h2 id="使用-dotnet-grpc-cli-取得-grpc-service-內容">使用 dotnet-grpc-cli 取得 gRPC Service 內容</h2>
 
-<p>一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call 時我就會透過 <a href="https://appimage.github.io/BloomRPC/" target="_blank">BloomRPC</a> 這套 gui 工具來呼叫</p>
+<p>之前筆記 <a href="https://blog.yowko.com/grpc-cli/" target="_blank">使用 grpc-cli 呼叫 gRPC Service</a> 紀錄到 gprc 官方 command line tool 的使用方式，後來偶爾間發現竟然有 dotnet 版：dotnet-grpc-cli，還是 C# 撰寫的，立馬來嘗試看看囉</p>
 
-<p>剛好前陣子開發用環境遇到問題，想要針對部署至 Kubernetes 中的服務進行測試、驗證功能，但服務同時啟動三個 pos 做 load balance，無法對每個 pod 上的服務做檢查，這時候就可以使用 grpcurl 來達成目的，下載 grpcurl 後，使用 grpcurl 透過每個 pod 的 cluster ip 來叫用服務，雖然使用難度不高，不過最近明顯感受到記憶力衰退，還是紀錄一下備忘，下次需要時就可以更快取用了</p>
-
-<h2 id="基本環境說明">基本環境說明</h2>
+<h2 id="基本環境設定">基本環境設定</h2>
 
 <ol>
-<li>CentOS 7.7</li>
-<li>macOS Catalina 10.15.3</li>
-<li>Debian 10</li>
-<li>grpcurl v1.4.0</li>
-
-<li><p>測試用 proto</p>
-
-<pre><code class="language-txt">syntax = &quot;proto3&quot;;
-
-option csharp_namespace = &quot;GrpcMessages&quot;;
-
-package greet;
-
-// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply);
-}
-
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings.
-message HelloReply {
-  string message = 1;
-}
-</code></pre></li>
+<li>macOS Catalina 10.15.6</li>
+<li>docker desktop community 2.3.0.4(46911)</li>
+<li>dotnet-grpc-cli 0.2.0</li>
 </ol>
 
-<h2 id="關於-grpcurl">關於 grpcurl</h2>
-
-<p>grpcurl 是一個命令列工具，主要目的是從 terminal 中呼叫 gRPC Service</p>
-
-<p>因為 gRPC 使用 protobuf 的關係，讓 <code>curl</code> 無法直呼叫 gRPC 服務，而 grpcurl 則使用 JSON 傳送訊息</p>
-
-<p>grpcurl 在 gRPC Service 支援的前提下可以使用 <code>reflection</code> 來取得 gRPC Service 的 schema (簡言之就是透過 <code>list</code> 方法列出目前的 gRPC Service 有哪些方法與所需參數)，但這個方法需要調整到程式碼部份，我個人還沒有嘗試，我單純透過 gRPC Service 所使用的 proto 檔來呼叫 gRPC 方法</p>
-
-<p>grpcurl 宣稱支援所有 gRPC 傳輸方式 (包含 streaming)，但我實際只用過 simple RPC 與 server-side streaming RPC，至於 client-side streaming RPC 與 bidirectional streaming RPC 暫時還沒測試</p>
-
-<h2 id="安裝方式">安裝方式</h2>
+<h2 id="安裝與使用">安裝與使用</h2>
 
 <ol>
-<li><p>macOS</p>
+<li><p>安裝方式</p>
 
-<pre><code class="language-bash">brew install grpcurl
+<pre><code class="language-bash">dotnet tool install -g dotnet-grpc-cli
 </code></pre></li>
 
-<li><p>CentOS</p>
+<li><p>使用方式</p>
 
 <ul>
-<li><p>下載 grpcurl</p>
+<li><p>取得所有 service</p>
 
-<pre><code class="language-bash">curl -L -O https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">dotnet grpc-cli ls {grpc server endpoint}
 </code></pre></li>
 
-<li><p>解壓 grpcurl</p>
+<li><p>範例</p>
 
-<pre><code class="language-bash">tar -zxvf grpcurl_1.4.0_linux_x86_64.tar.gz
-</code></pre></li>
+<pre><code class="language-bash">dotnet grpc-cli ls http://localhost:5000
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/93022064-6a85f280-f619-11ea-86ad-00f52baa0f65.png" alt="1ls" /></p></li>
 </ul></li>
 
-<li><p>Debian (Ubuntu)</p>
+<li><p>取得指定 service 詳細資訊</p>
 
 <ul>
-<li><p>更新 apt-get</p>
+<li><p>語法</p>
 
-<pre><code class="language-bash">apt-get update
+<pre><code class="language-bash">dotnet grpc-cli ls {grpc server endpoint} {service name} -l
 </code></pre></li>
 
-<li><p>安裝 wget</p>
+<li><p>範例</p>
 
-<pre><code class="language-bash"> apt-get install -y wget
-</code></pre></li>
+<pre><code class="language-bash">dotnet grpc-cli ls http://localhost:5000 greet.Greeter -l
+</code></pre>
 
-<li><p>下載 grpcurl</p>
-
-<pre><code class="language-bash">wget https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz
-</code></pre></li>
-
-<li><p>解壓 grpcurl</p>
-
-<pre><code class="language-bash">tar -zxvf grpcurl_1.4.0_linux_x86_64.tar.gz
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/93022066-6bb71f80-f619-11ea-9482-d8939ef36693.png" alt="2lsservice" /></p></li>
 </ul></li>
 
-<li><p>透過 go 安裝 (source code)</p>
-
-<pre><code class="language-bash">go get github.com/fullstorydev/grpcurl
-go install github.com/fullstorydev/grpcurl/cmd/grpcurl
-</code></pre></li>
-</ol>
-
-<h2 id="使用方式">使用方式</h2>
-
-<blockquote>
-<p>這邊我沒有額外調整 gRPC 的 flow (沒用到 reflection 功能)，只透過指定 proto 檔案的方式來呼叫 gRPC Service</p>
-</blockquote>
+<li><p>取得指定 method 詳細資訊</p>
 
 <ul>
-<li><p>語法範例</p>
+<li><p>語法</p>
 
-<pre><code class="language-bash">grpcurl -d '{呼叫 method 的參數}' -import-path {proto 所在資料夾位置} -proto {proto 檔名} {gRPC-Server:port} {proto 檔中的 package name}.{service name}/{method name}
+<pre><code class="language-bash">dotnet grpc-cli ls {grpc server endpoint} {service.method name} -l
 </code></pre></li>
 
-<li><p>實際使用</p>
+<li><p>範例</p>
 
-<pre><code class="language-bash">grpcurl -d '{&quot;name&quot;:&quot;Yowko&quot;}' -import-path /Users/yowko.tsai/POCs/grpcurl/GrpcMessages/Protos -proto greet.proto localhost:5000 greet.Greeter/SayHello
-</code></pre></li>
-</ul>
+<pre><code class="language-bash">dotnet grpc-cli ls http://localhost:5000 greet.Greeter.SayHello -l
+</code></pre>
 
-<h2 id="可能遇到的錯誤">可能遇到的錯誤</h2>
-
-<ol>
-<li><p>gRPC Service 未啟用 TLS</p>
-
-<ul>
-<li><p>錯誤訊息</p>
-
-<pre><code class="language-txt">Failed to dial target host &quot;localhost:5000&quot;: tls: first record does not look like a TLS handshake
-</code></pre></li>
-
-<li><p>錯誤截圖</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/76146403-65297780-60cd-11ea-8e6c-92d500d19249.png" alt="1error1" /></p></li>
-
-<li><p>解決方式</p>
-
-<blockquote>
-<p>使用 <code>-plaintext</code> 方式來呼叫 gRPC</p>
-</blockquote></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/93022068-6c4fb600-f619-11ea-8ac5-ef6ad9dec3c9.png" alt="3lsmethod" /></p></li>
 </ul></li>
 
-<li><p>參數格式錯誤</p>
+<li><p>以 proto 格式取得 service</p>
 
 <ul>
-<li><p>錯誤訊息</p>
+<li><p>語法</p>
 
-<pre><code class="language-txt">Error invoking method &quot;greet.Greeter/SayHello&quot;: error getting request data: invalid character 'n' looking for beginning of object key string
+<pre><code class="language-bash">dotnet grpc-cli dump {grpc server endpoint} {service.method name}
 </code></pre></li>
 
-<li><p>錯誤截圖</p>
+<li><p>範例</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/76146404-678bd180-60cd-11ea-9dbc-9716c10d662f.png" alt="2error2" /></p></li>
+<pre><code class="language-bash">dotnet grpc-cli dump http://localhost:5000 greet.Greeter.SayHello
+</code></pre>
 
-<li><p>解決方式</p>
-
-<blockquote>
-<p>重新檢視 <code>-d</code> 所傳遞參數需為 <code>json</code> 格式，且前後由 <code>''</code> 包覆</p>
-</blockquote></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/93022070-6ce84c80-f619-11ea-9cf9-d7fc5b3e6ef6.png" alt="4dump" /></p></li>
+</ul></li>
 </ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>透過 <code>grpcurl</code> 工具就可以解決在沒有 gRPC gui 工具想要驗證 gRPC 內容的需求，而如同筆記一開始提過的 <code>grpcurl</code> 支援 gRPC 所有呼叫方式，也相對反應在 <code>grpcurl</code> 的參數上，可以設定的東西不少，不過很多參數我都沒有仔細了解，就是求個堪用、有辦法解決問題，或許慢慢再找時間試試透過 <code>grpcurl</code> 的各種呼叫方法與參數設定吧</p>
+<p>dotnet-grpc-cli 與 grpc-cli</p>
+
+<p>減少了：</p>
+
+<ol>
+<li>取得指定 message type 詳細資訊</li>
+<li>呼叫指定 method</li>
+</ol>
+
+<p>增加了：</p>
+
+<ul>
+<li>Dump service in proto format</li>
+<li>需要指明確指定 endpoint protocal</li>
+</ul>
+
+<p>相同的是在沒有啟用 <code>Reflection</code> 下一樣無用武之地，只是錯誤不太一樣</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/93022071-6d80e300-f619-11ea-8ee5-83f911f613ba.png" alt="5error" /></p>
+
+<p>除此之外，個人覺得 dotnet-grpc-cli 少了直接呼叫 grpc method 的方法，功能只是為了取得 grpc service 與 method 定義，在使用上太侷限了</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://appimage.github.io/BloomRPC/" target="_blank">BloomRPC</a></li>
-<li><a href="https://github.com/fullstorydev/grpcurl" target="_blank">fullstorydev/grpcurl</a></li>
+<li><a href="https://blog.yowko.com/grpc-cli/" target="_blank">使用 grpc-cli 呼叫 gRPC Service</a></li>
+<li><a href="https://www.nuget.org/packages/dotnet-grpc-cli/" target="_blank">dotnet-grpc-cli</a></li>
+<li><a href="https://github.com/mholo65/dotnet-grpc-cli" target="_blank">mholo65/dotnet-grpc-cli</a></li>
 </ol>
 
     </div>
@@ -368,7 +312,7 @@ go install github.com/fullstorydev/grpcurl/cmd/grpcurl
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-03-07</span>
+    <span class="item-content">2020-09-13</span>
   </p>
   
   <p class="copyright-item">
@@ -393,8 +337,10 @@ go install github.com/fullstorydev/grpcurl/cmd/grpcurl
             <a href="https://blog.yowko.com/tags/grpc/">gRPC</a>
           
 		    
-		    	
-            <a href="https://blog.yowko.com/tags/tools/">Tools</a>
+		    
+          
+        	
+            <a href="https://blog.yowko.com/tags/dotnet/">.NET</a>
           
         </div>
 
@@ -402,18 +348,11 @@ go install github.com/fullstorydev/grpcurl/cmd/grpcurl
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/grpcurl-timestamp/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">使用 grpcurl 使用 Timestamp 參數呼叫 gRPC Service</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/ansible-influxdb-create-user-database-rententionpolicy/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/grpc-cli/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy</span>			
+            <span class="prev-text nav-default">使用 grpc-cli 呼叫 gRPC Service</span>			
           </a>
 		  </div>
       </nav>
@@ -424,7 +363,7 @@ go install github.com/fullstorydev/grpcurl/cmd/grpcurl
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/grpcurl\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/dotnet-grpc-cli\/';  
       
     };
 

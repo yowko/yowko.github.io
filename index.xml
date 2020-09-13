@@ -6,10 +6,37 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 08 Sep 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 13 Sep 2020 12:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 dotnet-grpc-cli 取得 gRPC Service 內容</title>
+      <link>https://blog.yowko.com/dotnet-grpc-cli/</link>
+      <pubDate>Sun, 13 Sep 2020 12:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-grpc-cli/</guid>
+      <description>使用 dotnet-grpc-cli 取得 gRPC Service 內容 之前筆記 使用 grpc-cli 呼叫 gRPC Service 紀錄到 gprc 官方 command line tool 的使用方式，後來偶爾間發現竟然有 dotnet 版：dotnet-grpc-cli，還是 C# 撰寫的</description>
+    </item>
+    
+    <item>
+      <title>使用 grpc-cli 呼叫 gRPC Service</title>
+      <link>https://blog.yowko.com/grpc-cli/</link>
+      <pubDate>Sat, 12 Sep 2020 12:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/grpc-cli/</guid>
+      <description>使用 dotnet-grpc-cli 呼叫 gRPC Service 之前筆記 使用grpcurl 呼叫gRPC Service 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cl</description>
+    </item>
+    
+    <item>
+      <title>在 ASP.NET Core 上啟用 gRPC Reflection</title>
+      <link>https://blog.yowko.com/aspdotnet-core-grpc-reflection/</link>
+      <pubDate>Thu, 10 Sep 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-grpc-reflection/</guid>
+      <description>在 ASP.NET Core 上啟用 gRPC Reflection 系統功能愈來愈多，自然而然地 proto 檔也就熟變得愈來愈龐大，如果每次想要手動測試 gRPC 功能時都要手 key proto 實在沒效率 (測試工具可以參考之前</description>
+    </item>
     
     <item>
       <title>建立 MongoDB 自訂角色權限 (role)</title>
@@ -419,7 +446,7 @@
     <item>
       <title>使用 grpcurl 呼叫 gRPC Service</title>
       <link>https://blog.yowko.com/grpcurl/</link>
-      <pubDate>Sat, 07 Mar 2020 12:30:31 +0800</pubDate>
+      <pubDate>Sat, 07 Mar 2020 12:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/grpcurl/</guid>
       <description>使用 grpcurl 呼叫 gRPC Service 一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call</description>

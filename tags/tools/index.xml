@@ -50,7 +50,7 @@
     <item>
       <title>使用 grpcurl 呼叫 gRPC Service</title>
       <link>https://blog.yowko.com/grpcurl/</link>
-      <pubDate>Sat, 07 Mar 2020 12:30:31 +0800</pubDate>
+      <pubDate>Sat, 07 Mar 2020 12:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/grpcurl/</guid>
       <description>使用 grpcurl 呼叫 gRPC Service 一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call</description>

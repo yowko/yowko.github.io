@@ -6,10 +6,19 @@
     <description>Recent content in dotnet on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 16 Jan 2019 23:45:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 13 Sep 2020 12:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/dotnet/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 dotnet-grpc-cli 取得 gRPC Service 內容</title>
+      <link>https://blog.yowko.com/dotnet-grpc-cli/</link>
+      <pubDate>Sun, 13 Sep 2020 12:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dotnet-grpc-cli/</guid>
+      <description>使用 dotnet-grpc-cli 取得 gRPC Service 內容 之前筆記 使用 grpc-cli 呼叫 gRPC Service 紀錄到 gprc 官方 command line tool 的使用方式，後來偶爾間發現竟然有 dotnet 版：dotnet-grpc-cli，還是 C# 撰寫的</description>
+    </item>
     
     <item>
       <title>在 .NET Core 與 .NET Framework 上使用 HttpClientFactory</title>
