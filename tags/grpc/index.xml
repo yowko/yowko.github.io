@@ -6,10 +6,37 @@
     <description>Recent content in grpc on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 13 Sep 2020 12:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/grpc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Kubernetes 搭配 ASP.NET Core BackgroundService 確保 gRPC 服務回應合乎預期</title>
+      <link>https://blog.yowko.com/kubernetes-aspdotnet-core-backgroundservice-grpc/</link>
+      <pubDate>Tue, 22 Sep 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kubernetes-aspdotnet-core-backgroundservice-grpc/</guid>
+      <description>使用 Kubernetes 搭配 ASP.NET Core BackgroundService 確保 gRPC 服務回應合乎預期 之前在筆記 使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期 紀錄到使用 Kubernetes Liveness 在 pod 中的 service 回應如果不如預期時就直接重啟 pod 來嘗試</description>
+    </item>
+    
+    <item>
+      <title>使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期</title>
+      <link>https://blog.yowko.com/kubernetes-liveness-aspdotnet-core-grpc/</link>
+      <pubDate>Mon, 21 Sep 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kubernetes-liveness-aspdotnet-core-grpc/</guid>
+      <description>使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期 今天要紀錄透過 Kubernetes 搭配 使用 ASP.NET Core middleware 進行 gRPC healthy check (當然 使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 也是可行的) 與 讓 container 中的 ASP.NET Core 也有憑證 來確保 service</description>
+    </item>
+    
+    <item>
+      <title>讓 container 中的 ASP.NET Core 也有憑證</title>
+      <link>https://blog.yowko.com/aspdotnet-core-container-certificate/</link>
+      <pubDate>Sun, 20 Sep 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-container-certificate/</guid>
+      <description>讓 container 中的 ASP.NET Core 也有憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法在 macOS 上啟動？！ 都有提到過 gRPC 的原生限制：採用 HTTP2 協定</description>
+    </item>
     
     <item>
       <title>使用 dotnet-grpc-cli 取得 gRPC Service 內容</title>

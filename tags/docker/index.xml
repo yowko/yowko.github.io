@@ -6,10 +6,19 @@
     <description>Recent content in docker on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 26 Jul 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 20 Sep 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>讓 container 中的 ASP.NET Core 也有憑證</title>
+      <link>https://blog.yowko.com/aspdotnet-core-container-certificate/</link>
+      <pubDate>Sun, 20 Sep 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-container-certificate/</guid>
+      <description>讓 container 中的 ASP.NET Core 也有憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法在 macOS 上啟動？！ 都有提到過 gRPC 的原生限制：採用 HTTP2 協定</description>
+    </item>
     
     <item>
       <title>Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED</title>
