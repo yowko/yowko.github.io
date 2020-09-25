@@ -6,10 +6,19 @@
     <description>Recent content in Container on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 13 Apr 2020 22:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 24 Sep 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/container/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Container 中沒有 sysctl 指令怎麼看 kernel 設定</title>
+      <link>https://blog.yowko.com/container-sysctl-command-not-found/</link>
+      <pubDate>Thu, 24 Sep 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/container-sysctl-command-not-found/</guid>
+      <description>Container 中沒有 sysctl 指令怎麼看 kernel 設定 這幾天因為某個 issue 需要檢查 linux kernel 的設定，但使用的 base image (mcr.microsoft.com/dotnet/core/aspnet:3.1) 沒有 sysctl 指令可以用，又找不到安裝的方式，幸虧在同事的強力支援下指點</description>
+    </item>
     
     <item>
       <title>在 Debian container 中安裝 .NET Core SDK</title>

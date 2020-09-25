@@ -1,68 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>NLog on Yowko&#39;s Notes</title>
+    <title>Nlog on Yowko&#39;s Notes</title>
     <link>https://blog.yowko.com/tags/nlog/</link>
-    <description>Recent content in NLog on Yowko&#39;s Notes</description>
+    <description>Recent content in Nlog on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 17 Jul 2018 23:03:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 10 Mar 2019 21:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/nlog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>讓 NLog 發送 Mail </title>
-      <link>https://blog.yowko.com/nlog-mail/</link>
-      <pubDate>Tue, 17 Jul 2018 23:03:00 +0800</pubDate>
+      <title>將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog</title>
+      <link>https://blog.yowko.com/asp-net-core-default-log-nlog-serilog/</link>
+      <pubDate>Sun, 10 Mar 2019 21:00:00 +0800</pubDate>
       
-      <guid>https://blog.yowko.com/nlog-mail/</guid>
-      <description>讓 NLog 發送 Mail 曾經在之前筆記 讓 log4net 收到指定錯誤 Level 發送 mail 紀錄到透過 log4net 的 appender 設定讓出現指定 log Level 時自動發送 mail，當時就覺得 NLog 在設定的便利性上與文件的可</description>
-    </item>
-    
-    <item>
-      <title>在 LINQPad 中使用 NLog</title>
-      <link>https://blog.yowko.com/linqpad-nlog/</link>
-      <pubDate>Fri, 18 May 2018 00:45:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/linqpad-nlog/</guid>
-      <description>在 LINQPad 中使用 NLog LINQPad 的便利性我想不必我多提，而我自己常常在 LINQPad 上進行主要核心流程功能的 poc 開發，或是將特定功能從原系統抽離以加速功能驗證，今天遇到的情</description>
-    </item>
-    
-    <item>
-      <title>NLog 設定 Rule 僅包含部份 Logger</title>
-      <link>https://blog.yowko.com/nlog-rule-logger/</link>
-      <pubDate>Mon, 22 Jan 2018 02:07:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/nlog-rule-logger/</guid>
-      <description>NLog 設定 Rule 僅包含部份 Logger log 是系統正式上線後，少數可以用來協助 debug 的資訊，而 debug 的難易度與解決問題的速度也就跟著 log 的品質而有極大的差異。 今天想要紀錄最</description>
-    </item>
-    
-    <item>
-      <title>關於提昇 NLog 寫入檔案效能</title>
-      <link>https://blog.yowko.com/nlog-async-keepfileopen/</link>
-      <pubDate>Wed, 27 Sep 2017 00:37:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/nlog-async-keepfileopen/</guid>
-      <description>關於提昇 NLog 寫入檔案效能 這是之前一直想做的測試筆記用來比較紀錄 NLog 參數設定對於寫入 log 的效能差異比較，起因是曾經在專案中遇到程式本身沒有問題，卻因</description>
-    </item>
-    
-    <item>
-      <title>使用 Common.Logging 同時將 log 寫至多個 Logging Framework</title>
-      <link>https://blog.yowko.com/common-logging-multiple-logging-framework/</link>
-      <pubDate>Sat, 15 Jul 2017 23:23:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/common-logging-multiple-logging-framework/</guid>
-      <description>使用 Common.Logging 同時將 log 寫至多個 Logging Framework 之前文章 使用 Common.Logging 搭配 NLog 及 Log4Net 介紹到透過 Common.Logging 可以使用一致的 log 語法將 log 轉由不同 logging framework 處理，在不同專案間就可以使用統一 log 語法而且</description>
-    </item>
-    
-    <item>
-      <title>使用 Common.Logging 搭配 NLog 及 log4net</title>
-      <link>https://blog.yowko.com/common-logging/</link>
-      <pubDate>Fri, 14 Jul 2017 23:52:00 +0800</pubDate>
-      
-      <guid>https://blog.yowko.com/common-logging/</guid>
-      <description>使用 Common.Logging 搭配 NLog 及 log4net 在新專案中，同事打算統一 log 的紀錄方式，所以繼承了 log4net 並在 log 的 api 上加入自訂行為，讓後續 log 餵進 ELK 時可以比較順利 出發點當然是為了日後</description>
+      <guid>https://blog.yowko.com/asp-net-core-default-log-nlog-serilog/</guid>
+      <description>將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog ASP.NET Core 預設會將 WebHost 執行細節透過 stdout 輸出至 console 上，application 的所有動作都一目暸然，這在 debug 時很方便，不過部署在一般</description>
     </item>
     
   </channel>
