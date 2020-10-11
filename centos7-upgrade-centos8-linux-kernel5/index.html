@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5 最近在 review 團隊各項技術的版本，準備再來次大升級，其中的較大的內容就是基礎環境的部份，原本之前就想升級 Kubernetes 1.18 但無奈 Kubespray 當時" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.51" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/centos7-upgrade-centos8-linux-kernel5/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5" />
+<meta property="og:description" content="CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5 最近在 review 團隊各項技術的版本，準備再來次大升級，其中的較大的內容就是基礎環境的部份，原本之前就想升級 Kubernetes 1.18 但無奈 Kubespray 當時" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/centos7-upgrade-centos8-linux-kernel5/" /><meta property="article:published_time" content="2020-10-10T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-10-10T21:30:31&#43;08:00"/>
+
+<meta itemprop="name" content="CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5">
+<meta itemprop="description" content="CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5 最近在 review 團隊各項技術的版本，準備再來次大升級，其中的較大的內容就是基礎環境的部份，原本之前就想升級 Kubernetes 1.18 但無奈 Kubespray 當時">
+
+
+<meta itemprop="datePublished" content="2020-10-10T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-10-10T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="955">
+
+
+
+<meta itemprop="keywords" content="Linux," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5"/>
+<meta name="twitter:description" content="CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5 最近在 review 團隊各項技術的版本，準備再來次大升級，其中的較大的內容就是基礎環境的部份，原本之前就想升級 Kubernetes 1.18 但無奈 Kubespray 當時"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-10-10 </span>
+        
+        <span class="more-meta"> 約 955 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#centos-7-升級-centos-8-連帶安裝-linux-kernel-5">CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5</a></li>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#升級步驟">升級步驟</a></li>
+<li><a href="#心得">心得</a></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="centos-7-升級-centos-8-連帶安裝-linux-kernel-5">CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5</h2>
+
+<p>最近在 review 團隊各項技術的版本，準備再來次大升級，其中的較大的內容就是基礎環境的部份，原本之前就想升級 Kubernetes 1.18 但無奈 Kubespray 當時尚未支援，過了幾個月再次 review 時已確認可以正常使用，只是這次多 review 了底層 kernel 與 OS 的版本，經過簡單討論後決定將 CentOS7 升級至 CentOS8，連帶一併將原本使用的 Linux Kernel 4 升成 Linux Kernel 5</p>
+
+<p>過去工作經驗中，遇到需要這麼大程度的升級，都是直接請 server team 同事先提供新機器並預先安裝新的 OS，我們把程式部署上去驗證沒問題後再挑個黃道吉日將流量跟設定調整過去新機器上，舊機器就放個幾周沒問題就還個 server team，可是這次因為沒有多餘的機器可以做這樣的操作，得要直接進行升級，為了加速之後升級的速度，我來筆記一下</p>
+
+<h2 id="基本環境說明">基本環境說明</h2>
+
+<ol>
+<li>macOS Catalina 10.15.6</li>
+
+<li><p>VrtualBox 6.1.12</p>
+
+<ul>
+<li><p>bridge 網路</p></li>
+
+<li><p>開啟對外</p>
+
+<pre><code class="language-bash">nmcli connection modify enp0s3 \
+connection.autoconnect yes \
+ipv4.method auto
+</code></pre></li>
+</ul></li>
+
+<li><p>原環境</p>
+
+<ul>
+<li>CentOS 7.8.2003</li>
+
+<li><p>Linux Kernel 3.10.0</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656343-67aaee80-0b40-11eb-9f55-df9819e957ca.png" alt="1oskernel" /></p></li>
+</ul></li>
+
+<li><p>新環境</p>
+
+<ul>
+<li>CentOS 8.2.2004</li>
+<li>Linux Kernel 5.8.14</li>
+</ul></li>
+</ol>
+
+<h2 id="升級步驟">升級步驟</h2>
+
+<ol>
+<li><p>安裝 Epel yum Repository</p>
+
+<pre><code class="language-bash">yum install -y epel-release
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656344-6974b200-0b40-11eb-962f-b684b8795198.png" alt="2installepel" /></p></li>
+
+<li><p>安裝升級過渡用套件</p>
+
+<pre><code class="language-bash">yum install -y yum-utils rpmconf
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656346-6aa5df00-0b40-11eb-8dff-0405c5a7da5f.png" alt="3yumrpmconf" /></p></li>
+
+<li><p>清除已不再被依賴的套件</p>
+
+<pre><code class="language-bash">package-cleanup --leaves|tail -n +2|xargs yum remove -y
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656348-6b3e7580-0b40-11eb-9d69-e914cd6deadf.png" alt="5removeleaves" /></p></li>
+
+<li><p>安裝 dnf</p>
+
+<pre><code class="language-bash">yum install -y dnf
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656349-6bd70c00-0b40-11eb-8877-3dd853299f08.png" alt="6installdnf" /></p></li>
+
+<li><p>移除 yum</p>
+
+<pre><code class="language-bash">dnf remove -y yum yum-metadata-parser
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656350-6bd70c00-0b40-11eb-9986-a1bfa18c63f6.png" alt="7removyum" /></p></li>
+
+<li><p>使用 dnf 更新 centos 7 系統</p>
+
+<pre><code class="language-bash">dnf upgrade -y
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656351-6c6fa280-0b40-11eb-8436-35d1d52016f4.png" alt="8dnfupgrade" /></p></li>
+
+<li><p>升級 CentOS 8 RPM</p>
+
+<pre><code class="language-bash">dnf install -y http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/centos-repos-8.2-2.2004.0.1.el8.x86_64.rpm http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/centos-release-8.2-2.2004.0.1.el8.x86_64.rpm http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/centos-gpg-keys-8.2-2.2004.0.1.el8.noarch.rpm
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656352-6d083900-0b40-11eb-8298-8effaa245d19.png" alt="9centos8" /></p></li>
+
+<li><p>匯入 gpg key</p>
+
+<pre><code class="language-bash">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+</code></pre></li>
+
+<li><p>升級 epel</p>
+
+<pre><code class="language-bash">dnf upgrade -y epel-release
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656353-6da0cf80-0b40-11eb-94da-0e43fa104a46.png" alt="10upgradeepel" /></p></li>
+
+<li><p>清除舊 kernel</p>
+
+<pre><code class="language-bash">rpm -e `rpm -q kernel`
+</code></pre></li>
+
+<li><p>移除衝突套件</p>
+
+<pre><code class="language-bash">rpm -e --nodeps sysvinit-tools
+</code></pre></li>
+
+<li><p>升級 CentOS 8</p>
+
+<blockquote>
+<p>移除 python 3 的動作是我在數十次安裝中都會遇到的問題，所以先加上來，如果有疑慮可以先執行升級，待出現衝突再移除即可</p>
+</blockquote>
+
+<ul>
+<li><p>移除 python 3</p>
+
+<pre><code class="language-bash">dnf remove -y python3
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656354-6da0cf80-0b40-11eb-9677-037f2f081dbe.png" alt="11removepython3" /></p></li>
+
+<li><p>升級 CentOS 8</p>
+
+<pre><code class="language-bash">dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656355-6e396600-0b40-11eb-9837-06f4a98674bd.png" alt="12upgradecentos" /></p></li>
+</ul></li>
+
+<li><p>升級 kernal 至 mainline</p>
+
+<ul>
+<li><p>加入  rpm</p>
+
+<pre><code class="language-bash">dnf install -y https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
+</code></pre></li>
+
+<li><p>安裝 mainline lernel</p>
+
+<pre><code class="language-bash">dnf --enablerepo=elrepo-kernel -y install kernel-ml
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656356-6ed1fc80-0b40-11eb-80a6-7993052cffbc.png" alt="13kernelinstalled" /></p></li>
+</ul></li>
+
+<li><p>設定開機選單</p>
+
+<ul>
+<li><p>讓開機時間不要倒數</p>
+
+<pre><code class="language-bash">sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
+</code></pre></li>
+
+<li><p>重新產生開機設定</p>
+
+<pre><code class="language-bash">grub2-mkconfig -o /boot/grub2/grub.cfg
+</code></pre></li>
+</ul></li>
+
+<li><p>重新開機套用新的 kernel</p>
+
+<pre><code class="language-bash">reboot
+</code></pre></li>
+
+<li><p>實際效果</p>
+
+<pre><code class="language-bash">cat /etc/redhat-release &amp;&amp;  uname -r
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656357-6f6a9300-0b40-11eb-9480-3a3184b2ae5d.png" alt="14result" /></p></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>一開始我是透過 Azure VM 來進行安裝，但持續遇到開單選單無法成功建立的錯誤，後來才想到會不會是 Azure VM 的架構不允許我做這樣的升級行為，因為雲端 VM 的建立也是基於 image 的基礎上，後來使用 VirtualBox 來建立測試環境，的確也順利解決問題</p>
+
+<p>以下是我測試過程中遇到的幾個問題，我簡單紀錄一下問題與解決方式</p>
+
+<ol>
+<li><p>RPM 衝突</p>
+
+<blockquote>
+<p>這個我是在安裝 centos8 的 rpm 後遇到的</p>
+</blockquote>
+
+<ul>
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/95656359-70032980-0b40-11eb-98b6-fbb5cb8304ac.png" alt="15rpmconf" /></p></li>
+
+<li><p>解決方式</p>
+
+<blockquote>
+<p>透過 <code>重新設定 rpm config</code> 使用新的 rpm (互動選項我選 <code>Y</code> - 複寫舊設定)</p>
+</blockquote>
+
+<pre><code class="language-bash">rpmconf -a
+</code></pre></li>
+</ul></li>
+
+<li><p>Kernel 執行中</p>
+
+<blockquote>
+<p>我不確定是不是只有在 Azure VM 才會遇到，或者就是這個操作造成後續開機選單異常</p>
+</blockquote>
+
+<ul>
+<li>錯誤截圖
+<img src="https://user-images.githubusercontent.com/3851540/95656360-709bc000-0b40-11eb-93e3-bf219de4817c.png" alt="16rmkernelerror" /></li>
+
+<li><p>解決方式</p>
+
+<blockquote>
+<p>該不該這麼做，請自行斟酌</p>
+</blockquote>
+
+<pre><code class="language-bash">dnf -y remove hypervvssd hypervkvpd kmod-kvdo &amp;&amp; rpm -e hypervfcopyd
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="參考資訊">參考資訊</h2>
+
+<ol>
+<li><a href="https://www.centlinux.com/2020/01/how-to-upgrade-centos-7-to-8-server.html" target="_blank">How to upgrade CentOS 7 to CentOS 8 Server</a></li>
+<li><a href="https://www.howtoforge.com/how-to-upgrade-centos-7-core-to-8/" target="_blank">How to Upgrade Centos 7 to 8</a></li>
+<li><a href="http://blog.itist.tw/2016/03/how-to-upgrade-newest-kernel-on-centos-7.html" target="_blank">[CentOS 7] 核心升級免苦惱，三行指令就搞定</a></li>
+<li><a href="https://www.thegeekdiary.com/how-to-change-the-default-kernel-boot-from-old-kernel-in-centos-rhel-8/" target="_blank">How to Change the default kernel (boot from old kernel) in CentOS/RHEL 8</a></li>
+<li><a href="http://slashview.com/archive2019/20190524.html" target="_blank">調整Linux GRUB開機選單的倒數秒數</a></li>
+<li><a href="https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/481447/" target="_blank">VirtualBox 中 centos7 下 ping 命令出現 Network is unreachable 問題的解決方法</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2020-10-10</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/container-sysctl-command-not-found/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">Container 中沒有 sysctl 指令怎麼看 kernel 設定</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/centos7-upgrade-centos8-linux-kernel5\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

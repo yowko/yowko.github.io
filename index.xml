@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 24 Sep 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 10 Oct 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5</title>
+      <link>https://blog.yowko.com/centos7-upgrade-centos8-linux-kernel5/</link>
+      <pubDate>Sat, 10 Oct 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/centos7-upgrade-centos8-linux-kernel5/</guid>
+      <description>CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5 最近在 review 團隊各項技術的版本，準備再來次大升級，其中的較大的內容就是基礎環境的部份，原本之前就想升級 Kubernetes 1.18 但無奈 Kubespray 當時</description>
+    </item>
     
     <item>
       <title>Container 中沒有 sysctl 指令怎麼看 kernel 設定</title>
