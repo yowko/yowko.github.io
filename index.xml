@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 10 Oct 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 19 Oct 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ASP.NET Core 的 gRPC Polly Retry</title>
+      <link>https://blog.yowko.com/aspdotnet-core-grpc-polly-retry/</link>
+      <pubDate>Mon, 19 Oct 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-grpc-polly-retry/</guid>
+      <description>ASP.NET Core 的 gRPC Polly Retry 之前曾經對 gRPC 的 keepalive 調整一輪 (server、kubernetes、container)，原本看似已解決，但最近斷線的錯誤又出現，於是</description>
+    </item>
     
     <item>
       <title>CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5</title>

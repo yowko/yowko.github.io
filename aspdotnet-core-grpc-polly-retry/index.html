@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ASP.NET Core 的 gRPC Polly Retry - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="ASP.NET Core 的 gRPC Polly Retry 之前曾經對 gRPC 的 keepalive 調整一輪 (server、kubernetes、container)，原本看似已解決，但最近斷線的錯誤又出現，於是" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.51" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/aspdotnet-core-grpc-polly-retry/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="ASP.NET Core 的 gRPC Polly Retry" />
+<meta property="og:description" content="ASP.NET Core 的 gRPC Polly Retry 之前曾經對 gRPC 的 keepalive 調整一輪 (server、kubernetes、container)，原本看似已解決，但最近斷線的錯誤又出現，於是" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-grpc-polly-retry/" /><meta property="article:published_time" content="2020-10-19T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-10-19T21:30:31&#43;08:00"/>
+
+<meta itemprop="name" content="ASP.NET Core 的 gRPC Polly Retry">
+<meta itemprop="description" content="ASP.NET Core 的 gRPC Polly Retry 之前曾經對 gRPC 的 keepalive 調整一輪 (server、kubernetes、container)，原本看似已解決，但最近斷線的錯誤又出現，於是">
+
+
+<meta itemprop="datePublished" content="2020-10-19T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-10-19T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="439">
+
+
+
+<meta itemprop="keywords" content="asp.net core,gRPC," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ASP.NET Core 的 gRPC Polly Retry"/>
+<meta name="twitter:description" content="ASP.NET Core 的 gRPC Polly Retry 之前曾經對 gRPC 的 keepalive 調整一輪 (server、kubernetes、container)，原本看似已解決，但最近斷線的錯誤又出現，於是"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-10-19 </span>
+        
+        <span class="more-meta"> 約 439 字 </span>
+          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#asp-net-core-的-grpc-polly-retry">ASP.NET Core 的 gRPC Polly Retry</a></li>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#設定方式">設定方式</a></li>
+<li><a href="#心得">心得</a></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="asp-net-core-的-grpc-polly-retry">ASP.NET Core 的 gRPC Polly Retry</h2>
+
+<p>之前曾經對 gRPC 的 keepalive 調整一輪 (server、kubernetes、container)，原本看似已解決，但最近斷線的錯誤又出現，於是改變想法：乾脆直接做 retry 重連</p>
+
+<h2 id="基本環境說明">基本環境說明</h2>
+
+<ol>
+<li>macOS Catalina 10.15.7</li>
+<li>.NET Core SDK 3.1.301</li>
+<li>ASP.NET Core gRPC 預設專案範本</li>
+</ol>
+
+<h2 id="設定方式">設定方式</h2>
+
+<ol>
+<li><p>定義連線狀態</p>
+
+<blockquote>
+<p>大部份情況下，gRPC 都會以 http status code 回應，但在 gRPC 專屬情境下則會回出 grpc-status，所以兩者皆需要處理</p>
+</blockquote>
+
+<ul>
+<li><p>http</p>
+
+<pre><code class="language-cs">var httpErrors = new HttpStatusCode[] {
+         HttpStatusCode.BadGateway,
+         HttpStatusCode.GatewayTimeout,
+         HttpStatusCode.ServiceUnavailable,
+         HttpStatusCode.InternalServerError,
+         HttpStatusCode.TooManyRequests,
+         HttpStatusCode.RequestTimeout
+};
+</code></pre></li>
+
+<li><p>gRPC</p>
+
+<pre><code class="language-cs">var grpcErrors = new StatusCode[] {
+         StatusCode.DeadlineExceeded,
+         StatusCode.Internal,
+         StatusCode.NotFound,
+         StatusCode.ResourceExhausted,
+         StatusCode.Unavailable,
+         StatusCode.Unknown
+};
+</code></pre></li>
+</ul></li>
+
+<li><p>取得 grpc-status</p>
+
+<pre><code class="language-cs">public static class StatusManager
+{
+    public static StatusCode? GetStatusCode(HttpResponseMessage response)
+    {
+        var headers = response.Headers;
+
+        if (!headers.Contains(&quot;grpc-status&quot;) &amp;&amp; response.StatusCode == HttpStatusCode.OK)
+            return StatusCode.OK;
+
+        if (headers.Contains(&quot;grpc-status&quot;))
+            return (StatusCode)int.Parse(headers.GetValues(&quot;grpc-status&quot;).First());
+
+        return null;
+    }
+}
+</code></pre></li>
+
+<li><p>Polly retry policy</p>
+
+<pre><code class="language-cs">Func&lt;HttpRequestMessage, IAsyncPolicy&lt;HttpResponseMessage&gt;&gt; retryFunc = request =&gt;
+{
+    return HttpPolicyExtensions
+        .HandleTransientHttpError()
+        .OrResult(
+            r =&gt; {
+
+            var grpcStatus = StatusManager.GetStatusCode(r);
+            var httpStatusCode = r.StatusCode;
+
+            // `出現 http 錯誤` 或是 `出現 grpc 錯誤 (grpc 會回應 HttpStatusCode.OK)`
+            return (grpcStatus == null &amp;&amp; serverErrors.Contains(httpStatusCode)) || (httpStatusCode == HttpStatusCode.OK &amp;&amp; gRpcErrors.Contains(grpcStatus.Value));
+            }
+        )
+        //重試 `1` 次，間隔 `1` 秒
+        .WaitAndRetryAsync(1,
+            (input) =&gt; TimeSpan.FromSeconds(1),
+            (result, timeSpan, retryCount, context) =&gt;
+            {
+                //log 重試次數
+                Log.Warning($&quot;Retry:${retryCount}&quot;);
+            });
+        };
+</code></pre></li>
+
+<li><p>使用 Polly policy 加入 gRPCClientFactory</p>
+
+<pre><code class="language-cs">services.AddGrpcClient&lt;Greeter.GreeterClient&gt;(o =&gt;
+    {
+        o.Address = new Uri(&quot;https://localhost:5001&quot;);
+    })
+    .AddPolicyHandler(retryFunc);
+</code></pre></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>如果只是為了解決 gRPC keepalive 的問題， retry 一次用來觸發 gRPC 重新連線我個人覺得最為理想，但若是不僅僅要處理 gRPC keepalive 問題就得要自行調整 retry 次數與間隔時間，甚至加上 jitter 策略了</p>
+
+<h2 id="參考資訊">參考資訊</h2>
+
+<ol>
+<li><a href="https://anthonygiretti.com/2020/03/31/grpc-asp-net-core-3-1-resiliency-with-polly/" target="_blank">gRPC &amp; ASP.NET Core 3.1: Resiliency with Polly</a></li>
+<li><a href="https://docs.microsoft.com/zh-tw/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests?WT.mc_id=DOP-MVP-5002594" target="_blank">使用 HttpClientFactory 實作復原 HTTP 要求</a></li>
+<li><a href="https://docs.microsoft.com/zh-tw/dotnet/architecture/microservices/implement-resilient-applications/implement-circuit-breaker-pattern?WT.mc_id=DOP-MVP-5002594" target="_blank">實作斷路器模式</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2020-10-19</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/asp.net-core/">asp.net core</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/grpc/">gRPC</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/centos7-upgrade-centos8-linux-kernel5/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/aspdotnet-core-grpc-polly-retry\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>
