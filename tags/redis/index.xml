@@ -6,10 +6,19 @@
     <description>Recent content in redis on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 16 Aug 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 21 Oct 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/redis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 dnf 安裝 Redis 6</title>
+      <link>https://blog.yowko.com/dnf-install-redis6/</link>
+      <pubDate>Wed, 21 Oct 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dnf-install-redis6/</guid>
+      <description>使用 dnf 安裝 Redis 6 之前筆記 使用 Yum 安裝 Redis 5 與 CentOS 使用 yum 安裝 Redis6 紀錄到在 CentOS 中分別使用不同 rpm 安裝 Redis 5 與 Redis 6 的做法，最近改用 dnf 做為套件管理工具，安裝方式有些</description>
+    </item>
     
     <item>
       <title>Ansible 安裝 Redis Cluster (更新版)</title>

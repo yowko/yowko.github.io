@@ -6,10 +6,28 @@
     <description>Recent content in Linux on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 10 Oct 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 22 Oct 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CentOS 8 降級 Linux Kernel 5</title>
+      <link>https://blog.yowko.com/centos-downgrade-kernel/</link>
+      <pubDate>Thu, 22 Oct 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/centos-downgrade-kernel/</guid>
+      <description>CentOS 8 降級 Linux Kernel 5 之前筆記 CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5 興高采烈地把環境升級到最新版本：CentOS 8 + Linux Kernel 5.9.1，結果遇到 Ansible 的 service module 出現 Service is in unknown</description>
+    </item>
+    
+    <item>
+      <title>使用 dnf 安裝 Redis 6</title>
+      <link>https://blog.yowko.com/dnf-install-redis6/</link>
+      <pubDate>Wed, 21 Oct 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dnf-install-redis6/</guid>
+      <description>使用 dnf 安裝 Redis 6 之前筆記 使用 Yum 安裝 Redis 5 與 CentOS 使用 yum 安裝 Redis6 紀錄到在 CentOS 中分別使用不同 rpm 安裝 Redis 5 與 Redis 6 的做法，最近改用 dnf 做為套件管理工具，安裝方式有些</description>
+    </item>
     
     <item>
       <title>CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5</title>
