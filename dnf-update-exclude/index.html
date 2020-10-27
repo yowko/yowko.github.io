@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 dnf 透過 module 安裝指定版本套件 - Yowko&#39;s Notes</title>
+  <title>避免執行 dnf update 時連帶升級特定套件 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 dnf 透過 module 安裝指定版本套件 這是從過去使用 yum 時發現的問題：安裝套件時多是執行 yum install -y {套件名稱}，如此一來會直接安裝該套件的最新版本，對於日常" />
+  <meta name="description" content="避免執行 dnf update 時連帶升級特定套件 之前對於 linux 不熟悉，加上沒有系統化學習而對 linux 相關知識不足，造成不少問題：常常要安裝新套件前，就執行 yum update" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/dnf-module-install-specific-artifact/" />
+<link rel="canonical" href="https://blog.yowko.com/dnf-update-exclude/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="使用 dnf 透過 module 安裝指定版本套件" />
-<meta property="og:description" content="使用 dnf 透過 module 安裝指定版本套件 這是從過去使用 yum 時發現的問題：安裝套件時多是執行 yum install -y {套件名稱}，如此一來會直接安裝該套件的最新版本，對於日常" />
+<meta property="og:title" content="避免執行 dnf update 時連帶升級特定套件" />
+<meta property="og:description" content="避免執行 dnf update 時連帶升級特定套件 之前對於 linux 不熟悉，加上沒有系統化學習而對 linux 相關知識不足，造成不少問題：常常要安裝新套件前，就執行 yum update" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/dnf-module-install-specific-artifact/" /><meta property="article:published_time" content="2020-10-23T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-10-23T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/dnf-update-exclude/" /><meta property="article:published_time" content="2020-10-26T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-10-26T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="使用 dnf 透過 module 安裝指定版本套件">
-<meta itemprop="description" content="使用 dnf 透過 module 安裝指定版本套件 這是從過去使用 yum 時發現的問題：安裝套件時多是執行 yum install -y {套件名稱}，如此一來會直接安裝該套件的最新版本，對於日常">
+<meta itemprop="name" content="避免執行 dnf update 時連帶升級特定套件">
+<meta itemprop="description" content="避免執行 dnf update 時連帶升級特定套件 之前對於 linux 不熟悉，加上沒有系統化學習而對 linux 相關知識不足，造成不少問題：常常要安裝新套件前，就執行 yum update">
 
 
-<meta itemprop="datePublished" content="2020-10-23T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-10-23T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="612">
+<meta itemprop="datePublished" content="2020-10-26T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-10-26T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="588">
 
 
 
 <meta itemprop="keywords" content="Linux," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 dnf 透過 module 安裝指定版本套件"/>
-<meta name="twitter:description" content="使用 dnf 透過 module 安裝指定版本套件 這是從過去使用 yum 時發現的問題：安裝套件時多是執行 yum install -y {套件名稱}，如此一來會直接安裝該套件的最新版本，對於日常"/>
+<meta name="twitter:title" content="避免執行 dnf update 時連帶升級特定套件"/>
+<meta name="twitter:description" content="避免執行 dnf update 時連帶升級特定套件 之前對於 linux 不熟悉，加上沒有系統化學習而對 linux 相關知識不足，造成不少問題：常常要安裝新套件前，就執行 yum update"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-10-23 </span>
+        <span class="post-time"> 2020-10-26 </span>
         
-        <span class="more-meta"> 約 612 字 </span>
+        <span class="more-meta"> 約 588 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -163,9 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#使用-dnf-透過-module-安裝指定版本套件">使用 dnf 透過 module 安裝指定版本套件</a></li>
+<li><a href="#避免執行-dnf-update-時連帶升級特定套件">避免執行 dnf update 時連帶升級特定套件</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#操作步驟">操作步驟</a></li>
+<li><a href="#設定方式">設定方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,9 +181,11 @@
     <div class="post-content">
       
 
-<h2 id="使用-dnf-透過-module-安裝指定版本套件">使用 dnf 透過 module 安裝指定版本套件</h2>
+<h2 id="避免執行-dnf-update-時連帶升級特定套件">避免執行 dnf update 時連帶升級特定套件</h2>
 
-<p>這是從過去使用 <code>yum</code> 時發現的問題：安裝套件時多是執行 <code>yum install -y {套件名稱}</code>，如此一來會直接安裝該套件的最新版本，對於日常使用或是全新開發上是正確的，但這個動作對於正在運作的系統，這個直接動作會造成原本的套件升級至最新版，可能出現不可預期的問題，所以之前筆記 <a href="https://blog.yowko.com/yum-specific-version/" target="_blank">yum 安裝指定版本套件</a> 就紀錄了該如何使用 yum 來安裝指定版本套件的做法 (指定版本並不一定是舊版，有可能指定的版本正好是最新版，只是確保版本是固定的)，最近正在將 yum 改為 dnf，在 dnf module 安裝時沒辦法直接套用相同技巧，立馬簡單紀錄一下</p>
+<p>之前對於 linux 不熟悉，加上沒有系統化學習而對 linux 相關知識不足，造成不少問題：常常要安裝新套件前，就執行 <code>yum update</code>，以為這個指令是讓 yum 重新取得 package cache，後來才發現這個指令會升級系統上所有套件至最新版 XD</p>
+
+<p>雖然學藝不精下錯指令是我個人問題，但為了避免有人像我一樣，還是應該強制避免某些套件在不預期的情況被升級，快速紀錄一下  提醒自己別再犯基本錯誤 QQ</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -191,108 +193,66 @@
 <li>Azure VM Standard_B2s (CentOS-based 8.2 - Gen1)</li>
 <li>Linux (centos 8.2.2004)</li>
 <li>Linux Kernel 4.18.0-193.19.1.el8_2.x86_64</li>
+<li>dnf 4.2.17</li>
 <li>Redis 6.0.7</li>
 </ol>
 
-<h2 id="操作步驟">操作步驟</h2>
-
-<blockquote>
-<p>這邊以 redis 為例，想多了解如何使用 dnf 安裝 redis 可以參考之前筆記 <a href="https://blog.yowko.com/dnf-install-redis6/" target="_blank">使用 dnf 安裝 Redis 6</a></p>
-</blockquote>
+<h2 id="設定方式">設定方式</h2>
 
 <ol>
-<li><p>確保目標 package 的 repo rpm 已安裝</p>
-
-<pre><code class="language-bash">dnf install -y https://rpms.remirepo.net/enterprise/remi-release-8.rpm
-</code></pre></li>
-
-<li><p>依 module 列出可用的 package 與 stream</p>
-
-<pre><code class="language-bash">dnf module list redis
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/96956251-395ae500-152a-11eb-84be-e096dd132319.png" alt="1dnflist" /></p></li>
-
-<li><p>檢視目標 package 的詳細資訊</p>
+<li><p>設定前狀況：執行 dnf update 會將 redis 從 Redis 6.0.7 升級至 Redis 6.0.8</p>
 
 <blockquote>
-<p>確認是否有無不同版本的 artifacts</p>
+<p><code>dnf list installed</code> 可以列出已安裝的套件</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/97158431-60c4e280-17b4-11eb-95c5-ba93bfed1e0a.png" alt="1dnfupdate" /></p></li>
+
+<li><p>將需要鎖定的套件名稱加至 <code>/etc/dnf/dnf.conf</code> 的 <code>exclude</code> 中</p>
+
+<blockquote>
+<p>原本就有設定 exclude，就將 <code>redis</code> 補在最後面(如果原本就有 redis，會重複)，如果原本沒有就直接加上 <code>exclude=redis</code></p>
 </blockquote>
 
 <ul>
 <li><p>語法</p>
 
-<blockquote>
-<p>如果只有一個 <code>profile</code> 可以忽略不寫</p>
-</blockquote>
-
-<pre><code class="language-bash">dnf module info {package Name}:{Stream}/{profile}
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/96956255-3bbd3f00-152a-11eb-8d52-6d6a2c01e3f9.png" alt="2dnfinfo" /></p></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">dnf module info redis:remi-6.0
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/96956256-3cee6c00-152a-11eb-9499-e785a22014bc.png" alt="3noprofile" /></p>
-
-<pre><code class="language-bash">dnf module info redis:remi-6.0/common
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/96956258-3d870280-152a-11eb-989a-8ab1a4e55842.png" alt="4withprofile" /></p></li>
-</ul></li>
-
-<li><p>啟用 module stream</p>
-
-<ul>
-<li><p>範例</p>
-
-<pre><code class="language-bash">dnf module enable -y {package name}:{stream name}
-</code></pre></li>
-
-<li><p>語法</p>
-
-<pre><code class="language-bash">dnf module enable -y redis:remi-6.0
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/96956259-3d870280-152a-11eb-9138-0e3596ceb531.png" alt="5enablestream" /></p></li>
-</ul></li>
-
-<li><p>指定舊版的 artifact 安裝套件</p>
-
-<blockquote>
-<p>可以安裝非最新版的套件</p>
-</blockquote>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">dnf install -y --enablerepo={repo name} {artifact name}
+<pre><code class="language-bash">grep -q '^exclude=' /etc/dnf/dnf.conf &amp;&amp; sed -i 's/\(exclude=.*\)/\1 &lt;package&gt; [&lt;package&gt; ...]/g' /etc/dnf/dnf.conf || echo 'exclude=&lt;package&gt; [&lt;package&gt; ...]' &gt;&gt; /etc/dnf/dnf.conf
 </code></pre></li>
 
 <li><p>範例</p>
 
-<pre><code class="language-bash">dnf install -y --enablerepo=remi redis-0:6.0.7-1.el8.remi.x86_64
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/96956260-3e1f9900-152a-11eb-995a-f6e0273d88a6.png" alt="6installredis" /></p></li>
+<pre><code class="language-bash">grep -q '^exclude=' /etc/dnf/dnf.conf &amp;&amp; sed -i 's/\(exclude=.*\)/\1 redis/g' /etc/dnf/dnf.conf || echo 'exclude=redis' &gt;&gt; /etc/dnf/dnf.conf
+</code></pre></li>
 </ul></li>
+
+<li><p>再次更新即可忽略</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/97158436-64586980-17b4-11eb-9959-0689edf7531a.png" alt="2afterupfate" /></p></li>
 </ol>
+
+<ul>
+<li><p>備註</p>
+
+<p>dnf exclude 排除特定套件後，dnf 的所有操作都會直接忽略，像是 dnf list installed 也不會列出該套件</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/97158438-64f10000-17b4-11eb-8546-f3988d239ff5.png" alt="3exclude" /></p></li>
+</ul>
 
 <h2 id="心得">心得</h2>
 
-<p>想不到 dnf 多了個 module 讓安裝不同版本變得複雜不少XD，不過這是我個人感受，我找了好幾個小時的資料都沒找到明確的解決方式，不知道是我關鍵字下得不好、我太不了解 dnf 或是只有我有這個需求</p>
+<p>感覺上在設定 dnf exclude 時，語法不夠漂亮：可能重複設定，但目前功力需要多點時間再試試，就待有空或是下次遇到再一起看囉，重點還是設定 <code>/etc/dnf/dnf.conf</code> 的 <code>exclude</code> 來達成排除特定套件的檢查</p>
 
-<p>不論如何，就快速紀錄一下，我相信這樣的流程跟語法我覺得我不會一直都記得@@&rdquo;</p>
+<p>另外是設定 <code>exclude</code> 後， <code>dnf list installed</code> 就無法列出設定的套件資訊，有時候要查是否安裝或是版本資訊時  需要特別留意</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/yum-specific-version/" target="_blank">yum 安裝指定版本套件</a></li>
-<li><a href="https://blog.yowko.com/dnf-install-redis6/" target="_blank">使用 dnf 安裝 Redis 6</a></li>
-<li><a href="https://blog.csdn.net/coco3848/article/details/107605687" target="_blank">CentOS <sup>7</sup>&frasl;<sub>8</sub> yum安装指定版本Redis</a></li>
+<li><a href="https://www.hiroom2.com/2016/07/07/fedora-24-exclude-package-from-update/" target="_blank">Fedora 24: Exclude package from update</a></li>
+<li><a href="https://docs.microsoft.com/zh-tw/dotnet/standard/base-types/backreference-constructs-in-regular-expressions?WT.mc_id=DOP-MVP-5002594" target="_blank">規則運算式中的反向參考建構</a></li>
+<li><a href="https://unix.stackexchange.com/a/265515" target="_blank">sed backreference: get each line and append it to end of line</a></li>
+<li><a href="https://stackoverflow.com/a/20268787" target="_blank">How to add a line in sed if not match is found</a></li>
+<li><a href="https://www.thegeekstuff.com/2014/11/yum-exclude-examples/" target="_blank">10 Yum Exclude Examples to Skip Packages for Linux Yum Update (How to Yum Exclude Kernel Updates)</a></li>
 </ol>
 
     </div>
@@ -305,7 +265,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-10-23</span>
+    <span class="item-content">2020-10-26</span>
   </p>
   
   <p class="copyright-item">
@@ -335,18 +295,11 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/dnf-update-exclude/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">避免執行 dnf update 時連帶升級特定套件</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/centos-downgrade-kernel/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/dnf-module-install-specific-artifact/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">CentOS 8 降級 Linux Kernel 5</span>			
+            <span class="prev-text nav-default">使用 dnf 透過 module 安裝指定版本套件</span>			
           </a>
 		  </div>
       </nav>
@@ -357,7 +310,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/dnf-module-install-specific-artifact\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/dnf-update-exclude\/';  
       
     };
 

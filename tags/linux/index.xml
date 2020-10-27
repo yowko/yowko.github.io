@@ -6,10 +6,19 @@
     <description>Recent content in Linux on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 23 Oct 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 26 Oct 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>避免執行 dnf update 時連帶升級特定套件</title>
+      <link>https://blog.yowko.com/dnf-update-exclude/</link>
+      <pubDate>Mon, 26 Oct 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/dnf-update-exclude/</guid>
+      <description>避免執行 dnf update 時連帶升級特定套件 之前對於 linux 不熟悉，加上沒有系統化學習而對 linux 相關知識不足，造成不少問題：常常要安裝新套件前，就執行 yum update</description>
+    </item>
     
     <item>
       <title>使用 dnf 透過 module 安裝指定版本套件</title>
