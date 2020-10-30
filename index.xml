@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 26 Oct 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 30 Oct 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CentOS 7 安裝 Linux Kernel 5</title>
+      <link>https://blog.yowko.com/centos7-install-linux-kernel5/</link>
+      <pubDate>Fri, 30 Oct 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/centos7-install-linux-kernel5/</guid>
+      <description>CentOS 7 安裝 Linux Kernel 5 為了 server 管理方便傾向不升級 CentOS 8 與 Linux kernel 5，但在效能議題下只好犧牲一點管理上的方便性，於是決定暫時不升級 CentOS 8，而是在 CentOS 7 下使用 Linux kernel 5</description>
+    </item>
     
     <item>
       <title>避免執行 dnf update 時連帶升級特定套件</title>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>避免執行 dnf update 時連帶升級特定套件 - Yowko&#39;s Notes</title>
+  <title>CentOS 7 安裝 Linux Kernel 5 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="避免執行 dnf update 時連帶升級特定套件 之前對於 linux 不熟悉，加上沒有系統化學習而對 linux 相關知識不足，造成不少問題：常常要安裝新套件前，就執行 yum update" />
+  <meta name="description" content="CentOS 7 安裝 Linux Kernel 5 為了 server 管理方便傾向不升級 CentOS 8 與 Linux kernel 5，但在效能議題下只好犧牲一點管理上的方便性，於是決定暫時不升級 CentOS 8，而是在 CentOS 7 下使用 Linux kernel 5" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/dnf-update-exclude/" />
+<link rel="canonical" href="https://blog.yowko.com/centos7-install-linux-kernel5/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="避免執行 dnf update 時連帶升級特定套件" />
-<meta property="og:description" content="避免執行 dnf update 時連帶升級特定套件 之前對於 linux 不熟悉，加上沒有系統化學習而對 linux 相關知識不足，造成不少問題：常常要安裝新套件前，就執行 yum update" />
+<meta property="og:title" content="CentOS 7 安裝 Linux Kernel 5" />
+<meta property="og:description" content="CentOS 7 安裝 Linux Kernel 5 為了 server 管理方便傾向不升級 CentOS 8 與 Linux kernel 5，但在效能議題下只好犧牲一點管理上的方便性，於是決定暫時不升級 CentOS 8，而是在 CentOS 7 下使用 Linux kernel 5" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/dnf-update-exclude/" /><meta property="article:published_time" content="2020-10-26T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-10-26T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/centos7-install-linux-kernel5/" /><meta property="article:published_time" content="2020-10-30T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-10-30T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="避免執行 dnf update 時連帶升級特定套件">
-<meta itemprop="description" content="避免執行 dnf update 時連帶升級特定套件 之前對於 linux 不熟悉，加上沒有系統化學習而對 linux 相關知識不足，造成不少問題：常常要安裝新套件前，就執行 yum update">
+<meta itemprop="name" content="CentOS 7 安裝 Linux Kernel 5">
+<meta itemprop="description" content="CentOS 7 安裝 Linux Kernel 5 為了 server 管理方便傾向不升級 CentOS 8 與 Linux kernel 5，但在效能議題下只好犧牲一點管理上的方便性，於是決定暫時不升級 CentOS 8，而是在 CentOS 7 下使用 Linux kernel 5">
 
 
-<meta itemprop="datePublished" content="2020-10-26T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-10-26T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="588">
+<meta itemprop="datePublished" content="2020-10-30T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-10-30T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="531">
 
 
 
 <meta itemprop="keywords" content="Linux," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="避免執行 dnf update 時連帶升級特定套件"/>
-<meta name="twitter:description" content="避免執行 dnf update 時連帶升級特定套件 之前對於 linux 不熟悉，加上沒有系統化學習而對 linux 相關知識不足，造成不少問題：常常要安裝新套件前，就執行 yum update"/>
+<meta name="twitter:title" content="CentOS 7 安裝 Linux Kernel 5"/>
+<meta name="twitter:description" content="CentOS 7 安裝 Linux Kernel 5 為了 server 管理方便傾向不升級 CentOS 8 與 Linux kernel 5，但在效能議題下只好犧牲一點管理上的方便性，於是決定暫時不升級 CentOS 8，而是在 CentOS 7 下使用 Linux kernel 5"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-10-26 </span>
+        <span class="post-time"> 2020-10-30 </span>
         
-        <span class="more-meta"> 約 588 字 </span>
+        <span class="more-meta"> 約 531 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -163,9 +163,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#避免執行-dnf-update-時連帶升級特定套件">避免執行 dnf update 時連帶升級特定套件</a></li>
+<li><a href="#centos-7-安裝-linux-kernel-5">CentOS 7 安裝 Linux Kernel 5</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#設定方式">設定方式</a></li>
+<li><a href="#安裝-mainline-kernel-最新版-安裝步驟">安裝 mainline kernel (最新版)安裝步驟</a></li>
+<li><a href="#安裝非-mainline-kernel-安裝步驟">安裝非 mainline kernel 安裝步驟</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,78 +182,152 @@
     <div class="post-content">
       
 
-<h2 id="避免執行-dnf-update-時連帶升級特定套件">避免執行 dnf update 時連帶升級特定套件</h2>
+<h2 id="centos-7-安裝-linux-kernel-5">CentOS 7 安裝 Linux Kernel 5</h2>
 
-<p>之前對於 linux 不熟悉，加上沒有系統化學習而對 linux 相關知識不足，造成不少問題：常常要安裝新套件前，就執行 <code>yum update</code>，以為這個指令是讓 yum 重新取得 package cache，後來才發現這個指令會升級系統上所有套件至最新版 XD</p>
+<p>為了 server 管理方便傾向不升級 CentOS 8 與 Linux kernel 5，但在效能議題下只好犧牲一點管理上的方便性，於是決定暫時不升級 CentOS 8，而是在 CentOS 7 下使用 Linux kernel 5，快速紀錄一下備用</p>
 
-<p>雖然學藝不精下錯指令是我個人問題，但為了避免有人像我一樣，還是應該強制避免某些套件在不預期的情況被升級，快速紀錄一下  提醒自己別再犯基本錯誤 QQ</p>
+<p>筆記中有紀錄到升級 mainline kernel 的方法，以及使用特定 kernel 版本 rpm 的方式，可以依實際需求選擇</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>Azure VM Standard_B2s (CentOS-based 8.2 - Gen1)</li>
-<li>Linux (centos 8.2.2004)</li>
-<li>Linux Kernel 4.18.0-193.19.1.el8_2.x86_64</li>
-<li>dnf 4.2.17</li>
-<li>Redis 6.0.7</li>
-</ol>
+<li>macOS Catalina 10.15.6</li>
 
-<h2 id="設定方式">設定方式</h2>
-
-<ol>
-<li><p>設定前狀況：執行 dnf update 會將 redis 從 Redis 6.0.7 升級至 Redis 6.0.8</p>
-
-<blockquote>
-<p><code>dnf list installed</code> 可以列出已安裝的套件</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/97158431-60c4e280-17b4-11eb-95c5-ba93bfed1e0a.png" alt="1dnfupdate" /></p></li>
-
-<li><p>將需要鎖定的套件名稱加至 <code>/etc/dnf/dnf.conf</code> 的 <code>exclude</code> 中</p>
-
-<blockquote>
-<p>原本就有設定 exclude，就將 <code>redis</code> 補在最後面(如果原本就有 redis，會重複)，如果原本沒有就直接加上 <code>exclude=redis</code></p>
-</blockquote>
+<li><p>VrtualBox 6.1.12</p>
 
 <ul>
-<li><p>語法</p>
+<li><p>bridge 網路</p></li>
 
-<pre><code class="language-bash">grep -q '^exclude=' /etc/dnf/dnf.conf &amp;&amp; sed -i 's/\(exclude=.*\)/\1 &lt;package&gt; [&lt;package&gt; ...]/g' /etc/dnf/dnf.conf || echo 'exclude=&lt;package&gt; [&lt;package&gt; ...]' &gt;&gt; /etc/dnf/dnf.conf
-</code></pre></li>
+<li><p>開啟對外</p>
 
-<li><p>範例</p>
-
-<pre><code class="language-bash">grep -q '^exclude=' /etc/dnf/dnf.conf &amp;&amp; sed -i 's/\(exclude=.*\)/\1 redis/g' /etc/dnf/dnf.conf || echo 'exclude=redis' &gt;&gt; /etc/dnf/dnf.conf
+<pre><code class="language-bash">nmcli connection modify enp0s3 \
+connection.autoconnect yes \
+ipv4.method auto
 </code></pre></li>
 </ul></li>
 
-<li><p>再次更新即可忽略</p>
+<li><p>CentOS 7.8.2003</p></li>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/97158436-64586980-17b4-11eb-9959-0689edf7531a.png" alt="2afterupfate" /></p></li>
-</ol>
+<li><p>原環境</p>
 
 <ul>
-<li><p>備註</p>
+<li><p>Linux Kernel 3.10.0</p>
 
-<p>dnf exclude 排除特定套件後，dnf 的所有操作都會直接忽略，像是 dnf list installed 也不會列出該套件</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/95656343-67aaee80-0b40-11eb-9f55-df9819e957ca.png" alt="1oskernel" /></p></li>
+</ul></li>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/97158438-64f10000-17b4-11eb-8546-f3988d239ff5.png" alt="3exclude" /></p></li>
-</ul>
+<li><p>新環境</p>
+
+<ul>
+<li>Linux Kernel 5.7.14</li>
+</ul></li>
+</ol>
+
+<h2 id="安裝-mainline-kernel-最新版-安裝步驟">安裝 mainline kernel (最新版)安裝步驟</h2>
+
+<ol>
+<li><p>移除舊 kernel</p>
+
+<pre><code class="language-bash">rpm -e `rpm -q kernel`
+</code></pre></li>
+
+<li><p>安裝 elrepo rpm</p>
+
+<pre><code class="language-bash">yum install -y https://www.elrepo.org/elrepo-release-7.el7.elrepo.noarch.rpm
+</code></pre></li>
+
+<li><p>安裝 kernel 與 kernel-header</p>
+
+<pre><code class="language-bash">yum --enablerepo=elrepo-kernel -y install kernel-ml kernel-ml-headers
+</code></pre></li>
+
+<li><p>將開機選單倒數秒數設為 <code>0</code>  (optional)</p>
+
+<pre><code class="language-bash">sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
+</code></pre></li>
+
+<li><p>設定預設開機選項</p>
+
+<pre><code class="language-bash">sed -i 's/GRUB_DEFAULT=saved/GRUB_DEFAULT=0/g' /etc/default/grub
+</code></pre></li>
+
+<li><p>重新產生開機設定</p>
+
+<pre><code class="language-bash">grub2-mkconfig -o /boot/grub2/grub.cfg
+</code></pre></li>
+
+<li><p>重新開機</p>
+
+<pre><code class="language-bash">reboot
+</code></pre></li>
+
+<li><p>安裝結果</p>
+
+<pre><code class="language-bash">cat /etc/redhat-release &amp;&amp; uname -r
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/97735402-40c75300-1b15-11eb-8e14-1bb356719ef2.png" alt="1kernelml" /></p></li>
+</ol>
+
+<h2 id="安裝非-mainline-kernel-安裝步驟">安裝非 mainline kernel 安裝步驟</h2>
+
+<ol>
+<li><p>移除舊 kernel</p>
+
+<pre><code class="language-bash">rpm -e `rpm -q kernel`
+</code></pre></li>
+
+<li><p>安裝 kernel 5.7.12</p>
+
+<blockquote>
+<p>這個步驟我卡最久的是找到適合的 kernel rpm，我個人是在 <a href="http://repos.ord.lax-noc.com/elrepo/archive/kernel/el8/x86_64/RPMS/" target="_blank">Index of /elrepo/archive/kernel/el8/x86_64/RPMS/</a> 不確定有沒有問題，大家自行斟酌</p>
+</blockquote>
+
+<pre><code class="language-bash">yum install -y http://repos.ord.lax-noc.com/elrepo/archive/kernel/el7/x86_64/RPMS/kernel-ml-5.7.12-1.el7.elrepo.x86_64.rpm
+</code></pre></li>
+
+<li><p>安裝 kernel-header</p>
+
+<pre><code class="language-bash">yum install -y http://repos.ord.lax-noc.com/elrepo/archive/kernel/el7/x86_64/RPMS/kernel-ml-headers-5.7.12-1.el7.elrepo.x86_64.rpm
+</code></pre></li>
+
+<li><p>將開機選單倒數秒數設為 <code>0</code> (optional)</p>
+
+<pre><code class="language-bash">sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
+</code></pre></li>
+
+<li><p>設定預設開機選項</p>
+
+<pre><code class="language-bash">sed -i 's/GRUB_DEFAULT=saved/GRUB_DEFAULT=0/g' /etc/default/grub
+</code></pre></li>
+
+<li><p>重新產生開機設定</p>
+
+<pre><code class="language-bash">grub2-mkconfig -o /boot/grub2/grub.cfg
+</code></pre></li>
+
+<li><p>重新開機</p>
+
+<pre><code class="language-bash">reboot
+</code></pre></li>
+
+<li><p>安裝結果</p>
+
+<pre><code class="language-bash">cat /etc/redhat-release &amp;&amp; uname -r
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/97735410-42911680-1b15-11eb-9b2b-930f100c03bf.png" alt="2kernel" /></p></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
-<p>感覺上在設定 dnf exclude 時，語法不夠漂亮：可能重複設定，但目前功力需要多點時間再試試，就待有空或是下次遇到再一起看囉，重點還是設定 <code>/etc/dnf/dnf.conf</code> 的 <code>exclude</code> 來達成排除特定套件的檢查</p>
-
-<p>另外是設定 <code>exclude</code> 後， <code>dnf list installed</code> 就無法列出設定的套件資訊，有時候要查是否安裝或是版本資訊時  需要特別留意</p>
+<p>因為 Kubernetes 搭配的 Calico 網路套件，有個優化的設定需要 kernel 4.20 以上，所以決定將 server 的 kernel 都升至 5，原本是想使用最新版的 kernel (2020/10/30 時是 kernel 5.9)，但 kernel 5.8 以上會讓 ansible 的 service module 異常，所以暫時就改安裝 kernel 5.7.12，這就是今天這份筆記的由來</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://www.hiroom2.com/2016/07/07/fedora-24-exclude-package-from-update/" target="_blank">Fedora 24: Exclude package from update</a></li>
-<li><a href="https://docs.microsoft.com/zh-tw/dotnet/standard/base-types/backreference-constructs-in-regular-expressions?WT.mc_id=DOP-MVP-5002594" target="_blank">規則運算式中的反向參考建構</a></li>
-<li><a href="https://unix.stackexchange.com/a/265515" target="_blank">sed backreference: get each line and append it to end of line</a></li>
-<li><a href="https://stackoverflow.com/a/20268787" target="_blank">How to add a line in sed if not match is found</a></li>
-<li><a href="https://www.thegeekstuff.com/2014/11/yum-exclude-examples/" target="_blank">10 Yum Exclude Examples to Skip Packages for Linux Yum Update (How to Yum Exclude Kernel Updates)</a></li>
+<li><a href="https://blog.cwlove.idv.tw/linux-centos-update-kernel-4-19-open-bbr/" target="_blank">Linux：CentOS 7 更新Kernel 5.x及開啟BBR</a></li>
+<li><a href="https://computingforgeeks.com/install-linux-kernel-5-on-centos-7/" target="_blank">How To Install Linux Kernel 5.x on CentOS 7</a></li>
 </ol>
 
     </div>
@@ -265,7 +340,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-10-26</span>
+    <span class="item-content">2020-10-30</span>
   </p>
   
   <p class="copyright-item">
@@ -295,18 +370,11 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/centos7-install-linux-kernel5/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">CentOS 7 安裝 Linux Kernel 5</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/dnf-module-install-specific-artifact/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/dnf-update-exclude/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">使用 dnf 透過 module 安裝指定版本套件</span>			
+            <span class="prev-text nav-default">避免執行 dnf update 時連帶升級特定套件</span>			
           </a>
 		  </div>
       </nav>
@@ -317,7 +385,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/dnf-update-exclude\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/centos7-install-linux-kernel5\/';  
       
     };
 
