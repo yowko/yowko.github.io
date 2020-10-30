@@ -89,7 +89,7 @@ slug: "centos7-upgrade-centos8-linux-kernel5"
 
     ![8dnfupgrade](https://user-images.githubusercontent.com/3851540/95656351-6c6fa280-0b40-11eb-8436-35d1d52016f4.png)
 
-7. 升級 CentOS 8 RPM
+7. 安裝 CentOS 8 RPM
 
     ```bash
     dnf install -y http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/centos-repos-8.2-2.2004.0.1.el8.x86_64.rpm http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/centos-release-8.2-2.2004.0.1.el8.x86_64.rpm http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/centos-gpg-keys-8.2-2.2004.0.1.el8.noarch.rpm
