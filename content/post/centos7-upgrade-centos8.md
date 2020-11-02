@@ -1,7 +1,7 @@
 ---
 title: "CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5"
 date: 2020-10-10T21:30:00+08:00
-lastmod: 2020-10-10T21:30:31+08:00
+lastmod: 2020-11-01T21:30:31+08:00
 draft: false
 tags: ["Linux"]
 slug: "centos7-upgrade-centos8-linux-kernel5"
@@ -186,6 +186,14 @@ slug: "centos7-upgrade-centos8-linux-kernel5"
     ```
 
     ![14result](https://user-images.githubusercontent.com/3851540/95656357-6f6a9300-0b40-11eb-9480-3a3184b2ae5d.png)
+
+- 2020/11/01 補充：如果需要重新安裝 `yum`
+
+    > 必需刪除或是 rename 原本的 `yum` 設定，以下使用 `rename` 使為範例
+
+    ```bash
+    mv /etc/yum /etc/yum.bak && dnf install -y yum
+    ```
 
 ## 心得
 
