@@ -58,15 +58,15 @@
 <meta property="og:description" content="CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5 最近在 review 團隊各項技術的版本，準備再來次大升級，其中的較大的內容就是基礎環境的部份，原本之前就想升級 Kubernetes 1.18 但無奈 Kubespray 當時" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/centos7-upgrade-centos8-linux-kernel5/" /><meta property="article:published_time" content="2020-10-10T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-10-10T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-11-01T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5">
 <meta itemprop="description" content="CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5 最近在 review 團隊各項技術的版本，準備再來次大升級，其中的較大的內容就是基礎環境的部份，原本之前就想升級 Kubernetes 1.18 但無奈 Kubespray 當時">
 
 
 <meta itemprop="datePublished" content="2020-10-10T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-10-10T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="955">
+<meta itemprop="dateModified" content="2020-11-01T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="999">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-10-10 </span>
         
-        <span class="more-meta"> 約 955 字 </span>
+        <span class="more-meta"> 約 999 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -362,6 +362,17 @@ ipv4.method auto
 <p><img src="https://user-images.githubusercontent.com/3851540/95656357-6f6a9300-0b40-11eb-9480-3a3184b2ae5d.png" alt="14result" /></p></li>
 </ol>
 
+<ul>
+<li><p>2020/11/01 補充：如果需要重新安裝 <code>yum</code></p>
+
+<blockquote>
+<p>必需刪除或是 rename 原本的 <code>yum</code> 設定，以下使用 <code>rename</code> 使為範例</p>
+</blockquote>
+
+<pre><code class="language-bash">mv /etc/yum /etc/yum.bak &amp;&amp; dnf install -y yum
+</code></pre></li>
+</ul>
+
 <h2 id="心得">心得</h2>
 
 <p>一開始我是透過 Azure VM 來進行安裝，但持續遇到開單選單無法成功建立的錯誤，後來才想到會不會是 Azure VM 的架構不允許我做這樣的升級行為，因為雲端 VM 的建立也是基於 image 的基礎上，後來使用 VirtualBox 來建立測試環境，的確也順利解決問題</p>
@@ -432,7 +443,7 @@ ipv4.method auto
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-10-10</span>
+    <span class="item-content">2020-11-01</span>
   </p>
   
   <p class="copyright-item">
