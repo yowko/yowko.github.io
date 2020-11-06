@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 30 Oct 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 05 Nov 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux Service Status 203 無法啟動</title>
+      <link>https://blog.yowko.com/linux-service-status-203/</link>
+      <pubDate>Thu, 05 Nov 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/linux-service-status-203/</guid>
+      <description>Linux Service Status 203 無法啟動 這是最近團隊在升級 zookeeper 及 kafka 時遇到的問題，不過仔細想想應該不是只有 zookeeper 會有問題，所以標題就不限定軟體名稱，避免日後查資料時反而誤會</description>
+    </item>
     
     <item>
       <title>CentOS 7 安裝 Linux Kernel 5</title>

@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/linux-service-status-203/</loc>
+    <lastmod>2020-11-05T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/centos7-install-linux-kernel5/</loc>
     <lastmod>2020-10-30T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -4399,7 +4406,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/centos/</loc>
-    <lastmod>2019-12-01T21:30:31+08:00</lastmod>
+    <lastmod>2020-11-05T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4623,7 +4630,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/linux/</loc>
-    <lastmod>2020-10-30T21:30:31+08:00</lastmod>
+    <lastmod>2020-11-05T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4798,7 +4805,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2020-10-30T21:30:31+08:00</lastmod>
+    <lastmod>2020-11-05T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4973,7 +4980,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2020-10-30T21:30:31+08:00</lastmod>
+    <lastmod>2020-11-05T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

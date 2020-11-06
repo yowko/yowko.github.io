@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>CentOS 7 安裝 Linux Kernel 5 - Yowko&#39;s Notes</title>
+  <title>Linux Service Status 203 無法啟動 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="CentOS 7 安裝 Linux Kernel 5 為了 server 管理方便傾向不升級 CentOS 8 與 Linux kernel 5，但在效能議題下只好犧牲一點管理上的方便性，於是決定暫時不升級 CentOS 8，而是在 CentOS 7 下使用 Linux kernel 5" />
+  <meta name="description" content="Linux Service Status 203 無法啟動 這是最近團隊在升級 zookeeper 及 kafka 時遇到的問題，不過仔細想想應該不是只有 zookeeper 會有問題，所以標題就不限定軟體名稱，避免日後查資料時反而誤會" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/centos7-install-linux-kernel5/" />
+<link rel="canonical" href="https://blog.yowko.com/linux-service-status-203/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="CentOS 7 安裝 Linux Kernel 5" />
-<meta property="og:description" content="CentOS 7 安裝 Linux Kernel 5 為了 server 管理方便傾向不升級 CentOS 8 與 Linux kernel 5，但在效能議題下只好犧牲一點管理上的方便性，於是決定暫時不升級 CentOS 8，而是在 CentOS 7 下使用 Linux kernel 5" />
+<meta property="og:title" content="Linux Service Status 203 無法啟動" />
+<meta property="og:description" content="Linux Service Status 203 無法啟動 這是最近團隊在升級 zookeeper 及 kafka 時遇到的問題，不過仔細想想應該不是只有 zookeeper 會有問題，所以標題就不限定軟體名稱，避免日後查資料時反而誤會" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/centos7-install-linux-kernel5/" /><meta property="article:published_time" content="2020-10-30T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-10-30T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/linux-service-status-203/" /><meta property="article:published_time" content="2020-11-05T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-11-05T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="CentOS 7 安裝 Linux Kernel 5">
-<meta itemprop="description" content="CentOS 7 安裝 Linux Kernel 5 為了 server 管理方便傾向不升級 CentOS 8 與 Linux kernel 5，但在效能議題下只好犧牲一點管理上的方便性，於是決定暫時不升級 CentOS 8，而是在 CentOS 7 下使用 Linux kernel 5">
-
-
-<meta itemprop="datePublished" content="2020-10-30T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-10-30T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="531">
+<meta itemprop="name" content="Linux Service Status 203 無法啟動">
+<meta itemprop="description" content="Linux Service Status 203 無法啟動 這是最近團隊在升級 zookeeper 及 kafka 時遇到的問題，不過仔細想想應該不是只有 zookeeper 會有問題，所以標題就不限定軟體名稱，避免日後查資料時反而誤會">
 
 
+<meta itemprop="datePublished" content="2020-11-05T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-11-05T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="557">
 
-<meta itemprop="keywords" content="Linux," />
+
+
+<meta itemprop="keywords" content="Linux,CentOS," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CentOS 7 安裝 Linux Kernel 5"/>
-<meta name="twitter:description" content="CentOS 7 安裝 Linux Kernel 5 為了 server 管理方便傾向不升級 CentOS 8 與 Linux kernel 5，但在效能議題下只好犧牲一點管理上的方便性，於是決定暫時不升級 CentOS 8，而是在 CentOS 7 下使用 Linux kernel 5"/>
+<meta name="twitter:title" content="Linux Service Status 203 無法啟動"/>
+<meta name="twitter:description" content="Linux Service Status 203 無法啟動 這是最近團隊在升級 zookeeper 及 kafka 時遇到的問題，不過仔細想想應該不是只有 zookeeper 會有問題，所以標題就不限定軟體名稱，避免日後查資料時反而誤會"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-10-30 </span>
+        <span class="post-time"> 2020-11-05 </span>
         
-        <span class="more-meta"> 約 531 字 </span>
+        <span class="more-meta"> 約 557 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -163,10 +163,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#centos-7-安裝-linux-kernel-5">CentOS 7 安裝 Linux Kernel 5</a></li>
+<li><a href="#linux-service-status-203-無法啟動">Linux Service Status 203 無法啟動</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝-mainline-kernel-最新版-安裝步驟">安裝 mainline kernel (最新版)安裝步驟</a></li>
-<li><a href="#安裝非-mainline-kernel-安裝步驟">安裝非 mainline kernel 安裝步驟</a></li>
+<li><a href="#問題描述狀況">問題描述狀況</a></li>
+<li><a href="#問題確認">問題確認</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -182,152 +182,119 @@
     <div class="post-content">
       
 
-<h2 id="centos-7-安裝-linux-kernel-5">CentOS 7 安裝 Linux Kernel 5</h2>
+<h2 id="linux-service-status-203-無法啟動">Linux Service Status 203 無法啟動</h2>
 
-<p>為了 server 管理方便傾向不升級 CentOS 8 與 Linux kernel 5，但在效能議題下只好犧牲一點管理上的方便性，於是決定暫時不升級 CentOS 8，而是在 CentOS 7 下使用 Linux kernel 5，快速紀錄一下備用</p>
-
-<p>筆記中有紀錄到升級 mainline kernel 的方法，以及使用特定 kernel 版本 rpm 的方式，可以依實際需求選擇</p>
+<p>這是最近團隊在升級 zookeeper 及 kafka 時遇到的問題，不過仔細想想應該不是只有 zookeeper 會有問題，所以標題就不限定軟體名稱，避免日後查資料時反而誤會了，專注在 linux service 無法啟動且收到 exited status 為 203 的實際狀況做個紀錄</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>macOS Catalina 10.15.6</li>
-
-<li><p>VrtualBox 6.1.12</p>
-
-<ul>
-<li><p>bridge 網路</p></li>
-
-<li><p>開啟對外</p>
-
-<pre><code class="language-bash">nmcli connection modify enp0s3 \
-connection.autoconnect yes \
-ipv4.method auto
-</code></pre></li>
-</ul></li>
-
-<li><p>CentOS 7.8.2003</p></li>
-
-<li><p>原環境</p>
-
-<ul>
-<li><p>Linux Kernel 3.10.0</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/95656343-67aaee80-0b40-11eb-9f55-df9819e957ca.png" alt="1oskernel" /></p></li>
-</ul></li>
-
-<li><p>新環境</p>
-
-<ul>
-<li>Linux Kernel 5.7.14</li>
-</ul></li>
+<li>Linux (centos 8.2.2004)</li>
+<li>Linux Kernel 5.7.12-1.el8.elrepo.x86_64</li>
+<li>Zookeeper 3.5.8</li>
 </ol>
 
-<h2 id="安裝-mainline-kernel-最新版-安裝步驟">安裝 mainline kernel (最新版)安裝步驟</h2>
+<h2 id="問題描述狀況">問題描述狀況</h2>
+
+<ul>
+<li><p>service 無法成功啟動</p>
+
+<ul>
+<li><p>錯誤訊息 (service status)</p>
+
+<pre><code class="language-txt">[root@SB-TSRV14 ~]# service zookeeper_2181 start
+Redirecting to /bin/systemctl start zookeeper_2181.service
+[root@SB-TSRV14 ~]# service zookeeper_2181 status
+Redirecting to /bin/systemctl status zookeeper_2181.service
+● zookeeper_2181.service
+   Loaded: loaded (/etc/systemd/system/zookeeper_2181.service; disabled; vendor preset: disabled)
+   Active: failed (Result: exit-code) since Wed 2020-11-04 18:35:38 CST; 3s ago
+  Process: 23821 ExecStart=/home/kafka_9092/bin/zookeeper-server-start.sh /home/kafka_9092/config/zookeeper.properties (code=exited, status=203/EXEC)
+ Main PID: 23821 (code=exited, status=203/EXEC)
+
+11月 04 18:35:38 SB-TSRV14 systemd[1]: Started zookeeper_2181.service.
+11月 04 18:35:38 SB-TSRV14 systemd[1]: zookeeper_2181.service: Main process exited, code=exited, status=203/EXEC
+11月 04 18:35:38 SB-TSRV14 systemd[1]: zookeeper_2181.service: Failed with result 'exit-code'.
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/98203310-c06a7d00-1f6e-11eb-8ad8-f6b06bb011a2.png" alt="1servicestatus" /></p></li>
+</ul></li>
+
+<li><p>檢查 journalctl 沒有其他錯誤訊息</p>
+
+<ul>
+<li><p>錯誤訊息</p>
+
+<pre><code class="language-txt">----
+11月 04 18:08:24 SB-TSRV14 systemd[1]: Started zookeeper_2181.service.
+-- Subject: 單位 zookeeper_2181.service 啟動已結束
+-- Defined-By: systemd
+-- Support: https://access.redhat.com/support
+--
+-- 單位 zookeeper_2181.service 啟動已結束。
+--
+[Unit]
+-- 啟動結果為 done。
+11月 04 18:08:24 SB-TSRV14 systemd[1]: zookeeper_2181.service: Main process exited, code=exited, status=203/        EXEC
+11月 04 18:08:24 SB-TSRV14 systemd[1]: zookeeper_2181.service: Failed with result 'exit-code'.
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/98203315-c2ccd700-1f6e-11eb-9fdc-e426844a5aca.png" alt="2journalctl" /></p></li>
+</ul></li>
+
+<li><p>手動執行 service 中的啟動指令，可以正常運行</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/98203317-c3fe0400-1f6e-11eb-934e-69e725d30842.png" alt="3manualstart" /></p></li>
+</ul>
+
+<h2 id="問題確認">問題確認</h2>
 
 <ol>
-<li><p>移除舊 kernel</p>
-
-<pre><code class="language-bash">rpm -e `rpm -q kernel`
-</code></pre></li>
-
-<li><p>安裝 elrepo rpm</p>
-
-<pre><code class="language-bash">yum install -y https://www.elrepo.org/elrepo-release-7.el7.elrepo.noarch.rpm
-</code></pre></li>
-
-<li><p>安裝 kernel 與 kernel-header</p>
-
-<pre><code class="language-bash">yum --enablerepo=elrepo-kernel -y install kernel-ml kernel-ml-headers
-</code></pre></li>
-
-<li><p>將開機選單倒數秒數設為 <code>0</code>  (optional)</p>
-
-<pre><code class="language-bash">sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
-</code></pre></li>
-
-<li><p>設定預設開機選項</p>
-
-<pre><code class="language-bash">sed -i 's/GRUB_DEFAULT=saved/GRUB_DEFAULT=0/g' /etc/default/grub
-</code></pre></li>
-
-<li><p>重新產生開機設定</p>
-
-<pre><code class="language-bash">grub2-mkconfig -o /boot/grub2/grub.cfg
-</code></pre></li>
-
-<li><p>重新開機</p>
-
-<pre><code class="language-bash">reboot
-</code></pre></li>
-
-<li><p>安裝結果</p>
-
-<pre><code class="language-bash">cat /etc/redhat-release &amp;&amp; uname -r
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/97735402-40c75300-1b15-11eb-8e14-1bb356719ef2.png" alt="1kernelml" /></p></li>
-</ol>
-
-<h2 id="安裝非-mainline-kernel-安裝步驟">安裝非 mainline kernel 安裝步驟</h2>
-
-<ol>
-<li><p>移除舊 kernel</p>
-
-<pre><code class="language-bash">rpm -e `rpm -q kernel`
-</code></pre></li>
-
-<li><p>安裝 kernel 5.7.12</p>
+<li><p>檢查 SELinux 狀態</p>
 
 <blockquote>
-<p>這個步驟我卡最久的是找到適合的 kernel rpm，我個人是在 <a href="http://repos.ord.lax-noc.com/elrepo/archive/kernel/el8/x86_64/RPMS/" target="_blank">Index of /elrepo/archive/kernel/el8/x86_64/RPMS/</a> 不確定有沒有問題，大家自行斟酌</p>
+<p>如果為 <code>Enforcing</code> 代表 service 無法啟動的原因很有可能就是 SELinux 未關閉造成的</p>
 </blockquote>
 
-<pre><code class="language-bash">yum install -y http://repos.ord.lax-noc.com/elrepo/archive/kernel/el7/x86_64/RPMS/kernel-ml-5.7.12-1.el7.elrepo.x86_64.rpm
+<pre><code class="language-bash">getenforce
 </code></pre></li>
 
-<li><p>安裝 kernel-header</p>
+<li><p>暫時關閉 SELinux 進行確認</p>
 
-<pre><code class="language-bash">yum install -y http://repos.ord.lax-noc.com/elrepo/archive/kernel/el7/x86_64/RPMS/kernel-ml-headers-5.7.12-1.el7.elrepo.x86_64.rpm
-</code></pre></li>
+<blockquote>
+<p>將 SELinux 設為 <code>Permissive</code> (重新開機會重設)並嘗試重新啟動 service，若能順利啟動就確認問題是 SELinux 造成的</p>
+</blockquote>
 
-<li><p>將開機選單倒數秒數設為 <code>0</code> (optional)</p>
-
-<pre><code class="language-bash">sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
-</code></pre></li>
-
-<li><p>設定預設開機選項</p>
-
-<pre><code class="language-bash">sed -i 's/GRUB_DEFAULT=saved/GRUB_DEFAULT=0/g' /etc/default/grub
-</code></pre></li>
-
-<li><p>重新產生開機設定</p>
-
-<pre><code class="language-bash">grub2-mkconfig -o /boot/grub2/grub.cfg
-</code></pre></li>
-
-<li><p>重新開機</p>
-
-<pre><code class="language-bash">reboot
-</code></pre></li>
-
-<li><p>安裝結果</p>
-
-<pre><code class="language-bash">cat /etc/redhat-release &amp;&amp; uname -r
+<pre><code class="language-bash">setenforce 0
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/97735410-42911680-1b15-11eb-9b2b-930f100c03bf.png" alt="2kernel" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/98203319-c52f3100-1f6e-11eb-8981-23cfb1be41ef.png" alt="4setenforce" /></p></li>
+
+<li><p>完全關閉 SELinux</p>
+
+<pre><code class="language-bash">setenforce 0 &amp;&amp; sed -i 's/SELINUX= enforcing/SELINUX=disabled/g'
+</code></pre></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>因為 Kubernetes 搭配的 Calico 網路套件，有個優化的設定需要 kernel 4.20 以上，所以決定將 server 的 kernel 都升至 5，原本是想使用最新版的 kernel (2020/10/30 時是 kernel 5.9)，但 kernel 5.8 以上會讓 ansible 的 service module 異常，所以暫時就改安裝 kernel 5.7.12，這就是今天這份筆記的由來</p>
+<p>這個問題發生當下花了我三、四個小時排除，後來是同事 google 到有類似症狀經過測試後才確認的，事後我一直在想為什麼會發生這個問題：</p>
+
+<ol>
+<li>安裝腳本只有 zookeeper 沒有關閉 SELinux</li>
+<li>沒有充份理解 SELinux 的影響以及症狀</li>
+</ol>
+
+<p>所幸有了這次經歷，相信下次類似問題就可以更快找到方向了</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.cwlove.idv.tw/linux-centos-update-kernel-4-19-open-bbr/" target="_blank">Linux：CentOS 7 更新Kernel 5.x及開啟BBR</a></li>
-<li><a href="https://computingforgeeks.com/install-linux-kernel-5-on-centos-7/" target="_blank">How To Install Linux Kernel 5.x on CentOS 7</a></li>
+<li><a href="https://wiki.centos.org/zh-tw/HowTos/SELinux" target="_blank">SELinux</a></li>
 </ol>
 
     </div>
@@ -340,7 +307,7 @@ ipv4.method auto
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-10-30</span>
+    <span class="item-content">2020-11-05</span>
   </p>
   
   <p class="copyright-item">
@@ -364,24 +331,21 @@ ipv4.method auto
 		    	
             <a href="https://blog.yowko.com/tags/linux/">Linux</a>
           
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/centos/">CentOS</a>
+          
         </div>
 
       
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/linux-service-status-203/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">Linux Service Status 203 無法啟動</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/dnf-update-exclude/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/centos7-install-linux-kernel5/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">避免執行 dnf update 時連帶升級特定套件</span>			
+            <span class="prev-text nav-default">CentOS 7 安裝 Linux Kernel 5</span>			
           </a>
 		  </div>
       </nav>
@@ -392,7 +356,7 @@ ipv4.method auto
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/centos7-install-linux-kernel5\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/linux-service-status-203\/';  
       
     };
 
