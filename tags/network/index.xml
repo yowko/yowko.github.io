@@ -6,10 +6,19 @@
     <description>Recent content in Network on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 13 Feb 2019 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 13 Nov 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/network/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MAC 封鎖存取特定 IP</title>
+      <link>https://blog.yowko.com/mac-block-outgoing-ip/</link>
+      <pubDate>Fri, 13 Nov 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mac-block-outgoing-ip/</guid>
+      <description>MAC 封鎖存取特定 IP 這個需求源自連不到某個共用服務時的 exception handle 測試，一般來說直接將 mac 斷網就可以模擬，但想要測試的服務被包在一段流程中，斷網會讓該流程</description>
+    </item>
     
     <item>
       <title>使用 Google Domains Dynamic DNS 搭配 OpenVPN 建立 VPN</title>
