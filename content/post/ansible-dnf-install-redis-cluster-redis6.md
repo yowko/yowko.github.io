@@ -1,24 +1,24 @@
 ---
-title: "Ansible 安裝 Redis Cluster (更新版)"
-date: 2020-08-16T21:30:00+08:00
-lastmod: 2020-11-15T21:30:31+08:00
+title: "Ansible 使用 dnf 安裝 Redis Cluster (Redis6)"
+date: 2020-11-14T21:30:00+08:00
+lastmod: 2020-11-14T21:30:31+08:00
 draft: false
-tags: ["Ansible","Redis"]
-slug: "ansible-redis-cluster-update"
+tags: ["Linux","Ansible","Redis"]
+slug: "ansible-dnf-install-redis-cluster-redis6"
 ---
 
-## Ansible 安裝 Redis Cluster
+## Ansible 使用 dnf 安裝 Redis Cluster (Redis6)
 
-之前筆記 [Ansible 安裝 Redis Cluster](https://blog.yowko.com/ansible-redis-cluster) 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整與優化，紀錄一下
+之前筆記 [Ansible 安裝 Redis Cluster](https://blog.yowko.com/ansible-redis-cluster-update/) 紀錄到在 CentOS 7 上透過 Ansible 使用 yum 來安裝 Redis Cluster，但最近 production 環境已經升級成 CentOS 8 + dnf，所以來更新一下 Ansible script，避免之後想抄又要東翻西找XD
 
 ## 基本環境說明
 
 1. Azure VM B2s (2 vcpu,4GiB memory)
-2. OpenLogic CentOS 7.7
-3. Redis 6.0.6
-4. ansible 2.9.11
+2. OpenLogic CentOS 8.2
+3. Redis 6.0.8
+4. ansible 2.10.2
 
-## 安裝語法
+## Ansible 腳本
 
 1. 專案結構
     - roles
@@ -81,7 +81,7 @@ slug: "ansible-redis-cluster-update"
                   ```yml
                   ---
                   - name: Ensures dir exists
-                    file: 
+                    file:
                       path: "{{ folder }}"
                       state: directory
                       mode: 0755
@@ -108,23 +108,23 @@ slug: "ansible-redis-cluster-update"
                   ```yml
                   ---
                   - name: Install Redis
-                    yum:
+                    dnf:
                       name: "{{redisversion}}"
+                      enablerepo:  remi
                       state: latest
                   ```
 
                 - installtools.yml
 
                   ```yml
-                  - name: Get rpm
-                    shell: wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-
                   - name: Install rpm
-                    ignore_errors: yes
-                    shell: rpm -Uvh remi-release-7.rpm
+                    dnf:
+                      name: 'https://rpms.remirepo.net/enterprise/remi-release-8.rpm'
+                      state: present
+                      disable_gpg_check: yes
 
                   - name: Enable remi repo
-                    shell: sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/remi.repo
+                    shell: dnf module enable -y redis:remi-6.0
 
                   - name: Insall Redis
                     include_tasks: installredis.yml
@@ -141,10 +141,10 @@ slug: "ansible-redis-cluster-update"
 
                   - name: Delete redis service
                     ignore_errors: yes
-                    file: 
+                    file:
                       path: "{{ item }}"
                       state: absent
-                    with_items: 
+                    with_items:
                       - /usr/lib/systemd/system/redis.service
                       - /etc/systemd/system/redis.service.d
                       - /etc/systemd/system/redis-sentinel.service.d
@@ -205,7 +205,7 @@ slug: "ansible-redis-cluster-update"
                       msg: restart service
                     notify: restart-service
                     changed_when: true
-                    when: purpose == 'restart'
+                    when: purpose != 'uninstall'
 
                   - meta: flush_handlers
 
@@ -300,7 +300,7 @@ slug: "ansible-redis-cluster-update"
 
                   ```j2
                   dir /etc/redis/redis_{{redis_port}}
-                  bind {{redis_ip}} 127.0.0.1
+                  bind {{ip}} 127.0.0.1
                   requirepass {{redispass}}
                   masterauth {{redispass}}
                   port {{redis_port}}
@@ -348,17 +348,19 @@ slug: "ansible-redis-cluster-update"
 
                   ```yml
                   redispass: pass.123
-                  redisversion: redis-6.0.6-1.el7.remi
+                  redisversion: redis-0:6.0.8-1.el8.remi.x86_64
                   ```
 
             - inventories
                 - dev.ini
 
+                  > `ansible_host` 是外網 ip 而 `ip` 則為內網 ip，如果 ansible client 是在內網，可以精簡為 `ansible_host` 就好
+
                   ```ini
                   [redis_all]
-                  redis1 ansible_host=10.0.1.5 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7000,7003
-                  redis2 ansible_host=10.0.1.6 redis_ip=10.0.1.6  ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7001,7004
-                  redis3 ansible_host=10.0.1.7 redis_ip=10.0.1.7 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7002,7005
+                  redis1 ansible_host=10.0.1.5 ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7000,7003
+                  redis2 ansible_host=10.0.1.6 ip=10.0.1.6  ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7001,7004
+                  redis3 ansible_host=10.0.1.7 ip=10.0.1.7 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7002,7005
                   ```
 
             - README.md
@@ -414,16 +416,14 @@ slug: "ansible-redis-cluster-update"
 
 ## 心得
 
-完整程式碼請參考 [ansible-redis-cluster](https://github.com/yowko/ansible-redis-cluster)
+大致上流程與之前筆記 [Ansible 安裝 Redis Cluster](https://blog.yowko.com/ansible-redis-cluster-update/) 相同，主要變動的部份是
 
-此次修改重點如下：
+1. dnf module 的註冊與啟用
+2. 使用 dnf 的 module 進行安裝
 
-1. Redis 版本從 `5.0.7` 升級為 `6.0.6`
-2. 控制流程變數由 `action` 改用 `purpose` (`action` 是保留字)
-3. `defaults` 放變數預設值；`vars` 放常數值
-4. `redis_port` 改 `redis_ports` 可以用來處理單台 host 多個 redis instance，效能較好
+完整程式可以參考 [yowko/ansible-dnf-install-redis-cluster](https://github.com/yowko/ansible-dnf-install-redis-cluster)
 
 ## 參考資訊
 
-1. [Ansible 安裝 Redis Cluster](https://blog.yowko.com/ansible-redis-cluster)
-2. [ansible-redis-cluster](https://github.com/yowko/ansible-redis-cluster)
+1. [Ansible 安裝 Redis Cluster](https://blog.yowko.com/ansible-redis-cluster-update/)
+2. [yowko/ansible-dnf-install-redis-cluster](https://github.com/yowko/ansible-dnf-install-redis-cluster)
