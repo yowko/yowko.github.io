@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Ansible 安裝 Redis Cluster (更新版) - Yowko&#39;s Notes</title>
+  <title>Ansible 使用 dnf 安裝 Redis Cluster (Redis6) - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Cluster 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整" />
+  <meta name="description" content="Ansible 使用 dnf 安裝 Redis Cluster (Redis6) 之前筆記 Ansible 安裝 Redis Cluster 紀錄到在 CentOS 7 上透過 Ansible 使用 yum 來安裝 Redis Cluster，但最近 production 環境已經升級成 CentOS 8 &#43; dnf，所以來更新一下 Ansible s" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/ansible-redis-cluster-update/" />
+<link rel="canonical" href="https://blog.yowko.com/ansible-dnf-install-redis-cluster-redis6/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="Ansible 安裝 Redis Cluster (更新版)" />
-<meta property="og:description" content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Cluster 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整" />
+<meta property="og:title" content="Ansible 使用 dnf 安裝 Redis Cluster (Redis6)" />
+<meta property="og:description" content="Ansible 使用 dnf 安裝 Redis Cluster (Redis6) 之前筆記 Ansible 安裝 Redis Cluster 紀錄到在 CentOS 7 上透過 Ansible 使用 yum 來安裝 Redis Cluster，但最近 production 環境已經升級成 CentOS 8 &#43; dnf，所以來更新一下 Ansible s" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/ansible-redis-cluster-update/" /><meta property="article:published_time" content="2020-08-16T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-11-15T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/ansible-dnf-install-redis-cluster-redis6/" /><meta property="article:published_time" content="2020-11-14T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-11-14T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="Ansible 安裝 Redis Cluster (更新版)">
-<meta itemprop="description" content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Cluster 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整">
-
-
-<meta itemprop="datePublished" content="2020-08-16T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-11-15T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="965">
+<meta itemprop="name" content="Ansible 使用 dnf 安裝 Redis Cluster (Redis6)">
+<meta itemprop="description" content="Ansible 使用 dnf 安裝 Redis Cluster (Redis6) 之前筆記 Ansible 安裝 Redis Cluster 紀錄到在 CentOS 7 上透過 Ansible 使用 yum 來安裝 Redis Cluster，但最近 production 環境已經升級成 CentOS 8 &#43; dnf，所以來更新一下 Ansible s">
 
 
+<meta itemprop="datePublished" content="2020-11-14T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-11-14T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="968">
 
-<meta itemprop="keywords" content="Ansible,Redis," />
+
+
+<meta itemprop="keywords" content="Linux,Ansible,Redis," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Ansible 安裝 Redis Cluster (更新版)"/>
-<meta name="twitter:description" content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Cluster 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整"/>
+<meta name="twitter:title" content="Ansible 使用 dnf 安裝 Redis Cluster (Redis6)"/>
+<meta name="twitter:description" content="Ansible 使用 dnf 安裝 Redis Cluster (Redis6) 之前筆記 Ansible 安裝 Redis Cluster 紀錄到在 CentOS 7 上透過 Ansible 使用 yum 來安裝 Redis Cluster，但最近 production 環境已經升級成 CentOS 8 &#43; dnf，所以來更新一下 Ansible s"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-08-16 </span>
+        <span class="post-time"> 2020-11-14 </span>
         
-        <span class="more-meta"> 約 965 字 </span>
+        <span class="more-meta"> 約 968 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -163,9 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#ansible-安裝-redis-cluster">Ansible 安裝 Redis Cluster</a></li>
+<li><a href="#ansible-使用-dnf-安裝-redis-cluster-redis6">Ansible 使用 dnf 安裝 Redis Cluster (Redis6)</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝語法">安裝語法</a></li>
+<li><a href="#ansible-腳本">Ansible 腳本</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,20 +181,20 @@
     <div class="post-content">
       
 
-<h2 id="ansible-安裝-redis-cluster">Ansible 安裝 Redis Cluster</h2>
+<h2 id="ansible-使用-dnf-安裝-redis-cluster-redis6">Ansible 使用 dnf 安裝 Redis Cluster (Redis6)</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/ansible-redis-cluster" target="_blank">Ansible 安裝 Redis Cluster</a> 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整與優化，紀錄一下</p>
+<p>之前筆記 <a href="https://blog.yowko.com/ansible-redis-cluster-update/" target="_blank">Ansible 安裝 Redis Cluster</a> 紀錄到在 CentOS 7 上透過 Ansible 使用 yum 來安裝 Redis Cluster，但最近 production 環境已經升級成 CentOS 8 + dnf，所以來更新一下 Ansible script，避免之後想抄又要東翻西找XD</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>Azure VM B2s (2 vcpu,4GiB memory)</li>
-<li>OpenLogic CentOS 7.7</li>
-<li>Redis 6.0.6</li>
-<li>ansible 2.9.11</li>
+<li>OpenLogic CentOS 8.2</li>
+<li>Redis 6.0.8</li>
+<li>ansible 2.10.2</li>
 </ol>
 
-<h2 id="安裝語法">安裝語法</h2>
+<h2 id="ansible-腳本">Ansible 腳本</h2>
 
 <ol>
 <li><p>專案結構</p>
@@ -296,7 +296,7 @@
 
 <pre><code class="language-yml">  ---
   - name: Ensures dir exists
-    file: 
+    file:
       path: &quot;{{ folder }}&quot;
       state: directory
       mode: 0755
@@ -325,8 +325,9 @@
 
 <pre><code class="language-yml">  ---
   - name: Install Redis
-    yum:
+    dnf:
       name: &quot;{{redisversion}}&quot;
+      enablerepo:  remi
       state: latest
 </code></pre>
 
@@ -334,15 +335,14 @@
 <li>installtools.yml</li>
 </ul>
 
-<pre><code class="language-yml">  - name: Get rpm
-    shell: wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-
-  - name: Install rpm
-    ignore_errors: yes
-    shell: rpm -Uvh remi-release-7.rpm
+<pre><code class="language-yml">  - name: Install rpm
+    dnf:
+      name: 'https://rpms.remirepo.net/enterprise/remi-release-8.rpm'
+      state: present
+      disable_gpg_check: yes
 
   - name: Enable remi repo
-    shell: sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/remi.repo
+    shell: dnf module enable -y redis:remi-6.0
 
   - name: Insall Redis
     include_tasks: installredis.yml
@@ -359,10 +359,10 @@
 
   - name: Delete redis service
     ignore_errors: yes
-    file: 
+    file:
       path: &quot;{{ item }}&quot;
       state: absent
-    with_items: 
+    with_items:
       - /usr/lib/systemd/system/redis.service
       - /etc/systemd/system/redis.service.d
       - /etc/systemd/system/redis-sentinel.service.d
@@ -424,7 +424,7 @@
       msg: restart service
     notify: restart-service
     changed_when: true
-    when: purpose == 'restart'
+    when: purpose != 'uninstall'
 
   - meta: flush_handlers
 
@@ -525,7 +525,7 @@
 </ul>
 
 <pre><code class="language-j2">  dir /etc/redis/redis_{{redis_port}}
-  bind {{redis_ip}} 127.0.0.1
+  bind {{ip}} 127.0.0.1
   requirepass {{redispass}}
   masterauth {{redispass}}
   port {{redis_port}}
@@ -576,7 +576,7 @@
 </ul>
 
 <pre><code class="language-yml">  redispass: pass.123
-  redisversion: redis-6.0.6-1.el7.remi
+  redisversion: redis-0:6.0.8-1.el8.remi.x86_64
 </code></pre></li>
 
 <li><p>inventories</p>
@@ -585,10 +585,14 @@
 <li>dev.ini</li>
 </ul>
 
+<blockquote>
+<p><code>ansible_host</code> 是外網 ip 而 <code>ip</code> 則為內網 ip，如果 ansible client 是在內網，可以精簡為 <code>ansible_host</code> 就好</p>
+</blockquote>
+
 <pre><code class="language-ini">  [redis_all]
-  redis1 ansible_host=10.0.1.5 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7000,7003
-  redis2 ansible_host=10.0.1.6 redis_ip=10.0.1.6  ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7001,7004
-  redis3 ansible_host=10.0.1.7 redis_ip=10.0.1.7 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7002,7005
+  redis1 ansible_host=10.0.1.5 ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7000,7003
+  redis2 ansible_host=10.0.1.6 ip=10.0.1.6  ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7001,7004
+  redis3 ansible_host=10.0.1.7 ip=10.0.1.7 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7002,7005
 </code></pre></li>
 
 <li><p>README.md</p></li>
@@ -645,22 +649,20 @@ roles_path = ./roles
 
 <h2 id="心得">心得</h2>
 
-<p>完整程式碼請參考 <a href="https://github.com/yowko/ansible-redis-cluster" target="_blank">ansible-redis-cluster</a></p>
-
-<p>此次修改重點如下：</p>
+<p>大致上流程與之前筆記 <a href="https://blog.yowko.com/ansible-redis-cluster-update/" target="_blank">Ansible 安裝 Redis Cluster</a> 相同，主要變動的部份是</p>
 
 <ol>
-<li>Redis 版本從 <code>5.0.7</code> 升級為 <code>6.0.6</code></li>
-<li>控制流程變數由 <code>action</code> 改用 <code>purpose</code> (<code>action</code> 是保留字)</li>
-<li><code>defaults</code> 放變數預設值；<code>vars</code> 放常數值</li>
-<li><code>redis_port</code> 改 <code>redis_ports</code> 可以用來處理單台 host 多個 redis instance，效能較好</li>
+<li>dnf module 的註冊與啟用</li>
+<li>使用 dnf 的 module 進行安裝</li>
 </ol>
+
+<p>完整程式可以參考 <a href="https://github.com/yowko/ansible-dnf-install-redis-cluster" target="_blank">yowko/ansible-dnf-install-redis-cluster</a></p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/ansible-redis-cluster" target="_blank">Ansible 安裝 Redis Cluster</a></li>
-<li><a href="https://github.com/yowko/ansible-redis-cluster" target="_blank">ansible-redis-cluster</a></li>
+<li><a href="https://blog.yowko.com/ansible-redis-cluster-update/" target="_blank">Ansible 安裝 Redis Cluster</a></li>
+<li><a href="https://github.com/yowko/ansible-dnf-install-redis-cluster" target="_blank">yowko/ansible-dnf-install-redis-cluster</a></li>
 </ol>
 
     </div>
@@ -673,7 +675,7 @@ roles_path = ./roles
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-11-15</span>
+    <span class="item-content">2020-11-14</span>
   </p>
   
   <p class="copyright-item">
@@ -695,6 +697,10 @@ roles_path = ./roles
           
 		    
 		    	
+            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
+          
+		    
+		    	
             <a href="https://blog.yowko.com/tags/ansible/">Ansible</a>
           
 		    
@@ -707,18 +713,11 @@ roles_path = ./roles
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/kubectl-patch-fail/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">kubectl patch 錯誤</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/yum-specific-version/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/mac-block-outgoing-ip/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">yum 安裝指定版本套件</span>			
+            <span class="prev-text nav-default">MAC 封鎖存取特定 IP</span>			
           </a>
 		  </div>
       </nav>
@@ -729,7 +728,7 @@ roles_path = ./roles
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/ansible-redis-cluster-update\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/ansible-dnf-install-redis-cluster-redis6\/';  
       
     };
 

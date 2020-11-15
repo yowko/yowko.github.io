@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 13 Nov 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ansible 使用 dnf 安裝 Redis Cluster (Redis6)</title>
+      <link>https://blog.yowko.com/ansible-dnf-install-redis-cluster-redis6/</link>
+      <pubDate>Sat, 14 Nov 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/ansible-dnf-install-redis-cluster-redis6/</guid>
+      <description>Ansible 使用 dnf 安裝 Redis Cluster (Redis6) 之前筆記 Ansible 安裝 Redis Cluster 紀錄到在 CentOS 7 上透過 Ansible 使用 yum 來安裝 Redis Cluster，但最近 production 環境已經升級成 CentOS 8 + dnf，所以來更新一下 Ansible s</description>
+    </item>
     
     <item>
       <title>MAC 封鎖存取特定 IP</title>
