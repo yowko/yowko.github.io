@@ -1,7 +1,7 @@
 ---
 title: "Linux Service Status 203 無法啟動"
 date: 2020-11-05T21:30:00+08:00
-lastmod: 2020-11-05T21:30:31+08:00
+lastmod: 2020-11-17T21:30:31+08:00
 draft: false
 tags: ["Linux","CentOS"]
 slug: "linux-service-status-203"
@@ -93,7 +93,7 @@ slug: "linux-service-status-203"
 3. 完全關閉 SELinux
 
     ```bash
-    setenforce 0 && sed -i 's/SELINUX= enforcing/SELINUX=disabled/g'
+    setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
     ```
 
 ## 心得
