@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 14 Nov 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 21 Nov 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>建立 MariaDB 備份與還原帳號</title>
+      <link>https://blog.yowko.com/mariadb-backup-restore-user/</link>
+      <pubDate>Sat, 21 Nov 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mariadb-backup-restore-user/</guid>
+      <description>建立 MariaDB 備份與還原帳號 之前筆記 建立 MongoDB 自訂角色 (role) 紀錄到如何在 MongoDB 上建立用來進行備份與還原的角色，再依這個角色建立使用者，相同的需求在 MariaDB 上也有，只是</description>
+    </item>
     
     <item>
       <title>Ansible 使用 dnf 安裝 Redis Cluster (Redis6)</title>

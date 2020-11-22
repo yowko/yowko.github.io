@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Linux Service Status 203 無法啟動 - Yowko&#39;s Notes</title>
+  <title>建立 MariaDB 備份與還原帳號 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="Linux Service Status 203 無法啟動 這是最近團隊在升級 zookeeper 及 kafka 時遇到的問題，不過仔細想想應該不是只有 zookeeper 會有問題，所以標題就不限定軟體名稱，避免日後查資料時反而誤會" />
+  <meta name="description" content="建立 MariaDB 備份與還原帳號 之前筆記 建立 MongoDB 自訂角色 (role) 紀錄到如何在 MongoDB 上建立用來進行備份與還原的角色，再依這個角色建立使用者，相同的需求在 MariaDB 上也有，只是" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/linux-service-status-203/" />
+<link rel="canonical" href="https://blog.yowko.com/mariadb-backup-restore-user/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="Linux Service Status 203 無法啟動" />
-<meta property="og:description" content="Linux Service Status 203 無法啟動 這是最近團隊在升級 zookeeper 及 kafka 時遇到的問題，不過仔細想想應該不是只有 zookeeper 會有問題，所以標題就不限定軟體名稱，避免日後查資料時反而誤會" />
+<meta property="og:title" content="建立 MariaDB 備份與還原帳號" />
+<meta property="og:description" content="建立 MariaDB 備份與還原帳號 之前筆記 建立 MongoDB 自訂角色 (role) 紀錄到如何在 MongoDB 上建立用來進行備份與還原的角色，再依這個角色建立使用者，相同的需求在 MariaDB 上也有，只是" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/linux-service-status-203/" /><meta property="article:published_time" content="2020-11-05T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-11-17T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/mariadb-backup-restore-user/" /><meta property="article:published_time" content="2020-11-21T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-11-21T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="Linux Service Status 203 無法啟動">
-<meta itemprop="description" content="Linux Service Status 203 無法啟動 這是最近團隊在升級 zookeeper 及 kafka 時遇到的問題，不過仔細想想應該不是只有 zookeeper 會有問題，所以標題就不限定軟體名稱，避免日後查資料時反而誤會">
-
-
-<meta itemprop="datePublished" content="2020-11-05T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-11-17T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="557">
+<meta itemprop="name" content="建立 MariaDB 備份與還原帳號">
+<meta itemprop="description" content="建立 MariaDB 備份與還原帳號 之前筆記 建立 MongoDB 自訂角色 (role) 紀錄到如何在 MongoDB 上建立用來進行備份與還原的角色，再依這個角色建立使用者，相同的需求在 MariaDB 上也有，只是">
 
 
+<meta itemprop="datePublished" content="2020-11-21T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-11-21T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="632">
 
-<meta itemprop="keywords" content="Linux,CentOS," />
+
+
+<meta itemprop="keywords" content="MariaDB," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Linux Service Status 203 無法啟動"/>
-<meta name="twitter:description" content="Linux Service Status 203 無法啟動 這是最近團隊在升級 zookeeper 及 kafka 時遇到的問題，不過仔細想想應該不是只有 zookeeper 會有問題，所以標題就不限定軟體名稱，避免日後查資料時反而誤會"/>
+<meta name="twitter:title" content="建立 MariaDB 備份與還原帳號"/>
+<meta name="twitter:description" content="建立 MariaDB 備份與還原帳號 之前筆記 建立 MongoDB 自訂角色 (role) 紀錄到如何在 MongoDB 上建立用來進行備份與還原的角色，再依這個角色建立使用者，相同的需求在 MariaDB 上也有，只是"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-11-05 </span>
+        <span class="post-time"> 2020-11-21 </span>
         
-        <span class="more-meta"> 約 557 字 </span>
+        <span class="more-meta"> 約 632 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -163,10 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#linux-service-status-203-無法啟動">Linux Service Status 203 無法啟動</a></li>
+<li><a href="#建立-mariadb-備份與還原帳號">建立 MariaDB 備份與還原帳號</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#問題描述狀況">問題描述狀況</a></li>
-<li><a href="#問題確認">問題確認</a></li>
+<li><a href="#設定語法與說明">設定語法與說明</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -182,119 +181,165 @@
     <div class="post-content">
       
 
-<h2 id="linux-service-status-203-無法啟動">Linux Service Status 203 無法啟動</h2>
+<h2 id="建立-mariadb-備份與還原帳號">建立 MariaDB 備份與還原帳號</h2>
 
-<p>這是最近團隊在升級 zookeeper 及 kafka 時遇到的問題，不過仔細想想應該不是只有 zookeeper 會有問題，所以標題就不限定軟體名稱，避免日後查資料時反而誤會了，專注在 linux service 無法啟動且收到 exited status 為 203 的實際狀況做個紀錄</p>
+<p>之前筆記 <a href="https://blog.yowko.com/mongodb-custom-role/" target="_blank">建立 MongoDB 自訂角色 (role)</a> 紀錄到如何在 MongoDB 上建立用來進行備份與還原的角色，再依這個角色建立使用者，相同的需求在 MariaDB 上也有，只是做法些許不同，紀錄一下備忘</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>Linux (centos 8.2.2004)</li>
-<li>Linux Kernel 5.7.12-1.el8.elrepo.x86_64</li>
-<li>Zookeeper 3.5.8</li>
+<li>macOS Catalina 10.15.7</li>
+<li>docker desktop community 2.5.0.1(49550)</li>
+<li>docker images
+
+<ul>
+<li>mariadb 10.5.8</li>
+</ul></li>
 </ol>
 
-<h2 id="問題描述狀況">問題描述狀況</h2>
+<h2 id="設定語法與說明">設定語法與說明</h2>
 
 <ul>
-<li><p>service 無法成功啟動</p>
+<li><p>建立 account 並指定密碼</p>
 
 <ul>
-<li><p>錯誤訊息 (service status)</p>
+<li><p>語法</p>
 
-<pre><code class="language-txt">[root@SB-TSRV14 ~]# service zookeeper_2181 start
-Redirecting to /bin/systemctl start zookeeper_2181.service
-[root@SB-TSRV14 ~]# service zookeeper_2181 status
-Redirecting to /bin/systemctl status zookeeper_2181.service
-● zookeeper_2181.service
-   Loaded: loaded (/etc/systemd/system/zookeeper_2181.service; disabled; vendor preset: disabled)
-   Active: failed (Result: exit-code) since Wed 2020-11-04 18:35:38 CST; 3s ago
-  Process: 23821 ExecStart=/home/kafka_9092/bin/zookeeper-server-start.sh /home/kafka_9092/config/zookeeper.properties (code=exited, status=203/EXEC)
- Main PID: 23821 (code=exited, status=203/EXEC)
-
-11月 04 18:35:38 SB-TSRV14 systemd[1]: Started zookeeper_2181.service.
-11月 04 18:35:38 SB-TSRV14 systemd[1]: zookeeper_2181.service: Main process exited, code=exited, status=203/EXEC
-11月 04 18:35:38 SB-TSRV14 systemd[1]: zookeeper_2181.service: Failed with result 'exit-code'.
+<pre><code class="language-bash">CREATE USER '{username}'[@'{host}'] IDENTIFIED BY '{password}';
 </code></pre></li>
 
-<li><p>錯誤截圖</p>
+<li><p>範例</p>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/98203310-c06a7d00-1f6e-11eb-8ad8-f6b06bb011a2.png" alt="1servicestatus" /></p></li>
-</ul></li>
-
-<li><p>檢查 journalctl 沒有其他錯誤訊息</p>
-
-<ul>
-<li><p>錯誤訊息</p>
-
-<pre><code class="language-txt">----
-11月 04 18:08:24 SB-TSRV14 systemd[1]: Started zookeeper_2181.service.
--- Subject: 單位 zookeeper_2181.service 啟動已結束
--- Defined-By: systemd
--- Support: https://access.redhat.com/support
---
--- 單位 zookeeper_2181.service 啟動已結束。
---
-[Unit]
--- 啟動結果為 done。
-11月 04 18:08:24 SB-TSRV14 systemd[1]: zookeeper_2181.service: Main process exited, code=exited, status=203/        EXEC
-11月 04 18:08:24 SB-TSRV14 systemd[1]: zookeeper_2181.service: Failed with result 'exit-code'.
-</code></pre></li>
-
-<li><p>錯誤截圖</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/98203315-c2ccd700-1f6e-11eb-9fdc-e426844a5aca.png" alt="2journalctl" /></p></li>
-</ul></li>
-
-<li><p>手動執行 service 中的啟動指令，可以正常運行</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/98203317-c3fe0400-1f6e-11eb-934e-69e725d30842.png" alt="3manualstart" /></p></li>
-</ul>
-
-<h2 id="問題確認">問題確認</h2>
-
-<ol>
-<li><p>檢查 SELinux 狀態</p>
-
-<blockquote>
-<p>如果為 <code>Enforcing</code> 代表 service 無法啟動的原因很有可能就是 SELinux 未關閉造成的</p>
-</blockquote>
-
-<pre><code class="language-bash">getenforce
-</code></pre></li>
-
-<li><p>暫時關閉 SELinux 進行確認</p>
-
-<blockquote>
-<p>將 SELinux 設為 <code>Permissive</code> (重新開機會重設)並嘗試重新啟動 service，若能順利啟動就確認問題是 SELinux 造成的</p>
-</blockquote>
-
-<pre><code class="language-bash">setenforce 0
+<pre><code class="language-bash">CREATE USER 'backupuser' IDENTIFIED BY 'pass.123';
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/98203319-c52f3100-1f6e-11eb-8981-23cfb1be41ef.png" alt="4setenforce" /></p></li>
+<ul>
+<li><code>host</code> 預設為 <code>%</code></li>
+<li><code>host</code> 若為 <code>localhost</code> 僅允許 local 登入</li>
+</ul></li>
+</ul></li>
 
-<li><p>完全關閉 SELinux</p>
+<li><p>備份權限</p>
 
-<pre><code class="language-bash">setenforce 0 &amp;&amp; sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+<ol>
+<li><p>備份 table 權限</p>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">GRANT SELECT, LOCK TABLES on {db name}.* TO '{username}';
 </code></pre></li>
-</ol>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">GRANT SELECT, LOCK TABLES on test.* TO 'backupuser';
+</code></pre>
+
+<ul>
+<li>表示該帳號可以備份 <code>test</code> db 下所有 table</li>
+<li>可以使用 <code>*.*</code> 表示所有 db 的所有 table</li>
+</ul></li>
+</ul></li>
+
+<li><p>備份 stored procedure 或是 functions 權限</p>
+
+<blockquote>
+<p>這個權限沒給，在執行備份時不會出現錯誤，但 stored procedure 與 functions 將直接被忽略</p>
+</blockquote>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">GRANT SELECT on mysql.proc TO '{username}';
+</code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">GRANT SELECT on mysql.proc TO 'backupuser';
+</code></pre></li>
+</ul></li>
+
+<li><p>備份語法</p>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">mysqldump -u {username} -p{password} --routines --compress --column-statistics=0 {db name}  &gt; {backup target file name}
+</code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">mysqldump -u backupuser -ppass.123 --routines --compress --column-statistics=0 test &gt; test.sql
+</code></pre></li>
+</ul></li>
+</ol></li>
+
+<li><p>還原權限</p>
+
+<ol>
+<li><p>grant 修改斷行符號 (DELIMITER) 權限</p>
+
+<blockquote>
+<p><code>SUPER</code> 的 <code>GLOBAL</code> 層級的權限設定</p>
+</blockquote>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">GRANT SUPER on *.* to '{username}';
+</code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">GRANT SUPER on *.* to 'backupuser';
+</code></pre></li>
+</ul></li>
+
+<li><p>grant 還原 stored procedure、function 與 table schema、table data 權限</p>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">GRANT ALTER ROUTINE,CREATE ROUTINE,SELECT, INSERT, LOCK TABLES, CREATE, Drop, CREATE TEMPORARY TABLES, INDEX, ALTER on {db name}.* TO '{username}';
+</code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">GRANT ALTER ROUTINE,CREATE ROUTINE,SELECT, INSERT, LOCK TABLES, CREATE, Drop, CREATE TEMPORARY TABLES, INDEX, ALTER on test.* TO 'backupuser';
+</code></pre></li>
+</ul></li>
+
+<li><p>還原語法</p>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash"> mysql -u{username} -p{password} {db name} &lt; {target restore sql file name}
+</code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash"> mysql-ubackupuser -ppass.123 test &lt;test.sql
+</code></pre></li>
+</ul></li>
+</ol></li>
+</ul>
 
 <h2 id="心得">心得</h2>
 
-<p>這個問題發生當下花了我三、四個小時排除，後來是同事 google 到有類似症狀經過測試後才確認的，事後我一直在想為什麼會發生這個問題：</p>
+<p>不知道是 mariadb 資源比較少，還是大家在帳號的使用權限控管上比較沒有拆分那麼細，網路上的資料不是很好找，<a href="https://devopspoints.com/mysql-mariadb-user-accounts-and-privileges.html" target="_blank">MySQL – MariaDB – User Accounts and Privileges</a> 已經算是相當完整的，只是在 stored procedure、function 的處理還有遺漏</p>
 
-<ol>
-<li>安裝腳本只有 zookeeper 沒有關閉 SELinux</li>
-<li>沒有充份理解 SELinux 的影響以及症狀</li>
-</ol>
-
-<p>所幸有了這次經歷，相信下次類似問題就可以更快找到方向了</p>
+<p>幸虧在測試數十次後，勉強找出可用的版本，但不是 dba 說實話也不知道權限使用上是不是正確，就先紀錄一下，日後被指正再調整囉</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://wiki.centos.org/zh-tw/HowTos/SELinux" target="_blank">SELinux</a></li>
+<li><a href="https://blog.yowko.com/mongodb-custom-role/" target="_blank">建立 MongoDB 自訂角色 (role)</a></li>
+<li><a href="https://mariadb.com/kb/en/create-user/#host-name-component" target="_blank">Host Name Component</a></li>
+<li><a href="https://mariadb.com/kb/en/grant/#super" target="_blank">SUPER</a></li>
+<li><a href="https://stackoverflow.com/a/46556708" target="_blank">mysqldump not dumping stored procedures</a></li>
+<li><a href="https://serverfault.com/questions/912162/mysqldump-throws-unknown-table-column-statistics-in-information-schema-1109" target="_blank">mysqldump throws: Unknown table &lsquo;COLUMN_STATISTICS&rsquo; in information_schema (1109)</a></li>
+<li><a href="https://devopspoints.com/mysql-mariadb-user-accounts-and-privileges.html" target="_blank">MySQL – MariaDB – User Accounts and Privileges</a></li>
 </ol>
 
     </div>
@@ -307,7 +352,7 @@ Redirecting to /bin/systemctl status zookeeper_2181.service
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-11-17</span>
+    <span class="item-content">2020-11-21</span>
   </p>
   
   <p class="copyright-item">
@@ -329,11 +374,7 @@ Redirecting to /bin/systemctl status zookeeper_2181.service
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/centos/">CentOS</a>
+            <a href="https://blog.yowko.com/tags/mariadb/">MariaDB</a>
           
         </div>
 
@@ -341,18 +382,11 @@ Redirecting to /bin/systemctl status zookeeper_2181.service
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/mac-block-outgoing-ip/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">MAC 封鎖存取特定 IP</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/centos7-install-linux-kernel5/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/ansible-dnf-install-redis-cluster-redis6/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">CentOS 7 安裝 Linux Kernel 5</span>			
+            <span class="prev-text nav-default">Ansible 使用 dnf 安裝 Redis Cluster (Redis6)</span>			
           </a>
 		  </div>
       </nav>
@@ -363,7 +397,7 @@ Redirecting to /bin/systemctl status zookeeper_2181.service
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/linux-service-status-203\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/mariadb-backup-restore-user\/';  
       
     };
 
