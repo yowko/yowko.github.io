@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>建立 MariaDB 備份與還原帳號 - Yowko&#39;s Notes</title>
+  <title>使用 gcloud shell 建立 GCE 並設定允許使用 ssh 連線 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="建立 MariaDB 備份與還原帳號 之前筆記 建立 MongoDB 自訂角色 (role) 紀錄到如何在 MongoDB 上建立用來進行備份與還原的角色，再依這個角色建立使用者，相同的需求在 MariaDB 上也有，只是" />
+  <meta name="description" content="使用 gcloud shell 建立 GCE 並設定允許使用 ssh 連線 最近在評估 GCP 的可行性，雖然雲端上有許多可用的 SaaS，但原本都是自建服務，要花時間去了解如何設定與調整 SaaS (" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/mariadb-backup-restore-user/" />
+<link rel="canonical" href="https://blog.yowko.com/gcloud-create-gce-enable-ssh/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="建立 MariaDB 備份與還原帳號" />
-<meta property="og:description" content="建立 MariaDB 備份與還原帳號 之前筆記 建立 MongoDB 自訂角色 (role) 紀錄到如何在 MongoDB 上建立用來進行備份與還原的角色，再依這個角色建立使用者，相同的需求在 MariaDB 上也有，只是" />
+<meta property="og:title" content="使用 gcloud shell 建立 GCE 並設定允許使用 ssh 連線" />
+<meta property="og:description" content="使用 gcloud shell 建立 GCE 並設定允許使用 ssh 連線 最近在評估 GCP 的可行性，雖然雲端上有許多可用的 SaaS，但原本都是自建服務，要花時間去了解如何設定與調整 SaaS (" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/mariadb-backup-restore-user/" /><meta property="article:published_time" content="2020-11-21T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-11-21T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/gcloud-create-gce-enable-ssh/" /><meta property="article:published_time" content="2020-11-22T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-11-22T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="建立 MariaDB 備份與還原帳號">
-<meta itemprop="description" content="建立 MariaDB 備份與還原帳號 之前筆記 建立 MongoDB 自訂角色 (role) 紀錄到如何在 MongoDB 上建立用來進行備份與還原的角色，再依這個角色建立使用者，相同的需求在 MariaDB 上也有，只是">
-
-
-<meta itemprop="datePublished" content="2020-11-21T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-11-21T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="632">
+<meta itemprop="name" content="使用 gcloud shell 建立 GCE 並設定允許使用 ssh 連線">
+<meta itemprop="description" content="使用 gcloud shell 建立 GCE 並設定允許使用 ssh 連線 最近在評估 GCP 的可行性，雖然雲端上有許多可用的 SaaS，但原本都是自建服務，要花時間去了解如何設定與調整 SaaS (">
 
 
+<meta itemprop="datePublished" content="2020-11-22T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-11-22T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="513">
 
-<meta itemprop="keywords" content="MariaDB," />
+
+
+<meta itemprop="keywords" content="GCP," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="建立 MariaDB 備份與還原帳號"/>
-<meta name="twitter:description" content="建立 MariaDB 備份與還原帳號 之前筆記 建立 MongoDB 自訂角色 (role) 紀錄到如何在 MongoDB 上建立用來進行備份與還原的角色，再依這個角色建立使用者，相同的需求在 MariaDB 上也有，只是"/>
+<meta name="twitter:title" content="使用 gcloud shell 建立 GCE 並設定允許使用 ssh 連線"/>
+<meta name="twitter:description" content="使用 gcloud shell 建立 GCE 並設定允許使用 ssh 連線 最近在評估 GCP 的可行性，雖然雲端上有許多可用的 SaaS，但原本都是自建服務，要花時間去了解如何設定與調整 SaaS ("/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-11-21 </span>
+        <span class="post-time"> 2020-11-22 </span>
         
-        <span class="more-meta"> 約 632 字 </span>
+        <span class="more-meta"> 約 513 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -163,9 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#建立-mariadb-備份與還原帳號">建立 MariaDB 備份與還原帳號</a></li>
+<li><a href="#使用-gcloud-shell-建立-gce-並設定允許使用-ssh-連線">使用 gcloud shell 建立 GCE 並設定允許使用 ssh 連線</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#設定語法與說明">設定語法與說明</a></li>
+<li><a href="#設定方式">設定方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,165 +181,101 @@
     <div class="post-content">
       
 
-<h2 id="建立-mariadb-備份與還原帳號">建立 MariaDB 備份與還原帳號</h2>
+<h2 id="使用-gcloud-shell-建立-gce-並設定允許使用-ssh-連線">使用 gcloud shell 建立 GCE 並設定允許使用 ssh 連線</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/mongodb-custom-role/" target="_blank">建立 MongoDB 自訂角色 (role)</a> 紀錄到如何在 MongoDB 上建立用來進行備份與還原的角色，再依這個角色建立使用者，相同的需求在 MariaDB 上也有，只是做法些許不同，紀錄一下備忘</p>
+<p>最近在評估 GCP 的可行性，雖然雲端上有許多可用的 SaaS，但原本都是自建服務，要花時間去了解如何設定與調整 SaaS (主要是成本面的考量)，所以在確認對 SaaS 有一定的掌握度前先透過 GCE 建立 vm 來架設服務，避免使用成本超乎預期</p>
+
+<p>之前實體的 ansible 腳本也可以應用在 GCE 上，只是需要額外指定 ssh keyfile，為了避免遺忘，快速筆記一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Catalina 10.15.7</li>
-<li>docker desktop community 2.5.0.1(49550)</li>
-<li>docker images
+<li>gcloud SDK 319.0.0</li>
+</ol>
+
+<h2 id="設定方式">設定方式</h2>
+
+<ol>
+<li><p>設定 SSH keys</p>
 
 <ul>
-<li>mariadb 10.5.8</li>
+<li><p>gen key</p>
+
+<blockquote>
+<p>這邊的 username 需符合 gcp account</p>
+</blockquote>
+
+<pre><code class="language-bash">ssh-keygen -t rsa -f ~/.ssh/gcp-ssh-key -C {username}
+</code></pre></li>
+
+<li><p>get key</p>
+
+<pre><code class="language-bash">cat ~/.ssh/gcp-ssh-key.pub
+</code></pre></li>
+
+<li><p>import to gcp</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/99950171-1a64a280-2db7-11eb-84f4-c05e79dc0929.png" alt="importkey" /></p></li>
+</ul></li>
+
+<li><p>建立 GCE instance</p>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">gcloud compute instances create {vm name} --machine-type {machine type name} --image {image name} --image-project {project name}
+</code></pre>
+
+<ul>
+<li>列出可用的 machine-type： <code>gcloud compute machine-types list</code></li>
+<li>列出可用的 image 與對應的 image-project： <code>gcloud compute images list</code></li>
+</ul></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">gcloud compute instances create test1 --machine-type e2-standard-2 --image centos-8-v20201112 --image-project centos-cloud
+</code></pre></li>
+</ul></li>
+
+<li><p>啟用 ssh</p>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">gcloud compute instances add-metadata {vm name} --metadata serial-port-enable=TRUE --zone={zone name} --project={project_id}
+</code></pre>
+
+<ul>
+<li>列出可用的 zone： <code>gcloud compute zones list</code></li>
+<li>列出該帳號的 project： <code>gcloud projects list</code></li>
+</ul></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">gcloud compute instances add-metadata test1 --metadata serial-port-enable=TRUE --zone=asia-east2-a --project=testproject
+</code></pre></li>
 </ul></li>
 </ol>
 
-<h2 id="設定語法與說明">設定語法與說明</h2>
-
 <ul>
-<li><p>建立 account 並指定密碼</p>
+<li><p>asnbile 指定 ssh key 的語法</p>
 
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">CREATE USER '{username}'[@'{host}'] IDENTIFIED BY '{password}';
+<pre><code class="language-bash">ansible-playbook --private-key /~/.ssh/gcp-ssh-key -i inventories/gcp.ini playbooks/test.yml -b
 </code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">CREATE USER 'backupuser' IDENTIFIED BY 'pass.123';
-</code></pre>
-
-<ul>
-<li><code>host</code> 預設為 <code>%</code></li>
-<li><code>host</code> 若為 <code>localhost</code> 僅允許 local 登入</li>
-</ul></li>
-</ul></li>
-
-<li><p>備份權限</p>
-
-<ol>
-<li><p>備份 table 權限</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">GRANT SELECT, LOCK TABLES on {db name}.* TO '{username}';
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">GRANT SELECT, LOCK TABLES on test.* TO 'backupuser';
-</code></pre>
-
-<ul>
-<li>表示該帳號可以備份 <code>test</code> db 下所有 table</li>
-<li>可以使用 <code>*.*</code> 表示所有 db 的所有 table</li>
-</ul></li>
-</ul></li>
-
-<li><p>備份 stored procedure 或是 functions 權限</p>
-
-<blockquote>
-<p>這個權限沒給，在執行備份時不會出現錯誤，但 stored procedure 與 functions 將直接被忽略</p>
-</blockquote>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">GRANT SELECT on mysql.proc TO '{username}';
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">GRANT SELECT on mysql.proc TO 'backupuser';
-</code></pre></li>
-</ul></li>
-
-<li><p>備份語法</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">mysqldump -u {username} -p{password} --routines --compress --column-statistics=0 {db name}  &gt; {backup target file name}
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">mysqldump -u backupuser -ppass.123 --routines --compress --column-statistics=0 test &gt; test.sql
-</code></pre></li>
-</ul></li>
-</ol></li>
-
-<li><p>還原權限</p>
-
-<ol>
-<li><p>grant 修改斷行符號 (DELIMITER) 權限</p>
-
-<blockquote>
-<p><code>SUPER</code> 的 <code>GLOBAL</code> 層級的權限設定</p>
-</blockquote>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">GRANT SUPER on *.* to '{username}';
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">GRANT SUPER on *.* to 'backupuser';
-</code></pre></li>
-</ul></li>
-
-<li><p>grant 還原 stored procedure、function 與 table schema、table data 權限</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">GRANT ALTER ROUTINE,CREATE ROUTINE,SELECT, INSERT, LOCK TABLES, CREATE, Drop, CREATE TEMPORARY TABLES, INDEX, ALTER on {db name}.* TO '{username}';
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">GRANT ALTER ROUTINE,CREATE ROUTINE,SELECT, INSERT, LOCK TABLES, CREATE, Drop, CREATE TEMPORARY TABLES, INDEX, ALTER on test.* TO 'backupuser';
-</code></pre></li>
-</ul></li>
-
-<li><p>還原語法</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash"> mysql -u{username} -p{password} {db name} &lt; {target restore sql file name}
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash"> mysql-ubackupuser -ppass.123 test &lt;test.sql
-</code></pre></li>
-</ul></li>
-</ol></li>
 </ul>
 
 <h2 id="心得">心得</h2>
 
-<p>不知道是 mariadb 資源比較少，還是大家在帳號的使用權限控管上比較沒有拆分那麼細，網路上的資料不是很好找，<a href="https://devopspoints.com/mysql-mariadb-user-accounts-and-privileges.html" target="_blank">MySQL – MariaDB – User Accounts and Privileges</a> 已經算是相當完整的，只是在 stored procedure、function 的處理還有遺漏</p>
+<p>設定還算直覺，文件也好找，整體使用體驗不錯，只是每個平台的使用邏輯不太相同，需要花點時間熟悉一下</p>
 
-<p>幸虧在測試數十次後，勉強找出可用的版本，但不是 dba 說實話也不知道權限使用上是不是正確，就先紀錄一下，日後被指正再調整囉</p>
+<p>我在建立 GCE instance 時，中間有個 step 可以建立設定 SSH，我嘗試統一由 gcloud 完成 GCE 建立並設定 SSH，但沒有成功，我初步看起來是 key 的格式跟名稱錯誤，但沒有仔細 debug，先列下來備忘</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/mongodb-custom-role/" target="_blank">建立 MongoDB 自訂角色 (role)</a></li>
-<li><a href="https://mariadb.com/kb/en/create-user/#host-name-component" target="_blank">Host Name Component</a></li>
-<li><a href="https://mariadb.com/kb/en/grant/#super" target="_blank">SUPER</a></li>
-<li><a href="https://stackoverflow.com/a/46556708" target="_blank">mysqldump not dumping stored procedures</a></li>
-<li><a href="https://serverfault.com/questions/912162/mysqldump-throws-unknown-table-column-statistics-in-information-schema-1109" target="_blank">mysqldump throws: Unknown table &lsquo;COLUMN_STATISTICS&rsquo; in information_schema (1109)</a></li>
-<li><a href="https://devopspoints.com/mysql-mariadb-user-accounts-and-privileges.html" target="_blank">MySQL – MariaDB – User Accounts and Privileges</a></li>
+<li><a href="https://cloud.google.com/sdk/gcloud/reference/compute/instances/create" target="_blank">gcloud compute instances create</a></li>
+<li><a href="https://cloud.google.com/compute/docs/instances/managing-instance-access#gcloud" target="_blank">Setting up OS Login</a></li>
 </ol>
 
     </div>
@@ -352,7 +288,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-11-21</span>
+    <span class="item-content">2020-11-22</span>
   </p>
   
   <p class="copyright-item">
@@ -374,7 +310,7 @@
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/mariadb/">MariaDB</a>
+            <a href="https://blog.yowko.com/tags/gcp/">GCP</a>
           
         </div>
 
@@ -382,18 +318,18 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/gcloud-create-gce-enable-ssh/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/gke-filestore-nfs-client/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">使用 gcloud shell 建立 GCE 並設定允許使用 ssh 連線</span>			
+            <span class="next-text nav-default">使用 gcloud shell 建立 GKE 並使用 Filestore 做為 NFS-Client</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/ansible-dnf-install-redis-cluster-redis6/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/mariadb-backup-restore-user/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">Ansible 使用 dnf 安裝 Redis Cluster (Redis6)</span>			
+            <span class="prev-text nav-default">建立 MariaDB 備份與還原帳號</span>			
           </a>
 		  </div>
       </nav>
@@ -404,7 +340,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/mariadb-backup-restore-user\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/gcloud-create-gce-enable-ssh\/';  
       
     };
 
