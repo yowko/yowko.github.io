@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 gcloud shell 建立 GKE 並使用 Filestore 做為 NFS-Client - Yowko&#39;s Notes</title>
+  <title>GKE 透過 Private IP 連線 Cloud SQL - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 gcloud shell 建立 GKE 並使用 Filestore 做為 NFS-Client 許多目前用到的 service 都需要使用 storageclass 來動態建立 volume，雖然使用預設的 standard 可以順利讓 service 啟動，但為了保存相關資料還是需要" />
+  <meta name="description" content="GKE 透過 Private IP 連線 Cloud SQL 因為團隊中沒有傳統 DBA (只有 BA 兼任 DBA 哈哈)，所以在 db 的選擇上一直都偏好使用外部服務 (自建環境時與其他團隊共享 DBA 資源) 所以在評" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/gke-filestore-nfs-client/" />
+<link rel="canonical" href="https://blog.yowko.com/gke-private-sql-cloud-sql/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="使用 gcloud shell 建立 GKE 並使用 Filestore 做為 NFS-Client" />
-<meta property="og:description" content="使用 gcloud shell 建立 GKE 並使用 Filestore 做為 NFS-Client 許多目前用到的 service 都需要使用 storageclass 來動態建立 volume，雖然使用預設的 standard 可以順利讓 service 啟動，但為了保存相關資料還是需要" />
+<meta property="og:title" content="GKE 透過 Private IP 連線 Cloud SQL" />
+<meta property="og:description" content="GKE 透過 Private IP 連線 Cloud SQL 因為團隊中沒有傳統 DBA (只有 BA 兼任 DBA 哈哈)，所以在 db 的選擇上一直都偏好使用外部服務 (自建環境時與其他團隊共享 DBA 資源) 所以在評" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/gke-filestore-nfs-client/" /><meta property="article:published_time" content="2020-11-23T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-11-23T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/gke-private-sql-cloud-sql/" /><meta property="article:published_time" content="2020-12-06T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-06T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="使用 gcloud shell 建立 GKE 並使用 Filestore 做為 NFS-Client">
-<meta itemprop="description" content="使用 gcloud shell 建立 GKE 並使用 Filestore 做為 NFS-Client 許多目前用到的 service 都需要使用 storageclass 來動態建立 volume，雖然使用預設的 standard 可以順利讓 service 啟動，但為了保存相關資料還是需要">
+<meta itemprop="name" content="GKE 透過 Private IP 連線 Cloud SQL">
+<meta itemprop="description" content="GKE 透過 Private IP 連線 Cloud SQL 因為團隊中沒有傳統 DBA (只有 BA 兼任 DBA 哈哈)，所以在 db 的選擇上一直都偏好使用外部服務 (自建環境時與其他團隊共享 DBA 資源) 所以在評">
 
 
-<meta itemprop="datePublished" content="2020-11-23T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-11-23T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="559">
+<meta itemprop="datePublished" content="2020-12-06T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-06T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="573">
 
 
 
 <meta itemprop="keywords" content="GCP,Kubernetes," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 gcloud shell 建立 GKE 並使用 Filestore 做為 NFS-Client"/>
-<meta name="twitter:description" content="使用 gcloud shell 建立 GKE 並使用 Filestore 做為 NFS-Client 許多目前用到的 service 都需要使用 storageclass 來動態建立 volume，雖然使用預設的 standard 可以順利讓 service 啟動，但為了保存相關資料還是需要"/>
+<meta name="twitter:title" content="GKE 透過 Private IP 連線 Cloud SQL"/>
+<meta name="twitter:description" content="GKE 透過 Private IP 連線 Cloud SQL 因為團隊中沒有傳統 DBA (只有 BA 兼任 DBA 哈哈)，所以在 db 的選擇上一直都偏好使用外部服務 (自建環境時與其他團隊共享 DBA 資源) 所以在評"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-11-23 </span>
+        <span class="post-time"> 2020-12-06 </span>
         
-        <span class="more-meta"> 約 559 字 </span>
+        <span class="more-meta"> 約 573 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -163,9 +163,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#使用-gcloud-shell-建立-gke-並使用-filestore-做為-nfs-client">使用 gcloud shell 建立 GKE 並使用 Filestore 做為 NFS-Client</a></li>
+<li><a href="#gke-透過-private-ip-連線-cloud-sql">GKE 透過 Private IP 連線 Cloud SQL</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
 <li><a href="#設定方式">設定方式</a></li>
+<li><a href="#驗證方式">驗證方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,187 +182,134 @@
     <div class="post-content">
       
 
-<h2 id="使用-gcloud-shell-建立-gke-並使用-filestore-做為-nfs-client">使用 gcloud shell 建立 GKE 並使用 Filestore 做為 NFS-Client</h2>
+<h2 id="gke-透過-private-ip-連線-cloud-sql">GKE 透過 Private IP 連線 Cloud SQL</h2>
 
-<p>許多目前用到的 service 都需要使用 storageclass 來動態建立 volume，雖然使用預設的 <code>standard</code> 可以順利讓 service 啟動，但為了保存相關資料還是需要使用外部 disk，今天就紀錄一下將 Filestore mount 給 GKE 做 nfs</p>
+<p>因為團隊中沒有傳統 DBA (只有 BA 兼任 DBA 哈哈)，所以在 db 的選擇上一直都偏好使用外部服務 (自建環境時與其他團隊共享 DBA 資源) 所以在評估 GCP 時也就選擇使用 Cloud SQL，當然使用 SaaS 服務的限制： 1. 沒辦法進行細微設定  2. 底層 patch 可控程度低 3. 語法受限 4. 硬體效能受限 5. 價格昂貴 &hellip;. 等等，都已經被納入評估，最後決定因素主要還是在 <code>便利</code> 與 <code>彈性</code>，GCP 管理大多數情況下應該會優於外行人管理吧 XD</p>
+
+<p>我 google 了一下，網路上的文章跟官方建議都使用 Cloud SQL Proxy 為主，雖然我認同 Cloud SQLProxy 的安全性，但我覺得部署與設定的動作太多了，對測試環境還是 on-premiss 機房的我們而已，要兼容修改的範圍過大，所以才想從網路這層著手</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>macOS Catalina 10.15.7</li>
-<li>gcloud SDK 319.0.0</li>
+<li>GKE (1.17.13-gke.2001)</li>
+<li>Cloud SQL (MySQL 8.0)</li>
 </ol>
 
 <h2 id="設定方式">設定方式</h2>
 
 <ol>
-<li><p>啟用 file Google APIs</p>
+<li><p>建立 GKE (已有 GKE instance 可忽略)</p>
+
+<ul>
+<li><p>建立叢集</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/101283015-2cacfa80-3813-11eb-94cf-a13a3743d026.png" alt="1create-gke" /></p></li>
+
+<li><p>設定 Kubernetes networking</p>
 
 <blockquote>
-<p>未啟用無法使用 <code>gcloud</code> 建立 filestore</p>
+<p>使用 <code>default</code> VPC</p>
 </blockquote>
 
-<pre><code class="language-bash">gcloud services enable file.googleapis.com
-</code></pre>
+<p><img src="https://user-images.githubusercontent.com/3851540/101283020-30d91800-3813-11eb-8bb2-25d51b5bac5d.png" alt="2networking" /></p></li>
+</ul></li>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/99950083-f739f300-2db6-11eb-8611-75b32ed269dc.png" alt="1notenablefileapi" /></p></li>
+<li><p>建立 Cloud SQL</p>
 
-<li><p>安裝 <code>beta</code> gcloud components</p>
+<ul>
+<li><p>建立執行個體</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/101283021-3171ae80-3813-11eb-9882-693de8d40c96.png" alt="3createcloudsql" /></p></li>
+
+<li><p>選擇資料庫引擎</p>
 
 <blockquote>
-<p>未安裝 <code>beta</code> gcloud components 無法建立 filestore
-<img src="https://user-images.githubusercontent.com/3851540/99951382-015cf100-2db9-11eb-922d-5cc44db64936.png" alt="3betacomponent" /></p>
+<p>這邊以 <code>mysql</code> 為例</p>
 </blockquote>
 
-<pre><code class="language-bash">gcloud components install beta
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/101283023-320a4500-3813-11eb-88f8-f3b512606b3d.png" alt="4dbengine" /></p></li>
 
-<li><p>建立 Filestore</p>
+<li><p>設定 db networking</p>
 
 <blockquote>
-<p>{SIZE} 至少要 1024GB(1TB)
-<img src="https://user-images.githubusercontent.com/3851540/99950087-facd7a00-2db6-11eb-991e-083471275a96.png" alt="21024gb" /></p>
+<p>使用 <code>Private IP</code> 並指定 <code>default</code> VPC</p>
 </blockquote>
 
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">gcloud beta filestore instances create {FILESTORE NAME} \
-    --project={PROJECT NAME} \
-    --zone={ZONE ID} \
-    --tier=STANDARD \
-    --file-share=name=&quot;volumes&quot;,capacity={SIZE} \
-    --network=name=&quot;default&quot;
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">gcloud beta filestore instances create testnfs \
---project=testproject \
---zone=asia-east2-a \
---tier=STANDARD \
---file-share=name=&quot;volumes&quot;,capacity=1TB \
---network=name=&quot;default&quot;
-</code></pre></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/101283024-32a2db80-3813-11eb-843f-3b59a47f258f.png" alt="5privateip" /></p></li>
 </ul></li>
-
-<li><p>取得 Filestore ip</p>
-
-<blockquote>
-<p>先將 ip 紀錄下來，後面會用到</p>
-</blockquote>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">echo $(gcloud beta filestore instances describe {FILESTORE NAME} \
---project={PROJECT NAME} \
---zone={ZONE ID} \
---format=&quot;value(networks.ipAddresses[0])&quot;)
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">echo $(gcloud beta filestore instances describe testnfs \
---project=testproject \
---zone=asia-east2-a \
---format=&quot;value(networks.ipAddresses[0])&quot;)
-</code></pre></li>
-</ul></li>
-
-<li><p>建立 GKE instance 並設定權限 (已有 GKE instance 可略過)</p>
-
-<ul>
-<li><p>5-1. 建立 GKE instance</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">gcloud container clusters create {gke name}
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">gcloud container clusters create testk8s
-</code></pre></li>
-</ul></li>
-
-<li><p>5.2. 取得 gke 憑證</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">gcloud container clusters get-credentials {gke name}
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">gcloud container clusters get-credentials testk8s
-</code></pre></li>
-</ul></li>
-
-<li><p>5.3. 設定 cluster-admin 權限</p>
-
-<pre><code class="language-bash">ACCOUNT=$(gcloud config get-value core/account)
-kubectl create clusterrolebinding core-cluster-admin-binding \
-    --user ${ACCOUNT} \
-    --clusterrole cluster-admin
-</code></pre></li>
-</ul></li>
-
-<li><p>安裝 Helm</p>
-
-<pre><code class="language-bash">brew install helm
-</code></pre></li>
-
-<li><p>安裝 nfs-client</p>
-
-<blockquote>
-<p>將前面紀錄下來的 ip 填入</p>
-</blockquote>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">helm install  nfs-cp --set nfs.server={FILESTORE IP} --set nfs.path=/volumes stable/nfs-client-provisioner
-</code></pre></li>
-
-<li><p>範例</p>
-
-<pre><code class="language-bash">helm install  nfs-cp --set nfs.server=10.94.204.42 --set nfs.path=/volumes stable/nfs-client-provisioner
-</code></pre></li>
-</ul></li>
-
-<li><p>移除預設 <code>standard</code> 為 default 並將 nfs-client 設為 default storageclass</p>
-
-<pre><code class="language-bash"> kubectl patch storageclass standard -p '{&quot;metadata&quot;: {&quot;annotations&quot;:{&quot;storageclass.kubernetes.io/is-default-class&quot;:&quot;false&quot;}}}' &amp;&amp; kubectl patch storageclass nfs-client -p '{&quot;metadata&quot;: {&quot;annotations&quot;:{&quot;storageclass.kubernetes.io/is-default-class&quot;:&quot;true&quot;}}}'
-</code></pre></li>
 </ol>
 
-<ul>
-<li><p>指定 nfs-client 為 storageclass 的 helm 安裝語法</p>
+<h2 id="驗證方式">驗證方式</h2>
 
-<pre><code class="language-bash">helm repo add hashicorp https://helm.releases.hashicorp.com &amp;&amp; helm install consul hashicorp/consul --set global.name=consul --set StorageClass=nfs-client
+<ol>
+<li><p>部署 container</p>
+
+<blockquote>
+<p>以下使用之前筆記 <a href="https://blog.yowko.com/kubernetes-liveness-aspdotnet-core-grpc/" target="_blank">使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期</a> 的 image 來進行示範</p>
+</blockquote>
+
+<pre><code class="language-bash">kubectl create deployment test  --image=gcr.io/thermal-setup-295904/healthcheck:healthy
 </code></pre></li>
-</ul>
+
+<li><p>至 container 直接連線</p>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">kubectl exec -it {pod name} -- bash
+</code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">kubectl exec -it test-c57fc89dc-jf5dx -- bash
+</code></pre></li>
+</ul></li>
+
+<li><p>安裝 mysql client</p>
+
+<blockquote>
+<p>請依 base image os 自行調整</p>
+</blockquote>
+
+<pre><code class="language-bash">apt update &amp;&amp; apt install -y default-mysql-client
+</code></pre></li>
+
+<li><p>使用 Private IP 連線至 Cloud SQL</p>
+
+<ul>
+<li><p>取得 Cloud SQL Private IP</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/101283026-333b7200-3813-11eb-9d66-0d42ba0fce94.png" alt="6getprivateip" /></p></li>
+
+<li><p>語法</p>
+
+<pre><code class="language-bash">mysql -h {cloud sql private ip} -u{username} -p{passowrd}
+</code></pre></li>
+
+<li><p>範例</p>
+
+<pre><code class="language-bash">mysql -h 10.65.195.3 -uroot -ppass.123
+</code></pre></li>
+
+<li><p>實際結果</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/101283027-333b7200-3813-11eb-85f2-7e002e3d5b12.png" alt="7result" /></p></li>
+</ul></li>
+</ol>
 
 <h2 id="心得">心得</h2>
 
-<p>絕大部操作都與 <a href="https://cloud.google.com/community/tutorials/gke-filestore-dynamic-provisioning" target="_blank">Dynamically provision GKE storage from Filestore using the NFS-Client provisioner</a> 相同，其中只有下列幾點不同</p>
+<p>經過一連串測試調整一直遇到連線不通的問題，後來重新看了說明文件才發現漏看了一段重點 @@&rdquo;</p>
 
-<ol>
-<li>helm 的安裝： mac 上就直接使用 brew 安裝 3.X 版本 (文件則是使用壓縮檔安裝 2.11 版)</li>
-<li>rbac 設定：helm 3 之後 tiller 已不再需要，故未設定 tiller 用的 service account</li>
-<li>helm 語法調整：helm 3 語法與 helm 2 略有不同 (helm 3 移除 <code>--name</code> flag)</li>
-</ol>
+<p><img src="https://user-images.githubusercontent.com/3851540/101283028-33d40880-3813-11eb-8cf7-2defe4ee4190.png" alt="8samevpc" /></p>
+
+<p>這充份說明：別自以為是，不管做什麼還是需要閱讀公開說明書XD</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://cloud.google.com/community/tutorials/gke-filestore-dynamic-provisioning" target="_blank">Dynamically provision GKE storage from Filestore using the NFS-Client provisioner</a></li>
-<li><a href="https://helm.sh/docs/intro/install/" target="_blank">Installing Helm</a></li>
-<li><a href="https://github.com/hashicorp/consul-helm" target="_blank">hashicorp/consul-helm</a></li>
-<li><a href="https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/" target="_blank">Change the default StorageClass</a></li>
+<li><a href="https://cloud.google.com/sql/docs/mysql/connect-kubernetes-engine" target="_blank">Connecting from Google Kubernetes Engine</a></li>
+<li><a href="https://blog.yowko.com/kubernetes-liveness-aspdotnet-core-grpc/" target="_blank">使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期</a></li>
 </ol>
 
     </div>
@@ -374,7 +322,7 @@ kubectl create clusterrolebinding core-cluster-admin-binding \
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-11-23</span>
+    <span class="item-content">2020-12-06</span>
   </p>
   
   <p class="copyright-item">
@@ -408,18 +356,11 @@ kubectl create clusterrolebinding core-cluster-admin-binding \
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/gke-private-sql-cloud-sql/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">GKE 透過 Private IP 連線 Cloud SQL</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/gcloud-create-gce-enable-ssh/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/gke-filestore-nfs-client/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">使用 gcloud shell 建立 GCE 並設定允許使用 ssh 連線</span>			
+            <span class="prev-text nav-default">使用 gcloud shell 建立 GKE 並使用 Filestore 做為 NFS-Client</span>			
           </a>
 		  </div>
       </nav>
@@ -430,7 +371,7 @@ kubectl create clusterrolebinding core-cluster-admin-binding \
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/gke-filestore-nfs-client\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/gke-private-sql-cloud-sql\/';  
       
     };
 
