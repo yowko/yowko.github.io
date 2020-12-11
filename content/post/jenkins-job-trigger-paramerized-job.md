@@ -1,7 +1,7 @@
 ---
 title: "Jenkins Job 觸發其他需要參數的 Job"
 date: 2017-07-06T22:17:00+08:00
-lastmod: 2018-09-23T22:17:00+08:00
+lastmod: 2020-12-11T22:17:00+08:00
 draft: false
 tags: ["Jenkins"]
 slug: "jenkins-job-trigger-paramerized-job"
