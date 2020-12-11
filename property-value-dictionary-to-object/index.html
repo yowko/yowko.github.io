@@ -58,14 +58,14 @@
 <meta property="og:description" content="C# - Property 與 Value 的 Dictionary 轉為 Object 之前筆記 C# - 將 Object 的 Property 與 Value 轉換為 Dictionary 紀錄到將 C# object 的 property name 與 value 透過 dictionary 的資料型態存放，當時主要是為了配合 InfluxDB 的 insert 而做的筆記 ，想不到時" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/property-value-dictionary-to-object/" /><meta property="article:published_time" content="2019-12-09T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-12-09T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="C# - Property 與 Value 的 Dictionary 轉為 Object">
 <meta itemprop="description" content="C# - Property 與 Value 的 Dictionary 轉為 Object 之前筆記 C# - 將 Object 的 Property 與 Value 轉換為 Dictionary 紀錄到將 C# object 的 property name 與 value 透過 dictionary 的資料型態存放，當時主要是為了配合 InfluxDB 的 insert 而做的筆記 ，想不到時">
 
 
 <meta itemprop="datePublished" content="2019-12-09T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-12-09T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="870">
 
 
@@ -183,7 +183,7 @@
 
 <h2 id="c-property-與-value-的-dictionary-轉為-object">C# - Property 與 Value 的 Dictionary 轉為 Object</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/csharp-object-to-dictionary/" target="_blank">C# - 將 Object 的 Property 與 Value 轉換為 Dictionary</a> 紀錄到將 C# object 的 property name 與 value 透過 dictionary 的資料型態存放，當時主要是為了配合 InfluxDB 的 insert 而做的筆記 ，想不到時隔兩個月，竟然想要透過 property - value 的 dictionary 來轉回 C# object，有趣的是來源不是 InfluxDB 而是 Redis</p>
+<p>之前筆記 <a href="https://blog.yowko.com/csharp-object-to-dictionary/">C# - 將 Object 的 Property 與 Value 轉換為 Dictionary</a> 紀錄到將 C# object 的 property name 與 value 透過 dictionary 的資料型態存放，當時主要是為了配合 InfluxDB 的 insert 而做的筆記 ，想不到時隔兩個月，竟然想要透過 property - value 的 dictionary 來轉回 C# object，有趣的是來源不是 InfluxDB 而是 Redis</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -234,7 +234,7 @@
 <li><p>將 object 轉為 dictionary</p>
 
 <blockquote>
-<p>之前筆記 <a href="https://blog.yowko.com/csharp-object-to-dictionary/" target="_blank">C# - 將 Object 的 Property 與 Value 轉換為 Dictionary</a> 中的程式只能轉換 reference type，這邊小改一下，讓 value type 也可以順利轉換 (但有 boxing 的效能損耗)</p>
+<p>之前筆記 <a href="https://blog.yowko.com/csharp-object-to-dictionary/">C# - 將 Object 的 Property 與 Value 轉換為 Dictionary</a> 中的程式只能轉換 reference type，這邊小改一下，讓 value type 也可以順利轉換 (但有 boxing 的效能損耗)</p>
 </blockquote>
 
 <pre><code class="language-cs">public static class PocoToDictionary
@@ -353,12 +353,12 @@ var outputResult = result.Select(DictionaryToObject&lt;User&gt;);
 
 <h2 id="心得">心得</h2>
 
-<p>其實上次紀錄 <a href="https://blog.yowko.com/csharp-object-to-dictionary/" target="_blank">C# - 將 Object 的 Property 與 Value 轉換為 Dictionary</a> 時，我就覺得有些荒謬了，覺得這樣的需求沒什麼道理，使用情境很是侷限，想不到這次竟然還需要來個逆向操作，不過所幸有上次的經驗，讓這次的問題可以快速被解決，雖然可能會因為上次的既定印象反而限制了思考的方向而造成用了效能不佳的方法，但終究是多了解了一個可以解決問題的方法，不論好壞還是學到了</p>
+<p>其實上次紀錄 <a href="https://blog.yowko.com/csharp-object-to-dictionary/">C# - 將 Object 的 Property 與 Value 轉換為 Dictionary</a> 時，我就覺得有些荒謬了，覺得這樣的需求沒什麼道理，使用情境很是侷限，想不到這次竟然還需要來個逆向操作，不過所幸有上次的經驗，讓這次的問題可以快速被解決，雖然可能會因為上次的既定印象反而限制了思考的方向而造成用了效能不佳的方法，但終究是多了解了一個可以解決問題的方法，不論好壞還是學到了</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/csharp-object-to-dictionary/" target="_blank">C# - 將 Object 的 Property 與 Value 轉換為 Dictionary</a></li>
+<li><a href="https://blog.yowko.com/csharp-object-to-dictionary/">C# - 將 Object 的 Property 與 Value 轉換為 Dictionary</a></li>
 <li><a href="https://stackoverflow.com/questions/43080505/c-sharp-7-0-switch-on-system-type" target="_blank">Expression of type &lsquo;System.Int32&rsquo; cannot be used for return type &lsquo;System.Object&rsquo;</a></li>
 </ol>
 
@@ -372,7 +372,7 @@ var outputResult = result.Select(DictionaryToObject&lt;User&gt;);
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-12-09</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

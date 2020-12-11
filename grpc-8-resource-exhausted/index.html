@@ -58,14 +58,14 @@
 <meta property="og:description" content="gRPC 出現 8 RESOURCE_EXHAUSTED 錯誤 隨著系統一步步成形，資料量也愈來愈大，在原本只是先求功能正常而未進行資料分頁的功能逐漸露出原型，今天就來筆記 gRPC 在傳送龐大資料可" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/grpc-8-resource-exhausted/" /><meta property="article:published_time" content="2019-06-23T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-06-23T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="gRPC 出現 `8 RESOURCE_EXHAUSTED` 錯誤">
 <meta itemprop="description" content="gRPC 出現 8 RESOURCE_EXHAUSTED 錯誤 隨著系統一步步成形，資料量也愈來愈大，在原本只是先求功能正常而未進行資料分頁的功能逐漸露出原型，今天就來筆記 gRPC 在傳送龐大資料可">
 
 
 <meta itemprop="datePublished" content="2019-06-23T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-06-23T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="799">
 
 
@@ -320,7 +320,7 @@ service CandidateService {
 <li><p>改用 stram RPC</p>
 
 <blockquote>
-<p>詳細使用方式可以參考之前筆記  <a href="https://blog.yowko.com/csharp-grpc-stream/" target="_blank">C# 搭配 gRPC 中使用 stream RPC</a> , 大意是在 gRPC service 定義時在需要大量資料的參數加上 <code>stream</code> 修飾子，但需要留意的是如果單一批量的訊息大小超過 <code>4194304 - 4MB</code> 時，還是需要修改 <code>MaxReceiveMessageLength</code> 或是降低批量大小</p>
+<p>詳細使用方式可以參考之前筆記  <a href="https://blog.yowko.com/csharp-grpc-stream/">C# 搭配 gRPC 中使用 stream RPC</a> , 大意是在 gRPC service 定義時在需要大量資料的參數加上 <code>stream</code> 修飾子，但需要留意的是如果單一批量的訊息大小超過 <code>4194304 - 4MB</code> 時，還是需要修改 <code>MaxReceiveMessageLength</code> 或是降低批量大小</p>
 </blockquote>
 
 <ul>
@@ -365,7 +365,7 @@ service CandidateService {
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-06-23</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

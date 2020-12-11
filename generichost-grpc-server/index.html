@@ -58,14 +58,14 @@
 <meta property="og:description" content="使用 GenericHost 來 Host gRPC Server 之前筆記 在 .NET Core console 上使用 Dependency Injection - DI 提到 ASP.NET Core 有兩種 host 方式： WebHost Generic Host 而在之前另一則筆記 使用 ASP.NET Core 2.2 來 Host gRPC Server 使用到 WebHost 來 host gRPC Server，經同" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/generichost-grpc-server/" /><meta property="article:published_time" content="2019-05-26T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-09-01T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="使用 GenericHost 來 Host gRPC Server">
 <meta itemprop="description" content="使用 GenericHost 來 Host gRPC Server 之前筆記 在 .NET Core console 上使用 Dependency Injection - DI 提到 ASP.NET Core 有兩種 host 方式： WebHost Generic Host 而在之前另一則筆記 使用 ASP.NET Core 2.2 來 Host gRPC Server 使用到 WebHost 來 host gRPC Server，經同">
 
 
 <meta itemprop="datePublished" content="2019-05-26T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-09-01T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="711">
 
 
@@ -182,21 +182,21 @@
 
 <h1 id="使用-generichost-來-host-grpc-server">使用 GenericHost 來 Host gRPC Server</h1>
 
-<p>之前筆記 <a href="https://blog.yowko.com/dotnet-core-console-di/" target="_blank">在 .NET Core console 上使用 Dependency Injection - DI</a> 提到 ASP.NET Core 有兩種 host 方式：</p>
+<p>之前筆記 <a href="https://blog.yowko.com/dotnet-core-console-di/">在 .NET Core console 上使用 Dependency Injection - DI</a> 提到 ASP.NET Core 有兩種 host 方式：</p>
 
 <ol>
 <li>WebHost</li>
 <li>Generic Host</li>
 </ol>
 
-<p>而在之前另一則筆記 <a href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" target="_blank">使用 ASP.NET Core 2.2 來 Host gRPC Server</a> 使用到 WebHost 來 host gRPC Server，經同事提醒其實不需要用到 kestrel 來處理 request，覺得相當有道理於是我就來改版了</p>
+<p>而在之前另一則筆記 <a href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/">使用 ASP.NET Core 2.2 來 Host gRPC Server</a> 使用到 WebHost 來 host gRPC Server，經同事提醒其實不需要用到 kestrel 來處理 request，覺得相當有道理於是我就來改版了</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Mojave 10.14.5</li>
 <li>.NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)</li>
-<li>使用之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" target="_blank">使用 ASP.NET Core 2.2 來 Host gRPC Server</a> 作為基礎來修改</li>
+<li>使用之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/">使用 ASP.NET Core 2.2 來 Host gRPC Server</a> 作為基礎來修改</li>
 
 <li><p>NuGet package</p>
 
@@ -341,8 +341,8 @@ new gRPCServer(host, port,
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/dotnet-core-console-di/" target="_blank">在 .NET Core console 上使用 Dependency Injection - DI</a></li>
-<li><a href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" target="_blank">使用 ASP.NET Core 2.2 來 Host gRPC Server</a></li>
+<li><a href="https://blog.yowko.com/dotnet-core-console-di/">在 .NET Core console 上使用 Dependency Injection - DI</a></li>
+<li><a href="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/">使用 ASP.NET Core 2.2 來 Host gRPC Server</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/index?view=aspnetcore-2.2&amp;tabs=macos&amp;WT.mc_id=DOP-MVP-5002594#host" target="_blank">ASP.NET Core 基本概念</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.2&amp;WT.mc_id=DOP-MVP-5002594" target="_blank">.NET 泛型主機</a></li>
 </ol>
@@ -357,7 +357,7 @@ new gRPCServer(host, port,
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-09-01</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

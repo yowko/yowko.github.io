@@ -58,14 +58,14 @@
 <meta property="og:description" content="讓 MSTest 支援使用資料集進行重覆測試 之前文章 NUnit 幾個參數化測試的方式 介紹到如何在 NUnit 單元測試中使用 TestCase、TestCaseSource、Va" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/mstest-datasource/" /><meta property="article:published_time" content="2017-08-01T23:52:00&#43;08:00"/>
-<meta property="article:modified_time" content="2018-09-24T10:52:52&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T10:52:52&#43;08:00"/>
 
 <meta itemprop="name" content="讓 MSTest 支援使用資料集進行重覆測試">
 <meta itemprop="description" content="讓 MSTest 支援使用資料集進行重覆測試 之前文章 NUnit 幾個參數化測試的方式 介紹到如何在 NUnit 單元測試中使用 TestCase、TestCaseSource、Va">
 
 
 <meta itemprop="datePublished" content="2017-08-01T23:52:00&#43;08:00" />
-<meta itemprop="dateModified" content="2018-09-24T10:52:52&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T10:52:52&#43;08:00" />
 <meta itemprop="wordCount" content="952">
 
 
@@ -183,7 +183,7 @@
 
 <h1 id="讓-mstest-支援使用資料集進行重覆測試">讓 MSTest 支援使用資料集進行重覆測試</h1>
 
-<p>之前文章 <a href="https://blog.yowko.com/2017/04/nunit-parameterized-test.html" target="_blank">NUnit 幾個參數化測試的方式</a> 介紹到如何在 NUnit 單元測試中使用 <code>TestCase</code>、<code>TestCaseSource</code>、<code>Values</code>、<code>ValueSource</code> 來進行參數化測試，也曾在 <a href="https://blog.yowko.com/2017/06/specflowoutline.html" target="_blank">餵資料集給 SpecFlow 來執行測試及驗證</a> 中介紹到如何使用 SpecFlow Outline 達成相同目的</p>
+<p>之前文章 <a href="https://blog.yowko.com/2017/04/nunit-parameterized-test.html">NUnit 幾個參數化測試的方式</a> 介紹到如何在 NUnit 單元測試中使用 <code>TestCase</code>、<code>TestCaseSource</code>、<code>Values</code>、<code>ValueSource</code> 來進行參數化測試，也曾在 <a href="https://blog.yowko.com/2017/06/specflowoutline.html">餵資料集給 SpecFlow 來執行測試及驗證</a> 中介紹到如何使用 SpecFlow Outline 達成相同目的</p>
 
 <p>公司最近專案的測試 framework 使用 MSTest，不過 MSTest 原生並沒有支援像 NUnit 及 SpecFlow 直接指定值的參數化測試方式，嘗試了幾個方式後，筆記一下個人覺得不錯的做法</p>
 
@@ -327,7 +327,7 @@ public void TestMethod1()
 
 <h2 id="如何驗證例外">如何驗證例外</h2>
 
-<p>曾經在 <a href="https://blog.yowko.com/2017/05/mstestnunit-3xunitnet.html" target="_blank">使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)</a> 介紹過可以經由安裝 <code>MSTestExtensions</code> 就可以直接使用 <code>Assert.Throws&lt;T&gt;()</code> 來驗證例外，不需在測試方法上加上 <code>[ExpectedException(typeof({exception 型別}))]</code> 以避免失真，但 <code>MSTestExtensions</code> 與今天介紹的 <code>MSTestHacks</code> 都需要讓測試程式繼承自訂的 class，不過 c# 的語言特性只允許繼承一個 class，幸虧 <code>MSTestHacks</code> 已經預想到這個問題 - 它有提供驗證 exception 的語法</p>
+<p>曾經在 <a href="https://blog.yowko.com/2017/05/mstestnunit-3xunitnet.html">使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)</a> 介紹過可以經由安裝 <code>MSTestExtensions</code> 就可以直接使用 <code>Assert.Throws&lt;T&gt;()</code> 來驗證例外，不需在測試方法上加上 <code>[ExpectedException(typeof({exception 型別}))]</code> 以避免失真，但 <code>MSTestExtensions</code> 與今天介紹的 <code>MSTestHacks</code> 都需要讓測試程式繼承自訂的 class，不過 c# 的語言特性只允許繼承一個 class，幸虧 <code>MSTestHacks</code> 已經預想到這個問題 - 它有提供驗證 exception 的語法</p>
 
 <ol>
 <li><p>僅驗證特定的 exception</p>
@@ -349,9 +349,9 @@ ExceptionAssert.Throws&lt;ArgumentNullException&gt;(()=&gt;target.Get());
 <h1 id="參考資訊">參考資訊</h1>
 
 <ol>
-<li><a href="https://blog.yowko.com/2017/04/nunit-parameterized-test.html" target="_blank">NUnit 幾個參數化測試的方式</a></li>
-<li><a href="https://blog.yowko.com/2017/06/specflowoutline.html" target="_blank">餵資料集給 SpecFlow 來執行測試及驗證</a></li>
-<li><a href="https://blog.yowko.com/2017/05/mstestnunit-3xunitnet.html" target="_blank">使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)</a></li>
+<li><a href="https://blog.yowko.com/2017/04/nunit-parameterized-test.html">NUnit 幾個參數化測試的方式</a></li>
+<li><a href="https://blog.yowko.com/2017/06/specflowoutline.html">餵資料集給 SpecFlow 來執行測試及驗證</a></li>
+<li><a href="https://blog.yowko.com/2017/05/mstestnunit-3xunitnet.html">使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)</a></li>
 <li><a href="https://github.com/Thwaitesy/MSTestHacks" target="_blank">MSTestHacks</a></li>
 </ol>
 
@@ -365,7 +365,7 @@ ExceptionAssert.Throws&lt;ArgumentNullException&gt;(()=&gt;target.Get());
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-09-24</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

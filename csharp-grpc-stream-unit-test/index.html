@@ -58,14 +58,14 @@
 <meta property="og:description" content="嘗試為gRPC 中的 stream RPC 加上 Unit Test 之前筆記 C# 搭配 gRPC 中使用 stream RPC 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/csharp-grpc-stream-unit-test/" /><meta property="article:published_time" content="2019-06-19T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-06-19T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="嘗試為gRPC 中的 stream RPC 加上 Unit Test">
 <meta itemprop="description" content="嘗試為gRPC 中的 stream RPC 加上 Unit Test 之前筆記 C# 搭配 gRPC 中使用 stream RPC 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，">
 
 
 <meta itemprop="datePublished" content="2019-06-19T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-06-19T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="1222">
 
 
@@ -184,7 +184,7 @@
 
 <h1 id="嘗試為grpc-中的-stream-rpc-加上-unit-test">嘗試為gRPC 中的 stream RPC 加上 Unit Test</h1>
 
-<p>之前筆記 <a href="https://blog.yowko.com/csharp-grpc-stream/" target="_blank">C# 搭配 gRPC 中使用 stream RPC</a> 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，仔細看了錯誤原因才發現 stream RPC 雖然只是在 service 的參數定義加上 <code>stream</code> 不過 generate 出來的實作方法中則用了不同的參數型別，儘管經過嘗試後有找到方法不過仍然有缺點，於是先筆記目前的做法，待日後有機會再看看有沒有其他更漂亮的方式</p>
+<p>之前筆記 <a href="https://blog.yowko.com/csharp-grpc-stream/">C# 搭配 gRPC 中使用 stream RPC</a> 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，仔細看了錯誤原因才發現 stream RPC 雖然只是在 service 的參數定義加上 <code>stream</code> 不過 generate 出來的實作方法中則用了不同的參數型別，儘管經過嘗試後有找到方法不過仍然有缺點，於是先筆記目前的做法，待日後有機會再看看有沒有其他更漂亮的方式</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -204,7 +204,7 @@
 <li><p>protobuf 定義</p>
 
 <blockquote>
-<p>大致上內容延續之前筆記 <a href="https://blog.yowko.com/csharp-grpc-stream/" target="_blank">C# 搭配 gRPC 中使用 stream RPC</a> 內容，多加上 server-side streaming RPC 回傳多筆資料</p>
+<p>大致上內容延續之前筆記 <a href="https://blog.yowko.com/csharp-grpc-stream/">C# 搭配 gRPC 中使用 stream RPC</a> 內容，多加上 server-side streaming RPC 回傳多筆資料</p>
 </blockquote>
 
 <ul>
@@ -515,7 +515,7 @@ public async Task CreateDownloadCv_ShouldGetFive()
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/csharp-grpc-stream/" target="_blank">C# 搭配 gRPC 中使用 stream RPC</a></li>
+<li><a href="https://blog.yowko.com/csharp-grpc-stream/">C# 搭配 gRPC 中使用 stream RPC</a></li>
 <li><a href="https://github.com/grpc/grpc-dotnet/blob/072a616b5a6a4250410f37f41128f0fbd8b2805b/test/Grpc.Net.Client.Tests/InterceptorTests.cs#L159" target="_blank">WrappedClientStreamWriter</a></li>
 <li><a href="https://github.com/grpc/grpc-dotnet/blob/bd453582ccba40134aa8fcf0eefd7fdfd8c53ad5/test/Grpc.AspNetCore.Server.Tests/Reflection/ReflectionGrpcServiceActivatorTests.cs#L82" target="_blank">TestServerStreamWriter</a></li>
 <li><a href="https://github.com/grpc/grpc-dotnet/blob/61de5a0305c7705d2dfc19905a8699191c16f4f2/src/Grpc.AspNetCore.Server/Internal/HttpContextStreamWriter.cs#L25" target="_blank">HttpContextStreamWriter</a></li>
@@ -531,7 +531,7 @@ public async Task CreateDownloadCv_ShouldGetFive()
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-06-19</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

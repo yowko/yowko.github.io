@@ -58,14 +58,14 @@
 <meta property="og:description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/grpc-stream-chunk-client/" /><meta property="article:published_time" content="2019-08-01T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-08-01T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="gRPC stream 如何傳送單一大物件 (Client 版)">
 <meta itemprop="description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制">
 
 
 <meta itemprop="datePublished" content="2019-08-01T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-08-01T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="960">
 
 
@@ -183,11 +183,11 @@
 
 <h2 id="grpc-stream-如何傳送單一大物件-client-版">gRPC stream 如何傳送單一大物件 (Client 版)</h2>
 
-<p>繼之前筆記 <a href="https://blog.yowko.com/grpc-stream-big-object/" target="_blank">gRPC stream 如何傳送單一大物件</a> 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制的 api 改用 stream 以避免可能出現的 <code>RESOURCE_EXHAUSTED</code> 錯誤，截至目前使用上沒有遇到異常狀況。</p>
+<p>繼之前筆記 <a href="https://blog.yowko.com/grpc-stream-big-object/">gRPC stream 如何傳送單一大物件</a> 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制的 api 改用 stream 以避免可能出現的 <code>RESOURCE_EXHAUSTED</code> 錯誤，截至目前使用上沒有遇到異常狀況。</p>
 
 <p>上班前同事問到，該如何透過 client 端來上傳單一大物件，我翻了翻筆記，發現沒得抄，想要直接開工卻想不起來該怎麼做 (看來真的不能不服老呀)，所以立馬來筆記一下，避免以後沒地方抄又想很久 QQ</p>
 
-<p>今天內容會以之前筆記 <a href="https://blog.yowko.com/grpc-stream-big-object/" target="_blank">gRPC stream 如何傳送單一大物件</a>  為基礎作延伸</p>
+<p>今天內容會以之前筆記 <a href="https://blog.yowko.com/grpc-stream-big-object/">gRPC stream 如何傳送單一大物件</a>  為基礎作延伸</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -317,7 +317,7 @@ service TestService {
 <li><p>client 上傳大物件</p>
 
 <blockquote>
-<p>protobuf 序列化的用法可以參考 <a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/" target="_blank">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></p>
+<p>protobuf 序列化的用法可以參考 <a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></p>
 </blockquote>
 
 <ul>
@@ -355,7 +355,7 @@ service TestService {
 <li><p>server 端接收大物件</p>
 
 <blockquote>
-<p>protobuf 反序列化的用法可以參考 <a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/" target="_blank">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></p>
+<p>protobuf 反序列化的用法可以參考 <a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></p>
 </blockquote>
 
 <ul>
@@ -384,8 +384,8 @@ return person;
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/grpc-stream-big-object/" target="_blank">gRPC stream 如何傳送單一大物件</a></li>
-<li><a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/" target="_blank">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></li>
+<li><a href="https://blog.yowko.com/grpc-stream-big-object/">gRPC stream 如何傳送單一大物件</a></li>
+<li><a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></li>
 </ol>
 
     </div>
@@ -398,7 +398,7 @@ return person;
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-08-01</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

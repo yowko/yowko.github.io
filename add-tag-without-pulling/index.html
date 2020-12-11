@@ -58,14 +58,14 @@
 <meta property="og:description" content="不 Pull Image 直接新增 Image Tag 最近發現整個 CI/CD 的流程耗時愈來愈長，雖說隨著愈來愈多的功能、測試，時間變長是可以預期的，但還是想要儘可能做些優化，同事在檢查" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/add-tag-without-pulling/" /><meta property="article:published_time" content="2020-01-08T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-01-08T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="不 Pull Image 直接新增 Image Tag">
 <meta itemprop="description" content="不 Pull Image 直接新增 Image Tag 最近發現整個 CI/CD 的流程耗時愈來愈長，雖說隨著愈來愈多的功能、測試，時間變長是可以預期的，但還是想要儘可能做些優化，同事在檢查">
 
 
 <meta itemprop="datePublished" content="2020-01-08T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-01-08T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="623">
 
 
@@ -195,7 +195,7 @@
 
 <h2 id="作法">作法</h2>
 
-<p>這邊會透過自建的 docker registry 來示範，完整建立方式可以參考之前筆記 <a href="https://blog.yowko.com/nexus-docker-image-rergistry" target="_blank">使用 Docker 建立 Nexus3 的 Image Registry</a>, 以 redis 為例，目前只有 <code>5.0.3</code> 的 tag</p>
+<p>這邊會透過自建的 docker registry 來示範，完整建立方式可以參考之前筆記 <a href="https://blog.yowko.com/nexus-docker-image-rergistry">使用 Docker 建立 Nexus3 的 Image Registry</a>, 以 redis 為例，目前只有 <code>5.0.3</code> 的 tag</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/71984233-6a03b380-3263-11ea-8135-5134c4f06abb.png" alt="1onetag" /></p>
 
@@ -248,7 +248,7 @@ curl -v --user admin:pass.123 -X PUT -H &quot;Content-Type: ${CONTENT_TYPE}&quot
 <ol>
 <li><a href="https://dille.name/blog/2018/09/20/how-to-tag-docker-images-without-pulling-them/" target="_blank">How to Tag #Docker Images without Pulling them</a></li>
 <li><a href="https://help.sonatype.com/repomanager3/security/security-setup-with-user-tokens" target="_blank">Accessing and Using Your User Token</a></li>
-<li><a href="https://blog.yowko.com/nexus-docker-image-rergistry" target="_blank">使用 Docker 建立 Nexus3 的 Image Registry</a></li>
+<li><a href="https://blog.yowko.com/nexus-docker-image-rergistry">使用 Docker 建立 Nexus3 的 Image Registry</a></li>
 </ol>
 
     </div>
@@ -261,7 +261,7 @@ curl -v --user admin:pass.123 -X PUT -H &quot;Content-Type: ${CONTENT_TYPE}&quot
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-01-08</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

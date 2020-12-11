@@ -58,14 +58,14 @@
 <meta property="og:description" content="透過自訂 Attribute 標示屬性讓 Dapper 進行 json 轉換 之前在筆記 使用 Dapper 將 json string 轉換為 object 紀錄到可以透過自訂 TypeHandler 讓 Dapper 可以將 db 內的值處理成需要的樣子(目前的用法是 db 欄位直接" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/dapper-customattribute-typehandler/" /><meta property="article:published_time" content="2019-01-17T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-01-17T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="透過自訂 Attribute 標示屬性讓 Dapper 進行 json 轉換">
 <meta itemprop="description" content="透過自訂 Attribute 標示屬性讓 Dapper 進行 json 轉換 之前在筆記 使用 Dapper 將 json string 轉換為 object 紀錄到可以透過自訂 TypeHandler 讓 Dapper 可以將 db 內的值處理成需要的樣子(目前的用法是 db 欄位直接">
 
 
 <meta itemprop="datePublished" content="2019-01-17T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-01-17T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="940">
 
 
@@ -186,7 +186,7 @@
 
 <h1 id="透過自訂-attribute-標示屬性讓-dapper-進行-json-轉換">透過自訂 Attribute 標示屬性讓 Dapper 進行 json 轉換</h1>
 
-<p>之前在筆記 <a href="https://blog.yowko.com/dapper-json-string-to-object/" target="_blank">使用 Dapper 將 json string 轉換為 object</a> 紀錄到可以透過自訂 TypeHandler 讓 Dapper 可以將 db 內的值處理成需要的樣子(目前的用法是 db 欄位直接存 json 字串，但實際使用時需要將 json 轉回 c# object)</p>
+<p>之前在筆記 <a href="https://blog.yowko.com/dapper-json-string-to-object/">使用 Dapper 將 json string 轉換為 object</a> 紀錄到可以透過自訂 TypeHandler 讓 Dapper 可以將 db 內的值處理成需要的樣子(目前的用法是 db 欄位直接存 json 字串，但實際使用時需要將 json 轉回 c# object)</p>
 
 <p>雖然自訂 TypeHandler 是當下最佳的解決方案，但實際使用上卻顯得有些礙手礙腳：使用時需要直接將轉換的目標型別傳至 db access layer 進行設定 - 非常不直覺，於是同事就提出使用 custom attribute 的方式，讓 json 轉換為 c# object 的行為改由 property 的 attribute 來設定，轉換型別也直接動態取用自 property 的型別定義，權責分離得更乾淨，也不用擔心忘記註冊轉換的問題，覺得解法超棒 (我怎麼沒想到XD)  紀錄一篇以加深印象</p>
 
@@ -289,7 +289,7 @@ Console.ReadKey();
 <h1 id="參考資訊">參考資訊</h1>
 
 <ol>
-<li><a href="https://blog.yowko.com/dapper-json-string-to-object/" target="_blank">使用 Dapper 將 json string 轉換為 object</a></li>
+<li><a href="https://blog.yowko.com/dapper-json-string-to-object/">使用 Dapper 將 json string 轉換為 object</a></li>
 </ol>
 
     </div>
@@ -302,7 +302,7 @@ Console.ReadKey();
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-01-17</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

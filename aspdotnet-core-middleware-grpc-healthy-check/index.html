@@ -58,14 +58,14 @@
 <meta property="og:description" content="使用 ASP.NET Core middleware 進行 gRPC healthy check 這個需求來自於某次的 issue：有個 service 的回應時好時壞，沒有規律，這讓我想起當年在壽險公司資訊部門使用 asp 提供服務的故事，當" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check/" /><meta property="article:published_time" content="2020-08-31T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-09-01T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="使用 ASP.NET Core middleware 進行 gRPC healthy check">
 <meta itemprop="description" content="使用 ASP.NET Core middleware 進行 gRPC healthy check 這個需求來自於某次的 issue：有個 service 的回應時好時壞，沒有規律，這讓我想起當年在壽險公司資訊部門使用 asp 提供服務的故事，當">
 
 
 <meta itemprop="datePublished" content="2020-08-31T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-09-01T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="955">
 
 
@@ -322,7 +322,7 @@
 
 <h2 id="心得">心得</h2>
 
-<p>現在團隊的主力開發環境是 macOS，但今天紀錄的這個做法在 macOS 上會失效，錯誤的緣頭是 aspsettings.json 中的 <code>Kestrel.EndpointDefaults.Protocols=&quot;Http2&quot;</code> 至於原因我猜測與之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-grpc-macos/" target="_blank">ASP.NET Core gRPC 無法在 macOS 上啟動？！</a> 提到的 macOS 不支援具有 TLS 的 ASP.NET Core gRPC 服務有關：只要啟用了 <code>Kestrel.EndpointDefaults.Protocols=&quot;Http2&quot;</code> ASP.NET Core 中的 http endpoint 就無法正確存取，但這問題這麼大不可能沒人反應呀，我覺得可能是我設定的問題</p>
+<p>現在團隊的主力開發環境是 macOS，但今天紀錄的這個做法在 macOS 上會失效，錯誤的緣頭是 aspsettings.json 中的 <code>Kestrel.EndpointDefaults.Protocols=&quot;Http2&quot;</code> 至於原因我猜測與之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-grpc-macos/">ASP.NET Core gRPC 無法在 macOS 上啟動？！</a> 提到的 macOS 不支援具有 TLS 的 ASP.NET Core gRPC 服務有關：只要啟用了 <code>Kestrel.EndpointDefaults.Protocols=&quot;Http2&quot;</code> ASP.NET Core 中的 http endpoint 就無法正確存取，但這問題這麼大不可能沒人反應呀，我覺得可能是我設定的問題</p>
 
 <p>錯誤畫面如下：</p>
 
@@ -339,7 +339,7 @@
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/aspdotnet-core-grpc-macos/" target="_blank">ASP.NET Core gRPC 無法在 macOS 上啟動？！</a></li>
+<li><a href="https://blog.yowko.com/aspdotnet-core-grpc-macos/">ASP.NET Core gRPC 無法在 macOS 上啟動？！</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/host-and-deploy/health-checks?WT.mc_id=DOP-MVP-5002594" target="_blank">ASP.NET Core 中的健康狀態檢查</a></li>
 <li><a href="https://github.com/yowko/GrpcHealthCheck" target="_blank">yowko/GrpcHealthCheck</a></li>
 </ol>
@@ -354,7 +354,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-09-01</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

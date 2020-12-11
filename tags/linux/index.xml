@@ -6,10 +6,28 @@
     <description>Recent content in Linux on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 14 Nov 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 11 Dec 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>安裝 MongoDB client</title>
+      <link>https://blog.yowko.com/install-mongodb-client-only/</link>
+      <pubDate>Fri, 11 Dec 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/install-mongodb-client-only/</guid>
+      <description>安裝 MongoDB client 之前筆記 安裝 mysql client 紀錄到在 container 中安裝 mysql client 來進行連線測試，今天就來紀錄一下也是常用工具的 mongodb client 基本環境說明 CentOS 8.2.2004, Kernel 4.18.0 Debian 10, Kernel 5.4.49+ Debian 9, Kernel 5.4.39-linuxkit 安裝語法 CentOS</description>
+    </item>
+    
+    <item>
+      <title>安裝 mysql client</title>
+      <link>https://blog.yowko.com/install-mysql-client-only/</link>
+      <pubDate>Mon, 07 Dec 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/install-mysql-client-only/</guid>
+      <description>安裝 mysql client 程式更迭的過程，隨著功能的增加，不免需要 db 的 change 來配合，為了增加安裝性，所以打算封鎖 user 登入 mysql server 操作，僅透過 mysql client 來進行 patch，但又不</description>
+    </item>
     
     <item>
       <title>Ansible 使用 dnf 安裝 Redis Cluster (Redis6)</title>

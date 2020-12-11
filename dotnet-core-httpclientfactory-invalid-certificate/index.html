@@ -58,14 +58,14 @@
 <meta property="og:description" content="讓 .NET Core 的 HttpClientFactory 不驗證 Https 憑證 Https 幾乎已成為了現在網站的基本配備，從過去只有敏感交易網站才需要，到現在瀏覽器還會把非 Https 網站標記為 不安全，而 .NET Core 程式在預" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/dotnet-core-httpclientfactory-invalid-certificate/" /><meta property="article:published_time" content="2019-03-06T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-03-06T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="讓 .NET Core 的 HttpClientFactory 不驗證 Https 憑證">
 <meta itemprop="description" content="讓 .NET Core 的 HttpClientFactory 不驗證 Https 憑證 Https 幾乎已成為了現在網站的基本配備，從過去只有敏感交易網站才需要，到現在瀏覽器還會把非 Https 網站標記為 不安全，而 .NET Core 程式在預">
 
 
 <meta itemprop="datePublished" content="2019-03-06T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-03-06T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="773">
 
 
@@ -196,12 +196,12 @@
 
 <pre><code class="language-cs">services.AddHttpClient(&quot;yowkoblog&quot;, c =&gt;
 {
-    c.BaseAddress = new Uri(&quot;https://blog.yowko.com/&quot;);
+    c.BaseAddress = new Uri(&quot;/&quot;);
 });
 </code></pre>
 
 <blockquote>
-<p>.NET Core 使用 HttpClientFactory 完整設定方式請參考 <a href="https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F" target="_blank">在 .NET Core 與 .NET Framework 上使用 HttpClientFactory</a></p>
+<p>.NET Core 使用 HttpClientFactory 完整設定方式請參考 <a href="https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F">在 .NET Core 與 .NET Framework 上使用 HttpClientFactory</a></p>
 </blockquote></li>
 </ol>
 
@@ -225,7 +225,7 @@
 
 <pre><code class="language-cs">services.AddHttpClient(&quot;yowkoblog&quot;, c =&gt;
 {
-    c.BaseAddress = new Uri(&quot;https://blog.yowko.com/&quot;);
+    c.BaseAddress = new Uri(&quot;/&quot;);
 }).ConfigurePrimaryHttpMessageHandler(h =&gt;
 {
     var handler = new HttpClientHandler();
@@ -241,7 +241,7 @@
 
 <pre><code class="language-cs">services.AddHttpClient(&quot;yowkoblog&quot;, c =&gt;
 {
-    c.BaseAddress = new Uri(&quot;https://blog.yowko.com/&quot;);
+    c.BaseAddress = new Uri(&quot;/&quot;);
 }).ConfigurePrimaryHttpMessageHandler(h =&gt;
 {
     var handler = new HttpClientHandler();
@@ -395,7 +395,7 @@ public class AccountsController : ControllerBase
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-03-06</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

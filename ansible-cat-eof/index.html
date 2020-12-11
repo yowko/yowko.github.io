@@ -58,14 +58,14 @@
 <meta property="og:description" content="Ansible 使用 Here document (cat &lt;&lt; EOF) 遇到的問題 這是在嘗試使用 Ansible 來輸出多行 config 時遇到的問題，實際例子可以參考 在 CentOS 7 上安裝 Redis Replication (Redis 5) 其中要準備 redis.conf 的部份就有使用到 Here document (cat &lt;&lt;" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/ansible-cat-eof/" /><meta property="article:published_time" content="2020-03-01T09:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-03-01T09:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T09:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="Ansible 使用 Here document (cat &lt;&lt; EOF) 遇到的問題">
 <meta itemprop="description" content="Ansible 使用 Here document (cat &lt;&lt; EOF) 遇到的問題 這是在嘗試使用 Ansible 來輸出多行 config 時遇到的問題，實際例子可以參考 在 CentOS 7 上安裝 Redis Replication (Redis 5) 其中要準備 redis.conf 的部份就有使用到 Here document (cat &lt;&lt;">
 
 
 <meta itemprop="datePublished" content="2020-03-01T09:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-03-01T09:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T09:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="624">
 
 
@@ -184,7 +184,7 @@
 
 <h2 id="ansible-使用-here-document-cat-eof-遇到的問題">Ansible 使用 Here document (cat &lt;&lt; EOF) 遇到的問題</h2>
 
-<p>這是在嘗試使用 Ansible 來輸出多行 config 時遇到的問題，實際例子可以參考 <a href="https://blog.yowko.com/install-redis/" target="_blank">在 CentOS 7 上安裝 Redis Replication (Redis 5)</a> 其中要準備 redis.conf 的部份就有使用到 <code>Here document (cat &lt;&lt; EOF)</code> 的技巧，原本想要延用相同方式在 Ansible 上執行，卻遇到問題，後來又再次在安裝 InfluxDB 時遇到相同狀況，所以快速筆記一下</p>
+<p>這是在嘗試使用 Ansible 來輸出多行 config 時遇到的問題，實際例子可以參考 <a href="https://blog.yowko.com/install-redis/">在 CentOS 7 上安裝 Redis Replication (Redis 5)</a> 其中要準備 redis.conf 的部份就有使用到 <code>Here document (cat &lt;&lt; EOF)</code> 的技巧，原本想要延用相同方式在 Ansible 上執行，卻遇到問題，後來又再次在安裝 InfluxDB 時遇到相同狀況，所以快速筆記一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -324,7 +324,7 @@ fatal: [influx1]: FAILED! =&gt; {
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-03-01</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

@@ -58,14 +58,14 @@
 <meta property="og:description" content="使用 ASP.NET Core 2.2 來 Host gRPC Server 之前筆記 Protobuf 該如何處理不定型別, .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫, Protobuf 時間屬性該如何表示？ 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/" /><meta property="article:published_time" content="2019-05-21T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-05-21T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="使用 ASP.NET Core 2.2 來 Host gRPC Server">
 <meta itemprop="description" content="使用 ASP.NET Core 2.2 來 Host gRPC Server 之前筆記 Protobuf 該如何處理不定型別, .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫, Protobuf 時間屬性該如何表示？ 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用">
 
 
 <meta itemprop="datePublished" content="2019-05-21T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-05-21T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="978">
 
 
@@ -184,7 +184,7 @@
 
 <h1 id="使用-asp-net-core-2-2-來-host-grpc-server">使用 ASP.NET Core 2.2 來 Host gRPC Server</h1>
 
-<p>之前筆記 <a href="https://blog.yowko.com/protobuf-object-any/" target="_blank">Protobuf 該如何處理不定型別</a>, <a href="https://blog.yowko.com/dotnet-core-jaeger-grpc/" target="_blank">.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫</a>, <a href="https://blog.yowko.com/protobuf-datetime-timestamp/" target="_blank">Protobuf 時間屬性該如何表示？</a> 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用 <code>Console.ReadLine()</code> 或是 <code>Console.ReadKey()</code> 來讓程式持續運作，實在不太保險，所以打算改用 ASP.NET Core 來 host gRPC Server</p>
+<p>之前筆記 <a href="https://blog.yowko.com/protobuf-object-any/">Protobuf 該如何處理不定型別</a>, <a href="https://blog.yowko.com/dotnet-core-jaeger-grpc/">.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫</a>, <a href="https://blog.yowko.com/protobuf-datetime-timestamp/">Protobuf 時間屬性該如何表示？</a> 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用 <code>Console.ReadLine()</code> 或是 <code>Console.ReadKey()</code> 來讓程式持續運作，實在不太保險，所以打算改用 ASP.NET Core 來 host gRPC Server</p>
 
 <p>ASP.NET Core 將在 .NET Core 3 正式支援 gRPC，其中 gRPC Server host 的部份會透過使用 extension method 的方式在 ConfigureServices 進行註冊，但這個 NuGet package ：<a href="https://www.nuget.org/packages/Grpc.AspNetCore.Server" target="_blank">Grpc.AspNetCore.Server</a>，目前仍在 preview 階段且會相依於 <code>.NETCoreApp 3.0</code>，無法使用在 ASP.NET Core 2.2 上，所幸 gRPC 需要的 HTTP/2 特性在 ASP.NET Core 2.2 中已加入，於是我來筆記一下該怎麼簡易地讓 gRPC Server host 在 ASP.NET Core 2.2 上</p>
 
@@ -193,7 +193,7 @@
 <ol>
 <li>macOS Mojave 10.14.5</li>
 <li>.NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)</li>
-<li>使用之前筆記 <a href="https://blog.yowko.com/dotnet-core-console-di/" target="_blank">在 .NET Core console 上使用 Dependency Injection - DI</a> 作為基礎來修改</li>
+<li>使用之前筆記 <a href="https://blog.yowko.com/dotnet-core-console-di/">在 .NET Core console 上使用 Dependency Injection - DI</a> 作為基礎來修改</li>
 
 <li><p>NuGet package</p>
 
@@ -233,7 +233,7 @@
 
 <h2 id="建立-asp-net-core-專案或是將-grpc-server-專案改為-asp-net-core">建立 ASP.NET Core 專案或是將 gRPC.Server 專案改為 ASP.NET Core</h2>
 
-<p>以下將用新建 ASP.NET Core 專案 示範，gRPC.Server 專案升級為 ASP.NET Core 詳細做法可以參考之前筆記 <a href="https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core" target="_blank">將 .NET Core Console 專案轉換為 ASP.NET Core</a></p>
+<p>以下將用新建 ASP.NET Core 專案 示範，gRPC.Server 專案升級為 ASP.NET Core 詳細做法可以參考之前筆記 <a href="https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core">將 .NET Core Console 專案轉換為 ASP.NET Core</a></p>
 
 <h2 id="使用-asp-net-core-host-grpc-server">使用 ASP.NET Core host gRPC Server</h2>
 
@@ -369,7 +369,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-05-21</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

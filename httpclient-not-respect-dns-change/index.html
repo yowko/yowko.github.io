@@ -58,14 +58,14 @@
 <meta property="og:description" content="HttpClient 無法反應 DNS 異動的解決方式 之前筆記 探討 HttpClient 可能的問題 提到使用 HttpCLient 時避免 socket 耗盡的方式就是只建立一個 HttpClient instance (透過 static or singleton)，但這樣的方式" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/httpclient-not-respect-dns-change/" /><meta property="article:published_time" content="2019-01-05T23:45:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-09-01T23:44:30&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T23:44:30&#43;08:00"/>
 
 <meta itemprop="name" content="HttpClient 無法反應 DNS 異動的解決方式">
 <meta itemprop="description" content="HttpClient 無法反應 DNS 異動的解決方式 之前筆記 探討 HttpClient 可能的問題 提到使用 HttpCLient 時避免 socket 耗盡的方式就是只建立一個 HttpClient instance (透過 static or singleton)，但這樣的方式">
 
 
 <meta itemprop="datePublished" content="2019-01-05T23:45:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-09-01T23:44:30&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T23:44:30&#43;08:00" />
 <meta itemprop="wordCount" content="866">
 
 
@@ -183,14 +183,14 @@
 
 <h1 id="httpclient-無法反應-dns-異動的解決方式">HttpClient 無法反應 DNS 異動的解決方式</h1>
 
-<p>之前筆記 <a href="https://blog.yowko.com/httpclient-issue/" target="_blank">探討 HttpClient 可能的問題</a> 提到使用 HttpCLient 時避免 socket 耗盡的方式就是只建立一個 HttpClient instance (透過 static or singleton)，但這樣的方式卻會造成 DNS 紀錄出現變動被忽略進而影響系統正確運行</p>
+<p>之前筆記 <a href="https://blog.yowko.com/httpclient-issue/">探討 HttpClient 可能的問題</a> 提到使用 HttpCLient 時避免 socket 耗盡的方式就是只建立一個 HttpClient instance (透過 static or singleton)，但這樣的方式卻會造成 DNS 紀錄出現變動被忽略進而影響系統正確運行</p>
 
 <p>筆記中有提到可以透過將 HttpClient 的 <code>DefaultRequestHeaders.ConnectionClose</code> 屬性設定為 <code>true</code>，也就是將 HTTP 的 keep-alive header 設為 <code>false</code>，讓 socket 在每次處理完 request 即關閉，這幾天查資料時發現還有其他做法可以使用，一併紀錄一下</p>
 
 <h2 id="前提設定">前提設定</h2>
 
 <ol>
-<li><p>使用 staticHttpClient instance 來取得 <code>https://blog.yowko.com/</code> 資料</p>
+<li><p>使用 staticHttpClient instance 來取得 <code>/</code> 資料</p>
 
 <pre><code class="language-cs">public class StaticHttpClientService
 {
@@ -209,7 +209,7 @@
 <li><p>透過修改 hosts 檔案來模擬 DNS 修改</p>
 
 <blockquote>
-<p>修改方式請參考 <a href="https://blog.yowko.com/windows-host-file" target="_blank">在 Windows 環境將特定網址指向不同 IP</a></p>
+<p>修改方式請參考 <a href="https://blog.yowko.com/windows-host-file">在 Windows 環境將特定網址指向不同 IP</a></p>
 </blockquote></li>
 
 <li><p>使用環境</p>
@@ -441,7 +441,7 @@
 <h1 id="參考資訊">參考資訊</h1>
 
 <ol>
-<li><a href="https://blog.yowko.com/httpclient-issue/" target="_blank">探討 HttpClient 可能的問題</a></li>
+<li><a href="https://blog.yowko.com/httpclient-issue/">探討 HttpClient 可能的問題</a></li>
 <li><a href="https://github.com/dotnet/corefx/issues/11224#issuecomment-271195770" target="_blank">Singleton HttpClient doesn&rsquo;t respect DNS changes</a></li>
 <li><a href="https://social.msdn.microsoft.com/Forums/sqlserver/en-US/39af7077-fbb5-4a8c-a4b9-42a73aa96b8a/systemnethttphttpclient-does-not-respect-dns-update-in-a-timely-manner?forum=wcf" target="_blank">system.net.http.httpclient does not respect dns update in a timely manner</a></li>
 <li><a href="http://www.nimaara.com/2016/11/01/beware-of-the-net-httpclient/" target="_blank">Beware of the .NET HttpClient</a></li>
@@ -459,7 +459,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-09-01</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

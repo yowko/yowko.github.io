@@ -58,14 +58,14 @@
 <meta property="og:description" content="ASP.NET Core 中 Controller 與 ControllerBase 的差別 之前筆記 ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 提到 AddMvc() 與 AddMvcCore() 的差別，今天剛好在整理如何從 Empty 專案加入 Web API 時聯想到似乎沒有很清楚實際差別，趁著自己查資" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-controller-controllerbase/" /><meta property="article:published_time" content="2019-06-09T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-06-09T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="ASP.NET Core 中 Controller 與 ControllerBase 的差別">
 <meta itemprop="description" content="ASP.NET Core 中 Controller 與 ControllerBase 的差別 之前筆記 ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別 提到 AddMvc() 與 AddMvcCore() 的差別，今天剛好在整理如何從 Empty 專案加入 Web API 時聯想到似乎沒有很清楚實際差別，趁著自己查資">
 
 
 <meta itemprop="datePublished" content="2019-06-09T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-06-09T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="335">
 
 
@@ -183,7 +183,7 @@
 
 <h1 id="asp-net-core-中-controller-與-controllerbase-的差別">ASP.NET Core 中 Controller 與 ControllerBase 的差別</h1>
 
-<p>之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore" target="_blank">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</a> 提到 <code>AddMvc()</code> 與 <code>AddMvcCore()</code> 的差別，今天剛好在整理如何從 Empty 專案加入 Web API 時聯想到似乎沒有很清楚實際差別，趁著自己查資料，順手筆記一下</p>
+<p>之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</a> 提到 <code>AddMvc()</code> 與 <code>AddMvcCore()</code> 的差別，今天剛好在整理如何從 Empty 專案加入 Web API 時聯想到似乎沒有很清楚實際差別，趁著自己查資料，順手筆記一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -271,7 +271,7 @@ public abstract class Controller : ControllerBase, IActionFilter, IAsyncActionFi
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore" target="_blank">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</a></li>
+<li><a href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</a></li>
 <li><a href="https://github.com/aspnet/AspNetCore/blob/v2.2.5/src/Mvc/Mvc.Core/src/ControllerBase.cs" target="_blank">AspNetCore/src/Mvc/Mvc.Core/src/ControllerBase.cs</a></li>
 <li><a href="https://github.com/aspnet/AspNetCore/blob/v2.2.5/src/Mvc/Mvc.ViewFeatures/src/Controller.cs" target="_blank">AspNetCore/src/Mvc/Mvc.ViewFeatures/src/Controller.cs</a></li>
 <li><a href="https://stackoverflow.com/a/55239483/3600583" target="_blank">Why derive from ControllerBase vs Controller for ASP.NET Core Web API?</a></li>
@@ -287,7 +287,7 @@ public abstract class Controller : ControllerBase, IActionFilter, IAsyncActionFi
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-06-09</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

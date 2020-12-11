@@ -58,14 +58,14 @@
 <meta property="og:description" content="在 Debian container 中安裝 .NET Core SDK 之前筆記 在 Debian container 中無法成功註冊微軟金鑰 提到想要在 container 中利用 dotnet cli 做些測試，但經過 multi-stage builds 來建立 image 中只有 .NET Core runtime 沒有需要的 dotnet cli，所以" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/debian-container-install-dotnet-core-sdk/" /><meta property="article:published_time" content="2020-04-13T22:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-09-01T22:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T22:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="在 Debian container 中安裝 .NET Core SDK">
 <meta itemprop="description" content="在 Debian container 中安裝 .NET Core SDK 之前筆記 在 Debian container 中無法成功註冊微軟金鑰 提到想要在 container 中利用 dotnet cli 做些測試，但經過 multi-stage builds 來建立 image 中只有 .NET Core runtime 沒有需要的 dotnet cli，所以">
 
 
 <meta itemprop="datePublished" content="2020-04-13T22:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-09-01T22:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T22:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="357">
 
 
@@ -183,7 +183,7 @@
 
 <h2 id="在-debian-container-中安裝-net-core-sdk">在 Debian container 中安裝 .NET Core SDK</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/debian-container-broken-pipe" target="_blank">在 Debian container 中無法成功註冊微軟金鑰</a> 提到想要在 container 中利用 dotnet cli 做些測試，但經過 <code>multi-stage builds</code> 來建立 image 中只有 .NET Core runtime 沒有需要的 dotnet cli，所以今天就來紀錄一下在 Debian container 中安裝 .NET Core SDK 的步驟</p>
+<p>之前筆記 <a href="https://blog.yowko.com/debian-container-broken-pipe">在 Debian container 中無法成功註冊微軟金鑰</a> 提到想要在 container 中利用 dotnet cli 做些測試，但經過 <code>multi-stage builds</code> 來建立 image 中只有 .NET Core runtime 沒有需要的 dotnet cli，所以今天就來紀錄一下在 Debian container 中安裝 .NET Core SDK 的步驟</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -202,7 +202,7 @@ apt-get install -y wget gpg
 </code></pre>
 
 <blockquote>
-<p>如果沒安裝 <code>gpg</code> 會造成後續註冊 key 的動作失敗，詳細內容可以參考前筆記 <a href="https://blog.yowko.com/debian-container-broken-pipe" target="_blank">在 Debian container 中無法成功註冊微軟金鑰</a></p>
+<p>如果沒安裝 <code>gpg</code> 會造成後續註冊 key 的動作失敗，詳細內容可以參考前筆記 <a href="https://blog.yowko.com/debian-container-broken-pipe">在 Debian container 中無法成功註冊微軟金鑰</a></p>
 </blockquote></li>
 
 <li><p>註冊微軟金鑰</p>
@@ -226,7 +226,7 @@ apt-get install -y apt-transport-https dotnet-sdk-3.1
 
 <h2 id="心得">心得</h2>
 
-<p>之前安裝時卡在 <code>gpg</code> (詳細內容可以參考前筆記 <a href="https://blog.yowko.com/debian-container-broken-pipe" target="_blank">在 Debian container 中無法成功註冊微軟金鑰</a>)，一排除後大致上就沒問題了，我將 <a href="https://docs.microsoft.com/zh-tw/dotnet/core/install/linux-package-manager-debian10?WT.mc_id=DOP-MVP-5002594" target="_blank">Debian 10 Package Manager - Install .NET Core</a> 上的步驟做了些省略(能省則省，但除了 <code>1</code> 之外，其他動作都可做可不做)：</p>
+<p>之前安裝時卡在 <code>gpg</code> (詳細內容可以參考前筆記 <a href="https://blog.yowko.com/debian-container-broken-pipe">在 Debian container 中無法成功註冊微軟金鑰</a>)，一排除後大致上就沒問題了，我將 <a href="https://docs.microsoft.com/zh-tw/dotnet/core/install/linux-package-manager-debian10?WT.mc_id=DOP-MVP-5002594" target="_blank">Debian 10 Package Manager - Install .NET Core</a> 上的步驟做了些省略(能省則省，但除了 <code>1</code> 之外，其他動作都可做可不做)：</p>
 
 <ol>
 <li>container 中不能使用 sudo</li>
@@ -237,7 +237,7 @@ apt-get install -y apt-transport-https dotnet-sdk-3.1
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/debian-container-broken-pipe" target="_blank">在 Debian container 中無法成功註冊微軟金鑰</a></li>
+<li><a href="https://blog.yowko.com/debian-container-broken-pipe">在 Debian container 中無法成功註冊微軟金鑰</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/dotnet/core/install/linux-package-manager-debian10?WT.mc_id=DOP-MVP-5002594" target="_blank">Debian 10 Package Manager - Install .NET Core</a></li>
 </ol>
 
@@ -251,7 +251,7 @@ apt-get install -y apt-transport-https dotnet-sdk-3.1
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-09-01</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

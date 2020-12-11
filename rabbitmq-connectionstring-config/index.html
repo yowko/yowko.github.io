@@ -58,14 +58,14 @@
 <meta property="og:description" content="將 RabbitMQ 的連線參數移至 Config 中 之前文章 使用 .Net client 連線至 RabbitMQ 收發訊息 介紹了如何連線至 RabbitMQ 收發訊息，不過當時直接在程式碼指定了相關的連線資訊，身為一個優秀的工" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/rabbitmq-connectionstring-config/" /><meta property="article:published_time" content="2017-07-26T23:26:00&#43;08:00"/>
-<meta property="article:modified_time" content="2017-07-26T23:26:50&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T23:26:50&#43;08:00"/>
 
 <meta itemprop="name" content="將 RabbitMQ 的連線參數移至 Config 中">
 <meta itemprop="description" content="將 RabbitMQ 的連線參數移至 Config 中 之前文章 使用 .Net client 連線至 RabbitMQ 收發訊息 介紹了如何連線至 RabbitMQ 收發訊息，不過當時直接在程式碼指定了相關的連線資訊，身為一個優秀的工">
 
 
 <meta itemprop="datePublished" content="2017-07-26T23:26:00&#43;08:00" />
-<meta itemprop="dateModified" content="2017-07-26T23:26:50&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T23:26:50&#43;08:00" />
 <meta itemprop="wordCount" content="1265">
 
 
@@ -184,7 +184,7 @@
 
 <h1 id="將-rabbitmq-的連線參數移至-config-中">將 RabbitMQ 的連線參數移至 Config 中</h1>
 
-<p>之前文章 <a href="https://blog.yowko.com/2017/05/rabbitmq-client-send-consume.html" target="_blank">使用 .Net client 連線至 RabbitMQ 收發訊息</a> 介紹了如何連線至 RabbitMQ 收發訊息，不過當時直接在程式碼指定了相關的連線資訊，身為一個優秀的工程師都曉得連線字串這東西絕對不能寫死在程式碼中，不然如果有一天需要修改時，會改到哭出來，所以我們應該將連線字串移至 config 中來共用，另外也會將 deueue 用法改使用新的 api (舊 api 已被標記為 Deprectated)，除此之外也將原本散落各處的名稱定義(e.g. queue,exchange,routingkey&hellip;)做個整理</p>
+<p>之前文章 <a href="https://blog.yowko.com/2017/05/rabbitmq-client-send-consume.html">使用 .Net client 連線至 RabbitMQ 收發訊息</a> 介紹了如何連線至 RabbitMQ 收發訊息，不過當時直接在程式碼指定了相關的連線資訊，身為一個優秀的工程師都曉得連線字串這東西絕對不能寫死在程式碼中，不然如果有一天需要修改時，會改到哭出來，所以我們應該將連線字串移至 config 中來共用，另外也會將 deueue 用法改使用新的 api (舊 api 已被標記為 Deprectated)，除此之外也將原本散落各處的名稱定義(e.g. queue,exchange,routingkey&hellip;)做個整理</p>
 
 <p>今天修改的部份並不多，但連線字串的寫法有點特別，一定要紀錄下來避免忘記，加上日後需要才能快速找到東西 c.c.</p>
 
@@ -375,7 +375,7 @@ consumer.Received += (model, ea) =&gt;
 <h1 id="參考資訊">參考資訊</h1>
 
 <ol>
-<li><a href="https://blog.yowko.com/2017/05/rabbitmq-client-send-consume.html" target="_blank">使用 .Net client 連線至 RabbitMQ 收發訊息</a></li>
+<li><a href="https://blog.yowko.com/2017/05/rabbitmq-client-send-consume.html">使用 .Net client 連線至 RabbitMQ 收發訊息</a></li>
 <li><a href="https://help.compose.com/v2.0/docs/rabbitmq-connecting-to-rabbitmq" target="_blank">Connecting to RabbitMQ</a></li>
 </ol>
 
@@ -389,7 +389,7 @@ consumer.Received += (model, ea) =&gt;
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2017-07-26</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

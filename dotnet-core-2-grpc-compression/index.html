@@ -58,14 +58,14 @@
 <meta property="og:description" content="C# (.NET Core 2) 啟用 gRPC 壓縮 目前專案在大資料量傳遞時會透過 gRPC stream，不過因為是非對稱式資料內容，採用 chunk byte 來傳輸，以避免單次 gRPC 的 message size 限制問題，但以" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/dotnet-core-2-grpc-compression/" /><meta property="article:published_time" content="2019-11-16T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-11-16T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="C# (.NET Core 2) 啟用 gRPC 壓縮">
 <meta itemprop="description" content="C# (.NET Core 2) 啟用 gRPC 壓縮 目前專案在大資料量傳遞時會透過 gRPC stream，不過因為是非對稱式資料內容，採用 chunk byte 來傳輸，以避免單次 gRPC 的 message size 限制問題，但以">
 
 
 <meta itemprop="datePublished" content="2019-11-16T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-11-16T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="947">
 
 
@@ -186,7 +186,7 @@
 
 <p>目前專案在大資料量傳遞時會透過 gRPC stream，不過因為是非對稱式資料內容，採用 chunk byte 來傳輸，以避免單次 gRPC 的 message size 限制問題，但以當前的資料結構，資料量還是過大，導致處理時間無法有效縮短，同事提到想要使用壓縮來縮小資料量以減少傳輸的成本以及時間，不過測試下來似乎沒有減少傳輸時間，懷疑是壓縮沒有順利啟用</p>
 
-<p>為了查明到底是 gRPC 壓縮沒有成功啟用，還是有其他原因造成傳輸時間沒有減少，就得先開啟 gRPC 的 tracer，詳細做法可以參考之前筆記 <a href="https://blog.yowko.com/dotnet-core-2-log-grpc" target="_blank">C# (.NET Core 2) Log 與 Trace gRPC</a></p>
+<p>為了查明到底是 gRPC 壓縮沒有成功啟用，還是有其他原因造成傳輸時間沒有減少，就得先開啟 gRPC 的 tracer，詳細做法可以參考之前筆記 <a href="https://blog.yowko.com/dotnet-core-2-log-grpc">C# (.NET Core 2) Log 與 Trace gRPC</a></p>
 
 <p>而今天就是來紀錄一下，gRPC 啟用壓縮的做法</p>
 
@@ -200,7 +200,7 @@
 <li><p>ASP.NET Core MVC 2.2 預設專案範本</p>
 
 <blockquote>
-<p>程式碼部份可參考 <a href="https://blog.yowko.com/csharp-grpc-stream/" target="_blank">C# 搭配 gRPC 中使用 stream RPC</a></p>
+<p>程式碼部份可參考 <a href="https://blog.yowko.com/csharp-grpc-stream/">C# 搭配 gRPC 中使用 stream RPC</a></p>
 </blockquote></li>
 
 <li><p>NuGet Package</p>
@@ -404,7 +404,7 @@
 
 <ol>
 <li><a href="https://stackoverflow.com/questions/49031763/grpc-compression-in-c-sharp" target="_blank">gRPC compression in C#</a></li>
-<li><a href="https://blog.yowko.com/dotnet-core-2-log-grpc" target="_blank">C# (.NET Core 2) Log 與 Trace gRPC</a></li>
+<li><a href="https://blog.yowko.com/dotnet-core-2-log-grpc">C# (.NET Core 2) Log 與 Trace gRPC</a></li>
 </ol>
 
     </div>
@@ -417,7 +417,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-11-16</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

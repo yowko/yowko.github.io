@@ -58,14 +58,14 @@
 <meta property="og:description" content="Docker Compose 建立 MongoDB Replica Set 因為之前筆記 MongoDB Cli Replica Set 連線方式 需要建立測試環境，想起最早之前的筆記 使用 docker 建立 MongoDB Replica Set 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/docker-compose-mongodb-replica-set/" /><meta property="article:published_time" content="2020-05-10T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-05-10T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="Docker Compose 建立 MongoDB Replica Set">
 <meta itemprop="description" content="Docker Compose 建立 MongoDB Replica Set 因為之前筆記 MongoDB Cli Replica Set 連線方式 需要建立測試環境，想起最早之前的筆記 使用 docker 建立 MongoDB Replica Set 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB">
 
 
 <meta itemprop="datePublished" content="2020-05-10T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-05-10T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="433">
 
 
@@ -183,7 +183,7 @@
 
 <h2 id="docker-compose-建立-mongodb-replica-set">Docker Compose 建立 MongoDB Replica Set</h2>
 
-<p>因為之前筆記 <a href="https://blog.yowko.com/mongodb-cli-replica-set/" target="_blank">MongoDB Cli Replica Set 連線方式</a> 需要建立測試環境，想起最早之前的筆記 <a href="https://blog.yowko.com/docker-mongodb-replica-set/" target="_blank">使用 docker 建立 MongoDB Replica Set</a> 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB Replica Set 方式的念頭</p>
+<p>因為之前筆記 <a href="https://blog.yowko.com/mongodb-cli-replica-set/">MongoDB Cli Replica Set 連線方式</a> 需要建立測試環境，想起最早之前的筆記 <a href="https://blog.yowko.com/docker-mongodb-replica-set/">使用 docker 建立 MongoDB Replica Set</a> 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB Replica Set 方式的念頭</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -260,15 +260,15 @@ services:
 
 <h2 id="心得">心得</h2>
 
-<p>跟之前 <a href="https://blog.yowko.com/docker-mongodb-replica-set/" target="_blank">使用 docker 建立 MongoDB Replica Set</a> 相比，少了一個 <code>creator</code> 的 dockerfile 需要維護 (之前多一個 <code>creator</code> 是因為 mongo 啟動當下無法立即接受連線，而我嘗試 sleep 也失敗，不得已才多一個 container 來暫解)，整體說來更為簡潔，也因為將各個 instance 完整切開，所以從外部的連線也可以正常運作</p>
+<p>跟之前 <a href="https://blog.yowko.com/docker-mongodb-replica-set/">使用 docker 建立 MongoDB Replica Set</a> 相比，少了一個 <code>creator</code> 的 dockerfile 需要維護 (之前多一個 <code>creator</code> 是因為 mongo 啟動當下無法立即接受連線，而我嘗試 sleep 也失敗，不得已才多一個 container 來暫解)，整體說來更為簡潔，也因為將各個 instance 完整切開，所以從外部的連線也可以正常運作</p>
 
 <p>source code 請參考 <a href="https://github.com/yowko/docker-compose-create-mongodb-replica-set" target="_blank">yowko/docker-compose-create-mongodb-replica-set</a></p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/mongodb-cli-replica-set/" target="_blank">MongoDB Cli Replica Set 連線方式</a></li>
-<li><a href="https://blog.yowko.com/docker-mongodb-replica-set/" target="_blank">使用 docker 建立 MongoDB Replica Set</a></li>
+<li><a href="https://blog.yowko.com/mongodb-cli-replica-set/">MongoDB Cli Replica Set 連線方式</a></li>
+<li><a href="https://blog.yowko.com/docker-mongodb-replica-set/">使用 docker 建立 MongoDB Replica Set</a></li>
 <li><a href="https://docs.mongodb.com/manual/reference/program/mongod/" target="_blank">mongod</a></li>
 <li><a href="https://docs.docker.com/compose/compose-file/#healthcheck" target="_blank">Compose file version 3 reference</a></li>
 <li><a href="https://github.com/yowko/docker-compose-create-mongodb-replica-set" target="_blank">yowko/docker-compose-create-mongodb-replica-set</a></li>
@@ -284,7 +284,7 @@ services:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-05-10</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

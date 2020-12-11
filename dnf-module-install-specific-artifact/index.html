@@ -58,14 +58,14 @@
 <meta property="og:description" content="使用 dnf 透過 module 安裝指定版本套件 這是從過去使用 yum 時發現的問題：安裝套件時多是執行 yum install -y {套件名稱}，如此一來會直接安裝該套件的最新版本，對於日常" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/dnf-module-install-specific-artifact/" /><meta property="article:published_time" content="2020-10-23T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-10-23T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="使用 dnf 透過 module 安裝指定版本套件">
 <meta itemprop="description" content="使用 dnf 透過 module 安裝指定版本套件 這是從過去使用 yum 時發現的問題：安裝套件時多是執行 yum install -y {套件名稱}，如此一來會直接安裝該套件的最新版本，對於日常">
 
 
 <meta itemprop="datePublished" content="2020-10-23T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-10-23T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="612">
 
 
@@ -183,7 +183,7 @@
 
 <h2 id="使用-dnf-透過-module-安裝指定版本套件">使用 dnf 透過 module 安裝指定版本套件</h2>
 
-<p>這是從過去使用 <code>yum</code> 時發現的問題：安裝套件時多是執行 <code>yum install -y {套件名稱}</code>，如此一來會直接安裝該套件的最新版本，對於日常使用或是全新開發上是正確的，但這個動作對於正在運作的系統，這個直接動作會造成原本的套件升級至最新版，可能出現不可預期的問題，所以之前筆記 <a href="https://blog.yowko.com/yum-specific-version/" target="_blank">yum 安裝指定版本套件</a> 就紀錄了該如何使用 yum 來安裝指定版本套件的做法 (指定版本並不一定是舊版，有可能指定的版本正好是最新版，只是確保版本是固定的)，最近正在將 yum 改為 dnf，在 dnf module 安裝時沒辦法直接套用相同技巧，立馬簡單紀錄一下</p>
+<p>這是從過去使用 <code>yum</code> 時發現的問題：安裝套件時多是執行 <code>yum install -y {套件名稱}</code>，如此一來會直接安裝該套件的最新版本，對於日常使用或是全新開發上是正確的，但這個動作對於正在運作的系統，這個直接動作會造成原本的套件升級至最新版，可能出現不可預期的問題，所以之前筆記 <a href="https://blog.yowko.com/yum-specific-version/">yum 安裝指定版本套件</a> 就紀錄了該如何使用 yum 來安裝指定版本套件的做法 (指定版本並不一定是舊版，有可能指定的版本正好是最新版，只是確保版本是固定的)，最近正在將 yum 改為 dnf，在 dnf module 安裝時沒辦法直接套用相同技巧，立馬簡單紀錄一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -197,7 +197,7 @@
 <h2 id="操作步驟">操作步驟</h2>
 
 <blockquote>
-<p>這邊以 redis 為例，想多了解如何使用 dnf 安裝 redis 可以參考之前筆記 <a href="https://blog.yowko.com/dnf-install-redis6/" target="_blank">使用 dnf 安裝 Redis 6</a></p>
+<p>這邊以 redis 為例，想多了解如何使用 dnf 安裝 redis 可以參考之前筆記 <a href="https://blog.yowko.com/dnf-install-redis6/">使用 dnf 安裝 Redis 6</a></p>
 </blockquote>
 
 <ol>
@@ -290,8 +290,8 @@
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/yum-specific-version/" target="_blank">yum 安裝指定版本套件</a></li>
-<li><a href="https://blog.yowko.com/dnf-install-redis6/" target="_blank">使用 dnf 安裝 Redis 6</a></li>
+<li><a href="https://blog.yowko.com/yum-specific-version/">yum 安裝指定版本套件</a></li>
+<li><a href="https://blog.yowko.com/dnf-install-redis6/">使用 dnf 安裝 Redis 6</a></li>
 <li><a href="https://blog.csdn.net/coco3848/article/details/107605687" target="_blank">CentOS <sup>7</sup>&frasl;<sub>8</sub> yum安装指定版本Redis</a></li>
 </ol>
 
@@ -305,7 +305,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-10-23</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

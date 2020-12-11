@@ -58,14 +58,14 @@
 <meta property="og:description" content="使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set 之前在筆記 使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set (Single Node) 紀錄到如何使用 docker compose 建立啟用 auth 機制的單一 node MongoDB Replica Set，但單一 node 的 MongoDB Replica Set 對我來說不" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth/" /><meta property="article:published_time" content="2020-07-12T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-07-18T09:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T09:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set">
 <meta itemprop="description" content="使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set 之前在筆記 使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set (Single Node) 紀錄到如何使用 docker compose 建立啟用 auth 機制的單一 node MongoDB Replica Set，但單一 node 的 MongoDB Replica Set 對我來說不">
 
 
 <meta itemprop="datePublished" content="2020-07-12T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-07-18T09:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T09:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="962">
 
 
@@ -183,7 +183,7 @@
 
 <h2 id="使用-docker-compose-建立有-auth-的-mongodb-replica-set">使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set</h2>
 
-<p>之前在筆記 <a href="https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth-standalone/" target="_blank">使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set (Single Node)</a> 紀錄到如何使用 docker compose 建立啟用 auth 機制的單一 node MongoDB Replica Set，但單一 node 的 MongoDB Replica Set 對我來說不太滿足 MongoDB Replica Set 的定義，所以嘗試了三個 nodes ( primary + secondary + secondary) 的做法</p>
+<p>之前在筆記 <a href="https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth-standalone/">使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set (Single Node)</a> 紀錄到如何使用 docker compose 建立啟用 auth 機制的單一 node MongoDB Replica Set，但單一 node 的 MongoDB Replica Set 對我來說不太滿足 MongoDB Replica Set 的定義，所以嘗試了三個 nodes ( primary + secondary + secondary) 的做法</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -501,7 +501,7 @@ docker-compose stop mongotmp remover
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth-standalone/" target="_blank">使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set (Single Node)</a></li>
+<li><a href="https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth-standalone/">使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set (Single Node)</a></li>
 <li><a href="https://github.com/yowko/docker-compose-mongodb-replica-set-with-auth" target="_blank">yowko/docker-compose-mongodb-replica-set-with-auth</a></li>
 <li><a href="https://docs.mongodb.com/manual/tutorial/enforce-keyfile-access-control-in-existing-replica-set/" target="_blank">Update Replica Set to Keyfile Authentication</a></li>
 <li><a href="https://docs.mongodb.com/manual/tutorial/enforce-keyfile-access-control-in-existing-replica-set-without-downtime/" target="_blank">Update Replica Set to Keyfile Authentication (No Downtime)</a></li>
@@ -517,7 +517,7 @@ docker-compose stop mongotmp remover
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-07-18</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

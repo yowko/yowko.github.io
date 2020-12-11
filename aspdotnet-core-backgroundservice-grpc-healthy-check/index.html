@@ -58,14 +58,14 @@
 <meta property="og:description" content="使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check 紀錄到如何使用 ASP.NET Core 內建的 Health Check middleware 來進行 gRPC service 的檢查，當時有看到 Steve Gordon 的 HEALTH CHECKS WITH GRPC AND ASP.NET CORE 3.0 使用 serive 本身的" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-backgroundservice-grpc-healthy-check/" /><meta property="article:published_time" content="2020-09-06T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-09-06T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="使用 ASP.NET Core BackgroundService 進行 gRPC healthy check">
 <meta itemprop="description" content="使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check 紀錄到如何使用 ASP.NET Core 內建的 Health Check middleware 來進行 gRPC service 的檢查，當時有看到 Steve Gordon 的 HEALTH CHECKS WITH GRPC AND ASP.NET CORE 3.0 使用 serive 本身的">
 
 
 <meta itemprop="datePublished" content="2020-09-06T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-09-06T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="728">
 
 
@@ -183,7 +183,7 @@
 
 <h2 id="使用-asp-net-core-backgroundservice-進行-grpc-healthy-check">使用 ASP.NET Core BackgroundService 進行 gRPC healthy check</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check" target="_blank">使用 ASP.NET Core middleware 進行 gRPC healthy check</a> 紀錄到如何使用 ASP.NET Core 內建的 Health Check middleware 來進行 gRPC service 的檢查，當時有看到 Steve Gordon 的 <a href="https://www.stevejgordon.co.uk/health-checks-with-grpc-and-asp-net-core-3" target="_blank">HEALTH CHECKS WITH GRPC AND ASP.NET CORE 3.0</a> 使用 serive 本身的 BackgroundService 來進行 gRPC Health Check，雖然目的不太一樣，但做法還是可以參考的，簡單紀錄一下</p>
+<p>之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check">使用 ASP.NET Core middleware 進行 gRPC healthy check</a> 紀錄到如何使用 ASP.NET Core 內建的 Health Check middleware 來進行 gRPC service 的檢查，當時有看到 Steve Gordon 的 <a href="https://www.stevejgordon.co.uk/health-checks-with-grpc-and-asp-net-core-3" target="_blank">HEALTH CHECKS WITH GRPC AND ASP.NET CORE 3.0</a> 使用 serive 本身的 BackgroundService 來進行 gRPC Health Check，雖然目的不太一樣，但做法還是可以參考的，簡單紀錄一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -318,7 +318,7 @@
 
 <h2 id="心得">心得</h2>
 
-<p>今天這個做法與之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check" target="_blank">使用 ASP.NET Core middleware 進行 gRPC healthy check</a> 在 macOS 上有相同問題：現在團隊的主力開發環境是 macOS，但今天紀錄的這個做法在 macOS 上會失效，錯誤的緣頭是 aspsettings.json 中的 <code>Kestrel.EndpointDefaults.Protocols=&quot;Http2&quot;</code> 至於原因我猜測與之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-grpc-macos/" target="_blank">ASP.NET Core gRPC 無法在 macOS 上啟動？！</a> 提到的 macOS 不支援具有 TLS 的 ASP.NET Core gRPC 服務有關：只要啟用了 <code>Kestrel.EndpointDefaults.Protocols=&quot;Http2&quot;</code> ASP.NET Core 中的 http endpoint 就無法正確存取，但這問題這麼大不可能沒人反應呀，我覺得可能是我設定的問題</p>
+<p>今天這個做法與之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check">使用 ASP.NET Core middleware 進行 gRPC healthy check</a> 在 macOS 上有相同問題：現在團隊的主力開發環境是 macOS，但今天紀錄的這個做法在 macOS 上會失效，錯誤的緣頭是 aspsettings.json 中的 <code>Kestrel.EndpointDefaults.Protocols=&quot;Http2&quot;</code> 至於原因我猜測與之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-grpc-macos/">ASP.NET Core gRPC 無法在 macOS 上啟動？！</a> 提到的 macOS 不支援具有 TLS 的 ASP.NET Core gRPC 服務有關：只要啟用了 <code>Kestrel.EndpointDefaults.Protocols=&quot;Http2&quot;</code> ASP.NET Core 中的 http endpoint 就無法正確存取，但這問題這麼大不可能沒人反應呀，我覺得可能是我設定的問題</p>
 
 <p>錯誤畫面如下：</p>
 
@@ -333,8 +333,8 @@
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/aspdotnet-core-grpc-macos/" target="_blank">ASP.NET Core gRPC 無法在 macOS 上啟動？！</a></li>
-<li><a href="https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check" target="_blank">使用 ASP.NET Core middleware 進行 gRPC healthy check</a></li>
+<li><a href="https://blog.yowko.com/aspdotnet-core-grpc-macos/">ASP.NET Core gRPC 無法在 macOS 上啟動？！</a></li>
+<li><a href="https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check">使用 ASP.NET Core middleware 進行 gRPC healthy check</a></li>
 <li><a href="https://www.stevejgordon.co.uk/health-checks-with-grpc-and-asp-net-core-3" target="_blank">HEALTH CHECKS WITH GRPC AND ASP.NET CORE 3.0</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/host/hosted-services?WT.mc_id=DOP-MVP-5002594" target="_blank">Background tasks with hosted services in ASP.NET Core</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/dotnet/architecture/microservices/multi-container-microservice-net-applications/background-tasks-with-ihostedservice?WT.mc_id=DOP-MVP-5002594" target="_blank">Implement background tasks in microservices with IHostedService and the BackgroundService class</a></li>
@@ -351,7 +351,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-09-06</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

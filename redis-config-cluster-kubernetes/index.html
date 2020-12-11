@@ -58,14 +58,14 @@
 <meta property="og:description" content="使用客製 config 在 kubenetes 上建立 Redis cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 紀錄到如何使用 KubeDB Operator 來建立 redis cluster，不過之前筆記內容是透過預設值來進行安裝與設定，而在面對" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/redis-config-cluster-kubernetes/" /><meta property="article:published_time" content="2019-12-17T23:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-12-17T23:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T23:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="使用客製 config 在 kubenetes 上建立 Redis cluster">
 <meta itemprop="description" content="使用客製 config 在 kubenetes 上建立 Redis cluster 之前筆記 在 Kubernetes 部署 Redis Cluster 紀錄到如何使用 KubeDB Operator 來建立 redis cluster，不過之前筆記內容是透過預設值來進行安裝與設定，而在面對">
 
 
 <meta itemprop="datePublished" content="2019-12-17T23:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-12-17T23:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T23:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="1073">
 
 
@@ -185,7 +185,7 @@
 
 <h2 id="使用客製-config-在-kubenetes-上建立-redis-cluster">使用客製 config 在 kubenetes 上建立 Redis cluster</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/kubernetes-redis-cluster/" target="_blank">在 Kubernetes 部署 Redis Cluster</a> 紀錄到如何使用 KubeDB Operator 來建立 redis cluster，不過之前筆記內容是透過預設值來進行安裝與設定，而在面對不同情境的現實需求(eg.改變最大連線數、指定 log 位置、RDB 與 AOF 的策略&hellip;.etc)下就顯得有些捉襟見肘，所以今天就來紀錄一下如何在 Kubernetes 上透過 KubeDB 安裝 redis cluster 時使用自有設定值</p>
+<p>之前筆記 <a href="https://blog.yowko.com/kubernetes-redis-cluster/">在 Kubernetes 部署 Redis Cluster</a> 紀錄到如何使用 KubeDB Operator 來建立 redis cluster，不過之前筆記內容是透過預設值來進行安裝與設定，而在面對不同情境的現實需求(eg.改變最大連線數、指定 log 位置、RDB 與 AOF 的策略&hellip;.etc)下就顯得有些捉襟見肘，所以今天就來紀錄一下如何在 Kubernetes 上透過 KubeDB 安裝 redis cluster 時使用自有設定值</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -466,7 +466,7 @@ spec:
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/kubernetes-redis-cluster/" target="_blank">在 Kubernetes 部署 Redis Cluster</a></li>
+<li><a href="https://blog.yowko.com/kubernetes-redis-cluster/">在 Kubernetes 部署 Redis Cluster</a></li>
 <li><a href="https://kubedb.com/docs/0.12.0/guides/redis/custom-config/using-custom-config/" target="_blank">Using Custom Configuration File</a></li>
 <li><a href="https://github.com/kubedb/project/issues/490" target="_blank">[redis] Redis cluster with custom config file not working</a></li>
 <li><a href="https://kubedb.com/docs/v0.13.0-rc.0/setup/install/" target="_blank">Installation Guide</a></li>
@@ -483,7 +483,7 @@ spec:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-12-17</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

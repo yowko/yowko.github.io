@@ -58,14 +58,14 @@
 <meta property="og:description" content="取得 MongoDB SDK 實際產生的指令 之前曾經在 取得 Entity Framework 存取 DB 時的實際 SQL Script 提到如果都透過 EntityFramework 來存取 DB，有時候遇到的效能瓶頸是因為 EntityFramework 沒有使用正確的 index 或是執行計" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/mongodb-interceptor/" /><meta property="article:published_time" content="2019-08-03T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-08-03T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="取得 MongoDB SDK 實際產生的指令">
 <meta itemprop="description" content="取得 MongoDB SDK 實際產生的指令 之前曾經在 取得 Entity Framework 存取 DB 時的實際 SQL Script 提到如果都透過 EntityFramework 來存取 DB，有時候遇到的效能瓶頸是因為 EntityFramework 沒有使用正確的 index 或是執行計">
 
 
 <meta itemprop="datePublished" content="2019-08-03T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-08-03T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="624">
 
 
@@ -183,7 +183,7 @@
 
 <h2 id="取得-mongodb-sdk-實際產生的指令">取得 MongoDB SDK 實際產生的指令</h2>
 
-<p>之前曾經在 <a href="https://blog.yowko.com/entityframework-log-sql/" target="_blank">取得 Entity Framework 存取 DB 時的實際 SQL Script</a> 提到如果都透過 EntityFramework 來存取 DB，有時候遇到的效能瓶頸是因為 EntityFramework 沒有使用正確的 index 或是執行計劃，這時候就可以使用 interceptor 來攔截 EntityFramework 實際對 DB 執行的 SQL statement 內容</p>
+<p>之前曾經在 <a href="https://blog.yowko.com/entityframework-log-sql/">取得 Entity Framework 存取 DB 時的實際 SQL Script</a> 提到如果都透過 EntityFramework 來存取 DB，有時候遇到的效能瓶頸是因為 EntityFramework 沒有使用正確的 index 或是執行計劃，這時候就可以使用 interceptor 來攔截 EntityFramework 實際對 DB 執行的 SQL statement 內容</p>
 
 <p>最近剛好要確認專案的 MongoDB instance performane issue，剛好趁這個機會紀錄一下如何取得 MongoDB SDK 實際執行的 script 內容</p>
 
@@ -301,7 +301,7 @@ var result = await db
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/entityframework-log-sql/" target="_blank">取得 Entity Framework 存取 DB 時的實際 SQL Script</a></li>
+<li><a href="https://blog.yowko.com/entityframework-log-sql/">取得 Entity Framework 存取 DB 時的實際 SQL Script</a></li>
 <li><a href="https://stackoverflow.com/questions/48947260/mongodb-c-sharp-driver-query-interceptors" target="_blank">MongoDB C# Driver: Query interceptors?</a></li>
 <li><a href="https://stackoverflow.com/questions/30333925/how-do-i-log-my-queries-in-mongodb-c-sharp-driver-2-0" target="_blank">How do I log my queries in MongoDB C# Driver 2.0?</a></li>
 <li><a href="http://mongodb.github.io/mongo-csharp-driver/2.0/what_is_new/#logging" target="_blank">What’s New in the MongoDB .NET 2.0 Driver</a></li>
@@ -317,7 +317,7 @@ var result = await db
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-08-03</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

@@ -58,14 +58,14 @@
 <meta property="og:description" content="使用 C# (.NET Core) 傳訊息至 Slack 公司有個臨時性需求：某個重要功能開啟或是關閉時，立即通知營運團隊及各級主管知道，讓大家在討論 production issue 有共同的討論基準。 經過一" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/csharp-message-slack/" /><meta property="article:published_time" content="2019-02-06T23:45:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-02-06T23:44:30&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T23:44:30&#43;08:00"/>
 
 <meta itemprop="name" content="使用 C# (.NET Core) 傳訊息至 Slack">
 <meta itemprop="description" content="使用 C# (.NET Core) 傳訊息至 Slack 公司有個臨時性需求：某個重要功能開啟或是關閉時，立即通知營運團隊及各級主管知道，讓大家在討論 production issue 有共同的討論基準。 經過一">
 
 
 <meta itemprop="datePublished" content="2019-02-06T23:45:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-02-06T23:44:30&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T23:44:30&#43;08:00" />
 <meta itemprop="wordCount" content="981">
 
 
@@ -297,7 +297,7 @@
 <li><p>基本設定</p>
 
 <blockquote>
-<p>如果想更深入了解相關設定可以參考 <a href="https://blog.yowko.com/dotnet-core-console-di/" target="_blank">在 .NET Core console 上使用 Dependency Injection - DI</a> 與 <a href="https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/" target="_blank">在 .NET Core 與 .NET Framework 上使用 HttpClientFactory</a></p>
+<p>如果想更深入了解相關設定可以參考 <a href="https://blog.yowko.com/dotnet-core-console-di/">在 .NET Core console 上使用 Dependency Injection - DI</a> 與 <a href="https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/">在 .NET Core 與 .NET Framework 上使用 HttpClientFactory</a></p>
 </blockquote>
 
 <pre><code class="language-cs">var builder =
@@ -345,10 +345,10 @@ var attachments = new List&lt;Attachment&gt;() {
                 color=&quot;#36a64f&quot;,//實際顯示時的引用線顏色
                 pretext= &quot;原本 text 位置內容&quot;,
                 author_name= &quot;第一行(作者)&quot;,
-                author_link= &quot;https://blog.yowko.com&quot;,
+                author_link= &quot;&quot;,
                 author_icon= &quot;http://flickr.com/icons/bobby.jpg&quot;,
                 title= &quot;標題&quot;,
-                title_link= &quot;https://blog.yowko.com&quot;,
+                title_link= &quot;&quot;,
                 text= &quot;實際內文&quot;,
                 fields= new List&lt;Field&gt;(){
                     new Field(){
@@ -388,8 +388,8 @@ client.GetAsync($&quot;chat.postMessage?token={token}&amp;channel={channel}&amp;
 <li><a href="https://api.slack.com/apps" target="_blank">Build something amazing.</a></li>
 <li><a href="https://api.slack.com/docs/token-types" target="_blank">Types of tokens</a></li>
 <li><a href="https://api.slack.com/methods/chat.postMessage/test" target="_blank">chat.postMessage</a></li>
-<li><a href="https://blog.yowko.com/dotnet-core-console-di/" target="_blank">在 .NET Core console 上使用 Dependency Injection - DI</a></li>
-<li><a href="https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/" target="_blank">在 .NET Core 與 .NET Framework 上使用 HttpClientFactory</a></li>
+<li><a href="https://blog.yowko.com/dotnet-core-console-di/">在 .NET Core console 上使用 Dependency Injection - DI</a></li>
+<li><a href="https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/">在 .NET Core 與 .NET Framework 上使用 HttpClientFactory</a></li>
 <li><a href="https://api.slack.com/docs/message-formatting" target="_blank">Basic message formatting</a></li>
 </ol>
 
@@ -403,7 +403,7 @@ client.GetAsync($&quot;chat.postMessage?token={token}&amp;channel={channel}&amp;
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-02-06</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

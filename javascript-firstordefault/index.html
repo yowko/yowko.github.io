@@ -58,14 +58,14 @@
 <meta property="og:description" content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault) 之前筆記 JavaScript 依屬性值過濾陣列取得完整物件 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/javascript-firstordefault/" /><meta property="article:published_time" content="2017-12-25T13:25:00&#43;08:00"/>
-<meta property="article:modified_time" content="2018-10-02T23:36:38&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T23:36:38&#43;08:00"/>
 
 <meta itemprop="name" content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)">
 <meta itemprop="description" content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault) 之前筆記 JavaScript 依屬性值過濾陣列取得完整物件 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介">
 
 
 <meta itemprop="datePublished" content="2017-12-25T13:25:00&#43;08:00" />
-<meta itemprop="dateModified" content="2018-10-02T23:36:38&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T23:36:38&#43;08:00" />
 <meta itemprop="wordCount" content="656">
 
 
@@ -181,7 +181,7 @@
 
 <h1 id="javascript-從陣列中取出符合條件的第一個物件-c-linq-的-firstordefault">JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)</h1>
 
-<p>之前筆記 <a href="https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html" target="_blank">JavaScript 依屬性值過濾陣列取得完整物件</a> 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介紹的用法相近，只是本文僅取出一筆，最後回傳值是 object，而前文則是回傳 array，當然可以透過前文技巧取出陣列後再使用 index 為 0 取出第一筆資料，只是既然要過濾條件了直接取得最後需要的物件不僅較省資源也較直覺，就來看看該怎麼做吧</p>
+<p>之前筆記 <a href="https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html">JavaScript 依屬性值過濾陣列取得完整物件</a> 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介紹的用法相近，只是本文僅取出一筆，最後回傳值是 object，而前文則是回傳 array，當然可以透過前文技巧取出陣列後再使用 index 為 0 取出第一筆資料，只是既然要過濾條件了直接取得最後需要的物件不僅較省資源也較直覺，就來看看該怎麼做吧</p>
 
 <h2 id="找出第一個符合條件的物件">找出第一個符合條件的物件</h2>
 
@@ -345,14 +345,14 @@ findObjectByPropmap(dataobj,&quot;name&quot;,&quot;ASP.NET MVC&quot;)
 
 <h2 id="心得">心得</h2>
 
-<p>原本以為程式碼與之前筆記 <a href="https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html" target="_blank">JavaScript 依屬性值過濾陣列取得完整物件</a> 會非常相似，想不到測試撰寫過程才知道是我想得太簡單了，更進一步證實我的 JavaScript 技能相當薄弱呀(這時才發現 <code>forEach</code> 與 <code>map</code> 無法中途終止 - 沒有 <code>break</code> 跟 <code>continue</code>)，幸虧本身就不是靠 js 吃穿的，覺得還過得去 哈哈</p>
+<p>原本以為程式碼與之前筆記 <a href="https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html">JavaScript 依屬性值過濾陣列取得完整物件</a> 會非常相似，想不到測試撰寫過程才知道是我想得太簡單了，更進一步證實我的 JavaScript 技能相當薄弱呀(這時才發現 <code>forEach</code> 與 <code>map</code> 無法中途終止 - 沒有 <code>break</code> 跟 <code>continue</code>)，幸虧本身就不是靠 js 吃穿的，覺得還過得去 哈哈</p>
 
 <p>不過經過一番測試與查閱資料後，已經比較清楚其中差異，相信下次一定可以比較快解決問題，至少有地方可以<del>抄</del>參考</p>
 
 <h2 id="遞迴陣列">遞迴陣列</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html" target="_blank">JavaScript 依屬性值過濾陣列取得完整物件</a></li>
+<li><a href="https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html">JavaScript 依屬性值過濾陣列取得完整物件</a></li>
 <li><a href="https://www.linkedin.com/pulse/javascript-find-object-array-based-objects-property-rafael/" target="_blank">Javascript: find an object in array based on object&rsquo;s property</a></li>
 <li><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/find" target="_blank">Array.prototype.find()</a></li>
 <li><a href="https://juejin.im/entry/5884717a1b69e6005919f0d3" target="_blank">JavaScript 循環中斷研究與終結，前端 er 必背！</a></li>
@@ -370,7 +370,7 @@ findObjectByPropmap(dataobj,&quot;name&quot;,&quot;ASP.NET MVC&quot;)
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-10-02</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

@@ -58,14 +58,14 @@
 <meta property="og:description" content="在 Helm (Go Template) 中檢查 Value 是否有值 這個需求是延續之前筆記 在 Kubernetes 中使用自訂 Domain 而來的，其中提到某些服務會掛在自訂 domain 下，但內網測試環境可能因為無法對外連線 (連" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/helm-check-values-null/" /><meta property="article:published_time" content="2020-06-28T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-06-28T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="在 Helm (Go Template) 中檢查 Value 是否有值">
 <meta itemprop="description" content="在 Helm (Go Template) 中檢查 Value 是否有值 這個需求是延續之前筆記 在 Kubernetes 中使用自訂 Domain 而來的，其中提到某些服務會掛在自訂 domain 下，但內網測試環境可能因為無法對外連線 (連">
 
 
 <meta itemprop="datePublished" content="2020-06-28T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-06-28T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="829">
 
 
@@ -183,7 +183,7 @@
 
 <h2 id="在-helm-go-template-中檢查-value-是否有值">在 Helm (Go Template) 中檢查 Value 是否有值</h2>
 
-<p>這個需求是延續之前筆記 <a href="https://blog.yowko.com/kubernetes-custom-domain" target="_blank">在 Kubernetes 中使用自訂 Domain</a> 而來的，其中提到某些服務會掛在自訂 domain 下，但內網測試環境可能因為無法對外連線 (連不到外部 dns) 或是成本考慮，不一定會註冊 domain，但在外網環境時為了方便測試，註冊 domain 就是常見的</p>
+<p>這個需求是延續之前筆記 <a href="https://blog.yowko.com/kubernetes-custom-domain">在 Kubernetes 中使用自訂 Domain</a> 而來的，其中提到某些服務會掛在自訂 domain 下，但內網測試環境可能因為無法對外連線 (連不到外部 dns) 或是成本考慮，不一定會註冊 domain，但在外網環境時為了方便測試，註冊 domain 就是常見的</p>
 
 <p>所以就出現這個需求：在內網環境部署時需要加上 hostalias 才能正確存取服務；但外網環境加上 hostalias 可能反而出現未即時更新 ip 而造成無法存取服務的狀況，所以今天就來快速紀錄一下在 Helm (Go Template) 中檢查 Value 是否有值，以 render 出不同內容</p>
 
@@ -453,7 +453,7 @@ spec:
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/kubernetes-custom-domain" target="_blank">在 Kubernetes 中使用自訂 Domain</a></li>
+<li><a href="https://blog.yowko.com/kubernetes-custom-domain">在 Kubernetes 中使用自訂 Domain</a></li>
 <li><a href="https://github.com/Masterminds/sprig/issues/53#issuecomment-483414063" target="_blank">Clarification: nil vs empty string</a></li>
 <li><a href="http://masterminds.github.io/sprig/reflection.html" target="_blank">Reflection Functions</a></li>
 </ol>
@@ -468,7 +468,7 @@ spec:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-06-28</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

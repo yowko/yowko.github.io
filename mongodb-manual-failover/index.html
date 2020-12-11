@@ -58,14 +58,14 @@
 <meta property="og:description" content="手動觸發 MongoDB failover 最近如火如塗地準備著產品上線工作，其中一項重要項目就是各個服務的 HA 的驗證 我自己的測試方式是輪流將服務的每個 instance 停掉再重啟，確保服務" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/mongodb-manual-failover/" /><meta property="article:published_time" content="2020-06-07T15:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-06-07T15:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T15:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="手動觸發 MongoDB failover">
 <meta itemprop="description" content="手動觸發 MongoDB failover 最近如火如塗地準備著產品上線工作，其中一項重要項目就是各個服務的 HA 的驗證 我自己的測試方式是輪流將服務的每個 instance 停掉再重啟，確保服務">
 
 
 <meta itemprop="datePublished" content="2020-06-07T15:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-06-07T15:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T15:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="650">
 
 
@@ -218,7 +218,7 @@
 <li><p>MongoDB 4.2.6</p>
 
 <blockquote>
-<p>replica set 的建立請參考之前筆記 <a href="https://blog.yowko.com/docker-compose-mongodb-replica-set/" target="_blank">Docker Compose 建立 MongoDB Replica Set</a></p>
+<p>replica set 的建立請參考之前筆記 <a href="https://blog.yowko.com/docker-compose-mongodb-replica-set/">Docker Compose 建立 MongoDB Replica Set</a></p>
 </blockquote></li>
 </ul></li>
 </ol>
@@ -271,7 +271,7 @@
 <p><img src="https://user-images.githubusercontent.com/3851540/83965359-c556d200-a8e5-11ea-83d5-c6ae5e13820b.jpg" alt="2notprimary" /></p>
 
 <blockquote>
-<p>詳細說明可以參考之前筆記 <a href="https://blog.yowko.com/mongodb-cli-replica-set/" target="_blank">MongoDB Cli Replica Set 連線方式</a></p>
+<p>詳細說明可以參考之前筆記 <a href="https://blog.yowko.com/mongodb-cli-replica-set/">MongoDB Cli Replica Set 連線方式</a></p>
 </blockquote>
 
 <pre><code class="language-bash">mongo &quot;mongodb://localhost:27017,localhost:27027,localhost:27037/?replicaSet=rs0&quot; --eval &quot;rs.stepDown()&quot;
@@ -287,8 +287,8 @@
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/docker-compose-mongodb-replica-set/" target="_blank">Docker Compose 建立 MongoDB Replica Set</a></li>
-<li><a href="https://blog.yowko.com/mongodb-cli-replica-set/" target="_blank">MongoDB Cli Replica Set 連線方式</a></li>
+<li><a href="https://blog.yowko.com/docker-compose-mongodb-replica-set/">Docker Compose 建立 MongoDB Replica Set</a></li>
+<li><a href="https://blog.yowko.com/mongodb-cli-replica-set/">MongoDB Cli Replica Set 連線方式</a></li>
 <li><a href="https://stackoverflow.com/a/11777141" target="_blank">How to stop mongo DB in one command</a></li>
 <li><a href="https://docs.mongodb.com/manual/reference/method/db.shutdownServer/" target="_blank">db.shutdownServer()</a></li>
 <li><a href="https://docs.mongodb.com/manual/reference/method/rs.stepDown/" target="_blank">rs.stepDown()</a></li>
@@ -304,7 +304,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-06-07</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

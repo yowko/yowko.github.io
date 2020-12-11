@@ -58,14 +58,14 @@
 <meta property="og:description" content="讓 container 中的 ASP.NET Core 也有憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法在 macOS 上啟動？！ 都有提到過 gRPC 的原生限制：採用 HTTP2 協定" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-container-certificate/" /><meta property="article:published_time" content="2020-09-20T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-09-20T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="讓 container 中的 ASP.NET Core 也有憑證">
 <meta itemprop="description" content="讓 container 中的 ASP.NET Core 也有憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法在 macOS 上啟動？！ 都有提到過 gRPC 的原生限制：採用 HTTP2 協定">
 
 
 <meta itemprop="datePublished" content="2020-09-20T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-09-20T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="1100">
 
 
@@ -183,7 +183,7 @@
 
 <h2 id="讓-container-中的-asp-net-core-也有憑證">讓 container 中的 ASP.NET Core 也有憑證</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check/" target="_blank">使用 ASP.NET Core middleware 進行 gRPC healthy check</a>、<a href="https://blog.yowko.com/aspdotnet-core-backgroundservice-grpc-healthy-check/" target="_blank">使用 ASP.NET Core BackgroundService 進行 gRPC healthy check</a> 以及 <a href="https://blog.yowko.com/aspdotnet-core-grpc-macos/" target="_blank">ASP.NET Core gRPC 無法在 macOS 上啟動？！</a> 都有提到過 gRPC 的原生限制：採用 HTTP2 協定並預設使用 SSL，雖然可以使用 clear text 只是如此一來不僅失去安全性在設定上還是比較繁瑣些</p>
+<p>之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check/">使用 ASP.NET Core middleware 進行 gRPC healthy check</a>、<a href="https://blog.yowko.com/aspdotnet-core-backgroundservice-grpc-healthy-check/">使用 ASP.NET Core BackgroundService 進行 gRPC healthy check</a> 以及 <a href="https://blog.yowko.com/aspdotnet-core-grpc-macos/">ASP.NET Core gRPC 無法在 macOS 上啟動？！</a> 都有提到過 gRPC 的原生限制：採用 HTTP2 協定並預設使用 SSL，雖然可以使用 clear text 只是如此一來不僅失去安全性在設定上還是比較繁瑣些</p>
 
 <p>與其老是想著要怎麼設定跟調整來避開 gRPC 的 HTTP2 SSL 問題，突然想轉個念：乾脆給個憑證 說不定還簡單些，今天就紀錄一下做法供比較參考囉</p>
 
@@ -525,7 +525,7 @@ dotnet dev-certs https --trust
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-09-20</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

@@ -58,14 +58,14 @@
 <meta property="og:description" content="GKE 透過 Private IP 連線 Cloud SQL 因為團隊中沒有傳統 DBA (只有 BA 兼任 DBA 哈哈)，所以在 db 的選擇上一直都偏好使用外部服務 (自建環境時與其他團隊共享 DBA 資源) 所以在評" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/gke-private-sql-cloud-sql/" /><meta property="article:published_time" content="2020-12-06T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-12-06T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="GKE 透過 Private IP 連線 Cloud SQL">
 <meta itemprop="description" content="GKE 透過 Private IP 連線 Cloud SQL 因為團隊中沒有傳統 DBA (只有 BA 兼任 DBA 哈哈)，所以在 db 的選擇上一直都偏好使用外部服務 (自建環境時與其他團隊共享 DBA 資源) 所以在評">
 
 
 <meta itemprop="datePublished" content="2020-12-06T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-12-06T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="573">
 
 
@@ -245,7 +245,7 @@
 <li><p>部署 container</p>
 
 <blockquote>
-<p>以下使用之前筆記 <a href="https://blog.yowko.com/kubernetes-liveness-aspdotnet-core-grpc/" target="_blank">使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期</a> 的 image 來進行示範</p>
+<p>以下使用之前筆記 <a href="https://blog.yowko.com/kubernetes-liveness-aspdotnet-core-grpc/">使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期</a> 的 image 來進行示範</p>
 </blockquote>
 
 <pre><code class="language-bash">kubectl create deployment test  --image=gcr.io/thermal-setup-295904/healthcheck:healthy
@@ -309,7 +309,7 @@
 
 <ol>
 <li><a href="https://cloud.google.com/sql/docs/mysql/connect-kubernetes-engine" target="_blank">Connecting from Google Kubernetes Engine</a></li>
-<li><a href="https://blog.yowko.com/kubernetes-liveness-aspdotnet-core-grpc/" target="_blank">使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期</a></li>
+<li><a href="https://blog.yowko.com/kubernetes-liveness-aspdotnet-core-grpc/">使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期</a></li>
 </ol>
 
     </div>
@@ -322,7 +322,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-12-06</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">
@@ -355,6 +355,13 @@
       
       <nav class="post-nav">
         
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/install-mysql-client-only/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">安裝 mysql client</span>			
+          </a>
+		  </div>
 		  <div>
         
           <a class="prev" href="https://blog.yowko.com/gke-filestore-nfs-client/" style="float: none;">

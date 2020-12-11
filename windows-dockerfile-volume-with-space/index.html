@@ -58,14 +58,14 @@
 <meta property="og:description" content="Windows Dockerfile 如何指定 VOLUME - 更新版 前幾天同事打算將 Windows container 中的 Jenkins 中的 job 跟 log 保留在 container 外部，避免因為 jenkins container 更新而造成設定資料遺失，經過一番測試後出現了 Windows Dockerfile 如何指定" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/windows-dockerfile-volume-with-space/" /><meta property="article:published_time" content="2017-09-28T00:04:00&#43;08:00"/>
-<meta property="article:modified_time" content="2018-09-26T00:04:24&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T00:04:24&#43;08:00"/>
 
 <meta itemprop="name" content="Windows Dockerfile 如何指定 VOLUME - 更新版">
 <meta itemprop="description" content="Windows Dockerfile 如何指定 VOLUME - 更新版 前幾天同事打算將 Windows container 中的 Jenkins 中的 job 跟 log 保留在 container 外部，避免因為 jenkins container 更新而造成設定資料遺失，經過一番測試後出現了 Windows Dockerfile 如何指定">
 
 
 <meta itemprop="datePublished" content="2017-09-28T00:04:00&#43;08:00" />
-<meta itemprop="dateModified" content="2018-09-26T00:04:24&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T00:04:24&#43;08:00" />
 <meta itemprop="wordCount" content="774">
 
 
@@ -182,11 +182,11 @@
 
 <h1 id="windows-dockerfile-如何指定-volume-更新版">Windows Dockerfile 如何指定 VOLUME - 更新版</h1>
 
-<p>前幾天同事打算將 Windows container 中的 Jenkins 中的 job 跟 log 保留在 container 外部，避免因為 jenkins container 更新而造成設定資料遺失，經過一番測試後出現了 <a href="https://blog.yowko.com/2017/09/windows-dockerfile-volume.html" target="_blank">Windows Dockerfile 如何指定 VOLUME</a> 一文，結果同事今天跟著實作時卻發現有問題，所以我又來了XD 非常感謝同事的測試，果然不愧是 King of QA，一直抓出我的錯誤</p>
+<p>前幾天同事打算將 Windows container 中的 Jenkins 中的 job 跟 log 保留在 container 外部，避免因為 jenkins container 更新而造成設定資料遺失，經過一番測試後出現了 <a href="https://blog.yowko.com/2017/09/windows-dockerfile-volume.html">Windows Dockerfile 如何指定 VOLUME</a> 一文，結果同事今天跟著實作時卻發現有問題，所以我又來了XD 非常感謝同事的測試，果然不愧是 King of QA，一直抓出我的錯誤</p>
 
 <h2 id="問題描述">問題描述</h2>
 
-<p><a href="https://blog.yowko.com/2017/09/windows-dockerfile-volume.html" target="_blank">Windows Dockerfile 如何指定 VOLUME</a> 提到在 dockerfile 中指定 volume 的方法有兩種(因為兩種作法都是錯的，這邊就略過不提)，錯誤的不是語法本身而是邏輯 - 文中提到的兩種 volume 指定語法都可以通過編譯，但最後結果卻是不正確的</p>
+<p><a href="https://blog.yowko.com/2017/09/windows-dockerfile-volume.html">Windows Dockerfile 如何指定 VOLUME</a> 提到在 dockerfile 中指定 volume 的方法有兩種(因為兩種作法都是錯的，這邊就略過不提)，錯誤的不是語法本身而是邏輯 - 文中提到的兩種 volume 指定語法都可以通過編譯，但最後結果卻是不正確的</p>
 
 <ul>
 <li><p>預期結果</p>
@@ -265,7 +265,7 @@ CMD [ &quot;ping localhost -t&quot; ]
 </code></pre></li>
 </ul>
 
-<p>以下步驟可以參考 <a href="https://blog.yowko.com/2017/08/dockerfile-windows-container-jenkins.html" target="_blank">使用 dockerfile 建立 Windows Container 版 Jenkins</a></p>
+<p>以下步驟可以參考 <a href="https://blog.yowko.com/2017/08/dockerfile-windows-container-jenkins.html">使用 dockerfile 建立 Windows Container 版 Jenkins</a></p>
 
 <ul>
 <li><p>build 成 image</p>
@@ -288,9 +288,9 @@ CMD [ &quot;ping localhost -t&quot; ]
 <h1 id="參考資訊">參考資訊</h1>
 
 <ol>
-<li><a href="https://blog.yowko.com/2017/09/windows-dockerfile-volume.html" target="_blank">Windows Dockerfile 如何指定 VOLUME</a></li>
+<li><a href="https://blog.yowko.com/2017/09/windows-dockerfile-volume.html">Windows Dockerfile 如何指定 VOLUME</a></li>
 <li><a href="https://docs.docker.com/engine/reference/builder/#volume" target="_blank">Dockerfile reference </a></li>
-<li><a href="https://blog.yowko.com/2017/08/dockerfile-windows-container-jenkins.html" target="_blank">使用 dockerfile 建立 Windows Container 版 Jenkins</a></li>
+<li><a href="https://blog.yowko.com/2017/08/dockerfile-windows-container-jenkins.html">使用 dockerfile 建立 Windows Container 版 Jenkins</a></li>
 <li><a href="http://elickzhao.github.io/2016/04/Dockerfile%20VOLUME%20%E5%92%8C%20-v%20%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_blank">Dockerfile VOLUME 和 -v 的區別</a></li>
 </ol>
 
@@ -304,7 +304,7 @@ CMD [ &quot;ping localhost -t&quot; ]
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-09-26</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

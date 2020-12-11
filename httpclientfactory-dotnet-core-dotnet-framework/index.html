@@ -58,14 +58,14 @@
 <meta property="og:description" content="在 .NET Core 與 .NET Framework 上使用 HttpClientFactory 之前筆記 探討 HttpClient 可能的問題 與 HttpClient 無法反應 DNS 異動的解決方式 的出現是因為工作任務需要將一些重要訊息傳送至 Slack 而留意到 .NET Core 使用的 HttpClientFactory 是" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/" /><meta property="article:published_time" content="2019-01-16T23:45:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-09-01T23:44:30&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T23:44:30&#43;08:00"/>
 
 <meta itemprop="name" content="在 .NET Core 與 .NET Framework 上使用 HttpClientFactory">
 <meta itemprop="description" content="在 .NET Core 與 .NET Framework 上使用 HttpClientFactory 之前筆記 探討 HttpClient 可能的問題 與 HttpClient 無法反應 DNS 異動的解決方式 的出現是因為工作任務需要將一些重要訊息傳送至 Slack 而留意到 .NET Core 使用的 HttpClientFactory 是">
 
 
 <meta itemprop="datePublished" content="2019-01-16T23:45:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-09-01T23:44:30&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T23:44:30&#43;08:00" />
 <meta itemprop="wordCount" content="2913">
 
 
@@ -185,7 +185,7 @@
 
 <h1 id="在-net-core-與-net-framework-上使用-httpclientfactory">在 .NET Core 與 .NET Framework 上使用 HttpClientFactory</h1>
 
-<p>之前筆記 <a href="https://blog.yowko.com/httpclient-issue/" target="_blank">探討 HttpClient 可能的問題</a> 與 <a href="https://blog.yowko.com/httpclient-not-respect-dns-change" target="_blank">HttpClient 無法反應 DNS 異動的解決方式</a> 的出現是因為工作任務需要將一些重要訊息傳送至 Slack 而留意到 .NET Core 使用的 HttpClientFactory 是改善過去 HttpClient 存在的一些問題，為了可以更完整理解 HttpClient 缺憾做得的一些紀錄</p>
+<p>之前筆記 <a href="https://blog.yowko.com/httpclient-issue/">探討 HttpClient 可能的問題</a> 與 <a href="https://blog.yowko.com/httpclient-not-respect-dns-change">HttpClient 無法反應 DNS 異動的解決方式</a> 的出現是因為工作任務需要將一些重要訊息傳送至 Slack 而留意到 .NET Core 使用的 HttpClientFactory 是改善過去 HttpClient 存在的一些問題，為了可以更完整理解 HttpClient 缺憾做得的一些紀錄</p>
 
 <p>既然對於 HttpClient 過去的問題有些認識後，當然還是得來搞清楚 HttpClientFactory 的內容囉</p>
 
@@ -211,7 +211,7 @@
 <li><p>透過增加 <code>PooledConnectionLifetime</code> 屬性來處理 <code>ServicePointManager.ConnectionLeaseTimeout</code></p>
 
 <blockquote>
-<p>過去在 .NET Framework 上可以透過指定 <code>DefaultRequestHeaders.ConnectionClose</code> 設定為 <code>true</code> 或是修改 <code>ServicePointManager.ConnectionLeaseTimeout</code> 解決，詳細內容可以參考 <a href="https://blog.yowko.com/httpclient-not-respect-dns-change" target="_blank">HttpClient 無法反應 DNS 異動的解決方式</a></p>
+<p>過去在 .NET Framework 上可以透過指定 <code>DefaultRequestHeaders.ConnectionClose</code> 設定為 <code>true</code> 或是修改 <code>ServicePointManager.ConnectionLeaseTimeout</code> 解決，詳細內容可以參考 <a href="https://blog.yowko.com/httpclient-not-respect-dns-change">HttpClient 無法反應 DNS 異動的解決方式</a></p>
 </blockquote></li>
 
 <li><p>每次都取得新的 HttpClient instance 但成本最高的底層 HttpClientHandler 與 connection 則依生命周期決定由 pool 中或是建立新的 instance</p>
@@ -280,7 +280,7 @@
 <li><p>.NET Framework 4.7.2</p>
 
 <blockquote>
-<p>詳細使用方法請參考 <a href="https://blog.yowko.com/aspnet-core-di-httpclientfactory-in-aspnet-mvc-5" target="_blank">在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory</a></p>
+<p>詳細使用方法請參考 <a href="https://blog.yowko.com/aspnet-core-di-httpclientfactory-in-aspnet-mvc-5">在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory</a></p>
 </blockquote>
 
 <ul>
@@ -415,7 +415,7 @@ public HomeController(IHttpClientFactory clientFactory)
 
 <pre><code class="language-cs">services.AddHttpClient(&quot;yowkoblog&quot;, c =&gt;
 {
-    c.BaseAddress = new Uri(&quot;https://blog.yowko.com/&quot;);
+    c.BaseAddress = new Uri(&quot;/&quot;);
 });
 </code></pre></li>
 
@@ -455,7 +455,7 @@ var client = _clientFactory.CreateClient(&quot;yowkoblog&quot;);
 
     public YowkoBlogService(HttpClient client)
     {
-        client.BaseAddress = new Uri(&quot;https://blog.yowko.com&quot;);
+        client.BaseAddress = new Uri(&quot;&quot;);
                     
         Client = client;
     }
@@ -526,7 +526,7 @@ public HomeController(YowkoBlogService yowkoBlogService)
 
 <pre><code class="language-cs">services.AddHttpClient&lt;YowkoBlogService&gt;(c =&gt;
 {
-    c.BaseAddress = new Uri(&quot;https://blog.yowko.com&quot;);
+    c.BaseAddress = new Uri(&quot;&quot;);
 });
 </code></pre></li>
 
@@ -565,7 +565,7 @@ public HomeController(YowkoBlogService yowkoBlogService)
 
 <pre><code class="language-cs">services.AddHttpClient&lt;YowkoBlogService&gt;(c =&gt;
 {
-    c.BaseAddress = new Uri(&quot;https://blog.yowko.com&quot;);
+    c.BaseAddress = new Uri(&quot;&quot;);
 });
 </code></pre></li>
 
@@ -721,7 +721,7 @@ services.AddTransient&lt;InnerHandler&gt;();
 
 services.AddHttpClient(&quot;yowkoblog&quot;, c =&gt;
 {
-    c.BaseAddress = new Uri(&quot;https://blog.yowko.com&quot;);
+    c.BaseAddress = new Uri(&quot;&quot;);
         
 })
 // 註冊的順序會影響執行的順序
@@ -878,9 +878,9 @@ Policy
 <li><a href="https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests?WT.mc_id=DOP-MVP-5002594" target="_blank">Use HttpClientFactory to implement resilient HTTP requests</a></li>
 <li><a href="https://github.com/dotnet/corefx/issues/11224" target="_blank">Singleton HttpClient doesn&rsquo;t respect DNS changes</a></li>
 <li><a href="https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly?WT.mc_id=DOP-MVP-5002594" target="_blank">Implement HTTP call retries with exponential backoff with HttpClientFactory and Polly policies</a></li>
-<li><a href="https://blog.yowko.com/httpclient-issue/" target="_blank">探討 HttpClient 可能的問題</a></li>
-<li><a href="https://blog.yowko.com/httpclient-not-respect-dns-change" target="_blank">HttpClient 無法反應 DNS 異動的解決方式</a></li>
-<li><a href="https://blog.yowko.com/aspnet-core-di-httpclientfactory-in-aspnet-mvc-5" target="_blank">在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory</a></li>
+<li><a href="https://blog.yowko.com/httpclient-issue/">探討 HttpClient 可能的問題</a></li>
+<li><a href="https://blog.yowko.com/httpclient-not-respect-dns-change">HttpClient 無法反應 DNS 異動的解決方式</a></li>
+<li><a href="https://blog.yowko.com/aspnet-core-di-httpclientfactory-in-aspnet-mvc-5">在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory</a></li>
 </ol>
 
     </div>
@@ -893,7 +893,7 @@ Policy
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-09-01</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

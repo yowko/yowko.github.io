@@ -58,14 +58,14 @@
 <meta property="og:description" content="在 CentOS 上使用 Kafkacat 之前筆記 在CentOS 上安裝 Apache Kafka cluster 與 在 CentOS 上安裝 Apache Kafka cluster - One Script 都紀錄到如何在 CentOS 上安裝 Apache Kafka，不過順利安裝與成功安裝還是存在差異" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/centos-kafkacat/" /><meta property="article:published_time" content="2019-12-01T10:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-12-01T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="在 CentOS 上使用 Kafkacat">
 <meta itemprop="description" content="在 CentOS 上使用 Kafkacat 之前筆記 在CentOS 上安裝 Apache Kafka cluster 與 在 CentOS 上安裝 Apache Kafka cluster - One Script 都紀錄到如何在 CentOS 上安裝 Apache Kafka，不過順利安裝與成功安裝還是存在差異">
 
 
 <meta itemprop="datePublished" content="2019-12-01T10:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-12-01T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="562">
 
 
@@ -184,7 +184,7 @@
 
 <h2 id="在-centos-上使用-kafkacat">在 CentOS 上使用 Kafkacat</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/kafka-cluster-centos/" target="_blank">在CentOS 上安裝 Apache Kafka cluster</a> 與 <a href="https://blog.yowko.com/kafka-cluster-centos-script/" target="_blank">在 CentOS 上安裝 Apache Kafka cluster - One Script</a> 都紀錄到如何在 CentOS 上安裝 Apache Kafka，不過順利安裝與成功安裝還是存在差異的，過去我都是直接透過 Kafka 內建的 cli 工具來進行驗證不需要額外下載安裝其他工具，只是最近搭配 Kubernetes 使用時常會有需要確認連線的情境，這時候再下載完整的 Kafka 似乎顯得多餘，今天就來紀錄一下如何在 CentOS 上使用 Kafkacat</p>
+<p>之前筆記 <a href="https://blog.yowko.com/kafka-cluster-centos/">在CentOS 上安裝 Apache Kafka cluster</a> 與 <a href="https://blog.yowko.com/kafka-cluster-centos-script/">在 CentOS 上安裝 Apache Kafka cluster - One Script</a> 都紀錄到如何在 CentOS 上安裝 Apache Kafka，不過順利安裝與成功安裝還是存在差異的，過去我都是直接透過 Kafka 內建的 cli 工具來進行驗證不需要額外下載安裝其他工具，只是最近搭配 Kubernetes 使用時常會有需要確認連線的情境，這時候再下載完整的 Kafka 似乎顯得多餘，今天就來紀錄一下如何在 CentOS 上使用 Kafkacat</p>
 
 <p>Kafkacat 是由 c 語言開發的 Kafka client，不需要 Java，非常輕巧，在 debian、Ubuntu 可以使用 <code>apt-get install kafkacat</code> 進行安裝，而 macOS 上可以透過 <code>brew install kafkacat</code> 安裝，而對於 centOS 就沒那麼 friendly 了，這也是今天會紀錄的原因</p>
 
@@ -262,7 +262,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-12-01</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

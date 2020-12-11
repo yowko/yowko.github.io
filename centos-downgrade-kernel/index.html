@@ -58,14 +58,14 @@
 <meta property="og:description" content="CentOS 8 降級 Linux Kernel 5 之前筆記 CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5 興高采烈地把環境升級到最新版本：CentOS 8 &#43; Linux Kernel 5.9.1，結果遇到 Ansible 的 service module 出現 Service is in unknown" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/centos-downgrade-kernel/" /><meta property="article:published_time" content="2020-10-22T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-10-22T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="CentOS 8 降級 Linux Kernel 5">
 <meta itemprop="description" content="CentOS 8 降級 Linux Kernel 5 之前筆記 CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5 興高采烈地把環境升級到最新版本：CentOS 8 &#43; Linux Kernel 5.9.1，結果遇到 Ansible 的 service module 出現 Service is in unknown">
 
 
 <meta itemprop="datePublished" content="2020-10-22T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-10-22T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="387">
 
 
@@ -184,7 +184,7 @@
 
 <h2 id="centos-8-降級-linux-kernel-5">CentOS 8 降級 Linux Kernel 5</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/centos7-upgrade-centos8-linux-kernel5/" target="_blank">CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5</a> 興高采烈地把環境升級到最新版本：CentOS 8 + Linux Kernel 5.9.1，結果遇到 Ansible 的 service module 出現 <code>Service is in unknown state</code> 的 issue，據 GitHub 上的討論串 <a href="https://github.com/ansible/ansible/issues/71528" target="_blank">Service is in unknown state</a> 看來並沒有真的解決，所以決定先降版，快速紀錄一下過程與語法</p>
+<p>之前筆記 <a href="https://blog.yowko.com/centos7-upgrade-centos8-linux-kernel5/">CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5</a> 興高采烈地把環境升級到最新版本：CentOS 8 + Linux Kernel 5.9.1，結果遇到 Ansible 的 service module 出現 <code>Service is in unknown state</code> 的 issue，據 GitHub 上的討論串 <a href="https://github.com/ansible/ansible/issues/71528" target="_blank">Service is in unknown state</a> 看來並沒有真的解決，所以決定先降版，快速紀錄一下過程與語法</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -275,7 +275,7 @@ ipv4.method auto
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/centos7-upgrade-centos8-linux-kernel5/" target="_blank">CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5</a></li>
+<li><a href="https://blog.yowko.com/centos7-upgrade-centos8-linux-kernel5/">CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5</a></li>
 <li><a href="https://github.com/ansible/ansible/issues/71528" target="_blank">Service is in unknown state</a></li>
 <li><a href="http://repos.ord.lax-noc.com/elrepo/archive/kernel/el8/x86_64/RPMS/" target="_blank">Index of /elrepo/archive/kernel/el8/x86_64/RPMS/</a></li>
 </ol>
@@ -290,7 +290,7 @@ ipv4.method auto
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-10-22</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

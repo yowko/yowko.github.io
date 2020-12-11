@@ -58,14 +58,14 @@
 <meta property="og:description" content="C# 使用 Lua 取得 Redis 自訂複雜型別 之前筆記 在 Redis 中使用 Lua 的 Dictionary 紀錄到在 Redis 中使用 Lua 時可以如何模擬並使用 Dictionary，而筆記最後也提到透過這樣的方式" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/csharp-lua-redis-custom-type/" /><meta property="article:published_time" content="2019-12-09T22:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2016-12-09T22:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T22:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="C# 使用 Lua 取得 Redis 自訂複雜型別">
 <meta itemprop="description" content="C# 使用 Lua 取得 Redis 自訂複雜型別 之前筆記 在 Redis 中使用 Lua 的 Dictionary 紀錄到在 Redis 中使用 Lua 時可以如何模擬並使用 Dictionary，而筆記最後也提到透過這樣的方式">
 
 
 <meta itemprop="datePublished" content="2019-12-09T22:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2016-12-09T22:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T22:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="1420">
 
 
@@ -185,7 +185,7 @@
 
 <h2 id="c-使用-lua-取得-redis-自訂複雜型別">C# 使用 Lua 取得 Redis 自訂複雜型別</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/redis-lua-dcitionary/" target="_blank">在 Redis 中使用 Lua 的 Dictionary</a> 紀錄到在 Redis 中使用 Lua 時可以如何模擬並使用 Dictionary，而筆記最後也提到透過這樣的方式處理時，Lua 的回傳值會不如預期，所以今天要來紀錄個人的做法，但我無法確定是不是最好的方法 XD，有錯請大家指教了</p>
+<p>之前筆記 <a href="https://blog.yowko.com/redis-lua-dcitionary/">在 Redis 中使用 Lua 的 Dictionary</a> 紀錄到在 Redis 中使用 Lua 時可以如何模擬並使用 Dictionary，而筆記最後也提到透過這樣的方式處理時，Lua 的回傳值會不如預期，所以今天要來紀錄個人的做法，但我無法確定是不是最好的方法 XD，有錯請大家指教了</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -217,7 +217,7 @@
 
 <h2 id="原始-lua-內容">原始 lua 內容</h2>
 
-<p>詳細內容可以參考 <a href="https://blog.yowko.com/redis-lua-dcitionary/" target="_blank">在 Redis 中使用 Lua 的 Dictionary</a></p>
+<p>詳細內容可以參考 <a href="https://blog.yowko.com/redis-lua-dcitionary/">在 Redis 中使用 Lua 的 Dictionary</a></p>
 
 <pre><code class="language-lua">local allUsersKey=&quot;users&quot;
 local userdataPrefixKey=&quot;userdata&quot;
@@ -367,7 +367,7 @@ return cmsgpack.pack(results)
 <li><p>轉換程式</p>
 
 <blockquote>
-<p>相關詳細說明可以參考之前筆記 <a href="https://blog.yowko.com/property-value-dictionary-to-object/" target="_blank">C# - Property 與 Value 的 Dictionary 轉為 Object</a></p>
+<p>相關詳細說明可以參考之前筆記 <a href="https://blog.yowko.com/property-value-dictionary-to-object/">C# - Property 與 Value 的 Dictionary 轉為 Object</a></p>
 </blockquote>
 
 <pre><code class="language-cs">private static T DictionaryToObject&lt;T&gt;(IDictionary&lt;String, Object&gt; dictionary) where T : class, new()
@@ -462,7 +462,7 @@ Console.WriteLine(JsonConvert.SerializeObject(outputResult));
 
 <ol>
 <li><a href="https://redis.io/commands/eval" target="_blank">EVAL script numkeys key [key &hellip;] arg [arg &hellip;]</a></li>
-<li><a href="https://blog.yowko.com/property-value-dictionary-to-object/" target="_blank">C# - Property 與 Value 的 Dictionary 轉為 Object</a></li>
+<li><a href="https://blog.yowko.com/property-value-dictionary-to-object/">C# - Property 與 Value 的 Dictionary 轉為 Object</a></li>
 </ol>
 
     </div>
@@ -475,7 +475,7 @@ Console.WriteLine(JsonConvert.SerializeObject(outputResult));
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2016-12-09</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

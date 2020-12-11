@@ -58,14 +58,14 @@
 <meta property="og:description" content="從 Empty 建立 ASP.NET Core Web API 之前曾經在筆記 建立ASP.NET Web API 專案的幾種方式- Yowko&rsquo;s Notes 提到專案的起源分為兩派： 使用 Empty 專案範本再手動安裝需要的 framework 直接使用需要" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/add-webapi-to-aspdotnetcore-empty/" /><meta property="article:published_time" content="2019-06-29T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-09-01T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="從 Empty 建立 ASP.NET Core Web API">
 <meta itemprop="description" content="從 Empty 建立 ASP.NET Core Web API 之前曾經在筆記 建立ASP.NET Web API 專案的幾種方式- Yowko&rsquo;s Notes 提到專案的起源分為兩派： 使用 Empty 專案範本再手動安裝需要的 framework 直接使用需要">
 
 
 <meta itemprop="datePublished" content="2019-06-29T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-09-01T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="638">
 
 
@@ -182,7 +182,7 @@
 
 <h1 id="從-empty-建立-asp-net-core-web-api">從 Empty 建立 ASP.NET Core Web API</h1>
 
-<p>之前曾經在筆記 <a href="https://blog.yowko.com/create-aspnet-web-api/" target="_blank">建立ASP.NET Web API 專案的幾種方式- Yowko&rsquo;s Notes</a> 提到專案的起源分為兩派：</p>
+<p>之前曾經在筆記 <a href="https://blog.yowko.com/create-aspnet-web-api/">建立ASP.NET Web API 專案的幾種方式- Yowko&rsquo;s Notes</a> 提到專案的起源分為兩派：</p>
 
 <ol>
 <li>使用 Empty 專案範本再手動安裝需要的 framework</li>
@@ -237,7 +237,7 @@
 </code></pre>
 
 <blockquote>
-<p>該用 <code>AddMvc()</code> or <code>AddMvcCore()</code> 可以參考之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore" target="_blank">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</a></p>
+<p>該用 <code>AddMvc()</code> or <code>AddMvcCore()</code> 可以參考之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</a></p>
 </blockquote></li>
 
 <li><p>註冊 WebAPI Route</p>
@@ -272,7 +272,7 @@
 <li><p>新增 Controller 繼承自 <code>ControllerBase</code></p>
 
 <blockquote>
-<p>MVC 繼承自 <code>Controller</code> 而 Web API 只需繼承 <code>ControllerBase</code>，兩者差異可以參考之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-controller-controllerbase/" target="_blank">ASP.NET Core 中 Controller 與 ControllerBase 的差別</a></p>
+<p>MVC 繼承自 <code>Controller</code> 而 Web API 只需繼承 <code>ControllerBase</code>，兩者差異可以參考之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-controller-controllerbase/">ASP.NET Core 中 Controller 與 ControllerBase 的差別</a></p>
 </blockquote>
 
 <pre><code class="language-cs">using Microsoft.AspNetCore.Mvc;
@@ -302,9 +302,9 @@ namespace AddWebApiFromEmpty.Controllers
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore" target="_blank">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</a></li>
+<li><a href="https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore">ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別</a></li>
 <li><a href="https://www.iambacon.co.uk/blog/create-a-minimal-asp-net-core-2-0-mvc-web-application" target="_blank">Create a minimal ASP.NET Core 2.0 MVC web application</a></li>
-<li><a href="https://blog.yowko.com/aspdotnet-core-controller-controllerbase/" target="_blank">ASP.NET Core 中 Controller 與 ControllerBase 的差別</a></li>
+<li><a href="https://blog.yowko.com/aspdotnet-core-controller-controllerbase/">ASP.NET Core 中 Controller 與 ControllerBase 的差別</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/web-api/index?WT.mc_id=DOP-MVP-5002594" target="_blank">使用 ASP.NET Core 建立 Web API</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/first-web-api?WT.mc_id=DOP-MVP-5002594&amp;tabs=visual-studio#add-a-controller" target="_blank">教學課程：使用 ASP.NET Core MVC 建立 Web API</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/routing?WT.mc_id=DOP-MVP-5002594" target="_blank">ASP.NET Core 中的路由</a></li>
@@ -320,7 +320,7 @@ namespace AddWebApiFromEmpty.Controllers
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-09-01</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

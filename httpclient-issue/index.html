@@ -58,14 +58,14 @@
 <meta property="og:description" content="探討 HttpClient 可能的問題 印象中前幾年曾經看過有文章提到 HttpClient 雖然是 disposable 但透過 using 來使用 HttpClient 卻反而可能出現問題，當時覺得網路文章多數仍是使用 using，於是我抱" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/httpclient-issue/" /><meta property="article:published_time" content="2018-12-10T23:45:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-09-01T23:44:30&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T23:44:30&#43;08:00"/>
 
 <meta itemprop="name" content="探討 HttpClient 可能的問題">
 <meta itemprop="description" content="探討 HttpClient 可能的問題 印象中前幾年曾經看過有文章提到 HttpClient 雖然是 disposable 但透過 using 來使用 HttpClient 卻反而可能出現問題，當時覺得網路文章多數仍是使用 using，於是我抱">
 
 
 <meta itemprop="datePublished" content="2018-12-10T23:45:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-09-01T23:44:30&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T23:44:30&#43;08:00" />
 <meta itemprop="wordCount" content="1752">
 
 
@@ -287,7 +287,7 @@ Only one usage of each socket address (protocol/network address/port) is normall
                 <del>if (httpClient == null)</del>
                 <del>{</del>
                     <del>httpClient = new HttpClient();</del>
-                    <del>httpClient.BaseAddress = new Uri(&ldquo;<a href="https://blog.yowko.com/&quot;" target="_blank">https://blog.yowko.com/&quot;</a>);</del>
+                    <del>httpClient.BaseAddress = new Uri(&ldquo;/&rdquo;);</del>
                 <del>}</del>
             <del>}</del>
         <del>}</del>
@@ -307,7 +307,7 @@ Only one usage of each socket address (protocol/network address/port) is normall
 
 <pre><code class="language-cs">public sealed class HttpClientServiceA
 {
-    private static readonly HttpClient instance = new HttpClient() { BaseAddress = new Uri(&quot;https://blog.yowko.com/&quot;) };
+    private static readonly HttpClient instance = new HttpClient() { BaseAddress = new Uri(&quot;/&quot;) };
 
     static HttpClientServiceA()
     {
@@ -336,7 +336,7 @@ Only one usage of each socket address (protocol/network address/port) is normall
     private static readonly Lazy&lt;HttpClient&gt; lazy = new Lazy&lt;HttpClient&gt;(
     () =&gt; { 
             var result = new HttpClient();
-            result.BaseAddress = new Uri(&quot;https://blog.yowko.com/&quot;);
+            result.BaseAddress = new Uri(&quot;/&quot;);
             return result;
             });
     public static HttpClient Instance { get { return lazy.Value; } }
@@ -353,7 +353,7 @@ Only one usage of each socket address (protocol/network address/port) is normall
     static HttpClientServiceA()
     {
         _httpClient = new HttpClient();
-        _httpClient.BaseAddress = new Uri(&quot;https://blog.yowko.com/&quot;);
+        _httpClient.BaseAddress = new Uri(&quot;/&quot;);
     }
     public HttpClient HttpclientInstance = _httpClient;
 }
@@ -383,9 +383,9 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
 <li>重現問題流程
 
 <ul>
-<li>分別透過 using 與 singleton HttpClient 取得 <code>https://blog.yowko.com/</code> 內容</li>
-<li>修改 hosts file 將 <code>blog.yowko.com</code> 主機 ip 指向本機 (原理與修改方式可以參考之前筆記 <a href="https://blog.yowko.com/windows-host-file" target="_blank">在 Windows 環境將特定網址指向不同 IP</a>)</li>
-<li>重新透過 using 與 singleton HttpClient 取得 <code>https://blog.yowko.com/</code> 內容</li>
+<li>分別透過 using 與 singleton HttpClient 取得 <code>/</code> 內容</li>
+<li>修改 hosts file 將 <code>blog.yowko.com</code> 主機 ip 指向本機 (原理與修改方式可以參考之前筆記 <a href="https://blog.yowko.com/windows-host-file">在 Windows 環境將特定網址指向不同 IP</a>)</li>
+<li>重新透過 using 與 singleton HttpClient 取得 <code>/</code> 內容</li>
 </ul></li>
 
 <li><p>程式碼</p>
@@ -569,7 +569,7 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
 <li><a href="http://blog.jangmt.com/2010/10/netstat.html" target="_blank">netstat 指令用法,及狀態說明</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/dotnet/api/system.net.http.httpclient?WT.mc_id=DOP-MVP-5002594" target="_blank">HttpClient Class</a></li>
 <li><a href="https://blog.miniasp.com/post/2010/11/17/How-to-deal-with-TIME_WAIT-problem-under-Windows.aspx" target="_blank">在 Windows 上遇到非常多 TIME_WAIT 連線時應如何處理</a></li>
-<li><a href="https://blog.yowko.com/windows-host-file" target="_blank">在 Windows 環境將特定網址指向不同 IP</a></li>
+<li><a href="https://blog.yowko.com/windows-host-file">在 Windows 環境將特定網址指向不同 IP</a></li>
 </ol>
 
     </div>
@@ -582,7 +582,7 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-09-01</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

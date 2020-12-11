@@ -58,14 +58,14 @@
 <meta property="og:description" content="在 CentOS 7 上安裝 Redis Replication (Redis 5) 之前筆記 安裝 Redis 時遇到的錯誤排除 紀錄到安裝 Redis Replication 時的幾個可能遇到的錯誤，經過數日小弟終於完成了初版可以一次安裝多個 Redis Replication 與 sentinel 的" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/install-redis/" /><meta property="article:published_time" content="2020-02-12T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-02-12T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="在 CentOS 7 上安裝 Redis Replication (Redis 5)">
 <meta itemprop="description" content="在 CentOS 7 上安裝 Redis Replication (Redis 5) 之前筆記 安裝 Redis 時遇到的錯誤排除 紀錄到安裝 Redis Replication 時的幾個可能遇到的錯誤，經過數日小弟終於完成了初版可以一次安裝多個 Redis Replication 與 sentinel 的">
 
 
 <meta itemprop="datePublished" content="2020-02-12T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-02-12T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="1693">
 
 
@@ -183,9 +183,9 @@
 
 <h2 id="在-centos-7-上安裝-redis-replication-redis-5">在 CentOS 7 上安裝 Redis Replication (Redis 5)</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/install-redis-error" target="_blank">安裝 Redis 時遇到的錯誤排除</a> 紀錄到安裝 Redis Replication 時的幾個可能遇到的錯誤，經過數日小弟終於完成了初版可以一次安裝多個 Redis Replication 與 sentinel 的 shell script (雖說是初版，但這是我目前功力可以寫出的極限了XD，如果有大師指教才會調整)</p>
+<p>之前筆記 <a href="https://blog.yowko.com/install-redis-error">安裝 Redis 時遇到的錯誤排除</a> 紀錄到安裝 Redis Replication 時的幾個可能遇到的錯誤，經過數日小弟終於完成了初版可以一次安裝多個 Redis Replication 與 sentinel 的 shell script (雖說是初版，但這是我目前功力可以寫出的極限了XD，如果有大師指教才會調整)</p>
 
-<p>我主要會用 yum 來安裝 Redis，如果對於 yum 安裝 redis 不熟悉可以參考之前筆記 <a href="https://blog.yowko.com/yum-install-redis5" target="_blank">使用 Yum 安裝 Redis 5</a></p>
+<p>我主要會用 yum 來安裝 Redis，如果對於 yum 安裝 redis 不熟悉可以參考之前筆記 <a href="https://blog.yowko.com/yum-install-redis5">使用 Yum 安裝 Redis 5</a></p>
 
 <p>一直以來我就對 shell script 相當苦手，直到現在我還是搞不清楚 <code>()</code> 與 <code>(())</code>，<code>[]</code> 與 <code>[[]]</code> 到底差在哪兒，除此之外還有其他許多搞不清楚的地方：像是陣列的那些個功能、什麼時候變數應該要用 <code>&quot;&quot;</code> 包&hellip;.，不過因為功能比較重要，我就打算先記下來，有機會再請教同事</p>
 
@@ -541,7 +541,7 @@ main &quot;$@&quot;
 
 <p>寫完之後自我感覺良好呀，覺得我好像也會寫 shell script 了，哈哈</p>
 
-<p>雖然有著同事的精美範例，但還是因為 <a href="https://blog.yowko.com/install-redis-error" target="_blank">安裝 Redis 時遇到的錯誤排除</a> 的各種問題花了幾天的時間，語法的不熟悉也耗了不少時間，但終究是完成了一個可用版本，相當感謝同事</p>
+<p>雖然有著同事的精美範例，但還是因為 <a href="https://blog.yowko.com/install-redis-error">安裝 Redis 時遇到的錯誤排除</a> 的各種問題花了幾天的時間，語法的不熟悉也耗了不少時間，但終究是完成了一個可用版本，相當感謝同事</p>
 
 <p>上面的 shell script 雖說可以符合我的使用情境，但個人覺得還是有些不足的地方：</p>
 
@@ -557,8 +557,8 @@ main &quot;$@&quot;
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/install-redis-error" target="_blank">安裝 Redis 時遇到的錯誤排除</a></li>
-<li><a href="https://blog.yowko.com/yum-install-redis5" target="_blank">使用 Yum 安裝 Redis 5</a></li>
+<li><a href="https://blog.yowko.com/install-redis-error">安裝 Redis 時遇到的錯誤排除</a></li>
+<li><a href="https://blog.yowko.com/yum-install-redis5">使用 Yum 安裝 Redis 5</a></li>
 <li><a href="https://github.com/yowko/install-redis-replication" target="_blank">yowko/install-redis-replication</a></li>
 </ol>
 
@@ -572,7 +572,7 @@ main &quot;$@&quot;
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-02-12</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

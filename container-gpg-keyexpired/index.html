@@ -58,14 +58,14 @@
 <meta property="og:description" content="Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED 之前筆記 執行 apt-get update 時遇到 GPG KEYEXPIRED 紀錄到在使用 image : confluentinc/cp-kafka:5.5.0 建立 container 後需要安裝其他套件，但 apt-get update 卻遇到 GPG KEYEXPIRED 的錯誤，當時透過進到 container 中手動調整" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/container-gpg-keyexpired/" /><meta property="article:published_time" content="2020-07-26T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-07-26T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED">
 <meta itemprop="description" content="Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED 之前筆記 執行 apt-get update 時遇到 GPG KEYEXPIRED 紀錄到在使用 image : confluentinc/cp-kafka:5.5.0 建立 container 後需要安裝其他套件，但 apt-get update 卻遇到 GPG KEYEXPIRED 的錯誤，當時透過進到 container 中手動調整">
 
 
 <meta itemprop="datePublished" content="2020-07-26T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-07-26T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="708">
 
 
@@ -184,7 +184,7 @@
 
 <h2 id="container-中執行-apt-get-update-時遇到-gpg-keyexpired">Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/debian-keyexpired/" target="_blank">執行 apt-get update 時遇到 GPG KEYEXPIRED</a> 紀錄到在使用 image : <code>confluentinc/cp-kafka:5.5.0</code> 建立 container 後需要安裝其他套件，但 apt-get update 卻遇到 GPG KEYEXPIRED 的錯誤，當時透過進到 container 中手動調整 source 的內容，但這樣一來對於常要重建環境的我來說，實在有些困擾：每次重建環境有問題，需要 debug 時就要進到 container 中手動調整，所以我興起了直接修改 image 的想法，簡單紀錄一下</p>
+<p>之前筆記 <a href="https://blog.yowko.com/debian-keyexpired/">執行 apt-get update 時遇到 GPG KEYEXPIRED</a> 紀錄到在使用 image : <code>confluentinc/cp-kafka:5.5.0</code> 建立 container 後需要安裝其他套件，但 apt-get update 卻遇到 GPG KEYEXPIRED 的錯誤，當時透過進到 container 中手動調整 source 的內容，但這樣一來對於常要重建環境的我來說，實在有些困擾：每次重建環境有問題，需要 debug 時就要進到 container 中手動調整，所以我興起了直接修改 image 的想法，簡單紀錄一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -365,7 +365,7 @@ CMD [&quot;/etc/confluent/docker/run&quot;]
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-07-26</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

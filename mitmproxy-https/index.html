@@ -58,15 +58,15 @@
 <meta property="og:description" content="Mitmproxy 啟用 Https 之前筆記 安裝 Mitmproxy 提到 Mitmproxy 在存取 https 資源時會出現問題，雖然在 curl 使用時加上 --insecure 或是 -k 就可以避免問題，但是總覺得麻煩也不夠漂亮，所以順手紀錄解決方" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/mitmproxy-https/" /><meta property="article:published_time" content="2020-06-21T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-06-21T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="Mitmproxy 啟用 Https">
 <meta itemprop="description" content="Mitmproxy 啟用 Https 之前筆記 安裝 Mitmproxy 提到 Mitmproxy 在存取 https 資源時會出現問題，雖然在 curl 使用時加上 --insecure 或是 -k 就可以避免問題，但是總覺得麻煩也不夠漂亮，所以順手紀錄解決方">
 
 
 <meta itemprop="datePublished" content="2020-06-21T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-06-21T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="376">
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="375">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-06-21 </span>
         
-        <span class="more-meta"> 約 376 字 </span>
+        <span class="more-meta"> 約 375 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -184,7 +184,7 @@
 
 <h2 id="mitmproxy-啟用-https">Mitmproxy 啟用 Https</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/mitmproxy" target="_blank">安裝 Mitmproxy</a> 提到 Mitmproxy 在存取 https 資源時會出現問題，雖然在 curl 使用時加上 <code>--insecure</code> 或是 <code>-k</code> 就可以避免問題，但是總覺得麻煩也不夠漂亮，所以順手紀錄解決方式囉</p>
+<p>之前筆記 <a href="https://blog.yowko.com/mitmproxy">安裝 Mitmproxy</a> 提到 Mitmproxy 在存取 https 資源時會出現問題，雖然在 curl 使用時加上 <code>--insecure</code> 或是 <code>-k</code> 就可以避免問題，但是總覺得麻煩也不夠漂亮，所以順手紀錄解決方式囉</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -225,7 +225,7 @@ update-ca-trust extract
 <ul>
 <li><p>提示訊息</p>
 
-<pre><code class="language-txt">[root@blogdemo ~]# curl -x localhost:8080 -L https://blog.yowko.com
+<pre><code class="language-txt">[root@blogdemo ~]# curl -x localhost:8080 -L 
 curl: (60) Peer's certificate issuer has been marked as not trusted by the user.
 More details here: http://curl.haxx.se/docs/sslcerts.html
 
@@ -259,7 +259,7 @@ If you'd like to turn off curl's verification of the certificate, use
 
 <ol>
 <li><a href="https://zhuanlan.zhihu.com/p/88462295" target="_blank">mitmproxy 安装指南</a></li>
-<li><a href="https://blog.yowko.com/mitmproxy" target="_blank">安裝 Mitmproxy</a></li>
+<li><a href="https://blog.yowko.com/mitmproxy">安裝 Mitmproxy</a></li>
 </ol>
 
     </div>
@@ -272,7 +272,7 @@ If you'd like to turn off curl's verification of the certificate, use
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-06-21</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

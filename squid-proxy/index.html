@@ -58,14 +58,14 @@
 <meta property="og:description" content="安裝 Squid Proxy 專案有個需求是跟 partner 之間的溝通只限定於註冊過的 server ip，雖然在資安的考量下是很常見的做法，但對於實際的營運上不免會有些限制：像是如果只綁" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/squid-proxy/" /><meta property="article:published_time" content="2020-06-13T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-06-13T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="安裝 Squid Proxy">
 <meta itemprop="description" content="安裝 Squid Proxy 專案有個需求是跟 partner 之間的溝通只限定於註冊過的 server ip，雖然在資安的考量下是很常見的做法，但對於實際的營運上不免會有些限制：像是如果只綁">
 
 
 <meta itemprop="datePublished" content="2020-06-13T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-06-13T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="1025">
 
 
@@ -318,12 +318,12 @@ refresh_pattern .       0   20% 4320
 <ol>
 <li><p>一般存取網頁</p>
 
-<pre><code class="language-bash">curl -L https://blog.yowko.com/
+<pre><code class="language-bash">curl -L /
 </code></pre></li>
 
 <li><p>確認透過 squid proxy 存取正常</p>
 
-<pre><code class="language-bash">curl -x http://127.0.0.1:3128 -L https://blog.yowko.com/
+<pre><code class="language-bash">curl -x http://127.0.0.1:3128 -L /
 </code></pre></li>
 
 <li><p>檢視 squid log 的存取紀錄</p>
@@ -393,14 +393,14 @@ iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 3129
 
 <h2 id="心得">心得</h2>
 
-<p>經由簡單的設定，現在有了一個簡易的 proxy server，不過這個 proxy server 在 transparent mode 下因為 https 關係會出現錯誤，接著我們再來看看如何設定 https 的解析吧 - <a href="https://blog.yowko.com/squid-proxy-https" target="_blank">Squid Proxy Https 設定</a></p>
+<p>經由簡單的設定，現在有了一個簡易的 proxy server，不過這個 proxy server 在 transparent mode 下因為 https 關係會出現錯誤，接著我們再來看看如何設定 https 的解析吧 - <a href="https://blog.yowko.com/squid-proxy-https">Squid Proxy Https 設定</a></p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
 <li><a href="https://www.reddit.com/r/sysadmin/comments/a67hly/squid_proxy_a_short_guide_forward_transparent/" target="_blank">Squid proxy - a short guide (forward &amp; transparent proxy examples, SSL bumping, links to guides)</a></li>
 <li><a href="http://www.squid-cache.org/Versions/v3/3.5/cfgman/http_port.html" target="_blank">http_port</a></li>
-<li><a href="https://blog.yowko.com/squid-proxy-https" target="_blank">Squid Proxy Https 設定</a></li>
+<li><a href="https://blog.yowko.com/squid-proxy-https">Squid Proxy Https 設定</a></li>
 </ol>
 
     </div>
@@ -413,7 +413,7 @@ iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 3129
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-06-13</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

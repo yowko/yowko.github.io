@@ -58,14 +58,14 @@
 <meta property="og:description" content="Redis Rename Config 後 Sentinel 無法正確執行 Failover 有些 Redis command (e.g. KEYS,SAVE) 在執行時會 block 其他操作，在 Redis 用量小時不明顯，但 Redis 日漸龐大後，執行這些 command 時會讓 Redis 被 block 的時間愈來愈長，最後可能" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/redis-rename-config-sentinel-not-work/" /><meta property="article:published_time" content="2020-02-16T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-02-16T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="Redis Rename Config 後 Sentinel 無法正確執行 Failover">
 <meta itemprop="description" content="Redis Rename Config 後 Sentinel 無法正確執行 Failover 有些 Redis command (e.g. KEYS,SAVE) 在執行時會 block 其他操作，在 Redis 用量小時不明顯，但 Redis 日漸龐大後，執行這些 command 時會讓 Redis 被 block 的時間愈來愈長，最後可能">
 
 
 <meta itemprop="datePublished" content="2020-02-16T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-02-16T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="781">
 
 
@@ -206,7 +206,7 @@
 <li><p>安裝 Redis Replication (1 master、1 slave、3 sentinel)</p>
 
 <blockquote>
-<p>使用 <a href="https://blog.yowko.com/install-redis" target="_blank">在 CentOS 7 上安裝 Redis Replication (Redis 5)</a> or <a href="https://blog.yowko.com/ansible-install-redis" target="_blank">使用 Ansible 安裝 Redis Replication</a> 安裝，而且停用了 <code>CONFIG</code> (<code>rename-command CONFIG &quot;&quot;</code>)</p>
+<p>使用 <a href="https://blog.yowko.com/install-redis">在 CentOS 7 上安裝 Redis Replication (Redis 5)</a> or <a href="https://blog.yowko.com/ansible-install-redis">使用 Ansible 安裝 Redis Replication</a> 安裝，而且停用了 <code>CONFIG</code> (<code>rename-command CONFIG &quot;&quot;</code>)</p>
 </blockquote></li>
 
 <li><p>測試 failover 時，slave 無法順利成為 master</p>
@@ -292,8 +292,8 @@
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/install-redis" target="_blank">在 CentOS 7 上安裝 Redis Replication (Redis 5)</a></li>
-<li><a href="https://blog.yowko.com/ansible-install-redis" target="_blank">使用 Ansible 安裝 Redis Replication</a></li>
+<li><a href="https://blog.yowko.com/install-redis">在 CentOS 7 上安裝 Redis Replication (Redis 5)</a></li>
+<li><a href="https://blog.yowko.com/ansible-install-redis">使用 Ansible 安裝 Redis Replication</a></li>
 <li><a href="https://github.com/antirez/redis/issues/2733#issuecomment-495170882" target="_blank">Sentinel and renamed CONFIG command</a></li>
 <li><a href="https://github.com/antirez/redis/issues/5092#issuecomment-402231232" target="_blank">Rename of SENTINEL command breaks redis-server auto failover to slave</a></li>
 </ol>
@@ -308,7 +308,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-02-16</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

@@ -58,14 +58,14 @@
 <meta property="og:description" content="Mitmproxy 啟用 Transparent mode 之前筆記 安裝 Squid Proxy 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/mitmproxy-transparent/" /><meta property="article:published_time" content="2020-06-25T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-06-25T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="Mitmproxy 啟用 Transparent mode">
 <meta itemprop="description" content="Mitmproxy 啟用 Transparent mode 之前筆記 安裝 Squid Proxy 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特">
 
 
 <meta itemprop="datePublished" content="2020-06-25T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-06-25T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="672">
 
 
@@ -183,7 +183,7 @@
 
 <h2 id="mitmproxy-啟用-transparent-mode">Mitmproxy 啟用 Transparent mode</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/squid-proxy" target="_blank">安裝 Squid Proxy</a> 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特定 request，今天就來紀錄一下 Mitmproxy 如何設定 trasparnet mode</p>
+<p>之前筆記 <a href="https://blog.yowko.com/squid-proxy">安裝 Squid Proxy</a> 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特定 request，今天就來紀錄一下 Mitmproxy 如何設定 trasparnet mode</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -249,7 +249,7 @@ ip6tables -t nat -A OUTPUT -p tcp -m owner ! --uid-owner mitmproxyuser --dport 4
 <li><p>複製憑證</p>
 
 <blockquote>
-<p>將之前筆記 <a href="https://blog.yowko.com/mitmproxy-https" target="_blank">Mitmproxy 啟用 Https</a> 建立的憑證複製新建立的 mitmproxy 執行 user 預設目錄中</p>
+<p>將之前筆記 <a href="https://blog.yowko.com/mitmproxy-https">Mitmproxy 啟用 Https</a> 建立的憑證複製新建立的 mitmproxy 執行 user 預設目錄中</p>
 </blockquote>
 
 <pre><code class="language-bash">/bin/cp ~/.mitmproxy/*.* /home/mitmproxyuser/.mitmproxy/
@@ -264,15 +264,15 @@ ip6tables -t nat -A OUTPUT -p tcp -m owner ! --uid-owner mitmproxyuser --dport 4
 
 <h2 id="心得">心得</h2>
 
-<p>不確定是不是我設定的情境比較特別，找了些文章都沒有解決我的問題：<code>curl</code> https resource 會出現憑證驗證失敗，雖然在執行 curl 時加上 <code>-k</code> 或是 <code>--insecure</code> 就可以暫時避開問題，但就是覺得不夠漂亮，最後才試出複製憑證的方法，不過我還是沒有很清楚整個機制，大意上跟 <a href="https://blog.yowko.com/mitmproxy-https" target="_blank">Mitmproxy 啟用 Https</a> 的流程相同，而不同 user 會讀取不同的憑證路徑，所以將建立過的憑證複製至新 user 的憑證位置就可以了</p>
+<p>不確定是不是我設定的情境比較特別，找了些文章都沒有解決我的問題：<code>curl</code> https resource 會出現憑證驗證失敗，雖然在執行 curl 時加上 <code>-k</code> 或是 <code>--insecure</code> 就可以暫時避開問題，但就是覺得不夠漂亮，最後才試出複製憑證的方法，不過我還是沒有很清楚整個機制，大意上跟 <a href="https://blog.yowko.com/mitmproxy-https">Mitmproxy 啟用 Https</a> 的流程相同，而不同 user 會讀取不同的憑證路徑，所以將建立過的憑證複製至新 user 的憑證位置就可以了</p>
 
 <p>但最後還是沒有選用 mitmproxy，原因是 mitmproxy 不支援同時使用 upstream 跟 transparent</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/squid-proxy" target="_blank">安裝 Squid Proxy</a></li>
-<li><a href="https://blog.yowko.com/mitmproxy-https" target="_blank">Mitmproxy 啟用 Https</a></li>
+<li><a href="https://blog.yowko.com/squid-proxy">安裝 Squid Proxy</a></li>
+<li><a href="https://blog.yowko.com/mitmproxy-https">Mitmproxy 啟用 Https</a></li>
 <li><a href="https://docs.mitmproxy.org/stable/howto-transparent/" target="_blank">Transparent Proxying</a></li>
 </ol>
 
@@ -286,7 +286,7 @@ ip6tables -t nat -A OUTPUT -p tcp -m owner ! --uid-owner mitmproxyuser --dport 4
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-06-25</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

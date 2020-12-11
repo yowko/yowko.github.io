@@ -58,15 +58,15 @@
 <meta property="og:description" content="安裝 Mitmproxy 之前筆記 安裝 Squid Proxy 提到為了加強與 Partner 間資料介接交換時的安全性，所以在 server 間會需要互相 trust ip，但這麼一來在業務增長時就會失去彈性，所以打算透過" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/mitmproxy/" /><meta property="article:published_time" content="2020-06-20T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-06-20T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="安裝 Mitmproxy">
 <meta itemprop="description" content="安裝 Mitmproxy 之前筆記 安裝 Squid Proxy 提到為了加強與 Partner 間資料介接交換時的安全性，所以在 server 間會需要互相 trust ip，但這麼一來在業務增長時就會失去彈性，所以打算透過">
 
 
 <meta itemprop="datePublished" content="2020-06-20T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-06-20T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="592">
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="591">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-06-20 </span>
         
-        <span class="more-meta"> 約 592 字 </span>
+        <span class="more-meta"> 約 591 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -184,11 +184,11 @@
 
 <h2 id="安裝-mitmproxy">安裝 Mitmproxy</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/squid-proxy" target="_blank">安裝 Squid Proxy</a> 提到為了加強與 Partner 間資料介接交換時的安全性，所以在 server 間會需要互相 trust ip，但這麼一來在業務增長時就會失去彈性，所以打算透過加入 proxy server 來進行 trust，讓後續可能新加入的 server 只要透過該 proxy server 就可以正常運作</p>
+<p>之前筆記 <a href="https://blog.yowko.com/squid-proxy">安裝 Squid Proxy</a> 提到為了加強與 Partner 間資料介接交換時的安全性，所以在 server 間會需要互相 trust ip，但這麼一來在業務增長時就會失去彈性，所以打算透過加入 proxy server 來進行 trust，讓後續可能新加入的 server 只要透過該 proxy server 就可以正常運作</p>
 
-<p>嘗試過 <code>Squid</code>，設定方式可以參考 <a href="https://blog.yowko.com/squid-proxy" target="_blank">安裝 Squid Proxy</a> 與 <a href="https://blog,yowko.com/squid-proxy-https" target="_blank">Squid Proxy Https 設定</a>，但因為 <code>Squid</code> 不支援 https 轉發 http，在使用上有限制，所以今天就來試試 <code>Mitmproxy</code></p>
+<p>嘗試過 <code>Squid</code>，設定方式可以參考 <a href="https://blog.yowko.com/squid-proxy">安裝 Squid Proxy</a> 與 <a href="https://blog,yowko.com/squid-proxy-https" target="_blank">Squid Proxy Https 設定</a>，但因為 <code>Squid</code> 不支援 https 轉發 http，在使用上有限制，所以今天就來試試 <code>Mitmproxy</code></p>
 
-<p>說到 <code>Mitmproxy</code>，其實也不算陌生，之前在 <a href="https://blog.yowko.com/ios-private-domain/" target="_blank">讓iOS 裝置可以存取自訂domain - Yowko&rsquo;s Notes</a> 就是透過這套工具來達成目的，而這次情境比較正式，改用安裝實體服務方式來紀錄</p>
+<p>說到 <code>Mitmproxy</code>，其實也不算陌生，之前在 <a href="https://blog.yowko.com/ios-private-domain/">讓iOS 裝置可以存取自訂domain - Yowko&rsquo;s Notes</a> 就是透過這套工具來達成目的，而這次情境比較正式，改用安裝實體服務方式來紀錄</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -256,7 +256,7 @@ python3 -m pipx ensurepath
 
 <li><p>藉由 mitmproxy 存取 web page</p>
 
-<pre><code class="language-bash">curl -x localhost:9000 -k -L https://blog.yowko.com
+<pre><code class="language-bash">curl -x localhost:9000 -k -L 
 </code></pre></li>
 
 <li><p>測試結果</p>
@@ -275,9 +275,9 @@ python3 -m pipx ensurepath
 </ol>
 
 <ul>
-<li><p>log 處理方式請參考 <a href="https://blog.yowko.com/mitmproxy-log-to-file" target="_blank">將 Mitmproxy log 存至檔案</a></p></li>
+<li><p>log 處理方式請參考 <a href="https://blog.yowko.com/mitmproxy-log-to-file">將 Mitmproxy log 存至檔案</a></p></li>
 
-<li><p>https 請參考 <a href="https://blog.yowko.com/mitmproxy-https" target="_blank">Mitmproxy 啟用 Https</a></p></li>
+<li><p>https 請參考 <a href="https://blog.yowko.com/mitmproxy-https">Mitmproxy 啟用 Https</a></p></li>
 </ul>
 
 <h2 id="參考資訊">參考資訊</h2>
@@ -285,11 +285,11 @@ python3 -m pipx ensurepath
 <ol>
 <li><a href="https://mitmproxy.org/" target="_blank">mitmproxy</a></li>
 <li><a href="https://docs.mitmproxy.org/stable/overview-installation/#installation-from-the-python-package-index-pypi" target="_blank">Installation</a></li>
-<li><a href="https://blog.yowko.com/squid-proxy" target="_blank">安裝 Squid Proxy</a></li>
+<li><a href="https://blog.yowko.com/squid-proxy">安裝 Squid Proxy</a></li>
 <li><a href="https://blog,yowko.com/squid-proxy-https" target="_blank">Squid Proxy Https 設定</a></li>
-<li><a href="https://blog.yowko.com/ios-private-domain/" target="_blank">讓iOS 裝置可以存取自訂domain - Yowko&rsquo;s Notes</a></li>
-<li><a href="https://blog.yowko.com/mitmproxy-log-to-file" target="_blank">將 Mitmproxy log 存至檔案</a></li>
-<li><a href="https://blog.yowko.com/mitmproxy-https" target="_blank">Mitmproxy 啟用 Https</a></li>
+<li><a href="https://blog.yowko.com/ios-private-domain/">讓iOS 裝置可以存取自訂domain - Yowko&rsquo;s Notes</a></li>
+<li><a href="https://blog.yowko.com/mitmproxy-log-to-file">將 Mitmproxy log 存至檔案</a></li>
+<li><a href="https://blog.yowko.com/mitmproxy-https">Mitmproxy 啟用 Https</a></li>
 </ol>
 
     </div>
@@ -302,7 +302,7 @@ python3 -m pipx ensurepath
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-06-20</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

@@ -58,14 +58,14 @@
 <meta property="og:description" content="[C#] 將 .NET Core 中的 Configuration 輸出為 JSON 之前筆記 [C#] 將 Dictionary 轉為 JSON 紀錄到 將 Dictionary 轉為 JSON 的方式，對 .NET Core 有些認識的朋友馬上就想到是為了處理 .NET Core Configuration，主" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/configuration-to-json/" /><meta property="article:published_time" content="2020-02-08T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-09-01T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="[C#] 將 .NET Core 中的 Configuration 輸出為 JSON">
 <meta itemprop="description" content="[C#] 將 .NET Core 中的 Configuration 輸出為 JSON 之前筆記 [C#] 將 Dictionary 轉為 JSON 紀錄到 將 Dictionary 轉為 JSON 的方式，對 .NET Core 有些認識的朋友馬上就想到是為了處理 .NET Core Configuration，主">
 
 
 <meta itemprop="datePublished" content="2020-02-08T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-09-01T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="612">
 
 
@@ -183,7 +183,7 @@
 
 <h2 id="c-將-net-core-中的-configuration-輸出為-json">[C#] 將 .NET Core 中的 Configuration 輸出為 JSON</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/dictionary-to-json" target="_blank">[C#] 將 Dictionary 轉為 JSON</a> 紀錄到 將 Dictionary 轉為 JSON 的方式，對 .NET Core 有些認識的朋友馬上就想到是為了處理 .NET Core Configuration，主要需求就是將搭配不同環境 build 完的最終版 Configuration 存回 JSON 之中，因為沒找到方法所以只好硬來，同事看完後覺得可以試試 Configuration.GetSection 遞迴方式來處理可能會簡單些，既然有方向就來試試囉</p>
+<p>之前筆記 <a href="https://blog.yowko.com/dictionary-to-json">[C#] 將 Dictionary 轉為 JSON</a> 紀錄到 將 Dictionary 轉為 JSON 的方式，對 .NET Core 有些認識的朋友馬上就想到是為了處理 .NET Core Configuration，主要需求就是將搭配不同環境 build 完的最終版 Configuration 存回 JSON 之中，因為沒找到方法所以只好硬來，同事看完後覺得可以試試 Configuration.GetSection 遞迴方式來處理可能會簡單些，既然有方向就來試試囉</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -329,7 +329,7 @@
 <ol>
 <li><a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.configurationroot.getchildren?view=dotnet-plat-ext-3.1&amp;WT.mc_id=DOP-MVP-5002594" target="_blank">ConfigurationRoot.GetChildren</a></li>
 <li><a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.configurationsection.getchildren?view=dotnet-plat-ext-3.1&amp;WT.mc_id=DOP-MVP-5002594" target="_blank">ConfigurationSection.GetChildren</a></li>
-<li><a href="https://blog.yowko.com/dictionary-to-json" target="_blank">[C#] 將 Dictionary 轉為 JSON</a></li>
+<li><a href="https://blog.yowko.com/dictionary-to-json">[C#] 將 Dictionary 轉為 JSON</a></li>
 </ol>
 
     </div>
@@ -342,7 +342,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-09-01</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

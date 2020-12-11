@@ -58,14 +58,14 @@
 <meta property="og:description" content="之前文章 docker 無法連線至特定網段 (172.17.x.x) 分享了 docker 的 linux container bridge 會將特定 IP (172.17..) 的 request 導向 container 內部而造成無法存取特定 IP (172.17..) 問題，也介紹如何修改預設分配 IP 規則避免出現 172.17.. 的" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/windows-container-ip-prefix/" /><meta property="article:published_time" content="2017-09-03T23:06:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-09-01T23:06:20&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T23:06:20&#43;08:00"/>
 
 <meta itemprop="name" content="修改 Windows container 的預設 IP">
 <meta itemprop="description" content="之前文章 docker 無法連線至特定網段 (172.17.x.x) 分享了 docker 的 linux container bridge 會將特定 IP (172.17..) 的 request 導向 container 內部而造成無法存取特定 IP (172.17..) 問題，也介紹如何修改預設分配 IP 規則避免出現 172.17.. 的">
 
 
 <meta itemprop="datePublished" content="2017-09-03T23:06:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-09-01T23:06:20&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T23:06:20&#43;08:00" />
 <meta itemprop="wordCount" content="498">
 
 
@@ -180,7 +180,7 @@
     <div class="post-content">
       
 
-<p>之前文章 <a href="https://blog.yowko.com/2017/09/docker-172-17-ip.html" target="_blank">docker 無法連線至特定網段 (172.17.x.x)</a> 分享了 docker 的 linux container bridge 會將特定 IP (172.17.<em>.</em>) 的 request 導向 container 內部而造成無法存取特定 IP (172.17.<em>.</em>) 問題，也介紹如何修改預設分配 IP 規則避免出現 172.17.<em>.</em> 的 request 無效</p>
+<p>之前文章 <a href="https://blog.yowko.com/2017/09/docker-172-17-ip.html">docker 無法連線至特定網段 (172.17.x.x)</a> 分享了 docker 的 linux container bridge 會將特定 IP (172.17.<em>.</em>) 的 request 導向 container 內部而造成無法存取特定 IP (172.17.<em>.</em>) 問題，也介紹如何修改預設分配 IP 規則避免出現 172.17.<em>.</em> 的 request 無效</p>
 
 <p>經過 linux container 的折騰，可以預想到 windows container 應該也會有相同問題，就讓我們來看看如何修改 Windows container 分配 IP 的規則吧</p>
 
@@ -207,7 +207,7 @@
 <h2 id="修改-windows-container-配合規則">修改 Windows container 配合規則</h2>
 
 <blockquote>
-<p>linux container 的修改方式請參考 <a href="https://blog.yowko.com/2017/09/docker-172-17-ip.html" target="_blank">docker 無法連線至特定網段 (172.17.x.x)</a></p>
+<p>linux container 的修改方式請參考 <a href="https://blog.yowko.com/2017/09/docker-172-17-ip.html">docker 無法連線至特定網段 (172.17.x.x)</a></p>
 </blockquote>
 
 <ol>
@@ -257,7 +257,7 @@
 
 <ol>
 <li><a href="https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon?WT.mc_id=DOP-MVP-5002594" target="_blank">Docker Engine on Windows</a></li>
-<li><a href="https://blog.yowko.com/2017/09/docker-172-17-ip.html" target="_blank">docker 無法連線至特定網段 (172.17.x.x)</a></li>
+<li><a href="https://blog.yowko.com/2017/09/docker-172-17-ip.html">docker 無法連線至特定網段 (172.17.x.x)</a></li>
 <li><a href="https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/setup-nat-network?WT.mc_id=DOP-MVP-5002594" target="_blank">Set up a NAT network</a></li>
 </ol>
 
@@ -271,7 +271,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-09-01</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">

@@ -58,14 +58,14 @@
 <meta property="og:description" content="[JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數 之前筆記 [JMeter] 取得 JSON Token 做為 Http Request Header 參數 紀錄到如何在測試目標 Api 前先執行 login 取得 token 後當做目標 api 的 header，當時有提到實" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/jmeter-decrypt-to-parameter/" /><meta property="article:published_time" content="2019-09-10T01:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-09-10T01:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-11T01:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="[JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數">
 <meta itemprop="description" content="[JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數 之前筆記 [JMeter] 取得 JSON Token 做為 Http Request Header 參數 紀錄到如何在測試目標 Api 前先執行 login 取得 token 後當做目標 api 的 header，當時有提到實">
 
 
 <meta itemprop="datePublished" content="2019-09-10T01:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-09-10T01:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-11T01:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="834">
 
 
@@ -183,7 +183,7 @@
 
 <h2 id="jmeter-從-http-response-body-解密-token-做為-http-request-header-參數">[JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/jmeter-json-parameter/" target="_blank">[JMeter] 取得 JSON Token 做為 Http Request Header 參數</a> 紀錄到如何在測試目標 Api 前先執行 login 取得 token 後當做目標 api 的 header，當時有提到實際應用時常都會加密保護，過去比較常見的做法是 BeanShell，這次就試試 JSR223 吧</p>
+<p>之前筆記 <a href="https://blog.yowko.com/jmeter-json-parameter/">[JMeter] 取得 JSON Token 做為 Http Request Header 參數</a> 紀錄到如何在測試目標 Api 前先執行 login 取得 token 後當做目標 api 的 header，當時有提到實際應用時常都會加密保護，過去比較常見的做法是 BeanShell，這次就試試 JSR223 吧</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -370,7 +370,7 @@ vars.put(&quot;token&quot;, json.getString(&quot;Token&quot;));
 
 <ol>
 <li><a href="https://stackoverflow.com/a/43283700/3600583" target="_blank">JMeter Alter HTTP Headers During Test</a></li>
-<li><a href="https://blog.yowko.com/jmeter-json-parameter/" target="_blank">[JMeter] 取得 JSON Token 做為 Http Request Header 參數</a></li>
+<li><a href="https://blog.yowko.com/jmeter-json-parameter/">[JMeter] 取得 JSON Token 做為 Http Request Header 參數</a></li>
 </ol>
 
     </div>
@@ -383,7 +383,7 @@ vars.put(&quot;token&quot;, json.getString(&quot;Token&quot;));
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-09-10</span>
+    <span class="item-content">2020-12-11</span>
   </p>
   
   <p class="copyright-item">
