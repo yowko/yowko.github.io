@@ -1,7 +1,7 @@
 ---
 title: "修改 web.config 可以不讓 IIS 自動重啟？！"
 date: 2018-11-14T00:42:34+08:00
-lastmod: 2020-09-01T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["IIS","ASP.NET MVC","ASP.NET WEB API","web.config"]
 slug: "avoid-iis-restart-webconfig-modify"
@@ -15,7 +15,7 @@ slug: "avoid-iis-restart-webconfig-modify"
 1. Windows 10 - 1803 (OS Build 17134.345)
 
     > 使用 IIS 10
-2. 透過之前筆記 [無法參考 App_Code 資料夾下的 class](https://blog.yowko.com/access-class-in-app-code/) 提到的技巧在 website 啟動時紀錄時間
+2. 透過之前筆記 [無法參考 App_Code 資料夾下的 class](/access-class-in-app-code/) 提到的技巧在 website 啟動時紀錄時間
 
 ## 原始情境
 1. Home/Index 會顯示出網站啟動時間與頁面載入時間
@@ -43,7 +43,7 @@ slug: "avoid-iis-restart-webconfig-modify"
 
     - `fcnMode`
 
-        > fcnMode 是 .NET Framework 4.5 開始加入的屬性，詳細資訊可以參考 [關於 ASP.NET File Change Notification (FCN) 的一些事](https://blog.yowko.com/fcn/)
+        > fcnMode 是 .NET Framework 4.5 開始加入的屬性，詳細資訊可以參考 [關於 ASP.NET File Change Notification (FCN) 的一些事](/fcn/)
             
         ```xml
         <system.web>
@@ -123,7 +123,7 @@ slug: "avoid-iis-restart-webconfig-modify"
 
 # 參考資訊
 1. [How to prevent an ASP.NET application restarting when the web.config is modified?](https://stackoverflow.com/questions/613824/how-to-prevent-an-asp-net-application-restarting-when-the-web-config-is-modified)
-2. [關於 ASP.NET File Change Notification (FCN) 的一些事](https://blog.yowko.com/fcn/)
+2. [關於 ASP.NET File Change Notification (FCN) 的一些事](/fcn/)
 3. [HttpRuntimeSection.WaitChangeNotification Property](https://docs.microsoft.com/en-us/dotnet/api/system.web.configuration.httpruntimesection.waitchangenotification?WT.mc_id=DOP-MVP-5002594)
 4. [HttpRuntimeSection.MaxWaitChangeNotification Property](https://docs.microsoft.com/en-us/dotnet/api/system.web.configuration.httpruntimesection.maxwaitchangenotification?WT.mc_id=DOP-MVP-5002594)
 5. [IIS Application Domain and Pool Recycling](https://www.treeloop.com/blog/iis-application-domain-and-pool-recycling)

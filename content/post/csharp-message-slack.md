@@ -1,7 +1,7 @@
 ---
 title: "使用 C# (.NET Core) 傳訊息至 Slack"
 date: 2019-02-06T23:45:00+08:00
-lastmod: 2019-02-06T23:44:30+08:00
+lastmod: 2020-12-11T23:44:30+08:00
 draft: false
 tags: ["C#","dotnet core"]
 slug: "csharp-message-slack"
@@ -96,7 +96,7 @@ slug: "csharp-message-slack"
 
 1. 基本設定
 
-    > 如果想更深入了解相關設定可以參考 [在 .NET Core console 上使用 Dependency Injection - DI](https://blog.yowko.com/dotnet-core-console-di/) 與 [在 .NET Core 與 .NET Framework 上使用 HttpClientFactory](https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/)
+    > 如果想更深入了解相關設定可以參考 [在 .NET Core console 上使用 Dependency Injection - DI](/dotnet-core-console-di/) 與 [在 .NET Core 與 .NET Framework 上使用 HttpClientFactory](/httpclientfactory-dotnet-core-dotnet-framework/)
 
     ```cs
     var builder =
@@ -146,10 +146,10 @@ slug: "csharp-message-slack"
                     color="#36a64f",//實際顯示時的引用線顏色
                     pretext= "原本 text 位置內容",
                     author_name= "第一行(作者)",
-                    author_link= "https://blog.yowko.com",
+                    author_link= "",
                     author_icon= "http://flickr.com/icons/bobby.jpg",
                     title= "標題",
-                    title_link= "https://blog.yowko.com",
+                    title_link= "",
                     text= "實際內文",
                     fields= new List<Field>(){
                         new Field(){
@@ -185,6 +185,6 @@ Slack 文件滿雜亂的，感覺起來應該歷經了許多演化，就連 API 
 3. [Build something amazing.](https://api.slack.com/apps)
 4. [Types of tokens](https://api.slack.com/docs/token-types)
 5. [chat.postMessage](https://api.slack.com/methods/chat.postMessage/test)
-6. [在 .NET Core console 上使用 Dependency Injection - DI](https://blog.yowko.com/dotnet-core-console-di/)
-7. [在 .NET Core 與 .NET Framework 上使用 HttpClientFactory](https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/)
+6. [在 .NET Core console 上使用 Dependency Injection - DI](/dotnet-core-console-di/)
+7. [在 .NET Core 與 .NET Framework 上使用 HttpClientFactory](/httpclientfactory-dotnet-core-dotnet-framework/)
 8. [Basic message formatting](https://api.slack.com/docs/message-formatting)

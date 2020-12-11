@@ -1,7 +1,7 @@
 ---
 title: "GitHub Repository 有變動時自動通知 Jenkins 2 進行編譯建置 (GitHub Plugin)"
 date: 2017-02-11T00:42:34+08:00
-lastmod: 2018-09-11T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["Jenkins","DevOps","Git"]
 slug: "github-plugin-jenkins-webhook"
@@ -9,7 +9,7 @@ aliases:
     - /2017/02/github-plugin-jenkins-webhook.html
 ---
 # GitHub Repository 有變動時自動通知 Jenkins 2 進行編譯建置 (GitHub Plugin)
-之前筆記 [遠端 Git Repository 有 merge 時自動通知 Jenkins 2 進行編譯建置 (webhook)](https://blog.yowko.com/2017/02/git-repository-jenkins2-webhook.html) 紀錄了如何以 GitHub 為例設定 Git server 提供的 webhook 功能與 Jenkins 2 建置自動化建置的 CI 環境，其中 GitHub 的相關功能 Jenkins 2 有相對應的 Plugin 功能，今天就來看看設定上有什麼不同
+之前筆記 [遠端 Git Repository 有 merge 時自動通知 Jenkins 2 進行編譯建置 (webhook)](/2017/02/git-repository-jenkins2-webhook.html) 紀錄了如何以 GitHub 為例設定 Git server 提供的 webhook 功能與 Jenkins 2 建置自動化建置的 CI 環境，其中 GitHub 的相關功能 Jenkins 2 有相對應的 Plugin 功能，今天就來看看設定上有什麼不同
 
 ## 文章大綱
 1. 安裝 GitHub Plugin
@@ -104,4 +104,4 @@ aliases:
 # 參考資訊
 1. [GitHub Plugin](https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin)
 2. [How to Start Working with the GitHub Plugin for Jenkins](https://www.blazemeter.com/blog/how-start-working-github-plugin-jenkins)
-3. [遠端 Git Repository 有 merge 時自動通知 Jenkins 2 進行編譯建置 (webhook)](https://blog.yowko.com/2017/02/git-repository-jenkins2-webhook.html)
+3. [遠端 Git Repository 有 merge 時自動通知 Jenkins 2 進行編譯建置 (webhook)](/2017/02/git-repository-jenkins2-webhook.html)

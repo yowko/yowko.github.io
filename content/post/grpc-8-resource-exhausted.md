@@ -1,7 +1,7 @@
 ---
 title: "gRPC 出現 `8 RESOURCE_EXHAUSTED` 錯誤"
 date: 2019-06-23T21:30:00+08:00
-lastmod: 2019-06-23T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["csharp","gRPC"]
 slug: "grpc-8-resource-exhausted"
@@ -128,7 +128,7 @@ slug: "grpc-8-resource-exhausted"
 
 2. 改用 stram RPC
 
-    > 詳細使用方式可以參考之前筆記  [C# 搭配 gRPC 中使用 stream RPC](https://blog.yowko.com/csharp-grpc-stream/) , 大意是在 gRPC service 定義時在需要大量資料的參數加上 `stream` 修飾子，但需要留意的是如果單一批量的訊息大小超過 `4194304 - 4MB` 時，還是需要修改 `MaxReceiveMessageLength` 或是降低批量大小
+    > 詳細使用方式可以參考之前筆記  [C# 搭配 gRPC 中使用 stream RPC](/csharp-grpc-stream/) , 大意是在 gRPC service 定義時在需要大量資料的參數加上 `stream` 修飾子，但需要留意的是如果單一批量的訊息大小超過 `4194304 - 4MB` 時，還是需要修改 `MaxReceiveMessageLength` 或是降低批量大小
 
     - client-side streaming RPC
 

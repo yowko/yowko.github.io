@@ -1,7 +1,7 @@
 ---
 title: "在 Windows Container 使用 tns 連線 Oracle"
 date: 2017-11-22T00:07:00+08:00
-lastmod: 2020-09-01T00:07:19+08:00
+lastmod: 2020-12-11T00:07:19+08:00
 draft: false
 tags: ["Docker","Oracle","Windows 10","Windows Server 2016"]
 slug: "windows-container-tns-oracle"
@@ -9,7 +9,7 @@ aliases:
     - /2017/11/windows-container-tns-oracle.html
 ---
 # 在 Windows Container 使用 tns 連線 Oracle
-之前筆記 [不用安裝 Oracle Client 使用 C# 透過 tnsnamses.ora 連結 Oracle](https://blog.yowko.com/2017/11/c-sharp-oracle-tns-without-client.html) 介紹到如何讓 server 不用安裝 Oracle Client 就可以使用 tns 存取 Oracle，其實最終目的就是想要在 Windows Container 透過 tns 來連線 Oracle，主要原因就是目前公司系統大多數使用 tns 來連線 Oracle，一來不想因為測試來修改連線方式，二來也不可能完全放棄原本做法，另外還有個重要的原因是 Oracle Clinet 非常不好安裝
+之前筆記 [不用安裝 Oracle Client 使用 C# 透過 tnsnamses.ora 連結 Oracle](/2017/11/c-sharp-oracle-tns-without-client.html) 介紹到如何讓 server 不用安裝 Oracle Client 就可以使用 tns 存取 Oracle，其實最終目的就是想要在 Windows Container 透過 tns 來連線 Oracle，主要原因就是目前公司系統大多數使用 tns 來連線 Oracle，一來不想因為測試來修改連線方式，二來也不可能完全放棄原本做法，另外還有個重要的原因是 Oracle Clinet 非常不好安裝
 
 立馬來看看 Windows Container 如何使用 TNS 連線 Oracle 吧
 
@@ -116,4 +116,4 @@ Windows 使用 tns 連線 Oracle 的問題卡了好幾天，表面上主要原�
 2.  [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 3.  [Windows 上的 Dockerfile](https://docs.microsoft.com/zh-tw/virtualization/windowscontainers/manage-docker/manage-windows-dockerfile?WT.mc_id=DOP-MVP-5002594)
 4.  [Migrating ASP.NET MVC Applications to Windows Containers](https://docs.microsoft.com/en-us/aspnet/mvc/overview/deployment/docker-aspnetmvc?WT.mc_id=DOP-MVP-5002594)
-5.  [不用安裝 Oracle Client 使用 C# 透過 tnsnamses.ora 連結 Oracle](https://blog.yowko.com/2017/11/c-sharp-oracle-tns-without-client.html)
+5.  [不用安裝 Oracle Client 使用 C# 透過 tnsnamses.ora 連結 Oracle](/2017/11/c-sharp-oracle-tns-without-client.html)

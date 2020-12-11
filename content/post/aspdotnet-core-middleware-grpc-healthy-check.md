@@ -1,7 +1,7 @@
 ---
 title: "使用 ASP.NET Core middleware 進行 gRPC healthy check"
 date: 2020-08-31T21:30:00+08:00
-lastmod: 2020-09-01T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["asp.net core","gRPC"]
 slug: "aspdotnet-core-middleware-grpc-healthy-check"
@@ -138,7 +138,7 @@ slug: "aspdotnet-core-middleware-grpc-healthy-check"
 
 ## 心得
 
-現在團隊的主力開發環境是 macOS，但今天紀錄的這個做法在 macOS 上會失效，錯誤的緣頭是 aspsettings.json 中的 `Kestrel.EndpointDefaults.Protocols="Http2"` 至於原因我猜測與之前筆記 [ASP.NET Core gRPC 無法在 macOS 上啟動？！](https://blog.yowko.com/aspdotnet-core-grpc-macos/) 提到的 macOS 不支援具有 TLS 的 ASP.NET Core gRPC 服務有關：只要啟用了 `Kestrel.EndpointDefaults.Protocols="Http2"` ASP.NET Core 中的 http endpoint 就無法正確存取，但這問題這麼大不可能沒人反應呀，我覺得可能是我設定的問題
+現在團隊的主力開發環境是 macOS，但今天紀錄的這個做法在 macOS 上會失效，錯誤的緣頭是 aspsettings.json 中的 `Kestrel.EndpointDefaults.Protocols="Http2"` 至於原因我猜測與之前筆記 [ASP.NET Core gRPC 無法在 macOS 上啟動？！](/aspdotnet-core-grpc-macos/) 提到的 macOS 不支援具有 TLS 的 ASP.NET Core gRPC 服務有關：只要啟用了 `Kestrel.EndpointDefaults.Protocols="Http2"` ASP.NET Core 中的 http endpoint 就無法正確存取，但這問題這麼大不可能沒人反應呀，我覺得可能是我設定的問題
 
 錯誤畫面如下：
 
@@ -154,6 +154,6 @@ slug: "aspdotnet-core-middleware-grpc-healthy-check"
 
 ## 參考資訊
 
-1. [ASP.NET Core gRPC 無法在 macOS 上啟動？！](https://blog.yowko.com/aspdotnet-core-grpc-macos/)
+1. [ASP.NET Core gRPC 無法在 macOS 上啟動？！](/aspdotnet-core-grpc-macos/)
 2. [ASP.NET Core 中的健康狀態檢查](https://docs.microsoft.com/zh-tw/aspnet/core/host-and-deploy/health-checks?WT.mc_id=DOP-MVP-5002594)
 3. [yowko/GrpcHealthCheck](https://github.com/yowko/GrpcHealthCheck)

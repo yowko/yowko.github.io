@@ -1,7 +1,7 @@
 ---
 title: "設定 ASP.NET WebAPI OData 的 Swagger"
 date: 2017-10-15T17:45:00+08:00
-lastmod: 2018-09-27T17:45:17+08:00
+lastmod: 2020-12-11T17:45:17+08:00
 draft: false
 tags: ["套件","ASP.NET Web API","OData"]
 slug: "aspnet-webapi-odata-swagger"
@@ -16,7 +16,7 @@ Swagger 的強大功能不需要再重複強調，重要性在團隊開發上已
 
 ## 安裝 NuGet 套件
 
-該套件僅支援 OData V4，如果還在使用 OData V3 可以考慮升級 OData v4，詳細做法請參考 [如何將 OData v3 升級為 OData v4](https://blog.yowko.com/2017/10/odata-v3-to-odata-v4.html)
+該套件僅支援 OData V4，如果還在使用 OData V3 可以考慮升級 OData v4，詳細做法請參考 [如何將 OData v3 升級為 OData v4](/2017/10/odata-v3-to-odata-v4.html)
 
 ```
 Install-Package Swashbuckle.OData
@@ -199,5 +199,5 @@ Install-Package Swashbuckle.OData
 
 # 參考資訊
 
-1.  [如何將 OData v3 升級為 OData v4](https://blog.yowko.com/2017/10/odata-v3-to-odata-v4.html)
+1.  [如何將 OData v3 升級為 OData v4](/2017/10/odata-v3-to-odata-v4.html)
 2.  [rbeauchamp/Swashbuckle.OData](https://github.com/rbeauchamp/Swashbuckle.OData)

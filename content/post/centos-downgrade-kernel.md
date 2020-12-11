@@ -1,7 +1,7 @@
 ---
 title: "CentOS 8 降級 Linux Kernel 5"
 date: 2020-10-22T21:30:00+08:00
-lastmod: 2020-10-22T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux"]
 slug: "centos-downgrade-kernel"
@@ -9,7 +9,7 @@ slug: "centos-downgrade-kernel"
 
 ## CentOS 8 降級 Linux Kernel 5
 
-之前筆記 [CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5](https://blog.yowko.com/centos7-upgrade-centos8-linux-kernel5/) 興高采烈地把環境升級到最新版本：CentOS 8 + Linux Kernel 5.9.1，結果遇到 Ansible 的 service module 出現 `Service is in unknown state` 的 issue，據 GitHub 上的討論串 [Service is in unknown state](https://github.com/ansible/ansible/issues/71528) 看來並沒有真的解決，所以決定先降版，快速紀錄一下過程與語法
+之前筆記 [CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5](/centos7-upgrade-centos8-linux-kernel5/) 興高采烈地把環境升級到最新版本：CentOS 8 + Linux Kernel 5.9.1，結果遇到 Ansible 的 service module 出現 `Service is in unknown state` 的 issue，據 GitHub 上的討論串 [Service is in unknown state](https://github.com/ansible/ansible/issues/71528) 看來並沒有真的解決，所以決定先降版，快速紀錄一下過程與語法
 
 ## 基本環境說明
 
@@ -89,6 +89,6 @@ rpm -e `rpm -q kernel-ml-5.7.12-1.el8.elrepo.x86_64 kernel-ml-modules-5.7.12-1.e
 
 ## 參考資訊
 
-1. [CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5](https://blog.yowko.com/centos7-upgrade-centos8-linux-kernel5/)
+1. [CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5](/centos7-upgrade-centos8-linux-kernel5/)
 2. [Service is in unknown state](https://github.com/ansible/ansible/issues/71528)
 3. [Index of /elrepo/archive/kernel/el8/x86_64/RPMS/](http://repos.ord.lax-noc.com/elrepo/archive/kernel/el8/x86_64/RPMS/)

@@ -1,7 +1,7 @@
 ---
 title: "自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 3"
 date: 2017-07-16T18:14:00+08:00
-lastmod: 2018-09-24T18:14:54+08:00
+lastmod: 2020-12-11T18:14:54+08:00
 draft: false
 tags: ["TDD"]
 slug: "tdd-day-3"
@@ -17,7 +17,7 @@ aliases:
 
 1.  重構(Refactoring)
 
-    > 這個部份請參考 [自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 2](https://blog.yowko.com/2017/06/tdd-day-2.html)，有較詳細的說明
+    > 這個部份請參考 [自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 2](/2017/06/tdd-day-2.html)，有較詳細的說明
 
     *   RTFLC
     *   comments + viewmodel
@@ -63,9 +63,9 @@ aliases:
 
         > 即針對新增的最少 production code 來重構 而不是一次針對所有 production code，不僅是針對程式碼，也該為 API 整體設計進行重構
 
-7.  Moq 可以直接 mock protected method ，詳細內容可以參考 [使用 Moq 來 Mock protected Method](https://blog.yowko.com/2017/07/moq-mock-protected-method.html)
+7.  Moq 可以直接 mock protected method ，詳細內容可以參考 [使用 Moq 來 Mock protected Method](/2017/07/moq-mock-protected-method.html)
 
-    > 延伸閱讀：[如何 Mock Private Method 的回傳值 - 使用 JuskMock](https://blog.yowko.com/2017/07/mock-private-method-juskmock.html)
+    > 延伸閱讀：[如何 Mock Private Method 的回傳值 - 使用 JuskMock](/2017/07/mock-private-method-juskmock.html)
 
 8.  經典語錄：連開會都無法準時結束   你怎麼能期待專案能準時上線
 
@@ -225,19 +225,19 @@ aliases:
 
 透過 SpecFlow 來將需求說明與程式程式分離，讓需求說明使用更貼近人類語言的方式來描述，說明需求的效果更一目了然，讓非開發人員也可以看得懂、可以修改甚至寫得出來一份合格的需求文件
 
-*   如何使用 SpecFlow 請參考 [使用 SpecFlow 建立人語化的單元測試](https://blog.yowko.com/2017/06/specflow.html)
+*   如何使用 SpecFlow 請參考 [使用 SpecFlow 建立人語化的單元測試](/2017/06/specflow.html)
 
-*   SpecFlow 也支援像是 NUnit 中 TestCase 、TestCaseSource，使用資料集進行批量測試的做法，請參考 [餵資料集給 SpecFlow 來執行測試及驗證](https://blog.yowko.com/2017/06/specflowoutline.html)
+*   SpecFlow 也支援像是 NUnit 中 TestCase 、TestCaseSource，使用資料集進行批量測試的做法，請參考 [餵資料集給 SpecFlow 來執行測試及驗證](/2017/06/specflowoutline.html)
 
 ## Living Document
 
 工程師不喜歡寫文件應該是大家的共識，加上文件很容易隨著時間而與程式碼出現落差，畢竟會隨著需求異動的只有程式碼，為了讓文件可以與程式碼對得上，最好的方式就是透過程式碼來產生說明文件
 
-*   實際做法請參考 [使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)](https://blog.yowko.com/2017/06/pickles-specflow.html)
+*   實際做法請參考 [使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)](/2017/06/pickles-specflow.html)
 
 
-    *   內容使用到 MSTest 指令來進行測試，如果對於 MSTest 指令可以參考 [使用 MSTest.exe 指令來進行測試](https://blog.yowko.com/2017/06/mstest-exe.html)
-    *   內容有使用到 Visual Studio 中的外部工具(External Tools)，對於 Visual Studio 中的外部工具(External Tools) 不熟悉的請參考 [關於 Visual Studio 中的外部工具(External Tools)](https://blog.yowko.com/2017/06/visual-studio-external-tools.html)
+    *   內容使用到 MSTest 指令來進行測試，如果對於 MSTest 指令可以參考 [使用 MSTest.exe 指令來進行測試](/2017/06/mstest-exe.html)
+    *   內容有使用到 Visual Studio 中的外部工具(External Tools)，對於 Visual Studio 中的外部工具(External Tools) 不熟悉的請參考 [關於 Visual Studio 中的外部工具(External Tools)](/2017/06/visual-studio-external-tools.html)
 
 
 
@@ -255,17 +255,17 @@ aliases:
 
 # 參考資訊
 
-1.  [自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 2](https://blog.yowko.com/2017/06/tdd-day-2.html)
-2.  [使用 Moq 來 Mock protected Method](https://blog.yowko.com/2017/07/moq-mock-protected-method.html)
-3.  [如何 Mock Private Method 的回傳值 - 使用 JuskMock](https://blog.yowko.com/2017/07/mock-private-method-juskmock.html)
+1.  [自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 2](/2017/06/tdd-day-2.html)
+2.  [使用 Moq 來 Mock protected Method](/2017/07/moq-mock-protected-method.html)
+3.  [如何 Mock Private Method 的回傳值 - 使用 JuskMock](/2017/07/mock-private-method-juskmock.html)
 4.  [Why Agile Software Development Techniques Work: Improved Feedback](http://www.ambysoft.com/essays/whyAgileWorksFeedback.html)
 5.  [RIP TDD](https://www.facebook.com/notes/kent-beck/rip-tdd/750840194948847)
 6.  [The Three Laws of TDD.](http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd)
 7.  [Xp Simplicity Rules](http://wiki.c2.com/?XpSimplicityRules)
 8.  [BeckDesignRules by Martin Fowler](https://martinfowler.com/bliki/BeckDesignRules.html)
-9.  [使用 SpecFlow 建立人語化的單元測試](https://blog.yowko.com/2017/06/specflow.html)
-10.  [餵資料集給 SpecFlow 來執行測試及驗證](https://blog.yowko.com/2017/06/specflowoutline.html)
-11.  [使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)](https://blog.yowko.com/2017/06/pickles-specflow.html)
-12.  [使用 MSTest.exe 指令來進行測試](https://blog.yowko.com/2017/06/mstest-exe.html)
-13.  [關於 Visual Studio 中的外部工具(External Tools)](https://blog.yowko.com/2017/06/visual-studio-external-tools.html)
+9.  [使用 SpecFlow 建立人語化的單元測試](/2017/06/specflow.html)
+10.  [餵資料集給 SpecFlow 來執行測試及驗證](/2017/06/specflowoutline.html)
+11.  [使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)](/2017/06/pickles-specflow.html)
+12.  [使用 MSTest.exe 指令來進行測試](/2017/06/mstest-exe.html)
+13.  [關於 Visual Studio 中的外部工具(External Tools)](/2017/06/visual-studio-external-tools.html)
 14.  [【TDD】課堂心得與筆記 - Day 3](https://dotblogs.com.tw/jameswang/2017/06/26/184019)

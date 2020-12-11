@@ -1,7 +1,7 @@
 ---
 title: "在 Debian container 中安裝 .NET Core SDK"
 date: 2020-04-13T22:30:00+08:00
-lastmod: 2020-09-01T22:30:31+08:00
+lastmod: 2020-12-11T22:30:31+08:00
 draft: false
 tags: ["Container","Linux","dotnet core"]
 slug: "debian-container-install-dotnet-core-sdk"
@@ -9,7 +9,7 @@ slug: "debian-container-install-dotnet-core-sdk"
 
 ## 在 Debian container 中安裝 .NET Core SDK
 
-之前筆記 [在 Debian container 中無法成功註冊微軟金鑰](https://blog.yowko.com/debian-container-broken-pipe) 提到想要在 container 中利用 dotnet cli 做些測試，但經過 `multi-stage builds` 來建立 image 中只有 .NET Core runtime 沒有需要的 dotnet cli，所以今天就來紀錄一下在 Debian container 中安裝 .NET Core SDK 的步驟
+之前筆記 [在 Debian container 中無法成功註冊微軟金鑰](/debian-container-broken-pipe) 提到想要在 container 中利用 dotnet cli 做些測試，但經過 `multi-stage builds` 來建立 image 中只有 .NET Core runtime 沒有需要的 dotnet cli，所以今天就來紀錄一下在 Debian container 中安裝 .NET Core SDK 的步驟
 
 ## 基本環境說明
 
@@ -25,7 +25,7 @@ slug: "debian-container-install-dotnet-core-sdk"
     apt-get install -y wget gpg
     ```
 
-    >如果沒安裝 `gpg` 會造成後續註冊 key 的動作失敗，詳細內容可以參考前筆記 [在 Debian container 中無法成功註冊微軟金鑰](https://blog.yowko.com/debian-container-broken-pipe)
+    >如果沒安裝 `gpg` 會造成後續註冊 key 的動作失敗，詳細內容可以參考前筆記 [在 Debian container 中無法成功註冊微軟金鑰](/debian-container-broken-pipe)
 
 2. 註冊微軟金鑰
 
@@ -50,7 +50,7 @@ slug: "debian-container-install-dotnet-core-sdk"
 
 ## 心得
 
-之前安裝時卡在 `gpg` (詳細內容可以參考前筆記 [在 Debian container 中無法成功註冊微軟金鑰](https://blog.yowko.com/debian-container-broken-pipe))，一排除後大致上就沒問題了，我將 [Debian 10 Package Manager - Install .NET Core](https://docs.microsoft.com/zh-tw/dotnet/core/install/linux-package-manager-debian10?WT.mc_id=DOP-MVP-5002594) 上的步驟做了些省略(能省則省，但除了 `1` 之外，其他動作都可做可不做)：
+之前安裝時卡在 `gpg` (詳細內容可以參考前筆記 [在 Debian container 中無法成功註冊微軟金鑰](/debian-container-broken-pipe))，一排除後大致上就沒問題了，我將 [Debian 10 Package Manager - Install .NET Core](https://docs.microsoft.com/zh-tw/dotnet/core/install/linux-package-manager-debian10?WT.mc_id=DOP-MVP-5002594) 上的步驟做了些省略(能省則省，但除了 `1` 之外，其他動作都可做可不做)：
 
 1. container 中不能使用 sudo
 2. 權限調整可以跳過
@@ -58,5 +58,5 @@ slug: "debian-container-install-dotnet-core-sdk"
 
 ## 參考資訊
 
-1. [在 Debian container 中無法成功註冊微軟金鑰](https://blog.yowko.com/debian-container-broken-pipe)
+1. [在 Debian container 中無法成功註冊微軟金鑰](/debian-container-broken-pipe)
 2. [Debian 10 Package Manager - Install .NET Core](https://docs.microsoft.com/zh-tw/dotnet/core/install/linux-package-manager-debian10?WT.mc_id=DOP-MVP-5002594)

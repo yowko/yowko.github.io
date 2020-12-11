@@ -1,7 +1,7 @@
 ---
 title: "使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set"
 date: 2020-07-12T21:30:00+08:00
-lastmod: 2020-07-18T09:30:31+08:00
+lastmod: 2020-12-11T09:30:31+08:00
 draft: false
 tags: ["MongoDB","Docker"]
 slug: "docker-compose-mongodb-replica-set-with-auth"
@@ -9,7 +9,7 @@ slug: "docker-compose-mongodb-replica-set-with-auth"
 
 ## 使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set
 
-之前在筆記 [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set (Single Node)](https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth-standalone/) 紀錄到如何使用 docker compose 建立啟用 auth 機制的單一 node MongoDB Replica Set，但單一 node 的 MongoDB Replica Set 對我來說不太滿足 MongoDB Replica Set 的定義，所以嘗試了三個 nodes ( primary + secondary + secondary) 的做法
+之前在筆記 [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set (Single Node)](/docker-compose-mongodb-replica-set-with-auth-standalone/) 紀錄到如何使用 docker compose 建立啟用 auth 機制的單一 node MongoDB Replica Set，但單一 node 的 MongoDB Replica Set 對我來說不太滿足 MongoDB Replica Set 的定義，所以嘗試了三個 nodes ( primary + secondary + secondary) 的做法
 
 ## 基本環境說明
 
@@ -300,7 +300,7 @@ slug: "docker-compose-mongodb-replica-set-with-auth"
 
 ## 參考資訊
 
-1. [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set (Single Node)](https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth-standalone/)
+1. [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set (Single Node)](/docker-compose-mongodb-replica-set-with-auth-standalone/)
 2. [yowko/docker-compose-mongodb-replica-set-with-auth](https://github.com/yowko/docker-compose-mongodb-replica-set-with-auth)
 3. [Update Replica Set to Keyfile Authentication](https://docs.mongodb.com/manual/tutorial/enforce-keyfile-access-control-in-existing-replica-set/)
 4. [Update Replica Set to Keyfile Authentication (No Downtime)](https://docs.mongodb.com/manual/tutorial/enforce-keyfile-access-control-in-existing-replica-set-without-downtime/)

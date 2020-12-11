@@ -1,7 +1,7 @@
 ---
 title: "在 macOS 上 Build Redis Desktop Manager(RDM)"
 date: 2019-01-27T21:30:00+08:00
-lastmod: 2019-01-27T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Redis","macOS"]
 slug: "build-redis-desktop-manager-on-mac"
@@ -136,11 +136,11 @@ Redis 在安裝時就內建了 redis-cli 可以用來執行 redis 相關指令�
 
     - No valid kits found.
         
-        > 解決方式可以參考 [在 macOS 上的 Qt Creator 中出現 No valid kits found](https://blog.yowko.com/no-valid-kits-found-on-mac) 
+        > 解決方式可以參考 [在 macOS 上的 Qt Creator 中出現 No valid kits found](/no-valid-kits-found-on-mac) 
 
     - failed to parse default search paths from compiler output
 
-        > 解決方式可以參考 [在 macOS 上的 Qt Creator 中出現 failed to parse default search paths from compiler output](https://blog.yowko.com/failed-to-parse-default-search-paths-from-compiler-output)
+        > 解決方式可以參考 [在 macOS 上的 Qt Creator 中出現 failed to parse default search paths from compiler output](/failed-to-parse-default-search-paths-from-compiler-output)
 
 7. 修改 rdm.pro
 
@@ -174,5 +174,5 @@ Redis 在安裝時就內建了 redis-cli 可以用來執行 redis 相關指令�
 1. [Redis Desktop Manager - build from source](http://docs.redisdesktop.com/en/latest/install/#build-from-source)
 2. [從源碼編譯macOS版本的RedisDesktopManager](https://dalao.page/2018/11/12/build-rdm-for-mac-from-source/)
 3. [./confgiure failed on mac os 10.14 with "earlier than macOS 10.6 is no longer supported."](https://github.com/uglide/RedisDesktopManager/issues/4284#issuecomment-437241877)
-4. [在 macOS 上的 Qt Creator 中出現 No valid kits found](https://blog.yowko.com/no-valid-kits-found-on-mac) 
-5. [在 macOS 上的 Qt Creator 中出現 failed to parse default search paths from compiler output](https://blog.yowko.com/failed-to-parse-default-search-paths-from-compiler-output)
+4. [在 macOS 上的 Qt Creator 中出現 No valid kits found](/no-valid-kits-found-on-mac) 
+5. [在 macOS 上的 Qt Creator 中出現 failed to parse default search paths from compiler output](/failed-to-parse-default-search-paths-from-compiler-output)

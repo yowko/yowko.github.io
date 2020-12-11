@@ -1,7 +1,7 @@
 ---
 title: "使用 Kubernetes 搭配 ASP.NET Core BackgroundService 確保 gRPC 服務回應合乎預期"
 date: 2020-09-22T21:30:00+08:00
-lastmod: 2020-09-22T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","gRPC","Kubernetes"]
 slug: "kubernetes-aspdotnet-core-backgroundservice-grpc"
@@ -9,9 +9,9 @@ slug: "kubernetes-aspdotnet-core-backgroundservice-grpc"
 
 ## 使用 Kubernetes 搭配 ASP.NET Core BackgroundService 確保 gRPC 服務回應合乎預期
 
-之前在筆記 [使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期](https://blog.yowko.com/kubernetes-liveness-aspdotnet-core-grpc) 紀錄到使用 Kubernetes Liveness 在 pod 中的 service 回應如果不如預期時就直接重啟 pod 來嘗試恢復 service
+之前在筆記 [使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期](/kubernetes-liveness-aspdotnet-core-grpc) 紀錄到使用 Kubernetes Liveness 在 pod 中的 service 回應如果不如預期時就直接重啟 pod 來嘗試恢復 service
 
-而之前另外的筆記 [使用 ASP.NET Core BackgroundService 進行 gRPC healthy check](https://blog.yowko.com/aspdotnet-core-backgroundservice-grpc-healthy-check/) 有不同做法，今天就來紀錄一下 Kubernetes 與 ASP.NET Core BackgroundService 搭配檢查的做法
+而之前另外的筆記 [使用 ASP.NET Core BackgroundService 進行 gRPC healthy check](/aspdotnet-core-backgroundservice-grpc-healthy-check/) 有不同做法，今天就來紀錄一下 Kubernetes 與 ASP.NET Core BackgroundService 搭配檢查的做法
 
 ## 基本環境設定
 
@@ -369,5 +369,5 @@ Kubernetes 在這邊的角色就是確保 ASP.NET Core application pod 正常運
 ## 參考資訊
 
 1. [使用 Docker over HTTPS 裝載 ASP.NET Core 映射](https://docs.microsoft.com/zh-tw/aspnet/core/security/docker-https?view=aspnetcore-3.1&WT.mc_id=DOP-MVP-5002594)
-2. [使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期](https://blog.yowko.com/kubernetes-liveness-aspdotnet-core-grpc)
-3. [使用 ASP.NET Core BackgroundService 進行 gRPC healthy check](https://blog.yowko.com/aspdotnet-core-backgroundservice-grpc-healthy-check/)
+2. [使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期](/kubernetes-liveness-aspdotnet-core-grpc)
+3. [使用 ASP.NET Core BackgroundService 進行 gRPC healthy check](/aspdotnet-core-backgroundservice-grpc-healthy-check/)

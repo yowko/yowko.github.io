@@ -1,7 +1,7 @@
 ---
 title: "在 Windows 上的 ASP.NET Core 中呼叫 gRPC"
 date: 2020-02-24T21:30:00+08:00
-lastmod: 2020-09-01T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Windows","dotnet core","gRPC"]
 slug: "windows-aspnetcore-grpc"
@@ -41,7 +41,7 @@ slug: "windows-aspnetcore-grpc"
 
 2. GrpcClient 設定 GpcService 的 endpoint
 
-    > 在 `Startup.cs` 的 `ConfigureServices` 方法中加入以下程式碼即可，與 [在 macOS 上的 ASP.NET Core 中呼叫 gRPC](https://blog.yowko.com/macos-aspnetcore-grpc) 比較就知道設定差異了
+    > 在 `Startup.cs` 的 `ConfigureServices` 方法中加入以下程式碼即可，與 [在 macOS 上的 ASP.NET Core 中呼叫 gRPC](/macos-aspnetcore-grpc) 比較就知道設定差異了
 
     ```cs
     services.AddGrpcClient<GrpcMessges.Greeter.GreeterClient>(o =>
@@ -59,4 +59,4 @@ slug: "windows-aspnetcore-grpc"
 1. [搭配 ASP.NET Core 的 gRPC 服務](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/aspnetcore?view=aspnetcore-3.1&tabs=visual-studio&WT.mc_id=DOP-MVP-5002594)
 2. [.NET Core 上的 gRPC 簡介](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/?view=aspnetcore-3.1&WT.mc_id=DOP-MVP-5002594)
 3. [教學課程：在 ASP.NET Core 中建立 gRPC 用戶端和伺服器](https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/grpc/grpc-start?view=aspnetcore-3.1&tabs=visual-studio&WT.mc_id=DOP-MVP-5002594)
-4. [在 macOS 上的 ASP.NET Core 中呼叫 gRPC](https://blog.yowko.com/macos-aspnetcore-grpc)
+4. [在 macOS 上的 ASP.NET Core 中呼叫 gRPC](/macos-aspnetcore-grpc)

@@ -1,7 +1,7 @@
 ---
 title: "將打包好的 Helm Chart Push 至 Nexus"
 date: 2020-01-28T21:30:00+08:00
-lastmod: 2020-01-28T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Helm","Kubernetes","Tools","Nexus"]
 slug: "helm-push-nexus"
@@ -9,7 +9,7 @@ slug: "helm-push-nexus"
 
 ## 將打包好的 Helm Chart Push 至 Nexus
 
-之前筆記 [打包 Helm Chart](https://blog.yowko.com/helm-package/) 簡單紀錄該如何打包 Helm Chart，但打包後的 Helm Chart 如果無法提供其他 server 使用就失去意義了，所以延伸紀錄將打包後的 Helm Chart 推送至 Nexus 的作法
+之前筆記 [打包 Helm Chart](/helm-package/) 簡單紀錄該如何打包 Helm Chart，但打包後的 Helm Chart 如果無法提供其他 server 使用就失去意義了，所以延伸紀錄將打包後的 Helm Chart 推送至 Nexus 的作法
 
 ## 基本環境說明
 

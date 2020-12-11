@@ -1,7 +1,7 @@
 ---
 title: "使用 Common.Logging 同時將 log 寫至多個 Logging Framework"
 date: 2017-07-15T23:23:00+08:00
-lastmod: 2018-09-24T23:23:00+08:00
+lastmod: 2020-12-11T23:23:00+08:00
 draft: false
 tags: ["套件","log4net","NLog"]
 slug: "common-logging-multiple-logging-framework"
@@ -9,7 +9,7 @@ aliases:
     - /2017/07/common-logging-multiple-logging-framework.html
 ---
 # 使用 Common.Logging 同時將 log 寫至多個 Logging Framework
-之前文章 [使用 Common.Logging 搭配 NLog 及 Log4Net](https://blog.yowko.com/2017/07/common-logging.html) 介紹到透過 Common.Logging 可以使用一致的 log 語法將 log 轉由不同 logging framework 處理，在不同專案間就可以使用統一 log 語法而且依團隊習慣自由選擇不同的 logging framework
+之前文章 [使用 Common.Logging 搭配 NLog 及 Log4Net](/2017/07/common-logging.html) 介紹到透過 Common.Logging 可以使用一致的 log 語法將 log 轉由不同 logging framework 處理，在不同專案間就可以使用統一 log 語法而且依團隊習慣自由選擇不同的 logging framework
 
 測試過程聯想到，是不是可以同時發送 log 給不同的 logging framework，動手測試果然不支援 XD，後來找到方法，順手紀錄一下
 

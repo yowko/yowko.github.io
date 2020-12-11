@@ -1,7 +1,7 @@
 ---
 title: "將 NuGet Package 發行至 ProGet"
 date: 2017-09-14T23:50:00+08:00
-lastmod: 2018-09-26T23:50:30+08:00
+lastmod: 2020-12-11T23:50:30+08:00
 draft: false
 tags: ["NuGet","Tools"]
 slug: "nuget-package-proget"
@@ -9,7 +9,7 @@ aliases:
     - /2017/09/nuget-package-proget.html
 ---
 # 將 NuGet Package 發行至 ProGet
-之前 [自建 NuGet Server](https://blog.yowko.com/2017/07/self-host-nuget-server.html) 曾經介紹過使用 NuGet.Server 套件自建 NuGet server 來儲存 NuGet package，不過使用 NuGet.Server 套件在整個介面及管理功能上都過於簡陋，不適合當做正式服務，因此最後選擇 ProGet 這個產品來當做 NuGet server，過程中遭遇到問題，特別紀錄一下其中的眉眉角角
+之前 [自建 NuGet Server](/2017/07/self-host-nuget-server.html) 曾經介紹過使用 NuGet.Server 套件自建 NuGet server 來儲存 NuGet package，不過使用 NuGet.Server 套件在整個介面及管理功能上都過於簡陋，不適合當做正式服務，因此最後選擇 ProGet 這個產品來當做 NuGet server，過程中遭遇到問題，特別紀錄一下其中的眉眉角角
 
 ## 安裝 ProGet
 

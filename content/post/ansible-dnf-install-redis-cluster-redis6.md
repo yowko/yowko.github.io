@@ -1,7 +1,7 @@
 ---
 title: "Ansible 使用 dnf 安裝 Redis Cluster (Redis6)"
 date: 2020-11-14T21:30:00+08:00
-lastmod: 2020-11-14T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux","Ansible","Redis"]
 slug: "ansible-dnf-install-redis-cluster-redis6"
@@ -9,7 +9,7 @@ slug: "ansible-dnf-install-redis-cluster-redis6"
 
 ## Ansible 使用 dnf 安裝 Redis Cluster (Redis6)
 
-之前筆記 [Ansible 安裝 Redis Cluster](https://blog.yowko.com/ansible-redis-cluster-update/) 紀錄到在 CentOS 7 上透過 Ansible 使用 yum 來安裝 Redis Cluster，但最近 production 環境已經升級成 CentOS 8 + dnf，所以來更新一下 Ansible script，避免之後想抄又要東翻西找XD
+之前筆記 [Ansible 安裝 Redis Cluster](/ansible-redis-cluster-update/) 紀錄到在 CentOS 7 上透過 Ansible 使用 yum 來安裝 Redis Cluster，但最近 production 環境已經升級成 CentOS 8 + dnf，所以來更新一下 Ansible script，避免之後想抄又要東翻西找XD
 
 ## 基本環境說明
 
@@ -416,7 +416,7 @@ slug: "ansible-dnf-install-redis-cluster-redis6"
 
 ## 心得
 
-大致上流程與之前筆記 [Ansible 安裝 Redis Cluster](https://blog.yowko.com/ansible-redis-cluster-update/) 相同，主要變動的部份是
+大致上流程與之前筆記 [Ansible 安裝 Redis Cluster](/ansible-redis-cluster-update/) 相同，主要變動的部份是
 
 1. dnf module 的註冊與啟用
 2. 使用 dnf 的 module 進行安裝
@@ -425,5 +425,5 @@ slug: "ansible-dnf-install-redis-cluster-redis6"
 
 ## 參考資訊
 
-1. [Ansible 安裝 Redis Cluster](https://blog.yowko.com/ansible-redis-cluster-update/)
+1. [Ansible 安裝 Redis Cluster](/ansible-redis-cluster-update/)
 2. [yowko/ansible-dnf-install-redis-cluster](https://github.com/yowko/ansible-dnf-install-redis-cluster)

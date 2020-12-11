@@ -1,7 +1,7 @@
 ---
 title: "讓 .NET Core 的 HttpClientFactory 不驗證 Https 憑證"
 date: 2019-03-06T21:30:00+08:00
-lastmod: 2019-03-06T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["C#","dotnet core","Docker"]
 slug: "dotnet-core-httpclientfactory-invalid-certificate"
@@ -16,11 +16,11 @@ Https 幾乎已成為了現在網站的基本配備，從過去只有敏感交�
     ```cs
     services.AddHttpClient("yowkoblog", c =>
     {
-        c.BaseAddress = new Uri("https://blog.yowko.com/");
+        c.BaseAddress = new Uri("/");
     });
     ```
 
-    > .NET Core 使用 HttpClientFactory 完整設定方式請參考 [在 .NET Core 與 .NET Framework 上使用 HttpClientFactory](https://blog.yowko.com/httpclientfactory-dotnet-core-dotnet-framework/#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F)
+    > .NET Core 使用 HttpClientFactory 完整設定方式請參考 [在 .NET Core 與 .NET Framework 上使用 HttpClientFactory](/httpclientfactory-dotnet-core-dotnet-framework/#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F)
 
 ## 錯誤訊息
 - 訊息內容
@@ -39,7 +39,7 @@ Https 幾乎已成為了現在網站的基本配備，從過去只有敏感交�
     ```cs
     services.AddHttpClient("yowkoblog", c =>
     {
-        c.BaseAddress = new Uri("https://blog.yowko.com/");
+        c.BaseAddress = new Uri("/");
     }).ConfigurePrimaryHttpMessageHandler(h =>
     {
         var handler = new HttpClientHandler();
@@ -55,7 +55,7 @@ Https 幾乎已成為了現在網站的基本配備，從過去只有敏感交�
     ```cs
     services.AddHttpClient("yowkoblog", c =>
     {
-        c.BaseAddress = new Uri("https://blog.yowko.com/");
+        c.BaseAddress = new Uri("/");
     }).ConfigurePrimaryHttpMessageHandler(h =>
     {
         var handler = new HttpClientHandler();

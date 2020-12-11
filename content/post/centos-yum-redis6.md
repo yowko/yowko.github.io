@@ -1,14 +1,14 @@
 ---
 title: "CentOS 使用 yum 安裝 Redis6"
 date: 2020-08-16T14:30:00+08:00
-lastmod: 2020-08-16T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Redis","Linux"]
 slug: "centos-yum-redis6"
 ---
 ## CentOS 使用 yum 安裝 Redis6
 
-之前筆記 [使用 Yum 安裝 Redis 5](https://blog.yowko.com/yum-install-redis5/) 中提到預設的 centos yum repository 中僅能安裝 redis3，透過使用 ius repository 才能使用 yum 來安裝 redis5，不過 redis6 已經問市一陣子，但 ius repository 尚未推出對應的更新，為了能使用 yum 來安裝 redis6，找了其他 yum repository，簡單快速紀錄一下
+之前筆記 [使用 Yum 安裝 Redis 5](/yum-install-redis5/) 中提到預設的 centos yum repository 中僅能安裝 redis3，透過使用 ius repository 才能使用 yum 來安裝 redis5，不過 redis6 已經問市一陣子，但 ius repository 尚未推出對應的更新，為了能使用 yum 來安裝 redis6，找了其他 yum repository，簡單快速紀錄一下
 
 ## 基本環境說明
 
@@ -38,7 +38,7 @@ slug: "centos-yum-redis6"
 
 3. 安裝 redis6
 
-    > 透過 `yum info redis` 發現 `redis` 這個 package name 已是 redis6.0.6 (如果想要安裝其他版本，可以參考之前筆記 [yum 安裝指定版本套件](https://blog.yowko.com/yum-specific-version))
+    > 透過 `yum info redis` 發現 `redis` 這個 package name 已是 redis6.0.6 (如果想要安裝其他版本，可以參考之前筆記 [yum 安裝指定版本套件](/yum-specific-version))
 
     ![1yuminfo](https://user-images.githubusercontent.com/3851540/90330536-03582c80-dfe0-11ea-84a4-cc75c7899fea.png)
 
@@ -68,6 +68,6 @@ slug: "centos-yum-redis6"
 
 ## 參考資訊
 
-1. [使用 Yum 安裝 Redis 5](https://blog.yowko.com/yum-install-redis5/)
-2. [yum 安裝指定版本套件](https://blog.yowko.com/yum-specific-version)
+1. [使用 Yum 安裝 Redis 5](/yum-install-redis5/)
+2. [yum 安裝指定版本套件](/yum-specific-version)
 3. [Install REMI Repository On RHEL, CentOS, Scientific Linux 7/6.x/5.x And Fedora 20/19/18](https://www.unixmen.com/install-remi-repository-rhel-centos-scientific-linux-76-x5-x-fedora-201918/)

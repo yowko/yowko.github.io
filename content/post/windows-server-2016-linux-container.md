@@ -1,7 +1,7 @@
 ---
 title: "在 Windows Server 2016 上使用 Linux Container"
 date: 2017-09-01T01:40:00+08:00
-lastmod: 2018-09-25T01:40:59+08:00
+lastmod: 2020-12-11T01:40:59+08:00
 draft: false
 tags: ["docker","Windows Server 2016"]
 slug: "windows-server-2016-linux-container"
@@ -9,7 +9,7 @@ aliases:
     - /2017/09/windows-server-2016-linux-container.html
 ---
 # 在 Windows Server 2016 上使用 Linux Container
-想必大家對於 Windows 10 透過簡易的 GUI 就可達到快速切換 Windows container 與 Linux container 的功能非常有印象(詳細內容可以參考 [Windows 10 如何啟用 docker 功能](https://blog.yowko.com/2017/05/windows-10-docker.html))，原本在 Windows Server 2016 上並沒有提供這樣的工具，這幾天經同事指點：新版的 Docker for Windows 已經支援 Windows Server 2016 可以快速轉換 Windows container 與 Linux container
+想必大家對於 Windows 10 透過簡易的 GUI 就可達到快速切換 Windows container 與 Linux container 的功能非常有印象(詳細內容可以參考 [Windows 10 如何啟用 docker 功能](/2017/05/windows-10-docker.html))，原本在 Windows Server 2016 上並沒有提供這樣的工具，這幾天經同事指點：新版的 Docker for Windows 已經支援 Windows Server 2016 可以快速轉換 Windows container 與 Linux container
 
 在同事的催促下，就來紀錄一下該如何安裝與使用吧
 
@@ -41,7 +41,7 @@ Windows 環境並不支援 Linux 相關 api，為了讓 Windwos Server 2016 可�
 
 *   方法 二：自行安裝
 
-    > 詳細安裝方式請參考 [如何在 Windows Server 2016 上安裝 Hyper-V](https://blog.yowko.com/2017/05/windows-server-2016-hyper-v.html)
+    > 詳細安裝方式請參考 [如何在 Windows Server 2016 上安裝 Hyper-V](/2017/05/windows-server-2016-hyper-v.html)
 
 ## 安裝完成
 
@@ -78,5 +78,5 @@ Windows 環境並不支援 Linux 相關 api，為了讓 Windwos Server 2016 可�
 # 參考資訊
 
 1.  [Install Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
-2.  [Windows 10 如何啟用 docker 功能](https://blog.yowko.com/2017/05/windows-10-docker.html)
-3.  [如何在 Windows Server 2016 上安裝 Hyper-V](https://blog.yowko.com/2017/05/windows-server-2016-hyper-v.html)
+2.  [Windows 10 如何啟用 docker 功能](/2017/05/windows-10-docker.html)
+3.  [如何在 Windows Server 2016 上安裝 Hyper-V](/2017/05/windows-server-2016-hyper-v.html)

@@ -1,7 +1,7 @@
 ---
 title: "讓 NLog 發送 Mail "
 date: 2018-07-17T23:03:00+08:00
-lastmod: 2020-09-01T23:03:31+08:00
+lastmod: 2020-12-11T23:03:31+08:00
 draft: false
 tags: ["套件","NLog"]
 slug: "nlog-mail"
@@ -9,7 +9,7 @@ aliases:
     - /2018/07/nlog-mail.html
 ---
 # 讓 NLog 發送 Mail 
-曾經在之前筆記 [讓 log4net 收到指定錯誤 Level 發送 mail](https://blog.yowko.com/2018/05/log4net-mail.html) 紀錄到透過 log4net 的 appender 設定讓出現指定 log Level 時自動發送 mail，當時就覺得 NLog 在設定的便利性上與文件的可讀性上有不少優勢
+曾經在之前筆記 [讓 log4net 收到指定錯誤 Level 發送 mail](/2018/05/log4net-mail.html) 紀錄到透過 log4net 的 appender 設定讓出現指定 log Level 時自動發送 mail，當時就覺得 NLog 在設定的便利性上與文件的可讀性上有不少優勢
 
 最近手邊另個專案也希望在程式補捉到 Error 或是 Fatal 等級的訊息時發送 mail，不同的是這個專案採用 NLog，過程中發現部份設定記憶日益模糊，趁著專案需要順手整理一下
 
@@ -258,7 +258,7 @@ aliases:
 NLog 在使用上不僅方便，文件又清楚，雖然有個屬性 (deliveryMethod|smtpDeliveryMethod) 在不同位置有不同的名稱，但瑕不掩瑜呀  整理及測試的過程都沒遇到什麼困難，明顯與 log4net 差很多，還是 NLog 對我的胃口呀
 
 # 參考資訊
-1. [讓 log4net 收到指定錯誤 Level 發送 mail](https://blog.yowko.com/2018/05/log4net-mail.html)
+1. [讓 log4net 收到指定錯誤 Level 發送 mail](/2018/05/log4net-mail.html)
 2. [Mail target](https://github.com/NLog/NLog/wiki/Mail-Target)
 3. [Layout Renderers](https://github.com/NLog/NLog/wiki/Layout-Renderers)
 4. [Targets](https://github.com/NLog/NLog/wiki/Targets)

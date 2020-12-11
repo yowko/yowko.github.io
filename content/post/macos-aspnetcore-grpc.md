@@ -1,7 +1,7 @@
 ---
 title: "在 macOS 上的 ASP.NET Core 中呼叫 gRPC"
 date: 2020-02-23T22:30:00+08:00
-lastmod: 2020-09-01T22:30:31+08:00
+lastmod: 2020-12-11T22:30:31+08:00
 draft: false
 tags: ["macOS","dotnet core","gRPC"]
 slug: "macos-aspnetcore-grpc"
@@ -30,7 +30,7 @@ slug: "macos-aspnetcore-grpc"
 
 1. GrpcService
 
-    > 這個部份可以參考之前筆記 [ASP.NET Core gRPC 無法在 macOS 上啟動？！](https://blog.yowko.com/aspdotnet-core-grpc-macos/) 或是 [無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-3.1&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos)，主因就是 gRPC 預設使用 TLS，但 macOS 不支援具有 TLS 的 ASP.NET Core gRPC 所以需要在 Grpc Server 端設定停用 TLS ：修改 `Program.cs` 的 `CreateHostBuilder` 方法
+    > 這個部份可以參考之前筆記 [ASP.NET Core gRPC 無法在 macOS 上啟動？！](/aspdotnet-core-grpc-macos/) 或是 [無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-3.1&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos)，主因就是 gRPC 預設使用 TLS，但 macOS 不支援具有 TLS 的 ASP.NET Core gRPC 所以需要在 Grpc Server 端設定停用 TLS ：修改 `Program.cs` 的 `CreateHostBuilder` 方法
 
     ```cs
     public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -112,6 +112,6 @@ slug: "macos-aspnetcore-grpc"
 
 1. [教學課程：在 ASP.NET Core 中建立 gRPC 用戶端和伺服器](https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/grpc/grpc-start?view=aspnetcore-3.1&tabs=visual-studio&WT.mc_id=DOP-MVP-5002594)
 2. [使用 .NET Core 用戶端呼叫不安全的 gRPC 服務](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-3.1&WT.mc_id=DOP-MVP-5002594#call-insecure-grpc-services-with-net-core-client)
-3. [ASP.NET Core gRPC 無法在 macOS 上啟動？！](https://blog.yowko.com/aspdotnet-core-grpc-macos/)
+3. [ASP.NET Core gRPC 無法在 macOS 上啟動？！](/aspdotnet-core-grpc-macos/)
 4. [無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-3.1&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos)
 5. [在 Windows 上的 ASP.NET Core 中呼叫 gRPC](https;//blog.yowko.com/windows-aspnetcore-grpc)

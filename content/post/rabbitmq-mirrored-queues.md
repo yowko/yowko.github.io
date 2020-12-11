@@ -1,7 +1,7 @@
 ---
 title: "設定 RabbitMQ 的 Mirrored Queues - 讓 Queue 內容可以在多組 RabbitMQ 同步"
 date: 2017-08-11T23:35:00+08:00
-lastmod: 2018-09-22T23:35:08+08:00
+lastmod: 2020-12-11T23:35:08+08:00
 draft: false
 tags: ["RabbitMQ"]
 slug: "rabbitmq-mirrored-queues"
@@ -9,7 +9,7 @@ aliases:
     - /2017/08/rabbitmq-mirrored-queues.html
 ---
 # 設定 RabbitMQ 的 Mirrored Queues - 讓 Queue 內容可以在多組 RabbitMQ 同步
-之前文章 [如何在 Windwos 上設定 RabbitMQ Cluster](https://blog.yowko.com/2017/08/windwos-rabbitmq-cluster.html) 提到：一個完善的系統一定需要確保系統中的各個 component 是具備 HA - High availability 的特性，而 message queue 本身因為角色特性的關係， HA 的重要性又系統中其他 component 來得重要許多，畢竟所有資訊都會有經過 message queue，如果 message queue 掛了，也代表著整個系統都掛了，所以透過 RabbitMQ 的 Cluster 機制來確保 RabbitMQ 可以有多個 node 進行服務
+之前文章 [如何在 Windwos 上設定 RabbitMQ Cluster](/2017/08/windwos-rabbitmq-cluster.html) 提到：一個完善的系統一定需要確保系統中的各個 component 是具備 HA - High availability 的特性，而 message queue 本身因為角色特性的關係， HA 的重要性又系統中其他 component 來得重要許多，畢竟所有資訊都會有經過 message queue，如果 message queue 掛了，也代表著整個系統都掛了，所以透過 RabbitMQ 的 Cluster 機制來確保 RabbitMQ 可以有多個 node 進行服務
 
 但只有 cluster 還不夠，因為 cluster 只能確保 RabbitMQ 不會因為只有一個 node 無法提供服務就造成整個 RabbitMQ 都失效，不過因為個別 queue 及相關的 message 還是存於個別的 node 之上，如果其中一個 node 出現問題，存在這個 node 上的 queue 跟內容都會遺失。這不是可靠系統該出現的，所以就有今天主題 - Mirrored Queues 的出現
 
@@ -19,7 +19,7 @@ Mirrored Queues 會在多個 node 中互相複製及儲存 queue 及其內容，
 
 ## 基本環境
 
-最重要的前提就是必需要先設定好 RabbitMQ Cluster ，詳細設定可以參考 [如何在 Windwos 上設定 RabbitMQ Cluster](https://blog.yowko.com/2017/08/windwos-rabbitmq-cluster.html)，這邊就不重複贅述
+最重要的前提就是必需要先設定好 RabbitMQ Cluster ，詳細設定可以參考 [如何在 Windwos 上設定 RabbitMQ Cluster](/2017/08/windwos-rabbitmq-cluster.html)，這邊就不重複贅述
 
 ## 設定 Mirrored Queues
 
@@ -108,7 +108,7 @@ RabbitMQ server 端的設定大致已完備，但 client 的 publisher 與 consu
 
 # 參考資訊
 
-1.  [如何在 Windwos 上設定 RabbitMQ Cluster](https://blog.yowko.com/2017/08/windwos-rabbitmq-cluster.html)
+1.  [如何在 Windwos 上設定 RabbitMQ Cluster](/2017/08/windwos-rabbitmq-cluster.html)
 2.  [RabbitMQ官網文檔翻譯 -- Highly Available Queue](https://my.oschina.net/moooofly/blog/94113)
 3.  [Highly Available (Mirrored) Queues](https://www.rabbitmq.com/ha.html)
 4.  [Rabbitmq HTTP API request UnAuthorized](https://stackoverflow.com/questions/10647631/rabbitmq-http-api-request-unauthorized)

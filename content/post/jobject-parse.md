@@ -1,7 +1,7 @@
 ---
 title: "從 Json String 中取得物件的屬性值"
 date: 2017-07-30T23:55:00+08:00
-lastmod: 2018-09-24T00:41:54+08:00
+lastmod: 2020-12-11T00:41:54+08:00
 draft: false
 tags: ["套件","C#"]
 slug: "jobject-parse"
@@ -9,13 +9,13 @@ aliases:
     - /2017/07/jobject-parse.html
 ---
 # 從 Json String 中取得物件的屬性值
-之前文章 [使用 string 建立 instance 及反序列化 json 為 class](https://blog.yowko.com/2017/07/string-create-instance.html) 介紹到如何使用 string 產生 instance 及反序列化 json 為 class，後來同事看到寫法建議可以用 json.net 的 `JObject.Parse` 語法
+之前文章 [使用 string 建立 instance 及反序列化 json 為 class](/2017/07/string-create-instance.html) 介紹到如何使用 string 產生 instance 及反序列化 json 為 class，後來同事看到寫法建議可以用 json.net 的 `JObject.Parse` 語法
 
 後來試了一下，覺得滿方便的，但用途不太一樣，順手紀錄一下
 
 ## 基本設定
 
-本文會延續 [使用 string 建立 instance 及反序列化 json 為 class](https://blog.yowko.com/2017/07/string-create-instance.html) 來進行比較，詳細資訊可以參考 使用 [string 建立 instance 及反序列化 json 為 class](https://blog.yowko.com/2017/07/string-create-instance.html) 內容
+本文會延續 [使用 string 建立 instance 及反序列化 json 為 class](/2017/07/string-create-instance.html) 來進行比較，詳細資訊可以參考 使用 [string 建立 instance 及反序列化 json 為 class](/2017/07/string-create-instance.html) 內容
 
 1.  共用的 model class
 
@@ -122,6 +122,6 @@ void Deserialize(string typename, string jsonstr)
 
 # 參考資訊
 
-1.  [使用 string 建立 instance 及反序列化 json 為 class](https://blog.yowko.com/2017/07/string-create-instance.html)
+1.  [使用 string 建立 instance 及反序列化 json 為 class](/2017/07/string-create-instance.html)
 2.  [JObject](http://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm)
 3.  [JObject.Parse Method](http://www.newtonsoft.com/json/help/html/M_Newtonsoft_Json_Linq_JObject_Parse.htm)

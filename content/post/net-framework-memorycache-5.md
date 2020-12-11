@@ -1,7 +1,7 @@
 ---
 title: "使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 5 使用動態條件與動態欄位"
 date: 2017-03-11T01:42:34+08:00
-lastmod: 2018-09-12T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["C#","Cache"]
 slug: "net-framework-memorycache-5"
@@ -176,7 +176,7 @@ public static class CacheHelper
     - LINQPad 可以直接執行, .NET 請參考這篇 [Dynamically Composing Expression Predicates](http://www.albahari.com/nutshell/predicatebuilder.aspx) 安裝
 
 # 參考資訊
-1. [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 4 使用泛型來簡化](https://blog.yowko.com/2017/02/net-framework-memorycache-use-generic.html)
+1. [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 4 使用泛型來簡化](/2017/02/net-framework-memorycache-use-generic.html)
 2. [dynamically specify select columns linq](http://stackoverflow.com/questions/38467681/dynamically-specify-select-columns-linq)
 3. [Dynamic Column Name in LinQ](http://stackoverflow.com/questions/24732724/dynamic-column-name-in-linq)
 4. [CONSTRUCT DYNAMIC FILTERS WITH C#](http://www.pashov.net/code/dynamic+filters)

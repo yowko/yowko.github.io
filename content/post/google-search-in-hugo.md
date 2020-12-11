@@ -1,7 +1,7 @@
 ---
 title: "將 Google自訂搜尋引擎 (Google Custom Search) 搭配 OpenSearch 加至 Hugo 網站中"
 date: 2018-10-14T00:10:10+08:00
-lastmod: 2018-10-14T00:10:10+08:00
+lastmod: 2020-12-11T00:10:10+08:00
 draft: false
 tags: ["Google"]
 slug: "google-search-in-hugo"
@@ -9,7 +9,7 @@ aliases:
     - /2018/10/google-search-in-hugo/
 ---
 # 將 Google自訂搜尋引擎 (Google Custom Search) 搭配 OpenSearch 加至 Hugo 網站中
-之前曾在筆記 [如何使用 Blogger APIs Client Library for .NET 匯出 Blogger 文章](https://blog.yowko.com/2018/09/dotnet-blogger-library/) 中提到過去選擇使用 Blogger 當做筆記平台就是看中 Blogger 支援 opensearch ，雖然不是原生啟用，但透過簡單的 plugin 安裝再加上 [怎麼讓網站在輸入網址後按tab 就可以直接搜尋網站內容(OpenSearch)](https://blog.yowko.com/2016/12/opensearch/) 中提到的一些小技巧就可以讓搜尋功能大幅強化，用來彌補個人記憶力差的問題
+之前曾在筆記 [如何使用 Blogger APIs Client Library for .NET 匯出 Blogger 文章](/2018/09/dotnet-blogger-library/) 中提到過去選擇使用 Blogger 當做筆記平台就是看中 Blogger 支援 opensearch ，雖然不是原生啟用，但透過簡單的 plugin 安裝再加上 [怎麼讓網站在輸入網址後按tab 就可以直接搜尋網站內容(OpenSearch)](/2016/12/opensearch/) 中提到的一些小技巧就可以讓搜尋功能大幅強化，用來彌補個人記憶力差的問題
 
 既然決定轉換平台，當然就要來克服相關問題囉
 
@@ -57,7 +57,7 @@ aliases:
 
 ## 設定 OpenSearch
 
-> 詳細操作流程請參考過去筆記 [怎麼讓網站在輸入網址後按tab 就可以直接搜尋網站內容(OpenSearch)](https://blog.yowko.com/2016/12/opensearch/)，以下內容僅列出步驟
+> 詳細操作流程請參考過去筆記 [怎麼讓網站在輸入網址後按tab 就可以直接搜尋網站內容(OpenSearch)](/2016/12/opensearch/)，以下內容僅列出步驟
 
 1. 建立 OpenSearch 描述 xml 檔案
 
@@ -154,7 +154,7 @@ aliases:
 
 
 # 參考資訊
-1. [如何使用 Blogger APIs Client Library for .NET 匯出 Blogger 文章](https://blog.yowko.com/2018/09/dotnet-blogger-library/)
-2. [怎麼讓網站在輸入網址後按tab 就可以直接搜尋網站內容(OpenSearch)](https://blog.yowko.com/2016/12/opensearch/)
+1. [如何使用 Blogger APIs Client Library for .NET 匯出 Blogger 文章](/2018/09/dotnet-blogger-library/)
+2. [怎麼讓網站在輸入網址後按tab 就可以直接搜尋網站內容(OpenSearch)](/2016/12/opensearch/)
 3. [Search for your Hugo Website](https://gohugo.io/tools/search/)
 4. [Hexo - 自訂站內搜尋(Google Custom Search) | John Wu's Blog](https://blog.johnwu.cc/article/hexo-google-custom-search.html)

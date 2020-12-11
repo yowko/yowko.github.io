@@ -1,7 +1,7 @@
 ---
 title: "gRPC stream 如何傳送單一大物件"
 date: 2019-07-07T21:30:00+08:00
-lastmod: 2019-07-07T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["csharp","gRPC"]
 slug: "grpc-stream-big-object"
@@ -9,9 +9,9 @@ slug: "grpc-stream-big-object"
 
 ## gRPC stream 如何傳送單一大物件
 
-之前筆記 [C# 搭配 gRPC 中使用 stream RPC](https://blog.yowko.com/csharp-grpc-stream/) 提到為了對於較大資料量以及即時性資料內容，可以透過 gRPC 的 stream RPC 來處理，不過官方範例是用在傳送 `repeated` 內容 (如同 List、Array 這類的物件)，但現實上難免會遇到需要傳送不只一個 list 的狀況：像是一個大型物件中，包含多個不同長度的 list，剛好專案就有類似需求，我就小小筆記一下，當作備忘
+之前筆記 [C# 搭配 gRPC 中使用 stream RPC](/csharp-grpc-stream/) 提到為了對於較大資料量以及即時性資料內容，可以透過 gRPC 的 stream RPC 來處理，不過官方範例是用在傳送 `repeated` 內容 (如同 List、Array 這類的物件)，但現實上難免會遇到需要傳送不只一個 list 的狀況：像是一個大型物件中，包含多個不同長度的 list，剛好專案就有類似需求，我就小小筆記一下，當作備忘
 
-今天內容會以之前筆記 [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](https://blog.yowko.com/csharp-protobuf-serialize-deserialize/) 為基礎作延伸
+今天內容會以之前筆記 [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](/csharp-protobuf-serialize-deserialize/) 為基礎作延伸
 
 ## 基本環境說明
 
@@ -139,7 +139,7 @@ slug: "grpc-stream-big-object"
 
 3. 修改傳送端
 
-    > protobuf 序列化的用法可以參考 [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](https://blog.yowko.com/csharp-protobuf-serialize-deserialize/)
+    > protobuf 序列化的用法可以參考 [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](/csharp-protobuf-serialize-deserialize/)
 
     - 改用 `stream`
     - 透過 Google.Protobuf 轉為 byte[] 傳送
@@ -167,7 +167,7 @@ slug: "grpc-stream-big-object"
 
 4. 修改接受端
 
-    > protobuf 反序列化的用法可以參考 [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](https://blog.yowko.com/csharp-protobuf-serialize-deserialize/)
+    > protobuf 反序列化的用法可以參考 [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](/csharp-protobuf-serialize-deserialize/)
 
     - 改用 stream 接收
     - 透過 Google.Protobuf 讀取 byte[] 轉型
@@ -199,5 +199,5 @@ slug: "grpc-stream-big-object"
 
 ## 參考資訊
 
-1. [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](https://blog.yowko.com/csharp-protobuf-serialize-deserialize/)
+1. [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](/csharp-protobuf-serialize-deserialize/)
 2. [Chunking large messages with gRPC](https://jbrandhorst.com/post/grpc-binary-blob-stream/)

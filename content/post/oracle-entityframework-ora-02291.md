@@ -1,7 +1,7 @@
 ---
 title: "Oracle 搭配 Entity Framework 寫入資料出現 ORA-02291 錯誤"
 date: 2017-10-29T01:31:00+08:00
-lastmod: 2018-09-27T01:31:37+08:00
+lastmod: 2020-12-11T01:31:37+08:00
 draft: false
 tags: ["Debug","Entity Framework","Oracle"]
 slug: "oracle-entityframework-ora-02291"
@@ -9,7 +9,7 @@ aliases:
     - /2017/10/oracle-entityframework-ora-02291.html
 ---
 # Oracle 搭配 Entity Framework 寫入資料出現 ORA-02291 錯誤
-之前文章 [Oracle 如何做到 SQL Server 的 Identity 欄位型態](https://blog.yowko.com/2017/10/oracle-identity.html) 介紹到在 Oracle 將 table 欄位設定成模擬 SQL Server Identity 的做法，但實際使用上卻發現某些 table 寫入時卻出現 `ORA-02291: integrity constraint (******.FK_****) violated - parent key not found` 錯誤，檢查了不少地方，最後將 SQL statement output 出來直接執行卻未發生錯誤，直覺與 Entity Framework 有關，接著就來看看如何解決與問題發生原因吧
+之前文章 [Oracle 如何做到 SQL Server 的 Identity 欄位型態](/2017/10/oracle-identity.html) 介紹到在 Oracle 將 table 欄位設定成模擬 SQL Server Identity 的做法，但實際使用上卻發現某些 table 寫入時卻出現 `ORA-02291: integrity constraint (******.FK_****) violated - parent key not found` 錯誤，檢查了不少地方，最後將 SQL statement output 出來直接執行卻未發生錯誤，直覺與 Entity Framework 有關，接著就來看看如何解決與問題發生原因吧
 
 ## 錯誤訊息
 

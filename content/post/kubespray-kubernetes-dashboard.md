@@ -1,7 +1,7 @@
 ---
 title: "使用 Kubespray 開啟 Kubernetes Dashboard"
 date: 2019-08-10T21:30:00+08:00
-lastmod: 2019-08-10T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Kubernetes"]
 slug: "kubespray-kubernetes-dashboard"

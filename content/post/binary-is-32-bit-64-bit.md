@@ -1,7 +1,7 @@
 ---
 title: "如何看程式是 32 bit 還是 64 bit"
 date: 2017-11-18T23:51:00+08:00
-lastmod: 2018-09-30T23:51:59+08:00
+lastmod: 2020-12-11T23:51:59+08:00
 draft: false
 tags: ["Oracle","Tools"]
 slug: "binary-is-32-bit-64-bit"
@@ -9,7 +9,7 @@ aliases:
     - /2017/11/binary-is-32-bit-64-bit.html
 ---
 # 如何看程式是 32 bit 還是 64 bit
-今天正在嘗試使用 docker 安裝 oracle client，嘗試的過程中發現之前的筆記有錯誤的地方：[Dapper 讀取 Oracle 資料](https://blog.yowko.com/2017/07/dapper-oracle.html) 文中提到 Oracle.ManagedDataAccess 是 ~~64 bit 元件，也無法正確連線 oracle~~，兩項說明都是錯誤的， Oracle.ManagedDataAccess 是 `32 bit`，而且`絕對可以用來操作 oracle`
+今天正在嘗試使用 docker 安裝 oracle client，嘗試的過程中發現之前的筆記有錯誤的地方：[Dapper 讀取 Oracle 資料](/2017/07/dapper-oracle.html) 文中提到 Oracle.ManagedDataAccess 是 ~~64 bit 元件，也無法正確連線 oracle~~，兩項說明都是錯誤的， Oracle.ManagedDataAccess 是 `32 bit`，而且`絕對可以用來操作 oracle`
 
 在釐清與驗證之前筆記到底是不是寫錯的過程中有兩個重點：
 
@@ -71,6 +71,6 @@ aliases:
 
 # 參考資訊
 
-1.  [Dapper 讀取 Oracle 資料](https://blog.yowko.com/2017/07/dapper-oracle.html)
+1.  [Dapper 讀取 Oracle 資料](/2017/07/dapper-oracle.html)
 2.  [DUMPBIN 參考](https://msdn.microsoft.com/zh-tw/library/c1h23y6c.aspx)
 3.  [Windows command to tell whether a .dll file is 32 bit or 64 bit?](https://stackoverflow.com/questions/14560866/windows-command-to-tell-whether-a-dll-file-is-32-bit-or-64-bit)

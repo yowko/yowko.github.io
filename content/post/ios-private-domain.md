@@ -1,7 +1,7 @@
 ---
 title: "讓 iOS 裝置可以存取自訂 domain"
 date: 2019-12-25T21:30:00+08:00
-lastmod: 2019-12-26T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["iOS","Tools","macOS"]
 slug: "ios-private-domain"
@@ -29,7 +29,7 @@ iOS 沒有 hosts file 可以設定，同事說可以透過 jb 來設定，我沒
 
 1. 使用 `Mitmproxy` 在電腦上建立 proxy server
 
-    > 這邊可以使用其他工具 (過去在 Windows 平台，我多是使用 fiddler 詳細資訊可以參考之前筆記 [使用fiddler 內建proxy 來截錄手機或是程式封包](https://blog.yowko.com/fiddler-proxy-collect-traffic/)，因為 mac 使用 fiddler 需要透過 mono 以方便性來看不是首選)
+    > 這邊可以使用其他工具 (過去在 Windows 平台，我多是使用 fiddler 詳細資訊可以參考之前筆記 [使用fiddler 內建proxy 來截錄手機或是程式封包](/fiddler-proxy-collect-traffic/)，因為 mac 使用 fiddler 需要透過 mono 以方便性來看不是首選)
 
     - 透過 homebrew 安裝
 

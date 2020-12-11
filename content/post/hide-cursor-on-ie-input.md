@@ -1,7 +1,7 @@
 ---
 title: "如何消除 IE 中 input 元件上的游標"
 date: 2017-01-25T00:42:34+08:00
-lastmod: 2018-09-10T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["Frontend","Html"]
 slug: "hide-cursor-on-ie-input"
@@ -9,7 +9,7 @@ aliases:
     - /2017/01/hide-cursor-on-ie-input.html
 ---
 # 如何消除 IE 中 input 元件上的游標
-之前為了解決 HTML 檔案上傳元件在各個瀏覽器呈現效果不同的問題，所以手刻了上傳元件，詳細內容請參考 [試著將不同瀏覽器的上傳元件(input type='file')樣式統一](https://blog.yowko.com/2017/01/customize-file-input-style.html), 功能面沒問題，但公司認真的 QA 發現在 IE 上出現畫面不一致的狀況，所以我又來了手工調整了 ~~
+之前為了解決 HTML 檔案上傳元件在各個瀏覽器呈現效果不同的問題，所以手刻了上傳元件，詳細內容請參考 [試著將不同瀏覽器的上傳元件(input type='file')樣式統一](/2017/01/customize-file-input-style.html), 功能面沒問題，但公司認真的 QA 發現在 IE 上出現畫面不一致的狀況，所以我又來了手工調整了 ~~
 
 ## 畫面問題
 - 實際效果請參考 [原始 jsbin](http://jsbin.com/nufatehize/1/edit)

@@ -1,7 +1,7 @@
 ---
 title: "取得 Redis 中指定 key 條件的筆數"
 date: 2018-07-13T02:40:00+08:00
-lastmod: 2018-10-07T02:40:52+08:00
+lastmod: 2020-12-11T02:40:52+08:00
 draft: false
 tags: ["C#","Redis"]
 slug: "redis-key-count"
@@ -168,5 +168,5 @@ aliases:
 # 參考資訊
 1. [KEY](https://redis.io/commands/keys)
 2. [SCAN](https://redis.io/commands/scan)
-3. [如何使用 StackExchange.Redis 取得所有 keys 值與指定 pattern 的 key](https://blog.yowko.com/2017/04/stackexchange-redis-get-all-keys-or-pattern.html)
+3. [如何使用 StackExchange.Redis 取得所有 keys 值與指定 pattern 的 key](/2017/04/stackexchange-redis-get-all-keys-or-pattern.html)
 4. [Where are KEYS, SCAN, FLUSHDB etc?](https://stackexchange.github.io/StackExchange.Redis/KeysScan)

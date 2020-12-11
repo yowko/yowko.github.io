@@ -1,7 +1,7 @@
 ---
 title: "安裝 Squid Proxy"
 date: 2020-06-13T21:30:00+08:00
-lastmod: 2020-06-13T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux","Netowrk"]
 slug: "squid-proxy"
@@ -138,13 +138,13 @@ slug: "squid-proxy"
 1. 一般存取網頁
 
     ```bash
-    curl -L https://blog.yowko.com/
+    curl -L /
     ```
 
 2. 確認透過 squid proxy 存取正常
 
     ```bash
-    curl -x http://127.0.0.1:3128 -L https://blog.yowko.com/
+    curl -x http://127.0.0.1:3128 -L /
     ```
 
 3. 檢視 squid log 的存取紀錄
@@ -204,10 +204,10 @@ slug: "squid-proxy"
 
 ## 心得
 
-經由簡單的設定，現在有了一個簡易的 proxy server，不過這個 proxy server 在 transparent mode 下因為 https 關係會出現錯誤，接著我們再來看看如何設定 https 的解析吧 - [Squid Proxy Https 設定](https://blog.yowko.com/squid-proxy-https)
+經由簡單的設定，現在有了一個簡易的 proxy server，不過這個 proxy server 在 transparent mode 下因為 https 關係會出現錯誤，接著我們再來看看如何設定 https 的解析吧 - [Squid Proxy Https 設定](/squid-proxy-https)
 
 ## 參考資訊
 
 1. [Squid proxy - a short guide (forward & transparent proxy examples, SSL bumping, links to guides)](https://www.reddit.com/r/sysadmin/comments/a67hly/squid_proxy_a_short_guide_forward_transparent/)
 2. [http_port](http://www.squid-cache.org/Versions/v3/3.5/cfgman/http_port.html)
-3. [Squid Proxy Https 設定](https://blog.yowko.com/squid-proxy-https)
+3. [Squid Proxy Https 設定](/squid-proxy-https)

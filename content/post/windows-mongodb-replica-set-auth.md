@@ -1,7 +1,7 @@
 ---
 title: "在 Windows 啟用 MongoDB Replica Set 驗證"
 date: 2017-09-10T23:13:00+08:00
-lastmod: 2018-09-26T12:03:57+08:00
+lastmod: 2020-12-11T12:03:57+08:00
 draft: false
 tags: ["MongoDB"]
 slug: "windows-mongodb-replica-set-auth"
@@ -9,7 +9,7 @@ aliases:
     - /2017/09/windows-mongodb-replica-set-auth.html
 ---
 # 在 Windows 啟用 MongoDB Replica Set 驗證
-之前曾在 [為 MongoDB 加上驗證機制](https://blog.yowko.com/2017/08/mongodb-enable-auth.html) 介紹過如何為 MongoDB 建立驗證授權機制，為資料加上基本保護，也在 [MongoDB 在 Windows 上的 HA 機制 - Replica sets](https://blog.yowko.com/2017/09/mongodb-windows-ha-replica-sets.html) 介紹 MongoDB 的 HA 機制 - Replica Set 相關安裝及設定。當然想要將 MongoDB 實際使用在 production 環境上，就必需兼顧資安及 HA 機制
+之前曾在 [為 MongoDB 加上驗證機制](/2017/08/mongodb-enable-auth.html) 介紹過如何為 MongoDB 建立驗證授權機制，為資料加上基本保護，也在 [MongoDB 在 Windows 上的 HA 機制 - Replica sets](/2017/09/mongodb-windows-ha-replica-sets.html) 介紹 MongoDB 的 HA 機制 - Replica Set 相關安裝及設定。當然想要將 MongoDB 實際使用在 production 環境上，就必需兼顧資安及 HA 機制
 
 加上近日 MongoDB 資安問題又再次佔據新聞版面 (詳細內容可以參考 [新一波MongoDB勒贖攻擊來襲，2.6萬台伺服器受害](http://www.ithome.com.tw/news/116651))，雖然數量下降，但攻擊強度卻有過之而無不及，所以今天就來紀錄如何啟用 Windows 中 MongoDB Replica Set 的認證與授權
 
@@ -28,7 +28,7 @@ aliases:
 
 1.  先完成 Replica Set 相關設定
 
-    > 詳細內谷可以參考 [MongoDB 在 Windows 上的 HA 機制 - Replica sets](https://blog.yowko.com/2017/09/mongodb-windows-ha-replica-sets.html)
+    > 詳細內谷可以參考 [MongoDB 在 Windows 上的 HA 機制 - Replica sets](/2017/09/mongodb-windows-ha-replica-sets.html)
 
 2.  關閉 MongoDB Replica Set 各個 instance
 
@@ -113,7 +113,7 @@ aliases:
 
 ## 建立儲存資料的 DB 及對應帳號權限
 
-> 上述建立的帳號是針對 MongoDB 的管理權限，實際針對不同 DB 需要加入不同使用者及相關權限，才能實際讀寫資料，帳號設定可以參考 [為 MongoDB 加上驗證機制](https://blog.yowko.com/2017/08/mongodb-enable-auth.html)
+> 上述建立的帳號是針對 MongoDB 的管理權限，實際針對不同 DB 需要加入不同使用者及相關權限，才能實際讀寫資料，帳號設定可以參考 [為 MongoDB 加上驗證機制](/2017/08/mongodb-enable-auth.html)
 
 1.  未建立 db 使用者沒有權限
 
@@ -151,12 +151,12 @@ aliases:
 
 雖說 MongoDB 的設計概念就是用於信任網路，但為什麼不能預設使用較高層級的安全性保護機制，如果真的用不到再自行移除就好，至少可以避免一些偷懶的 user 所造成的低級資安疑慮
 
-回到 MongoDB Replica Set 的驗證設定，設定與 [為 MongoDB 加上驗證機制](https://blog.yowko.com/2017/08/mongodb-enable-auth.html) 相去不遠，概念也相同，再搭配 [MongoDB 在 Windows 上的 HA 機制 - Replica sets](https://blog.yowko.com/2017/09/mongodb-windows-ha-replica-sets.html) 設定 Replica Set ，使用上並不複雜，但在釐清設定的過程中，花了不少時間驗證正確的做法，但終於對相關設定有比較明確的認識
+回到 MongoDB Replica Set 的驗證設定，設定與 [為 MongoDB 加上驗證機制](/2017/08/mongodb-enable-auth.html) 相去不遠，概念也相同，再搭配 [MongoDB 在 Windows 上的 HA 機制 - Replica sets](/2017/09/mongodb-windows-ha-replica-sets.html) 設定 Replica Set ，使用上並不複雜，但在釐清設定的過程中，花了不少時間驗證正確的做法，但終於對相關設定有比較明確的認識
 
 # 參考資訊
 
-1.  [為 MongoDB 加上驗證機制](https://blog.yowko.com/2017/08/mongodb-enable-auth.html)
-2.  [MongoDB 在 Windows 上的 HA 機制 - Replica sets](https://blog.yowko.com/2017/09/mongodb-windows-ha-replica-sets.html)
+1.  [為 MongoDB 加上驗證機制](/2017/08/mongodb-enable-auth.html)
+2.  [MongoDB 在 Windows 上的 HA 機制 - Replica sets](/2017/09/mongodb-windows-ha-replica-sets.html)
 3.  [新一波MongoDB勒贖攻擊來襲，2.6萬台伺服器受害](http://www.ithome.com.tw/news/116651)
 4.  [Deploy Replica Set and Configure Authentication and Authorization](https://docs.mongodb.com/manual/tutorial/enforce-keyfile-access-control-in-existing-replica-set/)
 5.  [Authentication](https://docs.mongodb.com/manual/core/authentication/)

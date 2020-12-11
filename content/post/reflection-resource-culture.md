@@ -1,7 +1,7 @@
 ---
 title: "匯出 Excel 時使用多國語系 Resource 當做欄位名稱"
 date: 2018-04-06T21:53:00+08:00
-lastmod: 2018-04-06T21:53:14+08:00
+lastmod: 2020-12-11T21:53:14+08:00
 draft: false
 tags: ["C#","Office"]
 slug: "reflection-resource-culture"
@@ -9,7 +9,7 @@ aliases:
     - /2018/04/reflection-resource-culture.html
 ---
 # 匯出 Excel 時使用多國語系 Resource 當做欄位名稱
-之前筆記 [使用 C# 將資料匯出成 Excel (.xlsx)](https://blog.yowko.com/2018/04/list-to-excel.html) 紀錄到使用 ClosedXML 搭配 generic 與 reflection 匯出 excel，方便使用者自行調整資料報表
+之前筆記 [使用 C# 將資料匯出成 Excel (.xlsx)](/2018/04/list-to-excel.html) 紀錄到使用 ClosedXML 搭配 generic 與 reflection 匯出 excel，方便使用者自行調整資料報表
 
 剛好有個系統需要支援多國語系，連帶地使用者對要求 excel 也需要有多國語系，雖然資料內容無法隨意改變，但 excel 的欄位名稱就有調整的空間，就來看看可以如何處理吧
 

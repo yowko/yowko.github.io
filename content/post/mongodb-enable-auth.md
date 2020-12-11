@@ -1,7 +1,7 @@
 ---
 title: "為 MongoDB 加上驗證機制"
 date: 2017-08-29T00:54:00+08:00
-lastmod: 2018-09-25T13:56:11+08:00
+lastmod: 2020-12-11T13:56:11+08:00
 draft: false
 tags: ["MongoDB"]
 slug: "mongodb-enable-auth"
@@ -26,7 +26,7 @@ aliases:
 
 1.  啟動 MongoDB (已啟動可忽略)
 
-    > 之前筆記 [如何在 Windows 環境安裝及設定 MongoDB](https://blog.yowko.com/2017/08/windows-mongodb.html) 有詳細介紹，這邊不重複贅述
+    > 之前筆記 [如何在 Windows 環境安裝及設定 MongoDB](/2017/08/windows-mongodb.html) 有詳細介紹，這邊不重複贅述
 
 2.  連線至 MongoDB
 
@@ -146,4 +146,4 @@ aliases:
 # 參考資訊
 
 1.  [Enable Auth](https://docs.mongodb.com/manual/tutorial/enable-authentication/)
-2.  [如何在 Windows 環境安裝及設定 MongoDB](https://blog.yowko.com/2017/08/windows-mongodb.html)
+2.  [如何在 Windows 環境安裝及設定 MongoDB](/2017/08/windows-mongodb.html)

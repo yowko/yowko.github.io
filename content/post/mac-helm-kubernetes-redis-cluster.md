@@ -1,7 +1,7 @@
 ---
 title: "使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster"
 date: 2020-05-14T21:30:00+08:00
-lastmod: 2020-05-14T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Kubernetes","Helm","Redis","macOS"]
 slug: "mac-helm-kubernetes-redis-cluster"
@@ -9,7 +9,7 @@ slug: "mac-helm-kubernetes-redis-cluster"
 
 ## 使用 Helm 在 Kubernetes 上安裝 Redis Cluster
 
-之前筆記 [在 Kubernetes 部署 Redis Cluster](https://blog.yowko.com/kubernetes-redis-cluster/) 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完整模擬出測試環境的方式，但每次都重新安裝 Kubernetes 實在有些大廢周章，所以興起在 macOS 上簡單建立環境的想法，順手筆記一下  以免之後要用到又找好一陣子
+之前筆記 [在 Kubernetes 部署 Redis Cluster](/kubernetes-redis-cluster/) 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完整模擬出測試環境的方式，但每次都重新安裝 Kubernetes 實在有些大廢周章，所以興起在 macOS 上簡單建立環境的想法，順手筆記一下  以免之後要用到又找好一陣子
 
 ## 基本環境說明
 
@@ -85,11 +85,11 @@ slug: "mac-helm-kubernetes-redis-cluster"
 
 ## 心得
 
-之前在 [在 Kubernetes 部署 Redis Cluster](https://blog.yowko.com/kubernetes-redis-cluster/) 時找到最適合的 Helm char 就是 Kubedb 所製作的版本 (其他的 Helm 只建立了 Redis Replication - Master-Slave)，但 Kubedb 在安裝設定上實在相當繁瑣，最近因為升級 Helm 3，重新搜尋這才找到較為便利的版本
+之前在 [在 Kubernetes 部署 Redis Cluster](/kubernetes-redis-cluster/) 時找到最適合的 Helm char 就是 Kubedb 所製作的版本 (其他的 Helm 只建立了 Redis Replication - Master-Slave)，但 Kubedb 在安裝設定上實在相當繁瑣，最近因為升級 Helm 3，重新搜尋這才找到較為便利的版本
 
 另外之前在 Kubernetes 的 storageClass 設定上也讓我相當苦手，剛好嘗試了一下 docker for MAC 的內建功能，可真的大大降低了設定門檻呀
 
 ## 參考資訊
 
-1. [在 Kubernetes 部署 Redis Cluster](https://blog.yowko.com/kubernetes-redis-cluster/)
+1. [在 Kubernetes 部署 Redis Cluster](/kubernetes-redis-cluster/)
 2. [redis-cluster](https://hub.helm.sh/charts/inspur/redis-cluster)

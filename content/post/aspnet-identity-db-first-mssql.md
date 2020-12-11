@@ -1,7 +1,7 @@
 ---
 title: "ASP.NET Identity 搭配 DataBase first 與 SQL Server"
 date: 2017-11-08T23:58:00+08:00
-lastmod: 2018-09-28T23:58:20+08:00
+lastmod: 2020-12-11T23:58:20+08:00
 draft: false
 tags: ["ASP.NET Identity","SQL Server"]
 slug: "aspnet-identity-db-first-mssql"
@@ -174,7 +174,7 @@ aliases:
 
     *   使用 Empty MVC 專案範本
 
-        > 之前筆記 [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](https://blog.yowko.com/2017/11/add-aspnet-identity-empty-project.html) 有介紹該如何從無至有加入 ASP.NET Identity
+        > 之前筆記 [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](/2017/11/add-aspnet-identity-empty-project.html) 有介紹該如何從無至有加入 ASP.NET Identity
 
     *   使用預設 MVC 專案範本
 
@@ -292,4 +292,4 @@ aliases:
 # 參考資訊
 
 1.  [Using Asp.Net Identity DataBase first approach](https://stackoverflow.com/questions/20668328/using-asp-net-identity-database-first-approach)
-2.  [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](https://blog.yowko.com/2017/11/add-aspnet-identity-empty-project.html)
+2.  [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](/2017/11/add-aspnet-identity-empty-project.html)

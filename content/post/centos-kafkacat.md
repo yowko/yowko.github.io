@@ -1,7 +1,7 @@
 ---
 title: "在 CentOS 上使用 Kafkacat"
 date: 2019-12-01T10:30:00+08:00
-lastmod: 2019-12-01T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["CentOS","Kafka"]
 slug: "centos-kafkacat"
@@ -9,7 +9,7 @@ slug: "centos-kafkacat"
 
 ## 在 CentOS 上使用 Kafkacat
 
-之前筆記 [在CentOS 上安裝 Apache Kafka cluster](https://blog.yowko.com/kafka-cluster-centos/) 與 [在 CentOS 上安裝 Apache Kafka cluster - One Script](https://blog.yowko.com/kafka-cluster-centos-script/) 都紀錄到如何在 CentOS 上安裝 Apache Kafka，不過順利安裝與成功安裝還是存在差異的，過去我都是直接透過 Kafka 內建的 cli 工具來進行驗證不需要額外下載安裝其他工具，只是最近搭配 Kubernetes 使用時常會有需要確認連線的情境，這時候再下載完整的 Kafka 似乎顯得多餘，今天就來紀錄一下如何在 CentOS 上使用 Kafkacat
+之前筆記 [在CentOS 上安裝 Apache Kafka cluster](/kafka-cluster-centos/) 與 [在 CentOS 上安裝 Apache Kafka cluster - One Script](/kafka-cluster-centos-script/) 都紀錄到如何在 CentOS 上安裝 Apache Kafka，不過順利安裝與成功安裝還是存在差異的，過去我都是直接透過 Kafka 內建的 cli 工具來進行驗證不需要額外下載安裝其他工具，只是最近搭配 Kubernetes 使用時常會有需要確認連線的情境，這時候再下載完整的 Kafka 似乎顯得多餘，今天就來紀錄一下如何在 CentOS 上使用 Kafkacat
 
 Kafkacat 是由 c 語言開發的 Kafka client，不需要 Java，非常輕巧，在 debian、Ubuntu 可以使用 `apt-get install kafkacat` 進行安裝，而 macOS 上可以透過 `brew install kafkacat` 安裝，而對於 centOS 就沒那麼 friendly 了，這也是今天會紀錄的原因
 

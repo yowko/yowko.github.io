@@ -1,7 +1,7 @@
 ---
 title: "Git Force Push 後如何更新 Repository"
 date: 2020-05-23T22:30:00+08:00
-lastmod: 2020-05-23T22:30:31+08:00
+lastmod: 2020-12-11T22:30:31+08:00
 draft: false
 tags: ["Git"]
 slug: "git-pull-after-force-push"
@@ -9,7 +9,7 @@ slug: "git-pull-after-force-push"
 
 ## Git Force Push 後如何更新 Repository
 
-在之前筆記 [清除 Git Commit 紀錄](https://blog.yowko.com/clean-git-commit-history/) 提到打算將開發時期的 commit history 都清除，來個重新開始，但在完成 repository 整理後，團隊其他人還是得繼續往下開發，在找不到共同的 parent commit 下，`git pull` 無法正確執行，今天就來紀錄一下該如何不重新 clone 而取得 repository 的更新內容
+在之前筆記 [清除 Git Commit 紀錄](/clean-git-commit-history/) 提到打算將開發時期的 commit history 都清除，來個重新開始，但在完成 repository 整理後，團隊其他人還是得繼續往下開發，在找不到共同的 parent commit 下，`git pull` 無法正確執行，今天就來紀錄一下該如何不重新 clone 而取得 repository 的更新內容
 
 ## 基本環境說明
 
@@ -55,5 +55,5 @@ slug: "git-pull-after-force-push"
 
 ## 參考資訊
 
-1. [清除 Git Commit 紀錄](https://blog.yowko.com/clean-git-commit-history/)
+1. [清除 Git Commit 紀錄](/clean-git-commit-history/)
 2. [Git pull after forced update](https://stackoverflow.com/a/9813888)

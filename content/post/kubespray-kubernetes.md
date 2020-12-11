@@ -1,7 +1,7 @@
 ---
 title: "透過 Kubespray 來架設 Kubernetes"
 date: 2019-07-13T21:30:00+08:00
-lastmod: 2019-12-15T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Kubernetes"]
 slug: "kubespray-kubernetes"
@@ -11,7 +11,7 @@ slug: "kubespray-kubernetes"
 
 最近剛好有機會可以參與專案的部署作業，雖然過去也持續進行過不同方式的 CI/CD，但真正部署至 Kubernetes 上則是全新的體驗，為了降低扯團隊後腿的機會，免不了要自己練習一下先，在細節不少加上本來掌握度就不高下狀況可謂是相當慘烈呀，於是一搞定就馬上筆記，加深印象
 
-過去筆記 [(CentOS ) 上使用kubeadm 架設Kubernetes (K8s)](https://blog.yowko.com/centos-kubeadm-kubernetes/) 提到的 kubeadm 與 Kubespray 都是 Google open source 的工具，其中 Kubespray 主要核心是透過 Ansible 來執行相關操作，雖說與 Kubeadm 都有細微操作被包裝的問題，但相較之下 Kubespray 因為搭配了 Ansible，讓靈活度與門檻降低了些
+過去筆記 [(CentOS ) 上使用kubeadm 架設Kubernetes (K8s)](/centos-kubeadm-kubernetes/) 提到的 kubeadm 與 Kubespray 都是 Google open source 的工具，其中 Kubespray 主要核心是透過 Ansible 來執行相關操作，雖說與 Kubeadm 都有細微操作被包裝的問題，但相較之下 Kubespray 因為搭配了 Ansible，讓靈活度與門檻降低了些
 
 ## 基本環境說明
 

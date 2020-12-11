@@ -1,7 +1,7 @@
 ---
 title: "如何使用 WebRequest,HttpWebRequest 來存取(GET,POST,PUT,DELETE,PATCH)網路資源"
 date: 2017-03-09T02:42:34+08:00
-lastmod: 2018-09-13T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["C#"]
 slug: "webrequest-and-httpwebrequest"
@@ -185,7 +185,7 @@ using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
 
 ```
 - 以 fiddler 為例
-    - fiddler 的相關設定請參考 [使用 fiddler 內建 proxy 來截錄手機或是程式封包](https://blog.yowko.com/2017/03/use-fiddler-proxy-gather-traffic.html)
+    - fiddler 的相關設定請參考 [使用 fiddler 內建 proxy 來截錄手機或是程式封包](/2017/03/use-fiddler-proxy-gather-traffic.html)
     - 截錄到的內容
         
         ![1result](https://cloud.githubusercontent.com/assets/3851540/23498993/2dcba8e8-ff65-11e6-8aaf-e1cc9ceb6a8c.png)

@@ -1,7 +1,7 @@
 ---
 title: "Docker Compose 建立 MongoDB Replica Set"
 date: 2020-05-10T21:30:00+08:00
-lastmod: 2020-05-10T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["MongoDB"]
 slug: "docker-compose-mongodb-replica-set"
@@ -9,7 +9,7 @@ slug: "docker-compose-mongodb-replica-set"
 
 ## Docker Compose 建立 MongoDB Replica Set
 
-因為之前筆記 [MongoDB Cli Replica Set 連線方式](https://blog.yowko.com/mongodb-cli-replica-set/) 需要建立測試環境，想起最早之前的筆記 [使用 docker 建立 MongoDB Replica Set](https://blog.yowko.com/docker-mongodb-replica-set/) 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB Replica Set 方式的念頭
+因為之前筆記 [MongoDB Cli Replica Set 連線方式](/mongodb-cli-replica-set/) 需要建立測試環境，想起最早之前的筆記 [使用 docker 建立 MongoDB Replica Set](/docker-mongodb-replica-set/) 但使用起來並不是很好用，所以興起筆記其他建立 MongoDB Replica Set 方式的念頭
 
 ## 基本環境說明
 
@@ -77,14 +77,14 @@ slug: "docker-compose-mongodb-replica-set"
 
 ## 心得
 
-跟之前 [使用 docker 建立 MongoDB Replica Set](https://blog.yowko.com/docker-mongodb-replica-set/) 相比，少了一個 `creator` 的 dockerfile 需要維護 (之前多一個 `creator` 是因為 mongo 啟動當下無法立即接受連線，而我嘗試 sleep 也失敗，不得已才多一個 container 來暫解)，整體說來更為簡潔，也因為將各個 instance 完整切開，所以從外部的連線也可以正常運作
+跟之前 [使用 docker 建立 MongoDB Replica Set](/docker-mongodb-replica-set/) 相比，少了一個 `creator` 的 dockerfile 需要維護 (之前多一個 `creator` 是因為 mongo 啟動當下無法立即接受連線，而我嘗試 sleep 也失敗，不得已才多一個 container 來暫解)，整體說來更為簡潔，也因為將各個 instance 完整切開，所以從外部的連線也可以正常運作
 
 source code 請參考 [yowko/docker-compose-create-mongodb-replica-set](https://github.com/yowko/docker-compose-create-mongodb-replica-set)
 
 ## 參考資訊
 
-1. [MongoDB Cli Replica Set 連線方式](https://blog.yowko.com/mongodb-cli-replica-set/)
-2. [使用 docker 建立 MongoDB Replica Set](https://blog.yowko.com/docker-mongodb-replica-set/)
+1. [MongoDB Cli Replica Set 連線方式](/mongodb-cli-replica-set/)
+2. [使用 docker 建立 MongoDB Replica Set](/docker-mongodb-replica-set/)
 3. [mongod](https://docs.mongodb.com/manual/reference/program/mongod/)
 4. [Compose file version 3 reference](https://docs.docker.com/compose/compose-file/#healthcheck )
 5. [yowko/docker-compose-create-mongodb-replica-set](https://github.com/yowko/docker-compose-create-mongodb-replica-set)

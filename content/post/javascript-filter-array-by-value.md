@@ -1,7 +1,7 @@
 ---
 title: "JavaScript 依屬性值過濾陣列取得完整物件"
 date: 2017-12-24T15:48:00+08:00
-lastmod: 2017-12-24T15:48:19+08:00
+lastmod: 2020-12-11T15:48:19+08:00
 draft: false
 tags: ["JavaScript"]
 slug: "javascript-filter-array-by-value"
@@ -9,7 +9,7 @@ aliases:
     - /2017/12/javascript-filter-array-by-value.html
 ---
 # JavaScript 依屬性值過濾陣列取得完整物件
-之前筆記 [JavaScript 在遞迴陣列中取得特定屬性值](https://blog.yowko.com/2017/12/javascript-recursive-map.html) 紀錄到如何將依屬性名稱取出陣列物件屬性值，當時需求是為了取得物件內包含的所有 id 值用來比較是否全選下層的依據，在文章內也提到只取出特定屬性值容易造成後續維護困難(當時是為了 treeview 畫面顯示，盡量節省資料量及物件複雜度)，而為了完整操作物件就是今天的 `依屬性值取得完整物件`
+之前筆記 [JavaScript 在遞迴陣列中取得特定屬性值](/2017/12/javascript-recursive-map.html) 紀錄到如何將依屬性名稱取出陣列物件屬性值，當時需求是為了取得物件內包含的所有 id 值用來比較是否全選下層的依據，在文章內也提到只取出特定屬性值容易造成後續維護困難(當時是為了 treeview 畫面顯示，盡量節省資料量及物件複雜度)，而為了完整操作物件就是今天的 `依屬性值取得完整物件`
 
 ## 找出所有符合條件的物件
 
@@ -121,7 +121,7 @@ aliases:
 
 # 參考資訊
 
-1.  [JavaScript 在遞迴陣列中取得特定屬性值](https://blog.yowko.com/2017/12/javascript-recursive-map.html)
+1.  [JavaScript 在遞迴陣列中取得特定屬性值](/2017/12/javascript-recursive-map.html)
 2.  [Javascript: find an object in array based on object's property](https://www.linkedin.com/pulse/javascript-find-object-array-based-objects-property-rafael/)
 3.  [Array.prototype.filter()](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
 4.  [lodash filter](https://lodash.com/docs/4.17.4#filter)

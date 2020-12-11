@@ -1,7 +1,7 @@
 ---
 title: "取得 Word(.docx) 中的內嵌檔案"
 date: 2018-01-17T01:22:00+08:00
-lastmod: 2018-10-02T01:22:40+08:00
+lastmod: 2020-12-11T01:22:40+08:00
 draft: false
 tags: ["Office"]
 slug: "extract-embedded-file-in-word"
@@ -9,7 +9,7 @@ aliases:
     - /2018/01/extract-embedded-file-in-word.html
 ---
 # 取得 Word(.docx) 中的內嵌檔案
-之前筆記 [使用 C# 將 Word 檔(.docx .doc) 轉換為 PDF](https://blog.yowko.com/2018/01/c-sharp-word-to-pdf.html) 曾經分享過如何使用 C# 將 Word 轉成 PDF，同事在實作後 user 反應如果 word 中有其他文件(e.x. pdf、word、excel、zip) 並沒有同步進行轉換，造成資料遺失
+之前筆記 [使用 C# 將 Word 檔(.docx .doc) 轉換為 PDF](/2018/01/c-sharp-word-to-pdf.html) 曾經分享過如何使用 C# 將 Word 轉成 PDF，同事在實作後 user 反應如果 word 中有其他文件(e.x. pdf、word、excel、zip) 並沒有同步進行轉換，造成資料遺失
 
 不是我刻意想吐糟 user 反應沒有處理 word 中有其他文件的問題(user 永遠是對的XD)，但在 user 提出需求前根本就沒有說 word 會內嵌其他文件，根據最小可行產品的原則一定是沒做的呀 哈哈
 

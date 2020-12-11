@@ -1,7 +1,7 @@
 ---
 title: "將 .NET Core Console 專案轉換為 ASP.NET Core"
 date: 2019-05-21T19:30:00+08:00
-lastmod: 2020-09-01T19:30:31+08:00
+lastmod: 2020-12-11T19:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","dotnet core"]
 slug: "dotnet-core-console-to-aspdotnet-core"
@@ -17,7 +17,7 @@ console 專案特性需要使用 `Console.ReadLine()` 或是 `Console.ReadKey()`
 
 1. macOS Mojave 10.14.5
 2. .NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)
-3. 使用之前筆記 [在 .NET Core console 上使用 Dependency Injection - DI](https://blog.yowko.com/dotnet-core-console-di/) 作為基礎來修改
+3. 使用之前筆記 [在 .NET Core console 上使用 Dependency Injection - DI](/dotnet-core-console-di/) 作為基礎來修改
 4. NuGet package
 
     - Microsoft.AspNetCore 2.2.0
@@ -169,6 +169,6 @@ public void ConfigureServices(IServiceCollection services)
 
 ## 參考資訊
 
-1. [在 .NET Core console 上使用 Dependency Injection - DI](https://blog.yowko.com/dotnet-core-console-di/)
+1. [在 .NET Core console 上使用 Dependency Injection - DI](/dotnet-core-console-di/)
 2. [ASP.NET Core 基本概念](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/?view=aspnetcore-2.2&tabs=macos&WT.mc_id=DOP-MVP-5002594)
 3. [ASP.NET Core 中的應用程式啟動](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/startup?view=aspnetcore-2.2&WT.mc_id=DOP-MVP-5002594)

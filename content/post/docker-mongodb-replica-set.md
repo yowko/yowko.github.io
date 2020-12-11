@@ -1,13 +1,13 @@
 ---
 title: "使用 docker 建立 MongoDB Replica Set"
 date: 2019-03-07T01:30:00+08:00
-lastmod: 2019-03-07T01:30:31+08:00
+lastmod: 2020-12-11T01:30:31+08:00
 draft: false
 tags: ["Container","MongoDB","Docker"]
 slug: "docker-mongodb-replica-set"
 ---
 # 使用 docker 建立 MongoDB Replica Set
-前幾天筆記 [使用 docker 建立 Redis Cluster - 更新版](https://blog.yowko.com/redis-cluster-docker) 提到為了要測試 Redis 完整 cluster 功能但又不想每次都重頭建立三組 Master-Slave 以及三個 Sentinel，所以透過 docker-compose 來建立整個 Redis cluster，而最近用到的 MongoDB Replica Set 也是類似情況，但比 Redis 輕鬆的是 MongoDB Replica Set 只要三個 node 即可，就來看看可以怎麼做吧
+前幾天筆記 [使用 docker 建立 Redis Cluster - 更新版](/redis-cluster-docker) 提到為了要測試 Redis 完整 cluster 功能但又不想每次都重頭建立三組 Master-Slave 以及三個 Sentinel，所以透過 docker-compose 來建立整個 Redis cluster，而最近用到的 MongoDB Replica Set 也是類似情況，但比 Redis 輕鬆的是 MongoDB Replica Set 只要三個 node 即可，就來看看可以怎麼做吧
 
 ## 基本環境說明
 - Mac
@@ -111,6 +111,6 @@ services:
 完整 dockerfile 及 docker-compose.yml 請參考 [yowko/Docker-Compose-MongoDB-Replica-Set](https://github.com/yowko/Docker-Compose-MongoDB-Replica-Set)
 
 # 參考資訊
-1. [MongoDB 在 Windows 上的 HA 機制 - Replica Sets](https://blog.yowko.com/mongodb-windows-ha-replica-sets/)
+1. [MongoDB 在 Windows 上的 HA 機制 - Replica Sets](/mongodb-windows-ha-replica-sets/)
 2. [How to execute mongo commands through shell scripts?](https://stackoverflow.com/a/6000360)
 3. [yowko/Docker-Compose-MongoDB-Replica-Set](https://github.com/yowko/Docker-Compose-MongoDB-Replica-Set)

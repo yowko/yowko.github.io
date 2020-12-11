@@ -1,7 +1,7 @@
 ---
 title: "手動觸發 Redis failover"
 date: 2020-06-07T21:30:00+08:00
-lastmod: 2020-06-07T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Redis"]
 slug: "redis-manual-failover"
@@ -9,7 +9,7 @@ slug: "redis-manual-failover"
 
 ## 手動觸發 Redis failover
 
-之前筆記 [手動觸發 MongoDB failover](https://blog.yowko.com/mongodb-manual-failover) 紀錄到如何透過 mongo cli 來進行 failover
+之前筆記 [手動觸發 MongoDB failover](/mongodb-manual-failover) 紀錄到如何透過 mongo cli 來進行 failover
 
 今天接著紀錄如何使用 redis cli 來進行 failover
 
@@ -34,11 +34,11 @@ slug: "redis-manual-failover"
     - redis 6.0.4
     - redis replication
 
-        > 建立方式請參考之前筆記 [使用 docker 建立 Redis Master-Slave Replication Instance](https://blog.yowko.com/docker-redis-master-slave-replication/)
+        > 建立方式請參考之前筆記 [使用 docker 建立 Redis Master-Slave Replication Instance](/docker-redis-master-slave-replication/)
 
     - redis cluster
 
-        > 建立方式請參考之前筆記 [使用 Helm 在 Kubernetes 上安裝 Redis Cluster](https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/)
+        > 建立方式請參考之前筆記 [使用 Helm 在 Kubernetes 上安裝 Redis Cluster](/mac-helm-kubernetes-redis-cluster/)
 
 ## 確認 redis master 語法
 
@@ -128,7 +128,7 @@ redis 的手動 failover 在實際執行上有較多限制：指令的對象有�
 
 ## 參考資訊
 
-1. [使用 docker 建立 Redis Master-Slave Replication Instance](https://blog.yowko.com/docker-redis-master-slave-replication/)
-2. [使用 Helm 在 Kubernetes 上安裝 Redis Cluster](https://blog.yowko.com/mac-helm-kubernetes-redis-cluster/)
+1. [使用 docker 建立 Redis Master-Slave Replication Instance](/docker-redis-master-slave-replication/)
+2. [使用 Helm 在 Kubernetes 上安裝 Redis Cluster](/mac-helm-kubernetes-redis-cluster/)
 3. [Redis Sentinel Documentation](https://redis.io/topics/sentinel)
 4. [CLUSTER FAILOVER [FORCE|TAKEOVER]](https://redis.io/commands/cluster-failover)

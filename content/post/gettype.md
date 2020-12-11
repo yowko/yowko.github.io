@@ -1,7 +1,7 @@
 ---
 title: "關於 GetType 的一些事"
 date: 2017-07-30T22:30:00+08:00
-lastmod: 2020-09-01T22:30:15+08:00
+lastmod: 2020-12-11T22:30:15+08:00
 draft: false
 tags: ["C#"]
 slug: "gettype"
@@ -9,7 +9,7 @@ aliases:
     - /2017/07/gettype.html
 ---
 # 關於 GetType 的一些事
-之前在 [LINQ to Objects VS LINQ to Entities](https://blog.yowko.com/2017/07/linq-to-objects-vs-linq-to-entities.html) 中提到 LINQ to Objects 是一系列 `IEnumerable` 及 `IEnumerable<T>` 的擴充方法，而 LINQ to Entities 是一系統 `IQueryable` 及 `IQueryable<T>` 的擴充方法，透過物件繼承的型別可以很容易區分出 `LINQ to Objects` 或是 `LINQ to Entities`，只是該如何得知物件的繼承內容呢？
+之前在 [LINQ to Objects VS LINQ to Entities](/2017/07/linq-to-objects-vs-linq-to-entities.html) 中提到 LINQ to Objects 是一系列 `IEnumerable` 及 `IEnumerable<T>` 的擴充方法，而 LINQ to Entities 是一系統 `IQueryable` 及 `IQueryable<T>` 的擴充方法，透過物件繼承的型別可以很容易區分出 `LINQ to Objects` 或是 `LINQ to Entities`，只是該如何得知物件的繼承內容呢？
 
 以下內容是 黃忠成老師 在 `LINQ - 強者之道` 課程中所使用的小技巧，我覺得很有幫助，紀錄一下
 
@@ -64,5 +64,5 @@ aliases:
 
 # 參考資訊
 
-1.  [LINQ to Objects VS LINQ to Entities](https://blog.yowko.com/2017/07/linq-to-objects-vs-linq-to-entities.html)
+1.  [LINQ to Objects VS LINQ to Entities](/2017/07/linq-to-objects-vs-linq-to-entities.html)
 2.  [Object.GetType Method](https://docs.microsoft.com/en-us/dotnet/api/system.object.gettype?WT.mc_id=DOP-MVP-5002594)

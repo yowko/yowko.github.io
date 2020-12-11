@@ -1,7 +1,7 @@
 ---
 title: "C# (.NET Core 2) 啟用 gRPC 壓縮"
 date: 2019-11-16T21:30:00+08:00
-lastmod: 2019-11-16T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["csharp","gRPC","Benchmark"]
 slug: "dotnet-core-2-grpc-compression"
@@ -11,7 +11,7 @@ slug: "dotnet-core-2-grpc-compression"
 
 目前專案在大資料量傳遞時會透過 gRPC stream，不過因為是非對稱式資料內容，採用 chunk byte 來傳輸，以避免單次 gRPC 的 message size 限制問題，但以當前的資料結構，資料量還是過大，導致處理時間無法有效縮短，同事提到想要使用壓縮來縮小資料量以減少傳輸的成本以及時間，不過測試下來似乎沒有減少傳輸時間，懷疑是壓縮沒有順利啟用
 
-為了查明到底是 gRPC 壓縮沒有成功啟用，還是有其他原因造成傳輸時間沒有減少，就得先開啟 gRPC 的 tracer，詳細做法可以參考之前筆記 [C# (.NET Core 2) Log 與 Trace gRPC](https://blog.yowko.com/dotnet-core-2-log-grpc)
+為了查明到底是 gRPC 壓縮沒有成功啟用，還是有其他原因造成傳輸時間沒有減少，就得先開啟 gRPC 的 tracer，詳細做法可以參考之前筆記 [C# (.NET Core 2) Log 與 Trace gRPC](/dotnet-core-2-log-grpc)
 
 而今天就是來紀錄一下，gRPC 啟用壓縮的做法
 
@@ -22,7 +22,7 @@ slug: "dotnet-core-2-grpc-compression"
 3. JetBrains Rider 2019.2.2
 4. ASP.NET Core MVC 2.2 預設專案範本
 
-    > 程式碼部份可參考 [C# 搭配 gRPC 中使用 stream RPC](https://blog.yowko.com/csharp-grpc-stream/)
+    > 程式碼部份可參考 [C# 搭配 gRPC 中使用 stream RPC](/csharp-grpc-stream/)
 
 5. NuGet Package
 
@@ -142,4 +142,4 @@ slug: "dotnet-core-2-grpc-compression"
 ## 參考資訊
 
 1. [gRPC compression in C#](https://stackoverflow.com/questions/49031763/grpc-compression-in-c-sharp)
-2. [C# (.NET Core 2) Log 與 Trace gRPC](https://blog.yowko.com/dotnet-core-2-log-grpc)
+2. [C# (.NET Core 2) Log 與 Trace gRPC](/dotnet-core-2-log-grpc)

@@ -1,7 +1,7 @@
 ---
 title: "JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 (更新)"
 date: 2019-12-14T15:30:00+08:00
-lastmod: 2019-12-14T15:30:31+08:00
+lastmod: 2020-12-11T15:30:31+08:00
 draft: false
 tags: ["dotnet core","macOS","Tools"]
 slug: "rider-dotnetcore31-cannot-build"
@@ -9,9 +9,9 @@ slug: "rider-dotnetcore31-cannot-build"
 
 ## JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄 (更新)
 
-前幾天的筆記 [JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄](https://blog.yowko.com/rider-dotnetcore3-cannot-build) 提到在升級 .NET Core SDK 3.1.100 我就無法成功透過 JetBrains Rider 來 build project (無論是既有專案或是新建專案)，其間嘗試過重啟 JetBrains Rider 跟 重開機，都一樣無法解決問題，最後調整 JetBrains Rider 的一個設定才看似解決問題，過幾天後同事們接連遭遇相同狀況，在大家協助測試下，大致上解決問題的方式，至於原因還是不明，簡單紀錄一下過程，供日後查閱
+前幾天的筆記 [JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄](/rider-dotnetcore3-cannot-build) 提到在升級 .NET Core SDK 3.1.100 我就無法成功透過 JetBrains Rider 來 build project (無論是既有專案或是新建專案)，其間嘗試過重啟 JetBrains Rider 跟 重開機，都一樣無法解決問題，最後調整 JetBrains Rider 的一個設定才看似解決問題，過幾天後同事們接連遭遇相同狀況，在大家協助測試下，大致上解決問題的方式，至於原因還是不明，簡單紀錄一下過程，供日後查閱
 
-過程中我重裝了幾次 .NET SDK，在 .NET Core SDK 3.1.100 與 .NET Core SDK 3.0.100 間重複試驗了幾次，安裝方式可以參考 [使用 Homebrew Cask 安裝舊版本軟體](https://blog.yowko.com/homebrew-cask-install-older-version)
+過程中我重裝了幾次 .NET SDK，在 .NET Core SDK 3.1.100 與 .NET Core SDK 3.0.100 間重複試驗了幾次，安裝方式可以參考 [使用 Homebrew Cask 安裝舊版本軟體](/homebrew-cask-install-older-version)
 
 ## 基本環境說明
 
@@ -77,5 +77,5 @@ slug: "rider-dotnetcore31-cannot-build"
 
 ## 參考資訊
 
-1. [JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄](https://blog.yowko.com/rider-dotnetcore3-cannot-build)
-2. [使用 Homebrew Cask 安裝舊版本軟體](https://blog.yowko.com/homebrew-cask-install-older-version)
+1. [JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄](/rider-dotnetcore3-cannot-build)
+2. [使用 Homebrew Cask 安裝舊版本軟體](/homebrew-cask-install-older-version)

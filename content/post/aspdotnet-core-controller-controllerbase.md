@@ -1,7 +1,7 @@
 ---
 title: "ASP.NET Core 中 Controller 與 ControllerBase 的差別"
 date: 2019-06-09T21:30:00+08:00
-lastmod: 2019-06-09T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core"]
 slug: "aspdotnet-core-controller-controllerbase"
@@ -9,7 +9,7 @@ slug: "aspdotnet-core-controller-controllerbase"
 
 # ASP.NET Core 中 Controller 與 ControllerBase 的差別
 
-之前筆記 [ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別](https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore) 提到 `AddMvc()` 與 `AddMvcCore()` 的差別，今天剛好在整理如何從 Empty 專案加入 Web API 時聯想到似乎沒有很清楚實際差別，趁著自己查資料，順手筆記一下
+之前筆記 [ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別](/aspdotnet-core-addmvc-addmvccore) 提到 `AddMvc()` 與 `AddMvcCore()` 的差別，今天剛好在整理如何從 Empty 專案加入 Web API 時聯想到似乎沒有很清楚實際差別，趁著自己查資料，順手筆記一下
 
 ## 基本環境說明
 
@@ -87,7 +87,7 @@ slug: "aspdotnet-core-controller-controllerbase"
 
 ## 參考資訊
 
-1. [ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別](https://blog.yowko.com/aspdotnet-core-addmvc-addmvccore)
+1. [ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別](/aspdotnet-core-addmvc-addmvccore)
 2. [AspNetCore/src/Mvc/Mvc.Core/src/ControllerBase.cs](https://github.com/aspnet/AspNetCore/blob/v2.2.5/src/Mvc/Mvc.Core/src/ControllerBase.cs)
 3. [AspNetCore/src/Mvc/Mvc.ViewFeatures/src/Controller.cs](https://github.com/aspnet/AspNetCore/blob/v2.2.5/src/Mvc/Mvc.ViewFeatures/src/Controller.cs)
 4. [Why derive from ControllerBase vs Controller for ASP.NET Core Web API?](https://stackoverflow.com/a/55239483/3600583)

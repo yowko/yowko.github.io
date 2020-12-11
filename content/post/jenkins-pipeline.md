@@ -1,7 +1,7 @@
 ---
 title: "Jenkins 2 如何建立 Pipeline job"
 date: 2017-02-22T01:42:34+08:00
-lastmod: 2018-09-12T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["Jenkins","DevOps"]
 slug: "jenkins-pipeline"
@@ -43,7 +43,7 @@ Pipeline 是 Jenkins 2 的一大特色，其概念就是將建置流程步驟透
     - 使用 PowerShell 來停止 website
         
         ![5ps](https://cloud.githubusercontent.com/assets/3851540/23155470/a4ed669c-f84d-11e6-8113-15045775ea85.png)
-        - 記得安裝 PowerShell plugin (沒裝過的可以參考 [Jenkins 2 如何使用 PowerShell 以及自定 build fail (指定 exit code)](https://blog.yowko.com/2017/02/jenkins2-powershell-plugin.html))
+        - 記得安裝 PowerShell plugin (沒裝過的可以參考 [Jenkins 2 如何使用 PowerShell 以及自定 build fail (指定 exit code)](/2017/02/jenkins2-powershell-plugin.html))
         - 加入一個 build step 使用 Windows PowerShell
             
             ```ps1

@@ -1,7 +1,7 @@
 ---
 title: "Docker 無法連線至特定網段 (172.17.x.x)"
 date: 2017-09-02T17:00:00+08:00
-lastmod: 2017-09-02T17:00:14+08:00
+lastmod: 2020-12-11T17:00:14+08:00
 draft: false
 tags: ["Docker","Linux"]
 slug: "docker-172-17-ip"
@@ -89,7 +89,7 @@ docker 在 linux 環境中預設指定給 container 使用的 ip 就是 `172.17.
 
 4.  效果
 
-    > 使用 `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id` 來確認 container 使用的 ip，詳細介紹可以參考 [如何取得 Container 所使用的 Ip](https://blog.yowko.com/2017/09/container-ip.html)
+    > 使用 `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id` 來確認 container 使用的 ip，詳細介紹可以參考 [如何取得 Container 所使用的 Ip](/2017/09/container-ip.html)
 
     *   修改前：預設使用 `172.17.0.3`
 
@@ -111,5 +111,5 @@ docker 在 linux 環境中預設指定給 container 使用的 ip 就是 `172.17.
 
 # 參考資訊
 1.  [Customize the docker0 bridge](https://docs.docker.com/engine/userguide/networking/default_network/custom-docker0/)
-2.  [如何取得 Container 所使用的 Ip](https://blog.yowko.com/2017/09/container-ip.html)
+2.  [如何取得 Container 所使用的 Ip](/2017/09/container-ip.html)
 3.  [dockerd](https://docs.docker.com/engine/reference/commandline/dockerd/)

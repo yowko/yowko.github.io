@@ -1,7 +1,7 @@
 ---
 title: "在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例"
 date: 2017-09-06T00:12:00+08:00
-lastmod: 2018-09-26T00:12:50+08:00
+lastmod: 2020-12-11T00:12:50+08:00
 draft: false
 tags: ["Linux","Redis"]
 slug: "centos7-redis-service"
@@ -9,7 +9,7 @@ aliases:
     - /2017/09/centos7-redis-service.html
 ---
 # 在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例
-Windows 環境中將 Redis 安裝成 service 的做法，曾經在 [Windows 環境如何設定 Redis Master-Slave 與 Sentinel](https://blog.yowko.com/2017/03/windows-redis-master-slave-sentinel.html) 介紹過，最近同事要架設 Linux 環境 Redis 時，問到該如何將 Redis 安裝為 Linux Service 讓 Redis 隨系統啟動自動啟動，避免系統異常重啟後 Redis 無人啟動讓服務中斷，趁這個機會紀錄一下自己常用的做法
+Windows 環境中將 Redis 安裝成 service 的做法，曾經在 [Windows 環境如何設定 Redis Master-Slave 與 Sentinel](/2017/03/windows-redis-master-slave-sentinel.html) 介紹過，最近同事要架設 Linux 環境 Redis 時，問到該如何將 Redis 安裝為 Linux Service 讓 Redis 隨系統啟動自動啟動，避免系統異常重啟後 Redis 無人啟動讓服務中斷，趁這個機會紀錄一下自己常用的做法
 
 ## 將 Redis 安裝為 Linux Service
 
@@ -127,5 +127,5 @@ Windows 環境中將 Redis 安裝成 service 的做法，曾經在 [Windows 環�
 
 1.  [How to install and use Redis on Linux](https://discuss.pivotal.io/hc/en-us/articles/205308418-How-to-install-and-use-Redis-on-Linux)
 2.  [7 Linux chkconfig Command Examples – Add, Remove, View, Change Services](http://www.thegeekstuff.com/2011/06/chkconfig-examples)
-3.  [Windows 環境如何設定 Redis Master-Slave 與 Sentinel](https://blog.yowko.com/2017/03/windows-redis-master-slave-sentinel.html)
+3.  [Windows 環境如何設定 Redis Master-Slave 與 Sentinel](/2017/03/windows-redis-master-slave-sentinel.html)
 4.  [Redis configuration](https://redis.io/topics/config)

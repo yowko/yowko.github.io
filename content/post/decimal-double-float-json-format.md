@@ -1,7 +1,7 @@
 ---
 title: "decimal , double , float 輸出 json 的格式問題"
 date: 2018-04-22T17:42:00+08:00
-lastmod: 2018-10-04T17:42:45+08:00
+lastmod: 2020-12-11T17:42:45+08:00
 draft: false
 tags: ["套件","C#"]
 slug: "decimal-double-float-json-format"
@@ -9,7 +9,7 @@ aliases:
     - /2018/04/decimal-double-float-json-format.html
 ---
 # decimal , double , float 輸出 json 的格式問題
-之前筆記 [decimal 屬性輸出 JSON 時指定的格式問題](https://blog.yowko.com/2018/04/decimal-json-digital.html) 提到在專案中因為系統介接需要統一 decimal 小數位數，過程中也才發現 json.net 在輸出沒有小數的 decimal 時行為不太一樣(會補上 `.0`：小數點及小數點一位)，最後雖然有解決問題，但解決方式自己卻不甚滿意，加上想要順帶測試 double 及 float 的行為，所以又花了一些時間找其他方法，就來看看過程遇到的問題及最後的解決方式吧
+之前筆記 [decimal 屬性輸出 JSON 時指定的格式問題](/2018/04/decimal-json-digital.html) 提到在專案中因為系統介接需要統一 decimal 小數位數，過程中也才發現 json.net 在輸出沒有小數的 decimal 時行為不太一樣(會補上 `.0`：小數點及小數點一位)，最後雖然有解決問題，但解決方式自己卻不甚滿意，加上想要順帶測試 double 及 float 的行為，所以又花了一些時間找其他方法，就來看看過程遇到的問題及最後的解決方式吧
 
 ## 前提設定
 1. 自訂 model (包含 decimal , double , float 屬性)
@@ -313,5 +313,5 @@ aliases:
 一開始從想要統一 decimal 的輸出格式，到後來持續調整寫法，到額外擴充支援 double 與 float，最終也可以自訂是否輸出可以刪除的小數點及 0，也許再次用到的機會並不高，但為了 coding for fun 帶來的樂趣無價呀
     
 # 參考資訊
-1. [decimal 屬性輸出 JSON 時指定的格式問題](https://blog.yowko.com/2018/04/decimal-json-digital.html)
+1. [decimal 屬性輸出 JSON 時指定的格式問題](/2018/04/decimal-json-digital.html)
 2. [關於 Decimal 小數尾數零](http://blog.darkthread.net/post-2016-12-11-decimal-trailing-zeros.aspx)

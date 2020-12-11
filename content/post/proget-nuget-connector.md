@@ -1,7 +1,7 @@
 ---
 title: "透過 ProGet 取得官方 NuGet 套件"
 date: 2018-01-13T23:57:00+08:00
-lastmod: 2018-10-02T23:57:31+08:00
+lastmod: 2020-12-11T23:57:31+08:00
 draft: false
 tags: ["套件","NuGet","Tools"]
 slug: "proget-nuget-connector"
@@ -9,7 +9,7 @@ aliases:
     - /2018/01/proget-nuget-connector.html
 ---
 # 透過 ProGet 取得官方 NuGet 套件
-之前筆記 [將 NuGet Package 發行至 ProGet](https://blog.yowko.com/2017/09/nuget-package-proget.html) 曾經介紹到如何將內部使用的 NuGet package 發行至內部 NuGet server：ProGet 上，在試行一段時間後決定擴大範圍，將所有 NuGet package 皆透過內部 ProGet 來取得，不再將所有 NuGet package commit 至 git 中
+之前筆記 [將 NuGet Package 發行至 ProGet](/2017/09/nuget-package-proget.html) 曾經介紹到如何將內部使用的 NuGet package 發行至內部 NuGet server：ProGet 上，在試行一段時間後決定擴大範圍，將所有 NuGet package 皆透過內部 ProGet 來取得，不再將所有 NuGet package commit 至 git 中
 
 因為公司的各個環境皆屬封閉環境，對外皆未開通網路連線，僅能連到 NuGet server，所以需要將 NuGet package 下載至內部 ProGet 上，立馬來看看可以如何設定
 
@@ -72,4 +72,4 @@ aliases:
 
 # 參考資訊
 
-1.  [將 NuGet Package 發行至 ProGet](https://blog.yowko.com/2017/09/nuget-package-proget.html)
+1.  [將 NuGet Package 發行至 ProGet](/2017/09/nuget-package-proget.html)

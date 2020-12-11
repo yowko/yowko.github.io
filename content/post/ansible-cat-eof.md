@@ -1,7 +1,7 @@
 ---
 title: "Ansible 使用 Here document (cat << EOF) 遇到的問題"
 date: 2020-03-01T09:30:00+08:00
-lastmod: 2020-3-01T09:30:31+08:00
+lastmod: 2020-12-11T09:30:31+08:00
 draft: false
 tags: ["Ansible"]
 slug: "ansible-cat-eof"
@@ -9,7 +9,7 @@ slug: "ansible-cat-eof"
 
 ## Ansible 使用 Here document (cat << EOF) 遇到的問題
 
-這是在嘗試使用 Ansible 來輸出多行 config 時遇到的問題，實際例子可以參考 [在 CentOS 7 上安裝 Redis Replication (Redis 5)](https://blog.yowko.com/install-redis/) 其中要準備 redis.conf 的部份就有使用到 `Here document (cat << EOF)` 的技巧，原本想要延用相同方式在 Ansible 上執行，卻遇到問題，後來又再次在安裝 InfluxDB 時遇到相同狀況，所以快速筆記一下
+這是在嘗試使用 Ansible 來輸出多行 config 時遇到的問題，實際例子可以參考 [在 CentOS 7 上安裝 Redis Replication (Redis 5)](/install-redis/) 其中要準備 redis.conf 的部份就有使用到 `Here document (cat << EOF)` 的技巧，原本想要延用相同方式在 Ansible 上執行，卻遇到問題，後來又再次在安裝 InfluxDB 時遇到相同狀況，所以快速筆記一下
 
 ## 基本環境說明
 

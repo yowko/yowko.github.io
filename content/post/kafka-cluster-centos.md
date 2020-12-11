@@ -1,7 +1,7 @@
 ---
 title: "在 CentOS 上安裝 Apache Kafka cluster"
 date: 2019-11-10T21:30:00+08:00
-lastmod: 2020-08-26T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["CentOS","Kafka"]
 slug: "kafka-cluster-centos"
@@ -9,7 +9,7 @@ slug: "kafka-cluster-centos"
 
 ## 在 CentOS 上安裝 Apache Kafka cluster
 
-之前筆記 [在 CentOS 上安裝 Apache ZooKeeper cluster](https://blog.yowko.com/zookeeper-cluster-centos) 紀錄到如何建立 ZooKeeper 的 cluster，雖然 ZooKeeper 還有其他用途，不過我主要打算用來與 Kafka 搭配做為 Message Queue，單看這個使用情境而言，我必需來紀錄 Kafka + Zookeeper 的安裝過程  方便日後查閱囉
+之前筆記 [在 CentOS 上安裝 Apache ZooKeeper cluster](/zookeeper-cluster-centos) 紀錄到如何建立 ZooKeeper 的 cluster，雖然 ZooKeeper 還有其他用途，不過我主要打算用來與 Kafka 搭配做為 Message Queue，單看這個使用情境而言，我必需來紀錄 Kafka + Zookeeper 的安裝過程  方便日後查閱囉
 
 ## 基本環境說明
 
@@ -195,5 +195,5 @@ yum install java-11-openjdk-devel
 
 ## 參考資訊
 
-1. [在 CentOS 上安裝 Apache ZooKeeper cluster](https://blog.yowko.com/zookeeper-cluster-centos)
+1. [在 CentOS 上安裝 Apache ZooKeeper cluster](/zookeeper-cluster-centos)
 2. [How To Install Apache Kafka on CentOS 7](https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-centos-7)

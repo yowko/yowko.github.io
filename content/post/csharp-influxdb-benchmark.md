@@ -1,7 +1,7 @@
 ---
 title: "[Benchmark] 使用 C# 對 InfluxDB insert 操作的效能數據"
 date: 2019-09-22T21:30:00+08:00
-lastmod: 2019-09-22T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["csharp","InfluxDB","Benchmark"]
 slug: "csharp-influxdb-benchmark"
@@ -9,9 +9,9 @@ slug: "csharp-influxdb-benchmark"
 
 ## [Benchmark] 使用 C# 對 InfluxDB insert 操作的效能數據
 
-之前筆記 [使用 C# 存取 InfluxDB](https://blog.yowko.com/csharp-influxdb-curd/) 紀錄了 C# 在 InfluxDB 的基本 CRUD，也提到新專案可能會使用 InfluxDB 儲存資料，在了解 C# 的基本用法後接著就來確認一下 C# 與 InfluxDB 這個組合在效能是否可以跟得上規劃中的系統需求
+之前筆記 [使用 C# 存取 InfluxDB](/csharp-influxdb-curd/) 紀錄了 C# 在 InfluxDB 的基本 CRUD，也提到新專案可能會使用 InfluxDB 儲存資料，在了解 C# 的基本用法後接著就來確認一下 C# 與 InfluxDB 這個組合在效能是否可以跟得上規劃中的系統需求
 
-今天測試的 InfluxDB benchmark 是之前筆記 [[Benchmark] 使用 C# 對 NoSQL insert 操作的效能數據](https://blog.yowko.com/nosql-insert-benchmark/) 的延伸，大致上測試方式情境都會承襲於之前內容
+今天測試的 InfluxDB benchmark 是之前筆記 [[Benchmark] 使用 C# 對 NoSQL insert 操作的效能數據](/nosql-insert-benchmark/) 的延伸，大致上測試方式情境都會承襲於之前內容
 
 ## 基本環境說明
 
@@ -84,7 +84,7 @@ slug: "csharp-influxdb-benchmark"
 
     - PocoToDictionary.cs
 
-        > 這是之前筆記 [C# - 將 Object 的 Property 與 Value 轉換為 Dictionary](https://blog.yowko.com/csharp-object-to-dictionary) 測試轉型做法，找出較佳的做法
+        > 這是之前筆記 [C# - 將 Object 的 Property 與 Value 轉換為 Dictionary](/csharp-object-to-dictionary) 測試轉型做法，找出較佳的做法
 
         ```cs
         public static class PocoToDictionary
@@ -221,12 +221,12 @@ slug: "csharp-influxdb-benchmark"
 
 ## 心得
 
-比照一下之前筆記 [[Benchmark] 使用 C# 對 NoSQL insert 操作的效能數據](https://blog.yowko.com/nosql-insert-benchmark/)，可以發現 InfluxDB 在 insert 的效能只輸給 PostgreSQL -json，甚至比 MongoDB 還要來得快 - 不排除 `.NET Core 2.2.101` 與 `.NET Core SDK 2.2.301` 或是 SDK 版本的差異，但總體趨勢相信是正確的
+比照一下之前筆記 [[Benchmark] 使用 C# 對 NoSQL insert 操作的效能數據](/nosql-insert-benchmark/)，可以發現 InfluxDB 在 insert 的效能只輸給 PostgreSQL -json，甚至比 MongoDB 還要來得快 - 不排除 `.NET Core 2.2.101` 與 `.NET Core SDK 2.2.301` 或是 SDK 版本的差異，但總體趨勢相信是正確的
 
 經過簡單的測試後暫時不用擔心 InfluxDB 在 insert 上會跟不上系統需求
 
 ## 參考資訊
 
-1. [使用 C# 存取 InfluxDB](https://blog.yowko.com/csharp-influxdb-curd/)
-2. [[Benchmark] 使用 C# 對 NoSQL insert 操作的效能數據](https://blog.yowko.com/nosql-insert-benchmark/)
-3. [C# - 將 Object 的 Property 與 Value 轉換為 Dictionary](https://blog.yowko.com/csharp-object-to-dictionary)
+1. [使用 C# 存取 InfluxDB](/csharp-influxdb-curd/)
+2. [[Benchmark] 使用 C# 對 NoSQL insert 操作的效能數據](/nosql-insert-benchmark/)
+3. [C# - 將 Object 的 Property 與 Value 轉換為 Dictionary](/csharp-object-to-dictionary)

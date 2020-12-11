@@ -1,7 +1,7 @@
 ---
 title: "為 Web Api 的 Message Handler 加上單元測試"
 date: 2017-06-25T12:18:00+08:00
-lastmod: 2020-09-01T12:18:44+08:00
+lastmod: 2020-12-11T12:18:44+08:00
 draft: false
 tags: ["ASP.NET Web API","Unit Test"]
 slug: "web-api-message-handler-unit-test"
@@ -9,13 +9,13 @@ aliases:
     - /2017/06/web-api-message-handler-unit-test.html
 ---
 # 為 Web Api 的 Message Handler 加上單元測試
-之前在 [為 ASP.NET WEB API 加上簡易的 Token 驗證](https://blog.yowko.com/2017/02/aspnet-web-api-fixed-token.html) 中曾經使用過 Message Handler 為 ASP.NET Web Api 加上簡易驗證。
+之前在 [為 ASP.NET WEB API 加上簡易的 Token 驗證](/2017/02/aspnet-web-api-fixed-token.html) 中曾經使用過 Message Handler 為 ASP.NET Web Api 加上簡易驗證。
 
 後來在 TDD 課堂中聽到可以為 Message Handler 加上單元測試，於是就來實作看看吧
 
 ## 基本環境設定
 
-詳細介紹請參考 [為 ASP.NET WEB API 加上簡易的 Token 驗證](https://blog.yowko.com/2017/02/aspnet-web-api-fixed-token.html)，程式碼因為需求異動已有差異，將會使用下方程式碼進行實作
+詳細介紹請參考 [為 ASP.NET WEB API 加上簡易的 Token 驗證](/2017/02/aspnet-web-api-fixed-token.html)，程式碼因為需求異動已有差異，將會使用下方程式碼進行實作
 
 *   流程說明
 
@@ -334,6 +334,6 @@ aliases:
 2.  [Unit testing Web API message handlers](http://blog.chatekar.com/unit-testing-web-api-message-handlers/)
 3.  [ASP.NET Web API Series - Part 6: MessageHandler explained](http://byterot.blogspot.tw/2012/05/aspnet-web-api-series-messagehandler.html)
 4.  [ASP.NET Web API Series - Part 7: Real world Message Handlers](http://byterot.blogspot.tw/2012/05/aspnet-web-api-messagehandler-real.html)
-5.  [為 ASP.NET WEB API 加上簡易的 Token 驗證](https://blog.yowko.com/2017/02/aspnet-web-api-fixed-token.html)
+5.  [為 ASP.NET WEB API 加上簡易的 Token 驗證](/2017/02/aspnet-web-api-fixed-token.html)
 6.  [ASP.NET Web API 訊息處理器](http://www.huanlintalk.com/2013/01/aspnet-web-api-message-handlers.html)
 7.  [Unit Test 想驗證 private method 該怎麼做？ - 使用 PrivateObject](http://blog.yowko.com/2017/06/unit-test-private-method.html)

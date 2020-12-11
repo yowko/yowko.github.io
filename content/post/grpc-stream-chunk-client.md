@@ -1,7 +1,7 @@
 ---
 title: "gRPC stream 如何傳送單一大物件 (Client 版)"
 date: 2019-08-01T21:30:00+08:00
-lastmod: 2019-08-01T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["C#","gRPC"]
 slug: "grpc-stream-chunk-client"
@@ -9,11 +9,11 @@ slug: "grpc-stream-chunk-client"
 
 ## gRPC stream 如何傳送單一大物件 (Client 版)
 
-繼之前筆記 [gRPC stream 如何傳送單一大物件](https://blog.yowko.com/grpc-stream-big-object/) 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制的 api 改用 stream 以避免可能出現的 `RESOURCE_EXHAUSTED` 錯誤，截至目前使用上沒有遇到異常狀況。
+繼之前筆記 [gRPC stream 如何傳送單一大物件](/grpc-stream-big-object/) 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制的 api 改用 stream 以避免可能出現的 `RESOURCE_EXHAUSTED` 錯誤，截至目前使用上沒有遇到異常狀況。
 
 上班前同事問到，該如何透過 client 端來上傳單一大物件，我翻了翻筆記，發現沒得抄，想要直接開工卻想不起來該怎麼做 (看來真的不能不服老呀)，所以立馬來筆記一下，避免以後沒地方抄又想很久 QQ
 
-今天內容會以之前筆記 [gRPC stream 如何傳送單一大物件](https://blog.yowko.com/grpc-stream-big-object/)  為基礎作延伸
+今天內容會以之前筆記 [gRPC stream 如何傳送單一大物件](/grpc-stream-big-object/)  為基礎作延伸
 
 ## 基本環境說明
 
@@ -133,7 +133,7 @@ slug: "grpc-stream-chunk-client"
 
 2. client 上傳大物件
 
-     > protobuf 序列化的用法可以參考 [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](https://blog.yowko.com/csharp-protobuf-serialize-deserialize/)
+     > protobuf 序列化的用法可以參考 [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](/csharp-protobuf-serialize-deserialize/)
 
     - 使用 `stream`
     - 透過 Google.Protobuf 轉為 byte[] 傳送
@@ -168,7 +168,7 @@ slug: "grpc-stream-chunk-client"
 
 3. server 端接收大物件
 
-    > protobuf 反序列化的用法可以參考 [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](https://blog.yowko.com/csharp-protobuf-serialize-deserialize/)
+    > protobuf 反序列化的用法可以參考 [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](/csharp-protobuf-serialize-deserialize/)
 
     - 使用 stream 接收
     - 透過 Google.Protobuf 讀取 byte[] 轉型
@@ -193,5 +193,5 @@ slug: "grpc-stream-chunk-client"
 
 ## 參考資訊
 
-1. [gRPC stream 如何傳送單一大物件](https://blog.yowko.com/grpc-stream-big-object/)
-2. [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](https://blog.yowko.com/csharp-protobuf-serialize-deserialize/)
+1. [gRPC stream 如何傳送單一大物件](/grpc-stream-big-object/)
+2. [C# 中使用 Protocol Buffers 協定來序列化與反序列化物件](/csharp-protobuf-serialize-deserialize/)

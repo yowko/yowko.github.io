@@ -1,7 +1,7 @@
 ---
 title: "C# 使用 Lua 取得 Redis 自訂複雜型別"
 date: 2019-12-09T22:30:00+08:00
-lastmod: 2016-12-09T22:30:31+08:00
+lastmod: 2020-12-11T22:30:31+08:00
 draft: false
 tags: ["csharp","Redis","Lua"]
 slug: "csharp-lua-redis-custom-type"
@@ -9,7 +9,7 @@ slug: "csharp-lua-redis-custom-type"
 
 ## C# 使用 Lua 取得 Redis 自訂複雜型別
 
-之前筆記 [在 Redis 中使用 Lua 的 Dictionary](https://blog.yowko.com/redis-lua-dcitionary/) 紀錄到在 Redis 中使用 Lua 時可以如何模擬並使用 Dictionary，而筆記最後也提到透過這樣的方式處理時，Lua 的回傳值會不如預期，所以今天要來紀錄個人的做法，但我無法確定是不是最好的方法 XD，有錯請大家指教了
+之前筆記 [在 Redis 中使用 Lua 的 Dictionary](/redis-lua-dcitionary/) 紀錄到在 Redis 中使用 Lua 時可以如何模擬並使用 Dictionary，而筆記最後也提到透過這樣的方式處理時，Lua 的回傳值會不如預期，所以今天要來紀錄個人的做法，但我無法確定是不是最好的方法 XD，有錯請大家指教了
 
 ## 基本環境說明
 
@@ -37,7 +37,7 @@ slug: "csharp-lua-redis-custom-type"
 
 ## 原始 lua 內容
 
-詳細內容可以參考 [在 Redis 中使用 Lua 的 Dictionary](https://blog.yowko.com/redis-lua-dcitionary/)
+詳細內容可以參考 [在 Redis 中使用 Lua 的 Dictionary](/redis-lua-dcitionary/)
 
 ```lua
 local allUsersKey="users"
@@ -187,7 +187,7 @@ return results
 
     - 轉換程式
 
-        > 相關詳細說明可以參考之前筆記 [C# - Property 與 Value 的 Dictionary 轉為 Object](https://blog.yowko.com/property-value-dictionary-to-object/)
+        > 相關詳細說明可以參考之前筆記 [C# - Property 與 Value 的 Dictionary 轉為 Object](/property-value-dictionary-to-object/)
 
         ```cs
         private static T DictionaryToObject<T>(IDictionary<String, Object> dictionary) where T : class, new()
@@ -280,4 +280,4 @@ return results
 ## 參考資訊
 
 1. [EVAL script numkeys key [key ...] arg [arg ...]](https://redis.io/commands/eval)
-2. [C# - Property 與 Value 的 Dictionary 轉為 Object](https://blog.yowko.com/property-value-dictionary-to-object/)
+2. [C# - Property 與 Value 的 Dictionary 轉為 Object](/property-value-dictionary-to-object/)

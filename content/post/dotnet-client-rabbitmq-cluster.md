@@ -1,7 +1,7 @@
 ---
 title: "C# 連線至 RabbitMQ Cluster - 使用 RabbitMQ .Net Client 及 EasyNetQ"
 date: 2017-08-20T01:26:00+08:00
-lastmod: 2018-09-25T13:50:55+08:00
+lastmod: 2020-12-11T13:50:55+08:00
 draft: false
 tags: ["套件","RabbitMQ","C#"]
 slug: "dotnet-client-rabbitmq-cluster"
@@ -15,7 +15,7 @@ aliases:
 
 ## 使用 RabbitMQ .Net Client
 
-詳細說明請參考 [使用 .Net client 連線至 RabbitMQ 收發訊息](https://blog.yowko.com/2017/05/rabbitmq-client-send-consume.html)，以下就節錄其中內容重點說明連線 cluster 的差異
+詳細說明請參考 [使用 .Net client 連線至 RabbitMQ 收發訊息](/2017/05/rabbitmq-client-send-consume.html)，以下就節錄其中內容重點說明連線 cluster 的差異
 
 1.  producer
 
@@ -187,6 +187,6 @@ aliases:
 
 # 參考資訊
 
-1.  [如何在 Windwos 上設定 RabbitMQ Cluster](https://blog.yowko.com/2017/08/windwos-rabbitmq-cluster.html)
+1.  [如何在 Windwos 上設定 RabbitMQ Cluster](/2017/08/windwos-rabbitmq-cluster.html)
 2.  [設定 RabbitMQ 的 Mirrored Queues - 讓 Queue 內容可以在多組 RabbitMQ 同步](http://blog.yowko.com/2017/08/rabbitmq-mirrored-queues.html)
 3.  [EasyNetQ/EasyNetQ](https://github.com/EasyNetQ/EasyNetQ)

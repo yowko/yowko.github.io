@@ -1,13 +1,13 @@
 ---
 title: "在 macOS 上的 Qt Creator 中出現 failed to parse default search paths from compiler output"
 date: 2019-01-27T21:30:00+08:00
-lastmod: 2019-01-27T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Tools","macOS"]
 slug: "failed-to-parse-default-search-paths-from-compiler-output"
 ---
 # 在 macOS 上的 Qt Creator 中出現 failed to parse default search paths from compiler output
-這一樣是在 mac 上 build Redis Desktop Manager 時遇到的問題，從之前筆記 [在 macOS 上的 Qt Creator 中出現 No valid kits found](https://blog.yowko.com/no-valid-kits-found-on-mac) 先過了第一關後馬來迎來的就是 `failed to parse default search paths from compiler output` 問題，以結果來看來還是 Qt Creator 的設定需要做調整，筆記一下避免日後遇到相同問題又搞不定
+這一樣是在 mac 上 build Redis Desktop Manager 時遇到的問題，從之前筆記 [在 macOS 上的 Qt Creator 中出現 No valid kits found](/no-valid-kits-found-on-mac) 先過了第一關後馬來迎來的就是 `failed to parse default search paths from compiler output` 問題，以結果來看來還是 Qt Creator 的設定需要做調整，筆記一下避免日後遇到相同問題又搞不定
 
 ## 基本環境說明
 1. macOS Mojave 10.14.2
@@ -32,7 +32,7 @@ slug: "failed-to-parse-default-search-paths-from-compiler-output"
 
 1. 確認問題
 
-    > 檢查在 [在 macOS 上的 Qt Creator 中出現 No valid kits found](https://blog.yowko.com/no-valid-kits-found-on-mac) 中為了解決 no valid kits found 問題而手動加入的 Qt 版本的詳細內容
+    > 檢查在 [在 macOS 上的 Qt Creator 中出現 No valid kits found](/no-valid-kits-found-on-mac) 中為了解決 no valid kits found 問題而手動加入的 Qt 版本的詳細內容
     
     - QMAKE_SPEC 是 macx-clang
     
@@ -58,5 +58,5 @@ slug: "failed-to-parse-default-search-paths-from-compiler-output"
 
 
 # 參考資訊
-1. [在 macOS 上的 Qt Creator 中出現 No valid kits found](https://blog.yowko.com/no-valid-kits-found-on-mac)
+1. [在 macOS 上的 Qt Creator 中出現 No valid kits found](/no-valid-kits-found-on-mac)
 2. [Mac下用brew配置QT開發環境](http://www.tiger2doudou.com/blog/post/metorm/Mac%E4%B8%8B%E7%94%A8brew%E9%85%8D%E7%BD%AEQT%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83)

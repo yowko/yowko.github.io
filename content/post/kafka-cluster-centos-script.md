@@ -1,7 +1,7 @@
 ---
 title: "在 CentOS 上安裝 Apache Kafka cluster - One Script"
 date: 2019-11-29T21:30:00+08:00
-lastmod: 2019-11-29T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["CentOS","Kafka"]
 slug: "kafka-cluster-centos-script"
@@ -9,7 +9,7 @@ slug: "kafka-cluster-centos-script"
 
 ## 在 CentOS 上安裝 Apache Kafka cluster - One Script
 
-之前筆記 [在CentOS 上安裝 Apache Kafka cluster](https://blog.yowko.com/kafka-cluster-centos/) 紀錄到如何在CentOS 上安裝 Apache Kafka cluster，簡單說明了有哪些設定需要做修改以及調整，但對於實際安裝的人員來說可能就太細了，所以就來紀錄一鍵全自動安裝設定完成的 script 囉
+之前筆記 [在CentOS 上安裝 Apache Kafka cluster](/kafka-cluster-centos/) 紀錄到如何在CentOS 上安裝 Apache Kafka cluster，簡單說明了有哪些設定需要做修改以及調整，但對於實際安裝的人員來說可能就太細了，所以就來紀錄一鍵全自動安裝設定完成的 script 囉
 
 ## 基本環境說明
 
@@ -89,4 +89,4 @@ slug: "kafka-cluster-centos-script"
 
 ## 參考資訊
 
-1. [在CentOS 上安裝 Apache Kafka cluster](https://blog.yowko.com/kafka-cluster-centos/)
+1. [在CentOS 上安裝 Apache Kafka cluster](/kafka-cluster-centos/)

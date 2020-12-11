@@ -1,7 +1,7 @@
 ---
 title: "如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 4 (使用 Sets 型別)"
 date: 2017-02-26T01:42:34+08:00
-lastmod: 2018-09-12T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["C#","Redis"]
 slug: "dotnet-redis-sets"
@@ -10,7 +10,7 @@ aliases:
     - /2017/02/dotnet-redis-sets
 ---
 # 如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 4 (使用 Sets 型別)
-今天來看看 Sets 該怎麼使用，建議可與 [如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 3 (使用 Lists 型別)](https://blog.yowko.com/2017/02/dotnet-use-redis-lists.html) 參照
+今天來看看 Sets 該怎麼使用，建議可與 [如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 3 (使用 Lists 型別)](/2017/02/dotnet-use-redis-lists.html) 參照
 
 先說重點：用法與 Lists 幾乎相同，差別是 Sets 的元素不允許重複，如果有興趣多瞭解 StackExchange.Redis 指令對應文中有對應與簡介說明表
 

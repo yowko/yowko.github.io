@@ -1,13 +1,13 @@
 ---
 title: "使用 Jaeger 追蹤 ASP.NET Core 中的 class 呼叫"
 date: 2019-04-14T15:30:00+08:00
-lastmod: 2019-04-14T15:30:31+08:00
+lastmod: 2020-12-11T15:30:31+08:00
 draft: false
 tags: ["dotnet core","ASP.NET Core","Jaeger"]
 slug: "jaeger-trace-aspdotnet-core-class-call"
 ---
 # 使用 Jaeger 追蹤 ASP.NET Core 中的 class 呼叫
-之前筆記 [.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫](https://blog.yowko.com/dotnet-core-jaeger-grpc/) 與 [使用 Jaeger 追蹤 ASP.NET Core 呼叫](https://blog.yowko.com/jaeger-trace-aspdotnet-core/) 分別紀錄到使用 Jaeger 來紀錄 gRPC call 與 ASP.NET Core Web API 的呼叫歷程內容，接著紀錄另個常見使用情境：大型系統架構中，拆分多個 layer 是很常見的，如果無法正確追蹤各 layer 間的呼叫，實際應用上會大打折扣
+之前筆記 [.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫](/dotnet-core-jaeger-grpc/) 與 [使用 Jaeger 追蹤 ASP.NET Core 呼叫](/jaeger-trace-aspdotnet-core/) 分別紀錄到使用 Jaeger 來紀錄 gRPC call 與 ASP.NET Core Web API 的呼叫歷程內容，接著紀錄另個常見使用情境：大型系統架構中，拆分多個 layer 是很常見的，如果無法正確追蹤各 layer 間的呼叫，實際應用上會大打折扣
 
 ## 基本環境說明
 1. macOS Mojave 10.14.3
@@ -152,6 +152,6 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
 
 # 參考資訊
 
-1. [.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫](https://blog.yowko.com/dotnet-core-jaeger-grpc/)
-2. [使用 Jaeger 追蹤 ASP.NET Core 呼叫](https://blog.yowko.com/jaeger-trace-aspdotnet-core/)
+1. [.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫](/dotnet-core-jaeger-grpc/)
+2. [使用 Jaeger 追蹤 ASP.NET Core 呼叫](/jaeger-trace-aspdotnet-core/)
 3. [jaegertracing/jaeger-client-csharp](https://github.com/jaegertracing/jaeger-client-csharp)

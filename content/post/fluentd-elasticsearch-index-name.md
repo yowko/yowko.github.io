@@ -1,7 +1,7 @@
 ---
 title: "Fluentd 指定 Elasticsearch Index 名稱"
 date: 2020-04-30T21:30:00+08:00
-lastmod: 2020-05-02T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["EFK","Tools"]
 slug: "fluentd-elasticsearch-index-name"
@@ -17,7 +17,7 @@ slug: "fluentd-elasticsearch-index-name"
 2. docker desktop community 2.2.0.5(43884)
 3. docker images
 
-    > 詳細資訊可以參考之前筆記 [快速建立 EFK (Elasticsearch Fluentd Kibana) 環境](https://blog.yowko.com/docker-efk)
+    > 詳細資訊可以參考之前筆記 [快速建立 EFK (Elasticsearch Fluentd Kibana) 環境](/docker-efk)
 
     - elasticsearch:7.6.2
     - kibana:7.6.2
@@ -79,5 +79,5 @@ slug: "fluentd-elasticsearch-index-name"
 
 ## 參考資訊
 
-1. [快速建立 EFK (Elasticsearch Fluentd Kibana) 環境](https://blog.yowko.com/docker-efk)
+1. [快速建立 EFK (Elasticsearch Fluentd Kibana) 環境](/docker-efk)
 2. [elasticsearch](https://docs.fluentd.org/output/elasticsearch#parameters)

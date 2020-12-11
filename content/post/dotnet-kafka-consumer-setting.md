@@ -1,7 +1,7 @@
 ---
 title: "Kafka Consumer 處理速度緩慢，設定調整紀實"
 date: 2019-06-01T19:30:00+08:00
-lastmod: 2019-06-01T19:30:31+08:00
+lastmod: 2020-12-11T19:30:31+08:00
 draft: false
 tags: ["Kafka","dotnet core"]
 slug: "dotnet-kafka-consumer-setting"
@@ -148,8 +148,8 @@ slug: "dotnet-kafka-consumer-setting"
 
 於是我想到會不會根本不是 c# 程式的問題， 而是 kafka 本身在所設定的情境下就很難有較佳的處理速度，於是改用 kafka 內建的 perf 工具測試，果然證實了我的想法，速度與之前數據差不多
 
-最後嘗試透過壓縮 message payload 的方式來測試，果然速度上得到大量的提昇，上述壓縮測試僅就 consumer 端，如果需要一併考量 producer 的執行效率可以參考 [Kafka Producer 不同壓縮方式對發送速度的影響](https://blog.yowko.com/dotnet-kafka-producer-compresstype) 再選擇壓縮方式
+最後嘗試透過壓縮 message payload 的方式來測試，果然速度上得到大量的提昇，上述壓縮測試僅就 consumer 端，如果需要一併考量 producer 的執行效率可以參考 [Kafka Producer 不同壓縮方式對發送速度的影響](/dotnet-kafka-producer-compresstype) 再選擇壓縮方式
 
 ## 參考資訊
 
-1. [Kafka Producer 不同壓縮方式對發送速度的影響](https://blog.yowko.com/dotnet-kafka-producer-compresstype)
+1. [Kafka Producer 不同壓縮方式對發送速度的影響](/dotnet-kafka-producer-compresstype)

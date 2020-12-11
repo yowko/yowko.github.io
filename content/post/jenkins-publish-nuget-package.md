@@ -1,7 +1,7 @@
 ---
 title: "Jenkins 自動 Publish NuGet Package"
 date: 2017-07-20T23:49:00+08:00
-lastmod: 2020-09-01T23:23:21+08:00
+lastmod: 2020-12-11T23:23:21+08:00
 draft: false
 tags: ["套件","Jenkins","NuGet","Visual Studio"]
 slug: "jenkins-publish-nuget-package"
@@ -45,7 +45,7 @@ NuGet Packager 是 Visual Studio 專案範本，得透過 Visual Studio 擴充�
 
     ![6nugetstructure](https://user-images.githubusercontent.com/3851540/28425529-2a1aaa9e-6da3-11e7-9eea-7b6303293efe.png)
 
-    > 如果對於 NuGet 專案結構用途不清楚可以參考 [使用 NuGet Package Explorer 建立 NuGet 套件](https://blog.yowko.com/2017/07/nuget-package-explorer.html)
+    > 如果對於 NuGet 專案結構用途不清楚可以參考 [使用 NuGet Package Explorer 建立 NuGet 套件](/2017/07/nuget-package-explorer.html)
 
 ## 修改 NuGet 資訊
 
@@ -57,7 +57,7 @@ NuGet Packager 是 Visual Studio 專案範本，得透過 Visual Studio 擴充�
 
     > 以 demo 例子(只將 dto 包裝成 NuGet package)，只需要在 `lib` 下對應的 .net framework folder 中放 dll 即可，但開發階段只需加入 `.gitkeep` 檔案，確保 folder 會被建立即可，dll 待 Jenkins build success 後才放進來打包
     
-    - 什麼檔案該放哪個資料夾可以參考 [使用 NuGet Package Explorer 建立 NuGet 套件](https://blog.yowko.com/2017/07/nuget-package-explorer.html)
+    - 什麼檔案該放哪個資料夾可以參考 [使用 NuGet Package Explorer 建立 NuGet 套件](/2017/07/nuget-package-explorer.html)
 
 3.  在 NuGet.config 加入 NuGet server url
 
@@ -176,8 +176,8 @@ NuGet Packager 是 Visual Studio 專案範本，得透過 Visual Studio 擴充�
 
 # 參考資訊
 
-1.  [使用 NuGet Package Explorer 建立 NuGet 套件](https://blog.yowko.com/2017/07/nuget-package-explorer.html)
-2.  [如何使用 Jenkins 2 建置 .NET 專案](https://blog.yowko.com/2017/02/jenkins-2-build-dotnet-project.html)
+1.  [使用 NuGet Package Explorer 建立 NuGet 套件](/2017/07/nuget-package-explorer.html)
+2.  [如何使用 Jenkins 2 建置 .NET 專案](/2017/02/jenkins-2-build-dotnet-project.html)
 3.  [NuGet CLI reference](https://docs.microsoft.com/en-us/nuget/tools/nuget-exe-cli-reference?WT.mc_id=DOP-MVP-5002594)
 4.  [從Visual Studio發佈NuGet Package的好幫手－NuGet Packager](http://blog.darkthread.net/post-2016-04-28-nuget-packager.aspx)
 5.  [Use Jenkins to restore and publish packages](https://www.visualstudio.com/en-us/docs/package/build/jenkins)

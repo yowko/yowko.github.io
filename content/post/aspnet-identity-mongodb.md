@@ -1,7 +1,7 @@
 ---
 title: "使用 MongoDB 儲存 ASP.NET Identity 資料"
 date: 2018-07-20T16:36:00+08:00
-lastmod: 2018-07-21T21:45:51+08:00
+lastmod: 2020-12-11T21:45:51+08:00
 draft: false
 tags: ["ASP.NET Identity","MongoDB"]
 slug: "aspnet-identity-mongodb"
@@ -9,7 +9,7 @@ aliases:
     - /2018/07/aspnet-identity-mongodb.html
 ---
 # 使用 MongoDB 儲存 ASP.NET Identity 資料
-近期處理的某個專案需要 website 來呈現報表類資訊，起初 user 說只需要基本的登入，不需要其他使用者相關功能(e.g. 修改密碼、權限管理、帳號申請...etc)，於是便透過 [如何在 ASP.NET MVC 加上簡易表單驗證](https://blog.yowko.com/2017/03/aspnet-mvc.html) 中提到的小技巧快速地完成了一個有登入功能的網站，不過 user 在使用過幾次後還是覺得使用者相關功能 `nice to have`，但尷尬的事來了：user 一直覺得 website 有 "完整" 的使用者功能，只是未開放 "登入" 之外的其他功能，殊不知在建立 website 登入機制時根本連 DB 權限都沒申請，相關使用者 credential 資訊都存在 web.config 中
+近期處理的某個專案需要 website 來呈現報表類資訊，起初 user 說只需要基本的登入，不需要其他使用者相關功能(e.g. 修改密碼、權限管理、帳號申請...etc)，於是便透過 [如何在 ASP.NET MVC 加上簡易表單驗證](/2017/03/aspnet-mvc.html) 中提到的小技巧快速地完成了一個有登入功能的網站，不過 user 在使用過幾次後還是覺得使用者相關功能 `nice to have`，但尷尬的事來了：user 一直覺得 website 有 "完整" 的使用者功能，只是未開放 "登入" 之外的其他功能，殊不知在建立 website 登入機制時根本連 DB 權限都沒申請，相關使用者 credential 資訊都存在 web.config 中
 
 後來想到該 website 原本就有專屬的 MongoDB 來儲存相關 log，於是興起將 Identity 資料儲存在 MongoDB 的念頭，立馬來看看如何使用 MongoDB 搭配 ASP.NET Identity 
 
@@ -255,7 +255,7 @@ aliases:
 至於 ASP.NET Identity 與 MongoDB 的整合，在沒有 Microsoft 官方的支持，多虧有網路上的神人願意分享，雖然文件及使用的便利性仍有很大的改進空間，但不用自己從頭處理已是大幸呀
 
 # 參考資訊
-1. [如何在 ASP.NET MVC 加上簡易表單驗證](https://blog.yowko.com/2017/03/aspnet-mvc.html)
-2. [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](https://blog.yowko.com/2017/11/add-aspnet-identity-empty-project.html)
+1. [如何在 ASP.NET MVC 加上簡易表單驗證](/2017/03/aspnet-mvc.html)
+2. [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](/2017/11/add-aspnet-identity-empty-project.html)
 3. [g0t4/aspnet-identity-mongo](https://github.com/g0t4/aspnet-identity-mongo/tree/AspNet.Identity.MongoDB)
 4. [maxiomtech/MongoDB.AspNet.Identity](https://github.com/maxiomtech/MongoDB.AspNet.Identity)

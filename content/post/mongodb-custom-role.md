@@ -1,7 +1,7 @@
 ---
 title: "建立 MongoDB 自訂角色權限 (role)"
 date: 2020-09-08T21:30:00+08:00
-lastmod: 2020-09-08T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["MongoDB"]
 slug: "mongodb-custom-role"
@@ -23,7 +23,7 @@ slug: "mongodb-custom-role"
 1. macOS Catalina 10.15.6
 2. docker desktop community 2.3.0.4(46911)
 3. mongodb 4.2.8
-4. MongoDB Replica Set 建立請參考之前筆記 [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set](https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth/)
+4. MongoDB Replica Set 建立請參考之前筆記 [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set](/docker-compose-mongodb-replica-set-with-auth/)
 
 ## 設定方式
 
@@ -138,7 +138,7 @@ MongoDB 的 role 權限系統的設定邏輯是在指定 `resources` (Database ,
 
 1. [Built-In Roles](https://docs.mongodb.com/manual/reference/built-in-roles)
 2. [User-Defined Roles](https://docs.mongodb.com/manual/core/security-user-defined-roles/)
-3. [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set](https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth/)
+3. [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set](/docker-compose-mongodb-replica-set-with-auth/)
 4. [Privilege Actions](https://docs.mongodb.com/manual/reference/privilege-actions)
 5. [Resource Document](https://docs.mongodb.com/manual/reference/resource-document/)
 6. [Write Concern](https://docs.mongodb.com/manual/reference/write-concern/)

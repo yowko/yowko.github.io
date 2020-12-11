@@ -1,25 +1,25 @@
 ---
 title: "使用 GenericHost 來 Host gRPC Server"
 date: 2019-05-26T21:30:00+08:00
-lastmod: 2020-09-01T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","gRPC","dotnet core"]
 slug: "generichost-grpc-server"
 ---
 # 使用 GenericHost 來 Host gRPC Server
 
-之前筆記 [在 .NET Core console 上使用 Dependency Injection - DI](https://blog.yowko.com/dotnet-core-console-di/) 提到 ASP.NET Core 有兩種 host 方式：
+之前筆記 [在 .NET Core console 上使用 Dependency Injection - DI](/dotnet-core-console-di/) 提到 ASP.NET Core 有兩種 host 方式：
 
 1. WebHost
 2. Generic Host
 
-而在之前另一則筆記 [使用 ASP.NET Core 2.2 來 Host gRPC Server](https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/) 使用到 WebHost 來 host gRPC Server，經同事提醒其實不需要用到 kestrel 來處理 request，覺得相當有道理於是我就來改版了
+而在之前另一則筆記 [使用 ASP.NET Core 2.2 來 Host gRPC Server](/aspdotnet-core-2-host-grpc-server/) 使用到 WebHost 來 host gRPC Server，經同事提醒其實不需要用到 kestrel 來處理 request，覺得相當有道理於是我就來改版了
 
 ## 基本環境說明
 
 1. macOS Mojave 10.14.5
 2. .NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)
-3. 使用之前筆記 [使用 ASP.NET Core 2.2 來 Host gRPC Server](https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/) 作為基礎來修改
+3. 使用之前筆記 [使用 ASP.NET Core 2.2 來 Host gRPC Server](/aspdotnet-core-2-host-grpc-server/) 作為基礎來修改
 4. NuGet package
 
     - Microsoft.AspNetCore 2.2.0
@@ -157,7 +157,7 @@ Generic Host 適合用來 host 不需處理 http request 的應用程式，以 g
 
 ## 參考資訊
 
-1. [在 .NET Core console 上使用 Dependency Injection - DI](https://blog.yowko.com/dotnet-core-console-di/)
-2. [使用 ASP.NET Core 2.2 來 Host gRPC Server](https://blog.yowko.com/aspdotnet-core-2-host-grpc-server/)
+1. [在 .NET Core console 上使用 Dependency Injection - DI](/dotnet-core-console-di/)
+2. [使用 ASP.NET Core 2.2 來 Host gRPC Server](/aspdotnet-core-2-host-grpc-server/)
 3. [ASP.NET Core 基本概念](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/index?view=aspnetcore-2.2&tabs=macos&WT.mc_id=DOP-MVP-5002594#host)
 4. [.NET 泛型主機](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.2&WT.mc_id=DOP-MVP-5002594)

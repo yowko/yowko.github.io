@@ -1,7 +1,7 @@
 ---
 title: ".Net 專案在 Git commit 前自動執行 Unit Test"
 date: 2017-09-19T23:45:00+08:00
-lastmod: 2018-09-26T23:45:17+08:00
+lastmod: 2020-12-11T23:45:17+08:00
 draft: false
 tags: ["Git","Unit Test"]
 slug: "git-hook-pre-commit-unit-test"
@@ -15,7 +15,7 @@ aliases:
 
 ## 加上 Git Hook
 
-之前文章 [Windows 環境下為 Git Repository 加上 Git Hook](https://blog.yowko.com/2017/05/git-hook-windows.html)，對於 Git Hook 有簡單介紹可以參考
+之前文章 [Windows 環境下為 Git Repository 加上 Git Hook](/2017/05/git-hook-windows.html)，對於 Git Hook 有簡單介紹可以參考
 
 1.  在專案的 `.git\hooks` 資料夾將 `pre-commit.sample` rename 為 `pre-commit` (去掉附檔名)
 
@@ -95,6 +95,6 @@ aliases:
 
 # 參考資訊
 
-1.  [Windows 環境下為 Git Repository 加上 Git Hook](https://blog.yowko.com/2017/05/git-hook-windows.html)
+1.  [Windows 環境下為 Git Repository 加上 Git Hook](/2017/05/git-hook-windows.html)
 2.  [使用git hook在commit 前進行unittest](http://yodalee.blogspot.tw/2016/12/git-hook-unittest.html)
 3.  [Two Ways to Share Git Hooks with Your Team](https://www.viget.com/articles/two-ways-to-share-git-hooks-with-your-team)

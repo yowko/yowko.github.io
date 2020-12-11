@@ -1,7 +1,7 @@
 ---
 title: "WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常"
 date: 2017-11-14T23:21:00+08:00
-lastmod: 2018-09-28T23:21:36+08:00
+lastmod: 2020-12-11T23:21:36+08:00
 draft: false
 tags: ["Frontend","Tools","Visual Studio"]
 slug: "webpack-error-in-visual-studio"
@@ -9,7 +9,7 @@ aliases:
     - /2017/11/webpack-error-in-visual-studio.html
 ---
 # WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常
-在之前筆記 [在 Visual Studio 中使用 WebPack 來編譯 Vue.js](https://blog.yowko.com/2017/11/visual-studio-webpack-vuejs.html) 紀錄到如何在 Visual Studio 使用 WebPack 來編譯 Vue.js，設定上步驟並不多，使用上也相當方便，只是又踩到雷了XD 不過我在家中電腦與公司電腦都有遇到相同問題，而且公司電腦還遇到兩次一樣的狀況(應該不算是人品問題吧 >"<)：Visual Studio 的 WebPack 無法順利完成編譯，查了好久，也試著把有專案重建 都無法解決問題，後來才發現在 Command Prompt 中是正常的 @@"
+在之前筆記 [在 Visual Studio 中使用 WebPack 來編譯 Vue.js](/2017/11/visual-studio-webpack-vuejs.html) 紀錄到如何在 Visual Studio 使用 WebPack 來編譯 Vue.js，設定上步驟並不多，使用上也相當方便，只是又踩到雷了XD 不過我在家中電腦與公司電腦都有遇到相同問題，而且公司電腦還遇到兩次一樣的狀況(應該不算是人品問題吧 >"<)：Visual Studio 的 WebPack 無法順利完成編譯，查了好久，也試著把有專案重建 都無法解決問題，後來才發現在 Command Prompt 中是正常的 @@"
 
 就來看看問題發生原因跟解決方式吧
 

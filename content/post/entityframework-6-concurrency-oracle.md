@@ -1,7 +1,7 @@
 ---
 title: "如何避免多個 EntityFramework 6 instance 造成資料覆蓋問題 (DB First - Oracle)"
 date: 2018-06-05T00:50:00+08:00
-lastmod: 2018-10-07T00:50:20+08:00
+lastmod: 2020-12-11T00:50:20+08:00
 draft: false
 tags: ["ASP.NET MVC","Entity Framework","Oracle"]
 slug: "entityframework-6-concurrency-oracle"
@@ -9,7 +9,7 @@ aliases:
     - /2018/06/entityframework-6-concurrency-oracle.html
 ---
  # 如何避免多個 Entity Framework 6 instance 造成資料覆蓋問題 (DB First - Oracle)
- 之前筆記 [如何避免多個 Entity Framework 6 instance 造成資料覆蓋問題 (DB First - SQL Server)](https://blog.yowko.com/2018/05/entityframework-6-concurrency.html) 提到 Entity Framework 使用上的限制，也紀錄如何透過在 SQL Server 的 table 上加入 rowversion 的欄位並將 Entity Framework 上該欄位的 Concurrency Mode 改為 fixed 就可以避免修改資料後遭其他人覆寫的狀況，那相同問題當然也會發生在 Oracle 上，就來看看 Oracle 該如何解決吧
+ 之前筆記 [如何避免多個 Entity Framework 6 instance 造成資料覆蓋問題 (DB First - SQL Server)](/2018/05/entityframework-6-concurrency.html) 提到 Entity Framework 使用上的限制，也紀錄如何透過在 SQL Server 的 table 上加入 rowversion 的欄位並將 Entity Framework 上該欄位的 Concurrency Mode 改為 fixed 就可以避免修改資料後遭其他人覆寫的狀況，那相同問題當然也會發生在 Oracle 上，就來看看 Oracle 該如何解決吧
 
 ## 重現問題
 1. user A 開啟特定一筆資料 (name 為 Yowko) 想要修改內容

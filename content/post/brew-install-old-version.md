@@ -1,7 +1,7 @@
 ---
 title: "使用 Homebrew 安裝舊版工具"
 date: 2019-12-21T20:30:00+08:00
-lastmod: 2019-12-21T20:30:31+08:00
+lastmod: 2020-12-11T20:30:31+08:00
 draft: false
 tags: ["macOS","Tools"]
 slug: "brew-install-old-version"
@@ -9,7 +9,7 @@ slug: "brew-install-old-version"
 
 ## 使用 Homebrew 安裝舊版工具
 
-前幾天筆記 [使用 Homebrew Cask 安裝舊版本軟體](https://blog.yowko.com/homebrew-cask-install-older-version/) 紀錄到使用 Homebrew Cask 來安裝舊版本的 .NET SDK，這幾天在 mac 上測試功能時，為了配合團隊目前技術而需要 Homebrew 安裝舊版本，查了一下資料，感覺是眾說紛紜，決定自己紀錄一下，避免日後又查好久
+前幾天筆記 [使用 Homebrew Cask 安裝舊版本軟體](/homebrew-cask-install-older-version/) 紀錄到使用 Homebrew Cask 來安裝舊版本的 .NET SDK，這幾天在 mac 上測試功能時，為了配合團隊目前技術而需要 Homebrew 安裝舊版本，查了一下資料，感覺是眾說紛紜，決定自己紀錄一下，避免日後又查好久
 
 ## 基本環境說明
 
@@ -19,7 +19,7 @@ slug: "brew-install-old-version"
 
 1. 指定 `.rb`
 
-    > 作法與 [使用 Homebrew Cask 安裝舊版本軟體](https://blog.yowko.com/homebrew-cask-install-older-version/) 相同，詳細容內請直接參考 [使用 Homebrew Cask 安裝舊版本軟體](https://blog.yowko.com/homebrew-cask-install-older-version/)，以下節錄重點
+    > 作法與 [使用 Homebrew Cask 安裝舊版本軟體](/homebrew-cask-install-older-version/) 相同，詳細容內請直接參考 [使用 Homebrew Cask 安裝舊版本軟體](/homebrew-cask-install-older-version/)，以下節錄重點
 
     - 下載需要版本的 Casks 檔案(`*.rb`)
 
@@ -49,6 +49,6 @@ slug: "brew-install-old-version"
 
 ## 參考資訊
 
-1. [使用 Homebrew Cask 安裝舊版本軟體](https://blog.yowko.com/homebrew-cask-install-older-version/)
+1. [使用 Homebrew Cask 安裝舊版本軟體](/homebrew-cask-install-older-version/)
 2. [Homebrew install specific version of formula? - Simple Workflow](https://stackoverflow.com/a/9832084/3600583)
 3. [How to install an older version of a Homebrew package](https://flaviocopes.com/homebrew-install-older-version/)

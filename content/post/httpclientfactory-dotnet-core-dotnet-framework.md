@@ -1,13 +1,13 @@
 ---
 title: "在 .NET Core 與 .NET Framework 上使用 HttpClientFactory"
 date: 2019-01-16T23:45:00+08:00
-lastmod: 2020-09-01T23:44:30+08:00
+lastmod: 2020-12-11T23:44:30+08:00
 draft: false
 tags: ["C#","dotnet core","dotnet"]
 slug: "httpclientfactory-dotnet-core-dotnet-framework"
 ---
 # 在 .NET Core 與 .NET Framework 上使用 HttpClientFactory
-之前筆記 [探討 HttpClient 可能的問題](https://blog.yowko.com/httpclient-issue/) 與 [HttpClient 無法反應 DNS 異動的解決方式](https://blog.yowko.com/httpclient-not-respect-dns-change) 的出現是因為工作任務需要將一些重要訊息傳送至 Slack 而留意到 .NET Core 使用的 HttpClientFactory 是改善過去 HttpClient 存在的一些問題，為了可以更完整理解 HttpClient 缺憾做得的一些紀錄
+之前筆記 [探討 HttpClient 可能的問題](/httpclient-issue/) 與 [HttpClient 無法反應 DNS 異動的解決方式](/httpclient-not-respect-dns-change) 的出現是因為工作任務需要將一些重要訊息傳送至 Slack 而留意到 .NET Core 使用的 HttpClientFactory 是改善過去 HttpClient 存在的一些問題，為了可以更完整理解 HttpClient 缺憾做得的一些紀錄
 
 既然對於 HttpClient 過去的問題有些認識後，當然還是得來搞清楚 HttpClientFactory 的內容囉
 
@@ -24,7 +24,7 @@ slug: "httpclientfactory-dotnet-core-dotnet-framework"
 
 - 透過增加 `PooledConnectionLifetime` 屬性來處理 `ServicePointManager.ConnectionLeaseTimeout`
 
-	> 過去在 .NET Framework 上可以透過指定 `DefaultRequestHeaders.ConnectionClose` 設定為 `true` 或是修改 `ServicePointManager.ConnectionLeaseTimeout` 解決，詳細內容可以參考 [HttpClient 無法反應 DNS 異動的解決方式](https://blog.yowko.com/httpclient-not-respect-dns-change)
+	> 過去在 .NET Framework 上可以透過指定 `DefaultRequestHeaders.ConnectionClose` 設定為 `true` 或是修改 `ServicePointManager.ConnectionLeaseTimeout` 解決，詳細內容可以參考 [HttpClient 無法反應 DNS 異動的解決方式](/httpclient-not-respect-dns-change)
 
 - 每次都取得新的 HttpClient instance 但成本最高的底層 HttpClientHandler 與 connection 則依生命周期決定由 pool 中或是建立新的 instance
     - HttpClientHandler 預設的存活時間為 2 分鐘
@@ -81,7 +81,7 @@ slug: "httpclientfactory-dotnet-core-dotnet-framework"
 		```
 3. .NET Framework 4.7.2
 
-	> 詳細使用方法請參考 [在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory](https://blog.yowko.com/aspnet-core-di-httpclientfactory-in-aspnet-mvc-5)
+	> 詳細使用方法請參考 [在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory](/aspnet-core-di-httpclientfactory-in-aspnet-mvc-5)
 
 	- Startup.cs
 
@@ -203,7 +203,7 @@ slug: "httpclientfactory-dotnet-core-dotnet-framework"
 		```cs
 		services.AddHttpClient("yowkoblog", c =>
 		{
-			c.BaseAddress = new Uri("https://blog.yowko.com/");
+			c.BaseAddress = new Uri("/");
 		});
 		``` 
     - 在需要使用 HttpClient 的 class 中透過 .NET Core 的建構式注入 (與 `基本用法` 相同)
@@ -238,7 +238,7 @@ slug: "httpclientfactory-dotnet-core-dotnet-framework"
 
     			public YowkoBlogService(HttpClient client)
     			{
-    				client.BaseAddress = new Uri("https://blog.yowko.com");
+    				client.BaseAddress = new Uri("");
     				
     				Client = client;
     			}
@@ -307,7 +307,7 @@ slug: "httpclientfactory-dotnet-core-dotnet-framework"
 			```cs
 			services.AddHttpClient<YowkoBlogService>(c =>
 			{
-				c.BaseAddress = new Uri("https://blog.yowko.com");
+				c.BaseAddress = new Uri("");
 			});
 			```
 		- 其他動作與 `方法一` 相同
@@ -342,7 +342,7 @@ slug: "httpclientfactory-dotnet-core-dotnet-framework"
 			```cs
 			services.AddHttpClient<YowkoBlogService>(c =>
 			{
-				c.BaseAddress = new Uri("https://blog.yowko.com");
+				c.BaseAddress = new Uri("");
 			});
 			```
 		- 其他動作與 `方法一` 相同
@@ -487,7 +487,7 @@ middleware 在 .NET Core 中佔有舉足輕重的地位，許多設計都有 mid
 
     services.AddHttpClient("yowkoblog", c =>
     {
-        c.BaseAddress = new Uri("https://blog.yowko.com");
+        c.BaseAddress = new Uri("");
         
     })
 	// 註冊的順序會影響執行的順序
@@ -625,6 +625,6 @@ Polly 是綜合彈性和暫時故障處理的套件，允許開發人員使用�
 5. [Use HttpClientFactory to implement resilient HTTP requests](https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests?WT.mc_id=DOP-MVP-5002594)
 6. [Singleton HttpClient doesn't respect DNS changes](https://github.com/dotnet/corefx/issues/11224)
 7. [Implement HTTP call retries with exponential backoff with HttpClientFactory and Polly policies](https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly?WT.mc_id=DOP-MVP-5002594)
-8. [探討 HttpClient 可能的問題](https://blog.yowko.com/httpclient-issue/)
-9. [HttpClient 無法反應 DNS 異動的解決方式](https://blog.yowko.com/httpclient-not-respect-dns-change) 
-10. [在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory](https://blog.yowko.com/aspnet-core-di-httpclientfactory-in-aspnet-mvc-5)
+8. [探討 HttpClient 可能的問題](/httpclient-issue/)
+9. [HttpClient 無法反應 DNS 異動的解決方式](/httpclient-not-respect-dns-change) 
+10. [在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory](/aspnet-core-di-httpclientfactory-in-aspnet-mvc-5)

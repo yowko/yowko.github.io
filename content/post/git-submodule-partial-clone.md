@@ -1,7 +1,7 @@
 ---
 title: "Git Submodule partial clone"
 date: 2020-07-19T21:30:00+08:00
-lastmod: 2020-07-19T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Git"]
 slug: "git-submodule-partial-clone"
@@ -9,7 +9,7 @@ slug: "git-submodule-partial-clone"
 
 ## Git Submodule partial clone
 
-之前筆記 [Git partial clone](https://blog.yowko.com/git-partial-clone) 嘗試了期待已久的 partial clone 功能，雖然跟預期有落差，但對於想要的目標有了不同想法
+之前筆記 [Git partial clone](/git-partial-clone) 嘗試了期待已久的 partial clone 功能，雖然跟預期有落差，但對於想要的目標有了不同想法
 
 之前以為 partial clone 可以在既有 repo 的內容中，疉加另個 repo 的部份內容，但嘗試下來：取得 repo 的部份內容這個沒有問題，但卻不是疉加，而是取代覆蓋，但這也讓我想到是不是可以使用 submodule 加上 partitial clone 來達成目的，打鐵趁熱立馬來紀錄一下
 
@@ -142,7 +142,7 @@ slug: "git-submodule-partial-clone"
 
 ## 參考資訊
 
-1. [Git partial clone](https://blog.yowko.com/git-partial-clone)
+1. [Git partial clone](/git-partial-clone)
 2. [How to sparsely checkout only one single file from a git repository?](https://stackoverflow.com/a/2467629)
 3. [How to do submodule sparse-checkout with Git?](https://stackoverflow.com/questions/45688121/how-to-do-submodule-sparse-checkout-with-git)
 4. [Using submodules in Git - Tutorial](https://www.vogella.com/tutorials/GitSubmodules/article.html)

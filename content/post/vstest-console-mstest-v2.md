@@ -1,7 +1,7 @@
 ---
 title: "使用命令列指令 (VSTest.Console.exe) 執行 MSTest V2 測試"
 date: 2018-04-09T01:00:00+08:00
-lastmod: 2018-10-04T01:00:15+08:00
+lastmod: 2020-12-11T01:00:15+08:00
 draft: false
 tags: ["MSTest","Unit Test"]
 slug: "vstest-console-mstest-v2"
@@ -9,7 +9,7 @@ aliases:
     - /2018/04/vstest-console-mstest-v2.html
 ---
 # 使用命令列指令 (VSTest.Console.exe) 執行 MSTest V2 測試
-之前筆記 [使用 MSTest.exe 指令來進行測試](https://blog.yowko.com/2017/06/mstest-exe.html) 曾經介紹到使用 MSTest.exe 在 cmmand line 環境中執行測試，筆記結尾有提到未支援 MSTest V2 的測試功能，在原本使用 MSTest V2 專案不多的情況下影響不大，但近期專案為了使用 Live Unit Testing 逐漸改用 Visual Studio 2017 搭配 MSTest V2，除了開發階段方便外，為了讓 CI 充份發揮功能，得另外調整 unit test 的語法，就來看看該如何使用命令列指令執行 MSTest V2 測試
+之前筆記 [使用 MSTest.exe 指令來進行測試](/2017/06/mstest-exe.html) 曾經介紹到使用 MSTest.exe 在 cmmand line 環境中執行測試，筆記結尾有提到未支援 MSTest V2 的測試功能，在原本使用 MSTest V2 專案不多的情況下影響不大，但近期專案為了使用 Live Unit Testing 逐漸改用 Visual Studio 2017 搭配 MSTest V2，除了開發階段方便外，為了讓 CI 充份發揮功能，得另外調整 unit test 的語法，就來看看該如何使用命令列指令執行 MSTest V2 測試
 
 ## 關於 `VSTest.Console.exe`
 VSTest.Console.exe 是在 Visual Studio 2012 首見的命令列指令，用來取代 Visual Studio 2012 及更新版本的 Visual Studio 中的  MSTest.exe，針對執行效能已做過優化，可以用來進行單元測試及程式碼 UI 測試
@@ -295,4 +295,4 @@ VSTest.console.exe 在基本使用上並不複雜，但相關說明文件就不�
 2. [vstest-docs/docs/RunSettingsArguments.md](https://github.com/Microsoft/vstest-docs/blob/master/docs/RunSettingsArguments.md)
 3. [vstest-docs/docs/analyze.md](https://github.com/Microsoft/vstest-docs/blob/master/docs/analyze.md)
 4. [Configure unit tests by using a .runsettings file](https://msdn.microsoft.com/en-us/library/jj635153.aspx)
-5. [使用 MSTest.exe 指令來進行測試](https://blog.yowko.com/2017/06/mstest-exe.html)
+5. [使用 MSTest.exe 指令來進行測試](/2017/06/mstest-exe.html)

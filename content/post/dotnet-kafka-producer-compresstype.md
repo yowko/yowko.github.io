@@ -1,7 +1,7 @@
 ---
 title: "Kafka Producer 不同壓縮方式對發送速度的影響"
 date: 2019-06-02T19:30:00+08:00
-lastmod: 2019-06-02T19:30:31+08:00
+lastmod: 2020-12-11T19:30:31+08:00
 draft: false
 tags: ["Kafka","dotnet core"]
 slug: "dotnet-kafka-producer-compresstype"
@@ -9,7 +9,7 @@ slug: "dotnet-kafka-producer-compresstype"
 
 # Kafka Producer 不同壓縮方式對發送速度的影響
 
-這兩天在測試 Kafka consumer 各項設定對於處理速度的影響 (詳細內容可以參考 [Kafka Consumer 處理速度緩慢，設定調整紀實](https://blog.yowko.com/dotnet-kafka-consumer-setting))，經過一輪比較後發現實際影響有限，最重要的還是需要降低 message 內容大小，在不調整發送流程、訊息內容的情況下，想要達到降低的 message 內容大小的做法就是對 message 進行壓縮了，只是壓縮不會是萬能藥對速度一定會有影響，就看影響的幅度多寡了
+這兩天在測試 Kafka consumer 各項設定對於處理速度的影響 (詳細內容可以參考 [Kafka Consumer 處理速度緩慢，設定調整紀實](/dotnet-kafka-consumer-setting))，經過一輪比較後發現實際影響有限，最重要的還是需要降低 message 內容大小，在不調整發送流程、訊息內容的情況下，想要達到降低的 message 內容大小的做法就是對 message 進行壓縮了，只是壓縮不會是萬能藥對速度一定會有影響，就看影響的幅度多寡了
 
 不過口說無憑，就來比較看看 Kafka 支援的幾種壓縮方式間有什麼差異吧
 
@@ -75,10 +75,10 @@ AVG.|142,383|137,947|121,627|122,056|145,792
 
 以平均來看 `Snappy` 與 `Lz4` 表現差不多，倒是 `Zstd` 反而跑出不同於其他壓縮方式的結果 (耗時大於完全不壓縮)，在實際的選擇上建議使用真實案例的 message payload 大小來跑跑看數據比較準確
 
-相較於 producer 在發送效率上的差距， consumer 在接收 message 有沒有壓縮的速度差距非常懸殊呀，詳細內容可以參考 [Kafka Consumer 處理速度緩慢，設定調整紀實](https://blog.yowko.com/dotnet-kafka-consumer-setting)
+相較於 producer 在發送效率上的差距， consumer 在接收 message 有沒有壓縮的速度差距非常懸殊呀，詳細內容可以參考 [Kafka Consumer 處理速度緩慢，設定調整紀實](/dotnet-kafka-consumer-setting)
 
 ## 參考資訊
 
 1. [Enum CompressionType](https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.CompressionType.html)
 2. [Kafka 2.1.0壓縮算法性能測試](https://www.cnblogs.com/huxi2b/p/10330607.html)
-3. [Kafka Consumer 處理速度緩慢，設定調整紀實](https://blog.yowko.com/dotnet-kafka-consumer-setting)
+3. [Kafka Consumer 處理速度緩慢，設定調整紀實](/dotnet-kafka-consumer-setting)

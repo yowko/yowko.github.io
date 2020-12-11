@@ -1,7 +1,7 @@
 ---
 title: "ASP.NET MVC 如何 POST LIST 資料 2"
 date: 2017-02-03T00:42:34+08:00
-lastmod: 2018-09-11T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["ASP.NET MVC"]
 slug: "aspnet-mvc-post-list-2"
@@ -9,7 +9,7 @@ aliases:
     - /2017/02/aspnet-mvc-post-list-2.html
 ---
 # ASP.NET MVC 如何 POST LIST 資料 2
-先前筆記 [ASP.NET MVC 如何 POST LIST 資料 1](https://blog.yowko.com/2017/02/aspnet-mvc-post-list-1) 紀錄著該如何 post 單一資料屬性 list 到後端，而這篇將介紹該如何 post 多種資料屬性 list 到後端
+先前筆記 [ASP.NET MVC 如何 POST LIST 資料 1](/2017/02/aspnet-mvc-post-list-1) 紀錄著該如何 post 單一資料屬性 list 到後端，而這篇將介紹該如何 post 多種資料屬性 list 到後端
 
 
 ## 定義資料欄位
@@ -149,4 +149,4 @@ aliases:
     </div>
     ```
 # 參考資訊
-1. [ASP.NET MVC 如何 POST LIST 資料 1](https://blog.yowko.com/2017/02/aspnet-mvc-post-list-1)
+1. [ASP.NET MVC 如何 POST LIST 資料 1](/2017/02/aspnet-mvc-post-list-1)

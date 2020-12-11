@@ -1,7 +1,7 @@
 ---
 title: "Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED"
 date: 2020-07-26T21:30:00+08:00
-lastmod: 2020-07-26T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux","Docker"]
 slug: "container-gpg-keyexpired"
@@ -9,7 +9,7 @@ slug: "container-gpg-keyexpired"
 
 ## Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED
 
-之前筆記 [執行 apt-get update 時遇到 GPG KEYEXPIRED](https://blog.yowko.com/debian-keyexpired/) 紀錄到在使用 image : `confluentinc/cp-kafka:5.5.0` 建立 container 後需要安裝其他套件，但 apt-get update 卻遇到 GPG KEYEXPIRED 的錯誤，當時透過進到 container 中手動調整 source 的內容，但這樣一來對於常要重建環境的我來說，實在有些困擾：每次重建環境有問題，需要 debug 時就要進到 container 中手動調整，所以我興起了直接修改 image 的想法，簡單紀錄一下
+之前筆記 [執行 apt-get update 時遇到 GPG KEYEXPIRED](/debian-keyexpired/) 紀錄到在使用 image : `confluentinc/cp-kafka:5.5.0` 建立 container 後需要安裝其他套件，但 apt-get update 卻遇到 GPG KEYEXPIRED 的錯誤，當時透過進到 container 中手動調整 source 的內容，但這樣一來對於常要重建環境的我來說，實在有些困擾：每次重建環境有問題，需要 debug 時就要進到 container 中手動調整，所以我興起了直接修改 image 的想法，簡單紀錄一下
 
 ## 基本環境說明
 

@@ -1,7 +1,7 @@
 ---
 title: "讓 container 中的 ASP.NET Core 也有憑證"
 date: 2020-09-20T21:30:00+08:00
-lastmod: 2020-09-20T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","gRPC","Docker"]
 slug: "aspdotnet-core-container-certificate"
@@ -9,7 +9,7 @@ slug: "aspdotnet-core-container-certificate"
 
 ## 讓 container 中的 ASP.NET Core 也有憑證
 
-之前筆記 [使用 ASP.NET Core middleware 進行 gRPC healthy check](https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check/)、[使用 ASP.NET Core BackgroundService 進行 gRPC healthy check](https://blog.yowko.com/aspdotnet-core-backgroundservice-grpc-healthy-check/) 以及 [ASP.NET Core gRPC 無法在 macOS 上啟動？！](https://blog.yowko.com/aspdotnet-core-grpc-macos/) 都有提到過 gRPC 的原生限制：採用 HTTP2 協定並預設使用 SSL，雖然可以使用 clear text 只是如此一來不僅失去安全性在設定上還是比較繁瑣些
+之前筆記 [使用 ASP.NET Core middleware 進行 gRPC healthy check](/aspdotnet-core-middleware-grpc-healthy-check/)、[使用 ASP.NET Core BackgroundService 進行 gRPC healthy check](/aspdotnet-core-backgroundservice-grpc-healthy-check/) 以及 [ASP.NET Core gRPC 無法在 macOS 上啟動？！](/aspdotnet-core-grpc-macos/) 都有提到過 gRPC 的原生限制：採用 HTTP2 協定並預設使用 SSL，雖然可以使用 clear text 只是如此一來不僅失去安全性在設定上還是比較繁瑣些
 
 與其老是想著要怎麼設定跟調整來避開 gRPC 的 HTTP2 SSL 問題，突然想轉個念：乾脆給個憑證 說不定還簡單些，今天就紀錄一下做法供比較參考囉
 

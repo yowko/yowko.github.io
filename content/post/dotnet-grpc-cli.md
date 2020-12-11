@@ -1,7 +1,7 @@
 ---
 title: "使用 dotnet-grpc-cli 取得 gRPC Service 內容"
 date: 2020-09-13T12:30:00+08:00
-lastmod: 2020-09-13T12:30:31+08:00
+lastmod: 2020-12-11T12:30:31+08:00
 draft: false
 tags: ["gRPC","dotnet"]
 slug: "dotnet-grpc-cli"
@@ -9,7 +9,7 @@ slug: "dotnet-grpc-cli"
 
 ## 使用 dotnet-grpc-cli 取得 gRPC Service 內容
 
-之前筆記 [使用 grpc-cli 呼叫 gRPC Service](https://blog.yowko.com/grpc-cli/) 紀錄到 gprc 官方 command line tool 的使用方式，後來偶爾間發現竟然有 dotnet 版：dotnet-grpc-cli，還是 C# 撰寫的，立馬來嘗試看看囉
+之前筆記 [使用 grpc-cli 呼叫 gRPC Service](/grpc-cli/) 紀錄到 gprc 官方 command line tool 的使用方式，後來偶爾間發現竟然有 dotnet 版：dotnet-grpc-cli，還是 C# 撰寫的，立馬來嘗試看看囉
 
 ## 基本環境設定
 
@@ -113,6 +113,6 @@ dotnet-grpc-cli 與 grpc-cli
 
 ## 參考資訊
 
-1. [使用 grpc-cli 呼叫 gRPC Service](https://blog.yowko.com/grpc-cli/)
+1. [使用 grpc-cli 呼叫 gRPC Service](/grpc-cli/)
 2. [dotnet-grpc-cli](https://www.nuget.org/packages/dotnet-grpc-cli/)
 3. [mholo65/dotnet-grpc-cli](https://github.com/mholo65/dotnet-grpc-cli)

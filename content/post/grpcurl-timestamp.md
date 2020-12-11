@@ -1,7 +1,7 @@
 ---
 title: "使用 grpcurl 使用 Timestamp 參數呼叫 gRPC Service"
 date: 2020-03-09T23:30:00+08:00
-lastmod: 2020-03-10T08:30:31+08:00
+lastmod: 2020-12-11T08:30:31+08:00
 draft: false
 tags: ["gRPC","Tools"]
 slug: "grpcurl-timestamp"
@@ -9,7 +9,7 @@ slug: "grpcurl-timestamp"
 
 ## 使用 grpcurl 使用 Timestamp 參數呼叫 gRPC Service
 
-之前筆記 [使用 grpcurl 呼叫 gRPC Service](https://blog.yowko.com/grpcurl/) 紀錄到使用 `grpcurl` 就可以不用 gui 工具以及自行撰寫程式來呼叫 gRPC Service，正以為可以順利解決問題時發現有些使用情境跟想像中不同，趕緊筆記一下備忘
+之前筆記 [使用 grpcurl 呼叫 gRPC Service](/grpcurl/) 紀錄到使用 `grpcurl` 就可以不用 gui 工具以及自行撰寫程式來呼叫 gRPC Service，正以為可以順利解決問題時發現有些使用情境跟想像中不同，趕緊筆記一下備忘
 
 ## 基本環境說明
 
@@ -91,5 +91,5 @@ slug: "grpcurl-timestamp"
 
 ## 參考資訊
 
-1. [使用 grpcurl 呼叫 gRPC Service](https://blog.yowko.com/grpcurl/)
+1. [使用 grpcurl 呼叫 gRPC Service](/grpcurl/)
 2. [Use RFC 3339 string representation of google.protobuf.Timestamp](https://github.com/uw-labs/bloomrpc/issues/98#issuecomment-510736760)

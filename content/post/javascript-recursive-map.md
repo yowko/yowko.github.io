@@ -1,7 +1,7 @@
 ---
 title: "JavaScript 在遞迴陣列中取得特定屬性值"
 date: 2017-12-24T00:59:00+08:00
-lastmod: 2018-10-02T00:59:31+08:00
+lastmod: 2020-12-11T00:59:31+08:00
 draft: false
 tags: ["JavaScript"]
 slug: "javascript-recursive-map"
@@ -9,7 +9,7 @@ aliases:
     - /2017/12/javascript-recursive-map.html
 ---
 # JavaScript 在遞迴陣列中取得特定屬性值
-之前筆記 [JavaScript Array 的加總](https://blog.yowko.com/2017/12/javascript-array-sum.html) 紀錄到 int Array 的加總及 object Array 依屬性名稱加總內容的做法，今天則是要來紀錄如何將遞迴陣列中的特定屬性取出
+之前筆記 [JavaScript Array 的加總](/2017/12/javascript-array-sum.html) 紀錄到 int Array 的加總及 object Array 依屬性名稱加總內容的做法，今天則是要來紀錄如何將遞迴陣列中的特定屬性取出
 
 ## 一般物件陣列
 
@@ -170,6 +170,6 @@ aliases:
 
 # 參考資訊
 
-1.  [JavaScript Array 的加總](https://blog.yowko.com/2017/12/javascript-array-sum.html)
+1.  [JavaScript Array 的加總](/2017/12/javascript-array-sum.html)
 2.  [Check if object is array?](https://stackoverflow.com/questions/4775722/check-if-object-is-array)
 3.  [Object.keys()](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)

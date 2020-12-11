@@ -1,7 +1,7 @@
 ---
 title: "使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy"
 date: 2020-03-01T15:30:00+08:00
-lastmod: 2020-03-01T15:30:31+08:00
+lastmod: 2020-12-11T15:30:31+08:00
 draft: false
 tags: ["Ansible","InfluxDB"]
 slug: "ansible-influxdb-create-user-database-rententionpolicy"
@@ -9,7 +9,7 @@ slug: "ansible-influxdb-create-user-database-rententionpolicy"
 
 ## 使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy
 
-之前筆記 [使用 Ansible 安裝 InfluxDB](https://blog.yowko.com/ansible-install-influxdb/) 紀錄到如何使用 Ansible 來安裝 InfluxDB，也提到透過 Ansible 安裝 InfluxDB 與直接執行 script 來安裝 差異不大，不過透過 Ansible 安裝 InfluxDB 好處主要是在於後續建立 User，Database，Retention Policy 上，所以立馬來紀錄一下囉
+之前筆記 [使用 Ansible 安裝 InfluxDB](/ansible-install-influxdb/) 紀錄到如何使用 Ansible 來安裝 InfluxDB，也提到透過 Ansible 安裝 InfluxDB 與直接執行 script 來安裝 差異不大，不過透過 Ansible 安裝 InfluxDB 好處主要是在於後續建立 User，Database，Retention Policy 上，所以立馬來紀錄一下囉
 
 ## 基本環境說明
 
@@ -78,7 +78,7 @@ slug: "ansible-influxdb-create-user-database-rententionpolicy"
 1. 將可以設定的變數皆抽出來統一管理
 2. 需要檢查 influxdb service 啟動與否
 
-    > 詳細內容可以參考之前筆記 [Ansible 透過 Http Status Code 當做檢核條件](https://blog.yowko.com/ansible-when-http-status-code)
+    > 詳細內容可以參考之前筆記 [Ansible 透過 Http Status Code 當做檢核條件](/ansible-when-http-status-code)
 
 3. 需要設定啟用 auth
 4. 完整語法
@@ -144,6 +144,6 @@ slug: "ansible-influxdb-create-user-database-rententionpolicy"
 
 ## 參考資訊
 
-1. [使用 Ansible 安裝 InfluxDB](https://blog.yowko.com/ansible-install-influxdb/)
-2. [Ansible 透過 Http Status Code 當做檢核條件](https://blog.yowko.com/ansible-when-http-status-code)
+1. [使用 Ansible 安裝 InfluxDB](/ansible-install-influxdb/)
+2. [Ansible 透過 Http Status Code 當做檢核條件](/ansible-when-http-status-code)
 3. [InfluxDB API reference](https://docs.influxdata.com/influxdb/v1.7/tools/api/)

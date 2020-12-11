@@ -1,7 +1,7 @@
 ---
 title: "安裝 Redis 時遇到的錯誤排除"
 date: 2020-02-09T21:30:00+08:00
-lastmod: 2020-02-09T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux","Redis","Debug"]
 slug: "install-redis-error"
@@ -9,7 +9,7 @@ slug: "install-redis-error"
 
 ## 安裝 Redis 時遇到的錯誤排除
 
-之前筆記 [使用 Yum 安裝 Redis 5](https://blog.yowko.com/yum-install-redis5) 提到最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，也才發現幾個 yum package 的版本差異與 epel、ius 兩個 yum repository 的相依關係，除此之外過程中還遇到之前人工安裝時沒遇到的問題，覺得值得紀錄一下
+之前筆記 [使用 Yum 安裝 Redis 5](/yum-install-redis5) 提到最近嘗試撰寫 script 在 CentOS 上建立 Redis 環境，也才發現幾個 yum package 的版本差異與 epel、ius 兩個 yum repository 的相依關係，除此之外過程中還遇到之前人工安裝時沒遇到的問題，覺得值得紀錄一下
 
 ## 基本環境說明
 
@@ -105,6 +105,6 @@ slug: "install-redis-error"
 
 ## 參考資訊
 
-1. [使用 Yum 安裝 Redis 5](https://blog.yowko.com/yum-install-redis5)
+1. [使用 Yum 安裝 Redis 5](/yum-install-redis5)
 2. [Redis: Creating Server TCP listening socket *:6388: bind: Permission denied](https://stackoverflow.com/questions/53009361/redis-creating-server-tcp-listening-socket-6388-bind-permission-denied)
 3. [Redis: Failed opening .rdb for saving: Permission denied](https://stackoverflow.com/a/28686802/3600583)

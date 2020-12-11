@@ -1,14 +1,14 @@
 ---
 title: "Fluentd 使用自定 Log 時間當做 Timestamp"
 date: 2019-05-04T21:30:00+08:00
-lastmod: 2019-09-10T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Fluentd","Log","ELK"]
 slug: "fluentd-log-time"
 ---
 ## Fluentd 使用自定 Log 時間當做 Timestamp
 
-之前筆記 [Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image](https://blog.yowko.com/fluentd-elasticsearch-docker/) 提到最近需要 debug EFK 起因就是發現 Kibana 顯示儲存在 Elasticsearch 中的時間與過濾條件都是 log 的處理時間並非 log 真正的發生時間，想像一下：客戶反應了出問題的時間，工程師在 Kibana 上怎麼查都找不到相關紀錄，翻原始 log 才能找到實際問題.... 想必沒人能接受，導入工具沒有改善流程就算了  還誤導除錯方向這可不行呀
+之前筆記 [Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image](/fluentd-elasticsearch-docker/) 提到最近需要 debug EFK 起因就是發現 Kibana 顯示儲存在 Elasticsearch 中的時間與過濾條件都是 log 的處理時間並非 log 真正的發生時間，想像一下：客戶反應了出問題的時間，工程師在 Kibana 上怎麼查都找不到相關紀錄，翻原始 log 才能找到實際問題.... 想必沒人能接受，導入工具沒有改善流程就算了  還誤導除錯方向這可不行呀
 
 剛好最近手上的功能開發工作有空檔，就由我來調整，不過偶爾碰 ELK 的我很多東西都不記得，東卡西卡的，於是簡單筆記一下
 
@@ -96,7 +96,7 @@ slug: "fluentd-log-time"
         driver: bridge
     ```
 
-4. Fluentd edge (v1.4.2) - aggregator 採用自製 docker image (詳細內容請參考 [Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image](https://blog.yowko.com/fluentd-elasticsearch-docker/) )
+4. Fluentd edge (v1.4.2) - aggregator 採用自製 docker image (詳細內容請參考 [Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image](/fluentd-elasticsearch-docker/) )
 
     > 這邊使用官方建議方式 (forwarder - aggregator):在需要 parse log 的 server 上安裝一個 forwarder 的 fluentd instance，然後將 log 發送給 aggregator 做後續處理
 
@@ -180,7 +180,7 @@ slug: "fluentd-log-time"
     - `-p 24224` 則是用來處理 fluentd forward
     - `-v` 則是將外部的 fluentd config 掛載進去用的
     - `-e` 用來設定環境變數 `FLUENTD_CONF` 的檔名
-    - `fluentdelastic:v1` 使用自製已安裝 `Elasticsearch Output Plugin` 的 base image (詳細內容請參考 [Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image](https://blog.yowko.com/fluentd-elasticsearch-docker/))
+    - `fluentdelastic:v1` 使用自製已安裝 `Elasticsearch Output Plugin` 的 base image (詳細內容請參考 [Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image](/fluentd-elasticsearch-docker/))
 
 ## 使用自定時間
 
@@ -338,5 +338,5 @@ slug: "fluentd-log-time"
 
 ## 參考資訊
 
-1. [Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image](https://blog.yowko.com/fluentd-elasticsearch-docker/)
+1. [Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image](/fluentd-elasticsearch-docker/)
 2. [Elastic stack (ELK) on Docker](https://github.com/deviantony/docker-elk)

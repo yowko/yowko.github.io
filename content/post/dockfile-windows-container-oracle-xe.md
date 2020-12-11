@@ -1,7 +1,7 @@
 ---
 title: "使用 Dockerfile 建立 Windows Container 版本 Oracle XE"
 date: 2017-11-14T00:43:00+08:00
-lastmod: 2020-09-01T22:27:43+08:00
+lastmod: 2020-12-11T22:27:43+08:00
 draft: false
 tags: ["Docker","Oracle"]
 slug: "dockfile-windows-container-oracle-xe"
@@ -9,7 +9,7 @@ aliases:
     - /2017/11/dockfile-windows-container-oracle-xe.html
 ---
 # 使用 Dockerfile 建立 Windows Container 版本 Oracle XE
-之前曾經在筆記 [在 Windows 中使用 Command 安裝 Oracle XE (Silent Installation)](https://blog.yowko.com/2017/11/windows-oracle-xe-silent-install.html) 提到打算將 db 語法也納入自動化測試，所以想要透過 script 來安裝 Oracle XE，既然已經確定 Oracle XE 可以使用 silent installation，那當然不可以錯過使用 container 技術來建立囉
+之前曾經在筆記 [在 Windows 中使用 Command 安裝 Oracle XE (Silent Installation)](/2017/11/windows-oracle-xe-silent-install.html) 提到打算將 db 語法也納入自動化測試，所以想要透過 script 來安裝 Oracle XE，既然已經確定 Oracle XE 可以使用 silent installation，那當然不可以錯過使用 container 技術來建立囉
 
 原本的如意算盤是透過 dockerfile 將安裝指令改成 Oracle XE 的 silent installation，大概半天就可以解決收工，想不到跟同事東試西試就是搞不定，各式各樣的方法用了不下數十種，最後在 DBA 同事強而有力的幫助下終於找到可行方式，一定要紀錄一下其中的心酸血淚呀
 
@@ -17,7 +17,7 @@ aliases:
 
 ## 準備 Oracle XE 安裝檔
 
-> 詳細內容可以參考之前筆記 [在 Windows 中使用 Command 安裝 Oracle XE (Silent Installation)](https://blog.yowko.com/2017/11/windows-oracle-xe-silent-install.html)，有更完整的說明
+> 詳細內容可以參考之前筆記 [在 Windows 中使用 Command 安裝 Oracle XE (Silent Installation)](/2017/11/windows-oracle-xe-silent-install.html)，有更完整的說明
 
 1.  下載 oracle xe 安裝檔
 

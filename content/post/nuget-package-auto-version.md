@@ -1,7 +1,7 @@
 ---
 title: "NuGet 發行 Package 時自動增加版號"
 date: 2017-07-22T23:56:00+08:00
-lastmod: 2018-9-24T17:11:21+08:00
+lastmod: 2020-12-11T17:11:21+08:00
 draft: false
 tags: ["C#","Jenkins","NuGet","Visual Studio"]
 slug: "nuget-package-auto-version"
@@ -9,7 +9,7 @@ aliases:
     - /2017/07/nuget-package-auto-version.html
 ---
 # NuGet 發行 Package 時自動增加版號
-之前文章 [Jenkins 自動 Publish NuGet Package](https://blog.yowko.com/2017/07/jenkins-publish-nuget-package.html) 已經可以透過 Jenkins 將程式碼成品打包成 NuGet package，但文末也提到 NuGet 是使用 {id+版號} 當做唯一值，一般情況下，NuGet server 預設 {id+版號} 相同時就無法上傳 package，不會自動覆蓋，所以今天要來介紹如何讓 NuGet 自動增加版本讓發行時不會出現錯誤
+之前文章 [Jenkins 自動 Publish NuGet Package](/2017/07/jenkins-publish-nuget-package.html) 已經可以透過 Jenkins 將程式碼成品打包成 NuGet package，但文末也提到 NuGet 是使用 {id+版號} 當做唯一值，一般情況下，NuGet server 預設 {id+版號} 相同時就無法上傳 package，不會自動覆蓋，所以今天要來介紹如何讓 NuGet 自動增加版本讓發行時不會出現錯誤
 
 今天分享個人如何使用 DLL 自動增加版號，並使用 DLL 版號來當做 NuGet 版號
 
@@ -80,7 +80,7 @@ aliases:
 
 ## NuGet Package 使用 DLL 版號做為發行版號
 
-以下設定延續 [Jenkins 自動 Publish NuGet Package](https://blog.yowko.com/2017/07/jenkins-publish-nuget-package.html) 內容，需修改 `NuGetPackage.ps1`
+以下設定延續 [Jenkins 自動 Publish NuGet Package](/2017/07/jenkins-publish-nuget-package.html) 內容，需修改 `NuGetPackage.ps1`
 
 1.  取得 dll 的版號
 
@@ -139,4 +139,4 @@ aliases:
 
 1.  [AssemblyVersionAttribute Class](https://msdn.microsoft.com/en-us/library/system.reflection.assemblyversionattribute.aspx)
 2.  [Automatically generating version numbers in Visual Studio](https://jonthysell.com/2017/01/10/automatically-generating-version-numbers-in-visual-studio/)
-3.  [Jenkins 自動 Publish NuGet Package](https://blog.yowko.com/2017/07/jenkins-publish-nuget-package.html)
+3.  [Jenkins 自動 Publish NuGet Package](/2017/07/jenkins-publish-nuget-package.html)

@@ -1,7 +1,7 @@
 ---
 title: "使用 dnf 安裝 Redis 6"
 date: 2020-10-21T21:30:00+08:00
-lastmod: 2020-10-21T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux","Redis"]
 slug: "dnf-install-redis6"
@@ -9,7 +9,7 @@ slug: "dnf-install-redis6"
 
 ## 使用 dnf 安裝 Redis 6
 
-之前筆記 [使用 Yum 安裝 Redis 5](https://blog.yowko.com/yum-install-redis5/) 與 [CentOS 使用 yum 安裝 Redis6](https://blog.yowko.com/centos-yum-redis6/) 紀錄到在 CentOS 中分別使用不同 rpm 安裝 Redis 5 與 Redis 6 的做法，最近改用 dnf 做為套件管理工具，安裝方式有些不同，簡單做個筆記
+之前筆記 [使用 Yum 安裝 Redis 5](/yum-install-redis5/) 與 [CentOS 使用 yum 安裝 Redis6](/centos-yum-redis6/) 紀錄到在 CentOS 中分別使用不同 rpm 安裝 Redis 5 與 Redis 6 的做法，最近改用 dnf 做為套件管理工具，安裝方式有些不同，簡單做個筆記
 
 ## 基本環境說明
 
@@ -44,7 +44,7 @@ slug: "dnf-install-redis6"
 
 5. 使用 modular stream 來安裝 redis 6
 
-    > 預設安裝最新版本；如果需要安裝不同版本，請參考 [使用 dnf 透過 module 安裝指定版本套件](https://blog.yowko.com/dnf-module-install-specific-artifact)
+    > 預設安裝最新版本；如果需要安裝不同版本，請參考 [使用 dnf 透過 module 安裝指定版本套件](/dnf-module-install-specific-artifact)
 
     ```dnf
     dnf module install -y redis:remi-6.0
@@ -66,6 +66,6 @@ slug: "dnf-install-redis6"
 
 1. [DNF Command Reference](https://dnf.readthedocs.io/en/latest/command_ref.html)
 2. [Install and Configure Redis on CentOS 8](https://www.vultr.com/docs/install-and-configure-redis-on-centos-8)
-3. [使用 Yum 安裝 Redis 5](https://blog.yowko.com/yum-install-redis5/)
-4. [CentOS 使用 yum 安裝 Redis6](https://blog.yowko.com/centos-yum-redis6/)
-5. [使用 dnf 透過 module 安裝指定版本套件](https://blog.yowko.com/dnf-module-install-specific-artifact)
+3. [使用 Yum 安裝 Redis 5](/yum-install-redis5/)
+4. [CentOS 使用 yum 安裝 Redis6](/centos-yum-redis6/)
+5. [使用 dnf 透過 module 安裝指定版本套件](/dnf-module-install-specific-artifact)

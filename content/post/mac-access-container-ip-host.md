@@ -1,7 +1,7 @@
 ---
 title: "從 mac 使用 Container Ip 直連"
 date: 2019-12-22T22:30:00+08:00
-lastmod: 2019-12-22T22:30:31+08:00
+lastmod: 2020-12-11T22:30:31+08:00
 draft: false
 tags: ["macOS","Tools","Helm","Kubernetes","Docker"]
 slug: "mac-access-container-ip-host"
@@ -11,7 +11,7 @@ slug: "mac-access-container-ip-host"
 
 大約一年前開發環境從 Windows 轉換至 mac 後，開發上最痛苦的就是沒有 Visual Studio 可以用，痛苦指數第二高的我個人認為是 Docker for Mac 沒有 docker0 網卡 (這是已知的限制：[Networking features in Docker Desktop for Mac - Known limitations, use cases, and workarounds](https://docs.docker.com/docker-for-mac/networking/#known-limitations-use-cases-and-workarounds) )，雖然很多事還是有 workaround 也可以透過許多技巧避開，但我在意的是這些 workaround 與技巧讓 Docker for Mac 的行為與實際 production 環境可能不同
 
-之前有網友在看了 [使用 docker 建立 Redis Cluster - 更新版](https://blog.yowko.com/redis-cluster-docker/) 後詢問有沒有辦法讓 redis cluster 可以從外部直連，後來同事也遇到類似問題，心想如果是 linux 或是 Windows 只要多個 route rule，大概一分鐘可以搞定，有卡關的想必跟我一樣都是陷入 docker for mac 天生限制的泥淖中，所以就興起了嘗試看看有沒有辦法突破 Docker for Mac 沒有 docker0 網卡 的這樣限制，讓開發人員可以直接在 mac host 上透過 Container Ip 直接存取 Container 上的服務而不是使用 port mapping 的方式
+之前有網友在看了 [使用 docker 建立 Redis Cluster - 更新版](/redis-cluster-docker/) 後詢問有沒有辦法讓 redis cluster 可以從外部直連，後來同事也遇到類似問題，心想如果是 linux 或是 Windows 只要多個 route rule，大概一分鐘可以搞定，有卡關的想必跟我一樣都是陷入 docker for mac 天生限制的泥淖中，所以就興起了嘗試看看有沒有辦法突破 Docker for Mac 沒有 docker0 網卡 的這樣限制，讓開發人員可以直接在 mac host 上透過 Container Ip 直接存取 Container 上的服務而不是使用 port mapping 的方式
 
 趁著假日空閒時間終於試出點成果，紀錄一下辛苦的過程(好幾次都差點放棄了)
 
@@ -57,11 +57,11 @@ slug: "mac-access-container-ip-host"
 
 2. 啟用 Docker for Mac 的 Kubernetes 功能
 
-    > 詳細內容請參考之前筆記 [在Docker for Mac 上啟用Kubernetes](https://blog.yowko.com/docker-for-mac-kubernetes/)
+    > 詳細內容請參考之前筆記 [在Docker for Mac 上啟用Kubernetes](/docker-for-mac-kubernetes/)
 
 3. 安裝 Helm
 
-    > 詳細內容請參考之前筆記 [在 Docker for Mac 啟用 Kubernetes 後安裝 Helm](https://blog.yowko.com/docker-mac-kubernetes-helm/)
+    > 詳細內容請參考之前筆記 [在 Docker for Mac 啟用 Kubernetes 後安裝 Helm](/docker-mac-kubernetes-helm/)
 
 4. 下載 [Development Toolkit for Kubernetes on Docker for Mac](https://github.com/pengsrc/docker-for-mac-kubernetes-devkit)
 
@@ -140,9 +140,9 @@ slug: "mac-access-container-ip-host"
 ## 參考資訊
 
 1. [Networking features in Docker Desktop for Mac - Known limitations, use cases, and workarounds](https://docs.docker.com/docker-for-mac/networking/#known-limitations-use-cases-and-workarounds)
-2. [使用 docker 建立 Redis Cluster - 更新版](https://blog.yowko.com/redis-cluster-docker/)
-3. [在Docker for Mac 上啟用Kubernetes](https://blog.yowko.com/docker-for-mac-kubernetes/)
-4. [在 Docker for Mac 啟用 Kubernetes 後安裝 Helm](https://blog.yowko.com/docker-mac-kubernetes-helm/)
+2. [使用 docker 建立 Redis Cluster - 更新版](/redis-cluster-docker/)
+3. [在Docker for Mac 上啟用Kubernetes](/docker-for-mac-kubernetes/)
+4. [在 Docker for Mac 啟用 Kubernetes 後安裝 Helm](/docker-mac-kubernetes-helm/)
 5. [Docker for Mac 容器网络的直连方法](https://pjw.io/articles/2018/04/25/access-to-the-container-network-of-docker-for-mac/)
 6. [MAC DOCKER NETWORK TUNNEL](http://www.scispike.com/blog/mac-docker-network-tunnel/)
 7. [Development Toolkit for Kubernetes on Docker for Mac](https://github.com/pengsrc/docker-for-mac-kubernetes-devkit)

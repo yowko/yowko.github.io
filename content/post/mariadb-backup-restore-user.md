@@ -1,7 +1,7 @@
 ---
 title: "建立 MariaDB 備份與還原帳號"
 date: 2020-11-21T21:30:00+08:00
-lastmod: 2020-11-21T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["MariaDB"]
 slug: "mariadb-backup-restore-user"
@@ -9,7 +9,7 @@ slug: "mariadb-backup-restore-user"
 
 ## 建立 MariaDB 備份與還原帳號
 
-之前筆記 [建立 MongoDB 自訂角色 (role)](https://blog.yowko.com/mongodb-custom-role/) 紀錄到如何在 MongoDB 上建立用來進行備份與還原的角色，再依這個角色建立使用者，相同的需求在 MariaDB 上也有，只是做法些許不同，紀錄一下備忘
+之前筆記 [建立 MongoDB 自訂角色 (role)](/mongodb-custom-role/) 紀錄到如何在 MongoDB 上建立用來進行備份與還原的角色，再依這個角色建立使用者，相同的需求在 MariaDB 上也有，只是做法些許不同，紀錄一下備忘
 
 ## 基本環境說明
 
@@ -140,7 +140,7 @@ slug: "mariadb-backup-restore-user"
 
 ## 參考資訊
 
-1. [建立 MongoDB 自訂角色 (role)](https://blog.yowko.com/mongodb-custom-role/)
+1. [建立 MongoDB 自訂角色 (role)](/mongodb-custom-role/)
 2. [Host Name Component](https://mariadb.com/kb/en/create-user/#host-name-component)
 3. [SUPER](https://mariadb.com/kb/en/grant/#super)
 4. [mysqldump not dumping stored procedures](https://stackoverflow.com/a/46556708)

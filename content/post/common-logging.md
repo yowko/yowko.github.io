@@ -1,7 +1,7 @@
 ---
 title: "使用 Common.Logging 搭配 NLog 及 log4net"
 date: 2017-07-14T23:52:00+08:00
-lastmod: 2018-09-24T23:52:50+08:00
+lastmod: 2020-12-11T23:52:50+08:00
 draft: false
 tags: ["套件","log4net","NLog"]
 slug: "common-logging"
@@ -71,7 +71,7 @@ aliases:
 
 1.  加上 config section 定義
 
-    > 如果對 config section 有興趣，可以參考 [使用 ConfigurationSection 自訂 ASP.NET config (web.config) 區段](https://blog.yowko.com/2017/02/use-configurationsection-customize-aspnet-config.html)
+    > 如果對 config section 有興趣，可以參考 [使用 ConfigurationSection 自訂 ASP.NET config (web.config) 區段](/2017/02/use-configurationsection-customize-aspnet-config.html)
 
     ```xml
     <?xml version="1.0" encoding="utf-8" ?>
@@ -298,5 +298,5 @@ aliases:
 
 1.  [Common-logging](http://net-commons.github.io/common-logging/)
 2.  [net-commons/common-logging](https://github.com/net-commons/common-logging)
-3.  [使用 ConfigurationSection 自訂 ASP.NET config (web.config) 區段](https://blog.yowko.com/2017/02/use-configurationsection-customize-aspnet-config.html)
+3.  [使用 ConfigurationSection 自訂 ASP.NET config (web.config) 區段](/2017/02/use-configurationsection-customize-aspnet-config.html)
 4.  [Chapter 1. Common Logging](http://netcommon.sourceforge.net/docs/2.0.0/reference/html/ch01.html)

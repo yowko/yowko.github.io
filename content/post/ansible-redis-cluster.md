@@ -1,7 +1,7 @@
 ---
 title: "Ansible 安裝 Redis Cluster"
 date: 2020-07-05T21:30:00+08:00
-lastmod: 2020-08-16T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Ansible","Redis"]
 slug: "ansible-redis-cluster"
@@ -9,9 +9,9 @@ slug: "ansible-redis-cluster"
 
 ## Ansible 安裝 Redis Cluster
 
-<span style="color:red">已有更新版，請參考 [Ansible 安裝 Redis Cluster (更新版)](https://blog.yowko.com/ansible-redis-cluster-update) </style>
+<span style="color:red">已有更新版，請參考 [Ansible 安裝 Redis Cluster (更新版)](/ansible-redis-cluster-update) </style>
 
-之前筆記 [Ansible 安裝 Redis Replication 更新版](https://blog.yowko.com/ansible-redis-replication) 紀錄了以 ansible 內建 function 為主的 redis replication 安裝 script，順手紀錄一下 redis cluster 的安裝方式
+之前筆記 [Ansible 安裝 Redis Replication 更新版](/ansible-redis-replication) 紀錄了以 ansible 內建 function 為主的 redis replication 安裝 script，順手紀錄一下 redis cluster 的安裝方式
 
 ## 基本環境說明
 
@@ -371,9 +371,9 @@ slug: "ansible-redis-cluster"
 1. 建立 cluster 前需要確保所有 redis service 都已啟動 (flush_handlers)
 2. 另外是 cluster 的建立行為只需要執行一次 (`run_once: true`)
 
-<span style="color:red">已有更新版，請參考 [Ansible 安裝 Redis Cluster (更新版)](https://blog.yowko.com/ansible-redis-cluster-update) </style>
+<span style="color:red">已有更新版，請參考 [Ansible 安裝 Redis Cluster (更新版)](/ansible-redis-cluster-update) </style>
 
 ## 參考資訊
 
-1. [Ansible 安裝 Redis Replication 更新版](https://blog.yowko.com/ansible-redis-replication)
+1. [Ansible 安裝 Redis Replication 更新版](/ansible-redis-replication)
 2. [ansible-redis-cluster](https://github.com/yowko/ansible-redis-cluster)

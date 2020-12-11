@@ -1,7 +1,7 @@
 ---
 title: "使用 dockerfile 建立 Windows Container 版 Jenkins"
 date: 2017-08-28T00:35:00+08:00
-lastmod: 2018-09-25T00:35:11+08:00
+lastmod: 2020-12-11T00:35:11+08:00
 draft: false
 tags: ["Docker"]
 slug: "dockerfile-windows-container-jenkins"
@@ -9,7 +9,7 @@ aliases:
     - /2017/08/dockerfile-windows-container-jenkins.html
 ---
 # 使用 dockerfile 建立 Windows Container 版 Jenkins
-之前文章 [將 Jenkins 建立在 Windows Container 上](https://blog.yowko.com/2017/08/jenkins-windows-container.html) 分享了如何將 Jenkins 建立在 Windows container 中，而其文末也提到透過文章中介紹的方法來建立 Jenkins container 還有一些缺點待改善，像是 image 的大小及安裝太繁瑣等問題
+之前文章 [將 Jenkins 建立在 Windows Container 上](/2017/08/jenkins-windows-container.html) 分享了如何將 Jenkins 建立在 Windows container 中，而其文末也提到透過文章中介紹的方法來建立 Jenkins container 還有一些缺點待改善，像是 image 的大小及安裝太繁瑣等問題
 
 今天就先來解決安裝太繁瑣的問題 - 透過 dockerfile 來建立 Windows Jenkins container
 
@@ -122,7 +122,7 @@ aliases:
 
 # 參考資訊
 
-1.  [將 Jenkins 建立在 Windows Container 上](https://blog.yowko.com/2017/08/jenkins-windows-container.html)
+1.  [將 Jenkins 建立在 Windows Container 上](/2017/08/jenkins-windows-container.html)
 2.  [Installing JENKINS through Docker File For Windows Container](https://www.assistanz.com/installing-jenkins-through-docker-file-for-windows-container/)
 3.  [Correct way to detach from a container without stopping it](https://stackoverflow.com/questions/25267372/correct-way-to-detach-from-a-container-without-stopping-it)
 4.  [yowko/winjenkins](https://hub.docker.com/r/yowko/winjenkins/)

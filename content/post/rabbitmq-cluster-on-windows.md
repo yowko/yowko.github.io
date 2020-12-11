@@ -1,7 +1,7 @@
 ---
 title: "如何在 Windwos 上設定 RabbitMQ Cluster"
 date: 2017-08-09T23:57:00+08:00
-lastmod: 2018-09-24T23:57:06+08:00
+lastmod: 2020-12-11T23:57:06+08:00
 draft: false
 tags: ["RabbitMQ"]
 slug: "rabbitmq-cluster-on-windows"
@@ -15,7 +15,7 @@ aliases:
 
 ## 環境前提
 
-請先安裝好兩組 RabbitMQ，如何在 Windows 安裝 RabbitMQ 請參考 [在 Windows 7、Winodws 10、Windows Server 2016 上安裝 RabbitMQ](https://blog.yowko.com/2017/05/install-rabbitmq-on-windows7-windows10-windows2016.html)
+請先安裝好兩組 RabbitMQ，如何在 Windows 安裝 RabbitMQ 請參考 [在 Windows 7、Winodws 10、Windows Server 2016 上安裝 RabbitMQ](/2017/05/install-rabbitmq-on-windows7-windows10-windows2016.html)
 
 ## 設定 RabbitMQ Cluster
 

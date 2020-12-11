@@ -1,7 +1,7 @@
 ---
 title: "手動觸發 MongoDB failover"
 date: 2020-06-07T15:30:00+08:00
-lastmod: 2020-06-07T15:30:31+08:00
+lastmod: 2020-12-11T15:30:31+08:00
 draft: false
 tags: ["MongoDB"]
 slug: "mongodb-manual-failover"
@@ -33,7 +33,7 @@ slug: "mongodb-manual-failover"
 
     - MongoDB 4.2.6
 
-        > replica set 的建立請參考之前筆記 [Docker Compose 建立 MongoDB Replica Set](https://blog.yowko.com/docker-compose-mongodb-replica-set/)
+        > replica set 的建立請參考之前筆記 [Docker Compose 建立 MongoDB Replica Set](/docker-compose-mongodb-replica-set/)
 
 ## MongoDB 停止服務指令
 
@@ -77,7 +77,7 @@ slug: "mongodb-manual-failover"
 
     ![2notprimary](https://user-images.githubusercontent.com/3851540/83965359-c556d200-a8e5-11ea-83d5-c6ae5e13820b.jpg)
 
-    > 詳細說明可以參考之前筆記 [MongoDB Cli Replica Set 連線方式](https://blog.yowko.com/mongodb-cli-replica-set/)
+    > 詳細說明可以參考之前筆記 [MongoDB Cli Replica Set 連線方式](/mongodb-cli-replica-set/)
 
     ```bash
     mongo "mongodb://localhost:27017,localhost:27027,localhost:27037/?replicaSet=rs0" --eval "rs.stepDown()"
@@ -92,8 +92,8 @@ slug: "mongodb-manual-failover"
 
 ## 參考資訊
 
-1. [Docker Compose 建立 MongoDB Replica Set](https://blog.yowko.com/docker-compose-mongodb-replica-set/)
-2. [MongoDB Cli Replica Set 連線方式](https://blog.yowko.com/mongodb-cli-replica-set/)
+1. [Docker Compose 建立 MongoDB Replica Set](/docker-compose-mongodb-replica-set/)
+2. [MongoDB Cli Replica Set 連線方式](/mongodb-cli-replica-set/)
 3. [How to stop mongo DB in one command](https://stackoverflow.com/a/11777141)
 4. [db.shutdownServer()](https://docs.mongodb.com/manual/reference/method/db.shutdownServer/)
 5. [rs.stepDown()](https://docs.mongodb.com/manual/reference/method/rs.stepDown/)

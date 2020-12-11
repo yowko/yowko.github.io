@@ -1,7 +1,7 @@
 ---
 title: "JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)"
 date: 2017-12-25T13:25:00+08:00
-lastmod: 2018-10-02T23:36:38+08:00
+lastmod: 2020-12-11T23:36:38+08:00
 draft: false
 tags: ["JavaScript"]
 slug: "javascript-firstordefault"
@@ -9,7 +9,7 @@ aliases:
     - /2017/12/javascript-firstordefault.html
 ---
 # JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)
-之前筆記 [JavaScript 依屬性值過濾陣列取得完整物件](https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html) 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介紹的用法相近，只是本文僅取出一筆，最後回傳值是 object，而前文則是回傳 array，當然可以透過前文技巧取出陣列後再使用 index 為 0 取出第一筆資料，只是既然要過濾條件了直接取得最後需要的物件不僅較省資源也較直覺，就來看看該怎麼做吧
+之前筆記 [JavaScript 依屬性值過濾陣列取得完整物件](/2017/12/javascript-filter-array-by-value.html) 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介紹的用法相近，只是本文僅取出一筆，最後回傳值是 object，而前文則是回傳 array，當然可以透過前文技巧取出陣列後再使用 index 為 0 取出第一筆資料，只是既然要過濾條件了直接取得最後需要的物件不僅較省資源也較直覺，就來看看該怎麼做吧
 
 ## 找出第一個符合條件的物件
 
@@ -173,13 +173,13 @@ aliases:
 
 ## 心得
 
-原本以為程式碼與之前筆記 [JavaScript 依屬性值過濾陣列取得完整物件](https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html) 會非常相似，想不到測試撰寫過程才知道是我想得太簡單了，更進一步證實我的 JavaScript 技能相當薄弱呀(這時才發現 `forEach` 與 `map` 無法中途終止 - 沒有 `break` 跟 `continue`)，幸虧本身就不是靠 js 吃穿的，覺得還過得去 哈哈
+原本以為程式碼與之前筆記 [JavaScript 依屬性值過濾陣列取得完整物件](/2017/12/javascript-filter-array-by-value.html) 會非常相似，想不到測試撰寫過程才知道是我想得太簡單了，更進一步證實我的 JavaScript 技能相當薄弱呀(這時才發現 `forEach` 與 `map` 無法中途終止 - 沒有 `break` 跟 `continue`)，幸虧本身就不是靠 js 吃穿的，覺得還過得去 哈哈
 
 不過經過一番測試與查閱資料後，已經比較清楚其中差異，相信下次一定可以比較快解決問題，至少有地方可以<del>抄</del>參考
 
 ## 遞迴陣列
 
-1.  [JavaScript 依屬性值過濾陣列取得完整物件](https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html)
+1.  [JavaScript 依屬性值過濾陣列取得完整物件](/2017/12/javascript-filter-array-by-value.html)
 2.  [Javascript: find an object in array based on object's property](https://www.linkedin.com/pulse/javascript-find-object-array-based-objects-property-rafael/)
 3.  [Array.prototype.find()](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
 4.  [JavaScript 循環中斷研究與終結，前端 er 必背！](https://juejin.im/entry/5884717a1b69e6005919f0d3)

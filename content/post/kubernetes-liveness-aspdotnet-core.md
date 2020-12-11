@@ -1,7 +1,7 @@
 ---
 title: "使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期"
 date: 2020-09-21T21:30:00+08:00
-lastmod: 2020-09-21T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","gRPC","Kubernetes"]
 slug: "kubernetes-liveness-aspdotnet-core-grpc"
@@ -9,7 +9,7 @@ slug: "kubernetes-liveness-aspdotnet-core-grpc"
 
 ## 使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期
 
-今天要紀錄透過 Kubernetes 搭配 [使用 ASP.NET Core middleware 進行 gRPC healthy check](https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check/) (當然 [使用 ASP.NET Core BackgroundService 進行 gRPC healthy check](https://blog.yowko.com/aspdotnet-core-backgroundservice-grpc-healthy-check/) 也是可行的) 與 [讓 container 中的 ASP.NET Core 也有憑證](https://blog.yowko.com/aspdotnet-core-container-certificate) 來確保 service 的回應正確
+今天要紀錄透過 Kubernetes 搭配 [使用 ASP.NET Core middleware 進行 gRPC healthy check](/aspdotnet-core-middleware-grpc-healthy-check/) (當然 [使用 ASP.NET Core BackgroundService 進行 gRPC healthy check](/aspdotnet-core-backgroundservice-grpc-healthy-check/) 也是可行的) 與 [讓 container 中的 ASP.NET Core 也有憑證](/aspdotnet-core-container-certificate) 來確保 service 的回應正確
 
 ## 基本環境設定
 
@@ -370,16 +370,16 @@ slug: "kubernetes-liveness-aspdotnet-core-grpc"
 
 今天是透過 `Kubernetes Liveness Probe` 來確保服務回應如預期，主要是希望如果服務出現回應不如預期時直接進行重啟 (過去經驗服務重啟有機會可以排除狀況)，而不是透過 `Kubernetes Readiness Probe` 僅將該 pod 下線(不提供服務)，但這個做法是我所處團隊的選擇不一定適用於所有情境
 
-除了今天提到的做法之外，也可以將服務停止的控制權交給 application，詳細內容可以參考 [使用 Kubernetes 搭配 ASP.NET Core BackgroundService 確保 gRPC 服務回應合乎預期](https://blog.yowko.com/kubernetes-aspdotnet-core-backgroundservice-grpc)
+除了今天提到的做法之外，也可以將服務停止的控制權交給 application，詳細內容可以參考 [使用 Kubernetes 搭配 ASP.NET Core BackgroundService 確保 gRPC 服務回應合乎預期](/kubernetes-aspdotnet-core-backgroundservice-grpc)
 
 ## 參考資訊
 
-1. [使用 ASP.NET Core middleware 進行 gRPC healthy check](https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check/)
-2. [使用 ASP.NET Core BackgroundService 進行 gRPC healthy check](https://blog.yowko.com/aspdotnet-core-backgroundservice-grpc-healthy-check/)
-3. [讓 container 中的 ASP.NET Core 也有憑證](https://blog.yowko.com/aspdotnet-core-container-certificate)
+1. [使用 ASP.NET Core middleware 進行 gRPC healthy check](/aspdotnet-core-middleware-grpc-healthy-check/)
+2. [使用 ASP.NET Core BackgroundService 進行 gRPC healthy check](/aspdotnet-core-backgroundservice-grpc-healthy-check/)
+3. [讓 container 中的 ASP.NET Core 也有憑證](/aspdotnet-core-container-certificate)
 4. [使用 Docker over HTTPS 裝載 ASP.NET Core 映射](https://docs.microsoft.com/zh-tw/aspnet/core/security/docker-https?view=aspnetcore-3.1&WT.mc_id=DOP-MVP-5002594)
 5. [Kubernetes storing persistent files](https://stackoverflow.com/questions/50958650/kubernetes-storing-persistent-files)
 6. [Define Environment Variables for a Container](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
 7. [Kubernetes - Health Check](https://tn710617.github.io/zh-tw/config-liveness-readiness-startup-probes/)
 8. [Kubernetes and Containers Best Practices - Health Probes](https://www.magalix.com/blog/kubernetes-and-containers-best-practices-health-probes)
-9. [使用 Kubernetes 搭配 ASP.NET Core BackgroundService 確保 gRPC 服務回應合乎預期](https://blog.yowko.com/kubernetes-aspdotnet-core-backgroundservice-grpc)
+9. [使用 Kubernetes 搭配 ASP.NET Core BackgroundService 確保 gRPC 服務回應合乎預期](/kubernetes-aspdotnet-core-backgroundservice-grpc)

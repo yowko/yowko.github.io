@@ -1,7 +1,7 @@
 ---
 title: "在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service"
 date: 2017-09-21T00:52:00+08:00
-lastmod: 2018-09-26T00:52:12+08:00
+lastmod: 2020-12-11T00:52:12+08:00
 draft: false
 tags: ["Linux","Redis"]
 slug: "centos7-redis-sentinel-service"
@@ -10,13 +10,13 @@ aliases:
     - /2017/09/centos7-redis-sentinel-service/
 ---
 # 在 CentOS 7 上將 Redis sentinel 安裝成開機啟動的 service
-之前曾經在 [在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例](https://blog.yowko.com/2017/09/centos7-redis-service.html) 介紹過如何使用 redis 內建的 `install_server.sh` 執行檔將 redis instance 安裝成開機啟動的 service，也在 [Windows 環境如何設定 Redis Master-Slave 與 Sentinel](https://blog.yowko.com/2017/03/windows-redis-master-slave-sentinel.html) 介紹過如何在 Windows 環境中將 redis instance 及 sentinel 安裝為 windows service
+之前曾經在 [在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例](/2017/09/centos7-redis-service.html) 介紹過如何使用 redis 內建的 `install_server.sh` 執行檔將 redis instance 安裝成開機啟動的 service，也在 [Windows 環境如何設定 Redis Master-Slave 與 Sentinel](/2017/03/windows-redis-master-slave-sentinel.html) 介紹過如何在 Windows 環境中將 redis instance 及 sentinel 安裝為 windows service
 
 最近公司正在 review redis 相關設定，才發現筆記中缺了 redis sentinel 在 CentOS 7 上相關設定的內容，剛好趁這個機會補上
 
 ## 準備 sentinel config
 
-詳細內容可以參考 [Windows 環境如何設定 Redis Master-Slave 與 Sentinel](https://blog.yowko.com/2017/03/windows-redis-master-slave-sentinel.html)
+詳細內容可以參考 [Windows 環境如何設定 Redis Master-Slave 與 Sentinel](/2017/03/windows-redis-master-slave-sentinel.html)
 
 *   建立 sentinel config
 
@@ -176,8 +176,8 @@ sentinel 建立 service 的方式不像一般 redis instance 那麼方便，設�
 
 # 參考資訊
 
-1.  [在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例](https://blog.yowko.com/2017/09/centos7-redis-service.html)
-2.  [Windows 環境如何設定 Redis Master-Slave 與 Sentinel](https://blog.yowko.com/2017/03/windows-redis-master-slave-sentinel.html)
+1.  [在 Linux 中將 Redis 安裝成 Service - 以 CentOS 7 為例](/2017/09/centos7-redis-service.html)
+2.  [Windows 環境如何設定 Redis Master-Slave 與 Sentinel](/2017/03/windows-redis-master-slave-sentinel.html)
 3.  [Systemd 入門教程：命令篇](http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html)
 4.  [Enabling or disabling services using systemctl instead of chkconfig in RHEL 7 / CentOS 7 / Scientific Linux 7](http://microdevsys.com/wp/enabling-or-disabling-services-using-systemctl-instead-of-chkconfig-in-rhel-7-centos-7-scientific-linux-7/)
 5.  [How to Install Redis Server on CentOS 7](https://linoxide.com/storage/install-redis-server-centos-7/)

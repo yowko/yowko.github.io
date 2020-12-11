@@ -1,7 +1,7 @@
 ---
 title: "Dapper 讀取 Oracle 資料 - 更新版 (使用 Oracle.ManagedDataAccess)"
 date: 2018-01-14T17:20:00+08:00
-lastmod: 2018-10-02T17:20:06+08:00
+lastmod: 2020-12-11T17:20:06+08:00
 draft: false
 tags: ["套件","Dapper","Oracle"]
 slug: "dapper-oracle-manageddataaccess"
@@ -9,7 +9,7 @@ aliases:
     - /2018/01/dapper-oracle-manageddataaccess.html
 ---
 # Dapper 讀取 Oracle 資料 - 更新版 (使用 Oracle.ManagedDataAccess)
-之前筆記 [Dapper 讀取 Oracle 資料](https://blog.yowko.com/2017/07/dapper-oracle.html) 提到使用 ~~x64 版本的 oracle client - Oracle.ManagedDataAccess 無法成功連線~~，<span style="color:red">這句話是錯誤的</span>，一來 `Oracle.ManagedDataAccess` 本身是 32位元，另外就是 `Oracle.ManagedDataAccess` 絕對可以正常連線 oracle 讀寫資料
+之前筆記 [Dapper 讀取 Oracle 資料](/2017/07/dapper-oracle.html) 提到使用 ~~x64 版本的 oracle client - Oracle.ManagedDataAccess 無法成功連線~~，<span style="color:red">這句話是錯誤的</span>，一來 `Oracle.ManagedDataAccess` 本身是 32位元，另外就是 `Oracle.ManagedDataAccess` 絕對可以正常連線 oracle 讀寫資料
 
 就來看看如何使用 `Oracle.ManagedDataAccess` 搭配 `dapper` 連線 oracle 吧
 
@@ -54,5 +54,5 @@ using (var cn = new Oracle.ManagedDataAccess.Client.OracleConnection(cnstr))
 
 # 參考資訊
 
-1.  [Dapper 讀取 Oracle 資料](https://blog.yowko.com/2017/07/dapper-oracle.html)
+1.  [Dapper 讀取 Oracle 資料](/2017/07/dapper-oracle.html)
 2.  [Managed ODP.NET簡介](http://blog.darkthread.net/post-2015-03-31-managed-odp-net.aspx)

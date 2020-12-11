@@ -1,7 +1,7 @@
 ---
 title: "GKE 透過 Private IP 連線 Cloud SQL"
 date: 2020-12-06T21:30:00+08:00
-lastmod: 2020-12-06T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["GCP","Kubernetes"]
 slug: "gke-private-sql-cloud-sql"
@@ -54,7 +54,7 @@ slug: "gke-private-sql-cloud-sql"
 
 1. 部署 container
 
-    > 以下使用之前筆記 [使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期](https://blog.yowko.com/kubernetes-liveness-aspdotnet-core-grpc/) 的 image 來進行示範
+    > 以下使用之前筆記 [使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期](/kubernetes-liveness-aspdotnet-core-grpc/) 的 image 來進行示範
 
     ```bash
     kubectl create deployment test  --image=gcr.io/thermal-setup-295904/healthcheck:healthy
@@ -115,4 +115,4 @@ slug: "gke-private-sql-cloud-sql"
 ## 參考資訊
 
 1. [Connecting from Google Kubernetes Engine](https://cloud.google.com/sql/docs/mysql/connect-kubernetes-engine)
-2. [使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期](https://blog.yowko.com/kubernetes-liveness-aspdotnet-core-grpc/)
+2. [使用 Kubernetes Liveness 來檢查 ASP.NET Core gRPC 回應合乎預期](/kubernetes-liveness-aspdotnet-core-grpc/)

@@ -1,13 +1,13 @@
 ---
 title: "透過自訂 Attribute 標示屬性讓 Dapper 進行 json 轉換"
 date: 2019-01-17T21:30:00+08:00
-lastmod: 2019-01-17T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["C#","Dapper"]
 slug: "dapper-customattribute-typehandler"
 ---
 # 透過自訂 Attribute 標示屬性讓 Dapper 進行 json 轉換
-之前在筆記 [使用 Dapper 將 json string 轉換為 object](https://blog.yowko.com/dapper-json-string-to-object/) 紀錄到可以透過自訂 TypeHandler 讓 Dapper 可以將 db 內的值處理成需要的樣子(目前的用法是 db 欄位直接存 json 字串，但實際使用時需要將 json 轉回 c# object)
+之前在筆記 [使用 Dapper 將 json string 轉換為 object](/dapper-json-string-to-object/) 紀錄到可以透過自訂 TypeHandler 讓 Dapper 可以將 db 內的值處理成需要的樣子(目前的用法是 db 欄位直接存 json 字串，但實際使用時需要將 json 轉回 c# object)
 
 雖然自訂 TypeHandler 是當下最佳的解決方案，但實際使用上卻顯得有些礙手礙腳：使用時需要直接將轉換的目標型別傳至 db access layer 進行設定 - 非常不直覺，於是同事就提出使用 custom attribute 的方式，讓 json 轉換為 c# object 的行為改由 property 的 attribute 來設定，轉換型別也直接動態取用自 property 的型別定義，權責分離得更乾淨，也不用擔心忘記註冊轉換的問題，覺得解法超棒 (我怎麼沒想到XD)  紀錄一篇以加深印象
 
@@ -103,4 +103,4 @@ Console.ReadKey();
 透過自訂 attribute 標記的方式讓程式碼更簡潔，意圖也更明確，完全是不同層次的思維，相較之下我原本解法顯得有夠遜，有強大同事可以互相討論學習實在太棒了
 
 # 參考資訊
-1. [使用 Dapper 將 json string 轉換為 object](https://blog.yowko.com/dapper-json-string-to-object/)
+1. [使用 Dapper 將 json string 轉換為 object](/dapper-json-string-to-object/)

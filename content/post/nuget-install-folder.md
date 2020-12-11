@@ -1,7 +1,7 @@
 ---
 title: "關於指定 NuGet 安裝資料夾"
 date: 2017-07-29T23:25:00+08:00
-lastmod: 2020-09-01T23:25:05+08:00
+lastmod: 2020-12-11T23:25:05+08:00
 draft: false
 tags: ["NuGet","Visual Studio"]
 slug: "nuget-install-folder"
@@ -9,7 +9,7 @@ aliases:
     - /2017/07/nuget-install-folder.html
 ---
 # 關於指定 NuGet 安裝資料夾
-之前文章 [指定 NuGet packages 存放位置](https://blog.yowko.com/2017/06/nuget-folder.html)，有介紹如何修改 NuGet 套件的安裝目錄，後來同事測試後有更簡單的做法，因此紀錄一下
+之前文章 [指定 NuGet packages 存放位置](/2017/06/nuget-folder.html)，有介紹如何修改 NuGet 套件的安裝目錄，後來同事測試後有更簡單的做法，因此紀錄一下
 
 使用設定檔的做法相同，但步驟簡易不少，主要目的還是為了避免相同套件被各專案重複下載並佔用無謂的磁碟空間
 
@@ -118,5 +118,5 @@ aliases:
 
 # 參考資訊
 
-1.  [指定 NuGet packages 存放位置](https://blog.yowko.com/2017/06/nuget-folder.html)
+1.  [指定 NuGet packages 存放位置](/2017/06/nuget-folder.html)
 2.  [Configuring NuGet behavior](https://docs.microsoft.com/en-us/nuget/consume-packages/configuring-nuget-behavior?WT.mc_id=DOP-MVP-5002594)

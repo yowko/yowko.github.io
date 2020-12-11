@@ -1,7 +1,7 @@
 ---
 title: "使用 Homebrew Cask 安裝舊版本軟體"
 date: 2019-12-13T21:30:00+08:00
-lastmod: 2019-12-13T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["macOS","Tools"]
 slug: "homebrew-cask-install-older-version"
@@ -9,7 +9,7 @@ slug: "homebrew-cask-install-older-version"
 
 ## 使用 Homebrew Cask 安裝舊版本軟體
 
-前幾天筆記 [JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄](https://blog.yowko.com/rider-dotnetcore3-cannot-build/) 簡單紀錄到在 macOS 上升級 .NET Core 3.1 後，JetBrains Rider 無法 build 的狀況，經同事反應各式情境後，就需要反覆安裝 .NET Core 3.0 與 .NET Core 3.1 來驗證，之前筆記 [從 Mac 移除 .NET Core Runtime 與 SDK](https://blog.yowko.com/remove-dotnet-from-mac/) 提到可以透過 `brew cask install dotnet-sdk` 來安裝 .NET Core SDK，但預設都會直接安裝最新版本，今天就來紀錄該如何透過 `brew cask install` 安裝舊版軟體
+前幾天筆記 [JetBrains Rider 在升級 .NET Core 3.1 後無法編譯紀錄](/rider-dotnetcore3-cannot-build/) 簡單紀錄到在 macOS 上升級 .NET Core 3.1 後，JetBrains Rider 無法 build 的狀況，經同事反應各式情境後，就需要反覆安裝 .NET Core 3.0 與 .NET Core 3.1 來驗證，之前筆記 [從 Mac 移除 .NET Core Runtime 與 SDK](/remove-dotnet-from-mac/) 提到可以透過 `brew cask install dotnet-sdk` 來安裝 .NET Core SDK，但預設都會直接安裝最新版本，今天就來紀錄該如何透過 `brew cask install` 安裝舊版軟體
 
 不確定是不是正確做法，有錯請指教
 

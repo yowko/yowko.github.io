@@ -1,7 +1,7 @@
 ---
 title: "取得 MongoDB SDK 實際產生的指令"
 date: 2019-08-03T21:30:00+08:00
-lastmod: 2019-08-03T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["C#","MongoDB"]
 slug: "mongodb-interceptor"
@@ -9,7 +9,7 @@ slug: "mongodb-interceptor"
 
 ## 取得 MongoDB SDK 實際產生的指令
 
-之前曾經在 [取得 Entity Framework 存取 DB 時的實際 SQL Script](https://blog.yowko.com/entityframework-log-sql/) 提到如果都透過 EntityFramework 來存取 DB，有時候遇到的效能瓶頸是因為 EntityFramework 沒有使用正確的 index 或是執行計劃，這時候就可以使用 interceptor 來攔截 EntityFramework 實際對 DB 執行的 SQL statement 內容
+之前曾經在 [取得 Entity Framework 存取 DB 時的實際 SQL Script](/entityframework-log-sql/) 提到如果都透過 EntityFramework 來存取 DB，有時候遇到的效能瓶頸是因為 EntityFramework 沒有使用正確的 index 或是執行計劃，這時候就可以使用 interceptor 來攔截 EntityFramework 實際對 DB 執行的 SQL statement 內容
 
 最近剛好要確認專案的 MongoDB instance performane issue，剛好趁這個機會紀錄一下如何取得 MongoDB SDK 實際執行的 script 內容
 
@@ -119,7 +119,7 @@ MongoDB .NET driver 曾經在 2.0 時短暫加入 logging 相關的實驗性功�
 
 ## 參考資訊
 
-1. [取得 Entity Framework 存取 DB 時的實際 SQL Script](https://blog.yowko.com/entityframework-log-sql/)
+1. [取得 Entity Framework 存取 DB 時的實際 SQL Script](/entityframework-log-sql/)
 2. [MongoDB C# Driver: Query interceptors?](https://stackoverflow.com/questions/48947260/mongodb-c-sharp-driver-query-interceptors)
 3. [How do I log my queries in MongoDB C# Driver 2.0?](https://stackoverflow.com/questions/30333925/how-do-i-log-my-queries-in-mongodb-c-sharp-driver-2-0)
 4. [What’s New in the MongoDB .NET 2.0 Driver](http://mongodb.github.io/mongo-csharp-driver/2.0/what_is_new/#logging)

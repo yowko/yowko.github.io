@@ -1,7 +1,7 @@
 ---
 title: "Ansible 安裝 Redis Replication 更新版"
 date: 2020-07-04T21:30:00+08:00
-lastmod: 2020-08-04T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Ansible","Redis"]
 slug: "ansible-redis-replication"
@@ -9,7 +9,7 @@ slug: "ansible-redis-replication"
 
 ## Ansible 安裝 Redis Replication 更新版
 
-之前筆記 [使用 Ansible 安裝 Redis Replication](https://blog.yowko.com/ansible-install-redis/) 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼用 script 硬上的，經過一段時間的練習，來更新一下自己覺得比較好的寫法，做為比較紀錄
+之前筆記 [使用 Ansible 安裝 Redis Replication](/ansible-install-redis/) 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼用 script 硬上的，經過一段時間的練習，來更新一下自己覺得比較好的寫法，做為比較紀錄
 
 ## 基本環境說明
 
@@ -395,11 +395,11 @@ slug: "ansible-redis-replication"
 
 完整程式碼請參考 [ansible-redis-replication](https://github.com/yowko/ansible-redis-replication)
 
-大致流程與之前筆記 [使用 Ansible 安裝 Redis Replication](https://blog.yowko.com/ansible-install-redis/) 相去不遠，只是改用 ansible 的 function 來處理
+大致流程與之前筆記 [使用 Ansible 安裝 Redis Replication](/ansible-install-redis/) 相去不遠，只是改用 ansible 的 function 來處理
 
 另外比較大的變化是使用 ansible role 的功能來管理，讓 ansible 的 script 可以擁有較高的共用性
 
 ## 參考資訊
 
-1. [使用 Ansible 安裝 Redis Replication](https://blog.yowko.com/ansible-install-redis/)
+1. [使用 Ansible 安裝 Redis Replication](/ansible-install-redis/)
 2. [ansible-redis-replication](https://github.com/yowko/ansible-redis-replication)

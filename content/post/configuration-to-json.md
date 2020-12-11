@@ -1,7 +1,7 @@
 ---
 title: "[C#] 將 .NET Core 中的 Configuration 輸出為 JSON"
 date: 2020-02-08T21:30:00+08:00
-lastmod: 2020-09-01T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["csharp","JSON","dotnet core"]
 slug: "configuration-to-json"
@@ -9,7 +9,7 @@ slug: "configuration-to-json"
 
 ## [C#] 將 .NET Core 中的 Configuration 輸出為 JSON
 
-之前筆記 [[C#] 將 Dictionary 轉為 JSON](https://blog.yowko.com/dictionary-to-json) 紀錄到 將 Dictionary 轉為 JSON 的方式，對 .NET Core 有些認識的朋友馬上就想到是為了處理 .NET Core Configuration，主要需求就是將搭配不同環境 build 完的最終版 Configuration 存回 JSON 之中，因為沒找到方法所以只好硬來，同事看完後覺得可以試試 Configuration.GetSection 遞迴方式來處理可能會簡單些，既然有方向就來試試囉
+之前筆記 [[C#] 將 Dictionary 轉為 JSON](/dictionary-to-json) 紀錄到 將 Dictionary 轉為 JSON 的方式，對 .NET Core 有些認識的朋友馬上就想到是為了處理 .NET Core Configuration，主要需求就是將搭配不同環境 build 完的最終版 Configuration 存回 JSON 之中，因為沒找到方法所以只好硬來，同事看完後覺得可以試試 Configuration.GetSection 遞迴方式來處理可能會簡單些，既然有方向就來試試囉
 
 ## 基本環境說明
 
@@ -148,4 +148,4 @@ slug: "configuration-to-json"
 
 1. [ConfigurationRoot.GetChildren](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.configurationroot.getchildren?view=dotnet-plat-ext-3.1&WT.mc_id=DOP-MVP-5002594)
 2. [ConfigurationSection.GetChildren](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.configurationsection.getchildren?view=dotnet-plat-ext-3.1&WT.mc_id=DOP-MVP-5002594)
-3. [[C#] 將 Dictionary 轉為 JSON](https://blog.yowko.com/dictionary-to-json)
+3. [[C#] 將 Dictionary 轉為 JSON](/dictionary-to-json)

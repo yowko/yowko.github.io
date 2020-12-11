@@ -1,7 +1,7 @@
 ---
 title: "使用 WinDbg 查出 Redis OOM - Out of Memory"
 date: 2018-07-16T15:41:00+08:00
-lastmod: 2020-09-01T15:41:07+08:00
+lastmod: 2020-12-11T15:41:07+08:00
 draft: false
 tags: ["Debug","Redis","WinDBG"]
 slug: "windbg-redis-oom-out-of-memory"
@@ -18,7 +18,7 @@ Session 的優劣相信大家心中各有自己的標準，沒有絕對一致的
 ## WinDbg debug 步驟
 1. 取得正確 dump 檔
     
-    > 在使用 WinDbg debug 時需要特別注意 32 bit |64 bit 的應用程式有不同的使用方式 ： 32 bit 應用程式就得透過 32 bit 的 taskmgr 來建立 dump 也只能用 x86 的 WinDbg 來進行分析，詳情可以參考 [WinDBG 出現 SOS does not support the current target architecture ?!](https://blog.yowko.com/2018/01/windbg-sos-does-not-support-current.html)
+    > 在使用 WinDbg debug 時需要特別注意 32 bit |64 bit 的應用程式有不同的使用方式 ： 32 bit 應用程式就得透過 32 bit 的 taskmgr 來建立 dump 也只能用 x86 的 WinDbg 來進行分析，詳情可以參考 [WinDBG 出現 SOS does not support the current target architecture ?!](/2018/01/windbg-sos-does-not-support-current.html)
 2. 使用正確架構的 WinDbg
     
     >WinDbg 有兩種版本：`x86`、`x64`，請依實際 application 的架構來選用
@@ -31,7 +31,7 @@ Session 的優劣相信大家心中各有自己的標準，沒有絕對一致的
     ![2opendump](https://user-images.githubusercontent.com/3851540/42746504-a658d846-890a-11e8-9f76-b35bd3b02831.png) 
 4. 設定 symbol 路徑 (optional)
     
-    > 可以為 WinDbg 設定儲存 symbol 的暫存路徑避免重複下載，詳情可以參考 [WinDbg 設定 symbol file path 的四種方法](https://blog.yowko.com/2018/06/windbg-symbol-file-path.html)
+    > 可以為 WinDbg 設定儲存 symbol 的暫存路徑避免重複下載，詳情可以參考 [WinDbg 設定 symbol file path 的四種方法](/2018/06/windbg-symbol-file-path.html)
 5. 載入 CLR 偵錯模組
     
     > .cordll -ve -l，詳細資訊請參考 [.cordll (Control CLR Debugging)](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-cordll--control-clr-debugging-?WT.mc_id=DOP-MVP-5002594)
@@ -71,8 +71,8 @@ Session 的優劣相信大家心中各有自己的標準，沒有絕對一致的
 不過這次的狀況也突顯出環境設定的重要性，一個簡單的設定就足以影響整個 application 的生死，如果對相關 component 的設定沒有足夠掌握度很容易讓好的工具或是架構蒙受不白之冤呀
 
 # 參考資訊
-1. [使用 Redis 當做 ASP.NET MVC 的 Session State Server](https://blog.yowko.com/2017/01/redis-aspnet-mvc-session-state-server.html)
-2. [WinDBG 出現 SOS does not support the current target architecture ?!](https://blog.yowko.com/2018/01/windbg-sos-does-not-support-current.html)
-3. [WinDbg 設定 symbol file path 的四種方法](https://blog.yowko.com/2018/06/windbg-symbol-file-path.html)
+1. [使用 Redis 當做 ASP.NET MVC 的 Session State Server](/2017/01/redis-aspnet-mvc-session-state-server.html)
+2. [WinDBG 出現 SOS does not support the current target architecture ?!](/2018/01/windbg-sos-does-not-support-current.html)
+3. [WinDbg 設定 symbol file path 的四種方法](/2018/06/windbg-symbol-file-path.html)
 4. [.cordll (Control CLR Debugging)](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-cordll--control-clr-debugging-?WT.mc_id=DOP-MVP-5002594)
 5. [Redis with Resque and Rails: ERR command not allowed when used memory > 'maxmemory'](https://stackoverflow.com/questions/9987832/redis-with-resque-and-rails-err-command-not-allowed-when-used-memory-maxmemo)

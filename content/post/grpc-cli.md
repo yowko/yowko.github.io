@@ -1,7 +1,7 @@
 ---
 title: "使用 grpc-cli 呼叫 gRPC Service"
 date: 2020-09-12T12:30:00+08:00
-lastmod: 2020-09-12T12:30:31+08:00
+lastmod: 2020-12-11T12:30:31+08:00
 draft: false
 tags: ["gRPC"]
 slug: "grpc-cli"
@@ -9,7 +9,7 @@ slug: "grpc-cli"
 
 ## 使用 dotnet-grpc-cli 呼叫 gRPC Service
 
-之前筆記 [使用grpcurl 呼叫gRPC Service](https://blog.yowko.com/grpcurl/) 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cli，想不到我如此後知後覺！當然要立馬測試、紀錄，以茲驚惕
+之前筆記 [使用grpcurl 呼叫gRPC Service](/grpcurl/) 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cli，想不到我如此後知後覺！當然要立馬測試、紀錄，以茲驚惕
 
 ## 基本環境設定
 
@@ -116,7 +116,7 @@ slug: "grpc-cli"
 
 ## 參考資訊
 
-1. [使用grpcurl 呼叫gRPC Service](https://blog.yowko.com/grpcurl/)
+1. [使用grpcurl 呼叫gRPC Service](/grpcurl/)
 2. [brew grpc](https://formulae.brew.sh/formula/grpc)
 3. [homebrew-grpc](https://github.com/grpc/homebrew-grpc)
 4. [grpc/doc/command_line_tool.md](https://github.com/grpc/grpc/blob/master/doc/command_line_tool.md)

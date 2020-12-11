@@ -1,7 +1,7 @@
 ---
 title: "將 Mitmproxy log 存至檔案"
 date: 2020-06-21T18:30:00+08:00
-lastmod: 2020-06-21T18:30:31+08:00
+lastmod: 2020-12-11T18:30:31+08:00
 draft: false
 tags: ["Linux","Netowrk"]
 slug: "mitmproxy-log-to-file"
@@ -9,7 +9,7 @@ slug: "mitmproxy-log-to-file"
 
 ## 將 Mitmproxy log 存至檔案
 
-之前筆記 [安裝 Mitmproxy](https://blog.yowko.com/mitmproxy) 提到雖然 Mitmproxy 提供了互動式且資訊豐富的存取紀錄，但這對於日常維運上不方便，一般沒有問題時不會有人去看 log，但覺得行為不如預期時就需要調閱 log 出來比對，所以趁這機會順便紀錄一下將 Mitmproxy 紀錄到檔案的方式
+之前筆記 [安裝 Mitmproxy](/mitmproxy) 提到雖然 Mitmproxy 提供了互動式且資訊豐富的存取紀錄，但這對於日常維運上不方便，一般沒有問題時不會有人去看 log，但覺得行為不如預期時就需要調閱 log 出來比對，所以趁這機會順便紀錄一下將 Mitmproxy 紀錄到檔案的方式
 
 ## 基本環境說明
 
@@ -19,7 +19,7 @@ slug: "mitmproxy-log-to-file"
 
 ## 設定方式
 
-之前筆記 [安裝 Mitmproxy](https://blog.yowko.com/mitmproxy) 在啟動 Mitmproxy 時使用
+之前筆記 [安裝 Mitmproxy](/mitmproxy) 在啟動 Mitmproxy 時使用
 
 ```bash
 mitmproxy
@@ -44,7 +44,7 @@ mitmproxy
 - 使用方式
 
     ```bash
-    curl -x localhost:8080 -k -L https://blog.yowko.com
+    curl -x localhost:8080 -k -L 
     ```
 
 - 實際效果
@@ -67,4 +67,4 @@ mitmproxy
 
 1. [How to extract all content of http/https traffic flows to a txt file from mitmproxy's console view](https://github.com/mitmproxy/mitmproxy/issues/3020#issuecomment-377229582)
 2. [Tools](https://docs.mitmproxy.org/stable/overview-tools/)
-3. [安裝 Mitmproxy](https://blog.yowko.com/mitmproxy)
+3. [安裝 Mitmproxy](/mitmproxy)

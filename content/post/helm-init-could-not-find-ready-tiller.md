@@ -1,7 +1,7 @@
 ---
 title: "解決 Helm init 時出現找不到 tiller pod 問題"
 date: 2019-12-26T21:30:00+08:00
-lastmod: 2020-01-29T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Container","Helm","Kubernetes","macOS"]
 slug: "helm-init-could-not-find-ready-tiller"
@@ -9,7 +9,7 @@ slug: "helm-init-could-not-find-ready-tiller"
 
 ## 解決 Helm init 時出現找不到 tiller pod 問題
 
-這是在嘗試 Docker for Mac 上的 Kubernetes 與 Helm 時遇到的問題，成功版的安裝過程可以參考之前筆記 [在Docker for Mac 啟用Kubernetes 後安裝Helm - Yowko's Notes](https://blog.yowko.com/docker-mac-kubernetes-helm/)，還是不太了解 Helm，筆記一下問題及解決待日後參考
+這是在嘗試 Docker for Mac 上的 Kubernetes 與 Helm 時遇到的問題，成功版的安裝過程可以參考之前筆記 [在Docker for Mac 啟用Kubernetes 後安裝Helm - Yowko's Notes](/docker-mac-kubernetes-helm/)，還是不太了解 Helm，筆記一下問題及解決待日後參考
 
 ## 基本環境說明
 

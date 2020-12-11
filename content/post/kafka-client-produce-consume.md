@@ -1,7 +1,7 @@
 ---
 title: "使用 .Net client 連線至 Apache Kafka 收發訊息"
 date: 2017-05-25T01:00:00+08:00
-lastmod: 2020-05-21T01:00:27+08:00
+lastmod: 2020-12-11T01:00:27+08:00
 draft: false
 tags: ["Kafka","C#"]
 slug: "kafka-client-produce-consume"
@@ -10,7 +10,7 @@ aliases:
 ---
 # 使用 .Net client 連線至 Apache Kafka 收發訊息
 
-<span style="color:red">.NET Core 用法可以參考 [讓 Kafka 達成 Broadcast 效果](https://blog.yowko.com/kafka-broadcast-assign/)</span>
+<span style="color:red">.NET Core 用法可以參考 [讓 Kafka 達成 Broadcast 效果](/kafka-broadcast-assign/)</span>
 
 
 繼之前紀錄 [如何在 Windows OS 安裝 Apache Kafka](//blog.yowko.com/2017/03/windows-os-apache-kafka.html) 到現在默默地過了兩個月XD，直到最近才有時間可以再開始進行 MQ 相關功能比較，經過初步比較後，目前打算以 RabbitMQ 與 Apache Kafka 兩個 MQ 系統為主要選項來做比較，之前文章 [使用 .Net client 連線至 RabbitMQ 收發訊息](//blog.yowko.com/2017/05/rabbitmq-client-send-consume.html) 介紹了使用 .Net Client 連線 RabbitMQ 進行基本發送訊息及接收訊息的程式碼，今天就來看看 .Net 如何連線 Apache Kafka 進行收發訊息
@@ -174,7 +174,7 @@ Kafka 在 .Net 上的資源相對於 RabbitMQ 是比較少的，設定上也較�
 
 功能跟預期(可以自動分流 consumer)不同，我想應該是設定面問題，這個再找時間進行研究跟調整，有新的心得再跟大家分享
 
-<span style="color:red">.NET Core 用法可以參考 [讓 Kafka 達成 Broadcast 效果](https://blog.yowko.com/kafka-broadcast-assign/)</span>
+<span style="color:red">.NET Core 用法可以參考 [讓 Kafka 達成 Broadcast 效果](/kafka-broadcast-assign/)</span>
 
 # 參考資訊
 

@@ -1,7 +1,7 @@
 ---
 title: "[Benchmark] 使用 C# 對 NoSQL insert 操作的效能數據"
 date: 2019-02-24T21:30:00+08:00
-lastmod: 2019-02-24T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["C#","MongoDB","Cassandra","NoSQL"]
 slug: "nosql-insert-benchmark"
@@ -57,7 +57,7 @@ slug: "nosql-insert-benchmark"
 ## NoSQL 測試語法
 ### MongoDB
 
-1. 環境建立流程及使用可以參考 [使用 C# 存取 MongoDB](https://blog.yowko.com/csharp-mangodb/)
+1. 環境建立流程及使用可以參考 [使用 C# 存取 MongoDB](/csharp-mangodb/)
 
 2. Insert 語法
 
@@ -80,7 +80,7 @@ slug: "nosql-insert-benchmark"
 
 ### Cassandra
 
-1. 環境建立流程及使用可以參考 [使用 C# 存取 Cassandra](https://blog.yowko.com/csharp-cassandra/)
+1. 環境建立流程及使用可以參考 [使用 C# 存取 Cassandra](/csharp-cassandra/)
 
 2. Insert 語法
 
@@ -116,7 +116,7 @@ slug: "nosql-insert-benchmark"
 
 ### CouchDB
 
-1. 環境建立流程及使用可以參考 [使用 C# 存取 CouchDB](https://blog.yowko.com/csharp-couchdb/)
+1. 環境建立流程及使用可以參考 [使用 C# 存取 CouchDB](/csharp-couchdb/)
 
 2. Insert 語法
 
@@ -140,7 +140,7 @@ slug: "nosql-insert-benchmark"
 
 ### RavenDB
 
-1. 環境建立流程及使用可以參考 [使用 C# 存取 RavenDB](https://blog.yowko.com/csharp-ravendb/)
+1. 環境建立流程及使用可以參考 [使用 C# 存取 RavenDB](/csharp-ravendb/)
 
 2. Insert 語法
 
@@ -170,7 +170,7 @@ slug: "nosql-insert-benchmark"
 
 ### ArangoDB
 
-1. 環境建立流程及使用可以參考 [使用 C# 存取 ArangoDB](https://blog.yowko.com/csharp-arangodb/)
+1. 環境建立流程及使用可以參考 [使用 C# 存取 ArangoDB](/csharp-arangodb/)
 
 2. Insert 語法
 
@@ -203,7 +203,7 @@ slug: "nosql-insert-benchmark"
 
 ### PostgreSQL
 
-1. 環境建立流程及使用可以參考 [使用 C# 存取 PostgreSQL](https://blog.yowko.com/csharp-postgresql/)
+1. 環境建立流程及使用可以參考 [使用 C# 存取 PostgreSQL](/csharp-postgresql/)
 
 2. Insert 語法
 

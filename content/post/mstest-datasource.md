@@ -1,7 +1,7 @@
 ---
 title: "讓 MSTest 支援使用資料集進行重覆測試"
 date: 2017-08-01T23:52:00+08:00
-lastmod: 2018-09-24T10:52:52+08:00
+lastmod: 2020-12-11T10:52:52+08:00
 draft: false
 tags: ["MSTest","Unit Test"]
 slug: "mstest-datasource"
@@ -9,7 +9,7 @@ aliases:
     - /2017/08/mstest-datasource.html
 ---
 # 讓 MSTest 支援使用資料集進行重覆測試
-之前文章 [NUnit 幾個參數化測試的方式](https://blog.yowko.com/2017/04/nunit-parameterized-test.html) 介紹到如何在 NUnit 單元測試中使用 `TestCase`、`TestCaseSource`、`Values`、`ValueSource` 來進行參數化測試，也曾在 [餵資料集給 SpecFlow 來執行測試及驗證](https://blog.yowko.com/2017/06/specflowoutline.html) 中介紹到如何使用 SpecFlow Outline 達成相同目的
+之前文章 [NUnit 幾個參數化測試的方式](/2017/04/nunit-parameterized-test.html) 介紹到如何在 NUnit 單元測試中使用 `TestCase`、`TestCaseSource`、`Values`、`ValueSource` 來進行參數化測試，也曾在 [餵資料集給 SpecFlow 來執行測試及驗證](/2017/06/specflowoutline.html) 中介紹到如何使用 SpecFlow Outline 達成相同目的
 
 公司最近專案的測試 framework 使用 MSTest，不過 MSTest 原生並沒有支援像 NUnit 及 SpecFlow 直接指定值的參數化測試方式，嘗試了幾個方式後，筆記一下個人覺得不錯的做法
 
@@ -137,7 +137,7 @@ aliases:
 
 ## 如何驗證例外
 
-曾經在 [使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)](https://blog.yowko.com/2017/05/mstestnunit-3xunitnet.html) 介紹過可以經由安裝 `MSTestExtensions` 就可以直接使用 `Assert.Throws<T>()` 來驗證例外，不需在測試方法上加上 `[ExpectedException(typeof({exception 型別}))]` 以避免失真，但 `MSTestExtensions` 與今天介紹的 `MSTestHacks` 都需要讓測試程式繼承自訂的 class，不過 c# 的語言特性只允許繼承一個 class，幸虧 `MSTestHacks` 已經預想到這個問題 - 它有提供驗證 exception 的語法
+曾經在 [使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)](/2017/05/mstestnunit-3xunitnet.html) 介紹過可以經由安裝 `MSTestExtensions` 就可以直接使用 `Assert.Throws<T>()` 來驗證例外，不需在測試方法上加上 `[ExpectedException(typeof({exception 型別}))]` 以避免失真，但 `MSTestExtensions` 與今天介紹的 `MSTestHacks` 都需要讓測試程式繼承自訂的 class，不過 c# 的語言特性只允許繼承一個 class，幸虧 `MSTestHacks` 已經預想到這個問題 - 它有提供驗證 exception 的語法
 
 1.  僅驗證特定的 exception
 
@@ -157,7 +157,7 @@ aliases:
 
 # 參考資訊
 
-1.  [NUnit 幾個參數化測試的方式](https://blog.yowko.com/2017/04/nunit-parameterized-test.html)
-2.  [餵資料集給 SpecFlow 來執行測試及驗證](https://blog.yowko.com/2017/06/specflowoutline.html)
-3.  [使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)](https://blog.yowko.com/2017/05/mstestnunit-3xunitnet.html)
+1.  [NUnit 幾個參數化測試的方式](/2017/04/nunit-parameterized-test.html)
+2.  [餵資料集給 SpecFlow 來執行測試及驗證](/2017/06/specflowoutline.html)
+3.  [使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)](/2017/05/mstestnunit-3xunitnet.html)
 4.  [MSTestHacks](https://github.com/Thwaitesy/MSTestHacks)

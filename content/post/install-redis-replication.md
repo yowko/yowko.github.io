@@ -1,7 +1,7 @@
 ---
 title: "在 CentOS 7 上安裝 Redis Replication (Redis 5)"
 date: 2020-02-12T21:30:00+08:00
-lastmod: 2020-02-12T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux","Redis"]
 slug: "install-redis"
@@ -9,9 +9,9 @@ slug: "install-redis"
 
 ## 在 CentOS 7 上安裝 Redis Replication (Redis 5)
 
-之前筆記 [安裝 Redis 時遇到的錯誤排除](https://blog.yowko.com/install-redis-error) 紀錄到安裝 Redis Replication 時的幾個可能遇到的錯誤，經過數日小弟終於完成了初版可以一次安裝多個 Redis Replication 與 sentinel 的 shell script (雖說是初版，但這是我目前功力可以寫出的極限了XD，如果有大師指教才會調整)
+之前筆記 [安裝 Redis 時遇到的錯誤排除](/install-redis-error) 紀錄到安裝 Redis Replication 時的幾個可能遇到的錯誤，經過數日小弟終於完成了初版可以一次安裝多個 Redis Replication 與 sentinel 的 shell script (雖說是初版，但這是我目前功力可以寫出的極限了XD，如果有大師指教才會調整)
 
-我主要會用 yum 來安裝 Redis，如果對於 yum 安裝 redis 不熟悉可以參考之前筆記 [使用 Yum 安裝 Redis 5](https://blog.yowko.com/yum-install-redis5)
+我主要會用 yum 來安裝 Redis，如果對於 yum 安裝 redis 不熟悉可以參考之前筆記 [使用 Yum 安裝 Redis 5](/yum-install-redis5)
 
 一直以來我就對 shell script 相當苦手，直到現在我還是搞不清楚 `()` 與 `(())`，`[]` 與 `[[]]` 到底差在哪兒，除此之外還有其他許多搞不清楚的地方：像是陣列的那些個功能、什麼時候變數應該要用 `""` 包....，不過因為功能比較重要，我就打算先記下來，有機會再請教同事
 
@@ -366,7 +366,7 @@ main "$@"
 
 寫完之後自我感覺良好呀，覺得我好像也會寫 shell script 了，哈哈
 
-雖然有著同事的精美範例，但還是因為 [安裝 Redis 時遇到的錯誤排除](https://blog.yowko.com/install-redis-error) 的各種問題花了幾天的時間，語法的不熟悉也耗了不少時間，但終究是完成了一個可用版本，相當感謝同事
+雖然有著同事的精美範例，但還是因為 [安裝 Redis 時遇到的錯誤排除](/install-redis-error) 的各種問題花了幾天的時間，語法的不熟悉也耗了不少時間，但終究是完成了一個可用版本，相當感謝同事
 
 上面的 shell script 雖說可以符合我的使用情境，但個人覺得還是有些不足的地方：
 
@@ -379,6 +379,6 @@ main "$@"
 
 ## 參考資訊
 
-1. [安裝 Redis 時遇到的錯誤排除](https://blog.yowko.com/install-redis-error)
-2. [使用 Yum 安裝 Redis 5](https://blog.yowko.com/yum-install-redis5)
+1. [安裝 Redis 時遇到的錯誤排除](/install-redis-error)
+2. [使用 Yum 安裝 Redis 5](/yum-install-redis5)
 3. [yowko/install-redis-replication](https://github.com/yowko/install-redis-replication)

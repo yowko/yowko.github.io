@@ -1,7 +1,7 @@
 ---
 title: "Git Submodule 指定 Branch"
 date: 2017-10-12T23:25:00+08:00
-lastmod: 2018-09-27T23:25:36+08:00
+lastmod: 2020-12-11T23:25:36+08:00
 draft: false
 tags: ["Git"]
 slug: "git-submodule-specific-branch"
@@ -9,7 +9,7 @@ aliases:
     - /2017/10/git-submodule-specific-branch.html
 ---
 # Git Submodule 指定 Branch
-曾經在 [Git 專案引用其他 Repository 的作法(Git Submodule)](https://blog.yowko.com/2017/05/git-submodule.html) 介紹過如何使用 Git submodule 來引用其他 repository 內容，最近同事在使用 Git submodule 時發現預設使用 master branch，問到該如何指定非預設的 master branch，順手紀錄一下
+曾經在 [Git 專案引用其他 Repository 的作法(Git Submodule)](/2017/05/git-submodule.html) 介紹過如何使用 Git submodule 來引用其他 repository 內容，最近同事在使用 Git submodule 時發現預設使用 master branch，問到該如何指定非預設的 master branch，順手紀錄一下
 
 ## 使用特定 branch 加入 submodule
 

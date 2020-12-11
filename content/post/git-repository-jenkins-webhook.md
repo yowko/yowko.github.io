@@ -1,7 +1,7 @@
 ---
 title: "遠端 Git Repository 有變動時自動通知 Jenkins 2 進行編譯建置 (webhook)"
 date: 2017-02-10T00:42:34+08:00
-lastmod: 2018-09-11T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["Jenkins","DevOps","Git"]
 slug: "git-repository-jenkins-webhook"
@@ -9,7 +9,7 @@ aliases:
     - /2017/02/git-repository-jenkins2-webhook.html
 ---
 # 遠端 Git Repository 有變動時自動通知 Jenkins 2 進行編譯建置 (webhook)
-之前筆記 [如何使用 Jenkins 2.0 建置 .NET 專案](https://blog.yowko.com/2017/02/jenkins-2-build-dotnet-project.html) 紀錄到該如何使用 Jenkins 2 來建置 .NET 專案，為了讓整個開發建置流程更加自動化也更確保品質，可以透過 Git server 所提供的 webhook 功能來 demo 該如何設定 Jenkins 2 和 Git server (將以 GitHub 為例)，讓版控 (git) 可以主動通知 build server (Jenkins 2) 發動建置
+之前筆記 [如何使用 Jenkins 2.0 建置 .NET 專案](/2017/02/jenkins-2-build-dotnet-project.html) 紀錄到該如何使用 Jenkins 2 來建置 .NET 專案，為了讓整個開發建置流程更加自動化也更確保品質，可以透過 Git server 所提供的 webhook 功能來 demo 該如何設定 Jenkins 2 和 Git server (將以 GitHub 為例)，讓版控 (git) 可以主動通知 build server (Jenkins 2) 發動建置
 
 ## 文章大綱
 1. 設定 Jenkins 2 啟用 build trigger
@@ -70,7 +70,7 @@ aliases:
                 ![9uncsrf](https://cloud.githubusercontent.com/assets/3851540/21797561/cb3e5104-d74a-11e6-9eab-63957e76b4b7.png) 
 
 
-*如果沒有對外 domain ，可以參考 [使用 ngrok 讓本機上的網站可以被全世界看到](https://blog.yowko.com/2016/12/ngrok.html)*
+*如果沒有對外 domain ，可以參考 [使用 ngrok 讓本機上的網站可以被全世界看到](/2016/12/ngrok.html)*
 
 ## 2. 以 GitHub 為例設定
 - Repository Setting --> Webhooks --> Add web hook
@@ -119,5 +119,5 @@ aliases:
 # 參考資料
 1. [About Webhooks](https://help.github.com/articles/about-webhooks/)
 2. [GitHub Developer - Webhooks](https://developer.github.com/webhooks/)
-3. [如何使用 Jenkins 2.0 建置 .NET 專案](https://blog.yowko.com/2017/02/jenkins-2-build-dotnet-project.html)
+3. [如何使用 Jenkins 2.0 建置 .NET 專案](/2017/02/jenkins-2-build-dotnet-project.html)
 4. [使用 ngrok 讓本機上的網站可以被全世界看到](http://blog.yowko.com/2016/12/ngrok.html)

@@ -1,7 +1,7 @@
 ---
 title: "快速建立 EFK (Elasticsearch Fluentd Kibana) 環境"
 date: 2020-04-19T21:30:00+08:00
-lastmod: 2020-04-19T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["EFK","Tools"]
 slug: "docker-efk"
@@ -9,7 +9,7 @@ slug: "docker-efk"
 
 ## 快速建立 EFK (Elasticsearch Fluentd Kibana) 環境
 
-在之前筆記 [Fluentd 使用自定 Log 時間當做 Timestamp](https://blog.yowko.com/fluentd-log-time/) 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose ([Elastic stack (ELK) on Docker](https://github.com/deviantony/docker-elk))來快速建立整個環境，這幾天有個 issue 需要 debug log parser rule 的問題，發現透過這樣的方式還是相當不便利，所以我來改個版
+在之前筆記 [Fluentd 使用自定 Log 時間當做 Timestamp](/fluentd-log-time/) 中提到為了要測試 fluentd forwarder 的自訂 parser rule，所以偷懶使用 github 上的 docker-compose ([Elastic stack (ELK) on Docker](https://github.com/deviantony/docker-elk))來快速建立整個環境，這幾天有個 issue 需要 debug log parser rule 的問題，發現透過這樣的方式還是相當不便利，所以我來改個版
 
 ## 基本環境說明
 
@@ -21,7 +21,7 @@ slug: "docker-efk"
     - kibana:7.6.2
     - yowko/fluentd-elasticsearch:1.0.0
 
-        > 詳細建立步驟請參考之前筆記 [Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image](https://blog.yowko.com/fluentd-elasticsearch-docker/)
+        > 詳細建立步驟請參考之前筆記 [Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image](/fluentd-elasticsearch-docker/)
 
 ## 使用方式
 
@@ -138,6 +138,6 @@ slug: "docker-efk"
 
 ## 參考資訊
 
-1. [Fluentd 使用自定 Log 時間當做 Timestamp](https://blog.yowko.com/fluentd-log-time/)
+1. [Fluentd 使用自定 Log 時間當做 Timestamp](/fluentd-log-time/)
 2. [Elastic stack (ELK) on Docker](https://github.com/deviantony/docker-elk)
-3. [Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image](https://blog.yowko.com/fluentd-elasticsearch-docker/)
+3. [Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image](/fluentd-elasticsearch-docker/)

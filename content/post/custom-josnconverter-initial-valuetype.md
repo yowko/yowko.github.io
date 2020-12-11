@@ -1,7 +1,7 @@
 ---
 title: "客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性"
 date: 2017-07-07T21:00:00+08:00
-lastmod: 2018-09-23T14:17:40+08:00
+lastmod: 2020-12-11T14:17:40+08:00
 draft: false
 tags: ["套件","Debug"]
 slug: "custom-josnconverter-initial-valuetype"
@@ -258,7 +258,7 @@ public class InitialJsonConvert : JsonConverter
 # 參考資訊
 
 1.  [Custom JsonConverter](http://www.newtonsoft.com/json/help/html/CustomJsonConverter.htm)
-2.  [c# reflection getProperty and getValue](https://blog.yowko.com/2017/02/c-sharp-reflection-getproperty-and-getvalue.html)
+2.  [c# reflection getProperty and getValue](/2017/02/c-sharp-reflection-getproperty-and-getvalue.html)
 3.  [How to check if a variable is Array or Object?](https://stackoverflow.com/questions/10118324/how-to-check-if-a-variable-is-array-or-object)
 4.  [How do I create a C# array using Reflection and only type info?](https://stackoverflow.com/questions/3419456/how-do-i-create-a-c-sharp-array-using-reflection-and-only-type-info)
 5.  [Get a new object instance from a Type](https://stackoverflow.com/questions/752/get-a-new-object-instance-from-a-type)

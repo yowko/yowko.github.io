@@ -1,7 +1,7 @@
 ---
 title: "關於 ASP.NET Identity 2 時效設定"
 date: 2017-12-18T02:44:00+08:00
-lastmod: 2018-09-30T02:44:25+08:00
+lastmod: 2020-12-11T02:44:25+08:00
 draft: false
 tags: ["ASP.NET Identity"]
 slug: "aspnet-identity-2-timespan"
@@ -9,7 +9,7 @@ aliases:
     - /2017/12/spnet-identity-2-timespan.html
 ---
 # 關於 ASP.NET Identity 2 時效設定
-之前筆記 [ASP.NET Identity 2 啟用自動鎖定機制](https://blog.yowko.com/2017/12/aspnet-identity-2-lockout.html) 與 [改 ASP.NET Identity 2 的 Token 時效](https://blog.yowko.com/2017/12/aspnet-identity-2-token-lifetime.html)，分別介紹到如何修改自動鎖定的結束時間以及產生 token 的預設時效，雖然兩者作用不同，但卻都有使用到一個 TimeSpan 設定，自己在這兩個設定上都遇到極為類似的問題：`無法設定時效永不過期`，所以趁著假日來紀錄一下可以怎麼做
+之前筆記 [ASP.NET Identity 2 啟用自動鎖定機制](/2017/12/aspnet-identity-2-lockout.html) 與 [改 ASP.NET Identity 2 的 Token 時效](/2017/12/aspnet-identity-2-token-lifetime.html)，分別介紹到如何修改自動鎖定的結束時間以及產生 token 的預設時效，雖然兩者作用不同，但卻都有使用到一個 TimeSpan 設定，自己在這兩個設定上都遇到極為類似的問題：`無法設定時效永不過期`，所以趁著假日來紀錄一下可以怎麼做
 
 ## 時效設定機制
 
@@ -104,5 +104,5 @@ aliases:
 
 # 參考資訊
 
-1.  [ASP.NET Identity 2 啟用自動鎖定機制](https://blog.yowko.com/2017/12/aspnet-identity-2-lockout.html)
-2.  [改 ASP.NET Identity 2 的 Token 時效](https://blog.yowko.com/2017/12/aspnet-identity-2-token-lifetime.html)
+1.  [ASP.NET Identity 2 啟用自動鎖定機制](/2017/12/aspnet-identity-2-lockout.html)
+2.  [改 ASP.NET Identity 2 的 Token 時效](/2017/12/aspnet-identity-2-token-lifetime.html)

@@ -1,7 +1,7 @@
 ---
 title: "使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)"
 date: 2017-06-27T22:47:00+08:00
-lastmod: 2018-09-23T22:47:48+08:00
+lastmod: 2020-12-11T22:47:48+08:00
 draft: false
 tags: ["MSTest","PowerShell","Tools","Unit Test"]
 slug: "pickles-specflow"
@@ -378,7 +378,7 @@ Console (Pickles.exe) 是最容易也是用途最廣跟最普遍的方式；Pick
 
 2.  設定 Visual Studio 外部工具
 
-    > 在 [關於 Visual Studio 中的外部工具(External Tools)](https://blog.yowko.com/2017/06/visual-studio-external-tools.html) 中有簡單介紹 Visual Studio 外部工具相關使用方式及參數
+    > 在 [關於 Visual Studio 中的外部工具(External Tools)](/2017/06/visual-studio-external-tools.html) 中有簡單介紹 Visual Studio 外部工具相關使用方式及參數
 
     *   Visual Studio 主選單 Tools --> External Tools
 

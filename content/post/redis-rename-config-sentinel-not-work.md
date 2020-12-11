@@ -1,7 +1,7 @@
 ---
 title: "Redis Rename Config 後 Sentinel 無法正確執行 Failover"
 date: 2020-02-16T21:30:00+08:00
-lastmod: 2020-02-16T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux","Redis","Ansible"]
 slug: "redis-rename-config-sentinel-not-work"
@@ -27,7 +27,7 @@ slug: "redis-rename-config-sentinel-not-work"
 
 1. 安裝 Redis Replication (1 master、1 slave、3 sentinel)
 
-    > 使用 [在 CentOS 7 上安裝 Redis Replication (Redis 5)](https://blog.yowko.com/install-redis) or [使用 Ansible 安裝 Redis Replication](https://blog.yowko.com/ansible-install-redis) 安裝，而且停用了 `CONFIG` (`rename-command CONFIG ""`)
+    > 使用 [在 CentOS 7 上安裝 Redis Replication (Redis 5)](/install-redis) or [使用 Ansible 安裝 Redis Replication](/ansible-install-redis) 安裝，而且停用了 `CONFIG` (`rename-command CONFIG ""`)
 
 2. 測試 failover 時，slave 無法順利成為 master
 
@@ -107,7 +107,7 @@ slug: "redis-rename-config-sentinel-not-work"
 
 ## 參考資訊
 
-1. [在 CentOS 7 上安裝 Redis Replication (Redis 5)](https://blog.yowko.com/install-redis)
-2. [使用 Ansible 安裝 Redis Replication](https://blog.yowko.com/ansible-install-redis)
+1. [在 CentOS 7 上安裝 Redis Replication (Redis 5)](/install-redis)
+2. [使用 Ansible 安裝 Redis Replication](/ansible-install-redis)
 3. [Sentinel and renamed CONFIG command](https://github.com/antirez/redis/issues/2733#issuecomment-495170882)
 4. [Rename of SENTINEL command breaks redis-server auto failover to slave](https://github.com/antirez/redis/issues/5092#issuecomment-402231232)

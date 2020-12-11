@@ -1,7 +1,7 @@
 ---
 title: "使用 Docker Compose 建立 Redis Cluster"
 date: 2020-05-19T22:30:00+08:00
-lastmod: 2020-07-07T22:30:31+08:00
+lastmod: 2020-12-11T22:30:31+08:00
 draft: false
 tags: ["Redis","Docker"]
 slug: "docker-compose-redis-cluster"
@@ -9,7 +9,7 @@ slug: "docker-compose-redis-cluster"
 
 ## 使用 Docker Compose 建立 Redis Cluster
 
-之前類似的主題至少有四、五篇，其中最後一版 [使用 docker 建立 Redis Cluster - 更新版](https://blog.yowko.com/redis-cluster-docker/) 已經滿足自己在全 container 環境中的測試需求，雖然該篇筆記下方有網友提到想要將 redis cluster 允許對外連線，當下我並沒有花時間去了解需求跟解決問題，直到最近專案需要才又調整一版
+之前類似的主題至少有四、五篇，其中最後一版 [使用 docker 建立 Redis Cluster - 更新版](/redis-cluster-docker/) 已經滿足自己在全 container 環境中的測試需求，雖然該篇筆記下方有網友提到想要將 redis cluster 允許對外連線，當下我並沒有花時間去了解需求跟解決問題，直到最近專案需要才又調整一版
 
 ## 基本環境說明
 
@@ -189,5 +189,5 @@ slug: "docker-compose-redis-cluster"
 
 ## 參考資訊
 
-1. [使用 docker 建立 Redis Cluster - 更新版](https://blog.yowko.com/redis-cluster-docker/)
-2. [傳遞參數來執行 Docker Compose](https://blog.yowko.com/docker-compose-pass-parameter)
+1. [使用 docker 建立 Redis Cluster - 更新版](/redis-cluster-docker/)
+2. [傳遞參數來執行 Docker Compose](/docker-compose-pass-parameter)

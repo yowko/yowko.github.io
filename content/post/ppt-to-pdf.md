@@ -1,7 +1,7 @@
 ---
 title: "用 C# 將 PowerPoint 檔(.pptx .ppt) 轉換為 PDF"
 date: 2018-03-13T01:30:00+08:00
-lastmod: 2018-10-04T11:00:34+08:00
+lastmod: 2020-12-11T11:00:34+08:00
 draft: false
 tags: ["C#","Office"]
 slug: "ppt-to-pdf"
@@ -9,7 +9,7 @@ aliases:
     - /2018/03/ppt-to-pdf.html
 ---
 # 用 C# 將 PowerPoint 檔(.pptx .ppt) 轉換為 PDF
-之前筆記 [使用 C# 將 Word 檔(.docx .doc) 轉換為 PDF](https://blog.yowko.com/2018/01/c-sharp-word-to-pdf.html) 紀錄到該如何使用 Word 內建 API 將 Word 轉存為 PDF，後來有網友問到 Excel 及 PowerPoint 轉存的狀況，為了不要給出錯誤的答案，當然要實際測試看看比較準囉，其中 Excel 轉存 PDF 程式碼已紀錄在 [使用 C# 將 Excel 檔(.xlsx .xls) 轉換為 PDF](https://blog.yowko.com/2018/03/excel-to-pdf.html)，接著就是來看看 C# 在處理 PowerPoint 轉 PDF 有什麼不同吧
+之前筆記 [使用 C# 將 Word 檔(.docx .doc) 轉換為 PDF](/2018/01/c-sharp-word-to-pdf.html) 紀錄到該如何使用 Word 內建 API 將 Word 轉存為 PDF，後來有網友問到 Excel 及 PowerPoint 轉存的狀況，為了不要給出錯誤的答案，當然要實際測試看看比較準囉，其中 Excel 轉存 PDF 程式碼已紀錄在 [使用 C# 將 Excel 檔(.xlsx .xls) 轉換為 PDF](/2018/03/excel-to-pdf.html)，接著就是來看看 C# 在處理 PowerPoint 轉 PDF 有什麼不同吧
 
 ## 使用 C# 將 PowerPoint 轉為 PDF
 
@@ -161,5 +161,5 @@ aliases:
 
 # 參考資訊
 
-1.  [使用 C# 將 Word 檔(.docx .doc) 轉換為 PDF](https://blog.yowko.com/2018/01/c-sharp-word-to-pdf.html)
-2.  [使用 C# 將 Excel 檔(.xlsx .xls) 轉換為 PDF](https://blog.yowko.com/2018/03/excel-to-pdf.html)
+1.  [使用 C# 將 Word 檔(.docx .doc) 轉換為 PDF](/2018/01/c-sharp-word-to-pdf.html)
+2.  [使用 C# 將 Excel 檔(.xlsx .xls) 轉換為 PDF](/2018/03/excel-to-pdf.html)

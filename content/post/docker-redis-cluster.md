@@ -1,18 +1,18 @@
 ---
 title: "使用 docker 建立 Redis Cluster"
 date: 2019-03-02T21:30:00+08:00
-lastmod: 2020-05-19T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Container","Redis","Docker"]
 slug: "docker-redis-cluster"
 ---
 # 使用 docker 建立 Redis Cluster
 
-<font style="color:red">~~請參考新版內容 [使用 docker 建立 Redis Cluster - 更新版](https://blog.yowko.com/redis-cluster-docker)~~</font>
+<font style="color:red">~~請參考新版內容 [使用 docker 建立 Redis Cluster - 更新版](/redis-cluster-docker)~~</font>
 
-<font style="color:red">請參考新版內容 [使用 Docker Compose 建立 Redis Cluster](https://blog.yowko.com/docker-compose-redis-cluster/)</font>
+<font style="color:red">請參考新版內容 [使用 Docker Compose 建立 Redis Cluster](/docker-compose-redis-cluster/)</font>
 
-之前筆記 [使用 docker 建立 Redis Master-Slave Replication Instance](https://blog.yowko.com/docker-redis-master-slave-replication) 紀錄到使用 docker 來建立 Redis 一個 Master node、一個 Slave node 以及三個 sentinel node 的 replication，對於一般開發需求已經綽綽有餘，但終究不是 cluster 模式，有些 cluster 的功能依舊是無法完整測試的，這時才想到過去我沒有真的在 production 環境建立過 redis cluster，主要原因是 redis replication 模式在過去的使用情境下資料使用率大多維持 30% 左右，使用 replication mode 已足夠，但隨著各系統對於 redis 的依賴，相信有天 redis replication 終究會不夠的，於是興起透過 docker 來建立 redis cluster 先做好測試準備的想法
+之前筆記 [使用 docker 建立 Redis Master-Slave Replication Instance](/docker-redis-master-slave-replication) 紀錄到使用 docker 來建立 Redis 一個 Master node、一個 Slave node 以及三個 sentinel node 的 replication，對於一般開發需求已經綽綽有餘，但終究不是 cluster 模式，有些 cluster 的功能依舊是無法完整測試的，這時才想到過去我沒有真的在 production 環境建立過 redis cluster，主要原因是 redis replication 模式在過去的使用情境下資料使用率大多維持 30% 左右，使用 replication mode 已足夠，但隨著各系統對於 redis 的依賴，相信有天 redis replication 終究會不夠的，於是興起透過 docker 來建立 redis cluster 先做好測試準備的想法
 
 跟 redis replication 只有一個 master node 與一個 slave node 不同，redis cluster 需有三組 master - slave，再加上三個 sentinel node，基本消費立馬來到 9 個 container
 
@@ -291,12 +291,12 @@ networks:
 
 詳細的檔案內容都在：[yowko/docker-redis-5-cluster](https://github.com/yowko/docker-redis-5-cluster.git)
 
-<font style="color:red">~~請參考新版內容 [使用 docker 建立 Redis Cluster - 更新版](https://blog.yowko.com/redis-cluster-docker)~~</font>
+<font style="color:red">~~請參考新版內容 [使用 docker 建立 Redis Cluster - 更新版](/redis-cluster-docker)~~</font>
 
-<font style="color:red">請參考新版內容 [使用 Docker Compose 建立 Redis Cluster](https://blog.yowko.com/docker-compose-redis-cluster/)</font>
+<font style="color:red">請參考新版內容 [使用 Docker Compose 建立 Redis Cluster](/docker-compose-redis-cluster/)</font>
 
 # 參考資訊
-1. [使用 docker 建立 Redis Master-Slave Replication Instance](https://blog.yowko.com/docker-redis-master-slave-replication)
+1. [使用 docker 建立 Redis Master-Slave Replication Instance](/docker-redis-master-slave-replication)
 2. [Grokzen/docker-redis-cluster](https://github.com/Grokzen/docker-redis-cluster)
 3. [How to answer install question in dockerfile?](https://stackoverflow.com/questions/52257866/how-to-answer-install-question-in-dockerfile)
 4. [docker-compose自定義網絡，固定容器ip地址](https://blog.csdn.net/hechaojie_com/article/details/83625265)

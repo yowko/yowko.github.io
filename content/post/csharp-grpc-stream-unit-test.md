@@ -1,7 +1,7 @@
 ---
 title: "嘗試為gRPC 中的 stream RPC 加上 Unit Test"
 date: 2019-06-19T21:30:00+08:00
-lastmod: 2019-06-19T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["csharp","gRPC","Unit Test"]
 slug: "csharp-grpc-stream-unit-test"
@@ -9,7 +9,7 @@ slug: "csharp-grpc-stream-unit-test"
 
 # 嘗試為gRPC 中的 stream RPC 加上 Unit Test
 
-之前筆記 [C# 搭配 gRPC 中使用 stream RPC](https://blog.yowko.com/csharp-grpc-stream/) 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，仔細看了錯誤原因才發現 stream RPC 雖然只是在 service 的參數定義加上 `stream` 不過 generate 出來的實作方法中則用了不同的參數型別，儘管經過嘗試後有找到方法不過仍然有缺點，於是先筆記目前的做法，待日後有機會再看看有沒有其他更漂亮的方式
+之前筆記 [C# 搭配 gRPC 中使用 stream RPC](/csharp-grpc-stream/) 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，仔細看了錯誤原因才發現 stream RPC 雖然只是在 service 的參數定義加上 `stream` 不過 generate 出來的實作方法中則用了不同的參數型別，儘管經過嘗試後有找到方法不過仍然有缺點，於是先筆記目前的做法，待日後有機會再看看有沒有其他更漂亮的方式
 
 ## 基本環境說明
 
@@ -23,7 +23,7 @@ slug: "csharp-grpc-stream-unit-test"
     - Bogus 27.0.1
 4. protobuf 定義
 
-    > 大致上內容延續之前筆記 [C# 搭配 gRPC 中使用 stream RPC](https://blog.yowko.com/csharp-grpc-stream/) 內容，多加上 server-side streaming RPC 回傳多筆資料
+    > 大致上內容延續之前筆記 [C# 搭配 gRPC 中使用 stream RPC](/csharp-grpc-stream/) 內容，多加上 server-side streaming RPC 回傳多筆資料
 
     - message
 
@@ -317,7 +317,7 @@ slug: "csharp-grpc-stream-unit-test"
  
 ## 參考資訊
 
-1. [C# 搭配 gRPC 中使用 stream RPC](https://blog.yowko.com/csharp-grpc-stream/)
+1. [C# 搭配 gRPC 中使用 stream RPC](/csharp-grpc-stream/)
 2. [WrappedClientStreamWriter](https://github.com/grpc/grpc-dotnet/blob/072a616b5a6a4250410f37f41128f0fbd8b2805b/test/Grpc.Net.Client.Tests/InterceptorTests.cs#L159)
 3. [TestServerStreamWriter](https://github.com/grpc/grpc-dotnet/blob/bd453582ccba40134aa8fcf0eefd7fdfd8c53ad5/test/Grpc.AspNetCore.Server.Tests/Reflection/ReflectionGrpcServiceActivatorTests.cs#L82)
 4. [HttpContextStreamWriter](https://github.com/grpc/grpc-dotnet/blob/61de5a0305c7705d2dfc19905a8699191c16f4f2/src/Grpc.AspNetCore.Server/Internal/HttpContextStreamWriter.cs#L25)

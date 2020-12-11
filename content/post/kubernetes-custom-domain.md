@@ -1,7 +1,7 @@
 ---
 title: "在 Kubernetes 中使用自訂 Domain"
 date: 2020-06-27T21:30:00+08:00
-lastmod: 2020-06-27T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Kubernetes"]
 slug: "kubernetes-custom-domain"
@@ -9,7 +9,7 @@ slug: "kubernetes-custom-domain"
 
 ## 在 Kubernetes 中使用自訂 Domain
 
-在之前筆記 [在 Windows 環境將特定網址指向不同 IP](https://blog.yowko.com/windows-host-file/) 與 [讓 iOS 裝置可以存取自訂 domain](https://blog.yowko.com/ios-private-domain/) 中都有提到過自訂域名的用法，大意就是避免因為 server ip 更動就要調整程式，所以連線時都使用自訂域名，但這些自訂域名不一定有向域名組織申請，所以可以透過修改 hosts file 或是使用內部 dns 來進行解析
+在之前筆記 [在 Windows 環境將特定網址指向不同 IP](/windows-host-file/) 與 [讓 iOS 裝置可以存取自訂 domain](/ios-private-domain/) 中都有提到過自訂域名的用法，大意就是避免因為 server ip 更動就要調整程式，所以連線時都使用自訂域名，但這些自訂域名不一定有向域名組織申請，所以可以透過修改 hosts file 或是使用內部 dns 來進行解析
 
 這樣的需求當然不可能只存在於實體 server 中，在 Kebernetes 的環境中也會遇到，今天就來簡單紀錄一下使用方式
 

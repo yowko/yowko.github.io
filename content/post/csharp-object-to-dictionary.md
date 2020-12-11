@@ -1,7 +1,7 @@
 ---
 title: "C# - 將 Object 的 Property 與 Value 轉換為 Dictionary"
 date: 2019-09-21T21:30:00+08:00
-lastmod: 2019-09-21T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["csharp"]
 slug: "csharp-object-to-dictionary"
@@ -9,7 +9,7 @@ slug: "csharp-object-to-dictionary"
 
 ## C# - 將 Object 的 Property 與 Value 轉換為 Dictionary
 
-之前筆記 [使用 C# 存取 InfluxDB](https://blog.yowko.com/csharp-influxdb-curd/) 提到正在嘗試導入 InfluxDB，POC 使用到的 library - InfluxData.Net 在儲存資料時僅接受 Dictionary，如果需要將整個 c# object 儲存起來就必需做轉換，考量到專案規劃用量大，因此希望能儘量降低無謂地效能損耗，所以特別針對 c# object 的 Property 與 Value 轉型為 Dictionary 幾種方式的效能進行比較測試
+之前筆記 [使用 C# 存取 InfluxDB](/csharp-influxdb-curd/) 提到正在嘗試導入 InfluxDB，POC 使用到的 library - InfluxData.Net 在儲存資料時僅接受 Dictionary，如果需要將整個 c# object 儲存起來就必需做轉換，考量到專案規劃用量大，因此希望能儘量降低無謂地效能損耗，所以特別針對 c# object 的 Property 與 Value 轉型為 Dictionary 幾種方式的效能進行比較測試
 
 我個人才疏學淺絕對是找不到最佳解，我就先紀錄一下測試的情境與方式，相信強大的同事們一定會幫忙找出更好的解法
 

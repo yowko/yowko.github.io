@@ -1,7 +1,7 @@
 ---
 title: "MongoDB CPU High 問題追查紀錄"
 date: 2019-08-04T21:30:00+08:00
-lastmod: 2019-08-04T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["MongoDB","Performance Tuning"]
 slug: "mongodb-cpu-high"
@@ -9,7 +9,7 @@ slug: "mongodb-cpu-high"
 
 ## MongoDB CPU High 問題追查紀錄
 
-在之前筆記 [取得 MongoDB SDK 實際產生的指令](https://blog.yowko.com/mongodb-interceptor/) 中提到是為了追查 MongoDB 的效能問題而需要取得 MongoDB driver 實際產生的 script，既然 script 已經順利取得，就可以來看看 MongoDB 到底在忙什麼了 ~~
+在之前筆記 [取得 MongoDB SDK 實際產生的指令](/mongodb-interceptor/) 中提到是為了追查 MongoDB 的效能問題而需要取得 MongoDB driver 實際產生的 script，既然 script 已經順利取得，就可以來看看 MongoDB 到底在忙什麼了 ~~
 
 ## 基本環境說明
 
@@ -28,7 +28,7 @@ slug: "mongodb-cpu-high"
 
     - 從 log 來找出可能的 script
 
-        > c# driver 可以參考 [取得 MongoDB SDK 實際產生的指令](https://blog.yowko.com/mongodb-interceptor/) 來紀錄 script
+        > c# driver 可以參考 [取得 MongoDB SDK 實際產生的指令](/mongodb-interceptor/) 來紀錄 script
 
     - 當下正在執行的指令
 
@@ -131,7 +131,7 @@ slug: "mongodb-cpu-high"
 
 ## 參考資訊
 
-1. [取得 MongoDB SDK 實際產生的指令](https://blog.yowko.com/mongodb-interceptor/)
+1. [取得 MongoDB SDK 實際產生的指令](/mongodb-interceptor/)
 2. [profile — MongoDB Manual](https://docs.mongodb.com/manual/tutorial/manage-the-database-profiler/)
 3. [explain](https://docs.mongodb.com/manual/reference/command/explain/)
 4. [MongoDB干货系列2-MongoDB执行计划分析详解（1）](http://www.mongoing.com/eshu_explain1)

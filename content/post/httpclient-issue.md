@@ -1,7 +1,7 @@
 ---
 title: "探討 HttpClient 可能的問題"
 date: 2018-12-10T23:45:00+08:00
-lastmod: 2020-09-01T23:44:30+08:00
+lastmod: 2020-12-11T23:44:30+08:00
 draft: false
 tags: ["C#"]
 slug: "httpclient-issue"
@@ -92,7 +92,7 @@ slug: "httpclient-issue"
                             ~~if (httpClient == null)~~
                             ~~{~~
                                 ~~httpClient = new HttpClient();~~
-                                ~~httpClient.BaseAddress = new Uri("https://blog.yowko.com/");~~
+                                ~~httpClient.BaseAddress = new Uri("/");~~
                             ~~}~~
                         ~~}~~
                     ~~}~~
@@ -109,7 +109,7 @@ slug: "httpclient-issue"
             ```cs
             public sealed class HttpClientServiceA
             {
-                private static readonly HttpClient instance = new HttpClient() { BaseAddress = new Uri("https://blog.yowko.com/") };
+                private static readonly HttpClient instance = new HttpClient() { BaseAddress = new Uri("/") };
 
                 static HttpClientServiceA()
                 {
@@ -140,7 +140,7 @@ slug: "httpclient-issue"
                 private static readonly Lazy<HttpClient> lazy = new Lazy<HttpClient>(
                 () => { 
                         var result = new HttpClient();
-                        result.BaseAddress = new Uri("https://blog.yowko.com/");
+                        result.BaseAddress = new Uri("/");
                         return result;
                         });
                 public static HttpClient Instance { get { return lazy.Value; } }
@@ -156,7 +156,7 @@ slug: "httpclient-issue"
             static HttpClientServiceA()
             {
                 _httpClient = new HttpClient();
-                _httpClient.BaseAddress = new Uri("https://blog.yowko.com/");
+                _httpClient.BaseAddress = new Uri("/");
             }
             public HttpClient HttpclientInstance = _httpClient;
         }
@@ -177,9 +177,9 @@ slug: "httpclient-issue"
 
 ### 2. 共用的 HttpClient 可能會無法即時反應 DNS 的異動
 - 重現問題流程
-    - 分別透過 using 與 singleton HttpClient 取得 `https://blog.yowko.com/` 內容
-    - 修改 hosts file 將 `blog.yowko.com` 主機 ip 指向本機 (原理與修改方式可以參考之前筆記 [在 Windows 環境將特定網址指向不同 IP](https://blog.yowko.com/windows-host-file))
-    - 重新透過 using 與 singleton HttpClient 取得 `https://blog.yowko.com/` 內容
+    - 分別透過 using 與 singleton HttpClient 取得 `/` 內容
+    - 修改 hosts file 將 `blog.yowko.com` 主機 ip 指向本機 (原理與修改方式可以參考之前筆記 [在 Windows 環境將特定網址指向不同 IP](/windows-host-file))
+    - 重新透過 using 與 singleton HttpClient 取得 `/` 內容
 - 程式碼
     - 使用 singleton HttpClient
         
@@ -334,4 +334,4 @@ slug: "httpclient-issue"
 6. [netstat 指令用法,及狀態說明](http://blog.jangmt.com/2010/10/netstat.html) 
 7. [HttpClient Class](https://docs.microsoft.com/zh-tw/dotnet/api/system.net.http.httpclient?WT.mc_id=DOP-MVP-5002594)
 8. [在 Windows 上遇到非常多 TIME_WAIT 連線時應如何處理](https://blog.miniasp.com/post/2010/11/17/How-to-deal-with-TIME_WAIT-problem-under-Windows.aspx)
-9. [在 Windows 環境將特定網址指向不同 IP](https://blog.yowko.com/windows-host-file)
+9. [在 Windows 環境將特定網址指向不同 IP](/windows-host-file)

@@ -1,7 +1,7 @@
 ---
 title: "Visual Studio 建置前事件( Pre-build Event ) / 建置後事件( Post-build Event) - PART 2"
 date: 2017-03-12T02:42:34+08:00
-lastmod: 2018-09-13T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["Visual Studio"]
 slug: "visual-studio-pre-build-event-post-build-event-2"
@@ -9,7 +9,7 @@ aliases:
     - /2017/03/visual-studio-build-event.html
 ---
 # Visual Studio 建置前事件( Pre-build Event ) / 建置後事件( Post-build Event) - PART 2
-之前文章 [Visual Studio 建置前事件( Pre-build Event ) / 建置後事件( Post-build Event)](https://blog.yowko.com/2017/01/visual-studio-pre-build-event-post-build-event.html) 介紹到該如何使用 visual studio 的兩種 build event 跟內建的巨集。後來同事問幾個相關問題，馬上就漏氣，查了資料立馬來紀錄一下
+之前文章 [Visual Studio 建置前事件( Pre-build Event ) / 建置後事件( Post-build Event)](/2017/01/visual-studio-pre-build-event-post-build-event.html) 介紹到該如何使用 visual studio 的兩種 build event 跟內建的巨集。後來同事問幾個相關問題，馬上就漏氣，查了資料立馬來紀錄一下
 
 ## 撰寫原則
 1. 執行內容以 `()` 包著

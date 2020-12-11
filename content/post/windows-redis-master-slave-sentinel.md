@@ -1,7 +1,7 @@
 ---
 title: "Windows 環境如何設定 Redis Master-Slave 與 Sentinel"
 date: 2017-03-24T02:44:34+08:00
-lastmod: 2018-09-14T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["Redis"]
 slug: "windows-redis-master-slave-sentinel"
@@ -15,7 +15,7 @@ aliases:
 1. 下載 Windows 版 [Redis](https://github.com/MSOpenTech/redis/releases)
     - .msi 可以直接安裝為 Windows Service (<span style="color:red">但設定調整比較麻煩，建議使用 .zip</span>)
         
-        > 這邊有安裝流程說明 [使用 Redis 當做 ASP.NET MVC 的 Session State Server](https://blog.yowko.com/2017/01/redis-aspnet-mvc-session-state-server.html)
+        > 這邊有安裝流程說明 [使用 Redis 當做 ASP.NET MVC 的 Session State Server](/2017/01/redis-aspnet-mvc-session-state-server.html)
         - 預設安裝在 `c:\Program Files\Redis` 檔案修改權限設定比較繁瑣
     - .zip 
         - 建議不要放在 OS 槽，會少掉許多權限設定問題

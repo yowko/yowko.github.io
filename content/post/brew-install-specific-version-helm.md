@@ -1,7 +1,7 @@
 ---
 title: "使用 Homebrew 安裝舊版 Helm"
 date: 2019-12-21T21:30:00+08:00
-lastmod: 2019-12-21T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["macOS","Tools","Helm"]
 slug: "brew-install-specific-version-helm"
@@ -9,7 +9,7 @@ slug: "brew-install-specific-version-helm"
 
 ## 使用 Homebrew 安裝舊版 Helm
 
-前幾天筆記 [使用 Homebrew 安裝舊版工具](https://blog.yowko.com/brew-install-old-version/) 紀錄到使用 Homebrew 來安裝舊版本工具(筆記中以 mariadb 為例)，這幾天在 mac 上測試 Helm 功能時，需要配合團隊目前技術使用 Helm 2，所以希望讓 Homebrew 安裝 Helm 2 舊版本，而非當前版本 - Helm 3，原以為在有了 [使用 Homebrew 安裝舊版工具](https://blog.yowko.com/brew-install-old-version/) 技巧後應該可以快速解決問題，但卻卡關了，簡單紀錄一下問題以及解決方式備忘
+前幾天筆記 [使用 Homebrew 安裝舊版工具](/brew-install-old-version/) 紀錄到使用 Homebrew 來安裝舊版本工具(筆記中以 mariadb 為例)，這幾天在 mac 上測試 Helm 功能時，需要配合團隊目前技術使用 Helm 2，所以希望讓 Homebrew 安裝 Helm 2 舊版本，而非當前版本 - Helm 3，原以為在有了 [使用 Homebrew 安裝舊版工具](/brew-install-old-version/) 技巧後應該可以快速解決問題，但卻卡關了，簡單紀錄一下問題以及解決方式備忘
 
 ## 基本環境說明
 
@@ -127,5 +127,5 @@ slug: "brew-install-specific-version-helm"
 
 ## 參考資訊
 
-1. [使用 Homebrew 安裝舊版工具](https://blog.yowko.com/brew-install-old-version/)
+1. [使用 Homebrew 安裝舊版工具](/brew-install-old-version/)
 2. [Quickstart Guide](https://v2.helm.sh/docs/using_helm/#installing-helm)

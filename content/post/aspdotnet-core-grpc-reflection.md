@@ -1,7 +1,7 @@
 ---
 title: "在 ASP.NET Core 上啟用 gRPC Reflection"
 date: 2020-09-10T21:30:00+08:00
-lastmod: 2020-09-10T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","gRPC"]
 slug: "aspdotnet-core-grpc-reflection"
@@ -9,7 +9,7 @@ slug: "aspdotnet-core-grpc-reflection"
 
 ## 在 ASP.NET Core 上啟用 gRPC Reflection
 
-系統功能愈來愈多，自然而然地 proto 檔也就熟變得愈來愈龐大，如果每次想要手動測試 gRPC 功能時都要手 key proto 實在沒效率 (測試工具可以參考之前筆記 [使用grpcurl 呼叫gRPC Service](https://blog.yowko.com/grpcurl/))，所以測試一下在 ASP.NET Core 上啟用 gRPC Reflection 是否有改善
+系統功能愈來愈多，自然而然地 proto 檔也就熟變得愈來愈龐大，如果每次想要手動測試 gRPC 功能時都要手 key proto 實在沒效率 (測試工具可以參考之前筆記 [使用grpcurl 呼叫gRPC Service](/grpcurl/))，所以測試一下在 ASP.NET Core 上啟用 gRPC Reflection 是否有改善
 
 ## 基本環境
 
@@ -123,12 +123,12 @@ slug: "aspdotnet-core-grpc-reflection"
 
 設定過程很輕鬆寫意，但如果是以一開始需求的出發點(不想手 key proto 檔)來看，在效率的改善上有限，原因是就 grpcurl 的使用方式而言僅能取得 grpc service 而已，無法取得相對應的 message 資訊：grpcurl 透過 reflection 取得 service 名稱，但個別 grpc service 用的 message 還是得要查閱 proto 檔才能正確呼叫 grpc service，不過這個問題可以搭配其他 cli 工具或是選用其他適合的工具，如果有興趣可以參考其他筆記
 
-- [使用 grpc-cli 呼叫 gRPC Service](https://blog.yowko.com/grpc-cli/)
-- [使用 dotnet-grpc-cli 取得 gRPC Service 內容](https://blog.yowko.com/dotnet-grpc-cli/)
+- [使用 grpc-cli 呼叫 gRPC Service](/grpc-cli/)
+- [使用 dotnet-grpc-cli 取得 gRPC Service 內容](/dotnet-grpc-cli/)
 
 ## 參考資訊
 
-1. [使用grpcurl 呼叫gRPC Service](https://blog.yowko.com/grpcurl/)
+1. [使用grpcurl 呼叫gRPC Service](/grpcurl/)
 2. [gRPC Server Reflection in the .NET world](https://martinbjorkstrom.com/posts/2020-07-08-grpc-reflection-in-net)
-3. [使用 grpc-cli 呼叫 gRPC Service](https://blog.yowko.com/grpc-cli/)
-4. [使用 dotnet-grpc-cli 取得 gRPC Service 內容](https://blog.yowko.com/dotnet-grpc-cli/)
+3. [使用 grpc-cli 呼叫 gRPC Service](/grpc-cli/)
+4. [使用 dotnet-grpc-cli 取得 gRPC Service 內容](/dotnet-grpc-cli/)

@@ -1,7 +1,7 @@
 ---
 title: "MongoDB 在 Windows 上的 HA 機制 - Replica Sets"
 date: 2017-09-05T01:19:00+08:00
-lastmod: 2018-09-25T17:21:34+08:00
+lastmod: 2020-12-11T17:21:34+08:00
 draft: false
 tags: ["MongoDB","Windows Service"]
 slug: "mongodb-windows-ha-replica-sets"
@@ -47,7 +47,7 @@ Replica Set 是數個 MongoDB 的 instance，用來同時儲存相同資料，�
 
 ## 建立 Replica Set
 
-以下將會透過 `yaml` 格式建立 Windows Service 版的 MongoDB instance，如果不清楚做法請參考 [如何在 Windows 環境安裝及設定 MongoDB](https://blog.yowko.com/2017/08/windows-mongodb.html)
+以下將會透過 `yaml` 格式建立 Windows Service 版的 MongoDB instance，如果不清楚做法請參考 [如何在 Windows 環境安裝及設定 MongoDB](/2017/08/windows-mongodb.html)
 
 1.  建立 MongoDB 的 yaml 設定檔
 

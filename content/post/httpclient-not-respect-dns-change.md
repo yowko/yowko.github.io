@@ -1,18 +1,18 @@
 ---
 title: "HttpClient 無法反應 DNS 異動的解決方式"
 date: 2019-01-05T23:45:00+08:00
-lastmod: 2020-09-01T23:44:30+08:00
+lastmod: 2020-12-11T23:44:30+08:00
 draft: false
 tags: ["C#","Benchmark"]
 slug: "httpclient-not-respect-dns-change"
 ---
 # HttpClient 無法反應 DNS 異動的解決方式
-之前筆記 [探討 HttpClient 可能的問題](https://blog.yowko.com/httpclient-issue/) 提到使用 HttpCLient 時避免 socket 耗盡的方式就是只建立一個 HttpClient instance (透過 static or singleton)，但這樣的方式卻會造成 DNS 紀錄出現變動被忽略進而影響系統正確運行
+之前筆記 [探討 HttpClient 可能的問題](/httpclient-issue/) 提到使用 HttpCLient 時避免 socket 耗盡的方式就是只建立一個 HttpClient instance (透過 static or singleton)，但這樣的方式卻會造成 DNS 紀錄出現變動被忽略進而影響系統正確運行
 
 筆記中有提到可以透過將 HttpClient 的 `DefaultRequestHeaders.ConnectionClose` 屬性設定為 `true`，也就是將 HTTP 的 keep-alive header 設為 `false`，讓 socket 在每次處理完 request 即關閉，這幾天查資料時發現還有其他做法可以使用，一併紀錄一下
 
 ## 前提設定
-1. 使用 staticHttpClient instance 來取得 `https://blog.yowko.com/` 資料
+1. 使用 staticHttpClient instance 來取得 `/` 資料
 
     ```cs
     public class StaticHttpClientService
@@ -30,7 +30,7 @@ slug: "httpclient-not-respect-dns-change"
     ```
 2. 透過修改 hosts 檔案來模擬 DNS 修改
 
-    > 修改方式請參考 [在 Windows 環境將特定網址指向不同 IP](https://blog.yowko.com/windows-host-file)
+    > 修改方式請參考 [在 Windows 環境將特定網址指向不同 IP](/windows-host-file)
 
 3. 使用環境
     - Visual Studio 2017  15.9.4
@@ -162,7 +162,7 @@ slug: "httpclient-not-respect-dns-change"
 至於自行管理 HttpClient instance 及使用 ServicePointManager 兩者差距就微乎其微了
 
 # 參考資訊
-1. [探討 HttpClient 可能的問題](https://blog.yowko.com/httpclient-issue/)
+1. [探討 HttpClient 可能的問題](/httpclient-issue/)
 2. [Singleton HttpClient doesn't respect DNS changes](https://github.com/dotnet/corefx/issues/11224#issuecomment-271195770)
 3. [system.net.http.httpclient does not respect dns update in a timely manner](https://social.msdn.microsoft.com/Forums/sqlserver/en-US/39af7077-fbb5-4a8c-a4b9-42a73aa96b8a/systemnethttphttpclient-does-not-respect-dns-update-in-a-timely-manner?forum=wcf)
 4. [Beware of the .NET HttpClient](http://www.nimaara.com/2016/11/01/beware-of-the-net-httpclient/)

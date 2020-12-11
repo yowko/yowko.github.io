@@ -1,7 +1,7 @@
 ---
 title: "在 Kubernetes 上使用 Helm 安裝 Istio"
 date: 2019-07-14T22:30:00+08:00
-lastmod: 2019-07-14T22:30:31+08:00
+lastmod: 2020-12-11T22:30:31+08:00
 draft: false
 tags: ["Kubernetes"]
 slug: "Kubernetes-helm-istio"
@@ -35,7 +35,7 @@ slug: "Kubernetes-helm-istio"
 4. Kubernetes 2.14.3
 5. Helm v2.13.1
 6. Istio 1.2.2
-7. Kubernetes cluster 內容請參考之前筆記 [透過 Kubespray 來架設 Kubernetes](https://blog.yowko.com/kubespray-kubernetes) 與 [透過 Kubespray 在 Kubernetes 上安裝 Helm](https://blog.yowko.com/kubespray-helm)
+7. Kubernetes cluster 內容請參考之前筆記 [透過 Kubespray 來架設 Kubernetes](/kubespray-kubernetes) 與 [透過 Kubespray 在 Kubernetes 上安裝 Helm](/kubespray-helm)
 
 ## 安裝 Istio
 

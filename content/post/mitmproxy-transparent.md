@@ -1,7 +1,7 @@
 ---
 title: "Mitmproxy 啟用 Transparent mode"
 date: 2020-06-25T21:30:00+08:00
-lastmod: 2020-06-25T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux","Netowrk"]
 slug: "mitmproxy-transparent"
@@ -9,7 +9,7 @@ slug: "mitmproxy-transparent"
 
 ## Mitmproxy 啟用 Transparent mode
 
-之前筆記 [安裝 Squid Proxy](https://blog.yowko.com/squid-proxy) 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特定 request，今天就來紀錄一下 Mitmproxy 如何設定 trasparnet mode
+之前筆記 [安裝 Squid Proxy](/squid-proxy) 提到如果每次 request 都需要指定 proxy，會讓 proxy 在使用上的便利性大打折扣，所以可以將 proxy 設為 trasparnet mode 並搭配 nat 設定從網路層攔劫特定 request，今天就來紀錄一下 Mitmproxy 如何設定 trasparnet mode
 
 ## 基本環境說明
 
@@ -64,7 +64,7 @@ slug: "mitmproxy-transparent"
 
     - 複製憑證
 
-        > 將之前筆記 [Mitmproxy 啟用 Https](https://blog.yowko.com/mitmproxy-https) 建立的憑證複製新建立的 mitmproxy 執行 user 預設目錄中
+        > 將之前筆記 [Mitmproxy 啟用 Https](/mitmproxy-https) 建立的憑證複製新建立的 mitmproxy 執行 user 預設目錄中
 
         ```bash
         /bin/cp ~/.mitmproxy/*.* /home/mitmproxyuser/.mitmproxy/
@@ -78,12 +78,12 @@ slug: "mitmproxy-transparent"
 
 ## 心得
 
-不確定是不是我設定的情境比較特別，找了些文章都沒有解決我的問題：`curl` https resource 會出現憑證驗證失敗，雖然在執行 curl 時加上 `-k` 或是 `--insecure` 就可以暫時避開問題，但就是覺得不夠漂亮，最後才試出複製憑證的方法，不過我還是沒有很清楚整個機制，大意上跟 [Mitmproxy 啟用 Https](https://blog.yowko.com/mitmproxy-https) 的流程相同，而不同 user 會讀取不同的憑證路徑，所以將建立過的憑證複製至新 user 的憑證位置就可以了
+不確定是不是我設定的情境比較特別，找了些文章都沒有解決我的問題：`curl` https resource 會出現憑證驗證失敗，雖然在執行 curl 時加上 `-k` 或是 `--insecure` 就可以暫時避開問題，但就是覺得不夠漂亮，最後才試出複製憑證的方法，不過我還是沒有很清楚整個機制，大意上跟 [Mitmproxy 啟用 Https](/mitmproxy-https) 的流程相同，而不同 user 會讀取不同的憑證路徑，所以將建立過的憑證複製至新 user 的憑證位置就可以了
 
 但最後還是沒有選用 mitmproxy，原因是 mitmproxy 不支援同時使用 upstream 跟 transparent
 
 ## 參考資訊
 
-1. [安裝 Squid Proxy](https://blog.yowko.com/squid-proxy)
-2. [Mitmproxy 啟用 Https](https://blog.yowko.com/mitmproxy-https)
+1. [安裝 Squid Proxy](/squid-proxy)
+2. [Mitmproxy 啟用 Https](/mitmproxy-https)
 3. [Transparent Proxying](https://docs.mitmproxy.org/stable/howto-transparent/)

@@ -1,7 +1,7 @@
 ---
 title: "清除 Git Commit 紀錄"
 date: 2020-05-23T21:30:00+08:00
-lastmod: 2020-05-23T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Git"]
 slug: "clean-git-commit-history"
@@ -9,7 +9,7 @@ slug: "clean-git-commit-history"
 
 ## 清除 Git Commit 紀錄
 
-為了加快 Git clone 的速度，在之前筆記 [加快大型 GIT Repository 下載速度(指定 depth)](https://blog.yowko.com/git-clone-depth/) 曾經紀錄到使用 `--depth` 參數，用來限縮 clone 的資料量，只是預設情境下大家不會刻意加上這個參數，都是被 clone 時間嚇個幾次才會加，有時不免還是會忘記XD
+為了加快 Git clone 的速度，在之前筆記 [加快大型 GIT Repository 下載速度(指定 depth)](/git-clone-depth/) 曾經紀錄到使用 `--depth` 參數，用來限縮 clone 的資料量，只是預設情境下大家不會刻意加上這個參數，都是被 clone 時間嚇個幾次才會加，有時不免還是會忘記XD
 
 最近專案告了個段落，所以決定將開發時期的 commit history 都清除，來個重新開始，順手紀錄一下以供參考
 
@@ -96,4 +96,4 @@ slug: "clean-git-commit-history"
 ## 參考資訊
 
 1. [stephenhardy/git-clearHistory](https://gist.github.com/stephenhardy/5470814)
-2. [加快大型 GIT Repository 下載速度(指定 depth)](https://blog.yowko.com/git-clone-depth/)
+2. [加快大型 GIT Repository 下載速度(指定 depth)](/git-clone-depth/)

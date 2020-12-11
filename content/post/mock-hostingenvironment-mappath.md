@@ -1,7 +1,7 @@
 ---
 title: "如何 Mock System.Web.Hosting.HostingEnvironment.MapPath 虛擬路徑"
 date: 2017-02-24T01:42:34+08:00
-lastmod: 2018-09-12T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["Unit Test"]
 slug: "mock-hostingenvironment-mappath"
@@ -22,7 +22,7 @@ aliases:
         
         ![7success](https://cloud.githubusercontent.com/assets/3851540/23245454/88c7f3f8-f9c7-11e6-8735-54dab8e9ee4d.png)
     - Fakes 資料夾已產生 `System.Web.Http.fakes` 的設定檔
-    - References 資料夾則沒有出現對應版本的 `System.Web.Http.{版本}.Fakes` dll 請參考這篇 [Fake Assembly 無法自動產生 *.Fakes dll 及出現 build fail](https://blog.yowko.com/2017/02/add-fake-assembly-issue.html)
+    - References 資料夾則沒有出現對應版本的 `System.Web.Http.{版本}.Fakes` dll 請參考這篇 [Fake Assembly 無法自動產生 *.Fakes dll 及出現 build fail](/2017/02/add-fake-assembly-issue.html)
     
 
 ## 程式碼 mock

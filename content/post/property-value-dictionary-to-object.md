@@ -1,7 +1,7 @@
 ---
 title: "C# - Property 與 Value 的 Dictionary 轉為 Object"
 date: 2019-12-09T21:30:00+08:00
-lastmod: 2019-12-09T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["csharp"]
 slug: "property-value-dictionary-to-object"
@@ -9,7 +9,7 @@ slug: "property-value-dictionary-to-object"
 
 ## C# - Property 與 Value 的 Dictionary 轉為 Object
 
-之前筆記 [C# - 將 Object 的 Property 與 Value 轉換為 Dictionary](https://blog.yowko.com/csharp-object-to-dictionary/) 紀錄到將 C# object 的 property name 與 value 透過 dictionary 的資料型態存放，當時主要是為了配合 InfluxDB 的 insert 而做的筆記 ，想不到時隔兩個月，竟然想要透過 property - value 的 dictionary 來轉回 C# object，有趣的是來源不是 InfluxDB 而是 Redis
+之前筆記 [C# - 將 Object 的 Property 與 Value 轉換為 Dictionary](/csharp-object-to-dictionary/) 紀錄到將 C# object 的 property name 與 value 透過 dictionary 的資料型態存放，當時主要是為了配合 InfluxDB 的 insert 而做的筆記 ，想不到時隔兩個月，竟然想要透過 property - value 的 dictionary 來轉回 C# object，有趣的是來源不是 InfluxDB 而是 Redis
 
 ## 基本環境說明
 
@@ -58,7 +58,7 @@ slug: "property-value-dictionary-to-object"
 
     - 將 object 轉為 dictionary
 
-        > 之前筆記 [C# - 將 Object 的 Property 與 Value 轉換為 Dictionary](https://blog.yowko.com/csharp-object-to-dictionary/) 中的程式只能轉換 reference type，這邊小改一下，讓 value type 也可以順利轉換 (但有 boxing 的效能損耗)
+        > 之前筆記 [C# - 將 Object 的 Property 與 Value 轉換為 Dictionary](/csharp-object-to-dictionary/) 中的程式只能轉換 reference type，這邊小改一下，讓 value type 也可以順利轉換 (但有 boxing 的效能損耗)
 
         ```cs
         public static class PocoToDictionary
@@ -176,9 +176,9 @@ slug: "property-value-dictionary-to-object"
 
 ## 心得
 
-其實上次紀錄 [C# - 將 Object 的 Property 與 Value 轉換為 Dictionary](https://blog.yowko.com/csharp-object-to-dictionary/) 時，我就覺得有些荒謬了，覺得這樣的需求沒什麼道理，使用情境很是侷限，想不到這次竟然還需要來個逆向操作，不過所幸有上次的經驗，讓這次的問題可以快速被解決，雖然可能會因為上次的既定印象反而限制了思考的方向而造成用了效能不佳的方法，但終究是多了解了一個可以解決問題的方法，不論好壞還是學到了
+其實上次紀錄 [C# - 將 Object 的 Property 與 Value 轉換為 Dictionary](/csharp-object-to-dictionary/) 時，我就覺得有些荒謬了，覺得這樣的需求沒什麼道理，使用情境很是侷限，想不到這次竟然還需要來個逆向操作，不過所幸有上次的經驗，讓這次的問題可以快速被解決，雖然可能會因為上次的既定印象反而限制了思考的方向而造成用了效能不佳的方法，但終究是多了解了一個可以解決問題的方法，不論好壞還是學到了
 
 ## 參考資訊
 
-1. [C# - 將 Object 的 Property 與 Value 轉換為 Dictionary](https://blog.yowko.com/csharp-object-to-dictionary/)
+1. [C# - 將 Object 的 Property 與 Value 轉換為 Dictionary](/csharp-object-to-dictionary/)
 2. [Expression of type 'System.Int32' cannot be used for return type 'System.Object'](https://stackoverflow.com/questions/43080505/c-sharp-7-0-switch-on-system-type)

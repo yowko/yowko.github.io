@@ -1,7 +1,7 @@
 ---
 title: "使用客製 config 在 kubenetes 上建立 Redis cluster"
 date: 2019-12-17T23:30:00+08:00
-lastmod: 2019-12-17T23:30:31+08:00
+lastmod: 2020-12-11T23:30:31+08:00
 draft: false
 tags: ["Kubernetes","redis"]
 slug: "redis-config-cluster-kubernetes"
@@ -9,7 +9,7 @@ slug: "redis-config-cluster-kubernetes"
 
 ## 使用客製 config 在 kubenetes 上建立 Redis cluster
 
-之前筆記 [在 Kubernetes 部署 Redis Cluster](https://blog.yowko.com/kubernetes-redis-cluster/) 紀錄到如何使用 KubeDB Operator 來建立 redis cluster，不過之前筆記內容是透過預設值來進行安裝與設定，而在面對不同情境的現實需求(eg.改變最大連線數、指定 log 位置、RDB 與 AOF 的策略....etc)下就顯得有些捉襟見肘，所以今天就來紀錄一下如何在 Kubernetes 上透過 KubeDB 安裝 redis cluster 時使用自有設定值
+之前筆記 [在 Kubernetes 部署 Redis Cluster](/kubernetes-redis-cluster/) 紀錄到如何使用 KubeDB Operator 來建立 redis cluster，不過之前筆記內容是透過預設值來進行安裝與設定，而在面對不同情境的現實需求(eg.改變最大連線數、指定 log 位置、RDB 與 AOF 的策略....etc)下就顯得有些捉襟見肘，所以今天就來紀錄一下如何在 Kubernetes 上透過 KubeDB 安裝 redis cluster 時使用自有設定值
 
 ## 基本環境說明
 
@@ -240,7 +240,7 @@ KubeDB 在 redis 安裝時使用客製 config，我實測下 `v0.12.0` 會無法
 
 ## 參考資訊
 
-1. [在 Kubernetes 部署 Redis Cluster](https://blog.yowko.com/kubernetes-redis-cluster/)
+1. [在 Kubernetes 部署 Redis Cluster](/kubernetes-redis-cluster/)
 2. [Using Custom Configuration File](https://kubedb.com/docs/0.12.0/guides/redis/custom-config/using-custom-config/)
 3. [[redis] Redis cluster with custom config file not working](https://github.com/kubedb/project/issues/490)
 4. [Installation Guide](https://kubedb.com/docs/v0.13.0-rc.0/setup/install/)

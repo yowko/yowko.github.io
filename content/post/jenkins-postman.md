@@ -1,7 +1,7 @@
 ---
 title: "Jenkins 2 整合 postman collection runner"
 date: 2017-03-08T01:42:34+08:00
-lastmod: 2018-09-13T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["Tools","Jenkins"]
 slug: "jenkins-postman"
@@ -9,7 +9,7 @@ aliases:
     - /2017/03/jenkins2-integrate-with-postman.html
 ---
 # Jenkins 2 整合 postman collection runner
-之前的文章 [利用 POSTMAN 中的 collection 來快速測試 application 功能是否正常](https://blog.yowko.com/2017/03/postman-collection-runner.html) 介紹到如何使用 postman 內建的 collection runner 來為 api 做基本的測試，今天則要延用其中的概念，在每次上線部署後都做一次基本的 api 測試來保障基本的錯誤不會重複發生。當然這層`基本`保護絕對無法取代單元測試，只是希望在程式正式服務前能具備基本的品質，而更多測試保護也可以讓我們不用擔心程式修改時而造成無謂的錯誤
+之前的文章 [利用 POSTMAN 中的 collection 來快速測試 application 功能是否正常](/2017/03/postman-collection-runner.html) 介紹到如何使用 postman 內建的 collection runner 來為 api 做基本的測試，今天則要延用其中的概念，在每次上線部署後都做一次基本的 api 測試來保障基本的錯誤不會重複發生。當然這層`基本`保護絕對無法取代單元測試，只是希望在程式正式服務前能具備基本的品質，而更多測試保護也可以讓我們不用擔心程式修改時而造成無謂的錯誤
 
 
 ## 安裝 `newman`
@@ -79,7 +79,7 @@ aliases:
 
         ![11newmancommand](https://cloud.githubusercontent.com/assets/3851540/23580683/27f1a656-0141-11e7-85e2-db67358f9fef.png)
 3. 加入 pipeline 中
-    - pipeline 詳細設定請參考  [Jenkins 2 如何建立 Pipeline job](https://blog.yowko.com/2017/02/jenkins-2-pipeline-job.htm)
+    - pipeline 詳細設定請參考  [Jenkins 2 如何建立 Pipeline job](/2017/02/jenkins-2-pipeline-job.htm)
 4. 實際效果
     - 測試中
         

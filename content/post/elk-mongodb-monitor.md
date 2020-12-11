@@ -1,7 +1,7 @@
 ---
 title: "使用 Elastic Stack (ELK) 來監控 MongoDB"
 date: 2018-05-12T00:23:00+08:00
-lastmod: 2020-07-11T00:23:54+08:00
+lastmod: 2020-12-11T00:23:54+08:00
 draft: false
 tags: ["ELK","MongoDB","Monitoring"]
 slug: "elk-mongodb-monitor"
@@ -9,7 +9,7 @@ aliases:
     - /2018/05/elk-mongodb-monitor.html
 ---
 # 使用 Elastic Stack (ELK) 來監控 MongoDB
-之前筆記 [Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana)](https://blog.yowko.com/2018/05/elastic-stack-elk-windows.html) 提到因為想要將部份系統資料餵進 ELK 用來監控及除錯，順手紀錄 Windows 平台上架設 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana) 的步驟，也提及 ELK 較適合執行於 Linux 環境，只是身為 Microssoft 派工程師，Windows 環境相對好取得用來開發測試
+之前筆記 [Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana)](/2018/05/elastic-stack-elk-windows.html) 提到因為想要將部份系統資料餵進 ELK 用來監控及除錯，順手紀錄 Windows 平台上架設 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana) 的步驟，也提及 ELK 較適合執行於 Linux 環境，只是身為 Microssoft 派工程師，Windows 環境相對好取得用來開發測試
 
 首先第一個目標就是為原本沒有監控機制的 MongoDB  加上基本的效能監控。在同事強力的協助下，終於排除困難將 MongoDB 效能資訊餵進 ELK，過程況狀不斷，如果不紀錄相信一週後我就再也做不出來了，就來看該如何設定吧
 
@@ -165,7 +165,7 @@ aliases:
 這次很幸運還不需要設定 Logstash，單單處理 Elasticsearch 跟 Kibana 就讓我人仰馬翻了，設定跟文件不僅多也比較雜亂，加入 Metricbeat 後讓我對於整體概念一直懞懞懂懂不是很清楚，另外我覺得比較難搞的一點就是不好除錯，雖然有錯誤訊息，只是成因可能很多，造成解決方法更多，當然我自己不熟悉是主要因素，就初學者的立場來看門檻較高，不過也許就是它的彈性與擴充性才讓它受到許多關注與也才得以發揚光大
 
 # 參考資訊
-1. [Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana)](https://blog.yowko.com/2018/05/elastic-stack-elk-windows.html)
+1. [Windows 平台上安裝 Elastic Stack (ELK - Elasticsearch , Logstash , Kibana)](/2018/05/elastic-stack-elk-windows.html)
 2. [Metricbeat](https://www.elastic.co/downloads/beats/metricbeat)
 3. [Importing Existing Beat Dashboards](https://www.elastic.co/guide/en/beats/devguide/current/import-dashboards.htm)
 4. [MongoDB Performance Monitoring Using the ELK Stack](https://dzone.com/articles/mongodb-performance-monitoring-using-the-elk-stack)

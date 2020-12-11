@@ -1,7 +1,7 @@
 ---
 title: "[C#] 將 Dictionary 轉為 JSON"
 date: 2020-02-02T14:30:00+08:00
-lastmod: 2020-02-02T14:30:31+08:00
+lastmod: 2020-12-11T14:30:31+08:00
 draft: false
 tags: ["csharp","JSON"]
 slug: "dictionary-to-json"
@@ -9,7 +9,7 @@ slug: "dictionary-to-json"
 
 ## [C#] 將 Dictionary 轉為 JSON
 
-之前筆記 [[C#] 將 JSON 轉為 Dictionary](https://blog.yowko.com./json-to-dictionary) 紀錄到如果將 JSON file 轉為 C# 的 Dictionary 來做後續加工處理，當然有 JSON to Dictionary 就需要有 Dictionary to JSON 囉
+之前筆記 [[C#] 將 JSON 轉為 Dictionary](./json-to-dictionary) 紀錄到如果將 JSON file 轉為 C# 的 Dictionary 來做後續加工處理，當然有 JSON to Dictionary 就需要有 Dictionary to JSON 囉
 
 ## 基本環境說明
 
@@ -143,5 +143,5 @@ slug: "dictionary-to-json"
 
 ## 參考資訊
 
-1. [[C#] 將 JSON 轉為 Dictionary](https://blog.yowko.com./json-to-dictionary)
+1. [[C#] 將 JSON 轉為 Dictionary](./json-to-dictionary)
 2. [How to unflatten flattened json in C#](https://stackoverflow.com/questions/40541842/how-to-unflatten-flattened-json-in-c-sharp)

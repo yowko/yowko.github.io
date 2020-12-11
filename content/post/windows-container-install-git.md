@@ -1,14 +1,14 @@
 ---
 title: "為 Windows Container 安裝 Git - Part2"
 date: 2019-02-19T20:40:00+08:00
-lastmod: 2019-02-19T20:40:30+08:00
+lastmod: 2020-12-11T20:40:30+08:00
 draft: false
 tags: ["Docker","Windows","Git"]
 slug: "windows-container-install-git"
 ---
 # 為 Windows Container 安裝 Git - Part2
 
-昨天提到同事想要在 Windows Container 上安裝 Git 當做 base image 再用來擴充其他功能，但沒辦法直接安裝，所以在 [為 Windows Container 安裝 Git](https://blog.yowko.com/windows-container-git) 介紹到透過 Chocolatey 安裝 Git 的做法
+昨天提到同事想要在 Windows Container 上安裝 Git 當做 base image 再用來擴充其他功能，但沒辦法直接安裝，所以在 [為 Windows Container 安裝 Git](/windows-container-git) 介紹到透過 Chocolatey 安裝 Git 的做法
 
 雖然知道解法不是很漂亮，但還是有解決問題，想不到同事嫌得要死覺得不該裝多餘的東西，所以我又來了@@
 
@@ -78,6 +78,6 @@ RUN ["c:/setup/Git-2.20.1-64-bit.exe","/VERYSILENT"]
 很感謝同事的激勵，讓我可以導正做法，不用再做多餘的安裝.......
 
 # 參考資訊
-1. [為 Windows Container 安裝 Git](https://blog.yowko.com/windows-container-git)
+1. [為 Windows Container 安裝 Git](/windows-container-git)
 2. [Git for Windows](https://git-scm.com/download/win)
 3. [Git For Windows Silent Install Silent Arguments](https://superuser.com/a/1112382)

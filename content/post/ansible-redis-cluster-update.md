@@ -1,7 +1,7 @@
 ---
 title: "Ansible 安裝 Redis Cluster (更新版)"
 date: 2020-08-16T21:30:00+08:00
-lastmod: 2020-11-15T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Ansible","Redis"]
 slug: "ansible-redis-cluster-update"
@@ -9,7 +9,7 @@ slug: "ansible-redis-cluster-update"
 
 ## Ansible 安裝 Redis Cluster
 
-之前筆記 [Ansible 安裝 Redis Cluster](https://blog.yowko.com/ansible-redis-cluster) 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整與優化，紀錄一下
+之前筆記 [Ansible 安裝 Redis Cluster](/ansible-redis-cluster) 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整與優化，紀錄一下
 
 ## 基本環境說明
 
@@ -425,5 +425,5 @@ slug: "ansible-redis-cluster-update"
 
 ## 參考資訊
 
-1. [Ansible 安裝 Redis Cluster](https://blog.yowko.com/ansible-redis-cluster)
+1. [Ansible 安裝 Redis Cluster](/ansible-redis-cluster)
 2. [ansible-redis-cluster](https://github.com/yowko/ansible-redis-cluster)

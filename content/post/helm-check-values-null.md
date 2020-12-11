@@ -1,7 +1,7 @@
 ---
 title: "在 Helm (Go Template) 中檢查 Value 是否有值"
 date: 2020-06-28T21:30:00+08:00
-lastmod: 2020-06-28T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Kubernetes","Helm"]
 slug: "helm-check-values-null"
@@ -9,7 +9,7 @@ slug: "helm-check-values-null"
 
 ## 在 Helm (Go Template) 中檢查 Value 是否有值
 
-這個需求是延續之前筆記 [在 Kubernetes 中使用自訂 Domain](https://blog.yowko.com/kubernetes-custom-domain) 而來的，其中提到某些服務會掛在自訂 domain 下，但內網測試環境可能因為無法對外連線 (連不到外部 dns) 或是成本考慮，不一定會註冊 domain，但在外網環境時為了方便測試，註冊 domain 就是常見的
+這個需求是延續之前筆記 [在 Kubernetes 中使用自訂 Domain](/kubernetes-custom-domain) 而來的，其中提到某些服務會掛在自訂 domain 下，但內網測試環境可能因為無法對外連線 (連不到外部 dns) 或是成本考慮，不一定會註冊 domain，但在外網環境時為了方便測試，註冊 domain 就是常見的
 
 所以就出現這個需求：在內網環境部署時需要加上 hostalias 才能正確存取服務；但外網環境加上 hostalias 可能反而出現未即時更新 ip 而造成無法存取服務的狀況，所以今天就來快速紀錄一下在 Helm (Go Template) 中檢查 Value 是否有值，以 render 出不同內容
 
@@ -253,6 +253,6 @@ slug: "helm-check-values-null"
 
 ## 參考資訊
 
-1. [在 Kubernetes 中使用自訂 Domain](https://blog.yowko.com/kubernetes-custom-domain)
+1. [在 Kubernetes 中使用自訂 Domain](/kubernetes-custom-domain)
 2. [Clarification: nil vs empty string](https://github.com/Masterminds/sprig/issues/53#issuecomment-483414063)
 3. [Reflection Functions](http://masterminds.github.io/sprig/reflection.html)

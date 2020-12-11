@@ -1,7 +1,7 @@
 ---
 title: "[JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數"
 date: 2019-09-10T01:30:00+08:00
-lastmod: 2019-09-10T01:30:31+08:00
+lastmod: 2020-12-11T01:30:31+08:00
 draft: false
 tags: ["JMeter"]
 slug: "jmeter-decrypt-to-parameter"
@@ -9,7 +9,7 @@ slug: "jmeter-decrypt-to-parameter"
 
 ## [JMeter] 從 Http Response Body 解密 Token 做為 Http Request Header 參數
 
-之前筆記 [[JMeter] 取得 JSON Token 做為 Http Request Header 參數](https://blog.yowko.com/jmeter-json-parameter/) 紀錄到如何在測試目標 Api 前先執行 login 取得 token 後當做目標 api 的 header，當時有提到實際應用時常都會加密保護，過去比較常見的做法是 BeanShell，這次就試試 JSR223 吧
+之前筆記 [[JMeter] 取得 JSON Token 做為 Http Request Header 參數](/jmeter-json-parameter/) 紀錄到如何在測試目標 Api 前先執行 login 取得 token 後當做目標 api 的 header，當時有提到實際應用時常都會加密保護，過去比較常見的做法是 BeanShell，這次就試試 JSR223 吧
 
 ## 基本環境說明
 
@@ -174,4 +174,4 @@ slug: "jmeter-decrypt-to-parameter"
 ## 參考資訊
 
 1. [JMeter Alter HTTP Headers During Test](https://stackoverflow.com/a/43283700/3600583)
-2. [[JMeter] 取得 JSON Token 做為 Http Request Header 參數](https://blog.yowko.com/jmeter-json-parameter/)
+2. [[JMeter] 取得 JSON Token 做為 Http Request Header 參數](/jmeter-json-parameter/)

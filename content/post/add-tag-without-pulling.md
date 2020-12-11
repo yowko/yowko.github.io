@@ -1,7 +1,7 @@
 ---
 title: "不 Pull Image 直接新增 Image Tag"
 date: 2020-01-08T21:30:00+08:00
-lastmod: 2020-01-08T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Container","Docker","macOS"]
 slug: "add-tag-without-pulling"
@@ -19,7 +19,7 @@ slug: "add-tag-without-pulling"
 
 ## 作法
 
-這邊會透過自建的 docker registry 來示範，完整建立方式可以參考之前筆記 [使用 Docker 建立 Nexus3 的 Image Registry](https://blog.yowko.com/nexus-docker-image-rergistry), 以 redis 為例，目前只有 `5.0.3` 的 tag
+這邊會透過自建的 docker registry 來示範，完整建立方式可以參考之前筆記 [使用 Docker 建立 Nexus3 的 Image Registry](/nexus-docker-image-rergistry), 以 redis 為例，目前只有 `5.0.3` 的 tag
 
 ![1onetag](https://user-images.githubusercontent.com/3851540/71984233-6a03b380-3263-11ea-8135-5134c4f06abb.png)
 
@@ -67,4 +67,4 @@ slug: "add-tag-without-pulling"
 
 1. [How to Tag #Docker Images without Pulling them](https://dille.name/blog/2018/09/20/how-to-tag-docker-images-without-pulling-them/)
 2. [Accessing and Using Your User Token](https://help.sonatype.com/repomanager3/security/security-setup-with-user-tokens)
-3. [使用 Docker 建立 Nexus3 的 Image Registry](https://blog.yowko.com/nexus-docker-image-rergistry)
+3. [使用 Docker 建立 Nexus3 的 Image Registry](/nexus-docker-image-rergistry)

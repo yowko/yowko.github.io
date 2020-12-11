@@ -1,7 +1,7 @@
 ---
 title: "在 Docker for Mac 啟用 Kubernetes 後安裝 Helm"
 date: 2019-12-22T10:30:00+08:00
-lastmod: 2019-12-22T10:30:31+08:00
+lastmod: 2020-12-11T10:30:31+08:00
 draft: false
 tags: ["macOS","Tools","Helm","Kubernetes","Docker"]
 slug: "docker-mac-kubernetes-helm"
@@ -9,7 +9,7 @@ slug: "docker-mac-kubernetes-helm"
 
 ## 在 Docker for Mac 啟用 Kubernetes 後安裝 Helm
 
-在之前筆記 [在Docker for Mac 上啟用Kubernetes](https://blog.yowko.com/docker-for-mac-kubernetes/) 中曾經紀錄到如果想在 mac 中嘗試 Kubernetes 可以透過 Docker Desktop for Mac 的內建功能來啟用 Kubernetes
+在之前筆記 [在Docker for Mac 上啟用Kubernetes](/docker-for-mac-kubernetes/) 中曾經紀錄到如果想在 mac 中嘗試 Kubernetes 可以透過 Docker Desktop for Mac 的內建功能來啟用 Kubernetes
 
 過去測試 Helm 相關功能都會透過在雲端自建 Kubernettes instance 來進行，雖然已經非常便利，但不免還是需要在不同 server 間做轉換，於是興起了在 Docker for Mac 的 Kubernetes instance 中執行 Helm 的念頭，雖然這個念頭不是第一次有，但之前因為安裝出現錯誤加上急著要解決專案問題，沒有花時間在排除安裝錯誤的問題上，這次又遇到相同狀況，筆記一下
 
@@ -31,7 +31,7 @@ slug: "docker-mac-kubernetes-helm"
 
 - 安裝特定版本
 
-    > 詳細內容可以參考之前筆記 [使用 Homebrew 安裝舊版 Helm](https://blog.yowko.com/brew-install-specific-version-helm)
+    > 詳細內容可以參考之前筆記 [使用 Homebrew 安裝舊版 Helm](/brew-install-specific-version-helm)
 
     - 取得版本列表
 
@@ -98,6 +98,6 @@ slug: "docker-mac-kubernetes-helm"
 
 ## 參考資訊
 
-1. [在Docker for Mac 上啟用Kubernetes](https://blog.yowko.com/docker-for-mac-kubernetes/)
-2. [使用 Homebrew 安裝舊版 Helm](https://blog.yowko.com/brew-install-specific-version-helm)
+1. [在Docker for Mac 上啟用Kubernetes](/docker-for-mac-kubernetes/)
+2. [使用 Homebrew 安裝舊版 Helm](/brew-install-specific-version-helm)
 3. [Mac Kubernetes 报 The connection to the server localhost:6443 was refused](https://blog.csdn.net/iaiot/article/details/85218642)

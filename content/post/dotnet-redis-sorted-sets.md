@@ -1,7 +1,7 @@
 ---
 title: "如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 5 (使用 Sorted Sets 型別)"
 date: 2017-02-27T01:42:34+08:00
-lastmod: 2018-09-12T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["C#","Redis"]
 slug: "dotnet-redis-sorted-sets"
@@ -9,7 +9,7 @@ aliases:
     - /2017/02/dotnet-redis-use-sorted-set.html
 ---
 # 如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 5 (使用 Sorted Sets 型別)
-今天來看看 Sorted Sets 該怎麼使用，建議可與 [如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 4 (使用 Sets 型別)](https://blog.yowko.com/2017/02/dotnet-redis-use-sets.html) 參照
+今天來看看 Sorted Sets 該怎麼使用，建議可與 [如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 4 (使用 Sets 型別)](/2017/02/dotnet-redis-use-sets.html) 參照
 
 一樣先說重點：用法與 Sets 幾乎相同，差別是 Sorted Sets 多了一個分數值可以用來自訂優先順序，如果有興趣多瞭解 StackExchange.Redis 指令對應文中有對應與簡介說明表
 

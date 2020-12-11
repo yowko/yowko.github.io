@@ -1,7 +1,7 @@
 ---
 title: "使用 Ansible 安裝 Redis Replication"
 date: 2020-02-14T21:30:00+08:00
-lastmod: 2020-05-24T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux","Redis","Ansible"]
 slug: "ansible-install-redis"
@@ -9,9 +9,9 @@ slug: "ansible-install-redis"
 
 ## 使用 Ansible 安裝 Redis Replication
 
-之前筆記 [在 CentOS 7 上安裝 Redis Replication (Redis 5)](https://blog.yowko.com/install-redis) 紀錄到使用單一 shell script 來安裝完整 Redis Replication (Master，Slave 與 Sentinell)，後來同事提到這類安裝最好是透過 Ansible 處理，所以我就來試試囉
+之前筆記 [在 CentOS 7 上安裝 Redis Replication (Redis 5)](/install-redis) 紀錄到使用單一 shell script 來安裝完整 Redis Replication (Master，Slave 與 Sentinell)，後來同事提到這類安裝最好是透過 Ansible 處理，所以我就來試試囉
 
-原則上整個安裝流程與步驟是依照 [在 CentOS 7 上安裝 Redis Replication (Redis 5)](https://blog.yowko.com/install-redis) 用 Ansible 語法改寫而來的
+原則上整個安裝流程與步驟是依照 [在 CentOS 7 上安裝 Redis Replication (Redis 5)](/install-redis) 用 Ansible 語法改寫而來的
 
 另外這是我第一次寫 Ansible，用得不對的地方請大家指教
 
@@ -325,6 +325,6 @@ slug: "ansible-install-redis"
 
 ## 參考資訊
 
-1. [在 CentOS 7 上安裝 Redis Replication (Redis 5)](https://blog.yowko.com/install-redis)
+1. [在 CentOS 7 上安裝 Redis Replication (Redis 5)](/install-redis)
 2. [Ansible中文权威指南](https://ansible-tran.readthedocs.io/en/latest/index.html)
 3. [yowko/ansible-install-redis](https://github.com/yowko/ansible-install-redis)

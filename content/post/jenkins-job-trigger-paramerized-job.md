@@ -30,7 +30,7 @@ Jenkins 完成專案 Continuous integration - CI build 後只能確保該專案�
 
     *   Pipeline 內容
 
-        > 以下使用簡化內容模擬，如果想多了解 Pipeline job 可以參考 [Jenkins 2 如何建立 Pipeline job](https://blog.yowko.com/2017/02/jenkins-2-pipeline-job.html)
+        > 以下使用簡化內容模擬，如果想多了解 Pipeline job 可以參考 [Jenkins 2 如何建立 Pipeline job](/2017/02/jenkins-2-pipeline-job.html)
 
         *   Definition 使用 Pipeline script
         *   script 直接列出 傳入的 jobNames

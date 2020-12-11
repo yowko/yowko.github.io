@@ -1,7 +1,7 @@
 ---
 title: "Mitmproxy 啟用 Https"
 date: 2020-06-21T21:30:00+08:00
-lastmod: 2020-06-21T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux","Netowrk"]
 slug: "mitmproxy-https"
@@ -9,7 +9,7 @@ slug: "mitmproxy-https"
 
 ## Mitmproxy 啟用 Https
 
-之前筆記 [安裝 Mitmproxy](https://blog.yowko.com/mitmproxy) 提到 Mitmproxy 在存取 https 資源時會出現問題，雖然在 curl 使用時加上 `--insecure` 或是 `-k` 就可以避免問題，但是總覺得麻煩也不夠漂亮，所以順手紀錄解決方式囉
+之前筆記 [安裝 Mitmproxy](/mitmproxy) 提到 Mitmproxy 在存取 https 資源時會出現問題，雖然在 curl 使用時加上 `--insecure` 或是 `-k` 就可以避免問題，但是總覺得麻煩也不夠漂亮，所以順手紀錄解決方式囉
 
 ## 基本環境說明
 
@@ -47,7 +47,7 @@ slug: "mitmproxy-https"
     - 提示訊息
 
         ```txt
-        [root@blogdemo ~]# curl -x localhost:8080 -L https://blog.yowko.com
+        [root@blogdemo ~]# curl -x localhost:8080 -L 
         curl: (60) Peer's certificate issuer has been marked as not trusted by the user.
         More details here: http://curl.haxx.se/docs/sslcerts.html
 
@@ -78,4 +78,4 @@ slug: "mitmproxy-https"
 ## 參考資訊
 
 1. [mitmproxy 安装指南](https://zhuanlan.zhihu.com/p/88462295)
-2. [安裝 Mitmproxy](https://blog.yowko.com/mitmproxy)
+2. [安裝 Mitmproxy](/mitmproxy)

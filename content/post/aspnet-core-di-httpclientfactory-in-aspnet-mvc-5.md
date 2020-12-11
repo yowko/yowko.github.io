@@ -1,7 +1,7 @@
 ---
 title: "在 ASP.NET MVC 5 中使用 ASP.NET Core Dependency Injection 與 HttpClientFactory"
 date: 2019-01-14T23:45:00+08:00
-lastmod: 2020-06-01T09:44:30+08:00
+lastmod: 2020-12-11T09:44:30+08:00
 draft: false
 tags: ["C#","dotnet core","ASP.NET MVC"]
 slug: "aspnet-core-di-httpclientfactory-in-aspnet-mvc-5"
@@ -149,7 +149,7 @@ services.AddControllersAsServices(typeof(Startup).Assembly.GetExportedTypes()
 
     ```cs
     var client = _clientFactory.CreateClient();
-    client.BaseAddress = new Uri("https://blog.yowko.com");
+    client.BaseAddress = new Uri("");
     var result = await client.GetAsync("/");
     ViewBag.BlogContent = await result.Content.ReadAsStringAsync();
     ```

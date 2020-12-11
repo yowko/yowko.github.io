@@ -1,7 +1,7 @@
 ---
 title: "自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1"
 date: 2017-05-23T22:47:00+08:00
-lastmod: 2018-09-22T16:33:55+08:00
+lastmod: 2020-12-11T16:33:55+08:00
 draft: false
 tags: ["TDD","Unit Test","MSTest"]
 slug: "tdd-day-1"
@@ -200,7 +200,7 @@ aliases:
 
     *   attribute
 
-        > 很多就不一一列出，有興趣可以參考 [MSTest,NUnit 3,xUnit.net 2.0 比較](https://blog.yowko.com/2017/02/MStest-NUnit3-xUnit.net2-Compare.html)
+        > 很多就不一一列出，有興趣可以參考 [MSTest,NUnit 3,xUnit.net 2.0 比較](/2017/02/MStest-NUnit3-xUnit.net2-Compare.html)
 
     *   event hook
         *   AssemblyInitialize
@@ -368,4 +368,4 @@ aliases:
 1.  [一窩蜂驅動開發](https://blog.chunfuchao.com/?p=656&variant=zh-tw)
 2.  [91 敏捷開發之路](https://www.facebook.com/91agile/)
 3.  [[隨筆] 學問－該怎麼提高上課的學習效果？](https://dotblogs.com.tw/hatelove/2016/04/27/learn-to-ask-and-answer-questions)
-4.  [MSTest,NUnit 3,xUnit.net 2.0 比較](https://blog.yowko.com/2017/02/MStest-NUnit3-xUnit.net2-Compare.html)
+4.  [MSTest,NUnit 3,xUnit.net 2.0 比較](/2017/02/MStest-NUnit3-xUnit.net2-Compare.html)

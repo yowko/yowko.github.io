@@ -1,7 +1,7 @@
 ---
 title: "使用 ASP.NET Core 2.2 來 Host gRPC Server"
 date: 2019-05-21T21:30:00+08:00
-lastmod: 2019-05-21T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","gRPC"]
 slug: "aspdotnet-core-2-host-grpc-server"
@@ -9,7 +9,7 @@ slug: "aspdotnet-core-2-host-grpc-server"
 
 # 使用 ASP.NET Core 2.2 來 Host gRPC Server
 
-之前筆記 [Protobuf 該如何處理不定型別](https://blog.yowko.com/protobuf-object-any/), [.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫](https://blog.yowko.com/dotnet-core-jaeger-grpc/), [Protobuf 時間屬性該如何表示？](https://blog.yowko.com/protobuf-datetime-timestamp/) 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用 `Console.ReadLine()` 或是 `Console.ReadKey()` 來讓程式持續運作，實在不太保險，所以打算改用 ASP.NET Core 來 host gRPC Server
+之前筆記 [Protobuf 該如何處理不定型別](/protobuf-object-any/), [.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫](/dotnet-core-jaeger-grpc/), [Protobuf 時間屬性該如何表示？](/protobuf-datetime-timestamp/) 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用 `Console.ReadLine()` 或是 `Console.ReadKey()` 來讓程式持續運作，實在不太保險，所以打算改用 ASP.NET Core 來 host gRPC Server
 
 ASP.NET Core 將在 .NET Core 3 正式支援 gRPC，其中 gRPC Server host 的部份會透過使用 extension method 的方式在 ConfigureServices 進行註冊，但這個 NuGet package ：[Grpc.AspNetCore.Server](https://www.nuget.org/packages/Grpc.AspNetCore.Server)，目前仍在 preview 階段且會相依於 `.NETCoreApp 3.0`，無法使用在 ASP.NET Core 2.2 上，所幸 gRPC 需要的 HTTP/2 特性在 ASP.NET Core 2.2 中已加入，於是我來筆記一下該怎麼簡易地讓 gRPC Server host 在 ASP.NET Core 2.2 上
 
@@ -17,7 +17,7 @@ ASP.NET Core 將在 .NET Core 3 正式支援 gRPC，其中 gRPC Server host 的�
 
 1. macOS Mojave 10.14.5
 2. .NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)
-3. 使用之前筆記 [在 .NET Core console 上使用 Dependency Injection - DI](https://blog.yowko.com/dotnet-core-console-di/) 作為基礎來修改
+3. 使用之前筆記 [在 .NET Core console 上使用 Dependency Injection - DI](/dotnet-core-console-di/) 作為基礎來修改
 4. NuGet package
 
     - Microsoft.AspNetCore 2.2.0
@@ -46,7 +46,7 @@ ASP.NET Core 將在 .NET Core 3 正式支援 gRPC，其中 gRPC Server host 的�
 
 ## 建立 ASP.NET Core 專案或是將 gRPC.Server 專案改為 ASP.NET Core
 
-以下將用新建 ASP.NET Core 專案 示範，gRPC.Server 專案升級為 ASP.NET Core 詳細做法可以參考之前筆記 [將 .NET Core Console 專案轉換為 ASP.NET Core](https://blog.yowko.com/dotnet-core-console-to-aspdotnet-core)
+以下將用新建 ASP.NET Core 專案 示範，gRPC.Server 專案升級為 ASP.NET Core 詳細做法可以參考之前筆記 [將 .NET Core Console 專案轉換為 ASP.NET Core](/dotnet-core-console-to-aspdotnet-core)
 
 ## 使用 ASP.NET Core host gRPC Server
 

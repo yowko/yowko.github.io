@@ -1,7 +1,7 @@
 ---
 title: ".Net Core 操作 MongoDB 出現 MongoWaitQueueFullException"
 date: 2019-07-28T21:30:00+08:00
-lastmod: 2019-07-28T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["C#","dotnet core","MongoDB"]
 slug: "csharp-mongodb-waitqueuefullexception"
@@ -9,7 +9,7 @@ slug: "csharp-mongodb-waitqueuefullexception"
 
 ## .Net Core 操作 MongoDB 出現 MongoWaitQueueFullException
 
-之前筆記 [在 Docker Compose file 3 下限制 CPU 與 Memory](https://blog.yowko.com/docker-compose-3-cpu-memory-limit/) 中提到同事反應說某個專案在執行時會造成 MongoDB CPU high，最後引發 docker service crash，一直沒有找到 root cause，想說趁著假日有完整時間可以仔細 debug，想不到一開始就遇到意料外的錯誤，就來看看這預期之外的錯誤該如何解決吧
+之前筆記 [在 Docker Compose file 3 下限制 CPU 與 Memory](/docker-compose-3-cpu-memory-limit/) 中提到同事反應說某個專案在執行時會造成 MongoDB CPU high，最後引發 docker service crash，一直沒有找到 root cause，想說趁著假日有完整時間可以仔細 debug，想不到一開始就遇到意料外的錯誤，就來看看這預期之外的錯誤該如何解決吧
 
 ## 基本環境說明
 

@@ -1,7 +1,7 @@
 ---
 title: "利用 POSTMAN 中的 collection 來快速測試 application 功能是否正常"
 date: 2017-03-07T01:42:34+08:00
-lastmod: 2018-09-13T00:42:34+08:00
+lastmod: 2020-12-11T00:42:34+08:00
 draft: false
 tags: ["Tools"]
 slug: "postman-collection-runner"
@@ -16,7 +16,7 @@ aliases:
 在跨團隊介接時，postman 的 collection 是個方便的溝通方式(當然 swagger 也是)，今天就來介紹如何利用 postman 的 collection 做基本的測試，可以當做快速定位異常的方法之一
 
 ## 準備 collection
-將需要基本監控的 request 準備專屬的 collection，當然也可以將開發用的 collection 拿來用，但需要注意不同環境間的參數是否可通用，建議使用參數化寫法，可以參考 [如何在 POSTMAN 中使用參數化寫法來進行不同環境的測試](https://blog.yowko.com/2017/03/postman-parameter-test.html), 我就延用其中的範例來進行後續的 demo
+將需要基本監控的 request 準備專屬的 collection，當然也可以將開發用的 collection 拿來用，但需要注意不同環境間的參數是否可通用，建議使用參數化寫法，可以參考 [如何在 POSTMAN 中使用參數化寫法來進行不同環境的測試](/2017/03/postman-parameter-test.html), 我就延用其中的範例來進行後續的 demo
 
 1. 逐一將 request 加入 collection 中
     - 按下 `Save` or `Save to collection`
@@ -69,7 +69,7 @@ aliases:
         tests["Body is correct"] = jsonData === _return;
         ```
 
-* 可以透過 console.log 的方式來為撰寫的 test 偵錯，設定方式請參考 [如何對 POSTMAN desktop app 偵錯](https://blog.yowko.com/2017/03/debug-postman-test.html)
+* 可以透過 console.log 的方式來為撰寫的 test 偵錯，設定方式請參考 [如何對 POSTMAN desktop app 偵錯](/2017/03/debug-postman-test.html)
     
 
 ## 使用 postman runner 來執行測試

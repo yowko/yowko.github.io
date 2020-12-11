@@ -1,13 +1,13 @@
 ---
 title: "Protobuf 該如何處理不定型別"
 date: 2019-03-16T21:30:00+08:00
-lastmod: 2019-03-16T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: falae
 tags: ["C#","gRPC","Protobuf"]
 slug: "protobuf-object-any"
 ---
 # Protobuf 該如何處理不定型別
-之前筆記 [Protobuf 時間屬性該如何表示？](https://blog.yowko.com/protobuf-datetime-timestamp/) 紀錄了 C# DateTime 屬性在 Protobuf 的 message 表示方式，當時在找資料時發現 `any.proto` 特別查了資料看可以應用在什麼地方，就個人理解應該就像是 C# 的 object，筆記一下用法，待日後驗證囉
+之前筆記 [Protobuf 時間屬性該如何表示？](/protobuf-datetime-timestamp/) 紀錄了 C# DateTime 屬性在 Protobuf 的 message 表示方式，當時在找資料時發現 `any.proto` 特別查了資料看可以應用在什麼地方，就個人理解應該就像是 C# 的 object，筆記一下用法，待日後驗證囉
 
 ## 基本環境說明
 1. macOS Mojave 10.14.3

@@ -1,7 +1,7 @@
 ---
 title: "Windows 慣用者如何在 Red Hat Enterprise Linux 7.5 (CentOS ) 上使用 kubeadm 架設 Kubernetes (K8s)"
 date: 2018-05-20T10:16:00+08:00
-lastmod: 2018-10-06T20:30:50+08:00
+lastmod: 2020-12-11T20:30:50+08:00
 draft: false
 tags: ["Kubernetes","Linux"]
 slug: "centos-kubeadm-kubernetes"
@@ -9,7 +9,7 @@ aliases:
     - /2018/05/centos-kubeadm-kubernetes.html
 ---
 # Windows 慣用者如何在 Red Hat Enterprise Linux 7.5 (CentOS ) 上使用 kubeadm 架設 Kubernetes (K8s)
-之前筆記 [Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)](https://blog.yowko.com/2018/05/ubuntu-kubeadm-kubernetes.html) 紀錄到如何在 Ubuntu 上使用 kubeadm 建立 Kubernetes cluster，考量到公司使用的 linux 都為 CentOS (RHEL) 所以趁著印象還新鮮時趕緊紀錄一下在 CentOS 上架設 Kubernetes 的做法
+之前筆記 [Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)](/2018/05/ubuntu-kubeadm-kubernetes.html) 紀錄到如何在 Ubuntu 上使用 kubeadm 建立 Kubernetes cluster，考量到公司使用的 linux 都為 CentOS (RHEL) 所以趁著印象還新鮮時趕緊紀錄一下在 CentOS 上架設 Kubernetes 的做法
 
 ## 開始安裝前的小提醒
 1. 指令常需要以 `root` (類似 Windows 的系統管理員角色) 執行
@@ -216,7 +216,7 @@ aliases:
     ![13getnodes](https://user-images.githubusercontent.com/3851540/40274855-1d1d285c-5c14-11e8-9ccf-0d5171327026.png) 
 
 ## 心得
-大致安裝流程與 [Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)](https://blog.yowko.com/2018/05/ubuntu-kubeadm-kubernetes.html) 相同，只是語法上跟 Ubuntu 有些不同，另外需要特別留意的是 CentOS 安全性較高，需要自行關閉
+大致安裝流程與 [Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)](/2018/05/ubuntu-kubeadm-kubernetes.html) 相同，只是語法上跟 Ubuntu 有些不同，另外需要特別留意的是 CentOS 安全性較高，需要自行關閉
 
 但對於關閉 `SELinux` 與防火牆，我還是覺得有點害怕，或許日後的版本會再做調整吧
 
@@ -227,4 +227,4 @@ aliases:
 4. [systemd (正體中文)](https://wiki.archlinux.org/index.php/Systemd_(%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87))
 5. [kubeadm join - Failed to request cluster info - getsockopt: no route to host](https://groups.google.com/forum/#!topic/kubernetes-dev/epes4exK6Ms)
 6. [sysctl 讀取 / 修改 Kernel 變數](https://www.phpini.com/linux/sysctl-read-modify-kernel-var)
-7. [Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)](https://blog.yowko.com/2018/05/ubuntu-kubeadm-kubernetes.html)
+7. [Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)](/2018/05/ubuntu-kubeadm-kubernetes.html)

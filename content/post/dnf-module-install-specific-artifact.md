@@ -1,7 +1,7 @@
 ---
 title: "使用 dnf 透過 module 安裝指定版本套件"
 date: 2020-10-23T21:30:00+08:00
-lastmod: 2020-10-23T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux"]
 slug: "dnf-module-install-specific-artifact"
@@ -9,7 +9,7 @@ slug: "dnf-module-install-specific-artifact"
 
 ## 使用 dnf 透過 module 安裝指定版本套件
 
-這是從過去使用 `yum` 時發現的問題：安裝套件時多是執行 `yum install -y {套件名稱}`，如此一來會直接安裝該套件的最新版本，對於日常使用或是全新開發上是正確的，但這個動作對於正在運作的系統，這個直接動作會造成原本的套件升級至最新版，可能出現不可預期的問題，所以之前筆記 [yum 安裝指定版本套件](https://blog.yowko.com/yum-specific-version/) 就紀錄了該如何使用 yum 來安裝指定版本套件的做法 (指定版本並不一定是舊版，有可能指定的版本正好是最新版，只是確保版本是固定的)，最近正在將 yum 改為 dnf，在 dnf module 安裝時沒辦法直接套用相同技巧，立馬簡單紀錄一下
+這是從過去使用 `yum` 時發現的問題：安裝套件時多是執行 `yum install -y {套件名稱}`，如此一來會直接安裝該套件的最新版本，對於日常使用或是全新開發上是正確的，但這個動作對於正在運作的系統，這個直接動作會造成原本的套件升級至最新版，可能出現不可預期的問題，所以之前筆記 [yum 安裝指定版本套件](/yum-specific-version/) 就紀錄了該如何使用 yum 來安裝指定版本套件的做法 (指定版本並不一定是舊版，有可能指定的版本正好是最新版，只是確保版本是固定的)，最近正在將 yum 改為 dnf，在 dnf module 安裝時沒辦法直接套用相同技巧，立馬簡單紀錄一下
 
 ## 基本環境說明
 
@@ -20,7 +20,7 @@ slug: "dnf-module-install-specific-artifact"
 
 ## 操作步驟
 
-> 這邊以 redis 為例，想多了解如何使用 dnf 安裝 redis 可以參考之前筆記 [使用 dnf 安裝 Redis 6](https://blog.yowko.com/dnf-install-redis6/)
+> 這邊以 redis 為例，想多了解如何使用 dnf 安裝 redis 可以參考之前筆記 [使用 dnf 安裝 Redis 6](/dnf-install-redis6/)
 
 1. 確保目標 package 的 repo rpm 已安裝
 
@@ -106,6 +106,6 @@ slug: "dnf-module-install-specific-artifact"
 
 ## 參考資訊
 
-1. [yum 安裝指定版本套件](https://blog.yowko.com/yum-specific-version/)
-2. [使用 dnf 安裝 Redis 6](https://blog.yowko.com/dnf-install-redis6/)
+1. [yum 安裝指定版本套件](/yum-specific-version/)
+2. [使用 dnf 安裝 Redis 6](/dnf-install-redis6/)
 3. [CentOS 7/8 yum安装指定版本Redis](https://blog.csdn.net/coco3848/article/details/107605687)

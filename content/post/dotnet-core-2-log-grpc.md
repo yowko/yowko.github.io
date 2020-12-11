@@ -1,7 +1,7 @@
 ---
 title: "C# (.NET Core 2) Log 與 Trace gRPC"
 date: 2019-11-12T21:30:00+08:00
-lastmod: 2019-11-12T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["csharp","gRPC"]
 slug: "dotnet-core-2-log-grpc"
@@ -28,7 +28,7 @@ gRPC 在 .NET Core 3 被官方宣告重點發展項目之一，而身為追求�
 3. JetBrains Rider 2019.2.2
 4. ASP.NET Core MVC 2.2 預設專案範本
 
-    > 程式碼部份可參考 [C# 搭配 gRPC 中使用 stream RPC](https://blog.yowko.com/csharp-grpc-stream/)
+    > 程式碼部份可參考 [C# 搭配 gRPC 中使用 stream RPC](/csharp-grpc-stream/)
 
 5. NuGet Package
 

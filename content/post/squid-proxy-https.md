@@ -1,7 +1,7 @@
 ---
 title: "Squid Proxy Https 設定"
 date: 2020-06-14T21:30:00+08:00
-lastmod: 2020-06-14T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux","Netowrk"]
 slug: "squid-proxy-https"
@@ -9,7 +9,7 @@ slug: "squid-proxy-https"
 
 ## Squid Proxy Https 設定
 
-依據之前筆記 [安裝 Squid Proxy](https://blog.yowko.com/squid-proxy) 比照相同方式設定 https 的 request 無法取得正確回應
+依據之前筆記 [安裝 Squid Proxy](/squid-proxy) 比照相同方式設定 https 的 request 無法取得正確回應
 
 > 以下設定方式直接套用，會出現錯誤
 
@@ -108,7 +108,7 @@ squid 的 https 設定難度高上許多，主要是憑證這段我不懂，東�
 
 ## 參考資訊
 
-1. [安裝 Squid Proxy](https://blog.yowko.com/squid-proxy)
+1. [安裝 Squid Proxy](/squid-proxy)
 2. [SQUID FATAL: The ssl_crtd helpers are crashing too rapidly, need help!](https://www.linux.org.ru/forum/admin/13819277)
 3. [ssl_crtd helpers are crashing too rapidly in squid](https://serverfault.com/questions/624879/ssl-crtd-helpers-are-crashing-too-rapidly-in-squid)
 4. [Squid proxy - a short guide (forward & transparent proxy examples, SSL bumping, links to guides)](https://www.reddit.com/r/sysadmin/comments/a67hly/squid_proxy_a_short_guide_forward_transparent/)

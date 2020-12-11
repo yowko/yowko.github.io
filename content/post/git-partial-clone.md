@@ -1,7 +1,7 @@
 ---
 title: "Git partial clone"
 date: 2020-07-18T21:30:00+08:00
-lastmod: 2020-07-18T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Git"]
 slug: "git-partial-clone"
@@ -167,7 +167,7 @@ Git 2.19.0 發表了 Partial Clone 功能，技術細節可以參考 [Partial Cl
 
 原本存在的內容，因為 branch 不同，而在 checkout 後就不見，跟原本預想的加入 partial clone 不同，我想也許可以透過 submodule 與 partial clone 的組合來達成原本的目標，不過有機會再試囉
 
-本來想要改天有時間再試，但壓抑不住心裡的好奇心，立馬嘗試了起來，雖然有些缺陷，但勉強堪用，請參考 [Git Submodule partial clone](https://blog.yowko.com/git-submodule-partial-clone)
+本來想要改天有時間再試，但壓抑不住心裡的好奇心，立馬嘗試了起來，雖然有些缺陷，但勉強堪用，請參考 [Git Submodule partial clone](/git-submodule-partial-clone)
 
 ## 參考資訊
 

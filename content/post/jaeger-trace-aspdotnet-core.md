@@ -1,14 +1,14 @@
 ---
 title: "使用 Jaeger 追蹤 ASP.NET Core 呼叫"
 date: 2019-04-13T21:30:00+08:00
-lastmod: 2019-04-13T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["dotnet core","ASP.NET Core","Jaeger"]
 slug: "jaeger-trace-aspdotnet-core"
 ---
 # 使用 Jaeger 追蹤 ASP.NET Core 呼叫
 
-之前筆記 [.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫](https://blog.yowko.com/dotnet-core-jaeger-grpc/) 紀錄到如何使用 Jaeger 來追蹤 .NET Core Console project 中 gRPC 的呼叫歷程，不過想必未來應該免不了還是需要使用 REST api 的專案，趁著假日有空順手做個紀錄備忘 
+之前筆記 [.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫](/dotnet-core-jaeger-grpc/) 紀錄到如何使用 Jaeger 來追蹤 .NET Core Console project 中 gRPC 的呼叫歷程，不過想必未來應該免不了還是需要使用 REST api 的專案，趁著假日有空順手做個紀錄備忘 
 
 
 

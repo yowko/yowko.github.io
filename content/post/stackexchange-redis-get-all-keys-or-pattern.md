@@ -1,7 +1,7 @@
 ---
 title: "如何使用 StackExchange.Redis 取得所有 keys 值與指定 pattern 的 key"
 date: 2017-04-27T01:00:00+08:00
-lastmod: 2018-09-18T01:00:00+08:00
+lastmod: 2020-12-11T01:00:00+08:00
 draft: false
 tags: ["Redis","套件"]
 slug: "stackexchange-redis-get-all-keys-or-pattern"
@@ -79,7 +79,7 @@ aliases:
 
     > `RedisConnectionFactory.RedisServer.Keys(pattern: "{pattern}");`
 
-**如果執行速度緩慢請參 [取得 Redis 中指定 key 條件的筆數](https://blog.yowko.com/2018/07/redis-key-count.html)**
+**如果執行速度緩慢請參 [取得 Redis 中指定 key 條件的筆數](/2018/07/redis-key-count.html)**
 
 # 參考資訊
 1.  [Get all keys from Redis Cache database](http://stackoverflow.com/questions/37436429/get-all-keys-from-redis-cache-database)

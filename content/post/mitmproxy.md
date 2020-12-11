@@ -1,7 +1,7 @@
 ---
 title: "安裝 Mitmproxy"
 date: 2020-06-20T21:30:00+08:00
-lastmod: 2020-06-20T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["Linux","Netowrk"]
 slug: "mitmproxy"
@@ -9,11 +9,11 @@ slug: "mitmproxy"
 
 ## 安裝 Mitmproxy
 
-之前筆記 [安裝 Squid Proxy](https://blog.yowko.com/squid-proxy) 提到為了加強與 Partner 間資料介接交換時的安全性，所以在 server 間會需要互相 trust ip，但這麼一來在業務增長時就會失去彈性，所以打算透過加入 proxy server 來進行 trust，讓後續可能新加入的 server 只要透過該 proxy server 就可以正常運作
+之前筆記 [安裝 Squid Proxy](/squid-proxy) 提到為了加強與 Partner 間資料介接交換時的安全性，所以在 server 間會需要互相 trust ip，但這麼一來在業務增長時就會失去彈性，所以打算透過加入 proxy server 來進行 trust，讓後續可能新加入的 server 只要透過該 proxy server 就可以正常運作
 
-嘗試過 `Squid`，設定方式可以參考 [安裝 Squid Proxy](https://blog.yowko.com/squid-proxy) 與 [Squid Proxy Https 設定](https://blog,yowko.com/squid-proxy-https)，但因為 `Squid` 不支援 https 轉發 http，在使用上有限制，所以今天就來試試 `Mitmproxy`
+嘗試過 `Squid`，設定方式可以參考 [安裝 Squid Proxy](/squid-proxy) 與 [Squid Proxy Https 設定](https://blog,yowko.com/squid-proxy-https)，但因為 `Squid` 不支援 https 轉發 http，在使用上有限制，所以今天就來試試 `Mitmproxy`
 
-說到 `Mitmproxy`，其實也不算陌生，之前在 [讓iOS 裝置可以存取自訂domain - Yowko's Notes](https://blog.yowko.com/ios-private-domain/) 就是透過這套工具來達成目的，而這次情境比較正式，改用安裝實體服務方式來紀錄
+說到 `Mitmproxy`，其實也不算陌生，之前在 [讓iOS 裝置可以存取自訂domain - Yowko's Notes](/ios-private-domain/) 就是透過這套工具來達成目的，而這次情境比較正式，改用安裝實體服務方式來紀錄
 
 ## 基本環境說明
 
@@ -73,7 +73,7 @@ slug: "mitmproxy"
 2. 藉由 mitmproxy 存取 web page
 
     ```bash
-    curl -x localhost:9000 -k -L https://blog.yowko.com
+    curl -x localhost:9000 -k -L 
     ```
 
 3. 測試結果
@@ -88,16 +88,16 @@ Mitmproxy 在設定上比起 Squid 顯得更單純，不過這也不一定是好
 2. log 部份雖然比起 Squid 有更好的互動性跟更多資訊，但預設在 console 輸出對於正式服務還是沒那麼方便
 3. https 驗證上會比嚴格， curl 使用時都需要加上 `insecure`
 
-- log 處理方式請參考 [將 Mitmproxy log 存至檔案](https://blog.yowko.com/mitmproxy-log-to-file)
+- log 處理方式請參考 [將 Mitmproxy log 存至檔案](/mitmproxy-log-to-file)
 
-- https 請參考 [Mitmproxy 啟用 Https](https://blog.yowko.com/mitmproxy-https)
+- https 請參考 [Mitmproxy 啟用 Https](/mitmproxy-https)
 
 ## 參考資訊
 
 1. [mitmproxy](https://mitmproxy.org/)
 2. [Installation](https://docs.mitmproxy.org/stable/overview-installation/#installation-from-the-python-package-index-pypi)
-3. [安裝 Squid Proxy](https://blog.yowko.com/squid-proxy)
+3. [安裝 Squid Proxy](/squid-proxy)
 4. [Squid Proxy Https 設定](https://blog,yowko.com/squid-proxy-https)
-5. [讓iOS 裝置可以存取自訂domain - Yowko's Notes](https://blog.yowko.com/ios-private-domain/)
-6. [將 Mitmproxy log 存至檔案](https://blog.yowko.com/mitmproxy-log-to-file)
-7. [Mitmproxy 啟用 Https](https://blog.yowko.com/mitmproxy-https)
+5. [讓iOS 裝置可以存取自訂domain - Yowko's Notes](/ios-private-domain/)
+6. [將 Mitmproxy log 存至檔案](/mitmproxy-log-to-file)
+7. [Mitmproxy 啟用 Https](/mitmproxy-https)

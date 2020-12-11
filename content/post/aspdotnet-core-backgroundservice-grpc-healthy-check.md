@@ -1,7 +1,7 @@
 ---
 title: "使用 ASP.NET Core BackgroundService 進行 gRPC healthy check"
 date: 2020-09-06T21:30:00+08:00
-lastmod: 2020-09-06T21:30:31+08:00
+lastmod: 2020-12-11T21:30:31+08:00
 draft: false
 tags: ["asp.net core","gRPC"]
 slug: "aspdotnet-core-backgroundservice-grpc-healthy-check"
@@ -9,7 +9,7 @@ slug: "aspdotnet-core-backgroundservice-grpc-healthy-check"
 
 ## 使用 ASP.NET Core BackgroundService 進行 gRPC healthy check
 
-之前筆記 [使用 ASP.NET Core middleware 進行 gRPC healthy check](https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check) 紀錄到如何使用 ASP.NET Core 內建的 Health Check middleware 來進行 gRPC service 的檢查，當時有看到 Steve Gordon 的 [HEALTH CHECKS WITH GRPC AND ASP.NET CORE 3.0](https://www.stevejgordon.co.uk/health-checks-with-grpc-and-asp-net-core-3) 使用 serive 本身的 BackgroundService 來進行 gRPC Health Check，雖然目的不太一樣，但做法還是可以參考的，簡單紀錄一下
+之前筆記 [使用 ASP.NET Core middleware 進行 gRPC healthy check](/aspdotnet-core-middleware-grpc-healthy-check) 紀錄到如何使用 ASP.NET Core 內建的 Health Check middleware 來進行 gRPC service 的檢查，當時有看到 Steve Gordon 的 [HEALTH CHECKS WITH GRPC AND ASP.NET CORE 3.0](https://www.stevejgordon.co.uk/health-checks-with-grpc-and-asp-net-core-3) 使用 serive 本身的 BackgroundService 來進行 gRPC Health Check，雖然目的不太一樣，但做法還是可以參考的，簡單紀錄一下
 
 ## 基本環境說明
 
@@ -134,7 +134,7 @@ slug: "aspdotnet-core-backgroundservice-grpc-healthy-check"
 
 ## 心得
 
-今天這個做法與之前筆記 [使用 ASP.NET Core middleware 進行 gRPC healthy check](https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check) 在 macOS 上有相同問題：現在團隊的主力開發環境是 macOS，但今天紀錄的這個做法在 macOS 上會失效，錯誤的緣頭是 aspsettings.json 中的 `Kestrel.EndpointDefaults.Protocols="Http2"` 至於原因我猜測與之前筆記 [ASP.NET Core gRPC 無法在 macOS 上啟動？！](https://blog.yowko.com/aspdotnet-core-grpc-macos/) 提到的 macOS 不支援具有 TLS 的 ASP.NET Core gRPC 服務有關：只要啟用了 `Kestrel.EndpointDefaults.Protocols="Http2"` ASP.NET Core 中的 http endpoint 就無法正確存取，但這問題這麼大不可能沒人反應呀，我覺得可能是我設定的問題
+今天這個做法與之前筆記 [使用 ASP.NET Core middleware 進行 gRPC healthy check](/aspdotnet-core-middleware-grpc-healthy-check) 在 macOS 上有相同問題：現在團隊的主力開發環境是 macOS，但今天紀錄的這個做法在 macOS 上會失效，錯誤的緣頭是 aspsettings.json 中的 `Kestrel.EndpointDefaults.Protocols="Http2"` 至於原因我猜測與之前筆記 [ASP.NET Core gRPC 無法在 macOS 上啟動？！](/aspdotnet-core-grpc-macos/) 提到的 macOS 不支援具有 TLS 的 ASP.NET Core gRPC 服務有關：只要啟用了 `Kestrel.EndpointDefaults.Protocols="Http2"` ASP.NET Core 中的 http endpoint 就無法正確存取，但這問題這麼大不可能沒人反應呀，我覺得可能是我設定的問題
 
 錯誤畫面如下：
 
@@ -148,8 +148,8 @@ slug: "aspdotnet-core-backgroundservice-grpc-healthy-check"
 
 ## 參考資訊
 
-1. [ASP.NET Core gRPC 無法在 macOS 上啟動？！](https://blog.yowko.com/aspdotnet-core-grpc-macos/)
-2. [使用 ASP.NET Core middleware 進行 gRPC healthy check](https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check)
+1. [ASP.NET Core gRPC 無法在 macOS 上啟動？！](/aspdotnet-core-grpc-macos/)
+2. [使用 ASP.NET Core middleware 進行 gRPC healthy check](/aspdotnet-core-middleware-grpc-healthy-check)
 3. [HEALTH CHECKS WITH GRPC AND ASP.NET CORE 3.0](https://www.stevejgordon.co.uk/health-checks-with-grpc-and-asp-net-core-3)
 4. [Background tasks with hosted services in ASP.NET Core](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/host/hosted-services?WT.mc_id=DOP-MVP-5002594)
 5. [Implement background tasks in microservices with IHostedService and the BackgroundService class](https://docs.microsoft.com/zh-tw/dotnet/architecture/microservices/multi-container-microservice-net-applications/background-tasks-with-ihostedservice?WT.mc_id=DOP-MVP-5002594)

@@ -1,7 +1,7 @@
 ---
 title: "ASP.NET Identity 如何依據不同用途設定個別 Token 時效"
 date: 2018-04-03T01:04:00+08:00
-lastmod: 2018-10-04T01:04:26+08:00
+lastmod: 2020-12-11T01:04:26+08:00
 draft: false
 tags: ["ASP.NET Identity"]
 slug: "multiple-tokenlifespan"
@@ -9,7 +9,7 @@ aliases:
     - /2018/04/multiple-tokenlifespan.html
 ---
 # ASP.NET Identity 如何依據不同用途設定個別 Token 時效
-之前曾經筆記中 [改 ASP.NET Identity 2 的 Token 時效](https://blog.yowko.com/2017/12/aspnet-identity-2-token-lifetime.html) 紀錄到 ASP.NET Identity 預設的 token 時效及調整方式。在專案實際使用時，user 提出其他需求：依不同功能別而有不同的 token 時效，例：註冊新帳號 - 確認 E-mail 的時效為 24 小時；忘記密碼 - 重設密碼的時效為 15 分鐘
+之前曾經筆記中 [改 ASP.NET Identity 2 的 Token 時效](/2017/12/aspnet-identity-2-token-lifetime.html) 紀錄到 ASP.NET Identity 預設的 token 時效及調整方式。在專案實際使用時，user 提出其他需求：依不同功能別而有不同的 token 時效，例：註冊新帳號 - 確認 E-mail 的時效為 24 小時；忘記密碼 - 重設密碼的時效為 15 分鐘
 
 針對這個需求，有好幾個可行方案閃過，但沒有實際驗證過誰也說不準能不能用，所以立馬來試試看囉
 
@@ -746,4 +746,4 @@ aliases:
 
 1.  [ArtemAvramenko/DataProtectorTokenProviderEx.cs](https://gist.github.com/ArtemAvramenko/8f34ec8aac5c0fb6380871a18e69ffd8#file-dataprotectortokenproviderex-cs)
 2.  [AspNetIdentity/src/Microsoft.AspNet.Identity.Owin/DataProtectorTokenProvider.cs](https://github.com/aspnet/AspNetIdentity/blob/9c48993a446288032f9824633e6dae81257da06e/src/Microsoft.AspNet.Identity.Owin/DataProtectorTokenProvider.cs)
-3.  [改 ASP.NET Identity 2 的 Token 時效](https://blog.yowko.com/2017/12/aspnet-identity-2-token-lifetime.html)
+3.  [改 ASP.NET Identity 2 的 Token 時效](/2017/12/aspnet-identity-2-token-lifetime.html)

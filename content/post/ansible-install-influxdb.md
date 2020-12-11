@@ -1,7 +1,7 @@
 ---
 title: "使用 Ansible 安裝 InfluxDB"
 date: 2020-03-01T12:30:00+08:00
-lastmod: 2020-03-01T12:30:31+08:00
+lastmod: 2020-12-11T12:30:31+08:00
 draft: false
 tags: ["Ansible","InfluxDB"]
 slug: "ansible-install-influxdb"
@@ -29,7 +29,7 @@ slug: "ansible-install-influxdb"
 
 2. install.yml
 
-    > 其中有用到 Ansible 的 heredoc 技巧，詳細內容可以參考之前筆記 [Ansible 使用 Here document (cat << EOF) 遇到的問題](https://blog.yowko.com/ansible-cat-eof/)
+    > 其中有用到 Ansible 的 heredoc 技巧，詳細內容可以參考之前筆記 [Ansible 使用 Here document (cat << EOF) 遇到的問題](/ansible-cat-eof/)
 
         ---
         - name: Install Influxdb
@@ -62,5 +62,5 @@ slug: "ansible-install-influxdb"
 
 ## 參考資訊
 
-1. [Ansible 使用 Here document (cat << EOF) 遇到的問題](https://blog.yowko.com/ansible-cat-eof/)
+1. [Ansible 使用 Here document (cat << EOF) 遇到的問題](/ansible-cat-eof/)
 2. [Installing InfluxDB OSS](https://docs.influxdata.com/influxdb/v1.7/introduction/installation/)

@@ -1,7 +1,7 @@
 ---
 title: "如何 Mock Private Method 的回傳值 - 使用 JuskMock"
 date: 2017-07-10T01:00:00+08:00
-lastmod: 2018-09-23T22:41:58+08:00
+lastmod: 2020-12-11T22:41:58+08:00
 draft: false
 tags: ["套件","MSTest","Unit Test"]
 slug: "mock-private-method-juskmock"
@@ -9,7 +9,7 @@ aliases:
     - /2017/07/mock-private-method-juskmock.html
 ---
 # 如何 Mock Private Method 的回傳值 - 使用 JuskMock
-前一篇筆記 [使用 Moq 來 Mock protected Method](https://blog.yowko.com/2017/07/moq-mock-protected-method.html) 文末心得中提到傳言中付費的 mock framewrok 號稱無論是什麼狀況都能 mock，想說改天要找個機會來測試一下，結果自己忍不住好奇心，立馬測試了起來 XD
+前一篇筆記 [使用 Moq 來 Mock protected Method](/2017/07/moq-mock-protected-method.html) 文末心得中提到傳言中付費的 mock framewrok 號稱無論是什麼狀況都能 mock，想說改天要找個機會來測試一下，結果自己忍不住好奇心，立馬測試了起來 XD
 
 就來看看該如何使用 JustMock 來 mock private method 吧
 
@@ -47,7 +47,7 @@ public class ValuesController : ApiController
 }
 ```
 
-> 以上內容皆與 [使用 Moq 來 Mock protected Method](https://blog.yowko.com/2017/07/moq-mock-protected-method.html) 相同
+> 以上內容皆與 [使用 Moq 來 Mock protected Method](/2017/07/moq-mock-protected-method.html) 相同
 
 ## 撰寫測試程式
 
@@ -183,7 +183,7 @@ public class ValuesController : ApiController
 排除上述原因，JustMock 真的非常方便，尤其在面對 legacy code 時，讓開發人員可以專心在測試程式的撰寫上，而不需分心想著該如何重構才能讓程式具備可測試性，對於測試程式的開發實在是一大利器
 
 # 參考資訊
-1.  [使用 Moq 來 Mock protected Method](https://blog.yowko.com/2017/07/moq-mock-protected-method.html)
+1.  [使用 Moq 來 Mock protected Method](/2017/07/moq-mock-protected-method.html)
 2.  [JustMock](http://www.telerik.com/products/mocking.aspx)
 3.  [JustMock Lite](http://www.telerik.com/justmock/free-mocking)
 4.  [Telerik JustMock Documentation](http://docs.telerik.com/help/justmock/introduction.html)

@@ -1,7 +1,7 @@
 ---
 title: "依編譯參數來決定 config 內容"
 date: 2017-08-14T23:23:00+08:00
-lastmod: 2020-09-01T23:23:33+08:00
+lastmod: 2020-12-11T23:23:33+08:00
 draft: false
 tags: ["MSBuild","web.config"]
 slug: "msbuild-condition"
@@ -9,7 +9,7 @@ aliases:
     - /2017/08/msbuild-condition.html
 ---
 # 依編譯參數來決定 config 內容
-一連兩篇文章 [專案間如何共用 config 設定 - 使用 MSBuildExtensionPack](https://blog.yowko.com/2017/08/shared-config.html) 與 [專案間如何共用 config 設定 - 使用 MSBuild Community Tasks](https://blog.yowko.com/2017/08/config-msbuild-community-tasks.html) 介紹使用不同的 library 來將共用 config 設定值獨立於專案之外，再透過 msbuild 編譯動作調整內容，讓 config 設定能跨專案共用
+一連兩篇文章 [專案間如何共用 config 設定 - 使用 MSBuildExtensionPack](/2017/08/shared-config.html) 與 [專案間如何共用 config 設定 - 使用 MSBuild Community Tasks](/2017/08/config-msbuild-community-tasks.html) 介紹使用不同的 library 來將共用 config 設定值獨立於專案之外，再透過 msbuild 編譯動作調整內容，讓 config 設定能跨專案共用
 
 兩篇文章都忽略專案 configuration 編譯，這當然不是不小心的，主要是我在介紹 library 及相關功能時，覺得加入 configuration 編譯會讓介紹內容變得更亂也更難說明得清楚，所以刻意將這個部份獨立說明；另外條件式參數設定的功能是 msbuild 內建的，使用哪個 library 都可以，也不適合跟特定 library 介紹放在一起
 
@@ -17,7 +17,7 @@ aliases:
 
 ## 基本環境設定
 
-主要內容是延續前兩篇文章中的 `參數設定檔` 部份，詳細內容可以參考 [專案間如何共用 config 設定 - 使用 MSBuildExtensionPack](https://blog.yowko.com/2017/08/shared-config.html) 與 [專案間如何共用 config 設定 - 使用 MSBuild Community Tasks](https://blog.yowko.com/2017/08/config-msbuild-community-tasks.html)
+主要內容是延續前兩篇文章中的 `參數設定檔` 部份，詳細內容可以參考 [專案間如何共用 config 設定 - 使用 MSBuildExtensionPack](/2017/08/shared-config.html) 與 [專案間如何共用 config 設定 - 使用 MSBuild Community Tasks](/2017/08/config-msbuild-community-tasks.html)
 
 ```xml
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -128,5 +128,5 @@ aliases:
 
 1.  [MSBuild Conditions](https://msdn.microsoft.com/en-us/library/7szfhaft.aspx)
 2.  [MSBuild Conditional Constructs](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditional-constructs?WT.mc_id=DOP-MVP-5002594)
-3.  [專案間如何共用 config 設定 - 使用 MSBuildExtensionPack](https://blog.yowko.com/2017/08/shared-config.html)
-4.  [專案間如何共用 config 設定 - 使用 MSBuild Community Tasks](https://blog.yowko.com/2017/08/config-msbuild-community-tasks.html)
+3.  [專案間如何共用 config 設定 - 使用 MSBuildExtensionPack](/2017/08/shared-config.html)
+4.  [專案間如何共用 config 設定 - 使用 MSBuild Community Tasks](/2017/08/config-msbuild-community-tasks.html)
