@@ -1,13 +1,13 @@
 ---
 title: "建立 Kafka 的 Topic"
 date: 2019-06-07T21:30:00+08:00
-lastmod: 2019-06-07T21:30:31+08:00
+lastmod: 2020-12-23T21:30:31+08:00
 draft: false
 tags: ["Kafka","C#"]
 slug: "create-kafka-topic"
 ---
 
-## 調整 Kafka 中 Topic 的 Partition 數量
+## 建立 Kafka 的 Topic
 
 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka 預設值來自動建立，但這樣一來就無法設定一些細微參數，遇到想要微調設定就得要手動建立，剛好 google 到有可以透過程式來建立 Topic 順手紀錄一下不同用法
 
