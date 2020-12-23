@@ -6,10 +6,28 @@
     <description>Recent content in macOS on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 13 Nov 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 22 Dec 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/macos/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>快速更換 mac 中的所有 git repository 位置</title>
+      <link>https://blog.yowko.com/mac-change-git-url/</link>
+      <pubDate>Tue, 22 Dec 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mac-change-git-url/</guid>
+      <description>快速更換 mac 中的所有 git repository 位置 最近團隊移動了 git server 的位置，所以 git repository 的 url 也就跟著改變了，只是這麼一來團隊那些數十個 repository 要逐一修改顯得有些浪費時間，所以</description>
+    </item>
+    
+    <item>
+      <title>Shell 逐行處理檔案內容</title>
+      <link>https://blog.yowko.com/shell-read-file-by-line/</link>
+      <pubDate>Mon, 21 Dec 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/shell-read-file-by-line/</guid>
+      <description>Shell 逐行處理檔案內容 這是之前處理 data migrate 時遇到的問題：所有 data 類型的資料調整都使用 script 來進行，目的是希望避免人為操作造成的錯誤 以 influxdb 為例，將需要執行的 script</description>
+    </item>
     
     <item>
       <title>MAC 封鎖存取特定 IP</title>

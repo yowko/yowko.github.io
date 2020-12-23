@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>安裝 MongoDB client - Yowko&#39;s Notes</title>
+  <title>Shell 逐行處理檔案內容 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="安裝 MongoDB client 之前筆記 安裝 mysql client 紀錄到在 container 中安裝 mysql client 來進行連線測試，今天就來紀錄一下也是常用工具的 mongodb client 基本環境說明 CentOS 8.2.2004, Kernel 4.18.0 Debian 10, Kernel 5.4.49&#43; Debian 9, Kernel 5.4.39-linuxkit 安裝語法 CentOS" />
+  <meta name="description" content="Shell 逐行處理檔案內容 這是之前處理 data migrate 時遇到的問題：所有 data 類型的資料調整都使用 script 來進行，目的是希望避免人為操作造成的錯誤 以 influxdb 為例，將需要執行的 script" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/install-mongodb-client-only/" />
+<link rel="canonical" href="https://blog.yowko.com/shell-read-file-by-line/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="安裝 MongoDB client" />
-<meta property="og:description" content="安裝 MongoDB client 之前筆記 安裝 mysql client 紀錄到在 container 中安裝 mysql client 來進行連線測試，今天就來紀錄一下也是常用工具的 mongodb client 基本環境說明 CentOS 8.2.2004, Kernel 4.18.0 Debian 10, Kernel 5.4.49&#43; Debian 9, Kernel 5.4.39-linuxkit 安裝語法 CentOS" />
+<meta property="og:title" content="Shell 逐行處理檔案內容" />
+<meta property="og:description" content="Shell 逐行處理檔案內容 這是之前處理 data migrate 時遇到的問題：所有 data 類型的資料調整都使用 script 來進行，目的是希望避免人為操作造成的錯誤 以 influxdb 為例，將需要執行的 script" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/install-mongodb-client-only/" /><meta property="article:published_time" content="2020-12-11T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/shell-read-file-by-line/" /><meta property="article:published_time" content="2020-12-21T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-21T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="安裝 MongoDB client">
-<meta itemprop="description" content="安裝 MongoDB client 之前筆記 安裝 mysql client 紀錄到在 container 中安裝 mysql client 來進行連線測試，今天就來紀錄一下也是常用工具的 mongodb client 基本環境說明 CentOS 8.2.2004, Kernel 4.18.0 Debian 10, Kernel 5.4.49&#43; Debian 9, Kernel 5.4.39-linuxkit 安裝語法 CentOS">
-
-
-<meta itemprop="datePublished" content="2020-12-11T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="404">
+<meta itemprop="name" content="Shell 逐行處理檔案內容">
+<meta itemprop="description" content="Shell 逐行處理檔案內容 這是之前處理 data migrate 時遇到的問題：所有 data 類型的資料調整都使用 script 來進行，目的是希望避免人為操作造成的錯誤 以 influxdb 為例，將需要執行的 script">
 
 
+<meta itemprop="datePublished" content="2020-12-21T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-21T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="482">
 
-<meta itemprop="keywords" content="MongoDB,Linux," />
+
+
+<meta itemprop="keywords" content="Linux,macOS," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="安裝 MongoDB client"/>
-<meta name="twitter:description" content="安裝 MongoDB client 之前筆記 安裝 mysql client 紀錄到在 container 中安裝 mysql client 來進行連線測試，今天就來紀錄一下也是常用工具的 mongodb client 基本環境說明 CentOS 8.2.2004, Kernel 4.18.0 Debian 10, Kernel 5.4.49&#43; Debian 9, Kernel 5.4.39-linuxkit 安裝語法 CentOS"/>
+<meta name="twitter:title" content="Shell 逐行處理檔案內容"/>
+<meta name="twitter:description" content="Shell 逐行處理檔案內容 這是之前處理 data migrate 時遇到的問題：所有 data 類型的資料調整都使用 script 來進行，目的是希望避免人為操作造成的錯誤 以 influxdb 為例，將需要執行的 script"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-12-11 </span>
+        <span class="post-time"> 2020-12-21 </span>
         
-        <span class="more-meta"> 約 404 字 </span>
+        <span class="more-meta"> 約 482 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -163,9 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#安裝-mongodb-client">安裝 MongoDB client</a></li>
+<li><a href="#shell-逐行處理檔案內容">Shell 逐行處理檔案內容</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝語法">安裝語法</a></li>
+<li><a href="#語法與說明">語法與說明</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,96 +181,94 @@
     <div class="post-content">
       
 
-<h2 id="安裝-mongodb-client">安裝 MongoDB client</h2>
+<h2 id="shell-逐行處理檔案內容">Shell 逐行處理檔案內容</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/install-mysql-client-only">安裝 mysql client</a> 紀錄到在 container 中安裝 mysql client 來進行連線測試，今天就來紀錄一下也是常用工具的 mongodb client</p>
+<p>這是之前處理 data migrate 時遇到的問題：所有 data 類型的資料調整都使用 script 來進行，目的是希望避免人為操作造成的錯誤</p>
+
+<p>以 influxdb 為例，將需要執行的 script 加至檔案中</p>
+
+<pre><code class="language-test.iql">CREATE DATABASE test;
+CREATE RETENTION POLICY testpolicy ON test DURATION 10d REPLICATION 1 DEFAULT;
+</code></pre>
+
+<p>接著使用 shell 讀取檔案內容並透過 curl 執行語法，但執行下來發現檔案最後一行總是沒執行到，經同事 debug 發現 bash script 有 bug，經過一番研究後，筆記一下  覺得很實用</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>CentOS 8.2.2004, Kernel 4.18.0</li>
-<li>Debian 10, Kernel 5.4.49+</li>
-<li>Debian 9, Kernel 5.4.39-linuxkit</li>
+<li>macOS Catalina 10.15.7</li>
+<li>docker image
+
+<ul>
+<li>influxdb 1.8.1</li>
+</ul></li>
+
+<li><p>原始語法</p>
+
+<pre><code class="language-bash">for filename in ./*.iql; do
+    echo &quot;$filename&quot;
+    while IFS= read line
+    do
+        echo &quot;$line&quot;
+        curl -XPOST http://${DB_USER}:${DB_PASSWORD}@${CONNECTION}/query --data-urlencode &quot;q=$line&quot;
+    done &lt; $filename 
+done
+</code></pre></li>
 </ol>
 
-<h2 id="安裝語法">安裝語法</h2>
-
-<ol>
-<li><p>CentOS</p>
+<h2 id="語法與說明">語法與說明</h2>
 
 <ul>
-<li><p>加入 MongoDB 官方 repository</p>
+<li><p>語法</p>
 
-<pre><code class="language-bash">echo '[mongodb-org-4.4]
-name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
-gpgcheck=1
-enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc'| tee /etc/yum.repos.d/mongodb-org-4.4.repo
+<pre><code class="language-bash">for filename in ./*.iql; do
+    echo &quot;$filename&quot;
+    # 讀取的那行 含有換行符號或是不為空字串
+    while IFS= read -r line || [[ -n &quot;$line&quot; ]]; do
+        if [[ -z &quot;$line&quot; ]]; then
+            continue
+        fi
+        echo &quot;$line&quot;
+        curl -XPOST http://${DB_USER}:${DB_PASSWORD}@${CONNECTION}/query --data-urlencode &quot;q=$line&quot;
+    done &lt; $filename
+done
 </code></pre></li>
 
-<li><p>安裝 MongoDB client</p>
-
-<pre><code class="language-bash">dnf install -y mongodb-org-shell-4.4.2
-</code></pre></li>
-</ul></li>
-
-<li><p>Debian</p>
+<li><p>參數說明</p>
 
 <ul>
-<li><p>安裝必要套件</p>
+<li><p><code>-r</code></p>
 
-<pre><code class="language-bash">apt update &amp;&amp; apt install -y gnupg wget
-</code></pre></li>
+<blockquote>
+<p>是否可讀</p>
+</blockquote></li>
 
-<li><p>匯入 apt 用的 public key</p>
+<li><p><code>[[ -n &quot;$line&quot; ]]</code></p>
 
-<pre><code class="language-bash">wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
-</code></pre></li>
+<blockquote>
+<p>檢查是否不為空字串 (如果 不是空字串 就回傳 <code>true</code>)</p>
+</blockquote></li>
 
-<li><p>設定 mongodb package source</p>
+<li><p><code>[[ -z &quot;$line&quot; ]]</code></p>
 
-<ul>
-<li><p>Debian 9</p>
+<blockquote>
+<p>檢查是否為空字串 (如果 空字串 就回傳 <code>true</code>)</p>
+</blockquote>
 
-<pre><code class="language-bash">echo &quot;deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.4 main&quot; | tee /etc/apt/sources.list.d/mongodb-org.list
-</code></pre></li>
-
-<li><p>Debian 10</p>
-
-<pre><code class="language-bash">echo &quot;deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main&quot; | tee /etc/apt/sources.list.d/mongodb-org.list
-</code></pre></li>
+<p>這是另外被抓出的 bug：如果檔案的多個 script 間有空白行，也會被拿去執行，加上這行就是為了避開空白行執行失敗的問題</p></li>
 </ul></li>
-
-<li><p>安裝 mongodb client</p>
-
-<pre><code class="language-bash">apt update &amp;&amp; apt install -y mongodb-org-shell
-</code></pre></li>
-</ul></li>
-</ol>
+</ul>
 
 <h2 id="心得">心得</h2>
 
-<p>不知道為什麼 mongodb 在 mongodb4 之後都需要額外指定 rpm 來源，所以在 container 內有時候會遇到權限問題</p>
+<p>雖然 Shell Scripts 寫了一陣子，但依舊寫得零零落落，還是搞不清楚 <code>(())</code>、<code>[[]]</code>、<code>[]</code> 的差別，也常卡在忘了加 <code>空白</code> 或是要不要加 <code>&quot;&quot;</code> XD</p>
 
-<p>另外有嘗試下載 <a href="https://www.mongodb.com/try/download/shell" target="_blank">MongoDB Shell</a>：雖然少了加 rpm source 的問題，但嘗試使用的過程中發現有兩個差異(後來放棄使用)</p>
-
-<ol>
-<li>shell 名稱是 <code>mongosh</code> 與正常安裝的 <code>mongo</code> 不同 (問題不大 rename 後一樣能用)</li>
-<li><code>mongosh</code> 不支援 <code>--eval</code> 用法 (這個影響太大了，立馬決定放棄)</li>
-</ol>
-
-<p>MongoDB 實在不得我心，明明文件算清楚，但照著做就是不一定可以用，寫筆記可能只差著順序或是 typo 問題，不寫急著用時不能動又很氣XD</p>
+<p>幸虧同事很強大，經常寫出令人讚為觀止的 script，有強者可以學習真好</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://www.shellhacks.com/mongodb-install-client-mongo-shell-ubuntu-centos/" target="_blank">MongoDB: Install Client – Mongo Shell – Ubuntu, CentOS</a></li>
-<li><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/" target="_blank">Install MongoDB Community Edition on Red Hat or CentOS</a></li>
-<li><a href="https://stackoverflow.com/a/42001799" target="_blank">Install ONLY mongo shell, not mongodb</a></li>
-<li><a href="https://www.mongodb.com/try/download/shell" target="_blank">MongoDB Shell</a></li>
-<li><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian-tarball/" target="_blank">Install MongoDB Community on Debian using .tgz Tarball</a></li>
-<li><a href="https://www.itzgeek.com/how-tos/linux/debian/how-to-install-mongodb-on-debian-9-debian-8.html" target="_blank">How To Install MongoDB 4.4 / 4.2 On Debian 9</a></li>
+<li><a href="http://linux.vbird.org/linux_basic/0340bashshell-scripts.php" target="_blank">第十二章、學習 Shell Scripts</a></li>
 </ol>
 
     </div>
@@ -283,7 +281,7 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc'| tee /etc/yum.repos.d/
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-12-11</span>
+    <span class="item-content">2020-12-21</span>
   </p>
   
   <p class="copyright-item">
@@ -305,11 +303,11 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc'| tee /etc/yum.repos.d/
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/mongodb/">MongoDB</a>
+            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
+            <a href="https://blog.yowko.com/tags/macos/">macOS</a>
           
         </div>
 
@@ -317,18 +315,18 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc'| tee /etc/yum.repos.d/
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/shell-read-file-by-line/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/mac-change-git-url/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">Shell 逐行處理檔案內容</span>			
+            <span class="next-text nav-default">快速更換 mac 中的所有 git repository 位置</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/install-mysql-client-only/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/install-mongodb-client-only/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">安裝 mysql client</span>			
+            <span class="prev-text nav-default">安裝 MongoDB client</span>			
           </a>
 		  </div>
       </nav>
@@ -339,7 +337,7 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc'| tee /etc/yum.repos.d/
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/install-mongodb-client-only\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/shell-read-file-by-line\/';  
       
     };
 

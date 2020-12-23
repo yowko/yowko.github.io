@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="調整 Kafka 中 Topic 的 Partition 數量 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka" />
+  <meta name="description" content="建立 Kafka 的 Topic 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka 預設值來" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -55,25 +55,25 @@
 
 
 <meta property="og:title" content="建立 Kafka 的 Topic" />
-<meta property="og:description" content="調整 Kafka 中 Topic 的 Partition 數量 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka" />
+<meta property="og:description" content="建立 Kafka 的 Topic 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka 預設值來" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/create-kafka-topic/" /><meta property="article:published_time" content="2019-06-07T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-06-07T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-23T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="建立 Kafka 的 Topic">
-<meta itemprop="description" content="調整 Kafka 中 Topic 的 Partition 數量 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka">
+<meta itemprop="description" content="建立 Kafka 的 Topic 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka 預設值來">
 
 
 <meta itemprop="datePublished" content="2019-06-07T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-06-07T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="590">
+<meta itemprop="dateModified" content="2020-12-23T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="586">
 
 
 
 <meta itemprop="keywords" content="Kafka,C#," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="建立 Kafka 的 Topic"/>
-<meta name="twitter:description" content="調整 Kafka 中 Topic 的 Partition 數量 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka"/>
+<meta name="twitter:description" content="建立 Kafka 的 Topic 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka 預設值來"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-06-07 </span>
         
-        <span class="more-meta"> 約 590 字 </span>
+        <span class="more-meta"> 約 586 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -163,7 +163,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#調整-kafka-中-topic-的-partition-數量">調整 Kafka 中 Topic 的 Partition 數量</a></li>
+<li><a href="#建立-kafka-的-topic">建立 Kafka 的 Topic</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
 <li><a href="#建立方式">建立方式</a></li>
 <li><a href="#心得">心得</a></li>
@@ -181,7 +181,7 @@
     <div class="post-content">
       
 
-<h2 id="調整-kafka-中-topic-的-partition-數量">調整 Kafka 中 Topic 的 Partition 數量</h2>
+<h2 id="建立-kafka-的-topic">建立 Kafka 的 Topic</h2>
 
 <p>最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka 預設值來自動建立，但這樣一來就無法設定一些細微參數，遇到想要微調設定就得要手動建立，剛好 google 到有可以透過程式來建立 Topic 順手紀錄一下不同用法</p>
 
@@ -284,7 +284,7 @@ using (var adminClient =
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-06-07</span>
+    <span class="item-content">2020-12-23</span>
   </p>
   
   <p class="copyright-item">

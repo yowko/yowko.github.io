@@ -62,7 +62,7 @@
       <pubDate>Fri, 07 Jun 2019 21:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/create-kafka-topic/</guid>
-      <description>調整 Kafka 中 Topic 的 Partition 數量 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka</description>
+      <description>建立 Kafka 的 Topic 最近系統效能瓶頸主要落在在 Kafka 上，所以經常需要對 Kafka 做些設定調整與效能測試，而在那之前首先就是要建立 Topic，過去都是透過 kafka 預設值來</description>
     </item>
     
     <item>

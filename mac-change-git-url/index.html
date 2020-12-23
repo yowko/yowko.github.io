@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>安裝 MongoDB client - Yowko&#39;s Notes</title>
+  <title>快速更換 mac 中的所有 git repository 位置 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="安裝 MongoDB client 之前筆記 安裝 mysql client 紀錄到在 container 中安裝 mysql client 來進行連線測試，今天就來紀錄一下也是常用工具的 mongodb client 基本環境說明 CentOS 8.2.2004, Kernel 4.18.0 Debian 10, Kernel 5.4.49&#43; Debian 9, Kernel 5.4.39-linuxkit 安裝語法 CentOS" />
+  <meta name="description" content="快速更換 mac 中的所有 git repository 位置 最近團隊移動了 git server 的位置，所以 git repository 的 url 也就跟著改變了，只是這麼一來團隊那些數十個 repository 要逐一修改顯得有些浪費時間，所以" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/install-mongodb-client-only/" />
+<link rel="canonical" href="https://blog.yowko.com/mac-change-git-url/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="安裝 MongoDB client" />
-<meta property="og:description" content="安裝 MongoDB client 之前筆記 安裝 mysql client 紀錄到在 container 中安裝 mysql client 來進行連線測試，今天就來紀錄一下也是常用工具的 mongodb client 基本環境說明 CentOS 8.2.2004, Kernel 4.18.0 Debian 10, Kernel 5.4.49&#43; Debian 9, Kernel 5.4.39-linuxkit 安裝語法 CentOS" />
+<meta property="og:title" content="快速更換 mac 中的所有 git repository 位置" />
+<meta property="og:description" content="快速更換 mac 中的所有 git repository 位置 最近團隊移動了 git server 的位置，所以 git repository 的 url 也就跟著改變了，只是這麼一來團隊那些數十個 repository 要逐一修改顯得有些浪費時間，所以" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/install-mongodb-client-only/" /><meta property="article:published_time" content="2020-12-11T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/mac-change-git-url/" /><meta property="article:published_time" content="2020-12-22T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2020-12-22T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="安裝 MongoDB client">
-<meta itemprop="description" content="安裝 MongoDB client 之前筆記 安裝 mysql client 紀錄到在 container 中安裝 mysql client 來進行連線測試，今天就來紀錄一下也是常用工具的 mongodb client 基本環境說明 CentOS 8.2.2004, Kernel 4.18.0 Debian 10, Kernel 5.4.49&#43; Debian 9, Kernel 5.4.39-linuxkit 安裝語法 CentOS">
-
-
-<meta itemprop="datePublished" content="2020-12-11T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="404">
+<meta itemprop="name" content="快速更換 mac 中的所有 git repository 位置">
+<meta itemprop="description" content="快速更換 mac 中的所有 git repository 位置 最近團隊移動了 git server 的位置，所以 git repository 的 url 也就跟著改變了，只是這麼一來團隊那些數十個 repository 要逐一修改顯得有些浪費時間，所以">
 
 
+<meta itemprop="datePublished" content="2020-12-22T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-22T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="302">
 
-<meta itemprop="keywords" content="MongoDB,Linux," />
+
+
+<meta itemprop="keywords" content="macOS,git," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="安裝 MongoDB client"/>
-<meta name="twitter:description" content="安裝 MongoDB client 之前筆記 安裝 mysql client 紀錄到在 container 中安裝 mysql client 來進行連線測試，今天就來紀錄一下也是常用工具的 mongodb client 基本環境說明 CentOS 8.2.2004, Kernel 4.18.0 Debian 10, Kernel 5.4.49&#43; Debian 9, Kernel 5.4.39-linuxkit 安裝語法 CentOS"/>
+<meta name="twitter:title" content="快速更換 mac 中的所有 git repository 位置"/>
+<meta name="twitter:description" content="快速更換 mac 中的所有 git repository 位置 最近團隊移動了 git server 的位置，所以 git repository 的 url 也就跟著改變了，只是這麼一來團隊那些數十個 repository 要逐一修改顯得有些浪費時間，所以"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-12-11 </span>
+        <span class="post-time"> 2020-12-22 </span>
         
-        <span class="more-meta"> 約 404 字 </span>
+        <span class="more-meta"> 約 302 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -163,9 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#安裝-mongodb-client">安裝 MongoDB client</a></li>
+<li><a href="#快速更換-mac-中的所有-git-repository-位置">快速更換 mac 中的所有 git repository 位置</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝語法">安裝語法</a></li>
+<li><a href="#設定方式">設定方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,96 +181,62 @@
     <div class="post-content">
       
 
-<h2 id="安裝-mongodb-client">安裝 MongoDB client</h2>
+<h2 id="快速更換-mac-中的所有-git-repository-位置">快速更換 mac 中的所有 git repository 位置</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/install-mysql-client-only">安裝 mysql client</a> 紀錄到在 container 中安裝 mysql client 來進行連線測試，今天就來紀錄一下也是常用工具的 mongodb client</p>
+<p>最近團隊移動了 git server 的位置，所以 git repository 的 url 也就跟著改變了，只是這麼一來團隊那些數十個 repository 要逐一修改顯得有些浪費時間，所以心一橫直接用 bash 換掉，雖然只是句語法，但類似需求已經不是第一次遇到，依國際慣例就是要來紀錄一下囉</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>CentOS 8.2.2004, Kernel 4.18.0</li>
-<li>Debian 10, Kernel 5.4.49+</li>
-<li>Debian 9, Kernel 5.4.39-linuxkit</li>
+<li>macOS Catalina 10.15.7</li>
+<li>git version 2.27.0</li>
 </ol>
 
-<h2 id="安裝語法">安裝語法</h2>
+<h2 id="設定方式">設定方式</h2>
 
 <ol>
-<li><p>CentOS</p>
+<li><p>語法</p>
 
-<ul>
-<li><p>加入 MongoDB 官方 repository</p>
-
-<pre><code class="language-bash">echo '[mongodb-org-4.4]
-name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
-gpgcheck=1
-enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc'| tee /etc/yum.repos.d/mongodb-org-4.4.repo
+<pre><code class="language-bash">for d in */**/.git/config ; do
+sed -i &quot;&quot; 's/{舊 url}/{新的 url}/g' $d
+done
 </code></pre></li>
 
-<li><p>安裝 MongoDB client</p>
+<li><p>範例</p>
 
-<pre><code class="language-bash">dnf install -y mongodb-org-shell-4.4.2
+<pre><code class="language-bash">for d in */**/.git/config ; do
+sed -i &quot;&quot; 's/git@gitlab.old.com/git@gitlab.new.com/g' $d
+done
 </code></pre></li>
-</ul></li>
-
-<li><p>Debian</p>
-
-<ul>
-<li><p>安裝必要套件</p>
-
-<pre><code class="language-bash">apt update &amp;&amp; apt install -y gnupg wget
-</code></pre></li>
-
-<li><p>匯入 apt 用的 public key</p>
-
-<pre><code class="language-bash">wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
-</code></pre></li>
-
-<li><p>設定 mongodb package source</p>
-
-<ul>
-<li><p>Debian 9</p>
-
-<pre><code class="language-bash">echo &quot;deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.4 main&quot; | tee /etc/apt/sources.list.d/mongodb-org.list
-</code></pre></li>
-
-<li><p>Debian 10</p>
-
-<pre><code class="language-bash">echo &quot;deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main&quot; | tee /etc/apt/sources.list.d/mongodb-org.list
-</code></pre></li>
-</ul></li>
-
-<li><p>安裝 mongodb client</p>
-
-<pre><code class="language-bash">apt update &amp;&amp; apt install -y mongodb-org-shell
-</code></pre></li>
-</ul></li>
 </ol>
+
+<ul>
+<li><p>額外補充</p>
+
+<blockquote>
+<p><code>sed -i</code> 在 mac 上有基本的保護機制：修改檔案前需要先做備份，但備份檔可以給空字串，這就是上述語法 <code>sed -i</code> 接著是 <code>&quot;&quot;</code> 的原因</p>
+</blockquote>
+
+<ul>
+<li><p>錯誤訊息</p>
+
+<pre><code class="language-bash">sed: 1: &quot;.git/config&quot;: invalid command code .
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/102957393-4473c680-4515-11eb-9689-551787ba0573.png" alt="1error" /></p></li>
+</ul></li>
+</ul>
 
 <h2 id="心得">心得</h2>
 
-<p>不知道為什麼 mongodb 在 mongodb4 之後都需要額外指定 rpm 來源，所以在 container 內有時候會遇到權限問題</p>
-
-<p>另外有嘗試下載 <a href="https://www.mongodb.com/try/download/shell" target="_blank">MongoDB Shell</a>：雖然少了加 rpm source 的問題，但嘗試使用的過程中發現有兩個差異(後來放棄使用)</p>
-
-<ol>
-<li>shell 名稱是 <code>mongosh</code> 與正常安裝的 <code>mongo</code> 不同 (問題不大 rename 後一樣能用)</li>
-<li><code>mongosh</code> 不支援 <code>--eval</code> 用法 (這個影響太大了，立馬決定放棄)</li>
-</ol>
-
-<p>MongoDB 實在不得我心，明明文件算清楚，但照著做就是不一定可以用，寫筆記可能只差著順序或是 typo 問題，不寫急著用時不能動又很氣XD</p>
+<p>概念上很單純，需要的就是知道 git repository url 的設定位置，另外就是在 mac 上 <code>sed</code> 語法的特性了解</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://www.shellhacks.com/mongodb-install-client-mongo-shell-ubuntu-centos/" target="_blank">MongoDB: Install Client – Mongo Shell – Ubuntu, CentOS</a></li>
-<li><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/" target="_blank">Install MongoDB Community Edition on Red Hat or CentOS</a></li>
-<li><a href="https://stackoverflow.com/a/42001799" target="_blank">Install ONLY mongo shell, not mongodb</a></li>
-<li><a href="https://www.mongodb.com/try/download/shell" target="_blank">MongoDB Shell</a></li>
-<li><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian-tarball/" target="_blank">Install MongoDB Community on Debian using .tgz Tarball</a></li>
-<li><a href="https://www.itzgeek.com/how-tos/linux/debian/how-to-install-mongodb-on-debian-9-debian-8.html" target="_blank">How To Install MongoDB 4.4 / 4.2 On Debian 9</a></li>
+<li><a href="https://blog.csdn.net/dawn_moon/article/details/8547408" target="_blank">mac 下sed命令的-i参数</a></li>
 </ol>
 
     </div>
@@ -283,7 +249,7 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc'| tee /etc/yum.repos.d/
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-12-11</span>
+    <span class="item-content">2020-12-22</span>
   </p>
   
   <p class="copyright-item">
@@ -305,11 +271,11 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc'| tee /etc/yum.repos.d/
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/mongodb/">MongoDB</a>
+            <a href="https://blog.yowko.com/tags/macos/">macOS</a>
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/linux/">Linux</a>
+            <a href="https://blog.yowko.com/tags/git/">git</a>
           
         </div>
 
@@ -317,18 +283,11 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc'| tee /etc/yum.repos.d/
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/shell-read-file-by-line/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">Shell 逐行處理檔案內容</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/install-mysql-client-only/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/shell-read-file-by-line/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">安裝 mysql client</span>			
+            <span class="prev-text nav-default">Shell 逐行處理檔案內容</span>			
           </a>
 		  </div>
       </nav>
@@ -339,7 +298,7 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc'| tee /etc/yum.repos.d/
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/install-mongodb-client-only\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/mac-change-git-url\/';  
       
     };
 
