@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 22 Dec 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 23 Dec 2020 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>需要 kafka-topics.sh 嗎？ 可以試試 kafkactl</title>
+      <link>https://blog.yowko.com/kafka-topics-kafkactl/</link>
+      <pubDate>Wed, 23 Dec 2020 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kafka-topics-kafkactl/</guid>
+      <description>需要 kafka-topics.sh 嗎？ 可以試試 kafkactl 因應團隊策略：資料面的異動只能透過對外的 service 來進行，不能伸手進 server，所以在 kafka 需要新增 topic 時就無法使用 kafka 內建的 kafka-topics.sh (詳細</description>
+    </item>
     
     <item>
       <title>快速更換 mac 中的所有 git repository 位置</title>
