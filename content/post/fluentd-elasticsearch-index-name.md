@@ -1,7 +1,7 @@
 ---
 title: "Fluentd 指定 Elasticsearch Index 名稱"
 date: 2020-04-30T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2020-12-28T21:30:31+08:00
 draft: false
 tags: ["EFK","Tools"]
 slug: "fluentd-elasticsearch-index-name"
@@ -35,7 +35,7 @@ slug: "fluentd-elasticsearch-index-name"
 
     > 會覆寫 `index_name` 設定
 
-    ![1logformat]()
+    ![1logformat](https://user-images.githubusercontent.com/3851540/103185352-fdac1500-48f6-11eb-8cee-90d6bce51950.jpg)
 
 ## 調整方式
 
@@ -54,7 +54,7 @@ slug: "fluentd-elasticsearch-index-name"
 
     - 實際效果
 
-        ![2logstashprefix]()
+        ![2logstashprefix](https://user-images.githubusercontent.com/3851540/103185354-013f9c00-48f7-11eb-92bb-ed2e023958b5.jpg)
 
 2. 方法二： 使用 `index_name`
 
@@ -71,7 +71,7 @@ slug: "fluentd-elasticsearch-index-name"
 
     - 實際效果
 
-        ![3indexname]()
+        ![3indexname](https://user-images.githubusercontent.com/3851540/103185355-01d83280-48f7-11eb-97d5-d2e9079709f5.jpg)
 
 ## 心得
 
