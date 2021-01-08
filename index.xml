@@ -233,7 +233,7 @@
       <pubDate>Sat, 12 Sep 2020 12:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/grpc-cli/</guid>
-      <description>使用 dotnet-grpc-cli 呼叫 gRPC Service 之前筆記 使用grpcurl 呼叫gRPC Service 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cl</description>
+      <description>使用 grpc-cli 呼叫 gRPC Service 之前筆記 使用grpcurl 呼叫gRPC Service 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cl</description>
     </item>
     
     <item>

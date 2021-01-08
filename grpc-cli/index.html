@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 dotnet-grpc-cli 呼叫 gRPC Service 之前筆記 使用grpcurl 呼叫gRPC Service 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cl" />
+  <meta name="description" content="使用 grpc-cli 呼叫 gRPC Service 之前筆記 使用grpcurl 呼叫gRPC Service 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cl" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -55,17 +55,17 @@
 
 
 <meta property="og:title" content="使用 grpc-cli 呼叫 gRPC Service" />
-<meta property="og:description" content="使用 dotnet-grpc-cli 呼叫 gRPC Service 之前筆記 使用grpcurl 呼叫gRPC Service 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cl" />
+<meta property="og:description" content="使用 grpc-cli 呼叫 gRPC Service 之前筆記 使用grpcurl 呼叫gRPC Service 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cl" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/grpc-cli/" /><meta property="article:published_time" content="2020-09-12T12:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-12-11T12:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2021-01-08T12:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="使用 grpc-cli 呼叫 gRPC Service">
-<meta itemprop="description" content="使用 dotnet-grpc-cli 呼叫 gRPC Service 之前筆記 使用grpcurl 呼叫gRPC Service 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cl">
+<meta itemprop="description" content="使用 grpc-cli 呼叫 gRPC Service 之前筆記 使用grpcurl 呼叫gRPC Service 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cl">
 
 
 <meta itemprop="datePublished" content="2020-09-12T12:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-12-11T12:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2021-01-08T12:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="379">
 
 
@@ -73,7 +73,7 @@
 <meta itemprop="keywords" content="gRPC," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="使用 grpc-cli 呼叫 gRPC Service"/>
-<meta name="twitter:description" content="使用 dotnet-grpc-cli 呼叫 gRPC Service 之前筆記 使用grpcurl 呼叫gRPC Service 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cl"/>
+<meta name="twitter:description" content="使用 grpc-cli 呼叫 gRPC Service 之前筆記 使用grpcurl 呼叫gRPC Service 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cl"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -163,7 +163,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#使用-dotnet-grpc-cli-呼叫-grpc-service">使用 dotnet-grpc-cli 呼叫 gRPC Service</a></li>
+<li><a href="#使用-grpc-cli-呼叫-grpc-service">使用 grpc-cli 呼叫 gRPC Service</a></li>
 <li><a href="#基本環境設定">基本環境設定</a></li>
 <li><a href="#安裝與使用">安裝與使用</a></li>
 <li><a href="#心得">心得</a></li>
@@ -181,7 +181,7 @@
     <div class="post-content">
       
 
-<h2 id="使用-dotnet-grpc-cli-呼叫-grpc-service">使用 dotnet-grpc-cli 呼叫 gRPC Service</h2>
+<h2 id="使用-grpc-cli-呼叫-grpc-service">使用 grpc-cli 呼叫 gRPC Service</h2>
 
 <p>之前筆記 <a href="https://blog.yowko.com/grpcurl/">使用grpcurl 呼叫gRPC Service</a> 紀錄到 grpcurl (curl for grpc) 的使用方式，最近在查其他資料時這才發現原來 gRPC 官方也有提供：grpc-cli，想不到我如此後知後覺！當然要立馬測試、紀錄，以茲驚惕</p>
 
@@ -312,7 +312,7 @@ brew install grpc
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-12-11</span>
+    <span class="item-content">2021-01-08</span>
   </p>
   
   <p class="copyright-item">
@@ -410,7 +410,7 @@ brew install grpc
     &copy; 
     
       2016 - 
-    2020
+    2021
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
