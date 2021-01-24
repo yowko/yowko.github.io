@@ -6,10 +6,19 @@
     <description>Recent content in EFK on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 30 Apr 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 23 Jan 2021 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/efk/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Docker Compose 建立 ElastAlert 測試環境</title>
+      <link>https://blog.yowko.com/docker-compose-elastalert/</link>
+      <pubDate>Sat, 23 Jan 2021 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/docker-compose-elastalert/</guid>
+      <description>使用 Docker Compose 建立 ElastAlert 測試環境 ElastAlert 是套基於 elasticsearch 查詢使用 python 撰寫的 open source 監控報警工具，因為在前公司用的 Elasticsearch Watcher 現在被納入 X-Pack Alerting 中，高額授權費用對於起步中的團隊是不小</description>
+    </item>
     
     <item>
       <title>Fluentd 指定 Elasticsearch Index 名稱</title>
