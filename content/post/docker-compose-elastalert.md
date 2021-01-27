@@ -215,9 +215,6 @@ ElastAlert 是套基於 elasticsearch 查詢使用 python 撰寫的 open source 
             source: ./elastalert/config/config.json
             target: /opt/elastalert-server/config/config.json
           - type: bind
-            source: ./elastalert/config/emailauth.yaml
-            target: /opt/elastalert/config/emailauth.yaml
-          - type: bind
             source: ./elastalert/rules
             target: /opt/elastalert/rules
           - type: bind
