@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 Docker Compose 建立 ElastAlert 測試環境 - Yowko&#39;s Notes</title>
+  <title>使用 ElastAlert 監控 Elasticsearch 發出通知 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 Docker Compose 建立 ElastAlert 測試環境 ElastAlert 是套基於 elasticsearch 查詢使用 python 撰寫的 open source 監控報警工具，因為在前公司用的 Elasticsearch Watcher 現在被納入 X-Pack Alerting 中，高額授權費用對於起步中的團隊是不小" />
+  <meta name="description" content="使用 ElastAlert 監控 Elasticsearch 發出通知 之前筆記 使用 Docker Compose 建立 ElastAlert 測試環境 紀錄到該如何使用 docker compose 快速建立 ElastAlert 的開發測試環境，今天要來筆記一下如何設定 ElastAlert 來發出警告 除了 Elasticsearch 外" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/docker-compose-elastalert/" />
+<link rel="canonical" href="https://blog.yowko.com/elastalert-alert/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="使用 Docker Compose 建立 ElastAlert 測試環境" />
-<meta property="og:description" content="使用 Docker Compose 建立 ElastAlert 測試環境 ElastAlert 是套基於 elasticsearch 查詢使用 python 撰寫的 open source 監控報警工具，因為在前公司用的 Elasticsearch Watcher 現在被納入 X-Pack Alerting 中，高額授權費用對於起步中的團隊是不小" />
+<meta property="og:title" content="使用 ElastAlert 監控 Elasticsearch 發出通知" />
+<meta property="og:description" content="使用 ElastAlert 監控 Elasticsearch 發出通知 之前筆記 使用 Docker Compose 建立 ElastAlert 測試環境 紀錄到該如何使用 docker compose 快速建立 ElastAlert 的開發測試環境，今天要來筆記一下如何設定 ElastAlert 來發出警告 除了 Elasticsearch 外" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/docker-compose-elastalert/" /><meta property="article:published_time" content="2021-01-23T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2021-01-23T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/elastalert-alert/" /><meta property="article:published_time" content="2021-01-26T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2021-01-26T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="使用 Docker Compose 建立 ElastAlert 測試環境">
-<meta itemprop="description" content="使用 Docker Compose 建立 ElastAlert 測試環境 ElastAlert 是套基於 elasticsearch 查詢使用 python 撰寫的 open source 監控報警工具，因為在前公司用的 Elasticsearch Watcher 現在被納入 X-Pack Alerting 中，高額授權費用對於起步中的團隊是不小">
+<meta itemprop="name" content="使用 ElastAlert 監控 Elasticsearch 發出通知">
+<meta itemprop="description" content="使用 ElastAlert 監控 Elasticsearch 發出通知 之前筆記 使用 Docker Compose 建立 ElastAlert 測試環境 紀錄到該如何使用 docker compose 快速建立 ElastAlert 的開發測試環境，今天要來筆記一下如何設定 ElastAlert 來發出警告 除了 Elasticsearch 外">
 
 
-<meta itemprop="datePublished" content="2021-01-23T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2021-01-23T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="822">
+<meta itemprop="datePublished" content="2021-01-26T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2021-01-26T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="1263">
 
 
 
 <meta itemprop="keywords" content="EFK,Monitoring," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 Docker Compose 建立 ElastAlert 測試環境"/>
-<meta name="twitter:description" content="使用 Docker Compose 建立 ElastAlert 測試環境 ElastAlert 是套基於 elasticsearch 查詢使用 python 撰寫的 open source 監控報警工具，因為在前公司用的 Elasticsearch Watcher 現在被納入 X-Pack Alerting 中，高額授權費用對於起步中的團隊是不小"/>
+<meta name="twitter:title" content="使用 ElastAlert 監控 Elasticsearch 發出通知"/>
+<meta name="twitter:description" content="使用 ElastAlert 監控 Elasticsearch 發出通知 之前筆記 使用 Docker Compose 建立 ElastAlert 測試環境 紀錄到該如何使用 docker compose 快速建立 ElastAlert 的開發測試環境，今天要來筆記一下如何設定 ElastAlert 來發出警告 除了 Elasticsearch 外"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,10 +145,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2021-01-23 </span>
+        <span class="post-time"> 2021-01-26 </span>
         
-        <span class="more-meta"> 約 822 字 </span>
-          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        <span class="more-meta"> 約 1263 字 </span>
+          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
     </header>
@@ -163,9 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#使用-docker-compose-建立-elastalert-測試環境">使用 Docker Compose 建立 ElastAlert 測試環境</a></li>
+<li><a href="#使用-elastalert-監控-elasticsearch-發出通知">使用 ElastAlert 監控 Elasticsearch 發出通知</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#建立方式">建立方式</a></li>
+<li><a href="#設定方式">設定方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,17 +181,20 @@
     <div class="post-content">
       
 
-<h2 id="使用-docker-compose-建立-elastalert-測試環境">使用 Docker Compose 建立 ElastAlert 測試環境</h2>
+<h2 id="使用-elastalert-監控-elasticsearch-發出通知">使用 ElastAlert 監控 Elasticsearch 發出通知</h2>
 
-<p>ElastAlert 是套基於 elasticsearch 查詢使用 python 撰寫的 open source 監控報警工具，因為在前公司用的 Elasticsearch Watcher 現在被納入 X-Pack Alerting 中，高額授權費用對於起步中的團隊是不小的負擔，所以決定先找找 open source 的工具試試或者是自行開發</p>
+<p>之前筆記 <a href="https://blog.yowko.com/docker-compose-elastalert">使用 Docker Compose 建立 ElastAlert 測試環境</a> 紀錄到該如何使用 docker compose 快速建立 ElastAlert 的開發測試環境，今天要來筆記一下如何設定 ElastAlert 來發出警告</p>
 
-<p>今天就來紀錄一下建立 ElastAlert 測試環境的心酸血淚</p>
+<p>除了 Elasticsearch 外，最近也接著在進行 Prometheus 的相關設定測試，想不到過個幾天就覺得 ElastAlert 好陌生呀，想著如果不趕緊來紀錄一下  真的需要實際使用時還忘記怎麼設定就尷尬了</p>
+
+<p>為了測試與驗證，我嘗試了 <code>email</code> 與 <code>post</code> 兩種方法，今天會紀錄這兩種用法的設定方式</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Catalina 10.15.7</li>
 <li>docker desktop 3.1.0 (51484)</li>
+<li>Fiddler Everywhere 1.5.0</li>
 
 <li><p>docker images</p>
 
@@ -201,153 +204,12 @@
 <li>kibana:7.10.1</li>
 <li>praecoapp/elastalert-server:20210104</li>
 </ul></li>
-</ol>
-
-<h2 id="建立方式">建立方式</h2>
-
-<ol>
-<li><p>資料夾結構</p>
-
-<ul>
-<li>config
-
-<ul>
-<li>elasticsearch.yml</li>
-<li>fluent.conf</li>
-<li>kibana.yml</li>
-</ul></li>
-<li>elastalert
-
-<ul>
-<li>config
-
-<ul>
-<li>elastalert.yaml</li>
-<li>config.json</li>
-</ul></li>
-<li>rules</li>
-<li>rule_templates</li>
-</ul></li>
-<li>docker-compose.yml</li>
-</ul></li>
-
-<li><p>準備 efk config</p>
-
-<ul>
-<li><p>elasticsearch.yml</p>
-
-<pre><code class="language-yaml">---
-cluster.name: &quot;docker-cluster&quot;
-network.host: 0.0.0.0
-</code></pre></li>
-
-<li><p>fluent.conf</p>
-
-<pre><code class="language-yaml"># Input
-&lt;source&gt;
-    @type http
-    port 8888
-&lt;/source&gt;
-&lt;source&gt;
-    @type forward
-    port 24224
-&lt;/source&gt;
-# Output
-&lt;match *.**&gt;
-    @type elasticsearch
-    host 192.168.50.97 #elasticsearch ip，這邊使用 docker host ip
-    port 9200
-    logstash_format true
-    user elastic #elasticsearch username
-    password pass.123 #elasticsearch password
-&lt;/match&gt;
-</code></pre></li>
-
-<li><p>kibana.yml</p>
-
-<pre><code class="language-yaml">---
-server.name: kibana
-server.host: &quot;0&quot;
-elasticsearch.hosts: [&quot;http://192.168.50.97:9200&quot;] #elasticsearch ip 與 port，這邊使用 docker host ip
-elasticsearch.username: &quot;elastic&quot; #elasticsearch username
-elasticsearch.password: &quot;pass.123&quot; #elasticsearch password
-</code></pre></li>
-</ul></li>
-
-<li><p>準備 elastalert 需要的資料夾</p>
-
-<ul>
-<li><p>config</p>
-
-<blockquote>
-<p>用來儲存 elastalert 與 elastalert server 設定檔</p>
-</blockquote></li>
-
-<li><p>rules</p>
-
-<blockquote>
-<p>用來存放 elastalert 的 rule</p>
-</blockquote></li>
-
-<li><p>rule_templates</p>
-
-<blockquote>
-<p>用來存放 elastalert rule template</p>
-</blockquote></li>
-</ul></li>
-
-<li><p>設定 elastalert</p>
-
-<ul>
-<li><p>config/config.yaml</p>
-
-<blockquote>
-<p>elastalert-server 的設定</p>
-</blockquote>
-
-<pre><code class="language-yaml">{
-  &quot;appName&quot;: &quot;elastalert-server&quot;,
-  &quot;port&quot;: 3030,
-  &quot;wsport&quot;: 3333,
-  &quot;elastalertPath&quot;: &quot;/opt/elastalert&quot;,
-  &quot;verbose&quot;: true,
-  &quot;es_debug&quot;: false,
-  &quot;debug&quot;: false,
-  &quot;rulesPath&quot;: {
-    &quot;relative&quot;: true,
-    &quot;path&quot;: &quot;/rules&quot;
-  },
-  &quot;templatesPath&quot;: {
-    &quot;relative&quot;: true,
-    &quot;path&quot;: &quot;/rule_templates&quot;
-  },
-  &quot;es_host&quot;: &quot;192.168.50.97&quot;, #elasticsearch ip，這邊使用 docker host ip
-  &quot;es_port&quot;: 9200,
-  &quot;es_username&quot;: &quot;elastic&quot;, #elasticsearch username
-  &quot;es_password&quot;: &quot;pass.123&quot;, #elasticsearch password
-  &quot;writeback_index&quot;: &quot;elastalert_status&quot;
-}
-</code></pre></li>
-
-<li><p>config/elastalert.yaml</p>
-
-<pre><code class="language-yaml">es_host: 192.168.50.97 #elasticsearch ip，這邊使用 docker host ip
-es_port: 9200
-rules_folder: rules #elastalert rule 的路徑
-run_every:
-  seconds: 5 # elastalert 執行間隔
-buffer_time:
-  minutes: 1 # elastalert 查詢 elasticsearch 的時間
-es_username: elastic #elasticsearch username
-es_password: pass.123 #elasticsearch password
-writeback_index: elastalert_status # elastalert 的存放 index
-alert_time_limit:
-  days: 2
-skip_invalid: True
-</code></pre></li>
-</ul></li>
 
 <li><p>docker-compose</p>
+
+<blockquote>
+<p>詳細內容請參考之前筆記 <a href="https://blog.yowko.com/docker-compose-elastalert">使用 Docker Compose 建立 ElastAlert 測試環境</a></p>
+</blockquote>
 
 <pre><code class="language-yaml">version: '3.2'
 services:
@@ -427,10 +289,10 @@ services:
     depends_on:
       - elasticsearch
       - kibana
-    entrypoint: [&quot;sh&quot;,&quot;/opt/elastalert-server/scripts/start.sh&quot;]
+    #entrypoint: [&quot;sh&quot;,&quot;/opt/elastalert-server/scripts/start.sh&quot;]
     healthcheck:
-        test: [&quot;CMD-SHELL&quot;, &quot;curl -f http://localhost:3030 || exit 1&quot;]
-        #test: [&quot;CMD-SHELL&quot;, &quot;sh /opt/elastalert-server/scripts/start.sh || exit     1&quot;]
+        #test: [&quot;CMD-SHELL&quot;, &quot;curl -f http://localhost:3030 || exit 1&quot;]
+        test: [&quot;CMD-SHELL&quot;, &quot;sh /opt/elastalert-server/scripts/start.sh || exit     1&quot;]
         interval: 30s
         timeout: 15s
         retries: 3
@@ -441,32 +303,180 @@ networks:
 </code></pre></li>
 </ol>
 
-<h2 id="心得">心得</h2>
+<h2 id="設定方式">設定方式</h2>
 
-<p>遇到的問題</p>
+<ul>
+<li><p>post 設定</p>
 
 <ol>
-<li><p>無法啟動</p>
+<li><p>設定 ElastAlert rule</p>
+
+<pre><code>```yaml
+name: test # rule 名稱
+type: frequency # rule 的類型 (細節可以參考 [Rule Types](https://elastalert.readthedocs.io/en/latest/ruletypes.html#ruletypes))
+index: logstash-* # 監控哪個 elasticsearch index
+num_events: 1 # 命中查詢條件次數
+buffer_time: # 查詢 elasticsearch 的時間區間
+minutes: 5
+run_every: # 查詢 elasticsearch 的頻率
+minutes: 1
+timeframe: # 目標時間範圍 (60 分鐘內事件發生次數；事件內容依 type 來決定)
+minutes: 60
+realert: # 相同警告多久才發送一次避免收到過多警告，預設一分鐘，`0` 為每次警告都發送
+minutes: 0
+filter: # 查詢條件 (詳細內容可以參考 [Common Filter Types](https://elastalert.readthedocs.io/en/latest/recipes/writing_filters.html#common-filter-types))
+- query:
+    query_string:
+    query: &quot;message:fluentd worker&quot;
+alert: # 警示通知類型 (詳細內容可以參考 [Alerts](https://elastalert.readthedocs.io/en/latest/ruletypes.html#alerts))
+- &quot;post&quot;
+http_post_url: &quot;http://blog.yowko.com&quot; # post 目標 url
+http_post_proxy: &quot;192.168.80.3:8866&quot; # proxy 非必要設定值，這邊是我用來攔 http post 內容用的
+```
+</code></pre>
 
 <blockquote>
-<p>這個問題在使用 <a href="https://github.com/Yelp/elastalert" target="_blank">Yelp/elastalert</a> 建議的 docker image (bitsensor/elastalert:latest) 出現過，後來查了 <a href="https://github.com/Yelp/elastalert/issues/2995" target="_blank">docker run error and elasticsearch 7.7.0</a> 改用 praecoapp/elastalert-server 後解決</p>
-</blockquote></li>
+<p>這邊我使用 Fiddler Everywhere 來攔 http post 的內容</p>
+</blockquote>
 
-<li><p>無法建立 index</p>
+<p><img src="https://user-images.githubusercontent.com/3851540/105938783-dfbb0700-6092-11eb-8daf-fb4396b7fbed.png" alt="1post" /></p></li>
+</ol></li>
+
+<li><p>email 設定</p>
 
 <blockquote>
-<p>這個問題，好像是從 elasticsearch 7.7 開始才遇到的，解決方式就是透過 entrypoint 或是 healthcheck 再執行一次 <code>start.sh</code>，就會重新 create index</p>
-</blockquote></li>
+<p>這邊收發 mail 透過 mailtrap service 來進行，詳細內容可以參考 <a href="https://blog.alantsai.net/posts/2017/12/test-smtp-server-for-sending-mail-in-development" target="_blank">[tool]沒有mail server怎麼測試寄送email？快放過你的gmail來看看有那些可以測試用的smtp mail server</a></p>
+</blockquote>
+
+<ol>
+<li><p>設定 email 帳密</p>
+
+<blockquote>
+<p>ElastAlert 使用 email 通知時，如果需要帳號密碼，需要另外用 yaml 檔案格式紀錄帳號與密碼，再將檔案位置指定給 rule 使用，以下延續之前筆記的路徑規則設定</p>
+</blockquote>
+
+<ul>
+<li><p>elastalert/config/emailauth.yaml</p>
+
+<pre><code class="language-yaml">user: &quot;username&quot;
+password: &quot;password&quot;
+</code></pre></li>
+</ul></li>
+
+<li><p>調整 docker compoe</p>
+
+<blockquote>
+<p>將 email 帳號密碼設定檔 mount 給 ElastAlert</p>
+</blockquote>
+
+<ul>
+<li><p>差異內容</p>
+
+<pre><code>```yaml
+- type: bind
+source: ./elastalert/config/emailauth.yaml
+target: /opt/elastalert/config/emailauth.yaml
+```
+</code></pre></li>
+
+<li><p>elastalert 完整範例</p>
+
+<pre><code class="language-yaml">elastalert:
+    image: praecoapp/elastalert-server 
+    volumes:
+    - type: bind
+        source: ./elastalert/config/elastalert.yaml 
+        target: /opt/elastalert/config.yaml
+    - type: bind
+        source: ./elastalert/config/config.json
+        target: /opt/elastalert-server/config/config.json
+    - type: bind
+        source: ./elastalert/config/emailauth.yaml
+        target: /opt/elastalert/config/emailauth.yaml
+    - type: bind
+        source: ./elastalert/rules
+        target: /opt/elastalert/rules
+    - type: bind
+        source: ./elastalert/rule_templates
+        target: /opt/elastalert/rule_templates
+    ports:
+    - &quot;3030:3030&quot;
+    networks:
+    - elk
+    depends_on:
+    - elasticsearch
+    - kibana
+    #entrypoint: [&quot;sh&quot;,&quot;/opt/elastalert-server/scripts/start.sh&quot;]
+    healthcheck:
+        #test: [&quot;CMD-SHELL&quot;, &quot;curl -f http://localhost:3030 || exit 1&quot;]
+        test: [&quot;CMD-SHELL&quot;, &quot;sh /opt/elastalert-server/scripts/start.sh || exit 1&quot;]
+        interval: 30s
+        timeout: 15s
+        retries: 3
+        start_period: 100s
+</code></pre></li>
+</ul></li>
+
+<li><p>設定 ElastAlert rule</p>
+
+<pre><code>```yaml
+name: test # rule 名稱 
+type: frequency # rule 的類型 (細節可以參考 [Rule Types](https://elastalert.readthedocs.io/en/latest/ruletypes.        html#ruletypes))
+index: logstash-* # 監控哪個 elasticsearch index
+num_events: 1 # 命中查詢條件次數
+buffer_time: # 查詢 elasticsearch 的時間區間
+minutes: 5
+run_every: # 查詢 elasticsearch 的頻率
+minutes: 1
+timeframe: # 目標時間範圍 (60 分鐘內事件發生次數；事件內容依 type 來決定)
+minutes: 60
+realert: # 相同警告多久才發送一次避免收到過多警告，預設一分鐘，`0` 為每次警告都發送
+minutes: 0
+filter: # 查詢條件 (詳細內容可以參考 [Common Filter Types](https://elastalert.readthedocs.io/en/latest/recipes/        writing_filters.html#common-filter-types))
+- query:
+    query_string:
+    query: &quot;message:fluentd worker&quot;
+alert: # 警示通知類型 (詳細內容可以參考 [Alerts](https://elastalert.readthedocs.io/en/latest/ruletypes.        html#alerts))
+- &quot;email&quot;
+email: # email 發送目標
+- &quot;elastalert@example.com&quot;
+alert_subject: &quot;test alert via email&quot; # email subject
+smtp_host: smtp.mailtrap.io
+smtp_port: 2525
+smtp_auth_file: /opt/elastalert/config/emailauth.yaml # email 帳號密碼設定檔位置
+```
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/105938792-e3e72480-6092-11eb-801c-a619476133ea.png" alt="2email" /></p></li>
+</ol></li>
+</ul>
+
+<h2 id="心得">心得</h2>
+
+<ol>
+<li><p>rule 是 <code>yaml</code> 格式，且附檔名必需為 <code>.yaml</code> 結尾，可以透過 <code>{elastalert ip or host}:{elastalert port}/rules</code> 來確認 rule 是否成功加入</p>
+
+<ul>
+<li><p>成功</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/105938794-e47fbb00-6092-11eb-81a7-d79ee86b5a60.png" alt="3rulesuccess" /></p></li>
+
+<li><p>失敗</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/105938795-e5185180-6092-11eb-8dba-7a3fd216a9a6.png" alt="4rulefail" /></p></li>
+</ul></li>
+
+<li><p>email 帳號密碼需要額外設定檔案有點麻煩</p></li>
 </ol>
-
-<p>其實問題遠不止於這兩個，其他問題因為不是在建立環境時遇到，就暫時不列在這份筆記中了，另外我自己在使用上覺得 elastalert 的穩定性並不是太好，感覺 issue 的修復速度也不太 ok，如果有其他選擇或許可以放棄 elastalert</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://github.com/Yelp/elastalert" target="_blank">Yelp/elastalert</a></li>
-<li><a href="https://elastalert.readthedocs.io/en/latest/index.html" target="_blank">elastalert docs</a></li>
-<li><a href="https://qiita.com/rururu_kenken/items/6207ab68378b70f408bb" target="_blank">Elasticsearchのデータを基にアラート通知する方法の調査</a></li>
+<li><a href="https://blog.yowko.com/docker-compose-elastalert">使用 Docker Compose 建立 ElastAlert 測試環境</a></li>
+<li><a href="https://elastalert.readthedocs.io/en/latest/ruletypes.html#ruletypes" target="_blank">Rule Types</a></li>
+<li><a href="https://elastalert.readthedocs.io/en/latest/ruletypes.html#alerts" target="_blank">Alerts</a></li>
+<li><a href="https://elastalert.readthedocs.io/en/latest/recipes/writing_filters.html#common-filter-types" target="_blank">Common Filter Types</a></li>
+<li><a href="https://blog.alantsai.net/posts/2017/12/test-smtp-server-for-sending-mail-in-development" target="_blank">[tool]沒有mail server怎麼測試寄送email？快放過你的gmail來看看有那些可以測試用的smtp mail server</a></li>
 </ol>
 
     </div>
@@ -479,7 +489,7 @@ networks:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2021-01-23</span>
+    <span class="item-content">2021-01-26</span>
   </p>
   
   <p class="copyright-item">
@@ -513,18 +523,11 @@ networks:
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/elastalert-alert/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">使用 ElastAlert 監控 Elasticsearch 發出通知</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/kafka-topics-kafkactl/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/docker-compose-elastalert/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">需要 kafka-topics.sh 嗎？ 可以試試 kafkactl</span>			
+            <span class="prev-text nav-default">使用 Docker Compose 建立 ElastAlert 測試環境</span>			
           </a>
 		  </div>
       </nav>
@@ -535,7 +538,7 @@ networks:
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/docker-compose-elastalert\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/elastalert-alert\/';  
       
     };
 

@@ -6,10 +6,19 @@
     <description>Recent content in Monitoring on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 23 Jan 2021 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 26 Jan 2021 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/monitoring/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 ElastAlert 監控 Elasticsearch 發出通知</title>
+      <link>https://blog.yowko.com/elastalert-alert/</link>
+      <pubDate>Tue, 26 Jan 2021 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/elastalert-alert/</guid>
+      <description>使用 ElastAlert 監控 Elasticsearch 發出通知 之前筆記 使用 Docker Compose 建立 ElastAlert 測試環境 紀錄到該如何使用 docker compose 快速建立 ElastAlert 的開發測試環境，今天要來筆記一下如何設定 ElastAlert 來發出警告 除了 Elasticsearch 外</description>
+    </item>
     
     <item>
       <title>使用 Docker Compose 建立 ElastAlert 測試環境</title>
