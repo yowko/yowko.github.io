@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 26 Jan 2021 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 27 Jan 2021 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Prometheus 搭配 Alertmanager 發送警示</title>
+      <link>https://blog.yowko.com/prometheus-alertmanager/</link>
+      <pubDate>Wed, 27 Jan 2021 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/prometheus-alertmanager/</guid>
+      <description>Prometheus 搭配 Alertmanager 發送警示 之前筆記 使用 ElastAlert 監控 Elasticsearch 發出通知 提到近期都在進行主動監控的相關設定與測試，之前紀錄了 Elasticsearch 上使用 application 所產生的 log 內容來進行條件偵測與通知</description>
+    </item>
     
     <item>
       <title>使用 ElastAlert 監控 Elasticsearch 發出通知</title>

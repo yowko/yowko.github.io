@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/prometheus-alertmanager/</loc>
+    <lastmod>2021-01-27T21:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/elastalert-alert/</loc>
     <lastmod>2021-01-26T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -4784,7 +4791,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/monitoring/</loc>
-    <lastmod>2021-01-26T21:30:31+08:00</lastmod>
+    <lastmod>2021-01-27T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4896,7 +4903,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2021-01-26T21:30:31+08:00</lastmod>
+    <lastmod>2021-01-27T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4904,6 +4911,13 @@
   <url>
     <loc>https://blog.yowko.com/tags/powershell/</loc>
     <lastmod>2020-12-11T09:57:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yowko.com/tags/prometheus/</loc>
+    <lastmod>2021-01-27T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -5071,7 +5085,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2021-01-26T21:30:31+08:00</lastmod>
+    <lastmod>2021-01-27T21:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
