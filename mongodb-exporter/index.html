@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Prometheus 搭配 Alertmanager 發送警示 - Yowko&#39;s Notes</title>
+  <title>安裝 MongoDB Exporter - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="Prometheus 搭配 Alertmanager 發送警示 之前筆記 使用 ElastAlert 監控 Elasticsearch 發出通知 提到近期都在進行主動監控的相關設定與測試，之前紀錄了 Elasticsearch 上使用 application 所產生的 log 內容來進行條件偵測與通知" />
+  <meta name="description" content="安裝 MongoDB Exporter 之前筆記 Prometheus 搭配 Alertmanager 發送警示 紀錄到如何使用 Prometheus 與 Alertmanager 來進行監控並主動發生通知，而 MongoDB 也可以是 Prometheus 監控的對象，透過安裝 MongoDB Exporter 將 metrics 資訊透過 http server 方式揭露" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/prometheus-alertmanager/" />
+<link rel="canonical" href="https://blog.yowko.com/mongodb-exporter/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="Prometheus 搭配 Alertmanager 發送警示" />
-<meta property="og:description" content="Prometheus 搭配 Alertmanager 發送警示 之前筆記 使用 ElastAlert 監控 Elasticsearch 發出通知 提到近期都在進行主動監控的相關設定與測試，之前紀錄了 Elasticsearch 上使用 application 所產生的 log 內容來進行條件偵測與通知" />
+<meta property="og:title" content="安裝 MongoDB Exporter" />
+<meta property="og:description" content="安裝 MongoDB Exporter 之前筆記 Prometheus 搭配 Alertmanager 發送警示 紀錄到如何使用 Prometheus 與 Alertmanager 來進行監控並主動發生通知，而 MongoDB 也可以是 Prometheus 監控的對象，透過安裝 MongoDB Exporter 將 metrics 資訊透過 http server 方式揭露" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/prometheus-alertmanager/" /><meta property="article:published_time" content="2021-01-27T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2021-01-27T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/mongodb-exporter/" /><meta property="article:published_time" content="2021-02-07T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2021-02-07T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="Prometheus 搭配 Alertmanager 發送警示">
-<meta itemprop="description" content="Prometheus 搭配 Alertmanager 發送警示 之前筆記 使用 ElastAlert 監控 Elasticsearch 發出通知 提到近期都在進行主動監控的相關設定與測試，之前紀錄了 Elasticsearch 上使用 application 所產生的 log 內容來進行條件偵測與通知">
-
-
-<meta itemprop="datePublished" content="2021-01-27T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2021-01-27T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="510">
+<meta itemprop="name" content="安裝 MongoDB Exporter">
+<meta itemprop="description" content="安裝 MongoDB Exporter 之前筆記 Prometheus 搭配 Alertmanager 發送警示 紀錄到如何使用 Prometheus 與 Alertmanager 來進行監控並主動發生通知，而 MongoDB 也可以是 Prometheus 監控的對象，透過安裝 MongoDB Exporter 將 metrics 資訊透過 http server 方式揭露">
 
 
+<meta itemprop="datePublished" content="2021-02-07T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2021-02-07T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="379">
 
-<meta itemprop="keywords" content="Prometheus,Monitoring," />
+
+
+<meta itemprop="keywords" content="Prometheus,Monitoring,MongoDB," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Prometheus 搭配 Alertmanager 發送警示"/>
-<meta name="twitter:description" content="Prometheus 搭配 Alertmanager 發送警示 之前筆記 使用 ElastAlert 監控 Elasticsearch 發出通知 提到近期都在進行主動監控的相關設定與測試，之前紀錄了 Elasticsearch 上使用 application 所產生的 log 內容來進行條件偵測與通知"/>
+<meta name="twitter:title" content="安裝 MongoDB Exporter"/>
+<meta name="twitter:description" content="安裝 MongoDB Exporter 之前筆記 Prometheus 搭配 Alertmanager 發送警示 紀錄到如何使用 Prometheus 與 Alertmanager 來進行監控並主動發生通知，而 MongoDB 也可以是 Prometheus 監控的對象，透過安裝 MongoDB Exporter 將 metrics 資訊透過 http server 方式揭露"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,10 +145,10 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2021-01-27 </span>
+        <span class="post-time"> 2021-02-07 </span>
         
-        <span class="more-meta"> 約 510 字 </span>
-          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        <span class="more-meta"> 約 379 字 </span>
+          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
     </header>
@@ -163,9 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#prometheus-搭配-alertmanager-發送警示">Prometheus 搭配 Alertmanager 發送警示</a></li>
+<li><a href="#安裝-mongodb-exporter">安裝 MongoDB Exporter</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#設定方式">設定方式</a></li>
+<li><a href="#安裝方式">安裝方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,166 +181,99 @@
     <div class="post-content">
       
 
-<h2 id="prometheus-搭配-alertmanager-發送警示">Prometheus 搭配 Alertmanager 發送警示</h2>
+<h2 id="安裝-mongodb-exporter">安裝 MongoDB Exporter</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/elastalert-alert">使用 ElastAlert 監控 Elasticsearch 發出通知</a> 提到近期都在進行主動監控的相關設定與測試，之前紀錄了 Elasticsearch 上使用 application 所產生的 log 內容來進行條件偵測與通知，今天要來紀錄如何為 infrastructure 層中 server 及 service 的可用性加上主動通知</p>
+<p>之前筆記 <a href="https://blog.yowko.com/prometheus-alertmanager/" target="_blank">Prometheus 搭配 Alertmanager 發送警示</a> 紀錄到如何使用 Prometheus 與 Alertmanager 來進行監控並主動發生通知，而 MongoDB 也可以是 Prometheus 監控的對象，透過安裝 MongoDB Exporter 將 metrics 資訊透過 http server 方式揭露再透過 Prometheus 主動 pull 即可將 MongoDB 相關資訊儲存至 Prometheus 中</p>
 
-<p>今天筆記分別測試了 <code>email</code> 與 <code>webhook</code> 功能</p>
-
-<p>建議可以先了解架構部份，詳細內容請參考官網 <a href="https://prometheus.io/docs/introduction/overview/" target="_blank">OVERVIEW</a></p>
-
-<p><img src="https://prometheus.io/assets/architecture.png" alt="architecture" /></p>
-
-<blockquote>
-<p>圖片出處 <a href="https://prometheus.io/docs/introduction/overview/" target="_blank">OVERVIEW</a></p>
-</blockquote>
+<p>今天就來快速紀錄一下 如何使用 Helm 來安裝 MongoDB Exporter</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
 <li>macOS Catalina 10.15.7</li>
-<li>docker desktop 3.1.0 (51484)</li>
-<li>Fiddler Everywhere 1.5.0</li>
 
-<li><p>Helm charts</p>
+<li><p>docker desktop 3.1.0(51484)</p>
 
 <ul>
-<li>prometheus-community/kube-prometheus-stack 13.2.1</li>
+<li>docker engine 20.10.2</li>
+<li>Kubernetes v1.19.3</li>
 </ul></li>
+
+<li><p>Helm v3.2.4</p></li>
 
 <li><p>docker images</p>
 
 <ul>
-<li>quay.io/prometheus-operator/prometheus-config-reloader v0.45.0</li>
-<li>quay.io/prometheus-operator/prometheus-operator v0.45.0</li>
-<li>quay.io/prometheus/prometheus v2.24.0</li>
-<li>quay.io/prometheus/alertmanager v0.21.0</li>
+<li>percona/percona-server-mongodb:4.4.3</li>
+<li>ssheehy/mongodb-exporter 0.10.0</li>
 </ul></li>
+
+<li><p>Helm charts</p>
+
+<ul>
+<li>prometheus-mongodb-exporter-2.8.1</li>
+</ul></li>
+
+<li><p>mongodb replicaset</p>
+
+<blockquote>
+<p>透過 docker compose 來啟動與示範，詳細資訊可以參考之前筆記 <a href="https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth/" target="_blank">使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set</a></p>
+</blockquote></li>
 </ol>
 
-<h2 id="設定方式">設定方式</h2>
+<h2 id="安裝方式">安裝方式</h2>
 
 <ol>
-<li><p>helm repo 設定</p>
+<li><p>設定 Helm repo</p>
 
-<pre><code class="language-bash">helm repo add prometheus-community https://prometheus-community.github.io/helm-charts &amp;&amp; helm repo update
+<pre><code class="language-bash">helm repo add prometheus-community https://prometheus-community.github.io/helm-charts &amp;&amp; helm update
 </code></pre></li>
 
-<li><p>設定 Prometheus 的 alert rule</p>
+<li><p>安裝 exporter</p>
+
+<ul>
+<li><p>語法</p>
+
+<pre><code class="language-bash">helm upgrade --install mongoexportter prometheus-community/prometheus-mongodb-exporter --set mongodb.uri=&quot;{username}:{passowrd}@{mongo_host1}\:{mongo_port1}\,{mongo_host2}\:{mongo_port2}\,{mongo_host3}\:{mongo_port3}&quot;
+</code></pre></li>
+
+<li><p>範例</p>
 
 <blockquote>
-<p>這個就先略過，使用內建 rule 來觸發就好，以這篇筆記使用的 helm chart 有以下這些 <a href="https://github.com/prometheus-community/helm-charts/blob/3591019764be8998d97cd7de26c2f40a7c31b647/charts/kube-prometheus-stack/values.yaml#L29" target="_blank">內建 rule</a></p>
-</blockquote></li>
-
-<li><p>建立 AlertManager 的 alert 發送規則</p>
-
-<blockquote>
-<p>以下使用 <code>testalert.yaml</code> 做為範例</p>
+<p>這邊以 host ip 為例</p>
 </blockquote>
 
-<pre><code class="language-yaml">alertmanager:
-  config:
-    global:
-      smtp_smarthost: 'smtp.mailtrap.io:2525'
-      smtp_auth_username: 'username'
-      smtp_auth_password: 'password'
-      smtp_from: 'alertmanager@example.org'
-    route:
-      group_by: ['alertname', 'prometheus'] # 用來將 alert 分群
-      receiver: 'webhook' # `webhook` 預設接收者
-      routes:
-      - receiver: 'null' # 符合 `alertname: Watchdog` 就由 `null` 處理
-        match:
-          alertname: Watchdog
-      - receiver: 'email' # 符合 `severity: critical` 就由 `email` 處理
-        match:
-          severity: critical
-    receivers:
-    - name: 'null' # 不做事
-    - name: 'email'
-      email_configs: # 指定 email config 來處理
-      - to: 'xxx@yowko.com'
-    - name: 'webhook'
-      webhook_configs: # 指定 webhook config 來處理
-      - url: 'http://blog.yowko.com'
-        http_config:
-          proxy_url: 'http://192.168.80.3:8866' # proxy 是個人 debug 用途
+<pre><code class="language-bash">helm upgrade --install mongoexportter prometheus-community/prometheus-mongodb-exporter --set mongodb.uri=&quot;root:pass\.123@192\.168\.50\.97:27017\,192\.168\.50\.97:27027\,192\.168\.50\.97:27037&quot;
 </code></pre></li>
-
-<li><p>使用 AlertManager 的 alert 發送規則 進行部署</p>
-
-<pre><code class="language-bash">helm install testalert prometheus-community/kube-prometheus-stack -f testalert.yaml
-</code></pre></li>
+</ul></li>
 
 <li><p>實際效果</p>
 
 <ul>
-<li><p>null</p>
+<li><p>將 mongodb export 做 port forward 以利 debug</p>
 
-<blockquote>
-<p>不會收到預設 <code>alertname: Watchdog</code> 的通知</p>
-</blockquote></li>
+<pre><code class="language-bash">kubectl port-forward service/mongoexportter-prometheus-mongodb-exporter 9216
+</code></pre></li>
 
-<li><p>email</p>
+<li><p>access mongodb export 所取得的 metrics 資訊</p>
 
-<blockquote>
-<p>因為 <code>severity: critical</code> match 會收到 email</p>
-</blockquote>
+<pre><code class="language-bash">curl http://127.0.0.1:9216/metrics
+</code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/105979953-40683500-60cf-11eb-938c-3fcce1c7977d.png" alt="1email" /></p></li>
-
-<li><p>webhook</p>
-
-<blockquote>
-<p>因為未 match <code>severity: critical</code> 與 <code>alertname: Watchdog</code></p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/105979961-43fbbc00-60cf-11eb-86b2-76a45bc0c053.png" alt="2webhook" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/107150865-e2730180-699a-11eb-98a0-f0bc8b7f7649.png" alt="1metrics" /></p></li>
 </ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>測試及 debug 工具</p>
-
-<ol>
-<li><p>開啟 alertmanager ui ui port forward</p>
-
-<pre><code class="language-bash">kubectl --namespace default port-forward alertmanager-testalert-kube-prometheus-alertmanager-0 9093
-</code></pre></li>
-
-<li><p>開啟 prometheus-server ui port forward</p>
-
-<pre><code class="language-bash">kubectl --namespace default port-forward prometheus-testalert-kube-prometheus-prometheus-0 9090
-</code></pre></li>
-
-<li><p>調整 alertmanager log level</p>
-
-<blockquote>
-<p>修改 <code>testalert.yaml</code> , 搭配 <code>kubectl logs -f alertmanager-testalert-kube-prometheus-alertmanager-0 -c alertmanager</code> 看 log</p>
-</blockquote>
-
-<pre><code class="language-yaml">alertmanager:
-  alertmanagerSpec:
-    logLevel: debug
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/105979965-452ce900-60cf-11eb-99fa-9d9644ef6340.png" alt="3debuglog" /></p></li>
-
-<li><p>手動發送 alert event</p>
-
-<pre><code class="language-bash">curl -H &quot;Content-Type: application/json&quot; -d '[{&quot;labels&quot;:{&quot;alertname&quot;:&quot;test-email&quot;,&quot;severity&quot;:&quot;critical&quot;}}]' localhost:9093/api/v1/alerts &amp;&amp;  curl -H &quot;Content-Type: application/json&quot; -d '[{&quot;labels&quot;:{&quot;alertname&quot;:&quot;test-webhook&quot;}}]' localhost:9093/api/v1/alerts
-</code></pre></li>
-</ol>
+<p>helm value 的 <code>mongodb.uri</code> 我安裝時如果加上 <code>mongodb://</code> 的前綴就會出現 auth fail 的狀況，看 log 是沒吃到 user 與 password，另外就是 <code>port</code> 我只要明確指定就會出錯，這兩個問題不知道是不是因為 set value 才造成的，但過去我應該是造描述中的用法來安裝的，這就是過太久才筆記的問題XD</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://prometheus.io/docs/introduction/overview/" target="_blank">OVERVIEW</a></li>
-<li><a href="https://prometheus.io/docs/alerting/latest/configuration/" target="_blank">CONFIGURATION</a></li>
-<li><a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack" target="_blank">prometheus-community/helm-charts/charts/kube-prometheus-stack/</a></li>
-<li><a href="https://fufu.gitbook.io/kk8s/task-memory/14.alertmanager-info" target="_blank">監控要告警啊 AlertManager</a></li>
-<li><a href="https://github.com/prometheus/alertmanager/issues/437#issuecomment-263413632" target="_blank">Manual alert for routes and receivers test</a></li>
+<li><a href="https://github.com/percona/mongodb_exporter" target="_blank">Percona MongoDB Exporter</a></li>
+<li><a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-mongodb-exporter" target="_blank">prometheus-community/helm-charts/charts/prometheus-mongodb-exporter</a></li>
+<li><a href="https://stackoverflow.com/a/66031634" target="_blank">Helm: How to Override Value with Periods in Name</a></li>
 </ol>
 
     </div>
@@ -353,7 +286,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2021-01-27</span>
+    <span class="item-content">2021-02-07</span>
   </p>
   
   <p class="copyright-item">
@@ -381,24 +314,21 @@
 		    	
             <a href="https://blog.yowko.com/tags/monitoring/">Monitoring</a>
           
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/mongodb/">MongoDB</a>
+          
         </div>
 
       
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/mongodb-exporter/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">安裝 MongoDB Exporter</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/elastalert-alert/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/prometheus-alertmanager/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">使用 ElastAlert 監控 Elasticsearch 發出通知</span>			
+            <span class="prev-text nav-default">Prometheus 搭配 Alertmanager 發送警示</span>			
           </a>
 		  </div>
       </nav>
@@ -409,7 +339,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/prometheus-alertmanager\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/mongodb-exporter\/';  
       
     };
 
