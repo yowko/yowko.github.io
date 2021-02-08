@@ -6,10 +6,19 @@
     <description>Recent content in Helm on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 28 Jun 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 08 Feb 2021 20:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/helm/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在 Kubernetes 上安裝 cert-manager</title>
+      <link>https://blog.yowko.com/cert-manager/</link>
+      <pubDate>Mon, 08 Feb 2021 20:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/cert-manager/</guid>
+      <description>在 Kubernetes 上安裝 cert-manager 之前 gRPC 都是透過 insecure 的設定來避免 gRPC 需要 SSL 的問題，雖然使用上並沒有遇到什麼狀況，但還是覺得不太正統，另外程式碼也多了一些設定，所以一直</description>
+    </item>
     
     <item>
       <title>在 Helm (Go Template) 中檢查 Value 是否有值</title>

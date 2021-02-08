@@ -6,10 +6,19 @@
     <description>Recent content in MongoDB on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 07 Feb 2021 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 08 Feb 2021 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MongoDB Exporter 需要的權限</title>
+      <link>https://blog.yowko.com/mongodb-exporter-permission/</link>
+      <pubDate>Mon, 08 Feb 2021 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mongodb-exporter-permission/</guid>
+      <description>MongoDB Exporter 需要的權限 之前筆記 安裝 MongoDB Exporter 紀錄到透過 MongoDB Exporter 蒐集 MongoDB metrics 資訊，不過就安全性來看有些不妥：原因是用了 root 這個在環境設定(詳細資訊可以參考之前筆記 使用</description>
+    </item>
     
     <item>
       <title>安裝 MongoDB Exporter</title>

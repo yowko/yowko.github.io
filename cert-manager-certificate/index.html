@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>安裝 MongoDB Exporter - Yowko&#39;s Notes</title>
+  <title>使用 cert-manager 建立憑證 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="安裝 MongoDB Exporter 之前筆記 Prometheus 搭配 Alertmanager 發送警示 紀錄到如何使用 Prometheus 與 Alertmanager 來進行監控並主動發生通知，而 MongoDB 也可以是 Prometheus 監控的對象，透過安裝 MongoDB Exporter 將 metrics 資訊透過 http server 方式揭露" />
+  <meta name="description" content="使用 cert-manager 建立憑證 之前筆記 在 Kubernetes 上安裝 cert-manager 提到為什麼要使用 cert-manager 以及如何安裝 cert-manager，今天就來紀錄一下如何使用 cert-manager 來建立憑證 基本環境說明 macOS" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/mongodb-exporter/" />
+<link rel="canonical" href="https://blog.yowko.com/cert-manager-certificate/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="安裝 MongoDB Exporter" />
-<meta property="og:description" content="安裝 MongoDB Exporter 之前筆記 Prometheus 搭配 Alertmanager 發送警示 紀錄到如何使用 Prometheus 與 Alertmanager 來進行監控並主動發生通知，而 MongoDB 也可以是 Prometheus 監控的對象，透過安裝 MongoDB Exporter 將 metrics 資訊透過 http server 方式揭露" />
+<meta property="og:title" content="使用 cert-manager 建立憑證" />
+<meta property="og:description" content="使用 cert-manager 建立憑證 之前筆記 在 Kubernetes 上安裝 cert-manager 提到為什麼要使用 cert-manager 以及如何安裝 cert-manager，今天就來紀錄一下如何使用 cert-manager 來建立憑證 基本環境說明 macOS" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/mongodb-exporter/" /><meta property="article:published_time" content="2021-02-07T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2021-02-07T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/cert-manager-certificate/" /><meta property="article:published_time" content="2021-02-08T21:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2021-02-08T21:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="安裝 MongoDB Exporter">
-<meta itemprop="description" content="安裝 MongoDB Exporter 之前筆記 Prometheus 搭配 Alertmanager 發送警示 紀錄到如何使用 Prometheus 與 Alertmanager 來進行監控並主動發生通知，而 MongoDB 也可以是 Prometheus 監控的對象，透過安裝 MongoDB Exporter 將 metrics 資訊透過 http server 方式揭露">
-
-
-<meta itemprop="datePublished" content="2021-02-07T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2021-02-07T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="412">
+<meta itemprop="name" content="使用 cert-manager 建立憑證">
+<meta itemprop="description" content="使用 cert-manager 建立憑證 之前筆記 在 Kubernetes 上安裝 cert-manager 提到為什麼要使用 cert-manager 以及如何安裝 cert-manager，今天就來紀錄一下如何使用 cert-manager 來建立憑證 基本環境說明 macOS">
 
 
+<meta itemprop="datePublished" content="2021-02-08T21:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2021-02-08T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="415">
 
-<meta itemprop="keywords" content="Prometheus,Monitoring,MongoDB," />
+
+
+<meta itemprop="keywords" content="Kubernetes," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="安裝 MongoDB Exporter"/>
-<meta name="twitter:description" content="安裝 MongoDB Exporter 之前筆記 Prometheus 搭配 Alertmanager 發送警示 紀錄到如何使用 Prometheus 與 Alertmanager 來進行監控並主動發生通知，而 MongoDB 也可以是 Prometheus 監控的對象，透過安裝 MongoDB Exporter 將 metrics 資訊透過 http server 方式揭露"/>
+<meta name="twitter:title" content="使用 cert-manager 建立憑證"/>
+<meta name="twitter:description" content="使用 cert-manager 建立憑證 之前筆記 在 Kubernetes 上安裝 cert-manager 提到為什麼要使用 cert-manager 以及如何安裝 cert-manager，今天就來紀錄一下如何使用 cert-manager 來建立憑證 基本環境說明 macOS"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2021-02-07 </span>
+        <span class="post-time"> 2021-02-08 </span>
         
-        <span class="more-meta"> 約 412 字 </span>
+        <span class="more-meta"> 約 415 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -163,9 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#安裝-mongodb-exporter">安裝 MongoDB Exporter</a></li>
+<li><a href="#使用-cert-manager-建立憑證">使用 cert-manager 建立憑證</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝方式">安裝方式</a></li>
+<li><a href="#憑證建立方式">憑證建立方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,11 +181,9 @@
     <div class="post-content">
       
 
-<h2 id="安裝-mongodb-exporter">安裝 MongoDB Exporter</h2>
+<h2 id="使用-cert-manager-建立憑證">使用 cert-manager 建立憑證</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/prometheus-alertmanager/" target="_blank">Prometheus 搭配 Alertmanager 發送警示</a> 紀錄到如何使用 Prometheus 與 Alertmanager 來進行監控並主動發生通知，而 MongoDB 也可以是 Prometheus 監控的對象，透過安裝 MongoDB Exporter 將 metrics 資訊透過 http server 方式揭露再透過 Prometheus 主動 pull 即可將 MongoDB 相關資訊儲存至 Prometheus 中</p>
-
-<p>今天就來快速紀錄一下 如何使用 Helm 來安裝 MongoDB Exporter</p>
+<p>之前筆記 <a href="https://blog.yowko.com/cert-manager">在 Kubernetes 上安裝 cert-manager</a> 提到為什麼要使用 cert-manager 以及如何安裝 cert-manager，今天就來紀錄一下如何使用 cert-manager 來建立憑證</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -199,82 +197,100 @@
 <li>Kubernetes v1.19.3</li>
 </ul></li>
 
-<li><p>Helm v3.2.4</p></li>
-
-<li><p>docker images</p>
+<li><p>Helm chart</p>
 
 <ul>
-<li>percona/percona-server-mongodb:4.4.3</li>
-<li>ssheehy/mongodb-exporter 0.10.0</li>
+<li>cert-manager v1.1.0</li>
 </ul></li>
-
-<li><p>Helm charts</p>
-
-<ul>
-<li>prometheus-mongodb-exporter-2.8.1</li>
-</ul></li>
-
-<li><p>mongodb replicaset</p>
-
-<blockquote>
-<p>透過 docker compose 來啟動與示範，詳細資訊可以參考之前筆記 <a href="https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth/">使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set</a></p>
-</blockquote></li>
 </ol>
 
-<h2 id="安裝方式">安裝方式</h2>
+<h2 id="憑證建立方式">憑證建立方式</h2>
 
 <ol>
-<li><p>設定 Helm repo</p>
+<li><p>建立自簽憑證的 Issuer</p>
 
-<pre><code class="language-bash">helm repo add prometheus-community https://prometheus-community.github.io/helm-charts &amp;&amp; helm update
-</code></pre></li>
-
-<li><p>安裝 exporter</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-bash">helm upgrade --install mongoexportter prometheus-community/prometheus-mongodb-exporter --set mongodb.uri=&quot;{username}:{passowrd}@{mongo_host1}\:{mongo_port1}\,{mongo_host2}\:{mongo_port2}\,{mongo_host3}\:{mongo_port3}&quot;
-</code></pre></li>
-
-<li><p>範例</p>
-
-<blockquote>
-<p>這邊以 host ip 為例，helm value 遇到 <code>.</code> <code>[</code> <code>,</code> <code>=</code> 需要加上跳脫字元 <code>\</code></p>
-</blockquote>
-
-<pre><code class="language-bash">helm upgrade --install mongoexportter prometheus-community/prometheus-mongodb-exporter --set mongodb.uri=&quot;root:pass\.123@192\.168\.50\.97:27017\,192\.168\.50\.97:27027\,192\.168\.50\.97:27037&quot;
-</code></pre></li>
-</ul></li>
-
-<li><p>實際效果</p>
-
-<ul>
-<li><p>將 mongodb export 做 port forward 以利 debug</p>
-
-<pre><code class="language-bash">kubectl port-forward service/mongoexportter-prometheus-mongodb-exporter 9216
-</code></pre></li>
-
-<li><p>access mongodb export 所取得的 metrics 資訊</p>
-
-<pre><code class="language-bash">curl http://127.0.0.1:9216/metrics
+<pre><code class="language-bash">kubectl apply -f &lt;(echo &quot;
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+&quot;)
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/107150865-e2730180-699a-11eb-98a0-f0bc8b7f7649.png" alt="1metrics" /></p></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/107238248-968b8f80-6a62-11eb-8845-b9ce2355deed.png" alt="1issuer" /></p></li>
+
+<li><p>使用自簽憑證 Issuer 來建立憑證</p>
+
+<blockquote>
+<p>要注意 Issue 的 Ready 變成 true 再執行建立憑證，否則憑證 Type 會變成 <code>Opaque</code> 而不是 <code>kubernetes.io/tls</code></p>
+</blockquote>
+
+<pre><code>```bash
+kubectl apply -f &lt;(echo '
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+name: yowko-tls
+spec:
+secretName: yowko-tls
+dnsNames:
+- &quot;*.default.svc.cluster.local&quot;
+- &quot;*.testyowko.com&quot;
+issuerRef:
+    name: selfsigned-issuer
+')
+```
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/107238250-98555300-6a62-11eb-90a6-5fc912539f2d.png" alt="2secret" /></p></li>
+
+<li><p>檢查憑證有效性</p>
+
+<ul>
+<li><p>檢視憑證</p>
+
+<blockquote>
+<p>確認 <code>.crt</code> 與 <code>.key</code> 都正確產生</p>
+</blockquote>
+
+<pre><code class="language-bash">kubectl get secret yowko-tls -o yaml
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/107238256-99868000-6a62-11eb-836d-708790dfff74.png" alt="3describe" /></p></li>
+
+<li><p>確認 <code>.crt</code> 有效性</p>
+
+<pre><code class="language-bash">kubectl get secrets/yowko-tls -o &quot;jsonpath={.data['tls\.crt']}&quot; | base64 -D | openssl x509 -text -noout
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/107238264-9b504380-6a62-11eb-87af-02373e837afb.png" alt="4checkcrt" /></p></li>
+
+<li><p>確認 <code>.key</code> 有效性</p>
+
+<pre><code class="language-bash">kubectl get secrets/yowko-tls -o &quot;jsonpath={.data['tls\.key']}&quot; | base64 -D | openssl rsa -check
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/107238265-9be8da00-6a62-11eb-9d05-0860a413c7be.png" alt="5checkkey" /></p></li>
 </ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>helm value 的 <code>mongodb.uri</code> 我安裝時如果加上 <code>mongodb://</code> 的前綴就會出現 auth fail 的狀況，看 log 是沒吃到 user 與 password，另外就是 <code>port</code> 我只要明確指定就會出錯，這兩個問題不知道是不是因為 set value 才造成的，但過去我應該是造描述中的用法來安裝的，這就是過太久才筆記的問題XD</p>
+<p>不知道是不是因為 Self Signed 不是正統用法，官網上並沒有完整的使用方式，或者是因為太簡單，所以人家覺得不用寫XD</p>
+
+<p>但除此之外，就我個人使用情境而言覺得官網的文件不是很好用，功能好像都有，文件就提那一、兩句，實際用法都要自己兜，覺得不是很方便，但或許這就是 open source 的常態吧</p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://github.com/percona/mongodb_exporter" target="_blank">Percona MongoDB Exporter</a></li>
-<li><a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-mongodb-exporter" target="_blank">prometheus-community/helm-charts/charts/prometheus-mongodb-exporter</a></li>
-<li><a href="https://stackoverflow.com/a/66031634" target="_blank">Helm: How to Override Value with Periods in Name</a></li>
-<li><a href="https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth/">使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set</a></li>
+<li><a href="https://cert-manager.io/docs/configuration/selfsigned/" target="_blank">SelfSigned</a></li>
+<li><a href="https://tech.paulcz.net/blog/creating-self-signed-certs-on-kubernetes/" target="_blank">Creating Self Signed Certificates on Kubernetes</a></li>
+<li><a href="https://blog.yowko.com/cert-manager">在 Kubernetes 上安裝 cert-manager</a></li>
+<li><a href="https://www.sslshopper.com/article-most-common-openssl-commands.html" target="_blank">The Most Common OpenSSL Commands</a></li>
+<li><a href="https://computingforgeeks.com/how-to-check-ssl-certificate-expiration-with-openssl/" target="_blank">How To Check SSL Certificate Expiration with OpenSSL</a></li>
+<li><a href="https://github.com/kubernetes/kubernetes/issues/23386#issuecomment-305348170" target="_blank">JSONpath fails to return keys containing dots in a map</a></li>
 </ol>
 
     </div>
@@ -287,7 +303,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2021-02-07</span>
+    <span class="item-content">2021-02-08</span>
   </p>
   
   <p class="copyright-item">
@@ -309,15 +325,7 @@
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/prometheus/">Prometheus</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/monitoring/">Monitoring</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/mongodb/">MongoDB</a>
+            <a href="https://blog.yowko.com/tags/kubernetes/">Kubernetes</a>
           
         </div>
 
@@ -325,18 +333,18 @@
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/cert-manager/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/mongodb-exporter-permission/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">在 Kubernetes 上安裝 cert-manager</span>			
+            <span class="next-text nav-default">MongoDB Exporter 需要的權限</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/prometheus-alertmanager/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/cert-manager/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">Prometheus 搭配 Alertmanager 發送警示</span>			
+            <span class="prev-text nav-default">在 Kubernetes 上安裝 cert-manager</span>			
           </a>
 		  </div>
       </nav>
@@ -347,7 +355,7 @@
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/mongodb-exporter\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/cert-manager-certificate\/';  
       
     };
 
