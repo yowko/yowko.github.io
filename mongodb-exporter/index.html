@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2021-02-07T21:30:00&#43;08:00" />
 <meta itemprop="dateModified" content="2021-02-07T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="379">
+<meta itemprop="wordCount" content="412">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2021-02-07 </span>
         
-        <span class="more-meta"> 約 379 字 </span>
+        <span class="more-meta"> 約 412 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -217,7 +217,7 @@
 <li><p>mongodb replicaset</p>
 
 <blockquote>
-<p>透過 docker compose 來啟動與示範，詳細資訊可以參考之前筆記 <a href="https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth/" target="_blank">使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set</a></p>
+<p>透過 docker compose 來啟動與示範，詳細資訊可以參考之前筆記 <a href="https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth/">使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set</a></p>
 </blockquote></li>
 </ol>
 
@@ -240,7 +240,7 @@
 <li><p>範例</p>
 
 <blockquote>
-<p>這邊以 host ip 為例</p>
+<p>這邊以 host ip 為例，helm value 遇到 <code>.</code> <code>[</code> <code>,</code> <code>=</code> 需要加上跳脫字元 <code>\</code></p>
 </blockquote>
 
 <pre><code class="language-bash">helm upgrade --install mongoexportter prometheus-community/prometheus-mongodb-exporter --set mongodb.uri=&quot;root:pass\.123@192\.168\.50\.97:27017\,192\.168\.50\.97:27027\,192\.168\.50\.97:27037&quot;
@@ -274,6 +274,7 @@
 <li><a href="https://github.com/percona/mongodb_exporter" target="_blank">Percona MongoDB Exporter</a></li>
 <li><a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-mongodb-exporter" target="_blank">prometheus-community/helm-charts/charts/prometheus-mongodb-exporter</a></li>
 <li><a href="https://stackoverflow.com/a/66031634" target="_blank">Helm: How to Override Value with Periods in Name</a></li>
+<li><a href="https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth/">使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set</a></li>
 </ol>
 
     </div>
