@@ -33,7 +33,7 @@ slug: "mongodb-exporter"
 
 6. mongodb replicaset
 
-    > 透過 docker compose 來啟動與示範，詳細資訊可以參考之前筆記 [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set](https://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth/)
+    > 透過 docker compose 來啟動與示範，詳細資訊可以參考之前筆記 [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set](/docker-compose-mongodb-replica-set-with-auth/)
 
 ## 安裝方式
 
@@ -53,7 +53,7 @@ slug: "mongodb-exporter"
 
     - 範例
 
-        > 這邊以 host ip 為例
+        > 這邊以 host ip 為例，helm value 遇到 `.` `[` `,` `=` 需要加上跳脫字元 `\`
 
         ```bash
         helm upgrade --install mongoexportter prometheus-community/prometheus-mongodb-exporter --set mongodb.uri="root:pass\.123@192\.168\.50\.97:27017\,192\.168\.50\.97:27027\,192\.168\.50\.97:27037"
@@ -84,3 +84,4 @@ helm value 的 `mongodb.uri` 我安裝時如果加上 `mongodb://` 的前綴就�
 1. [Percona MongoDB Exporter](https://github.com/percona/mongodb_exporter)
 2. [prometheus-community/helm-charts/charts/prometheus-mongodb-exporter](https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-mongodb-exporter)
 3. [Helm: How to Override Value with Periods in Name](https://stackoverflow.com/a/66031634)
+4. [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set](/docker-compose-mongodb-replica-set-with-auth/)
