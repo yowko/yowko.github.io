@@ -1,7 +1,7 @@
 ---
 title: "使用 grpcurl 呼叫 gRPC Service"
 date: 2020-03-07T12:30:00+08:00
-lastmod: 2020-03-07T12:30:31+08:00
+lastmod: 2021-02-09T10:30:31+08:00
 draft: false
 tags: ["gRPC","Tools"]
 slug: "grpcurl"
@@ -18,7 +18,7 @@ slug: "grpcurl"
 1. CentOS 7.7
 2. macOS Catalina 10.15.3
 3. Debian 10
-4. grpcurl v1.4.0
+4. ~~grpcurl v1.4.0~~ grpcurl v1.8.0
 5. 測試用 proto
 
     ```txt
@@ -68,14 +68,21 @@ grpcurl 宣稱支援所有 gRPC 傳輸方式 (包含 streaming)，但我實際�
     - 下載 grpcurl
 
         ```bash
-        curl -L -O https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz
+        curl -L -O https://github.com/fullstorydev/grpcurl/releases/download/v1.8.0/grpcurl_1.8.0_linux_x86_64.tar.gz
         ```
+
+        >~~curl -L -O https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz~~
+        
 
     - 解壓 grpcurl
 
         ```bash
-        tar -zxvf grpcurl_1.4.0_linux_x86_64.tar.gz
+        tar -zxvf grpcurl_1.8.0_linux_x86_64.tar.gz
         ```
+
+        
+        >~~tar -zxvf grpcurl_1.4.0_linux_x86_64.tar.gz~~
+        
 
 3. Debian (Ubuntu)
 
@@ -94,14 +101,20 @@ grpcurl 宣稱支援所有 gRPC 傳輸方式 (包含 streaming)，但我實際�
     - 下載 grpcurl
 
         ```bash
-        wget https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz
+        wget https://github.com/fullstorydev/grpcurl/releases/download/v1.8.0/grpcurl_1.8.0_linux_x86_64.tar.gz
         ```
+
+        >~~wget https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz~~
+        
 
     - 解壓 grpcurl
 
         ```bash
-        tar -zxvf grpcurl_1.4.0_linux_x86_64.tar.gz
+        tar -zxvf grpcurl_1.8.0_linux_x86_64.tar.gz
         ```
+
+        >~~tar -zxvf grpcurl_1.4.0_linux_x86_64.tar.gz~~
+        
 
 4. 透過 go 安裝 (source code)
 
