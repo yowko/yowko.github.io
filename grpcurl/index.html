@@ -58,15 +58,15 @@
 <meta property="og:description" content="使用 grpcurl 呼叫 gRPC Service 一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/grpcurl/" /><meta property="article:published_time" content="2020-03-07T12:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-03-07T12:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2021-02-09T10:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="使用 grpcurl 呼叫 gRPC Service">
 <meta itemprop="description" content="使用 grpcurl 呼叫 gRPC Service 一般情況下測試 gRPC 服務，我大多是透過簡易的 console 直接呼叫 (一來可以順便檢查程式，二來 stream 相關功能比較齊全)，如果想要測試的功能只是 simple call">
 
 
 <meta itemprop="datePublished" content="2020-03-07T12:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-03-07T12:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="924">
+<meta itemprop="dateModified" content="2021-02-09T10:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="938">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-03-07 </span>
         
-        <span class="more-meta"> 約 924 字 </span>
+        <span class="more-meta"> 約 938 字 </span>
           <span class="more-meta"> 預計閱讀 2 分鐘 </span>
         
       </div>
@@ -196,7 +196,7 @@
 <li>CentOS 7.7</li>
 <li>macOS Catalina 10.15.3</li>
 <li>Debian 10</li>
-<li>grpcurl v1.4.0</li>
+<li><del>grpcurl v1.4.0</del> grpcurl v1.8.0</li>
 
 <li><p>測試用 proto</p>
 
@@ -247,13 +247,21 @@ message HelloReply {
 <ul>
 <li><p>下載 grpcurl</p>
 
-<pre><code class="language-bash">curl -L -O https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz
-</code></pre></li>
+<pre><code class="language-bash">curl -L -O https://github.com/fullstorydev/grpcurl/releases/download/v1.8.0/grpcurl_1.8.0_linux_x86_64.tar.gz
+</code></pre>
+
+<blockquote>
+<p><del>curl -L -O <a href="https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz" target="_blank">https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz</a></del></p>
+</blockquote></li>
 
 <li><p>解壓 grpcurl</p>
 
-<pre><code class="language-bash">tar -zxvf grpcurl_1.4.0_linux_x86_64.tar.gz
-</code></pre></li>
+<pre><code class="language-bash">tar -zxvf grpcurl_1.8.0_linux_x86_64.tar.gz
+</code></pre>
+
+<blockquote>
+<p><del>tar -zxvf grpcurl_1.4.0_linux_x86_64.tar.gz</del></p>
+</blockquote></li>
 </ul></li>
 
 <li><p>Debian (Ubuntu)</p>
@@ -271,13 +279,21 @@ message HelloReply {
 
 <li><p>下載 grpcurl</p>
 
-<pre><code class="language-bash">wget https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz
-</code></pre></li>
+<pre><code class="language-bash">wget https://github.com/fullstorydev/grpcurl/releases/download/v1.8.0/grpcurl_1.8.0_linux_x86_64.tar.gz
+</code></pre>
+
+<blockquote>
+<p><del>wget <a href="https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz" target="_blank">https://github.com/fullstorydev/grpcurl/releases/download/v1.4.0/grpcurl_1.4.0_linux_x86_64.tar.gz</a></del></p>
+</blockquote></li>
 
 <li><p>解壓 grpcurl</p>
 
-<pre><code class="language-bash">tar -zxvf grpcurl_1.4.0_linux_x86_64.tar.gz
-</code></pre></li>
+<pre><code class="language-bash">tar -zxvf grpcurl_1.8.0_linux_x86_64.tar.gz
+</code></pre>
+
+<blockquote>
+<p><del>tar -zxvf grpcurl_1.4.0_linux_x86_64.tar.gz</del></p>
+</blockquote></li>
 </ul></li>
 
 <li><p>透過 go 安裝 (source code)</p>
@@ -368,7 +384,7 @@ go install github.com/fullstorydev/grpcurl/cmd/grpcurl
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-03-07</span>
+    <span class="item-content">2021-02-09</span>
   </p>
   
   <p class="copyright-item">
