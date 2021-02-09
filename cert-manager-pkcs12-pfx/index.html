@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 cert-manager 建立憑證 - Yowko&#39;s Notes</title>
+  <title>使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 cert-manager 建立憑證 之前筆記 在 Kubernetes 上安裝 cert-manager 提到為什麼要使用 cert-manager 以及如何安裝 cert-manager，今天就來紀錄一下如何使用 cert-manager 來建立憑證 基本環境說明 macOS" />
+  <meta name="description" content="使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證 之前筆記 使用 cert-manager 建立憑證 紀錄到如何使用 cert-manager 來建立憑證，在預設情境下只會產生 .crt &#43; .key 的憑證與 key，但 ASP.NET Core 使用的憑證格式為 PKCS12 (.PFX)" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/cert-manager-certificate/" />
+<link rel="canonical" href="https://blog.yowko.com/cert-manager-pkcs12-pfx/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="使用 cert-manager 建立憑證" />
-<meta property="og:description" content="使用 cert-manager 建立憑證 之前筆記 在 Kubernetes 上安裝 cert-manager 提到為什麼要使用 cert-manager 以及如何安裝 cert-manager，今天就來紀錄一下如何使用 cert-manager 來建立憑證 基本環境說明 macOS" />
+<meta property="og:title" content="使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證" />
+<meta property="og:description" content="使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證 之前筆記 使用 cert-manager 建立憑證 紀錄到如何使用 cert-manager 來建立憑證，在預設情境下只會產生 .crt &#43; .key 的憑證與 key，但 ASP.NET Core 使用的憑證格式為 PKCS12 (.PFX)" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/cert-manager-certificate/" /><meta property="article:published_time" content="2021-02-08T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2021-02-08T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/cert-manager-pkcs12-pfx/" /><meta property="article:published_time" content="2021-02-09T10:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2021-02-09T10:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="使用 cert-manager 建立憑證">
-<meta itemprop="description" content="使用 cert-manager 建立憑證 之前筆記 在 Kubernetes 上安裝 cert-manager 提到為什麼要使用 cert-manager 以及如何安裝 cert-manager，今天就來紀錄一下如何使用 cert-manager 來建立憑證 基本環境說明 macOS">
+<meta itemprop="name" content="使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證">
+<meta itemprop="description" content="使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證 之前筆記 使用 cert-manager 建立憑證 紀錄到如何使用 cert-manager 來建立憑證，在預設情境下只會產生 .crt &#43; .key 的憑證與 key，但 ASP.NET Core 使用的憑證格式為 PKCS12 (.PFX)">
 
 
-<meta itemprop="datePublished" content="2021-02-08T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2021-02-08T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="415">
+<meta itemprop="datePublished" content="2021-02-09T10:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2021-02-09T10:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="490">
 
 
 
 <meta itemprop="keywords" content="Kubernetes," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 cert-manager 建立憑證"/>
-<meta name="twitter:description" content="使用 cert-manager 建立憑證 之前筆記 在 Kubernetes 上安裝 cert-manager 提到為什麼要使用 cert-manager 以及如何安裝 cert-manager，今天就來紀錄一下如何使用 cert-manager 來建立憑證 基本環境說明 macOS"/>
+<meta name="twitter:title" content="使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證"/>
+<meta name="twitter:description" content="使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證 之前筆記 使用 cert-manager 建立憑證 紀錄到如何使用 cert-manager 來建立憑證，在預設情境下只會產生 .crt &#43; .key 的憑證與 key，但 ASP.NET Core 使用的憑證格式為 PKCS12 (.PFX)"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2021-02-08 </span>
+        <span class="post-time"> 2021-02-09 </span>
         
-        <span class="more-meta"> 約 415 字 </span>
+        <span class="more-meta"> 約 490 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -163,9 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#使用-cert-manager-建立憑證">使用 cert-manager 建立憑證</a></li>
+<li><a href="#使用-cert-manager-建立-pkcs12-格式-pfx-憑證">使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#憑證建立方式">憑證建立方式</a></li>
+<li><a href="#設定方式">設定方式</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -181,9 +181,9 @@
     <div class="post-content">
       
 
-<h2 id="使用-cert-manager-建立憑證">使用 cert-manager 建立憑證</h2>
+<h2 id="使用-cert-manager-建立-pkcs12-格式-pfx-憑證">使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證</h2>
 
-<p>之前筆記 <a href="https://blog.yowko.com/cert-manager">在 Kubernetes 上安裝 cert-manager</a> 提到為什麼要使用 cert-manager 以及如何安裝 cert-manager，今天就來紀錄一下如何使用 cert-manager 來建立憑證</p>
+<p>之前筆記 <a href="https://blog.yowko.com/cert-manager-certificate">使用 cert-manager 建立憑證</a> 紀錄到如何使用 cert-manager 來建立憑證，在預設情境下只會產生 .crt + .key 的憑證與 key，但 ASP.NET Core 使用的憑證格式為 <code>PKCS12</code> (<code>.PFX</code>) ，當然也可以透過 openssl 來將 .crt+.key 轉換為 .pfx ，但這樣的轉換不利於自動化部署，所以還是希望透過 cert-manager 自行產生 .pfx，就來看看該如何設定 cert-manager 來產生 <code>PKCS12</code> (<code>.PFX</code>) 憑證吧</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -204,7 +204,7 @@
 </ul></li>
 </ol>
 
-<h2 id="憑證建立方式">憑證建立方式</h2>
+<h2 id="設定方式">設定方式</h2>
 
 <ol>
 <li><p>建立自簽憑證的 Issuer</p>
@@ -221,76 +221,67 @@ spec:
 
 <p><img src="https://user-images.githubusercontent.com/3851540/107238248-968b8f80-6a62-11eb-8845-b9ce2355deed.png" alt="1issuer" /></p></li>
 
-<li><p>使用自簽憑證 Issuer 來建立憑證</p>
+<li><p>建立 PKCS12 用的密碼</p>
 
 <blockquote>
-<p>要注意 Issue 的 Ready 變成 true 再執行建立憑證，否則憑證 Type 會變成 <code>Opaque</code> 而不是 <code>kubernetes.io/tls</code></p>
+<p>這個 secret 也可以不用建立，到時建立 PKCS12 時用明碼</p>
 </blockquote>
 
-<pre><code>```bash
-kubectl apply -f &lt;(echo '
+<pre><code class="language-bash">kubectl create secret generic pfxpwd --from-literal password=pass.123
+</code></pre></li>
+
+<li><p>建立 PKCS12 格式 (.pfx) 憑證</p>
+
+<p>```bash
+kubectl apply -f &lt;(echo &lsquo;
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-name: yowko-tls
+  name: yowko-pkcs12
 spec:
-secretName: yowko-tls
-dnsNames:
-- &quot;*.default.svc.cluster.local&quot;
-- &quot;*.testyowko.com&quot;
-issuerRef:
-    name: selfsigned-issuer
-')
-```
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/107238250-98555300-6a62-11eb-90a6-5fc912539f2d.png" alt="2secret" /></p></li>
-
-<li><p>檢查憑證有效性</p>
+  secretName: yowko-pkcs12
+  keystores:
+   pkcs12:
+     create: true
+     passwordSecretRef:
+       name: pfxpwd
+       key: password
+  dnsNames:</p>
 
 <ul>
-<li><p>檢視憑證</p>
+<li>&ldquo;*.default.svc.cluster.local&rdquo;</li>
+<li>&ldquo;*.testyowko.com&rdquo;
+issuerRef:
+name: selfsigned-issuer
+kind: Issuer
+&lsquo;)
+```</li>
+</ul>
 
-<blockquote>
-<p>確認 <code>.crt</code> 與 <code>.key</code> 都正確產生</p>
-</blockquote>
+<p><img src="https://user-images.githubusercontent.com/3851540/107316711-333a4580-6ad4-11eb-9fb5-22ee990dab6d.png" alt="1p12" /></p></li>
 
-<pre><code class="language-bash">kubectl get secret yowko-tls -o yaml
+<li><p>驗證 p12 有效性</p>
+
+<pre><code class="language-bash">kubectl get secrets/yowko-pkcs12 -o &quot;jsonpath={.data['keystore\.p12']}&quot; | base64 -D |openssl pkcs12 -info
 </code></pre>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/107238256-99868000-6a62-11eb-836d-708790dfff74.png" alt="3describe" /></p></li>
-
-<li><p>確認 <code>.crt</code> 有效性</p>
-
-<pre><code class="language-bash">kubectl get secrets/yowko-tls -o &quot;jsonpath={.data['tls\.crt']}&quot; | base64 -D | openssl x509 -text -noout
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/107238264-9b504380-6a62-11eb-87af-02373e837afb.png" alt="4checkcrt" /></p></li>
-
-<li><p>確認 <code>.key</code> 有效性</p>
-
-<pre><code class="language-bash">kubectl get secrets/yowko-tls -o &quot;jsonpath={.data['tls\.key']}&quot; | base64 -D | openssl rsa -check
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/107238265-9be8da00-6a62-11eb-9d05-0860a413c7be.png" alt="5checkkey" /></p></li>
-</ul></li>
+<p><img src="https://user-images.githubusercontent.com/3851540/107316719-36cdcc80-6ad4-11eb-8d58-a1d20afbd519.png" alt="2verify" /></p></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
-<p>不知道是不是因為 Self Signed 不是正統用法，官網上並沒有完整的使用方式，或者是因為太簡單，所以人家覺得不用寫XD</p>
+<p>之前還沒確定做法前，我查了很多文件跟 GitHub issue，但總是無法順利產生 <code>PKCS12</code> (<code>.PFX</code>) 憑證，還一直覺得為什麼官網上沒有完整一點的範例，只在 relase note 上放個簡單的 yaml，但後來確定做法後經過反覆檢查  發現是我在 <code>passwordSecretRef</code> 這把 key 跟 name 寫反了XD</p>
 
-<p>但除此之外，就我個人使用情境而言覺得官網的文件不是很好用，功能好像都有，文件就提那一、兩句，實際用法都要自己兜，覺得不是很方便，但或許這就是 open source 的常態吧</p>
+<p>這邊提供大家基本確認的方式：<code>TYPE</code> 必需要是 <code>kubernetes.io/tls</code>，如果產生出來的是 <code>Opaque</code> 可能會有憑證未成功建立的狀況，後續綁定也可能有問題</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/107316722-37666300-6ad4-11eb-97ba-385ea15c51d6.png" alt="3type" /></p>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://cert-manager.io/docs/configuration/selfsigned/" target="_blank">SelfSigned</a></li>
-<li><a href="https://tech.paulcz.net/blog/creating-self-signed-certs-on-kubernetes/" target="_blank">Creating Self Signed Certificates on Kubernetes</a></li>
-<li><a href="https://blog.yowko.com/cert-manager">在 Kubernetes 上安裝 cert-manager</a></li>
-<li><a href="https://www.sslshopper.com/article-most-common-openssl-commands.html" target="_blank">The Most Common OpenSSL Commands</a></li>
-<li><a href="https://computingforgeeks.com/how-to-check-ssl-certificate-expiration-with-openssl/" target="_blank">How To Check SSL Certificate Expiration with OpenSSL</a></li>
-<li><a href="https://github.com/kubernetes/kubernetes/issues/23386#issuecomment-305348170" target="_blank">JSONpath fails to return keys containing dots in a map</a></li>
+<li><a href="https://blog.yowko.com/cert-manager-certificate">使用 cert-manager 建立憑證</a></li>
+<li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/security/authentication/certauth?view=aspnetcore-5.0&amp;WT.mc_id=DOP-MVP-5002594" target="_blank">在 ASP.NET Core 中設定憑證驗證</a></li>
+<li><a href="https://cert-manager.io/docs/release-notes/release-notes-0.15/#general-availability-of-jks-and-pkcs-12-keystores" target="_blank">General Availability of JKS and PKCS#12 keystores</a></li>
 </ol>
 
     </div>
@@ -303,7 +294,7 @@ issuerRef:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2021-02-08</span>
+    <span class="item-content">2021-02-09</span>
   </p>
   
   <p class="copyright-item">
@@ -333,18 +324,18 @@ issuerRef:
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/mongodb-exporter-permission/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/certificate-secret-mount-volume-file/" style="float: none;">
             <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
             <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">MongoDB Exporter 需要的權限</span>			
+            <span class="next-text nav-default">將憑證 secret 以檔案掛戴至 Container 中</span>			
           </a>
 		  </div>
 		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/cert-manager/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/mongodb-exporter-permission/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">在 Kubernetes 上安裝 cert-manager</span>			
+            <span class="prev-text nav-default">MongoDB Exporter 需要的權限</span>			
           </a>
 		  </div>
       </nav>
@@ -355,7 +346,7 @@ issuerRef:
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/cert-manager-certificate\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/cert-manager-pkcs12-pfx\/';  
       
     };
 

@@ -6,10 +6,28 @@
     <description>Recent content in kubernetes on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 08 Feb 2021 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 09 Feb 2021 15:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>將憑證 secret 以檔案掛戴至 Container 中</title>
+      <link>https://blog.yowko.com/certificate-secret-mount-volume-file/</link>
+      <pubDate>Tue, 09 Feb 2021 15:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/certificate-secret-mount-volume-file/</guid>
+      <description>將憑證 secret 以檔案掛戴至 Container 中 之前筆記 使用 cert-manager 建立憑證 紀錄到如何使用 cert-manager 來建立憑證，只是透過 cert-manager 產生的憑證會以 Kubernetes secret 方式存在，一般 application 無法直接取用，所以今天</description>
+    </item>
+    
+    <item>
+      <title>使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證</title>
+      <link>https://blog.yowko.com/cert-manager-pkcs12-pfx/</link>
+      <pubDate>Tue, 09 Feb 2021 10:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/cert-manager-pkcs12-pfx/</guid>
+      <description>使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證 之前筆記 使用 cert-manager 建立憑證 紀錄到如何使用 cert-manager 來建立憑證，在預設情境下只會產生 .crt + .key 的憑證與 key，但 ASP.NET Core 使用的憑證格式為 PKCS12 (.PFX)</description>
+    </item>
     
     <item>
       <title>使用 cert-manager 建立憑證</title>
