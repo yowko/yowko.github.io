@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 09 Feb 2021 15:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 12 Feb 2021 09:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kubernetes 發行憑證給 ASP.NET Core 使用</title>
+      <link>https://blog.yowko.com/kubernetes-certificate-aspdotnet-core/</link>
+      <pubDate>Fri, 12 Feb 2021 09:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/kubernetes-certificate-aspdotnet-core/</guid>
+      <description>Kubernetes 發行憑證給 ASP.NET Core 使用 之前筆記 使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證 紀錄到如何使用 cert-manager 來建立 ASP.NET Core 可以使用的 PKCS12 格式 (.pfx) 憑證，也在 將憑證 secret 以檔案掛戴至 Container 中 紀錄如何將 Kubernetes</description>
+    </item>
     
     <item>
       <title>將憑證 secret 以檔案掛戴至 Container 中</title>
