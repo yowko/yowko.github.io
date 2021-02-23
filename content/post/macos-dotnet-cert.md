@@ -1,7 +1,7 @@
 ---
 title: "在 macOS 上建立開發用 .NET Core 憑證"
 date: 2020-02-23T21:30:00+08:00
-lastmod: 2020-09-01T21:30:31+08:00
+lastmod: 2021-02-23T21:30:31+08:00
 draft: false
 tags: ["macOS","dotnet core"]
 slug: "macos-dotnet-cert"
@@ -33,7 +33,7 @@ slug: "macos-dotnet-cert"
     > 記得加上 `sudo`
 
     ```bash
-    dotnet dev-certs https --clean
+    sudo dotnet dev-certs https --clean
     ```
 
     ![3clean](https://user-images.githubusercontent.com/3851540/75106612-6d0f0380-5659-11ea-81ff-088d845b771a.png)
