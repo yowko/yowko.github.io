@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>在 macOS 上建立開發用 .NET Core 憑證 - Yowko&#39;s Notes</title>
+  <title>Docker Container 佔用磁碟大小 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="在 macOS 上建立開發用 .NET Core 憑證 現在的 web 環境幾乎都會要求 https，這樣的改變當然也套用在開發上，像是 HTTP/2 雖然在協定本身允許非加密的 HTTP 協定，但絕大部份" />
+  <meta name="description" content="Docker Container 佔用磁碟大小 最近在做個功能優化的 POC，其他一個項目是評估資料儲存的大小，這個評估我打算透過 container 來進行比較 (雖然跟實際安裝 service 有一定程度的落" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/macos-dotnet-cert/" />
+<link rel="canonical" href="https://blog.yowko.com/docker-container-size/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="在 macOS 上建立開發用 .NET Core 憑證" />
-<meta property="og:description" content="在 macOS 上建立開發用 .NET Core 憑證 現在的 web 環境幾乎都會要求 https，這樣的改變當然也套用在開發上，像是 HTTP/2 雖然在協定本身允許非加密的 HTTP 協定，但絕大部份" />
+<meta property="og:title" content="Docker Container 佔用磁碟大小" />
+<meta property="og:description" content="Docker Container 佔用磁碟大小 最近在做個功能優化的 POC，其他一個項目是評估資料儲存的大小，這個評估我打算透過 container 來進行比較 (雖然跟實際安裝 service 有一定程度的落" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/macos-dotnet-cert/" /><meta property="article:published_time" content="2020-02-23T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2021-02-23T21:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/docker-container-size/" /><meta property="article:published_time" content="2021-02-22T09:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2021-02-22T09:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="在 macOS 上建立開發用 .NET Core 憑證">
-<meta itemprop="description" content="在 macOS 上建立開發用 .NET Core 憑證 現在的 web 環境幾乎都會要求 https，這樣的改變當然也套用在開發上，像是 HTTP/2 雖然在協定本身允許非加密的 HTTP 協定，但絕大部份">
-
-
-<meta itemprop="datePublished" content="2020-02-23T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2021-02-23T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="389">
+<meta itemprop="name" content="Docker Container 佔用磁碟大小">
+<meta itemprop="description" content="Docker Container 佔用磁碟大小 最近在做個功能優化的 POC，其他一個項目是評估資料儲存的大小，這個評估我打算透過 container 來進行比較 (雖然跟實際安裝 service 有一定程度的落">
 
 
+<meta itemprop="datePublished" content="2021-02-22T09:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2021-02-22T09:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="448">
 
-<meta itemprop="keywords" content="macOS,dotnet core," />
+
+
+<meta itemprop="keywords" content="Docker,Container," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="在 macOS 上建立開發用 .NET Core 憑證"/>
-<meta name="twitter:description" content="在 macOS 上建立開發用 .NET Core 憑證 現在的 web 環境幾乎都會要求 https，這樣的改變當然也套用在開發上，像是 HTTP/2 雖然在協定本身允許非加密的 HTTP 協定，但絕大部份"/>
+<meta name="twitter:title" content="Docker Container 佔用磁碟大小"/>
+<meta name="twitter:description" content="Docker Container 佔用磁碟大小 最近在做個功能優化的 POC，其他一個項目是評估資料儲存的大小，這個評估我打算透過 container 來進行比較 (雖然跟實際安裝 service 有一定程度的落"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2020-02-23 </span>
+        <span class="post-time"> 2021-02-22 </span>
         
-        <span class="more-meta"> 約 389 字 </span>
+        <span class="more-meta"> 約 448 字 </span>
           <span class="more-meta"> 預計閱讀 1 分鐘 </span>
         
       </div>
@@ -163,10 +163,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#在-macos-上建立開發用-net-core-憑證">在 macOS 上建立開發用 .NET Core 憑證</a></li>
+<li><a href="#docker-container-佔用磁碟大小">Docker Container 佔用磁碟大小</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝方式">安裝方式</a></li>
-<li><a href="#安裝前後差異">安裝前後差異</a></li>
+<li><a href="#確認方式與說明">確認方式與說明</a></li>
 <li><a href="#心得">心得</a></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
@@ -182,85 +181,79 @@
     <div class="post-content">
       
 
-<h2 id="在-macos-上建立開發用-net-core-憑證">在 macOS 上建立開發用 .NET Core 憑證</h2>
+<h2 id="docker-container-佔用磁碟大小">Docker Container 佔用磁碟大小</h2>
 
-<p>現在的 web 環境幾乎都會要求 https，這樣的改變當然也套用在開發上，像是 HTTP/2 雖然在協定本身允許非加密的 HTTP 協定，但絕大部份的 client 端僅提供 TLS 加密的 HTTP/2 協定實作，這讓 TLS 加密的 HTTP/2 成為了實際上的標準</p>
+<p>最近在做個功能優化的 POC，其他一個項目是評估資料儲存的大小，這個評估我打算透過 container 來進行比較 (雖然跟實際安裝 service 有一定程度的落差，但我進行的這個 POC 主要是為了比較不同 technology stack 的相對差異，不是絕對的數值)</p>
 
-<p>為了及早處理憑證問題以及程式碼管理，可以在開發階段安裝開發用憑證，簡單紀錄一下語法備用</p>
+<p>在透過 docker 指令查詢 container 佔用 disk 大小時，對於 docker 指令所呈現的數據不太明白，查了資訊順手紀錄一下  加深印象</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
 <ol>
-<li>macOS Catalina 10.15.3</li>
-<li>.NET Core SDK 3.1.102</li>
-</ol>
+<li>macOS Big Sur 11.2.1</li>
+<li>docker desktop 3.1.0(51484)</li>
 
-<h2 id="安裝方式">安裝方式</h2>
-
-<ol>
-<li><p>安裝</p>
-
-<pre><code class="language-bash">dotnet dev-certs https --trust
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/75106610-697b7c80-5659-11ea-8771-71f630d7c22d.png" alt="1install" /></p></li>
-
-<li><p>移除</p>
-
-<blockquote>
-<p>記得加上 <code>sudo</code></p>
-</blockquote>
-
-<pre><code class="language-bash">sudo dotnet dev-certs https --clean
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/75106612-6d0f0380-5659-11ea-81ff-088d845b771a.png" alt="3clean" /></p>
+<li><p>docker images</p>
 
 <ul>
-<li><p>未加 <code>sudo</code> 錯誤</p>
-
-<pre><code class="language-txt">There was an error trying to clean HTTPS development certificates on this machine.
-Removing the requested certificate would modify user trust settings, and has been denied.
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/75106611-6bddd680-5659-11ea-9619-6f02838648ce.png" alt="2nosudo" /></p></li>
+<li>wurstmeister/kafka:2.13-2.7.0</li>
+<li>wurstmeister/zookeeper:3.4.6</li>
 </ul></li>
 </ol>
 
-<h2 id="安裝前後差異">安裝前後差異</h2>
+<h2 id="確認方式與說明">確認方式與說明</h2>
 
-<ol>
-<li><p>安裝前</p>
-
-<blockquote>
-<p>出現安全警示，無法直接瀏覽</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/75106613-6da79a00-5659-11ea-89d0-726a15522181.png" alt="3errorpage" /></p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/75106614-6e403080-5659-11ea-94d7-2147e5e92e02.png" alt="4invalidcert" /></p></li>
-
-<li><p>安裝後</p>
+<ul>
+<li><p>使用 <code>docker ps -s</code> 或是 <code>docker ps --size</code></p>
 
 <blockquote>
-<p>無警示提醒</p>
+<p>官方用法說明在此 <a href="https://docs.docker.com/engine/reference/commandline/ps/" target="_blank">docker ps</a></p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/75106616-6ed8c700-5659-11ea-8083-ee16ae23a72b.png" alt="5normalpage" /></p>
+<p><img src="https://user-images.githubusercontent.com/3851540/108661974-2ff97d80-7508-11eb-938a-9aeed80c6cfc.png" alt="1dockerpssize" /></p></li>
 
-<p><img src="https://user-images.githubusercontent.com/3851540/75106617-6ed8c700-5659-11ea-99ee-f46bd0b504db.png" alt="6goodcert" /></p></li>
-</ol>
+<li><p><code>SIZE</code> 有兩個數字</p>
+
+<blockquote>
+<p>這邊是根據 <a href="https://github.com/docker/docker.github.io/issues/1520#issuecomment-305179362" target="_blank">Explain the SIZE column in &ldquo;docker ps -s&rdquo; and what &ldquo;virtual&rdquo; keyword means</a> 的個人理解，為了避免我誤導，強烈建議對照 <a href="https://github.com/docker/docker.github.io/issues/1520#issuecomment-305179362" target="_blank">Explain the SIZE column in &ldquo;docker ps -s&rdquo; and what &ldquo;virtual&rdquo; keyword means</a></p>
+</blockquote>
+
+<ul>
+<li><p>第一個數字是 container <code>可讀磁區</code> 的大小</p>
+
+<blockquote>
+<p>每個 container 都是獨立的</p>
+</blockquote></li>
+
+<li><p>第二個數字 (virtual) 是 container <code>可讀磁區 + 唯讀磁區</code> 的大小</p>
+
+<blockquote>
+<p>其中 <code>virtual</code> 的數字是所有使用相同 image 建立的 container 共用的 (使用相同 image 建立的所有 container 會有相同的 virtual size)</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/108662202-c9c12a80-7508-11eb-9fe7-ac8e404f1812.png" alt="2samevirtual" /></p></li>
+</ul></li>
+</ul>
 
 <h2 id="心得">心得</h2>
 
-<p>雖然憑證問題不是很難解決，但憑證問題在過去的經驗中，有時候很難釐清該由誰處理，有的團隊是開發人員負責，有的則是 MIS 負責，另外環境 os 因為實作方式不同也會有不同的處理方式，但身為解決問題的人，我想多了解一點總不會是壞事，不過有時候就是想了解也不一定有合適的學習對象</p>
+<p>為了避免我誤導，強烈建議對照 <a href="https://github.com/docker/docker.github.io/issues/1520#issuecomment-305179362" target="_blank">Explain the SIZE column in &ldquo;docker ps -s&rdquo; and what &ldquo;virtual&rdquo; keyword means</a></p>
+
+<p>其中提到透過 <code>docker ps -s</code> 或是 <code>docker ps --size</code> 所取得的磁碟用量不包含下列內容</p>
+
+<ol>
+<li>log file</li>
+<li>額外 mount 的 volume</li>
+<li>container 啟動時從外部指定的 configuration</li>
+<li>container memory 因為 swap 儲存至 disk 的部份</li>
+<li>checkpoint/restore 等實驗性功能</li>
+</ol>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://zh.wikipedia.org/wiki/HTTP" target="_blank">HTTP/2</a></li>
-<li><a href="https://dev.to/cesarcodes/troubleshooting-net-core-dev-certs-on-macos-179d" target="_blank">Troubleshooting .NET Core Dev Certs on MacOS</a></li>
-<li><a href="https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-3.1&amp;tabs=visual-studio&amp;WT.mc_id=DOP-MVP-5002594#troubleshoot-certificate-problems" target="_blank">Enforce HTTPS in ASP.NET Core</a></li>
+<li><a href="https://github.com/docker/docker.github.io/issues/1520#issuecomment-305179362" target="_blank">Explain the SIZE column in &ldquo;docker ps -s&rdquo; and what &ldquo;virtual&rdquo; keyword means</a></li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/ps/" target="_blank">docker ps</a></li>
 </ol>
 
     </div>
@@ -273,7 +266,7 @@ Removing the requested certificate would modify user trust settings, and has bee
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2021-02-23</span>
+    <span class="item-content">2021-02-22</span>
   </p>
   
   <p class="copyright-item">
@@ -295,13 +288,11 @@ Removing the requested certificate would modify user trust settings, and has bee
           
 		    
 		    	
-            <a href="https://blog.yowko.com/tags/macos/">macOS</a>
+            <a href="https://blog.yowko.com/tags/docker/">Docker</a>
           
 		    
-		    
-		      
 		    	
-            <a href="https://blog.yowko.com/tags/dotnet-core/">.NET Core</a>
+            <a href="https://blog.yowko.com/tags/container/">Container</a>
           
         </div>
 
@@ -309,18 +300,11 @@ Removing the requested certificate would modify user trust settings, and has bee
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/macos-aspnetcore-grpc/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">在 macOS 上的 ASP.NET Core 中呼叫 gRPC</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/redis-rename-config-sentinel-not-work/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/kubernetes-certificate-aspdotnet-core/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">Redis Rename Config 後 Sentinel 無法正確執行 Failover</span>			
+            <span class="prev-text nav-default">Kubernetes 發行憑證給 ASP.NET Core 使用</span>			
           </a>
 		  </div>
       </nav>
@@ -331,7 +315,7 @@ Removing the requested certificate would modify user trust settings, and has bee
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/macos-dotnet-cert\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/docker-container-size\/';  
       
     };
 
