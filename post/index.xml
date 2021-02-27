@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 22 Feb 2021 09:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 27 Feb 2021 09:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ASP.NET Core 避免工作執行到一半強制被關閉</title>
+      <link>https://blog.yowko.com/aspdotnetcore-graceful-shutdown/</link>
+      <pubDate>Sat, 27 Feb 2021 09:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnetcore-graceful-shutdown/</guid>
+      <description>ASP.NET Core 避免工作執行到一半強制被關閉 最近同事反應部份 application 在不同環境間，有 stop log 沒有正常紀錄下來的情況，雖然只是 log，但很有可能就連原本預期執行完畢</description>
+    </item>
     
     <item>
       <title>Docker Container 佔用磁碟大小</title>
