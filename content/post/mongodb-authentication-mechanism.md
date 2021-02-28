@@ -88,3 +88,5 @@ slug: "mongodb-authentication-mechanism"
 2. [Configure MongoDB Authentication and Authorization](https://docs.cloudmanager.mongodb.com/tutorial/edit-host-authentication-credentials/#access-control-mechanisms)
 3. [setFeatureCompatibilityVersion/default-values](https://docs.mongodb.com/manual/reference/command/setFeatureCompatibilityVersion/#default-values)
 4. [setFeatureCompatibilityVersion/view-featurecompatibilityversion](https://docs.mongodb.com/manual/reference/command/setFeatureCompatibilityVersion/#view-featurecompatibilityversion)
+5. [db.getUser](https://docs.mongodb.com/manual/reference/method/db.getUser/#example)
+6. [db.getUsers](https://docs.mongodb.com/manual/reference/method/db.getUsers/)
