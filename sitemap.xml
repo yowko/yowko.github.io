@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/mongodb-authentication-mechanism/</loc>
+    <lastmod>2021-02-28T09:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/aspdotnetcore-graceful-shutdown/</loc>
     <lastmod>2021-02-27T09:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -4847,7 +4854,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/mongodb/</loc>
-    <lastmod>2021-02-08T21:30:31+08:00</lastmod>
+    <lastmod>2021-02-28T09:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4966,7 +4973,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2021-02-27T09:30:31+08:00</lastmod>
+    <lastmod>2021-02-28T09:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -5148,7 +5155,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2021-02-27T09:30:31+08:00</lastmod>
+    <lastmod>2021-02-28T09:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

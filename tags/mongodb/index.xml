@@ -6,10 +6,19 @@
     <description>Recent content in MongoDB on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 08 Feb 2021 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 28 Feb 2021 09:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>確認 MongoDB 驗證機制</title>
+      <link>https://blog.yowko.com/mongodb-authentication-mechanism/</link>
+      <pubDate>Sun, 28 Feb 2021 09:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/mongodb-authentication-mechanism/</guid>
+      <description>確認 MongoDB 驗證機制 前幾天在進行每日 server 狀態異常檢查時，偶然發現 MongoDB 的錯誤 log 很多，進一步整理後統整出每個 application 連線認證都會先出現一次 SCRAM-SHA-256 認證失敗之後才會出現</description>
+    </item>
     
     <item>
       <title>MongoDB Exporter 需要的權限</title>
