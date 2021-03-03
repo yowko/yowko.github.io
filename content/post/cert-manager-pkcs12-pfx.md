@@ -1,7 +1,7 @@
 ---
 title: "使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證"
 date: 2021-02-09T10:30:00+08:00
-lastmod: 2021-02-09T10:30:31+08:00
+lastmod: 2021-03-03T10:30:31+08:00
 draft: false
 tags: ["Kubernetes"]
 slug: "cert-manager-pkcs12-pfx"
@@ -50,28 +50,28 @@ slug: "cert-manager-pkcs12-pfx"
 
 3. 建立 PKCS12 格式 (.pfx) 憑證
 
-    ```bash
-    kubectl apply -f <(echo '
-    apiVersion: cert-manager.io/v1
-    kind: Certificate
-    metadata:
-      name: yowko-pkcs12
-    spec:
-      secretName: yowko-pkcs12
-      keystores:
-       pkcs12:
-         create: true
-         passwordSecretRef:
-           name: pfxpwd
-           key: password
-      dnsNames:
-      - "*.default.svc.cluster.local"
-      - "*.testyowko.com"
-      issuerRef:
-        name: selfsigned-issuer
-        kind: Issuer
-    ')
-    ```
+      ```bash
+      kubectl apply -f <(echo '
+      apiVersion: cert-manager.io/v1
+      kind: Certificate
+      metadata:
+        name: yowko-pkcs12
+      spec:
+        secretName: yowko-pkcs12
+        keystores:
+         pkcs12:
+           create: true
+           passwordSecretRef:
+             name: pfxpwd
+             key: password
+        dnsNames:
+        - "*.default.svc.cluster.local"
+        - "*.testyowko.com"
+        issuerRef:
+          name: selfsigned-issuer
+          kind: Issuer
+      ')
+      ```
 
     ![1p12](https://user-images.githubusercontent.com/3851540/107316711-333a4580-6ad4-11eb-9fb5-22ee990dab6d.png)
 
