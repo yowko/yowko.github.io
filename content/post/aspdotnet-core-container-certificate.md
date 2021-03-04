@@ -1,13 +1,15 @@
 ---
 title: "讓 container 中的 ASP.NET Core 也有憑證"
 date: 2020-09-20T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-03-04T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","gRPC","Docker"]
 slug: "aspdotnet-core-container-certificate"
 ---
 
 ## 讓 container 中的 ASP.NET Core 也有憑證
+
+### <span style="color:red"> 經 2021/03/04 測試，本文內容失效，請參考 [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate) </span>
 
 之前筆記 [使用 ASP.NET Core middleware 進行 gRPC healthy check](/aspdotnet-core-middleware-grpc-healthy-check/)、[使用 ASP.NET Core BackgroundService 進行 gRPC healthy check](/aspdotnet-core-backgroundservice-grpc-healthy-check/) 以及 [ASP.NET Core gRPC 無法在 macOS 上啟動？！](/aspdotnet-core-grpc-macos/) 都有提到過 gRPC 的原生限制：採用 HTTP2 協定並預設使用 SSL，雖然可以使用 clear text 只是如此一來不僅失去安全性在設定上還是比較繁瑣些
 
@@ -325,7 +327,10 @@ slug: "aspdotnet-core-container-certificate"
 
 反覆測試了幾次，大致上歸納出目前的設定方式供參考
 
+### <span style="color:red"> 經 2021/03/04 測試，本文內容失效，請參考 [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate) </span>
+
 ## 參考資訊
 
 1. [.NET Core 上的 gRPC 簡介](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/?view=aspnetcore-3.1&WT.mc_id=DOP-MVP-5002594)
 2. [使用 Docker over HTTPS 裝載 ASP.NET Core 映射](https://docs.microsoft.com/zh-tw/aspnet/core/security/docker-https?view=aspnetcore-3.1&WT.mc_id=DOP-MVP-5002594)
+3. [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate)
