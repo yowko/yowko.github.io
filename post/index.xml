@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 28 Feb 2021 09:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 04 Mar 2021 09:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ASP.NET Core gRPC 使用自發憑證</title>
+      <link>https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate/</link>
+      <pubDate>Thu, 04 Mar 2021 09:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate/</guid>
+      <description>ASP.NET Core gRPC 使用自發憑證 距之前筆記 讓 container 中的 ASP.NET Core 也有憑證 也不過幾個月時間，最近想要搭配 Kubernetes 發行憑證給 ASP.NET Core 使用 透過 Kubernetes 的 cert-manager 使用自簽憑證，想不到一直不通，從</description>
+    </item>
     
     <item>
       <title>確認 MongoDB 驗證機制</title>
@@ -332,7 +341,7 @@
       <pubDate>Sun, 20 Sep 2020 21:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/aspdotnet-core-container-certificate/</guid>
-      <description>讓 container 中的 ASP.NET Core 也有憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法在 macOS 上啟動？！ 都有提到過 gRPC 的原生限制：採用 HTTP2 協定</description>
+      <description>讓 container 中的 ASP.NET Core 也有憑證 經 2021/03/04 測試，本文內容失效，請參考 ASP.NET Core gRPC 使用自發憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法</description>
     </item>
     
     <item>

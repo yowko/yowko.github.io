@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="讓 container 中的 ASP.NET Core 也有憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法在 macOS 上啟動？！ 都有提到過 gRPC 的原生限制：採用 HTTP2 協定" />
+  <meta name="description" content="讓 container 中的 ASP.NET Core 也有憑證 經 2021/03/04 測試，本文內容失效，請參考 ASP.NET Core gRPC 使用自發憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -55,25 +55,25 @@
 
 
 <meta property="og:title" content="讓 container 中的 ASP.NET Core 也有憑證" />
-<meta property="og:description" content="讓 container 中的 ASP.NET Core 也有憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法在 macOS 上啟動？！ 都有提到過 gRPC 的原生限制：採用 HTTP2 協定" />
+<meta property="og:description" content="讓 container 中的 ASP.NET Core 也有憑證 經 2021/03/04 測試，本文內容失效，請參考 ASP.NET Core gRPC 使用自發憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-container-certificate/" /><meta property="article:published_time" content="2020-09-20T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2021-03-04T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="讓 container 中的 ASP.NET Core 也有憑證">
-<meta itemprop="description" content="讓 container 中的 ASP.NET Core 也有憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法在 macOS 上啟動？！ 都有提到過 gRPC 的原生限制：採用 HTTP2 協定">
+<meta itemprop="description" content="讓 container 中的 ASP.NET Core 也有憑證 經 2021/03/04 測試，本文內容失效，請參考 ASP.NET Core gRPC 使用自發憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法">
 
 
 <meta itemprop="datePublished" content="2020-09-20T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="1100">
+<meta itemprop="dateModified" content="2021-03-04T21:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="1157">
 
 
 
 <meta itemprop="keywords" content="ASP.NET Core,gRPC,Docker," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="讓 container 中的 ASP.NET Core 也有憑證"/>
-<meta name="twitter:description" content="讓 container 中的 ASP.NET Core 也有憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法在 macOS 上啟動？！ 都有提到過 gRPC 的原生限制：採用 HTTP2 協定"/>
+<meta name="twitter:description" content="讓 container 中的 ASP.NET Core 也有憑證 經 2021/03/04 測試，本文內容失效，請參考 ASP.NET Core gRPC 使用自發憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-09-20 </span>
         
-        <span class="more-meta"> 約 1100 字 </span>
+        <span class="more-meta"> 約 1157 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -163,10 +163,16 @@
 <ul>
 <li>
 <ul>
-<li><a href="#讓-container-中的-asp-net-core-也有憑證">讓 container 中的 ASP.NET Core 也有憑證</a></li>
+<li><a href="#讓-container-中的-asp-net-core-也有憑證">讓 container 中的 ASP.NET Core 也有憑證</a>
+<ul>
+<li><a href="#span-style-color-red-經-2021-03-04-測試-本文內容失效-請參考-asp-net-core-grpc-使用自發憑證-aspdotnetcore-grpc-self-signed-certificate-span"><span style="color:red"> 經 2021/03/04 測試，本文內容失效，請參考 <a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate">ASP.NET Core gRPC 使用自發憑證</a> </span></a></li>
+</ul></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
 <li><a href="#設定步驟">設定步驟</a></li>
-<li><a href="#心得">心得</a></li>
+<li><a href="#心得">心得</a>
+<ul>
+<li><a href="#span-style-color-red-經-2021-03-04-測試-本文內容失效-請參考-asp-net-core-grpc-使用自發憑證-aspdotnetcore-grpc-self-signed-certificate-span-1"><span style="color:red"> 經 2021/03/04 測試，本文內容失效，請參考 <a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate">ASP.NET Core gRPC 使用自發憑證</a> </span></a></li>
+</ul></li>
 <li><a href="#參考資訊">參考資訊</a></li>
 </ul></li>
 </ul>
@@ -182,6 +188,8 @@
       
 
 <h2 id="讓-container-中的-asp-net-core-也有憑證">讓 container 中的 ASP.NET Core 也有憑證</h2>
+
+<h3 id="span-style-color-red-經-2021-03-04-測試-本文內容失效-請參考-asp-net-core-grpc-使用自發憑證-aspdotnetcore-grpc-self-signed-certificate-span"><span style="color:red"> 經 2021/03/04 測試，本文內容失效，請參考 <a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate">ASP.NET Core gRPC 使用自發憑證</a> </span></h3>
 
 <p>之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-middleware-grpc-healthy-check/">使用 ASP.NET Core middleware 進行 gRPC healthy check</a>、<a href="https://blog.yowko.com/aspdotnet-core-backgroundservice-grpc-healthy-check/">使用 ASP.NET Core BackgroundService 進行 gRPC healthy check</a> 以及 <a href="https://blog.yowko.com/aspdotnet-core-grpc-macos/">ASP.NET Core gRPC 無法在 macOS 上啟動？！</a> 都有提到過 gRPC 的原生限制：採用 HTTP2 協定並預設使用 SSL，雖然可以使用 clear text 只是如此一來不僅失去安全性在設定上還是比較繁瑣些</p>
 
@@ -508,11 +516,14 @@ dotnet dev-certs https --trust
 
 <p>反覆測試了幾次，大致上歸納出目前的設定方式供參考</p>
 
+<h3 id="span-style-color-red-經-2021-03-04-測試-本文內容失效-請參考-asp-net-core-grpc-使用自發憑證-aspdotnetcore-grpc-self-signed-certificate-span-1"><span style="color:red"> 經 2021/03/04 測試，本文內容失效，請參考 <a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate">ASP.NET Core gRPC 使用自發憑證</a> </span></h3>
+
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
 <li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/grpc/?view=aspnetcore-3.1&amp;WT.mc_id=DOP-MVP-5002594" target="_blank">.NET Core 上的 gRPC 簡介</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/security/docker-https?view=aspnetcore-3.1&amp;WT.mc_id=DOP-MVP-5002594" target="_blank">使用 Docker over HTTPS 裝載 ASP.NET Core 映射</a></li>
+<li><a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate">ASP.NET Core gRPC 使用自發憑證</a></li>
 </ol>
 
     </div>
@@ -525,7 +536,7 @@ dotnet dev-certs https --trust
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-12-11</span>
+    <span class="item-content">2021-03-04</span>
   </p>
   
   <p class="copyright-item">

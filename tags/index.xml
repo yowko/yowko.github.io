@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 27 Feb 2021 09:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 04 Mar 2021 09:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>ASP.NET Core</title>
       <link>https://blog.yowko.com/tags/asp.net-core/</link>
-      <pubDate>Sat, 27 Feb 2021 09:30:00 +0800</pubDate>
+      <pubDate>Thu, 04 Mar 2021 09:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/tags/asp.net-core/</guid>
       <description></description>
@@ -950,7 +950,7 @@
     <item>
       <title>gRPC</title>
       <link>https://blog.yowko.com/tags/grpc/</link>
-      <pubDate>Mon, 19 Oct 2020 21:30:00 +0800</pubDate>
+      <pubDate>Thu, 04 Mar 2021 09:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/tags/grpc/</guid>
       <description></description>
@@ -968,7 +968,7 @@
     <item>
       <title>grpc</title>
       <link>https://blog.yowko.com/tags/grpc/</link>
-      <pubDate>Mon, 19 Oct 2020 21:30:00 +0800</pubDate>
+      <pubDate>Thu, 04 Mar 2021 09:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/tags/grpc/</guid>
       <description></description>

@@ -35,7 +35,7 @@
       <pubDate>Sun, 20 Sep 2020 21:30:00 +0800</pubDate>
       
       <guid>https://blog.yowko.com/aspdotnet-core-container-certificate/</guid>
-      <description>讓 container 中的 ASP.NET Core 也有憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法在 macOS 上啟動？！ 都有提到過 gRPC 的原生限制：採用 HTTP2 協定</description>
+      <description>讓 container 中的 ASP.NET Core 也有憑證 經 2021/03/04 測試，本文內容失效，請參考 ASP.NET Core gRPC 使用自發憑證 之前筆記 使用 ASP.NET Core middleware 進行 gRPC healthy check、使用 ASP.NET Core BackgroundService 進行 gRPC healthy check 以及 ASP.NET Core gRPC 無法</description>
     </item>
     
     <item>
