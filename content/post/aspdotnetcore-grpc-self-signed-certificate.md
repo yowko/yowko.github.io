@@ -352,9 +352,12 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
 
 - 今天紀錄的內容，不支援 macOS 直接執行 (原因請參考官方說明 [無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos))，預計會另外筆記處理方式
 
+- 完整程式碼可以參考 [aspdotnetcore-grpc-self-signed-certificate-sample](https://github.com/yowko/aspdotnetcore-grpc-self-signed-certificate)
+
 ## 參考資訊
 
 1. [讓 container 中的 ASP.NET Core 也有憑證](/aspdotnet-core-container-certificate/)
 2. [Kubernetes 發行憑證給 ASP.NET Core 使用](kubernetes-certificate-aspdotnet-core)
 3. [使用 grpcurl 呼叫 gRPC Service](/grpcurl)
 4. [無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos)
+5. [aspdotnetcore-grpc-self-signed-certificate-sample](https://github.com/yowko/aspdotnetcore-grpc-self-signed-certificate)
