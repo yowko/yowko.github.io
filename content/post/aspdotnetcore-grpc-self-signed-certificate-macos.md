@@ -1,22 +1,15 @@
 ---
-title: "ASP.NET Core gRPC 使用自發憑證"
-date: 2021-03-04T09:30:00+08:00
-lastmod: 2021-03-04T09:30:31+08:00
+title: "ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理"
+date: 2021-03-05T09:30:00+08:00
+lastmod: 2021-03-05T09:30:31+08:00
 draft: false
-tags: ["ASP.NET Core","gRPC"]
-slug: "aspdotnetcore-grpc-self-signed-certificate"
+tags: ["ASP.NET Core","gRPC","macOS"]
+slug: "aspdotnetcore-grpc-self-signed-certificate-macos"
 ---
 
-## ASP.NET Core gRPC 使用自發憑證
+## ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理
 
-距之前筆記 [讓 container 中的 ASP.NET Core 也有憑證](/aspdotnet-core-container-certificate/) 也不過幾個月時間，最近想要搭配 [Kubernetes 發行憑證給 ASP.NET Core 使用](/kubernetes-certificate-aspdotnet-core) 透過 Kubernetes 的 cert-manager 使用自簽憑證，想不到一直不通，從一開始懷疑憑證格式不相容，後來嘗試調整程式語法也不行，也試了使用之前筆記的 image 也無法成功，最後推測可能的原因有兩個：
-
-1. 之前筆記 [讓 container 中的 ASP.NET Core 也有憑證](/aspdotnet-core-container-certificate/) 本來就有問題，只是剛好當下沒測出來
-2. 新版的 .NET SDK 或是 grpc.net 做了調整
-
-以結果來看比較像是之前筆記 [讓 container 中的 ASP.NET Core 也有憑證](/aspdotnet-core-container-certificate/) 本來就有問題，因為使用當時的 image 也無法成功使用XD
-
-無論如何，現在再做一次紀錄加深印象，把上次可能漏掉的設定檔一併補上!!!
+之前筆記 [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate) 紀錄到使用自發憑證來為 ASP.NET Core gRPC service 加上 tls，透過新的做法看似可以正確在 container 內執行，只是寫法並不適用於 macOS 上的開發 (原因請參考官方說明 [無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos))，尤其是開發新功能時 頻繁 build image 進行測試有些浪費時間，所以簡易調整一版先來試用看看，看後續狀況再來調整
 
 ## 基本環境說明
 
@@ -26,7 +19,7 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
 
 ## 設定方式
 
-1. 建立憑證
+1. 建立憑證 (與 [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate) 相同)
 
     > 這邊我是透過 [使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證](/cert-manager-pkcs12-pfx/) 建立憑證，再透過下列語法將憑證儲存至電腦的 `${HOME}/certs` 路徑備用
 
@@ -41,7 +34,7 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
 
     > 今天使用的專案名稱為 `ApplyTLS`，請需要自行調整
 
-    - Protos
+    - Protos (與 [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate) 相同)
         - greet.proto
 
             ```protobuf
@@ -69,7 +62,7 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
             ```
 
     - Services
-        - GreeterHealthChecker.cs
+        - GreeterHealthChecker.cs (與 [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate) 相同)
 
             ```cs
             using System.Threading;
@@ -99,7 +92,7 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
             }
             ```
 
-        - GreeterService.cs
+        - GreeterService.cs (與 [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate) 相同)
 
             ```cs
             using System.Threading.Tasks;
@@ -128,7 +121,7 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
             }
             ```
 
-    - appsettings.json
+    - appsettings.json (與 [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate) 相同)
 
         ```json
         {
@@ -145,7 +138,9 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
         }
         ```
 
-    - appsettings.Development.json
+    - appsettings.Development.json (可調整)
+
+        > 如果 rider 啟動也打算透過網頁來檢查 healthy check 的結果，可以設定 `ASPNETCORE_ENVIRONMENT=Development`，然後加上 web listen port
 
         ```json
         {
@@ -156,14 +151,23 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
               "Grpc": "Information",
               "Microsoft": "Information"
             }
+          },
+          "Kestrel": {
+            "Endpoints": {
+              "Https": {
+                "Url": "http://*:5001",
+                "Protocols": "Http1"
+              }
+            }
           }
         }           
         ```
 
-    - Program.cs
+    - Program.cs (有調整)
 
         ```cs
         using System;
+        using System.Runtime.InteropServices;
         using Microsoft.AspNetCore.Hosting;
         using Microsoft.AspNetCore.Server.Kestrel.Core;
         using Microsoft.Extensions.Configuration;
@@ -189,13 +193,21 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
                                 {
                                     // 從 appsetting 中取得 grpc server 的 host
                                     var port = context.Configuration.GetValue<int>("GrpcPort");
+                                    // 判斷是否為 macOS 啟動
+                                    var isosx= RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+                                    // Kestrel 在 macOS 上不支援具有 TLS 的 HTTP/2：如果是 macOS 使用 Http2 protocol
+                                    var protocol = isosx
+                                        ? HttpProtocols.Http2
+                                        : HttpProtocols.Http1AndHttp2;
         
                                     kestrelOptions.ListenAnyIP(port, listenOptions =>
                                     {
-                                        // 將 grpc 的 protocal 同時註冊 http1 與 http2
-                                        listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
-                                        // 使用過去慣用的環境變數來設定 grpc server 的憑證
-                                        listenOptions.UseHttps(Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Path"),Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Password"));
+                                        listenOptions.Protocols = protocol;
+                                        if (!isosx) //如果不是 macOS 就綁上憑證
+                                        {
+                                            // 使用過去慣用的環境變數來設定 grpc server 的憑證
+                                            listenOptions.UseHttps(Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Path"),Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Password"));
+                                        }
                                     });
                                 });
                         });
@@ -203,11 +215,12 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
         }
         ```
 
-    - Startup.cs
+    - Startup.cs (有調整)
 
         ```cs
         using System;
         using System.Net.Http;
+        using System.Runtime.InteropServices;
         using ApplyTLS.Services;
         using Microsoft.AspNetCore.Builder;
         using Microsoft.AspNetCore.Hosting;
@@ -222,10 +235,12 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
             {
                 private IConfiguration _configuration { get; }
         
-        
+                private bool _isosx { get; }
+
                 public Startup(IConfiguration configuration)
                 {
                     _configuration = configuration;
+                    _isosx = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
                 }
                 // This method gets called by the runtime. Use this method to add services to the container.
                 // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/S?LinkID=398940
@@ -234,8 +249,12 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
                     services.AddGrpc();
                     services.AddHealthChecks().AddCheck<GreeterHealthChecker>("example_health_check");
         
-                    //指定 grpc server 連線的 protocal
-                    const string protocol = "https";
+                    if (_isosx)
+                    {
+                        // 取消 grpc client 做 healthycheck 的憑證驗證
+                        AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+                        protocol = "http";
+                    }
         
                     // for healthy check
                     services.AddGrpcClient<Greeter.GreeterClient>(o =>
@@ -283,7 +302,7 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
         }
         ```
 
-    - .csproj
+    - .csproj (與 [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate) 相同)
 
         > 修改 proto 編譯方式為 `Both`
 
@@ -291,7 +310,7 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
         <Protobuf Include="Protos\greet.proto" GrpcServices="Both" />
         ```
 
-3. dockerfile
+3. dockerfile (與 [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate) 相同)
 
     ```dockerfiles
     FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
@@ -316,49 +335,50 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
     ENTRYPOINT ["dotnet", "ApplyTLS.dll"]
     ```
 
-4. build image
+4. build image (調整 image tag)
 
     ```cs
-    docker build ./ -t yowko/applytls:0.0.1 
+    docker build ./ -t yowko/applytls:0.0.2
     ```
 
 5. 啟動方式
 
-    ```bash
-    docker run --rm -it -p 12345:12345 -e ASPNETCORE_Kestrel__Certificates__Default__Password="pass.123" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/https/test.pfx -v ${HOME}/certs:/https/ yowko/applytls:0.0.1
-    ```
+    - docker run (使用新的 image tag)
+
+        ```bash
+        docker run --rm -it -p 12345:12345 -e ASPNETCORE_Kestrel__Certificates__Default__Password="pass.123" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/https/test.pfx -v ${HOME}/certs:/https/ yowko/applytls:0.0.2
+        ```
+
+    - rider 直接啟動
 
 ## 心得
 
 - 實際效果：
 
+    > image 啟動 container 的效果與 [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate) 相同，以下只截 macOS 上使用 rider 啟動的實際狀況
+
     1. 網頁 (透過 mvc controller 另外啟動 grpc client 來呼叫本身的 grpc service)
 
-        ![1webpage](https://user-images.githubusercontent.com/3851540/109983959-4db3b780-7d3e-11eb-8cb2-9b4297cdb763.png)
+        ![1webpage](https://user-images.githubusercontent.com/3851540/110076294-35d04800-7dbf-11eb-9ff9-0a2758270e2a.png)
 
     2. grpcurl
 
         > grpcurl 的用法可以參考之前筆記 [使用 grpcurl 呼叫 gRPC Service](/grpcurl)
 
         ```bash
-        grpcurl -cacert ${HOME}/certs/test.crt  -d '{"name":"Yowko"}' -proto ApplyTLS/Protos/greet.proto localhost:12345 greet.Greeter/SayHello
+        grpcurl -plaintext -d '{"name":"Yowko"}' -proto ApplyTLS/Protos/greet.proto localhost:12345 greet.Greeter/SayHello
         ```
 
-        ![2grpcurl](https://user-images.githubusercontent.com/3851540/109983965-4f7d7b00-7d3e-11eb-956c-2feb3054e291.png)
+        ![2grpcurl](https://user-images.githubusercontent.com/3851540/110076298-37017500-7dbf-11eb-9b24-4a28093bb16a.png)
 
     3. bloomrpc
 
-        ![3bloomrpc](https://user-images.githubusercontent.com/3851540/109983971-50161180-7d3e-11eb-8290-2d9a3012b68c.png)
-
-- 今天紀錄的內容，不支援 macOS 直接執行 (原因請參考官方說明 [無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos))，整合方式可以參考個人做法 [ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理](/aspdotnetcore-grpc-self-signed-certificate-macos) (不是很漂亮，但還能解決問題)
+        ![3bloomrpc](https://user-images.githubusercontent.com/3851540/110076301-3832a200-7dbf-11eb-96d2-b1c64cd5f61a.png)
 
 - 完整程式碼可以參考 [aspdotnetcore-grpc-self-signed-certificate-sample](https://github.com/yowko/aspdotnetcore-grpc-self-signed-certificate)
 
 ## 參考資訊
 
-1. [讓 container 中的 ASP.NET Core 也有憑證](/aspdotnet-core-container-certificate/)
-2. [Kubernetes 發行憑證給 ASP.NET Core 使用](/kubernetes-certificate-aspdotnet-core)
-3. [使用 grpcurl 呼叫 gRPC Service](/grpcurl)
-4. [無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos)
-5. [aspdotnetcore-grpc-self-signed-certificate-sample](https://github.com/yowko/aspdotnetcore-grpc-self-signed-certificate)
-6. [ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理](/aspdotnetcore-grpc-self-signed-certificate-macos)
+1. [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate)
+2. [無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos)
+3. [aspdotnetcore-grpc-self-signed-certificate-sample](https://github.com/yowko/aspdotnetcore-grpc-self-signed-certificate)
