@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 04 Mar 2021 09:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 05 Mar 2021 09:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理</title>
+      <link>https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate-macos/</link>
+      <pubDate>Fri, 05 Mar 2021 09:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate-macos/</guid>
+      <description>ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理 之前筆記 ASP.NET Core gRPC 使用自發憑證 紀錄到使用自發憑證來為 ASP.NET Core gRPC service 加上 tls，透過新的做法看似可以正確在 container 內執行，只</description>
+    </item>
     
     <item>
       <title>ASP.NET Core gRPC 使用自發憑證</title>
