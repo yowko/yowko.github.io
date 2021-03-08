@@ -362,3 +362,4 @@ slug: "aspdotnetcore-grpc-self-signed-certificate"
 4. [無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos)
 5. [aspdotnetcore-grpc-self-signed-certificate-sample](https://github.com/yowko/aspdotnetcore-grpc-self-signed-certificate)
 6. [ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理](/aspdotnetcore-grpc-self-signed-certificate-macos)
+7. [.net core中Grpc使用报错：The remote certificate is invalid according to the validation procedure.](https://www.cnblogs.com/shanfeng1000/p/14150950.html)
