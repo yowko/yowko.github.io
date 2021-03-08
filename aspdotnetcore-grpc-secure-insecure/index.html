@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>ASP.NET Core gRPC 使用自發憑證 - Yowko&#39;s Notes</title>
+  <title>ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法 - Yowko&#39;s Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="ASP.NET Core gRPC 使用自發憑證 距之前筆記 讓 container 中的 ASP.NET Core 也有憑證 也不過幾個月時間，最近想要搭配 Kubernetes 發行憑證給 ASP.NET Core 使用 透過 Kubernetes 的 cert-manager 使用自簽憑證，想不到一直不通，從" />
+  <meta name="description" content="ASP.NET Core gRPC 在 Linux 與 macOS 上的不同設定 之前筆記 ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理 紀錄到如何在 macOS 與 container 間使用不同 port 與 protocol 來建立 gRPC service，當時查資料看到" />
 
   <meta name="keywords" content="yowko, .net, blog" />
 
@@ -31,7 +31,7 @@
 <meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
 
 
-<link rel="canonical" href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate/" />
+<link rel="canonical" href="https://blog.yowko.com/aspdotnetcore-grpc-secure-insecure/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
@@ -54,26 +54,26 @@
 
 
 
-<meta property="og:title" content="ASP.NET Core gRPC 使用自發憑證" />
-<meta property="og:description" content="ASP.NET Core gRPC 使用自發憑證 距之前筆記 讓 container 中的 ASP.NET Core 也有憑證 也不過幾個月時間，最近想要搭配 Kubernetes 發行憑證給 ASP.NET Core 使用 透過 Kubernetes 的 cert-manager 使用自簽憑證，想不到一直不通，從" />
+<meta property="og:title" content="ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法" />
+<meta property="og:description" content="ASP.NET Core gRPC 在 Linux 與 macOS 上的不同設定 之前筆記 ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理 紀錄到如何在 macOS 與 container 間使用不同 port 與 protocol 來建立 gRPC service，當時查資料看到" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate/" /><meta property="article:published_time" content="2021-03-04T09:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2021-03-04T09:30:31&#43;08:00"/>
+<meta property="og:url" content="https://blog.yowko.com/aspdotnetcore-grpc-secure-insecure/" /><meta property="article:published_time" content="2021-03-07T09:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2021-03-08T09:30:31&#43;08:00"/>
 
-<meta itemprop="name" content="ASP.NET Core gRPC 使用自發憑證">
-<meta itemprop="description" content="ASP.NET Core gRPC 使用自發憑證 距之前筆記 讓 container 中的 ASP.NET Core 也有憑證 也不過幾個月時間，最近想要搭配 Kubernetes 發行憑證給 ASP.NET Core 使用 透過 Kubernetes 的 cert-manager 使用自簽憑證，想不到一直不通，從">
-
-
-<meta itemprop="datePublished" content="2021-03-04T09:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2021-03-04T09:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="1391">
+<meta itemprop="name" content="ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法">
+<meta itemprop="description" content="ASP.NET Core gRPC 在 Linux 與 macOS 上的不同設定 之前筆記 ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理 紀錄到如何在 macOS 與 container 間使用不同 port 與 protocol 來建立 gRPC service，當時查資料看到">
 
 
+<meta itemprop="datePublished" content="2021-03-07T09:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2021-03-08T09:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="1366">
 
-<meta itemprop="keywords" content="ASP.NET Core,gRPC," />
+
+
+<meta itemprop="keywords" content="ASP.NET Core,gRPC,macOS," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="ASP.NET Core gRPC 使用自發憑證"/>
-<meta name="twitter:description" content="ASP.NET Core gRPC 使用自發憑證 距之前筆記 讓 container 中的 ASP.NET Core 也有憑證 也不過幾個月時間，最近想要搭配 Kubernetes 發行憑證給 ASP.NET Core 使用 透過 Kubernetes 的 cert-manager 使用自簽憑證，想不到一直不通，從"/>
+<meta name="twitter:title" content="ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法"/>
+<meta name="twitter:description" content="ASP.NET Core gRPC 在 Linux 與 macOS 上的不同設定 之前筆記 ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理 紀錄到如何在 macOS 與 container 間使用不同 port 與 protocol 來建立 gRPC service，當時查資料看到"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,9 +145,9 @@
       
 
       <div class="post-meta">
-        <span class="post-time"> 2021-03-04 </span>
+        <span class="post-time"> 2021-03-07 </span>
         
-        <span class="more-meta"> 約 1391 字 </span>
+        <span class="more-meta"> 約 1366 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -163,7 +163,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#asp-net-core-grpc-使用自發憑證">ASP.NET Core gRPC 使用自發憑證</a></li>
+<li><a href="#asp-net-core-grpc-在-linux-與-macos-上的不同設定">ASP.NET Core gRPC 在 Linux 與 macOS 上的不同設定</a></li>
 <li><a href="#基本環境說明">基本環境說明</a></li>
 <li><a href="#設定方式">設定方式</a></li>
 <li><a href="#心得">心得</a></li>
@@ -181,18 +181,9 @@
     <div class="post-content">
       
 
-<h2 id="asp-net-core-grpc-使用自發憑證">ASP.NET Core gRPC 使用自發憑證</h2>
+<h2 id="asp-net-core-grpc-在-linux-與-macos-上的不同設定">ASP.NET Core gRPC 在 Linux 與 macOS 上的不同設定</h2>
 
-<p>距之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-container-certificate/">讓 container 中的 ASP.NET Core 也有憑證</a> 也不過幾個月時間，最近想要搭配 <a href="https://blog.yowko.com/kubernetes-certificate-aspdotnet-core">Kubernetes 發行憑證給 ASP.NET Core 使用</a> 透過 Kubernetes 的 cert-manager 使用自簽憑證，想不到一直不通，從一開始懷疑憑證格式不相容，後來嘗試調整程式語法也不行，也試了使用之前筆記的 image 也無法成功，最後推測可能的原因有兩個：</p>
-
-<ol>
-<li>之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-container-certificate/">讓 container 中的 ASP.NET Core 也有憑證</a> 本來就有問題，只是剛好當下沒測出來</li>
-<li>新版的 .NET SDK 或是 grpc.net 做了調整</li>
-</ol>
-
-<p>以結果來看比較像是之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-container-certificate/">讓 container 中的 ASP.NET Core 也有憑證</a> 本來就有問題，因為使用當時的 image 也無法成功使用XD</p>
-
-<p>無論如何，現在再做一次紀錄加深印象，把上次可能漏掉的設定檔一併補上!!!</p>
+<p>之前筆記 <a href="aspdotnetcore-grpc-self-signed-certificate-macos" target="_blank">ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理</a> 紀錄到如何在 macOS 與 container 間使用不同 port 與 protocol 來建立 gRPC service，當時查資料看到也許才是正確做法的設定方式，趁著假日空檔來快速紀錄一下</p>
 
 <h2 id="基本環境說明">基本環境說明</h2>
 
@@ -205,7 +196,7 @@
 <h2 id="設定方式">設定方式</h2>
 
 <ol>
-<li><p>建立憑證</p>
+<li><p>建立憑證 (與 <a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate">ASP.NET Core gRPC 使用自發憑證</a> 相同)</p>
 
 <blockquote>
 <p>這邊我是透過 <a href="https://blog.yowko.com/cert-manager-pkcs12-pfx/">使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證</a> 建立憑證，再透過下列語法將憑證儲存至電腦的 <code>${HOME}/certs</code> 路徑備用</p>
@@ -220,18 +211,18 @@ kubectl get secrets/pkcs12 -o &quot;jsonpath={.data['ca\.crt']}&quot; | base64 -
 <li><p>ASP.NET Core 完整設定</p>
 
 <blockquote>
-<p>今天使用的專案名稱為 <code>ApplyTLS</code>，請需要自行調整</p>
+<p>今天使用的專案名稱為 <code>ConfigByOS</code>，請需要自行調整</p>
 </blockquote>
 
 <ul>
-<li><p>Protos</p>
+<li><p>Protos (與 <a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate">ASP.NET Core gRPC 使用自發憑證</a> 相同，僅調整 project namespace)</p>
 
 <ul>
 <li><p>greet.proto</p>
 
 <pre><code class="language-protobuf">syntax = &quot;proto3&quot;;
 
-option csharp_namespace = &quot;ApplyTLS&quot;;
+option csharp_namespace = &quot;ConfigByOS&quot;;
             
 package greet;
             
@@ -256,13 +247,13 @@ message HelloReply {
 <li><p>Services</p>
 
 <ul>
-<li><p>GreeterHealthChecker.cs</p>
+<li><p>GreeterHealthChecker.cs (與 <a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate">ASP.NET Core gRPC 使用自發憑證</a> 相同，僅調整 project namespace)</p>
 
 <pre><code class="language-cs">using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
             
-namespace ApplyTLS.Services
+namespace ConfigByOS.Services
 {
     public class GreeterHealthChecker: IHealthCheck
     {
@@ -285,13 +276,13 @@ namespace ApplyTLS.Services
 }
 </code></pre></li>
 
-<li><p>GreeterService.cs</p>
+<li><p>GreeterService.cs (與 <a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate">ASP.NET Core gRPC 使用自發憑證</a> 相同，僅調整 project namespace)</p>
 
 <pre><code class="language-cs">using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
             
-namespace ApplyTLS.Services
+namespace ConfigByOS.Services
 {
     public class GreeterService : Greeter.GreeterBase
     {
@@ -302,7 +293,7 @@ namespace ApplyTLS.Services
             _logger = logger;
         }
             
-        public override Task&lt;HelloReply&gt; SayHello(HelloRequest request,             ServerCallContext context)
+        public override Task&lt;HelloReply&gt; SayHello(HelloRequest request,ServerCallContext context)
         {
             return Task.FromResult(new HelloReply
             {
@@ -314,7 +305,7 @@ namespace ApplyTLS.Services
 </code></pre></li>
 </ul></li>
 
-<li><p>appsettings.json</p>
+<li><p>appsettings.json (預設值)</p>
 
 <pre><code class="language-json">{
   &quot;Logging&quot;: {
@@ -325,12 +316,15 @@ namespace ApplyTLS.Services
     }
   },
   &quot;AllowedHosts&quot;: &quot;*&quot;,
-  &quot;GrpcPort&quot;: 12345,    
-  &quot;GrpcHost&quot;: &quot;localhost&quot;
+  &quot;Kestrel&quot;: {
+    &quot;EndpointDefaults&quot;: {
+      &quot;Protocols&quot;: &quot;Http2&quot;
+    }
+  }
 }
 </code></pre></li>
 
-<li><p>appsettings.Development.json</p>
+<li><p>appsettings.Development.json (預設值)</p>
 
 <pre><code class="language-json">{
   &quot;Logging&quot;: {
@@ -344,15 +338,48 @@ namespace ApplyTLS.Services
 }           
 </code></pre></li>
 
-<li><p>Program.cs</p>
+<li><p>appsettings.linux.json (新增)</p>
+
+<pre><code class="language-json">{
+  &quot;Kestrel&quot;: {
+    &quot;Endpoints&quot;: {
+      &quot;GrpcSecure&quot;: {
+        &quot;Url&quot;: &quot;https://*:12345&quot;,
+        &quot;Protocols&quot;: &quot;Http1AndHttp2&quot;
+      }
+    }
+  }
+}
+</code></pre></li>
+
+<li><p>appsettings.macos.json (新增)</p>
+
+<pre><code class="language-json">{
+  &quot;Kestrel&quot;: {
+    &quot;Endpoints&quot;: {
+      &quot;Https&quot;: {
+        &quot;Url&quot;: &quot;https://*:5001&quot;,
+        &quot;Protocols&quot;: &quot;Http1&quot;
+      },
+      &quot;GrpcInsecure&quot; : {
+        &quot;Url&quot;: &quot;http://*:12345&quot;,
+        &quot;Protocols&quot;: &quot;Http2&quot;
+      }
+    }
+  }
+}
+</code></pre></li>
+
+<li><p>Program.cs (有調整)</p>
 
 <pre><code class="language-cs">using System;
+using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
         
-namespace ApplyTLS
+namespace ConfigByOS
 {
     public class Program
     {
@@ -364,33 +391,26 @@ namespace ApplyTLS
         // Additional configuration is required to successfully run gRPC on         macOS.
         // For instructions on how to configure Kestrel and gRPC clients on         macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
         public static IHostBuilder CreateHostBuilder(string[] args) =&gt;
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =&gt;
-                {
-                    webBuilder.UseStartup&lt;Startup&gt;()
-                        .ConfigureKestrel((context, kestrelOptions) =&gt;
-                        {
-                            // 從 appsetting 中取得 grpc server 的 host
-                            var port = context.Configuration.GetValue&lt;int&gt;(&quot;GrpcPort&quot;);
-        
-                            kestrelOptions.ListenAnyIP(port, listenOptions =&gt;
-                            {
-                                // 將 grpc 的 protocal 同時註冊 http1 與 http2
-                                listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
-                                // 使用過去慣用的環境變數來設定 grpc server 的憑證
-                                listenOptions.UseHttps(Environment.GetEnvironmentVariable(&quot;ASPNETCORE_Kestrel__Certificates__Default__Path&quot;),Environment.GetEnvironmentVariable(&quot;ASPNETCORE_Kestrel__Certificates__Default__Password&quot;));
-                            });
-                        });
-                });
+             Host.CreateDefaultBuilder(args)
+                 .ConfigureAppConfiguration((hostingContext, config) =&gt;
+                 {
+                     // 如果啟動環境是 macos 的話，即套用 appsettings.macos.json
+                     if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                         config.AddJsonFile(&quot;appsettings.macos.json&quot;, optional: true);
+                     else // 若啟動環境不為 macos 就套用 appsettings.linux.json
+                         config.AddJsonFile(&quot;appsettings.linux.json&quot;, optional: true);
+                 })
+                 .ConfigureWebHostDefaults(webBuilder =&gt; { webBuilder.UseStartup&lt;Startup&gt;(); });
     }
 }
 </code></pre></li>
 
-<li><p>Startup.cs</p>
+<li><p>Startup.cs (有調整)</p>
 
 <pre><code class="language-cs">using System;
 using System.Net.Http;
-using ApplyTLS.Services;
+using System.Runtime.InteropServices;
+using ConfigByOS.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -398,41 +418,41 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
         
-namespace ApplyTLS
+namespace ConfigByOS
 {
     public class Startup
     {
         private IConfiguration _configuration { get; }
         
+        private bool _isosx { get; }
         
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
+            _isosx = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
         }
         // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/S?LinkID=398940
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
             services.AddHealthChecks().AddCheck&lt;GreeterHealthChecker&gt;(&quot;example_health_check&quot;);
-        
-            //指定 grpc server 連線的 protocal
-            const string protocol = &quot;https&quot;;
+            var _uri = _configuration.GetValue&lt;string&gt;(&quot;Kestrel:Endpoints:GrpcSecure:Url&quot;);
+            if (_isosx)
+            {
+                AppContext.SetSwitch(&quot;System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport&quot;, true);
+                _uri = _configuration.GetValue&lt;string&gt;(&quot;Kestrel:Endpoints:GrpcInsecure:Url&quot;);
+            }
         
             // for healthy check
             services.AddGrpcClient&lt;Greeter.GreeterClient&gt;(o =&gt;
                 {
-                    // 從 appsetting 中取得 grpc server 的 host 與 port
-                    var host = _configuration.GetValue&lt;string&gt;(&quot;GrpcHost&quot;);
-                    var port = _configuration.GetValue&lt;int&gt;(&quot;GrpcPort&quot;);
-                    // 指定 grpc 完整 uri
-                    o.Address = new Uri($&quot;{protocol}://{host}:{port}&quot;);
+                    //將 config 中 grpc url 的 host 改為 localhost
+                    o.Address = new Uri(_uri.Replace(&quot;*&quot;,&quot;localhost&quot;));
                 })
                 .ConfigurePrimaryHttpMessageHandler(() =&gt; new HttpClientHandler
                 {
-                    // 使用 httpclient 的方式來忽略憑證有效性
-                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-                    // 使用 grpc 方式忽略憑證有效性
+                    ServerCertificateCustomValidationCallback = HttpClientHandler.        DangerousAcceptAnyServerCertificateValidator
                     //ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =&gt; true
                 });
         }
@@ -465,7 +485,7 @@ namespace ApplyTLS
 }
 </code></pre></li>
 
-<li><p>.csproj</p>
+<li><p>.csproj (與 <a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate">ASP.NET Core gRPC 使用自發憑證</a> 相同)</p>
 
 <blockquote>
 <p>修改 proto 編譯方式為 <code>Both</code></p>
@@ -475,45 +495,54 @@ namespace ApplyTLS
 </code></pre></li>
 </ul></li>
 
-<li><p>dockerfile</p>
+<li><p>dockerfile (與 <a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate">ASP.NET Core gRPC 使用自發憑證</a> 相同，僅修改 project name)</p>
 
 <pre><code class="language-dockerfiles">FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /app
 # 複製 sln csproj and restore nuget
 COPY *.sln .
 # 目標路徑資料夾要與來源路徑資料夾名稱相同(因 sln 已儲存專案路徑)
-COPY ApplyTLS/*.csproj ./ApplyTLS/
+COPY ConfigByOS/*.csproj ./ConfigByOS/
 #RUN dotnet dev-certs https --trust
 # nuget restore
 RUN dotnet restore
 # 複製其他檔案
-COPY ApplyTLS/. ./ApplyTLS/
-WORKDIR /app/ApplyTLS
+COPY ConfigByOS/. ./ConfigByOS/
+WORKDIR /app/ConfigByOS
 # 使用 Release 建置專案並輸出至 out
 RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
 WORKDIR /app
 # 將產出物複製至 app 下
-COPY --from=build /app/ApplyTLS/out ./
+COPY --from=build /app/ConfigByOS/out ./
 # 啟動 TestDokcer
-ENTRYPOINT [&quot;dotnet&quot;, &quot;ApplyTLS.dll&quot;]
+ENTRYPOINT [&quot;dotnet&quot;, &quot;ConfigByOS.dll&quot;]
 </code></pre></li>
 
-<li><p>build image</p>
+<li><p>build image (調整 image tag)</p>
 
-<pre><code class="language-cs">docker build ./ -t yowko/applytls:0.0.1 
+<pre><code class="language-cs">docker build ./ -t yowko/configbyos:0.0.1
 </code></pre></li>
 
 <li><p>啟動方式</p>
 
-<pre><code class="language-bash">docker run --rm -it -p 12345:12345 -e ASPNETCORE_Kestrel__Certificates__Default__Password=&quot;pass.123&quot; -e ASPNETCORE_Kestrel__Certificates__Default__Path=/https/test.pfx -v ${HOME}/certs:/https/ yowko/applytls:0.0.1
+<ul>
+<li><p>docker run (使用新的 image tag)</p>
+
+<pre><code class="language-bash">docker run --rm -it -p 12345:12345 -e ASPNETCORE_Kestrel__Certificates__Default__Password=&quot;pass.123&quot; -e ASPNETCORE_Kestrel__Certificates__Default__Path=/https/test.pfx -v ${HOME}/certs:/https/ yowko/configbyos:0.0.1
 </code></pre></li>
+
+<li><p>rider 直接啟動</p></li>
+</ul></li>
 </ol>
 
 <h2 id="心得">心得</h2>
 
 <ul>
 <li><p>實際效果：</p>
+
+<ul>
+<li><p>container</p>
 
 <ol>
 <li><p>網頁 (透過 mvc controller 另外啟動 grpc client 來呼叫本身的 grpc service)</p>
@@ -526,7 +555,7 @@ ENTRYPOINT [&quot;dotnet&quot;, &quot;ApplyTLS.dll&quot;]
 <p>grpcurl 的用法可以參考之前筆記 <a href="https://blog.yowko.com/grpcurl">使用 grpcurl 呼叫 gRPC Service</a></p>
 </blockquote>
 
-<pre><code class="language-bash">grpcurl -cacert ${HOME}/certs/test.crt  -d '{&quot;name&quot;:&quot;Yowko&quot;}' -proto ApplyTLS/Protos/greet.proto localhost:12345 greet.Greeter/SayHello
+<pre><code class="language-bash">grpcurl -cacert ${HOME}/certs/test.crt  -d '{&quot;name&quot;:&quot;Yowko&quot;}' -proto Protos/greet.proto localhost:12345 greet.Greeter/SayHello
 </code></pre>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/109983965-4f7d7b00-7d3e-11eb-956c-2feb3054e291.png" alt="2grpcurl" /></p></li>
@@ -536,21 +565,53 @@ ENTRYPOINT [&quot;dotnet&quot;, &quot;ApplyTLS.dll&quot;]
 <p><img src="https://user-images.githubusercontent.com/3851540/109983971-50161180-7d3e-11eb-8290-2d9a3012b68c.png" alt="3bloomrpc" /></p></li>
 </ol></li>
 
-<li><p>今天紀錄的內容，不支援 macOS 直接執行 (原因請參考官方說明 <a href="https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0&amp;WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos" target="_blank">無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式</a>)，整合方式可以參考個人做法 <a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate-macos">ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理</a> (不是很漂亮，但還能解決問題)</p></li>
+<li><p>rider</p>
 
-<li><p>完整程式碼可以參考 <a href="https://github.com/yowko/aspdotnetcore-grpc-self-signed-certificate" target="_blank">aspdotnetcore-grpc-self-signed-certificate-sample</a></p></li>
+<ol>
+<li><p>網頁 (透過 mvc controller 另外啟動 grpc client 來呼叫本身的 grpc service)</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/110076294-35d04800-7dbf-11eb-9ff9-0a2758270e2a.png" alt="1webpage" /></p></li>
+
+<li><p>grpcurl</p>
+
+<blockquote>
+<p>grpcurl 的用法可以參考之前筆記 <a href="https://blog.yowko.com/grpcurl">使用 grpcurl 呼叫 gRPC Service</a></p>
+</blockquote>
+
+<pre><code class="language-bash">grpcurl -plaintext -d '{&quot;name&quot;:&quot;Yowko&quot;}' -proto Protos/greet.proto localhost:12345 greet.Greeter/SayHello
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/110076298-37017500-7dbf-11eb-9b24-4a28093bb16a.png" alt="2grpcurl" /></p></li>
+
+<li><p>bloomrpc</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/110076301-3832a200-7dbf-11eb-96d2-b1c64cd5f61a.png" alt="3bloomrpc" /></p></li>
+</ol></li>
+</ul></li>
+</ul>
+
+<p>個人覺得使用 ASP.NET Core 的預設處理機制比較好理解，程式碼也簡單，但還是有其他可以調整的空間</p>
+
+<ol>
+<li>套用不同 config 的方式</li>
+<li>grpc client 使用的 grpc service 的 url 的處理方式</li>
+</ol>
+
+<p>簡單紀錄一下，多個 solution 選擇參考</p>
+
+<ul>
+<li>完整程式碼可以參考 <a href="https://github.com/yowko/aspdotnetcore-grpc-self-signed-certificate-config" target="_blank">yowko/aspdotnetcore-grpc-self-signed-certificate-config</a></li>
 </ul>
 
 <h2 id="參考資訊">參考資訊</h2>
 
 <ol>
-<li><a href="https://blog.yowko.com/aspdotnet-core-container-certificate/">讓 container 中的 ASP.NET Core 也有憑證</a></li>
-<li><a href="https://blog.yowko.com/kubernetes-certificate-aspdotnet-core">Kubernetes 發行憑證給 ASP.NET Core 使用</a></li>
-<li><a href="https://blog.yowko.com/grpcurl">使用 grpcurl 呼叫 gRPC Service</a></li>
-<li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0&amp;WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos" target="_blank">無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式</a></li>
-<li><a href="https://github.com/yowko/aspdotnetcore-grpc-self-signed-certificate" target="_blank">aspdotnetcore-grpc-self-signed-certificate-sample</a></li>
-<li><a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate-macos">ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理</a></li>
-<li><a href="https://www.cnblogs.com/shanfeng1000/p/14150950.html" target="_blank">.net core中Grpc使用报错：The remote certificate is invalid according to the validation procedure.</a></li>
+<li><a href="https://github.com/NetCoreTemplates/grpc/blob/769956a19f3b3f2cc4e9ea4aca363123865f8f20/MyApp/appsettings.json" target="_blank">NetCoreTemplates/grpc/MyApp/appsettings.json</a></li>
+<li><a href="https://andrewlock.net/how-to-use-machine-specific-configuration-with-asp-net-core/" target="_blank">How to use machine-specific configuration with ASP.NET Core</a></li>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-5.0&amp;WT.mc_id=DOP-MVP-5002594" target="_blank">Configuration in ASP.NET Core</a></li>
+<li><a href="https://blog.magnusmontin.net/2018/11/05/platform-conditional-compilation-in-net-core/" target="_blank">Platform Conditional Compilation in .NET Core</a></li>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/environments?view=aspnetcore-5.0&amp;WT.mc_id=DOP-MVP-5002594" target="_blank">Use multiple environments in ASP.NET Core</a></li>
+<li><a href="https://github.com/yowko/aspdotnetcore-grpc-self-signed-certificate-config" target="_blank">yowko/aspdotnetcore-grpc-self-signed-certificate-config</a></li>
 </ol>
 
     </div>
@@ -563,7 +624,7 @@ ENTRYPOINT [&quot;dotnet&quot;, &quot;ApplyTLS.dll&quot;]
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2021-03-04</span>
+    <span class="item-content">2021-03-08</span>
   </p>
   
   <p class="copyright-item">
@@ -591,24 +652,21 @@ ENTRYPOINT [&quot;dotnet&quot;, &quot;ApplyTLS.dll&quot;]
 		    	
             <a href="https://blog.yowko.com/tags/grpc/">gRPC</a>
           
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/macos/">macOS</a>
+          
         </div>
 
       
       <nav class="post-nav">
         
 		  <div>
-          <a class="prev" href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate-macos/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理</span>			
-          </a>
-		  </div>
-		  <div>
         
-          <a class="prev" href="https://blog.yowko.com/mongodb-authentication-mechanism/" style="float: none;">
+          <a class="prev" href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate-macos/" style="float: none;">
             <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
             <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">確認 MongoDB 驗證機制</span>			
+            <span class="prev-text nav-default">ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理</span>			
           </a>
 		  </div>
       </nav>
@@ -619,7 +677,7 @@ ENTRYPOINT [&quot;dotnet&quot;, &quot;ApplyTLS.dll&quot;]
   <div id="disqus_thread"></div>
     <script type="text/javascript">
     var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/aspdotnetcore-grpc-self-signed-certificate\/';  
+      this.page.url = 'https:\/\/blog.yowko.com\/aspdotnetcore-grpc-secure-insecure\/';  
       
     };
 

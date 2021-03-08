@@ -58,15 +58,15 @@
 <meta property="og:description" content="ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理 之前筆記 ASP.NET Core gRPC 使用自發憑證 紀錄到使用自發憑證來為 ASP.NET Core gRPC service 加上 tls，透過新的做法看似可以正確在 container 內執行，只" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate-macos/" /><meta property="article:published_time" content="2021-03-05T09:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2021-03-05T09:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2021-03-08T09:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理">
 <meta itemprop="description" content="ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理 之前筆記 ASP.NET Core gRPC 使用自發憑證 紀錄到使用自發憑證來為 ASP.NET Core gRPC service 加上 tls，透過新的做法看似可以正確在 container 內執行，只">
 
 
 <meta itemprop="datePublished" content="2021-03-05T09:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2021-03-05T09:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="1464">
+<meta itemprop="dateModified" content="2021-03-08T09:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="1494">
 
 
 
@@ -147,7 +147,7 @@
       <div class="post-meta">
         <span class="post-time"> 2021-03-05 </span>
         
-        <span class="more-meta"> 約 1464 字 </span>
+        <span class="more-meta"> 約 1494 字 </span>
           <span class="more-meta"> 預計閱讀 3 分鐘 </span>
         
       </div>
@@ -566,6 +566,8 @@ ENTRYPOINT [&quot;dotnet&quot;, &quot;ApplyTLS.dll&quot;]
 </ol></li>
 
 <li><p>完整程式碼可以參考 <a href="https://github.com/yowko/aspdotnetcore-grpc-self-signed-certificate" target="_blank">aspdotnetcore-grpc-self-signed-certificate-sample</a></p></li>
+
+<li><p>另外做法可以參考 <a href="https://blog.yowko.com/aspdotnetcore-grpc-secure-insecure">ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法</a></p></li>
 </ul>
 
 <h2 id="參考資訊">參考資訊</h2>
@@ -574,6 +576,7 @@ ENTRYPOINT [&quot;dotnet&quot;, &quot;ApplyTLS.dll&quot;]
 <li><a href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate">ASP.NET Core gRPC 使用自發憑證</a></li>
 <li><a href="https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0&amp;WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos" target="_blank">無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式</a></li>
 <li><a href="https://github.com/yowko/aspdotnetcore-grpc-self-signed-certificate" target="_blank">aspdotnetcore-grpc-self-signed-certificate-sample</a></li>
+<li><a href="https://blog.yowko.com/aspdotnetcore-grpc-secure-insecure">ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法</a></li>
 </ol>
 
     </div>
@@ -586,7 +589,7 @@ ENTRYPOINT [&quot;dotnet&quot;, &quot;ApplyTLS.dll&quot;]
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2021-03-05</span>
+    <span class="item-content">2021-03-08</span>
   </p>
   
   <p class="copyright-item">
@@ -623,6 +626,13 @@ ENTRYPOINT [&quot;dotnet&quot;, &quot;ApplyTLS.dll&quot;]
       
       <nav class="post-nav">
         
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/aspdotnetcore-grpc-secure-insecure/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法</span>			
+          </a>
+		  </div>
 		  <div>
         
           <a class="prev" href="https://blog.yowko.com/aspdotnetcore-grpc-self-signed-certificate/" style="float: none;">
