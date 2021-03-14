@@ -6,10 +6,19 @@
     <description>Recent content on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 07 Mar 2021 09:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 14 Mar 2021 09:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>RabbitMQ 為不同帳號設定不同 topic 權限</title>
+      <link>https://blog.yowko.com/rabbitmq-user-topic-authorisation/</link>
+      <pubDate>Sun, 14 Mar 2021 09:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/rabbitmq-user-topic-authorisation/</guid>
+      <description>RabbitMQ 為不同帳號設定不同 topic 權限 同事在新功能的架構設計時想要讓不同 user 在 MQ 存取時可以有權限的概念，但以團隊之前使用的 Kafka 至少就我個人所知是無法達成的，</description>
+    </item>
     
     <item>
       <title>ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法</title>

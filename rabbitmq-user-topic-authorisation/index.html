@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>RabbitMQ 為不同帳號設定不同 topic 權限 - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="RabbitMQ 為不同帳號設定不同 topic 權限 同事在新功能的架構設計時想要讓不同 user 在 MQ 存取時可以有權限的概念，但以團隊之前使用的 Kafka 至少就我個人所知是無法達成的，" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.51" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/rabbitmq-user-topic-authorisation/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="RabbitMQ 為不同帳號設定不同 topic 權限" />
+<meta property="og:description" content="RabbitMQ 為不同帳號設定不同 topic 權限 同事在新功能的架構設計時想要讓不同 user 在 MQ 存取時可以有權限的概念，但以團隊之前使用的 Kafka 至少就我個人所知是無法達成的，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/rabbitmq-user-topic-authorisation/" /><meta property="article:published_time" content="2021-03-14T09:30:00&#43;08:00"/>
+<meta property="article:modified_time" content="2021-03-14T09:30:31&#43;08:00"/>
+
+<meta itemprop="name" content="RabbitMQ 為不同帳號設定不同 topic 權限">
+<meta itemprop="description" content="RabbitMQ 為不同帳號設定不同 topic 權限 同事在新功能的架構設計時想要讓不同 user 在 MQ 存取時可以有權限的概念，但以團隊之前使用的 Kafka 至少就我個人所知是無法達成的，">
+
+
+<meta itemprop="datePublished" content="2021-03-14T09:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2021-03-14T09:30:31&#43;08:00" />
+<meta itemprop="wordCount" content="734">
+
+
+
+<meta itemprop="keywords" content="RabbitMQ,ASP.NET Core," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="RabbitMQ 為不同帳號設定不同 topic 權限"/>
+<meta name="twitter:description" content="RabbitMQ 為不同帳號設定不同 topic 權限 同事在新功能的架構設計時想要讓不同 user 在 MQ 存取時可以有權限的概念，但以團隊之前使用的 Kafka 至少就我個人所知是無法達成的，"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-03-14 </span>
+        
+        <span class="more-meta"> 約 734 字 </span>
+          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#rabbitmq-為不同帳號設定不同-topic-權限">RabbitMQ 為不同帳號設定不同 topic 權限</a></li>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#設定方式">設定方式</a></li>
+<li><a href="#實際效果">實際效果</a></li>
+<li><a href="#心得">心得</a></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="rabbitmq-為不同帳號設定不同-topic-權限">RabbitMQ 為不同帳號設定不同 topic 權限</h2>
+
+<p>同事在新功能的架構設計時想要讓不同 user 在 MQ 存取時可以有權限的概念，但以團隊之前使用的 Kafka 至少就我個人所知是無法達成的，不過這個需求在 RabbitMQ 上就有幾種不同的做法，今天就來紀錄一下相關的 POC 過程與設定方式</p>
+
+<h2 id="基本環境說明">基本環境說明</h2>
+
+<ol>
+<li>macOS Big Sur 11.2.2</li>
+<li>docker desktop 3.2.1 (61626)</li>
+
+<li><p>docker images</p>
+
+<ul>
+<li><p>rabbitmq:3.8.14-management</p>
+
+<pre><code class="language-bash">docker run -d --rm --hostname my-rabbit --name test-rabbit -p 5672:5672 -p 15672:15672  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=pass.123 rabbitmq:3.8.14-management
+</code></pre></li>
+</ul></li>
+
+<li><p>RABBITMQ 基本設定</p>
+
+<ul>
+<li><p>建立 exchange</p>
+
+<blockquote>
+<p>以 <code>yowkoex</code> 為例</p>
+</blockquote>
+
+<pre><code class="language-bash">rabbitmqadmin declare exchange name=yowkoex type=topic -u admin -p pass.123
+</code></pre></li>
+
+<li><p>建立 queue</p>
+
+<blockquote>
+<p>以 <code>topic1</code>，<code>topic2</code>，<code>topic3</code> 為例</p>
+</blockquote>
+
+<pre><code class="language-bash">rabbitmqadmin declare queue name=topic1 durable=false -u admin -p pass.123
+rabbitmqadmin declare queue name=topic2 durable=false -u admin -p pass.123
+rabbitmqadmin declare queue name=topic3 durable=false -u admin -p pass.123
+</code></pre></li>
+
+<li><p>將 queue 跟 exchange 做 binding</p>
+
+<pre><code class="language-bash">rabbitmqadmin declare binding source=&quot;yowkoex&quot; destination_type=&quot;queue&quot; destination=&quot;topic1&quot; routing_key=&quot;topic1&quot; -u admin -p pass.123
+rabbitmqadmin declare binding source=&quot;yowkoex&quot; destination_type=&quot;queue&quot; destination=&quot;topic2&quot; routing_key=&quot;topic2&quot; -u admin -p pass.123
+rabbitmqadmin declare binding source=&quot;yowkoex&quot; destination_type=&quot;queue&quot; destination=&quot;topic3&quot; routing_key=&quot;topic3&quot; -u admin -p pass.123
+</code></pre></li>
+
+<li><p>建立 user</p>
+
+<blockquote>
+<p><code>yowko1</code> 只能 access topic1；<code>yowko23</code> 只能 access topic2 與 topic3</p>
+</blockquote>
+
+<pre><code class="language-bash">rabbitmqctl add_user yowko1 pass.123
+rabbitmqctl add_user yowko23 pass.123
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="設定方式">設定方式</h2>
+
+<blockquote>
+<p>以下三種方式擇一即可</p>
+</blockquote>
+
+<ul>
+<li><p>使用 ui</p>
+
+<ol>
+<li>設定 vhost 權限</li>
+<li>設定 topic 權限</li>
+</ol>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/111072242-a80a0080-8514-11eb-8c3e-25a51a477550.png" alt="1ui1" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/111072244-a9d3c400-8514-11eb-860b-089b12184b92.png" alt="2ui2" /></p></li>
+
+<li><p>使用 rabbitmqctl</p>
+
+<ol>
+<li><p>設定 vhost 權限</p>
+
+<blockquote>
+<p>語法：<code>rabbitmqctl set_permissions [-p {vhost}] {user} {conf} {write} {read}s</code></p>
+</blockquote>
+
+<pre><code class="language-bash">rabbitmqctl set_permissions -p / yowko1 &quot;&quot; &quot;&quot; &quot;topic1&quot;
+rabbitmqctl set_permissions -p / yowko23 &quot;&quot; &quot;&quot; &quot;^topic(2|3)$&quot;
+</code></pre></li>
+
+<li><p>設定 topic 權限</p>
+
+<blockquote>
+<p>語法：<code>rabbitmqctl set_topic_permissions [-p {vhost}] {user} {exchange} {write} {read}</code></p>
+</blockquote>
+
+<pre><code class="language-bash">rabbitmqctl set_topic_permissions -p / yowko1 yowkoex &quot;&quot; &quot;topic1&quot;
+rabbitmqctl set_topic_permissions -p / yowko23 yowkoex &quot;&quot; &quot;^topic(2|3)$&quot;
+</code></pre></li>
+</ol></li>
+
+<li><p>使用 http rest api</p>
+
+<blockquote>
+<p>這個部份我沒有實際用過，就不特別紀錄了</p>
+</blockquote></li>
+</ul>
+
+<h2 id="實際效果">實際效果</h2>
+
+<ol>
+<li><p>沒有 topic 權限的錯誤</p>
+
+<ul>
+<li><p>錯誤訊息</p>
+
+<pre><code class="language-txt">Unhandled exception. RabbitMQ.Client.Exceptions.OperationInterruptedException: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=403, text='ACCESS_REFUSED - access to queue 'topic1' in vhost '/' refused for user 'yowko23'', classId=60, methodId=20
+    at RabbitMQ.Client.Impl.SimpleBlockingRpcContinuation.GetReply(TimeSpan timeout)
+    at RabbitMQ.Client.Impl.ModelBase.BasicConsume(String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments, IBasicConsumer consumer)
+    at RabbitMQ.Client.Impl.AutorecoveringModel.BasicConsume(String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments, IBasicConsumer consumer)
+    at RabbitMQ.Client.IModelExensions.BasicConsume(IModel model, String queue, Boolean autoAck, IBasicConsumer consumer)
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/111072245-aa6c5a80-8514-11eb-896c-8c578ca5b3bd.png" alt="3topicerror" /></p></li>
+</ul></li>
+
+<li><p>沒有 vhost 權限的錯誤</p>
+
+<ul>
+<li><p>錯誤訊息</p>
+
+<pre><code class="language-bash">Unhandled exception. RabbitMQ.Client.Exceptions.BrokerUnreachableException: None of the specified endpoints were reachable
+ ---&gt; RabbitMQ.Client.Exceptions.OperationInterruptedException: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=530, text='NOT_ALLOWED - access to vhost '/' refused for user 'yuser'', classId=10, methodId=40
+   at RabbitMQ.Client.Impl.SimpleBlockingRpcContinuation.GetReply(TimeSpan timeout)
+   at RabbitMQ.Client.Impl.ModelBase.ConnectionOpen(String virtualHost, String capabilities, Boolean insist)
+   at RabbitMQ.Client.Framing.Impl.Connection.Open(Boolean insist)
+   at RabbitMQ.Client.Framing.Impl.Connection..ctor(IConnectionFactory factory, Boolean insist, IFrameHandler frameHandler, String clientProvidedName)
+   at RabbitMQ.Client.Framing.Impl.AutorecoveringConnection.Init(IFrameHandler fh)
+   at RabbitMQ.Client.Framing.Impl.AutorecoveringConnection.Init(IEndpointResolver endpoints)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(String clientProvidedName)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection()
+</code></pre></li>
+
+<li><p>錯誤截圖</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/111072248-ab9d8780-8514-11eb-987a-4e79f05cf36d.png" alt="4vhosterror" /></p></li>
+</ul></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>透過 user 的權限設定可以將不同 topic 的讀寫權限分離，但這樣的做法是基於同一個 vhost 的前提下，如果想要更完整地做隔離或是需要 multiple tenants 概念就不是那麼適合，相關的做法待之後筆記再補充了</p>
+
+<h2 id="參考資訊">參考資訊</h2>
+
+<ol>
+<li><a href="https://hub.docker.com/_/rabbitmq" target="_blank">rabbitmq - Docker Official Images</a></li>
+<li><a href="https://www.rabbitmq.com/rabbitmqctl.8.html" target="_blank">rabbitmqctl(8)</a></li>
+<li><a href="https://rabbitmq.com/access-control.html" target="_blank">Authentication, Authorisation, Access Control</a></li>
+<li><a href="https://www.rabbitmq.com/management-cli.html" target="_blank">Management Command Line Tool</a></li>
+<li><a href="https://stackoverflow.com/a/5826132s" target="_blank">RabbitMQ creating queues and bindings from command line</a></li>
+<li><a href="https://pulse.mozilla.org/api/" target="_blank">RabbitMQ Management HTTP API</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2021-03-14</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/rabbitmq/">RabbitMQ</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/asp.net-core/">ASP.NET Core</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/aspdotnetcore-grpc-secure-insecure/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/rabbitmq-user-topic-authorisation\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2021
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yowko.com/rabbitmq-user-topic-authorisation/</loc>
+    <lastmod>2021-03-14T09:30:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yowko.com/aspdotnetcore-grpc-secure-insecure/</loc>
     <lastmod>2021-03-08T09:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -4484,7 +4491,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/asp.net-core/</loc>
-    <lastmod>2021-03-08T09:30:31+08:00</lastmod>
+    <lastmod>2021-03-14T09:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -4994,7 +5001,7 @@
   
   <url>
     <loc>https://blog.yowko.com/post/</loc>
-    <lastmod>2021-03-08T09:30:31+08:00</lastmod>
+    <lastmod>2021-03-14T09:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -5029,7 +5036,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/rabbitmq/</loc>
-    <lastmod>2018-09-25T17:37:16+08:00</lastmod>
+    <lastmod>2021-03-14T09:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -5071,7 +5078,7 @@
   
   <url>
     <loc>https://blog.yowko.com/tags/</loc>
-    <lastmod>2021-03-08T09:30:31+08:00</lastmod>
+    <lastmod>2021-03-14T09:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -5176,7 +5183,7 @@
   
   <url>
     <loc>https://blog.yowko.com/</loc>
-    <lastmod>2021-03-08T09:30:31+08:00</lastmod>
+    <lastmod>2021-03-14T09:30:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
