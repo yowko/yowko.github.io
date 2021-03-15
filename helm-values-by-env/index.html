@@ -58,14 +58,14 @@
 <meta property="og:description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/helm-values-by-env/" /><meta property="article:published_time" content="2020-04-08T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-04-08T21:30:31&#43;08:00"/>
+<meta property="article:modified_time" content="2021-03-15T21:30:31&#43;08:00"/>
 
 <meta itemprop="name" content="在 Helm 中依不同變數使用不同設定值">
 <meta itemprop="description" content="在 Helm 中依不同變數使用不同設定值 Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是一個用來定義 Kubernetes 上的 application 如何進行部署、設定的 template，在不同環境">
 
 
 <meta itemprop="datePublished" content="2020-04-08T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-04-08T21:30:31&#43;08:00" />
+<meta itemprop="dateModified" content="2021-03-15T21:30:31&#43;08:00" />
 <meta itemprop="wordCount" content="788">
 
 
@@ -308,7 +308,7 @@ metadata:
 <li><p>修改前</p>
 
 <blockquote>
-<p>helm install ./ &ndash;dry-run &ndash;debug</p>
+<p><code>helm install ./ --dry-run --debug</code></p>
 </blockquote>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/78741543-2fa5d180-798c-11ea-8338-aa058b4aa0e7.png" alt="1before" /></p></li>
@@ -316,7 +316,7 @@ metadata:
 <li><p>修改後</p>
 
 <blockquote>
-<p>helm install ./ &ndash;dry-run &ndash;debug &ndash;set env=staging</p>
+<p><code>helm install ./ --dry-run --debug --set env=staging</code></p>
 </blockquote>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/78741546-316f9500-798c-11ea-985a-6f36564e206c.png" alt="2after" /></p></li>
@@ -325,7 +325,7 @@ metadata:
 <li><p>避免 <code>env</code> 不在定義清單中 (預先給定預設值)</p>
 
 <blockquote>
-<p>helm install ./ &ndash;dry-run &ndash;debug &ndash;set env=staging12</p>
+<p><code>helm install ./ --dry-run --debug --set env=staging12</code></p>
 </blockquote>
 
 <pre><code class="language-yml">apiVersion: v1
@@ -381,7 +381,7 @@ metadata:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-04-08</span>
+    <span class="item-content">2021-03-15</span>
   </p>
   
   <p class="copyright-item">
