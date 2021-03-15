@@ -1,7 +1,7 @@
 ---
 title: "在 Helm 中依不同變數使用不同設定值"
 date: 2020-04-08T21:30:00+08:00
-lastmod: 2020-04-08T21:30:31+08:00
+lastmod: 2021-03-15T21:30:31+08:00
 draft: false
 tags: ["Helm"]
 slug: "helm-values-by-env"
@@ -116,19 +116,19 @@ Helm 使為一個 Kubernetes package 管理工具，在我的理解中它就是�
 
     - 修改前
 
-        > helm install ./ --dry-run --debug
+        > `helm install ./ --dry-run --debug`
 
         ![1before](https://user-images.githubusercontent.com/3851540/78741543-2fa5d180-798c-11ea-8338-aa058b4aa0e7.png)
 
     - 修改後
 
-        > helm install ./ --dry-run --debug --set env=staging
+        > `helm install ./ --dry-run --debug --set env=staging`
 
         ![2after](https://user-images.githubusercontent.com/3851540/78741546-316f9500-798c-11ea-985a-6f36564e206c.png)
 
 4. 避免 `env` 不在定義清單中 (預先給定預設值)
 
-    > helm install ./ --dry-run --debug --set env=staging12
+    > `helm install ./ --dry-run --debug --set env=staging12`
 
     ```yml
     apiVersion: v1
