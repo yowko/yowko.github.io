@@ -1,13 +1,13 @@
 ---
 title: "ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法"
 date: 2021-03-07T09:30:00+08:00
-lastmod: 2021-03-08T09:30:31+08:00
+lastmod: 2021-03-28T09:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","gRPC","macOS"]
 slug: "aspdotnetcore-grpc-secure-insecure"
 ---
 
-## ASP.NET Core gRPC 在 Linux 與 macOS 上的不同設定
+## ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法"
 
 之前筆記 [ASP.NET Core gRPC 使用自發憑證時在 macOS 的特別處理](aspdotnetcore-grpc-self-signed-certificate-macos) 紀錄到如何在 macOS 與 container 間使用不同 port 與 protocol 來建立 gRPC service，當時查資料看到也許才是正確做法的設定方式，趁著假日空檔來快速紀錄一下
 
