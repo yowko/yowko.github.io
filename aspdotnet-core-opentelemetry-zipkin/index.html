@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core - Yowko&#39;s Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yowko Tsai" />
+  <meta name="description" content="[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 這是延續之前筆記 [Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 進行嘗試的筆記，過去使用 OpenTracing 時因為 Zipkin 與 .NET Core 的整合程式較低，設定上繁瑣許多，加上無法處理主要" />
+
+  <meta name="keywords" content="yowko, .net, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.51" />
+
+<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
+
+
+<link rel="canonical" href="https://blog.yowko.com/aspdotnet-core-opentelemetry-zipkin/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
+<link rel="manifest" href="https://blog.yowko.com/manifest.json">
+<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+
+
+<meta property="og:title" content="[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core" />
+<meta property="og:description" content="[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 這是延續之前筆記 [Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 進行嘗試的筆記，過去使用 OpenTracing 時因為 Zipkin 與 .NET Core 的整合程式較低，設定上繁瑣許多，加上無法處理主要" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yowko.com/aspdotnet-core-opentelemetry-zipkin/" /><meta property="article:published_time" content="2021-04-03T22:00:00&#43;08:00"/>
+<meta property="article:modified_time" content="2021-04-03T22:00:31&#43;08:00"/>
+
+<meta itemprop="name" content="[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core">
+<meta itemprop="description" content="[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 這是延續之前筆記 [Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 進行嘗試的筆記，過去使用 OpenTracing 時因為 Zipkin 與 .NET Core 的整合程式較低，設定上繁瑣許多，加上無法處理主要">
+
+
+<meta itemprop="datePublished" content="2021-04-03T22:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2021-04-03T22:00:31&#43;08:00" />
+<meta itemprop="wordCount" content="374">
+
+
+
+<meta itemprop="keywords" content="Zipkin,OpenTelemetry,ASP.NET Core," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core"/>
+<meta name="twitter:description" content="[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 這是延續之前筆記 [Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 進行嘗試的筆記，過去使用 OpenTracing 時因為 Zipkin 與 .NET Core 的整合程式較低，設定上繁瑣許多，加上無法處理主要"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
+
+</head>
+<body>
+     
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.yowko.com/">
+        <li class="mobile-menu-item">首頁</li>
+      </a><a href="https://blog.yowko.com/post/">
+        <li class="mobile-menu-item">歷史筆記</li>
+      </a><a href="https://blog.yowko.com/tags/">
+        <li class="mobile-menu-item">內容標籤</li>
+      </a><a href="https://blog.yowko.com/search">
+        <li class="mobile-menu-item">站內搜尋</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
+        <div class="logo-wrapper">
+  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
+</div>
+<div style="padding-bottom: 60px;"> </div>
+</nav>
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
+    </li>
+  </ul>
+</nav>
+    </header>	
+    <main id="main" class="main">		
+      <div class="content-wrapper">		
+		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
+        <div id="content" class="content">		
+          <article class="post">
+    
+    <header class="post-header">
+      
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-04-03 </span>
+        
+        <span class="more-meta"> 約 374 字 </span>
+          <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目錄</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#zipkin-使用-opentelemetry-來追蹤-asp-net-core">[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core</a></li>
+<li><a href="#基本環境說明">基本環境說明</a></li>
+<li><a href="#設定方式">設定方式</a></li>
+<li><a href="#心得">心得</a></li>
+<li><a href="#參考資訊">參考資訊</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="zipkin-使用-opentelemetry-來追蹤-asp-net-core">[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core</h2>
+
+<p>這是延續之前筆記 <a href="https://blog.yowko.com/aspdotnet-core-opentelemetry-jaeger">[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core</a> 進行嘗試的筆記，過去使用 OpenTracing 時因為 Zipkin 與 .NET Core 的整合程式較低，設定上繁瑣許多，加上無法處理主要想追蹤 gRPC 所以當時並沒有採用，不過目前看相關文件看似可用，就來測試做個紀錄吧</p>
+
+<h2 id="基本環境說明">基本環境說明</h2>
+
+<ol>
+<li>macOS Big Sur 11.2.3</li>
+
+<li><p>docker desktop 3.2.2 (61853)</p>
+
+<ul>
+<li>openzipkin/zipkin-slim:2</li>
+</ul></li>
+
+<li><p>.NET Core SDK 5.0.103</p>
+
+<ul>
+<li>ASP.NET Core 預設專案範本</li>
+</ul></li>
+
+<li><p>NuGet packages</p>
+
+<ul>
+<li>OpenTelemetry.Extensions.Hosting 1.0.0-rc3</li>
+<li>OpenTelemetry.Instrumentation.AspNetCore 1.0.0-rc3</li>
+<li>OpenTelemetry.Exporter.Zipkin 1.1.0-beta1</li>
+</ul></li>
+</ol>
+
+<h2 id="設定方式">設定方式</h2>
+
+<ol>
+<li><p>建立 Jaeger 環境</p>
+
+<pre><code class="language-bash">docker run -d -p 9411:9411 openzipkin/zipkin-slim:2
+</code></pre></li>
+
+<li><p>安裝 NuGet 套件</p>
+
+<ul>
+<li>OpenTelemetry.Extensions.Hosting 1.0.0-rc3</li>
+<li>OpenTelemetry.Instrumentation.AspNetCore 1.0.0-rc3</li>
+<li>OpenTelemetry.Exporter.Zipkin 1.1.0-beta1</li>
+</ul></li>
+
+<li><p>新增 config</p>
+
+<pre><code class="language-json">{
+    &quot;Zipkin&quot;: {
+        &quot;ServiceName&quot;: &quot;zipkin-test&quot;,
+        &quot;Endpoint&quot;: &quot;http://localhost:9411/api/v2/spans&quot;
+    }
+}
+</code></pre></li>
+
+<li><p>註冊 Jaeger</p>
+
+<blockquote>
+<p>Startup.cs 的 <code>ConfigureServices</code> 方法</p>
+</blockquote>
+
+<pre><code class="language-cs">services.AddOpenTelemetryTracing((builder) =&gt; builder
+        .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(this.Configuration.GetValue&lt;string&gt;(&quot;Zipkin:ServiceName&quot;)))
+        .AddAspNetCoreInstrumentation()
+        .AddZipkinExporter());
+
+services.Configure&lt;ZipkinExporterOptions&gt;(this.Configuration.GetSection(&quot;Zipkin&quot;));
+</code></pre></li>
+
+<li><p>實際效果</p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/112747564-c843c000-8fe8-11eb-9a60-6b91c65042a3.png" alt="1zipkinui1" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/112747566-ca0d8380-8fe8-11eb-9812-6c946d60dd74.png" alt="2jaeger2" /></p></li>
+</ol>
+
+<h2 id="心得">心得</h2>
+
+<p>整體設定流程與 <a href="https://blog.yowko.com/aspdotnet-core-opentelemetry-jaeger">[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core</a> 完全相同，整體使用體驗非常好，跟之前 OpenTracing 完全不同的設定方法差距很大</p>
+
+<p>但有個小問題是設定方式的 <a href="https://github.com/open-telemetry/opentelemetry-dotnet/blob/5bf2b42379d1d993fc2f1cec1e54ab1aab3bb3f0/examples/AspNetCore/Startup.cs#L71" target="_blank">官方 GitHub sample</a> 有錯，少了 service name 的設定，幸虧與 Jaeger 設定方式完全一樣，沒造成多大的問題</p>
+
+<p>依 <a href="https://github.com/open-telemetry/opentelemetry-dotnet/blob/5bf2b42379d1d993fc2f1cec1e54ab1aab3bb3f0/examples/AspNetCore/Startup.cs#L71" target="_blank">官方 GitHub sample</a> 程式碼設定會出現 <code>unknown_service:dotnet</code></p>
+
+<p><img src="https://user-images.githubusercontent.com/3851540/112747568-cbd74700-8fe8-11eb-8262-7fe23f59d680.png" alt="3zipkinnoservicename" /></p>
+
+<p>完整程式碼可以參考：<a href="https://github.com/yowko/aspdotnet-core-opentelemetry" target="_blank">yowko/aspdotnet-core-opentelemetry</a></p>
+
+<h2 id="參考資訊">參考資訊</h2>
+
+<ol>
+<li><a href="https://devblogs.microsoft.com/dotnet/opentelemetry-net-reaches-v1-0/?WT.mc_id=DOP-MVP-5002594" target="_blank">OpenTelemetry .NET reaches v1.0</a></li>
+<li><a href="https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/examples/AspNetCore" target="_blank">open-telemetry/opentelemetry-dotnet</a></li>
+<li><a href="https://blog.yowko.com/aspdotnet-core-opentelemetry-jaeger">[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core</a></li>
+<li><a href="https://github.com/yowko/aspdotnet-core-opentelemetry" target="_blank">yowko/aspdotnet-core-opentelemetry</a></li>
+</ol>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yowko Tsai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2021-04-03</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">授權合約</span>
+    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
+  </p>
+</div>
+
+	
+	
+	
+    
+    
+	
+    <footer class="post-footer">
+      <div class="post-tags">
+		  標籤：
+		  
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/zipkin/">Zipkin</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/opentelemetry/">OpenTelemetry</a>
+          
+		    
+		    	
+            <a href="https://blog.yowko.com/tags/asp.net-core/">ASP.NET Core</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+		  <div>
+          <a class="prev" href="https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-jaeger/" style="float: none;">
+            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
+            <i class="fas fa-arrow-circle-right"></i>			
+            <span class="next-text nav-default">[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫</span>			
+          </a>
+		  </div>
+		  <div>
+        
+          <a class="prev" href="https://blog.yowko.com/aspdotnet-core-opentelemetry-jaeger/" style="float: none;">
+            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="prev-text nav-default">[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core</span>			
+          </a>
+		  </div>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https:\/\/blog.yowko.com\/aspdotnet-core-opentelemetry-zipkin\/';  
+      
+    };
+
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yowkonotes';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </main>
+	
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主題 - 
+    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2016 - 
+    2021
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Yowko Tsai</span>
+  </span>
+</div>
+    </footer>
+	
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div> 
+  
+  
+<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
+
+
+<script data-no-instant>InstantClick.init();</script>
+
+
+<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-88810280-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+  
+
+</body>
+</html>

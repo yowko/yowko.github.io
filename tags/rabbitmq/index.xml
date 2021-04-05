@@ -6,10 +6,19 @@
     <description>Recent content in RabbitMQ on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 14 Mar 2021 09:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 05 Apr 2021 09:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/rabbitmq/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>RabbitMQ Shovel 將訊息同步至不同 Vhost (Cluster)</title>
+      <link>https://blog.yowko.com/rabbitmq-shovel/</link>
+      <pubDate>Mon, 05 Apr 2021 09:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/rabbitmq-shovel/</guid>
+      <description>RabbitMQ Shovel 將訊息同步至不同 Vhost (Cluster) 之前筆記 RabbitMQ 為不同帳號設定不同 topic 權限 紀錄到為了讓不同 User 在可以在收發訊息時可以控制存取權限，當時有提到透過在同個 virtual host 下設</description>
+    </item>
     
     <item>
       <title>RabbitMQ 為不同帳號設定不同 topic 權限</title>

@@ -59,7 +59,7 @@
 <meta property="og:description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.yowko.com/" />
-<meta property="og:updated_time" content="2021-03-14T09:30:00&#43;08:00"/>
+<meta property="og:updated_time" content="2021-04-05T09:30:00&#43;08:00"/>
 
 <meta itemprop="name" content="Yowko&#39;s Notes">
 <meta itemprop="description" content="半路出家的 web 工程師 喜歡嘗試不同新技術,更喜歡寫程式帶來的成就感 學藝不精，請大家多指教">
@@ -136,6 +136,138 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/rabbitmq-shovel/">RabbitMQ Shovel 將訊息同步至不同 Vhost (Cluster)</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2021-04-05 </span>
+      
+      <span class="more-meta"> 約 794 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      RabbitMQ Shovel 將訊息同步至不同 Vhost (Cluster) 之前筆記 RabbitMQ 為不同帳號設定不同 topic 權限 紀錄到為了讓不同 User 在可以在收發訊息時可以控制存取權限，當時有提到透過在同個 virtual host 下設
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/rabbitmq-shovel/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-zipkin/">[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2021-04-04 </span>
+      
+      <span class="more-meta"> 約 529 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      [Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫 之前筆記 [Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 紀錄到使用 OpenTelemetry 搭配 Zipkin 來追蹤 ASP.NET Core 也曾在 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 紀錄使用 OpenTracing 來追蹤 gRPC 呼叫，之前筆
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-zipkin/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-jaeger/">[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2021-04-04 </span>
+      
+      <span class="more-meta"> 約 610 字 </span>
+        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      [Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫 之前筆記 [Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 紀錄到使用 OpenTelemetry 搭配 Jaeger 來追蹤 ASP.NET Core 也曾在 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 紀錄使用 OpenTracing 來追蹤 gRPC 呼叫，因為目
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-jaeger/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspdotnet-core-opentelemetry-zipkin/">[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2021-04-03 </span>
+      
+      <span class="more-meta"> 約 374 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      [Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 這是延續之前筆記 [Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 進行嘗試的筆記，過去使用 OpenTracing 時因為 Zipkin 與 .NET Core 的整合程式較低，設定上繁瑣許多，加上無法處理主要
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/aspdotnet-core-opentelemetry-zipkin/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/aspdotnet-core-opentelemetry-jaeger/">[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2021-04-03 </span>
+      
+      <span class="more-meta"> 約 406 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      [Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 前幾天看到微軟官方部落格 OpenTelemetry .NET reaches v1.0 公開了 OpenTelemetry .NET v1.0 版，之前在研究 OpenTracing 也有考慮過 OpenTelemetry 畢竟大一統的規格未來性跟前景應該都比較好，但當時相
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/aspdotnet-core-opentelemetry-jaeger/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/elasticdump/">使用 Elasticdump 來匯入與匯出 Elasticsearch index</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2021-04-02 </span>
+      
+      <span class="more-meta"> 約 346 字 </span>
+        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      使用 Elasticdump 來匯入與匯出 Elasticsearch index 外網的測試環境因為有外部服務介接的關係，有較多機會出現 exeption，為了方便 debug，所以想要將外網的 log 倒回內網
+    </div>
+    <div class="read-more">
+      <a href="https://blog.yowko.com/elasticdump/" class="read-more-link">繼續閱讀</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -330,138 +462,6 @@
     </div>
     <div class="read-more">
       <a href="https://blog.yowko.com/certificate-secret-mount-volume-file/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/cert-manager-pkcs12-pfx/">使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2021-02-09 </span>
-      
-      <span class="more-meta"> 約 490 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      使用 cert-manager 建立 PKCS12 格式 (.pfx) 憑證 之前筆記 使用 cert-manager 建立憑證 紀錄到如何使用 cert-manager 來建立憑證，在預設情境下只會產生 .crt + .key 的憑證與 key，但 ASP.NET Core 使用的憑證格式為 PKCS12 (.PFX)
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/cert-manager-pkcs12-pfx/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/mongodb-exporter-permission/">MongoDB Exporter 需要的權限</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2021-02-08 </span>
-      
-      <span class="more-meta"> 約 465 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      MongoDB Exporter 需要的權限 之前筆記 安裝 MongoDB Exporter 紀錄到透過 MongoDB Exporter 蒐集 MongoDB metrics 資訊，不過就安全性來看有些不妥：原因是用了 root 這個在環境設定(詳細資訊可以參考之前筆記 使用
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/mongodb-exporter-permission/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/cert-manager-certificate/">使用 cert-manager 建立憑證</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2021-02-08 </span>
-      
-      <span class="more-meta"> 約 415 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      使用 cert-manager 建立憑證 之前筆記 在 Kubernetes 上安裝 cert-manager 提到為什麼要使用 cert-manager 以及如何安裝 cert-manager，今天就來紀錄一下如何使用 cert-manager 來建立憑證 基本環境說明 macOS
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/cert-manager-certificate/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/cert-manager/">在 Kubernetes 上安裝 cert-manager</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2021-02-08 </span>
-      
-      <span class="more-meta"> 約 499 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      在 Kubernetes 上安裝 cert-manager 之前 gRPC 都是透過 insecure 的設定來避免 gRPC 需要 SSL 的問題，雖然使用上並沒有遇到什麼狀況，但還是覺得不太正統，另外程式碼也多了一些設定，所以一直
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/cert-manager/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/mongodb-exporter/">安裝 MongoDB Exporter</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2021-02-07 </span>
-      
-      <span class="more-meta"> 約 412 字 </span>
-        <span class="more-meta"> 預計閱讀 1 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      安裝 MongoDB Exporter 之前筆記 Prometheus 搭配 Alertmanager 發送警示 紀錄到如何使用 Prometheus 與 Alertmanager 來進行監控並主動發生通知，而 MongoDB 也可以是 Prometheus 監控的對象，透過安裝 MongoDB Exporter 將 metrics 資訊透過 http server 方式揭露
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/mongodb-exporter/" class="read-more-link">繼續閱讀</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.yowko.com/prometheus-alertmanager/">Prometheus 搭配 Alertmanager 發送警示</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2021-01-27 </span>
-      
-      <span class="more-meta"> 約 510 字 </span>
-        <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Prometheus 搭配 Alertmanager 發送警示 之前筆記 使用 ElastAlert 監控 Elasticsearch 發出通知 提到近期都在進行主動監控的相關設定與測試，之前紀錄了 Elasticsearch 上使用 application 所產生的 log 內容來進行條件偵測與通知
-    </div>
-    <div class="read-more">
-      <a href="https://blog.yowko.com/prometheus-alertmanager/" class="read-more-link">繼續閱讀</a>
     </div>
   </div>
 </article>

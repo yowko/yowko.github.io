@@ -6,10 +6,28 @@
     <description>Recent content in grpc on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 07 Mar 2021 09:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 04 Apr 2021 22:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/grpc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫</title>
+      <link>https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-zipkin/</link>
+      <pubDate>Sun, 04 Apr 2021 22:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-zipkin/</guid>
+      <description>[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫 之前筆記 [Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 紀錄到使用 OpenTelemetry 搭配 Zipkin 來追蹤 ASP.NET Core 也曾在 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 紀錄使用 OpenTracing 來追蹤 gRPC 呼叫，之前筆</description>
+    </item>
+    
+    <item>
+      <title>[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫</title>
+      <link>https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-jaeger/</link>
+      <pubDate>Sun, 04 Apr 2021 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-jaeger/</guid>
+      <description>[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫 之前筆記 [Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 紀錄到使用 OpenTelemetry 搭配 Jaeger 來追蹤 ASP.NET Core 也曾在 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 紀錄使用 OpenTracing 來追蹤 gRPC 呼叫，因為目</description>
+    </item>
     
     <item>
       <title>ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法</title>

@@ -6,10 +6,19 @@
     <description>Recent content in Tools on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 30 Apr 2020 21:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 02 Apr 2021 21:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/tags/tools/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Elasticdump 來匯入與匯出 Elasticsearch index</title>
+      <link>https://blog.yowko.com/elasticdump/</link>
+      <pubDate>Fri, 02 Apr 2021 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/elasticdump/</guid>
+      <description>使用 Elasticdump 來匯入與匯出 Elasticsearch index 外網的測試環境因為有外部服務介接的關係，有較多機會出現 exeption，為了方便 debug，所以想要將外網的 log 倒回內網</description>
+    </item>
     
     <item>
       <title>Fluentd 指定 Elasticsearch Index 名稱</title>

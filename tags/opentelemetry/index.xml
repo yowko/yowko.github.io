@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OpenTelemetry on Yowko&#39;s Notes</title>
+    <link>https://blog.yowko.com/tags/opentelemetry/</link>
+    <description>Recent content in OpenTelemetry on Yowko&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 04 Apr 2021 22:30:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yowko.com/tags/opentelemetry/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫</title>
+      <link>https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-zipkin/</link>
+      <pubDate>Sun, 04 Apr 2021 22:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-zipkin/</guid>
+      <description>[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫 之前筆記 [Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 紀錄到使用 OpenTelemetry 搭配 Zipkin 來追蹤 ASP.NET Core 也曾在 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 紀錄使用 OpenTracing 來追蹤 gRPC 呼叫，之前筆</description>
+    </item>
+    
+    <item>
+      <title>[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫</title>
+      <link>https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-jaeger/</link>
+      <pubDate>Sun, 04 Apr 2021 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-jaeger/</guid>
+      <description>[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫 之前筆記 [Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 紀錄到使用 OpenTelemetry 搭配 Jaeger 來追蹤 ASP.NET Core 也曾在 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 紀錄使用 OpenTracing 來追蹤 gRPC 呼叫，因為目</description>
+    </item>
+    
+    <item>
+      <title>[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core</title>
+      <link>https://blog.yowko.com/aspdotnet-core-opentelemetry-zipkin/</link>
+      <pubDate>Sat, 03 Apr 2021 22:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-opentelemetry-zipkin/</guid>
+      <description>[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 這是延續之前筆記 [Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 進行嘗試的筆記，過去使用 OpenTracing 時因為 Zipkin 與 .NET Core 的整合程式較低，設定上繁瑣許多，加上無法處理主要</description>
+    </item>
+    
+    <item>
+      <title>[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core</title>
+      <link>https://blog.yowko.com/aspdotnet-core-opentelemetry-jaeger/</link>
+      <pubDate>Sat, 03 Apr 2021 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-opentelemetry-jaeger/</guid>
+      <description>[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 前幾天看到微軟官方部落格 OpenTelemetry .NET reaches v1.0 公開了 OpenTelemetry .NET v1.0 版，之前在研究 OpenTracing 也有考慮過 OpenTelemetry 畢竟大一統的規格未來性跟前景應該都比較好，但當時相</description>
+    </item>
+    
+  </channel>
+</rss>

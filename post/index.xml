@@ -6,10 +6,64 @@
     <description>Recent content in Posts on Yowko&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 14 Mar 2021 09:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 05 Apr 2021 09:30:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yowko.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>RabbitMQ Shovel 將訊息同步至不同 Vhost (Cluster)</title>
+      <link>https://blog.yowko.com/rabbitmq-shovel/</link>
+      <pubDate>Mon, 05 Apr 2021 09:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/rabbitmq-shovel/</guid>
+      <description>RabbitMQ Shovel 將訊息同步至不同 Vhost (Cluster) 之前筆記 RabbitMQ 為不同帳號設定不同 topic 權限 紀錄到為了讓不同 User 在可以在收發訊息時可以控制存取權限，當時有提到透過在同個 virtual host 下設</description>
+    </item>
+    
+    <item>
+      <title>[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫</title>
+      <link>https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-zipkin/</link>
+      <pubDate>Sun, 04 Apr 2021 22:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-zipkin/</guid>
+      <description>[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫 之前筆記 [Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 紀錄到使用 OpenTelemetry 搭配 Zipkin 來追蹤 ASP.NET Core 也曾在 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 紀錄使用 OpenTracing 來追蹤 gRPC 呼叫，之前筆</description>
+    </item>
+    
+    <item>
+      <title>[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫</title>
+      <link>https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-jaeger/</link>
+      <pubDate>Sun, 04 Apr 2021 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-opentelemetry-grpc-jaeger/</guid>
+      <description>[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 上的 gRPC 呼叫 之前筆記 [Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 紀錄到使用 OpenTelemetry 搭配 Jaeger 來追蹤 ASP.NET Core 也曾在 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫 紀錄使用 OpenTracing 來追蹤 gRPC 呼叫，因為目</description>
+    </item>
+    
+    <item>
+      <title>[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core</title>
+      <link>https://blog.yowko.com/aspdotnet-core-opentelemetry-zipkin/</link>
+      <pubDate>Sat, 03 Apr 2021 22:00:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-opentelemetry-zipkin/</guid>
+      <description>[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core 這是延續之前筆記 [Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 進行嘗試的筆記，過去使用 OpenTracing 時因為 Zipkin 與 .NET Core 的整合程式較低，設定上繁瑣許多，加上無法處理主要</description>
+    </item>
+    
+    <item>
+      <title>[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core</title>
+      <link>https://blog.yowko.com/aspdotnet-core-opentelemetry-jaeger/</link>
+      <pubDate>Sat, 03 Apr 2021 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/aspdotnet-core-opentelemetry-jaeger/</guid>
+      <description>[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core 前幾天看到微軟官方部落格 OpenTelemetry .NET reaches v1.0 公開了 OpenTelemetry .NET v1.0 版，之前在研究 OpenTracing 也有考慮過 OpenTelemetry 畢竟大一統的規格未來性跟前景應該都比較好，但當時相</description>
+    </item>
+    
+    <item>
+      <title>使用 Elasticdump 來匯入與匯出 Elasticsearch index</title>
+      <link>https://blog.yowko.com/elasticdump/</link>
+      <pubDate>Fri, 02 Apr 2021 21:30:00 +0800</pubDate>
+      
+      <guid>https://blog.yowko.com/elasticdump/</guid>
+      <description>使用 Elasticdump 來匯入與匯出 Elasticsearch index 外網的測試環境因為有外部服務介接的關係，有較多機會出現 exeption，為了方便 debug，所以想要將外網的 log 倒回內網</description>
+    </item>
     
     <item>
       <title>RabbitMQ 為不同帳號設定不同 topic 權限</title>
