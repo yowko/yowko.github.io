@@ -58,14 +58,14 @@
 <meta property="og:description" content="WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常 在之前筆記 在 Visual Studio 中使用 WebPack 來編譯 Vue.js 紀錄到如何在 Visual Studio 使用 WebPack 來編譯 Vue.js，設定上步驟並不多，使用上也相當方" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yowko.com/webpack-error-in-visual-studio/" /><meta property="article:published_time" content="2017-11-14T23:21:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-12-11T23:21:36&#43;08:00"/>
+<meta property="article:modified_time" content="2021-05-11T23:21:36&#43;08:00"/>
 
 <meta itemprop="name" content="WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常">
 <meta itemprop="description" content="WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常 在之前筆記 在 Visual Studio 中使用 WebPack 來編譯 Vue.js 紀錄到如何在 Visual Studio 使用 WebPack 來編譯 Vue.js，設定上步驟並不多，使用上也相當方">
 
 
 <meta itemprop="datePublished" content="2017-11-14T23:21:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-12-11T23:21:36&#43;08:00" />
+<meta itemprop="dateModified" content="2021-05-11T23:21:36&#43;08:00" />
 <meta itemprop="wordCount" content="669">
 
 
@@ -161,13 +161,14 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#webpack-在-visual-studio-無法正確編譯-在-command-prompt-卻正常">WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常</a>
+<li>
 <ul>
+<li><a href="#webpack-在-visual-studio-無法正確編譯-在-command-prompt-卻正常">WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常</a></li>
 <li><a href="#錯誤訊息">錯誤訊息</a></li>
 <li><a href="#解決方式">解決方式</a></li>
 <li><a href="#心得">心得</a></li>
-</ul></li>
 <li><a href="#參考資訊">參考資訊</a></li>
+</ul></li>
 </ul>
 </nav>
   </div>
@@ -180,7 +181,7 @@
     <div class="post-content">
       
 
-<h1 id="webpack-在-visual-studio-無法正確編譯-在-command-prompt-卻正常">WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常</h1>
+<h2 id="webpack-在-visual-studio-無法正確編譯-在-command-prompt-卻正常">WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常</h2>
 
 <p>在之前筆記 <a href="https://blog.yowko.com/2017/11/visual-studio-webpack-vuejs.html">在 Visual Studio 中使用 WebPack 來編譯 Vue.js</a> 紀錄到如何在 Visual Studio 使用 WebPack 來編譯 Vue.js，設定上步驟並不多，使用上也相當方便，只是又踩到雷了XD 不過我在家中電腦與公司電腦都有遇到相同問題，而且公司電腦還遇到兩次一樣的狀況(應該不算是人品問題吧 &gt;&rdquo;&lt;)：Visual Studio 的 WebPack 無法順利完成編譯，查了好久，也試著把有專案重建 都無法解決問題，後來才發現在 Command Prompt 中是正常的 @@&rdquo;</p>
 
@@ -191,7 +192,7 @@
 <ol>
 <li><p>訊息內容</p>
 
-<pre><code>C:\Users\YowkoTsai\Documents\Visual Studio 2017\Projects\TestWebpack\TestWebpack&gt; cmd /c SET NODE_ENV=development&amp;&amp; webpack --color --display-error-details
+<pre><code class="language-cmd">C:\Users\YowkoTsai\Documents\Visual Studio 2017\Projects\TestWebpack\TestWebpack&gt; cmd /c SET NODE_ENV=development&amp;&amp; webpack --color --display-error-details
 Hash: d15ba0238639a7c76803
 Version: webpack 3.8.1
 Time: 793ms
@@ -255,7 +256,7 @@ Process terminated with code 2.
 <ul>
 <li><p>將 Visual Studio 使用的 WebPack 設定與 Command Prompt 相同 &ndash;&gt; 吃環境變數中的設定</p>
 
-<ul>
+<ol>
 <li><p>Visual Studio 主選單 Tools &ndash;&gt; Options&hellip;</p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/32787256-1036c1ae-c991-11e7-9a20-fe6b14fe8d1a.png" alt="6tools" /></p></li>
@@ -269,7 +270,7 @@ Process terminated with code 2.
 <p><img src="https://user-images.githubusercontent.com/3851540/32787253-0fa5753c-c991-11e7-988d-62bc02f0f615.png" alt="3change1" /></p>
 
 <p><img src="https://user-images.githubusercontent.com/3851540/32787254-0fdc2258-c991-11e7-8547-177e81c43f7d.png" alt="4cahnge2" /></p></li>
-</ul></li>
+</ol></li>
 
 <li><p>設定成功</p>
 
@@ -282,7 +283,7 @@ Process terminated with code 2.
 
 <p>讓人不解的是做這樣的設計不是很容易出現 Visual Studio 與 Command Prompt 行為不同的情況嗎，一般前端工具的使用者應該不會透過 Visual Studio ，一定直接操作 global 環境的呀，，好在靈光乍現，想到用 Command Prompt 測試才找出問題</p>
 
-<h1 id="參考資訊">參考資訊</h1>
+<h2 id="參考資訊">參考資訊</h2>
 
 <ol>
 <li><a href="https://github.com/FormidableLabs/webpack-dashboard/issues/97" target="_blank">Visual Studio Task Runner console throwing error</a></li>
@@ -298,7 +299,7 @@ Process terminated with code 2.
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2020-12-11</span>
+    <span class="item-content">2021-05-11</span>
   </p>
   
   <p class="copyright-item">
