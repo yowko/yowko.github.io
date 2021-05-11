@@ -1,23 +1,24 @@
 ---
 title: "WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常"
 date: 2017-11-14T23:21:00+08:00
-lastmod: 2020-12-11T23:21:36+08:00
+lastmod: 2021-05-11T23:21:36+08:00
 draft: false
 tags: ["Frontend","Tools","Visual Studio"]
 slug: "webpack-error-in-visual-studio"
 aliases:
     - /2017/11/webpack-error-in-visual-studio.html
 ---
-# WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常
+## WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常
+
 在之前筆記 [在 Visual Studio 中使用 WebPack 來編譯 Vue.js](/2017/11/visual-studio-webpack-vuejs.html) 紀錄到如何在 Visual Studio 使用 WebPack 來編譯 Vue.js，設定上步驟並不多，使用上也相當方便，只是又踩到雷了XD 不過我在家中電腦與公司電腦都有遇到相同問題，而且公司電腦還遇到兩次一樣的狀況(應該不算是人品問題吧 >"<)：Visual Studio 的 WebPack 無法順利完成編譯，查了好久，也試著把有專案重建 都無法解決問題，後來才發現在 Command Prompt 中是正常的 @@"
 
 就來看看問題發生原因跟解決方式吧
 
 ## 錯誤訊息
 
-1.  訊息內容
+1. 訊息內容
 
-    ```
+    ```cmd
     C:\Users\YowkoTsai\Documents\Visual Studio 2017\Projects\TestWebpack\TestWebpack> cmd /c SET NODE_ENV=development&& webpack --color --display-error-details
     Hash: d15ba0238639a7c76803
     Version: webpack 3.8.1
@@ -66,32 +67,33 @@ aliases:
 
     > 我另台電腦遇到的錯誤是 `>` arrow function 無法編譯的問題， error code 8，但解法相同
 
-2.  錯誤截圖
+2. 錯誤截圖
 
     ![1error](https://user-images.githubusercontent.com/3851540/32787249-0f387888-c991-11e7-9c32-233c0cdeeef4.png)
 
-3.  在 Command Prompt 卻一切正常
+3. 在 Command Prompt 卻一切正常
 
     ![2cmd](https://user-images.githubusercontent.com/3851540/32787252-0f6e84f0-c991-11e7-963c-68fe34c5dc71.png)
 
 ## 解決方式
 
-*   將 Visual Studio 使用的 WebPack 設定與 Command Prompt 相同 --> 吃環境變數中的設定
-    *   Visual Studio 主選單 Tools --> Options...
+* 將 Visual Studio 使用的 WebPack 設定與 Command Prompt 相同 --> 吃環境變數中的設定
+
+    1. Visual Studio 主選單 Tools --> Options...
 
         ![6tools](https://user-images.githubusercontent.com/3851540/32787256-1036c1ae-c991-11e7-9a20-fe6b14fe8d1a.png)
 
-    *   Projects and Solutions --> Web Package Management --> External Web Tools
+    2. Projects and Solutions --> Web Package Management --> External Web Tools
 
         ![7externaltools](https://user-images.githubusercontent.com/3851540/32787734-4249c078-c992-11e7-8d5b-79b33fe9714e.png)
 
-    *   將 `$(PATH)` 移至第一個位置
+    3. 將 `$(PATH)` 移至第一個位置
 
         ![3change1](https://user-images.githubusercontent.com/3851540/32787253-0fa5753c-c991-11e7-988d-62bc02f0f615.png)
 
         ![4cahnge2](https://user-images.githubusercontent.com/3851540/32787254-0fdc2258-c991-11e7-8547-177e81c43f7d.png)
 
-*   設定成功
+* 設定成功
 
     ![5buildok](https://user-images.githubusercontent.com/3851540/32787255-10091100-c991-11e7-8196-da1b687d42b2.png)
 
@@ -101,6 +103,6 @@ aliases:
 
 讓人不解的是做這樣的設計不是很容易出現 Visual Studio 與 Command Prompt 行為不同的情況嗎，一般前端工具的使用者應該不會透過 Visual Studio ，一定直接操作 global 環境的呀，，好在靈光乍現，想到用 Command Prompt 測試才找出問題
 
-# 參考資訊
+## 參考資訊
 
-1.  [Visual Studio Task Runner console throwing error](https://github.com/FormidableLabs/webpack-dashboard/issues/97)
+1. [Visual Studio Task Runner console throwing error](https://github.com/FormidableLabs/webpack-dashboard/issues/97)
