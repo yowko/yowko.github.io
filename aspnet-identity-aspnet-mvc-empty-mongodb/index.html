@@ -1,272 +1,15 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版 - Yowko&#39;s Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版 在之前筆記 將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 中有提到我個人事實上比較喜歡 MVC Empty 專案範本的乾淨風格，當時也是因為不想讓專案中有過" />
-
-  <meta name="keywords" content="yowko, .net, blog" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.51" />
-
-<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
-
-
-<link rel="canonical" href="https://blog.yowko.com/aspnet-identity-aspnet-mvc-empty-mongodb/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
-<link rel="manifest" href="https://blog.yowko.com/manifest.json">
-<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
-
-
-<meta property="og:title" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版" />
-<meta property="og:description" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版 在之前筆記 將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 中有提到我個人事實上比較喜歡 MVC Empty 專案範本的乾淨風格，當時也是因為不想讓專案中有過" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/aspnet-identity-aspnet-mvc-empty-mongodb/" /><meta property="article:published_time" content="2018-07-30T23:03:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-12-11T23:03:39&#43;08:00"/>
-
-<meta itemprop="name" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版">
-<meta itemprop="description" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版 在之前筆記 將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 中有提到我個人事實上比較喜歡 MVC Empty 專案範本的乾淨風格，當時也是因為不想讓專案中有過">
-
-
-<meta itemprop="datePublished" content="2018-07-30T23:03:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-12-11T23:03:39&#43;08:00" />
-<meta itemprop="wordCount" content="2071">
-
-
-
-<meta itemprop="keywords" content="ASP.NET Identity,ASP.NET MVC,MongoDB," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版"/>
-<meta name="twitter:description" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版 在之前筆記 將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 中有提到我個人事實上比較喜歡 MVC Empty 專案範本的乾淨風格，當時也是因為不想讓專案中有過"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
-
-</head>
-<body>
-     
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="https://blog.yowko.com/">
-        <li class="mobile-menu-item">首頁</li>
-      </a><a href="https://blog.yowko.com/post/">
-        <li class="mobile-menu-item">歷史筆記</li>
-      </a><a href="https://blog.yowko.com/tags/">
-        <li class="mobile-menu-item">內容標籤</li>
-      </a><a href="https://blog.yowko.com/search">
-        <li class="mobile-menu-item">站內搜尋</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
-        <div class="logo-wrapper">
-  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-</div>
-<div style="padding-bottom: 60px;"> </div>
-</nav>
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
-    </li>
-  </ul>
-</nav>
-    </header>	
-    <main id="main" class="main">		
-      <div class="content-wrapper">		
-		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
-        <div id="content" class="content">		
-          <article class="post">
-    
-    <header class="post-header">
-      
-
-      <div class="post-meta">
-        <span class="post-time"> 2018-07-30 </span>
-        
-        <span class="more-meta"> 約 2071 字 </span>
-          <span class="more-meta"> 預計閱讀 5 分鐘 </span>
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目錄</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#將-asp-net-identity-加至-asp-net-mvc-empty-專案中-mongodb-版">將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版</a>
-<ul>
-<li><a href="#使用空專案範本建立專案">使用空專案範本建立專案</a></li>
-<li><a href="#安裝-asp-net-identity-相關套件">安裝 ASP.NET Identity 相關套件</a></li>
-<li><a href="#在-model-資料夾中加入-user-相關-model">在 Model 資料夾中加入 User 相關 model</a></li>
-<li><a href="#建立-mongodb-連線物件">建立 MongoDB 連線物件</a></li>
-<li><a href="#建立-user-管理用物件">建立 user 管理用物件</a></li>
-<li><a href="#註冊-identity-至-owin-中">註冊 Identity 至 OWIN 中</a></li>
-<li><a href="#實際使用">實際使用</a></li>
-<li><a href="#心得">心得</a></li>
-</ul></li>
-<li><a href="#參考資訊">參考資訊</a></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h1 id="將-asp-net-identity-加至-asp-net-mvc-empty-專案中-mongodb-版">將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版</h1>
-
-<p>在之前筆記 <a href="https://blog.yowko.com/2017/11/add-aspnet-identity-empty-project.html">將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中</a> 中有提到我個人事實上比較喜歡 MVC Empty 專案範本的乾淨風格，當時也是因為不想讓專案中有過多預設套件及程式碼特別紀錄如何從 Empty 專案範本來逐步加入 ASP.NET Identity，最近專案剛好有用到 MongoDB 來儲存 ASP.NET Identity 資料 (詳細內容請參考 <a href="https://blog.yowko.com/2018/07/aspnet-identity-mongodb.html">使用 MongoDB 儲存 ASP.NET Identity 資料</a>)，所以順手紀錄一下如何逐步將 ASP.NET Identity 搭配 MongoDB 加至 ASP.NET MVC Empty 專案中</p>
-
-<h2 id="使用空專案範本建立專案">使用空專案範本建立專案</h2>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32415921-3c31f038-c27c-11e7-9392-e6f1e7d2ac94.png" alt="EMPTY" /></p>
-
-<h2 id="安裝-asp-net-identity-相關套件">安裝 ASP.NET Identity 相關套件</h2>
-
-<ol>
-<li><p>Microsoft.AspNet.Identity.Owin</p>
-
-<ul>
-<li>相依套件
-
-<ul>
-<li>Microsoft.Owin.Security (&gt;= 3.0.1)</li>
-<li>Microsoft.AspNet.Identity.Core (&gt;= 2.2.2)</li>
-<li>Microsoft.Owin.Security.Cookies (&gt;= 3.0.1)</li>
-<li>Microsoft.Owin.Security.OAuth (&gt;= 3.0.1)</li>
-</ul></li>
-
-<li><p>指令安裝</p>
-
-<pre><code>Install-Package Microsoft.AspNet.Identity.Owin
-</code></pre></li>
-</ul></li>
-
-<li><p>Install-Package AspNet.Identity.MongoDB</p>
-
-<ul>
-<li>相依套件
-
-<ul>
-<li>Microsoft.AspNet.Identity.Core (&gt;= 2.2.1)</li>
-<li>MongoDB.Driver (&gt;= 2.0.0)</li>
-</ul></li>
-
-<li><p>指令安裝</p>
-
-<pre><code>Install-Package AspNet.Identity.MongoDB
-</code></pre></li>
-</ul></li>
-
-<li><p>Microsoft.Owin.Host.SystemWeb</p>
-
-<ul>
-<li>相依套件
-
-<ul>
-<li>Owin (&gt;= 1.0.0)</li>
-<li>Microsoft.Owin (&gt;= 4.0.0)</li>
-</ul></li>
-
-<li><p>指令安裝</p>
-
-<pre><code>Install-Package Microsoft.Owin.Host.SystemWeb
-</code></pre></li>
-</ul></li>
-</ol>
-
-<h2 id="在-model-資料夾中加入-user-相關-model">在 Model 資料夾中加入 User 相關 model</h2>
-
-<ol>
-<li><p>建立 <code>ApplicationUser</code> 並繼承 <code>IdentityUser</code></p>
-
-<pre><code class="language-cs">public class ApplicationUser: IdentityUser
-</code></pre></li>
-
-<li><p>在 ApplicationUser 中建立 <code>GenerateUserIdentityAsync</code> 方法</p>
-
-<pre><code class="language-cs">public async Task&lt;ClaimsIdentity&gt; GenerateUserIdentityAsync(UserManager&lt;ApplicationUser&gt; manager)
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版 在之前筆記 將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 中有提到我個人事實上比較喜歡 MVC Empty 專案範本的乾淨風格，當時也是因為不想讓專案中有過"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/aspnet-identity-aspnet-mvc-empty-mongodb/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版"><meta property=og:description content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版 在之前筆記 將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 中有提到我個人事實上比較喜歡 MVC Empty 專案範本的乾淨風格，當時也是因為不想讓專案中有過"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/aspnet-identity-aspnet-mvc-empty-mongodb/><meta property=article:published_time content=2018-07-30T23:03:00&#43;08:00><meta property=article:modified_time content=2020-12-11T23:03:39&#43;08:00><meta itemprop=name content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版"><meta itemprop=description content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版 在之前筆記 將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 中有提到我個人事實上比較喜歡 MVC Empty 專案範本的乾淨風格，當時也是因為不想讓專案中有過"><meta itemprop=datePublished content=2018-07-30T23:03:00&#43;08:00><meta itemprop=dateModified content=2020-12-11T23:03:39&#43;08:00><meta itemprop=wordCount content=2071><meta itemprop=keywords content="ASP.NET Identity,ASP.NET MVC,MongoDB,"><meta name=twitter:card content=summary><meta name=twitter:title content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版"><meta name=twitter:description content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版 在之前筆記 將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 中有提到我個人事實上比較喜歡 MVC Empty 專案範本的乾淨風格，當時也是因為不想讓專案中有過"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2018-07-30</span>
+<span class=more-meta>約 2071 字</span>
+<span class=more-meta>預計閱讀 5 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#將-asp-net-identity-加至-asp-net-mvc-empty-專案中-mongodb-版>將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版</a><ul><li><a href=#使用空專案範本建立專案>使用空專案範本建立專案</a></li><li><a href=#安裝-asp-net-identity-相關套件>安裝 ASP.NET Identity 相關套件</a></li><li><a href=#在-model-資料夾中加入-user-相關-model>在 Model 資料夾中加入 User 相關 model</a></li><li><a href=#建立-mongodb-連線物件>建立 MongoDB 連線物件</a></li><li><a href=#建立-user-管理用物件>建立 user 管理用物件</a></li><li><a href=#註冊-identity-至-owin-中>註冊 Identity 至 OWIN 中</a></li><li><a href=#實際使用>實際使用</a></li><li><a href=#心得>心得</a></li></ul></li><li><a href=#參考資訊>參考資訊</a></li></ul></nav></div></div><div class=post-content><h1 id=將-asp-net-identity-加至-asp-net-mvc-empty-專案中-mongodb-版>將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版</h1><p>在之前筆記 <a href=https://blog.yowko.com/2017/11/add-aspnet-identity-empty-project.html>將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中</a> 中有提到我個人事實上比較喜歡 MVC Empty 專案範本的乾淨風格，當時也是因為不想讓專案中有過多預設套件及程式碼特別紀錄如何從 Empty 專案範本來逐步加入 ASP.NET Identity，最近專案剛好有用到 MongoDB 來儲存 ASP.NET Identity 資料 (詳細內容請參考 <a href=https://blog.yowko.com/2018/07/aspnet-identity-mongodb.html>使用 MongoDB 儲存 ASP.NET Identity 資料</a>)，所以順手紀錄一下如何逐步將 ASP.NET Identity 搭配 MongoDB 加至 ASP.NET MVC Empty 專案中</p><h2 id=使用空專案範本建立專案>使用空專案範本建立專案</h2><p><img src=https://user-images.githubusercontent.com/3851540/32415921-3c31f038-c27c-11e7-9392-e6f1e7d2ac94.png alt=EMPTY></p><h2 id=安裝-asp-net-identity-相關套件>安裝 ASP.NET Identity 相關套件</h2><ol><li><p>Microsoft.AspNet.Identity.Owin</p><ul><li>相依套件<ul><li>Microsoft.Owin.Security (&gt;= 3.0.1)</li><li>Microsoft.AspNet.Identity.Core (&gt;= 2.2.2)</li><li>Microsoft.Owin.Security.Cookies (&gt;= 3.0.1)</li><li>Microsoft.Owin.Security.OAuth (&gt;= 3.0.1)</li></ul></li><li><p>指令安裝</p><pre><code>Install-Package Microsoft.AspNet.Identity.Owin
+</code></pre></li></ul></li><li><p>Install-Package AspNet.Identity.MongoDB</p><ul><li>相依套件<ul><li>Microsoft.AspNet.Identity.Core (&gt;= 2.2.1)</li><li>MongoDB.Driver (&gt;= 2.0.0)</li></ul></li><li><p>指令安裝</p><pre><code>Install-Package AspNet.Identity.MongoDB
+</code></pre></li></ul></li><li><p>Microsoft.Owin.Host.SystemWeb</p><ul><li>相依套件<ul><li>Owin (&gt;= 1.0.0)</li><li>Microsoft.Owin (&gt;= 4.0.0)</li></ul></li><li><p>指令安裝</p><pre><code>Install-Package Microsoft.Owin.Host.SystemWeb
+</code></pre></li></ul></li></ol><h2 id=在-model-資料夾中加入-user-相關-model>在 Model 資料夾中加入 User 相關 model</h2><ol><li><p>建立 <code>ApplicationUser</code> 並繼承 <code>IdentityUser</code></p><pre><code class=language-cs>public class ApplicationUser: IdentityUser
+</code></pre></li><li><p>在 ApplicationUser 中建立 <code>GenerateUserIdentityAsync</code> 方法</p><pre><code class=language-cs>public async Task&lt;ClaimsIdentity&gt; GenerateUserIdentityAsync(UserManager&lt;ApplicationUser&gt; manager)
 {
     var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
     return userIdentity;
 }
-</code></pre></li>
-
-<li><p>完整程式碼</p>
-
-<pre><code class="language-cs">using AspNet.Identity.MongoDB;
+</code></pre></li><li><p>完整程式碼</p><pre><code class=language-cs>using AspNet.Identity.MongoDB;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -282,49 +25,21 @@ namespace IdentityMongo.Models
         }
     }
 }
-</code></pre></li>
-</ol>
-
-<h2 id="建立-mongodb-連線物件">建立 MongoDB 連線物件</h2>
-
-<blockquote>
-<p>在 <code>Models</code> 資料夾中加入 <code>ApplicationDbContext.cs</code></p>
-</blockquote>
-
-<ol>
-<li><p>建立 <code>ApplicationDbContext</code> 繼承至 <code>IDisposable</code></p>
-
-<pre><code class="language-cs">public class ApplicationDbContext : IDisposable
+</code></pre></li></ol><h2 id=建立-mongodb-連線物件>建立 MongoDB 連線物件</h2><blockquote><p>在 <code>Models</code> 資料夾中加入 <code>ApplicationDbContext.cs</code></p></blockquote><ol><li><p>建立 <code>ApplicationDbContext</code> 繼承至 <code>IDisposable</code></p><pre><code class=language-cs>public class ApplicationDbContext : IDisposable
 {
 }
-</code></pre></li>
-
-<li><p>實作 <code>Dispose()</code></p>
-
-<pre><code class="language-cs">public void Dispose()
+</code></pre></li><li><p>實作 <code>Dispose()</code></p><pre><code class=language-cs>public void Dispose()
 {
 }
-</code></pre></li>
-
-<li><p>加入 <code>Users</code> 與 <code>Roles</code> 屬性</p>
-
-<pre><code class="language-cs">public IMongoCollection&lt;IdentityRole&gt; Roles { get; set; }
+</code></pre></li><li><p>加入 <code>Users</code> 與 <code>Roles</code> 屬性</p><pre><code class=language-cs>public IMongoCollection&lt;IdentityRole&gt; Roles { get; set; }
 
 public IMongoCollection&lt;ApplicationUser&gt; Users { get; set; }
-</code></pre></li>
-
-<li><p>建立 private 建構子並接受 users 與 roles 參數</p>
-
-<pre><code class="language-cs">private ApplicationDbContext(IMongoCollection&lt;ApplicationUser&gt; users, IMongoCollection&lt;IdentityRole&gt; roles)
+</code></pre></li><li><p>建立 private 建構子並接受 users 與 roles 參數</p><pre><code class=language-cs>private ApplicationDbContext(IMongoCollection&lt;ApplicationUser&gt; users, IMongoCollection&lt;IdentityRole&gt; roles)
 {
     Users = users;
     Roles = roles;
 }
-</code></pre></li>
-
-<li><p>建立 <code>static</code> 的 <code>Create()</code> 方法並回傳 <code>ApplicationDbContext</code></p>
-
-<pre><code class="language-cs">public static ApplicationDbContext Create()
+</code></pre></li><li><p>建立 <code>static</code> 的 <code>Create()</code> 方法並回傳 <code>ApplicationDbContext</code></p><pre><code class=language-cs>public static ApplicationDbContext Create()
 {
     //使用 mongo連線資訊建立 mongodb client
     var client = new MongoClient(&quot;mongodb://127.0.0.1:27017&quot;);
@@ -337,11 +52,7 @@ public IMongoCollection&lt;ApplicationUser&gt; Users { get; set; }
     // 回傳 private 建構子內容
     return new ApplicationDbContext(users, roles);
 }
-</code></pre></li>
-
-<li><p>完整程式碼</p>
-
-<pre><code class="language-cs">using AspNet.Identity.MongoDB;
+</code></pre></li><li><p>完整程式碼</p><pre><code class=language-cs>using AspNet.Identity.MongoDB;
 using MongoDB.Driver;
 using System;
 
@@ -376,19 +87,7 @@ namespace IdentityMongo.Models
         }
     }
 }
-</code></pre></li>
-</ol>
-
-<h2 id="建立-user-管理用物件">建立 user 管理用物件</h2>
-
-<blockquote>
-<p>在 <code>App_Start</code> 資料夾中加入 <code>IdentityConfig.cs</code></p>
-</blockquote>
-
-<ol>
-<li><p>加入 Email service</p>
-
-<pre><code class="language-cs">public class EmailService : IIdentityMessageService
+</code></pre></li></ol><h2 id=建立-user-管理用物件>建立 user 管理用物件</h2><blockquote><p>在 <code>App_Start</code> 資料夾中加入 <code>IdentityConfig.cs</code></p></blockquote><ol><li><p>加入 Email service</p><pre><code class=language-cs>public class EmailService : IIdentityMessageService
 {
     public Task SendAsync(IdentityMessage message)
     {
@@ -396,11 +95,7 @@ namespace IdentityMongo.Models
         return Task.FromResult(0);
     }
 }
-</code></pre></li>
-
-<li><p>加入 SMS service</p>
-
-<pre><code class="language-cs">public class SmsService : IIdentityMessageService
+</code></pre></li><li><p>加入 SMS service</p><pre><code class=language-cs>public class SmsService : IIdentityMessageService
 {
     public Task SendAsync(IdentityMessage message)
     {
@@ -408,28 +103,13 @@ namespace IdentityMongo.Models
         return Task.FromResult(0);
     }
 }
-</code></pre></li>
-
-<li><p>建立 <code>ApplicationUserManager</code> class</p>
-
-<ul>
-<li><p>建立 <code>ApplicationUserManager</code> 繼承 <code>UserManager&lt;ApplicationUser&gt;</code></p>
-
-<pre><code class="language-cs">public class ApplicationUserManager : UserManager&lt;ApplicationUser&gt;
+</code></pre></li><li><p>建立 <code>ApplicationUserManager</code> class</p><ul><li><p>建立 <code>ApplicationUserManager</code> 繼承 <code>UserManager&lt;ApplicationUser&gt;</code></p><pre><code class=language-cs>public class ApplicationUserManager : UserManager&lt;ApplicationUser&gt;
 {
 }
-</code></pre></li>
-
-<li><p>加入使用 <code>IUserStore&lt;ApplicationUser&gt;</code> 為參數的建構子呼叫 base class 建構子</p>
-
-<pre><code class="language-cs">public ApplicationUserManager(IUserStore&lt;ApplicationUser&gt; store) : base(store)
+</code></pre></li><li><p>加入使用 <code>IUserStore&lt;ApplicationUser&gt;</code> 為參數的建構子呼叫 base class 建構子</p><pre><code class=language-cs>public ApplicationUserManager(IUserStore&lt;ApplicationUser&gt; store) : base(store)
 {
 }
-</code></pre></li>
-
-<li><p>建立 Create 方法</p>
-
-<pre><code class="language-cs">public static ApplicationUserManager Create(IdentityFactoryOptions&lt;ApplicationUserManager&gt; options, IOwinContext context)
+</code></pre></li><li><p>建立 Create 方法</p><pre><code class=language-cs>public static ApplicationUserManager Create(IdentityFactoryOptions&lt;ApplicationUserManager&gt; options, IOwinContext context)
 {
     var manager = new ApplicationUserManager(new UserStore&lt;ApplicationUser&gt;(context.Get&lt;ApplicationDbContext&gt;().Users));
     // 設定 usernames 驗證邏輯
@@ -473,12 +153,7 @@ namespace IdentityMongo.Models
     }
     return manager;
 }
-</code></pre></li>
-</ul></li>
-
-<li><p>建立 <code>ApplicationSignInManager</code> class</p>
-
-<pre><code class="language-cs">public class ApplicationSignInManager : SignInManager&lt;ApplicationUser, string&gt;
+</code></pre></li></ul></li><li><p>建立 <code>ApplicationSignInManager</code> class</p><pre><code class=language-cs>public class ApplicationSignInManager : SignInManager&lt;ApplicationUser, string&gt;
 {
     public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
         : base(userManager, authenticationManager)
@@ -495,11 +170,7 @@ namespace IdentityMongo.Models
         return new ApplicationSignInManager(context.GetUserManager&lt;ApplicationUserManager&gt;(), context.Authentication);
     }
 }
-</code></pre></li>
-
-<li><p>完整程式碼</p>
-
-<pre><code class="language-cs">using AspNet.Identity.MongoDB;
+</code></pre></li><li><p>完整程式碼</p><pre><code class=language-cs>using AspNet.Identity.MongoDB;
 using IdentityMongo.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -599,23 +270,10 @@ namespace IdentityMongo
         }
     }
 }
-</code></pre>
-
-<h2 id="註冊-identity-至-owin-中">註冊 Identity 至 OWIN 中</h2></li>
-
-<li><p>在 <code>App_Start</code> 目錄中加入 <code>Startup.Auth.cs</code></p>
-
-<ul>
-<li><p>建立 partial <code>Startup</code> class</p>
-
-<pre><code class="language-cs">public partial class Startup
+</code></pre><h2 id=註冊-identity-至-owin-中>註冊 Identity 至 OWIN 中</h2></li><li><p>在 <code>App_Start</code> 目錄中加入 <code>Startup.Auth.cs</code></p><ul><li><p>建立 partial <code>Startup</code> class</p><pre><code class=language-cs>public partial class Startup
 {
 }
-</code></pre></li>
-
-<li><p>建立 <code>ConfigureAuth</code> 方法</p>
-
-<pre><code class="language-cs">public void ConfigureAuth(IAppBuilder app)
+</code></pre></li><li><p>建立 <code>ConfigureAuth</code> 方法</p><pre><code class=language-cs>public void ConfigureAuth(IAppBuilder app)
 {
     app.CreatePerOwinContext(ApplicationDbContext.Create);
     app.CreatePerOwinContext&lt;ApplicationUserManager&gt;(ApplicationUserManager.Create);
@@ -634,11 +292,7 @@ namespace IdentityMongo
     });
     app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 }
-</code></pre></li>
-
-<li><p>完整程式碼</p>
-
-<pre><code class="language-cs">using IdentityMongo.Models;
+</code></pre></li><li><p>完整程式碼</p><pre><code class=language-cs>using IdentityMongo.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -671,35 +325,15 @@ namespace IdentityMongo
         }
     }
 }
-</code></pre></li>
-</ul></li>
-
-<li><p>在根目錄加入 <code>Startup.cs</code></p>
-
-<ul>
-<li><p>建立 partial Startup class</p>
-
-<pre><code class="language-cs">public partial class Startup
+</code></pre></li></ul></li><li><p>在根目錄加入 <code>Startup.cs</code></p><ul><li><p>建立 partial Startup class</p><pre><code class=language-cs>public partial class Startup
 {
 }
-</code></pre></li>
-
-<li><p>加入 Configuration 方法</p>
-
-<pre><code class="language-cs">public void Configuration(IAppBuilder app)
+</code></pre></li><li><p>加入 Configuration 方法</p><pre><code class=language-cs>public void Configuration(IAppBuilder app)
 {
     ConfigureAuth(app);
 }
-</code></pre></li>
-
-<li><p>在 namespace 上加入 OwinStartupAttribute</p>
-
-<pre><code class="language-cs">[assembly: OwinStartup(typeof(IdentityMongo.Startup))]
-</code></pre></li>
-
-<li><p>完整程式碼</p>
-
-<pre><code class="language-cs">using Microsoft.Owin;
+</code></pre></li><li><p>在 namespace 上加入 OwinStartupAttribute</p><pre><code class=language-cs>[assembly: OwinStartup(typeof(IdentityMongo.Startup))]
+</code></pre></li><li><p>完整程式碼</p><pre><code class=language-cs>using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartup(typeof(IdentityMongo.Startup))]
@@ -713,24 +347,11 @@ namespace IdentityMongo
         }
     }
 }
-</code></pre></li>
-</ul></li>
-</ol>
-
-<h2 id="實際使用">實際使用</h2>
-
-<ol>
-<li><p>建立 <code>AccountController</code> 繼承 Controller</p>
-
-<pre><code class="language-cs">public class AccountController : Controller
+</code></pre></li></ul></li></ol><h2 id=實際使用>實際使用</h2><ol><li><p>建立 <code>AccountController</code> 繼承 Controller</p><pre><code class=language-cs>public class AccountController : Controller
 {
 
 }
-</code></pre></li>
-
-<li><p>加入 <code>SignInManager</code> 與 <code>UserManager</code></p>
-
-<pre><code class="language-cs">private ApplicationSignInManager _signInManager;
+</code></pre></li><li><p>加入 <code>SignInManager</code> 與 <code>UserManager</code></p><pre><code class=language-cs>private ApplicationSignInManager _signInManager;
 private ApplicationUserManager _userManager;
 public ApplicationSignInManager SignInManager
 {
@@ -743,11 +364,7 @@ public ApplicationUserManager UserManager
     get =&gt; _userManager ?? HttpContext.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;();
     private set =&gt; _userManager = value;
 }
-</code></pre></li>
-
-<li><p>加入建構子</p>
-
-<pre><code class="language-cs">public AccountController()
+</code></pre></li><li><p>加入建構子</p><pre><code class=language-cs>public AccountController()
 {
 }
 
@@ -756,14 +373,7 @@ public AccountController(ApplicationUserManager userManager, ApplicationSignInMa
     UserManager = userManager;
     SignInManager = signInManager;
 }
-</code></pre></li>
-
-<li><p>加入 Register 功能</p>
-
-<ul>
-<li><p>AccountController</p>
-
-<pre><code class="language-cs">[AllowAnonymous]
+</code></pre></li><li><p>加入 Register 功能</p><ul><li><p>AccountController</p><pre><code class=language-cs>[AllowAnonymous]
 public ActionResult Register()
 {
     return View();
@@ -796,11 +406,7 @@ private void AddErrors(IdentityResult result)
         ModelState.AddModelError(&quot;&quot;, error);
     }
 }
-</code></pre></li>
-
-<li><p>建立 <code>RegisterViewModel</code></p>
-
-<pre><code class="language-cs">public class RegisterViewModel
+</code></pre></li><li><p>建立 <code>RegisterViewModel</code></p><pre><code class=language-cs>public class RegisterViewModel
 {
     [Required]
     [EmailAddress]
@@ -818,11 +424,7 @@ private void AddErrors(IdentityResult result)
     [Compare(&quot;Password&quot;, ErrorMessage = &quot;The password and confirmation password do not match.&quot;)]
     public string ConfirmPassword { get; set; }
 }
-</code></pre></li>
-
-<li><p>建立 View</p>
-
-<pre><code class="language-cs">@model AddIdentity.Models.RegisterViewModel
+</code></pre></li><li><p>建立 View</p><pre><code class=language-cs>@model AddIdentity.Models.RegisterViewModel
 @{
     ViewBag.Title = &quot;Register&quot;;
 }
@@ -859,188 +461,19 @@ private void AddErrors(IdentityResult result)
         &lt;/div&gt;
     &lt;/div&gt;
 }
-</code></pre></li>
-</ul></li>
-
-<li><p>實際效果</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/43404828-04b854a2-944b-11e8-8776-c3bfce25b86f.png" alt="1result" /></p></li>
-</ol>
-
-<h2 id="心得">心得</h2>
-
-<p>其實我覺得應該沒什麼機會再使用 MongoDB 來儲存 ASP.NET Identity 資訊，更不用說從無至有透過 Empty project template 來加入基於 MongoDB 的 ASP.NET Identity 功能，同時也認為這份的筆記對其他人幫助有限，但經過了幾次實際經驗：在開發當下覺得沒什麼難度的設定或是功能，常常日後一直回想不起當時的做法與思維，與其未來花更多時間來試想，不如趁著記憶猶新時順手做個筆記，不一定為了將來需要，也不一定為了幫助誰，就當做為某個專案功能留個紀念也好</p>
-
-<p><a href="https://github.com/yowko/ASP.NET-Identity_MongoDB-Sample.git" target="_blank">專案原始碼</a></p>
-
-<h1 id="參考資訊">參考資訊</h1>
-
-<ol>
-<li><a href="https://blog.yowko.com/2018/07/aspnet-identity-mongodb.html">使用 MongoDB 儲存 ASP.NET Identity 資料</a></li>
-<li><a href="https://blog.yowko.com/2017/11/add-aspnet-identity-empty-project.html">將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中</a></li>
-<li><a href="https://github.com/yowko/ASP.NET-Identity_MongoDB-Sample.git" target="_blank">專案原始碼</a></li>
-</ol>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">Yowko Tsai</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2020-12-11</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">授權合約</span>
-    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
-  </p>
-</div>
-
-	
-	
-	
-    
-    
-	
-    <footer class="post-footer">
-      <div class="post-tags">
-		  標籤：
-		  
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/asp.net-identity/">ASP.NET Identity</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/asp.net-mvc/">ASP.NET MVC</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/mongodb/">MongoDB</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-		  <div>
-          <a class="prev" href="https://blog.yowko.com/sql-server-1638/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">安裝 SQL Server 2017 出現 exit code 1638</span>			
-          </a>
-		  </div>
-		  <div>
-        
-          <a class="prev" href="https://blog.yowko.com/aspnet-identity-mongodb/" style="float: none;">
-            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
-            <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">使用 MongoDB 儲存 ASP.NET Identity 資料</span>			
-          </a>
-		  </div>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/aspnet-identity-aspnet-mvc-empty-mongodb\/';  
-      
-    };
-
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'yowkonotes';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-  
-
-      </div>
-    </main>
-	
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
-  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主題 - 
-    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2016 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Yowko Tsai</span>
-  </span>
-</div>
-    </footer>
-	
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div> 
-  
-  
-<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
-
-
-<script data-no-instant>InstantClick.init();</script>
-
-
-<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-88810280-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-  
-
-</body>
-</html>
+</code></pre></li></ul></li><li><p>實際效果</p><p><img src=https://user-images.githubusercontent.com/3851540/43404828-04b854a2-944b-11e8-8776-c3bfce25b86f.png alt=1result></p></li></ol><h2 id=心得>心得</h2><p>其實我覺得應該沒什麼機會再使用 MongoDB 來儲存 ASP.NET Identity 資訊，更不用說從無至有透過 Empty project template 來加入基於 MongoDB 的 ASP.NET Identity 功能，同時也認為這份的筆記對其他人幫助有限，但經過了幾次實際經驗：在開發當下覺得沒什麼難度的設定或是功能，常常日後一直回想不起當時的做法與思維，與其未來花更多時間來試想，不如趁著記憶猶新時順手做個筆記，不一定為了將來需要，也不一定為了幫助誰，就當做為某個專案功能留個紀念也好</p><p><a href=https://github.com/yowko/ASP.NET-Identity_MongoDB-Sample.git target=_blank>專案原始碼</a></p><h1 id=參考資訊>參考資訊</h1><ol><li><a href=https://blog.yowko.com/2018/07/aspnet-identity-mongodb.html>使用 MongoDB 儲存 ASP.NET Identity 資料</a></li><li><a href=https://blog.yowko.com/2017/11/add-aspnet-identity-empty-project.html>將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中</a></li><li><a href=https://github.com/yowko/ASP.NET-Identity_MongoDB-Sample.git target=_blank>專案原始碼</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2020-12-11</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/asp.net-identity/>ASP.NET Identity</a>
+<a href=https://blog.yowko.com/tags/asp.net-mvc/>ASP.NET MVC</a>
+<a href=https://blog.yowko.com/tags/mongodb/>MongoDB</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/sql-server-1638/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">安裝 SQL Server 2017 出現 exit code 1638</span></a></div><div><a class=prev href=https://blog.yowko.com/aspnet-identity-mongodb/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">使用 MongoDB 儲存 ASP.NET Identity 資料</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/aspnet-identity-aspnet-mvc-empty-mongodb\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

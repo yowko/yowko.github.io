@@ -1,194 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault) - Yowko&#39;s Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault) 之前筆記 JavaScript 依屬性值過濾陣列取得完整物件 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介" />
-
-  <meta name="keywords" content="yowko, .net, blog" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.51" />
-
-<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
-
-
-<link rel="canonical" href="https://blog.yowko.com/javascript-firstordefault/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
-<link rel="manifest" href="https://blog.yowko.com/manifest.json">
-<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
-
-
-<meta property="og:title" content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)" />
-<meta property="og:description" content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault) 之前筆記 JavaScript 依屬性值過濾陣列取得完整物件 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/javascript-firstordefault/" /><meta property="article:published_time" content="2017-12-25T13:25:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-12-11T23:36:38&#43;08:00"/>
-
-<meta itemprop="name" content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)">
-<meta itemprop="description" content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault) 之前筆記 JavaScript 依屬性值過濾陣列取得完整物件 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介">
-
-
-<meta itemprop="datePublished" content="2017-12-25T13:25:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-12-11T23:36:38&#43;08:00" />
-<meta itemprop="wordCount" content="656">
-
-
-
-<meta itemprop="keywords" content="JavaScript," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)"/>
-<meta name="twitter:description" content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault) 之前筆記 JavaScript 依屬性值過濾陣列取得完整物件 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
-
-</head>
-<body>
-     
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="https://blog.yowko.com/">
-        <li class="mobile-menu-item">首頁</li>
-      </a><a href="https://blog.yowko.com/post/">
-        <li class="mobile-menu-item">歷史筆記</li>
-      </a><a href="https://blog.yowko.com/tags/">
-        <li class="mobile-menu-item">內容標籤</li>
-      </a><a href="https://blog.yowko.com/search">
-        <li class="mobile-menu-item">站內搜尋</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
-        <div class="logo-wrapper">
-  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-</div>
-<div style="padding-bottom: 60px;"> </div>
-</nav>
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
-    </li>
-  </ul>
-</nav>
-    </header>	
-    <main id="main" class="main">		
-      <div class="content-wrapper">		
-		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
-        <div id="content" class="content">		
-          <article class="post">
-    
-    <header class="post-header">
-      
-
-      <div class="post-meta">
-        <span class="post-time"> 2017-12-25 </span>
-        
-        <span class="more-meta"> 約 656 字 </span>
-          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目錄</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#javascript-從陣列中取出符合條件的第一個物件-c-linq-的-firstordefault">JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)</a>
-<ul>
-<li><a href="#找出第一個符合條件的物件">找出第一個符合條件的物件</a></li>
-<li><a href="#心得">心得</a></li>
-<li><a href="#遞迴陣列">遞迴陣列</a></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h1 id="javascript-從陣列中取出符合條件的第一個物件-c-linq-的-firstordefault">JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)</h1>
-
-<p>之前筆記 <a href="https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html">JavaScript 依屬性值過濾陣列取得完整物件</a> 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介紹的用法相近，只是本文僅取出一筆，最後回傳值是 object，而前文則是回傳 array，當然可以透過前文技巧取出陣列後再使用 index 為 0 取出第一筆資料，只是既然要過濾條件了直接取得最後需要的物件不僅較省資源也較直覺，就來看看該怎麼做吧</p>
-
-<h2 id="找出第一個符合條件的物件">找出第一個符合條件的物件</h2>
-
-<ul>
-<li><p>陣列範例</p>
-
-<pre><code class="language-js">var dataobj=[
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault) - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault) 之前筆記 JavaScript 依屬性值過濾陣列取得完整物件 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/javascript-firstordefault/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)"><meta property=og:description content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault) 之前筆記 JavaScript 依屬性值過濾陣列取得完整物件 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/javascript-firstordefault/><meta property=article:published_time content=2017-12-25T13:25:00&#43;08:00><meta property=article:modified_time content=2020-12-11T23:36:38&#43;08:00><meta itemprop=name content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)"><meta itemprop=description content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault) 之前筆記 JavaScript 依屬性值過濾陣列取得完整物件 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介"><meta itemprop=datePublished content=2017-12-25T13:25:00&#43;08:00><meta itemprop=dateModified content=2020-12-11T23:36:38&#43;08:00><meta itemprop=wordCount content=656><meta itemprop=keywords content=JavaScript,><meta name=twitter:card content=summary><meta name=twitter:title content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)"><meta name=twitter:description content="JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault) 之前筆記 JavaScript 依屬性值過濾陣列取得完整物件 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2017-12-25</span>
+<span class=more-meta>約 656 字</span>
+<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#javascript-從陣列中取出符合條件的第一個物件-c-linq-的-firstordefault>JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)</a><ul><li><a href=#找出第一個符合條件的物件>找出第一個符合條件的物件</a></li><li><a href=#心得>心得</a></li><li><a href=#遞迴陣列>遞迴陣列</a></li></ul></li></ul></nav></div></div><div class=post-content><h1 id=javascript-從陣列中取出符合條件的第一個物件-c-linq-的-firstordefault>JavaScript 從陣列中取出符合條件的第一個物件 (C# LINQ 的 FirstOrDefault)</h1><p>之前筆記 <a href=https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html>JavaScript 依屬性值過濾陣列取得完整物件</a> 紀錄到如何將陣列中的符合特定屬性值條件的物件取出，與本文要介紹的用法相近，只是本文僅取出一筆，最後回傳值是 object，而前文則是回傳 array，當然可以透過前文技巧取出陣列後再使用 index 為 0 取出第一筆資料，只是既然要過濾條件了直接取得最後需要的物件不僅較省資源也較直覺，就來看看該怎麼做吧</p><h2 id=找出第一個符合條件的物件>找出第一個符合條件的物件</h2><ul><li><p>陣列範例</p><pre><code class=language-js>var dataobj=[
       {
         name:'ASP.NET MVC',
         type:3,
@@ -231,16 +43,7 @@
         headcount:5
       }
     ];
-</code></pre></li>
-</ul>
-
-<ol>
-<li><p>使用自定 function</p>
-
-<ul>
-<li><p>使用 for</p>
-
-<pre><code class="language-js">function findObjectByProporigin(arr, prop, val) {
+</code></pre></li></ul><ol><li><p>使用自定 function</p><ul><li><p>使用 for</p><pre><code class=language-js>function findObjectByProporigin(arr, prop, val) {
     for (var i = 0; i &lt; arr.length; i++) {
         if (arr[i][prop] === val) {
             return arr[i];
@@ -249,13 +52,7 @@
     return null;
 }
 findObjectByPropfor(dataobj,&quot;name&quot;,&quot;ASP.NET MVC&quot;)
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/34333293-2316e718-e976-11e7-8983-1df65305b8c7.png" alt="1for" /></p></li>
-
-<li><p>使用 <code>for...in</code></p>
-
-<pre><code class="language-js">function findObjectByPropforin(arr, prop, val) {
+</code></pre><p><img src=https://user-images.githubusercontent.com/3851540/34333293-2316e718-e976-11e7-8983-1df65305b8c7.png alt=1for></p></li><li><p>使用 <code>for...in</code></p><pre><code class=language-js>function findObjectByPropforin(arr, prop, val) {
     for(var index in arr){
         if (arr[index][prop] === val) {
             return arr[index];
@@ -264,13 +61,7 @@ findObjectByPropfor(dataobj,&quot;name&quot;,&quot;ASP.NET MVC&quot;)
     return null;
 }
 findObjectByPropforin(dataobj,'name','ASP.NET MVC')
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/34333297-23909612-e976-11e7-9f37-c0895cb11183.png" alt="4forin" /></p></li>
-
-<li><p>使用 <code>for...of</code></p>
-
-<pre><code class="language-js">function findObjectByPropforof(arr, prop, val) {
+</code></pre><p><img src=https://user-images.githubusercontent.com/3851540/34333297-23909612-e976-11e7-9f37-c0895cb11183.png alt=4forin></p></li><li><p>使用 <code>for...of</code></p><pre><code class=language-js>function findObjectByPropforof(arr, prop, val) {
     for(var el of arr){
         if (el[prop] === val) {
             return el;
@@ -279,16 +70,7 @@ findObjectByPropforin(dataobj,'name','ASP.NET MVC')
     return null;
 }
 findObjectByPropforof(dataobj,'name','ASP.NET MVC')
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/34333298-23b81282-e976-11e7-8df6-005eeaa20ecc.png" alt="5forof" /></p></li>
-
-<li><p>forEach 與 map 無法中途終止會造成 LastOrDefault 的效果</p>
-
-<ul>
-<li><p>forEach</p>
-
-<pre><code class="language-js">function findObjectByPropforEach(arr, prop, val) {
+</code></pre><p><img src=https://user-images.githubusercontent.com/3851540/34333298-23b81282-e976-11e7-8df6-005eeaa20ecc.png alt=5forof></p></li><li><p>forEach 與 map 無法中途終止會造成 LastOrDefault 的效果</p><ul><li><p>forEach</p><pre><code class=language-js>function findObjectByPropforEach(arr, prop, val) {
     var result=null;
     arr.forEach(function (el) {
         if (el[prop] === val) {
@@ -298,13 +80,7 @@ findObjectByPropforof(dataobj,'name','ASP.NET MVC')
     return result;
 };
 findObjectByPropforEach(dataobj,&quot;name&quot;,&quot;ASP.NET MVC&quot;)
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/34333295-233f7e58-e976-11e7-9867-515b79f94993.png" alt="2foreach" /></p></li>
-
-<li><p>map</p>
-
-<pre><code class="language-js">function findObjectByPropmap(arr, prop, val) {
+</code></pre><p><img src=https://user-images.githubusercontent.com/3851540/34333295-233f7e58-e976-11e7-9867-515b79f94993.png alt=2foreach></p></li><li><p>map</p><pre><code class=language-js>function findObjectByPropmap(arr, prop, val) {
     var result = null;
     arr.map(el =&gt; {
         if (el[prop] === val) {
@@ -315,203 +91,20 @@ findObjectByPropforEach(dataobj,&quot;name&quot;,&quot;ASP.NET MVC&quot;)
     return result;
 }
 findObjectByPropmap(dataobj,&quot;name&quot;,&quot;ASP.NET MVC&quot;)
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/34333296-23670fea-e976-11e7-91a3-c734ef39d2fd.png" alt="3map" /></p></li>
-</ul></li>
-</ul></li>
-
-<li><p>使用 ES6 - <code>find</code></p>
-
-<pre><code class="language-js">dataobj.find(obj=&gt;obj.name==='ASP.NET MVC')
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/34333299-23e23aa8-e976-11e7-904d-4337a641c2e0.png" alt="6find" /></p></li>
-
-<li><p>使用 lodash - <code>find</code></p>
-
-<pre><code class="language-js">_.find(dataobj,obj=&gt;obj.name==='ASP.NET MVC')
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/34333301-240c9d02-e976-11e7-999a-55e05e1ab179.png" alt="7lodashfind" /></p></li>
-
-<li><p>使用 Ramda - <code>find</code></p>
-
-<pre><code class="language-js">R.find(obj=&gt;obj.name==='ASP.NET MVC', dataobj)
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/34333303-24620436-e976-11e7-8098-acc30f046abe.png" alt="8ramda" /></p></li>
-</ol>
-
-<h2 id="心得">心得</h2>
-
-<p>原本以為程式碼與之前筆記 <a href="https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html">JavaScript 依屬性值過濾陣列取得完整物件</a> 會非常相似，想不到測試撰寫過程才知道是我想得太簡單了，更進一步證實我的 JavaScript 技能相當薄弱呀(這時才發現 <code>forEach</code> 與 <code>map</code> 無法中途終止 - 沒有 <code>break</code> 跟 <code>continue</code>)，幸虧本身就不是靠 js 吃穿的，覺得還過得去 哈哈</p>
-
-<p>不過經過一番測試與查閱資料後，已經比較清楚其中差異，相信下次一定可以比較快解決問題，至少有地方可以<del>抄</del>參考</p>
-
-<h2 id="遞迴陣列">遞迴陣列</h2>
-
-<ol>
-<li><a href="https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html">JavaScript 依屬性值過濾陣列取得完整物件</a></li>
-<li><a href="https://www.linkedin.com/pulse/javascript-find-object-array-based-objects-property-rafael/" target="_blank">Javascript: find an object in array based on object&rsquo;s property</a></li>
-<li><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/find" target="_blank">Array.prototype.find()</a></li>
-<li><a href="https://juejin.im/entry/5884717a1b69e6005919f0d3" target="_blank">JavaScript 循環中斷研究與終結，前端 er 必背！</a></li>
-<li><a href="https://lodash.com/docs/4.17.4#find" target="_blank">lodash - find</a></li>
-<li><a href="http://ramdajs.com/docs/#find" target="_blank">Ramda - find</a></li>
-</ol>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">Yowko Tsai</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2020-12-11</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">授權合約</span>
-    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
-  </p>
-</div>
-
-	
-	
-	
-    
-    
-	
-    <footer class="post-footer">
-      <div class="post-tags">
-		  標籤：
-		  
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/javascript/">JavaScript</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-		  <div>
-          <a class="prev" href="https://blog.yowko.com/aspnet-web-api-415-unsupported-media/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">ASP.NET Web API 上傳檔案出現 415 Unsupported Media Type 錯誤</span>			
-          </a>
-		  </div>
-		  <div>
-        
-          <a class="prev" href="https://blog.yowko.com/javascript-filter-array-by-value/" style="float: none;">
-            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
-            <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">JavaScript 依屬性值過濾陣列取得完整物件</span>			
-          </a>
-		  </div>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/javascript-firstordefault\/';  
-      
-    };
-
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'yowkonotes';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-  
-
-      </div>
-    </main>
-	
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
-  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主題 - 
-    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2016 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Yowko Tsai</span>
-  </span>
-</div>
-    </footer>
-	
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div> 
-  
-  
-<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
-
-
-<script data-no-instant>InstantClick.init();</script>
-
-
-<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-88810280-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-  
-
-</body>
-</html>
+</code></pre><p><img src=https://user-images.githubusercontent.com/3851540/34333296-23670fea-e976-11e7-91a3-c734ef39d2fd.png alt=3map></p></li></ul></li></ul></li><li><p>使用 ES6 - <code>find</code></p><pre><code class=language-js>dataobj.find(obj=&gt;obj.name==='ASP.NET MVC')
+</code></pre><p><img src=https://user-images.githubusercontent.com/3851540/34333299-23e23aa8-e976-11e7-904d-4337a641c2e0.png alt=6find></p></li><li><p>使用 lodash - <code>find</code></p><pre><code class=language-js>_.find(dataobj,obj=&gt;obj.name==='ASP.NET MVC')
+</code></pre><p><img src=https://user-images.githubusercontent.com/3851540/34333301-240c9d02-e976-11e7-999a-55e05e1ab179.png alt=7lodashfind></p></li><li><p>使用 Ramda - <code>find</code></p><pre><code class=language-js>R.find(obj=&gt;obj.name==='ASP.NET MVC', dataobj)
+</code></pre><p><img src=https://user-images.githubusercontent.com/3851540/34333303-24620436-e976-11e7-8098-acc30f046abe.png alt=8ramda></p></li></ol><h2 id=心得>心得</h2><p>原本以為程式碼與之前筆記 <a href=https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html>JavaScript 依屬性值過濾陣列取得完整物件</a> 會非常相似，想不到測試撰寫過程才知道是我想得太簡單了，更進一步證實我的 JavaScript 技能相當薄弱呀(這時才發現 <code>forEach</code> 與 <code>map</code> 無法中途終止 - 沒有 <code>break</code> 跟 <code>continue</code>)，幸虧本身就不是靠 js 吃穿的，覺得還過得去 哈哈</p><p>不過經過一番測試與查閱資料後，已經比較清楚其中差異，相信下次一定可以比較快解決問題，至少有地方可以<del>抄</del>參考</p><h2 id=遞迴陣列>遞迴陣列</h2><ol><li><a href=https://blog.yowko.com/2017/12/javascript-filter-array-by-value.html>JavaScript 依屬性值過濾陣列取得完整物件</a></li><li><a href=https://www.linkedin.com/pulse/javascript-find-object-array-based-objects-property-rafael/ target=_blank>Javascript: find an object in array based on object&rsquo;s property</a></li><li><a href=https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/find target=_blank>Array.prototype.find()</a></li><li><a href=https://juejin.im/entry/5884717a1b69e6005919f0d3 target=_blank>JavaScript 循環中斷研究與終結，前端 er 必背！</a></li><li><a href=https://lodash.com/docs/4.17.4#find target=_blank>lodash - find</a></li><li><a href=http://ramdajs.com/docs/#find target=_blank>Ramda - find</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2020-12-11</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/javascript/>JavaScript</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/aspnet-web-api-415-unsupported-media/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">ASP.NET Web API 上傳檔案出現 415 Unsupported Media Type 錯誤</span></a></div><div><a class=prev href=https://blog.yowko.com/javascript-filter-array-by-value/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">JavaScript 依屬性值過濾陣列取得完整物件</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/javascript-firstordefault\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

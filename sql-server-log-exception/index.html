@@ -1,195 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>SQL Server 如何紀錄執行錯誤 - Yowko&#39;s Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="SQL Server 如何紀錄執行錯誤 程式在 production 環境上出現錯誤，大家會怎麼 debug 呢？最傳統也最普遍的做法當然就是追查各式各樣的 log，現在發生錯誤的對象換做是 db 該怎" />
-
-  <meta name="keywords" content="yowko, .net, blog" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.51" />
-
-<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
-
-
-<link rel="canonical" href="https://blog.yowko.com/sql-server-log-exception/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
-<link rel="manifest" href="https://blog.yowko.com/manifest.json">
-<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
-
-
-<meta property="og:title" content="SQL Server 如何紀錄執行錯誤" />
-<meta property="og:description" content="SQL Server 如何紀錄執行錯誤 程式在 production 環境上出現錯誤，大家會怎麼 debug 呢？最傳統也最普遍的做法當然就是追查各式各樣的 log，現在發生錯誤的對象換做是 db 該怎" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/sql-server-log-exception/" /><meta property="article:published_time" content="2017-04-25T02:07:00&#43;08:00"/>
-<meta property="article:modified_time" content="2017-04-25T02:07:00&#43;08:00"/>
-
-<meta itemprop="name" content="SQL Server 如何紀錄執行錯誤">
-<meta itemprop="description" content="SQL Server 如何紀錄執行錯誤 程式在 production 環境上出現錯誤，大家會怎麼 debug 呢？最傳統也最普遍的做法當然就是追查各式各樣的 log，現在發生錯誤的對象換做是 db 該怎">
-
-
-<meta itemprop="datePublished" content="2017-04-25T02:07:00&#43;08:00" />
-<meta itemprop="dateModified" content="2017-04-25T02:07:00&#43;08:00" />
-<meta itemprop="wordCount" content="1114">
-
-
-
-<meta itemprop="keywords" content="Debug,SQL Server," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="SQL Server 如何紀錄執行錯誤"/>
-<meta name="twitter:description" content="SQL Server 如何紀錄執行錯誤 程式在 production 環境上出現錯誤，大家會怎麼 debug 呢？最傳統也最普遍的做法當然就是追查各式各樣的 log，現在發生錯誤的對象換做是 db 該怎"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
-
-</head>
-<body>
-     
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="https://blog.yowko.com/">
-        <li class="mobile-menu-item">首頁</li>
-      </a><a href="https://blog.yowko.com/post/">
-        <li class="mobile-menu-item">歷史筆記</li>
-      </a><a href="https://blog.yowko.com/tags/">
-        <li class="mobile-menu-item">內容標籤</li>
-      </a><a href="https://blog.yowko.com/search">
-        <li class="mobile-menu-item">站內搜尋</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
-        <div class="logo-wrapper">
-  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-</div>
-<div style="padding-bottom: 60px;"> </div>
-</nav>
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
-    </li>
-  </ul>
-</nav>
-    </header>	
-    <main id="main" class="main">		
-      <div class="content-wrapper">		
-		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
-        <div id="content" class="content">		
-          <article class="post">
-    
-    <header class="post-header">
-      
-
-      <div class="post-meta">
-        <span class="post-time"> 2017-04-25 </span>
-        
-        <span class="more-meta"> 約 1114 字 </span>
-          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目錄</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#sql-server-如何紀錄執行錯誤">SQL Server 如何紀錄執行錯誤</a>
-<ul>
-<li><a href="#建立儲存錯誤資訊的資料表">建立儲存錯誤資訊的資料表</a></li>
-<li><a href="#建立寫入錯誤資訊的-stored-procedure">建立寫入錯誤資訊的 stored procedure</a></li>
-<li><a href="#執行-script-並加入錯誤處理機制">執行 script 並加入錯誤處理機制</a></li>
-<li><a href="#實際效果">實際效果</a></li>
-</ul></li>
-<li><a href="#參考資訊">參考資訊</a></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h1 id="sql-server-如何紀錄執行錯誤">SQL Server 如何紀錄執行錯誤</h1>
-
-<p>程式在 production 環境上出現錯誤，大家會怎麼 debug 呢？最傳統也最普遍的做法當然就是追查各式各樣的 log，現在發生錯誤的對象換做是 db 該怎麼辦呢？ 如果是 DML(Data Manipulation Language：insert、update、delete) 或是 DQL(Data Query Language：select) 相關指令在執行發生錯誤會直接回傳給 AP 接著就會被 AP log 起來，相對容易除錯，一旦錯誤是發生在 stored procedure 裡難度就增加很多，一般來說 stored procedure 常常有一定程度的邏輯存在，以前我總是透過逐行下 log 的方式來除錯，只要 log 沒下好就得重來，加上系統龐大 stored procedure 眾多，debug 的慘況可想而知，所以我們一定得透過更有效率的方式來處理</p>
-
-<p>主要靈感來源是 <a href="https://msftdbprodsamples.codeplex.com/downloads/get/880661" target="_blank">AdventureWorks2014</a>，其中 ErrorLog 是用來紀錄錯誤資訊的 table，uspLogError 則是用來寫入錯誤資訊的 stored procedure，後來參考 <a href="https://www.codeproject.com/Articles/38211/Exception-Handling-in-SQL-Server" target="_blank">Exception Handling in SQL Server</a> 加入 host 欄位</p>
-
-<h2 id="建立儲存錯誤資訊的資料表">建立儲存錯誤資訊的資料表</h2>
-
-<pre><code class="language-SQL">SET ANSI_NULLS ON
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>SQL Server 如何紀錄執行錯誤 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="SQL Server 如何紀錄執行錯誤 程式在 production 環境上出現錯誤，大家會怎麼 debug 呢？最傳統也最普遍的做法當然就是追查各式各樣的 log，現在發生錯誤的對象換做是 db 該怎"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/sql-server-log-exception/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="SQL Server 如何紀錄執行錯誤"><meta property=og:description content="SQL Server 如何紀錄執行錯誤 程式在 production 環境上出現錯誤，大家會怎麼 debug 呢？最傳統也最普遍的做法當然就是追查各式各樣的 log，現在發生錯誤的對象換做是 db 該怎"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/sql-server-log-exception/><meta property=article:published_time content=2017-04-25T02:07:00&#43;08:00><meta property=article:modified_time content=2017-04-25T02:07:00&#43;08:00><meta itemprop=name content="SQL Server 如何紀錄執行錯誤"><meta itemprop=description content="SQL Server 如何紀錄執行錯誤 程式在 production 環境上出現錯誤，大家會怎麼 debug 呢？最傳統也最普遍的做法當然就是追查各式各樣的 log，現在發生錯誤的對象換做是 db 該怎"><meta itemprop=datePublished content=2017-04-25T02:07:00&#43;08:00><meta itemprop=dateModified content=2017-04-25T02:07:00&#43;08:00><meta itemprop=wordCount content=1114><meta itemprop=keywords content="Debug,SQL Server,"><meta name=twitter:card content=summary><meta name=twitter:title content="SQL Server 如何紀錄執行錯誤"><meta name=twitter:description content="SQL Server 如何紀錄執行錯誤 程式在 production 環境上出現錯誤，大家會怎麼 debug 呢？最傳統也最普遍的做法當然就是追查各式各樣的 log，現在發生錯誤的對象換做是 db 該怎"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2017-04-25</span>
+<span class=more-meta>約 1114 字</span>
+<span class=more-meta>預計閱讀 3 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#sql-server-如何紀錄執行錯誤>SQL Server 如何紀錄執行錯誤</a><ul><li><a href=#建立儲存錯誤資訊的資料表>建立儲存錯誤資訊的資料表</a></li><li><a href=#建立寫入錯誤資訊的-stored-procedure>建立寫入錯誤資訊的 stored procedure</a></li><li><a href=#執行-script-並加入錯誤處理機制>執行 script 並加入錯誤處理機制</a></li><li><a href=#實際效果>實際效果</a></li></ul></li><li><a href=#參考資訊>參考資訊</a></li></ul></nav></div></div><div class=post-content><h1 id=sql-server-如何紀錄執行錯誤>SQL Server 如何紀錄執行錯誤</h1><p>程式在 production 環境上出現錯誤，大家會怎麼 debug 呢？最傳統也最普遍的做法當然就是追查各式各樣的 log，現在發生錯誤的對象換做是 db 該怎麼辦呢？ 如果是 DML(Data Manipulation Language：insert、update、delete) 或是 DQL(Data Query Language：select) 相關指令在執行發生錯誤會直接回傳給 AP 接著就會被 AP log 起來，相對容易除錯，一旦錯誤是發生在 stored procedure 裡難度就增加很多，一般來說 stored procedure 常常有一定程度的邏輯存在，以前我總是透過逐行下 log 的方式來除錯，只要 log 沒下好就得重來，加上系統龐大 stored procedure 眾多，debug 的慘況可想而知，所以我們一定得透過更有效率的方式來處理</p><p>主要靈感來源是 <a href=https://msftdbprodsamples.codeplex.com/downloads/get/880661 target=_blank>AdventureWorks2014</a>，其中 ErrorLog 是用來紀錄錯誤資訊的 table，uspLogError 則是用來寫入錯誤資訊的 stored procedure，後來參考 <a href=https://www.codeproject.com/Articles/38211/Exception-Handling-in-SQL-Server target=_blank>Exception Handling in SQL Server</a> 加入 host 欄位</p><h2 id=建立儲存錯誤資訊的資料表>建立儲存錯誤資訊的資料表</h2><pre><code class=language-SQL>SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
@@ -249,16 +60,7 @@ GO
 
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'錯誤發生時間' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'ErrorLogs', @level2type=N'COLUMN',@level2name=N'ErrorDate'
 GO
-</code></pre>
-
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25351207/8a683a02-295a-11e7-8de1-bf3140cabd09.png" alt="1errorlogs" /></p>
-
-<h2 id="建立寫入錯誤資訊的-stored-procedure">建立寫入錯誤資訊的 stored procedure</h2>
-
-<ul>
-<li><p>uspLogErrors</p>
-
-<pre><code class="language-sql">SET ANSI_NULLS ON
+</code></pre><p><img src=https://cloud.githubusercontent.com/assets/3851540/25351207/8a683a02-295a-11e7-8de1-bf3140cabd09.png alt=1errorlogs></p><h2 id=建立寫入錯誤資訊的-stored-procedure>建立寫入錯誤資訊的 stored procedure</h2><ul><li><p>uspLogErrors</p><pre><code class=language-sql>SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
@@ -322,15 +124,7 @@ GO
 
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'回傳寫入至 ErrorLogs 的 id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'PROCEDURE',@level1name=N'uspLogErrors', @level2type=N'PARAMETER',@level2name=N'@ErrorLogID'
 GO
-</code></pre>
-
-<blockquote>
-<p>為了避免用來紀錄錯誤訊息的 stored procedure 也出現錯誤，另外加上一支只顯示錯誤資訊的 stored procedure</p>
-</blockquote></li>
-
-<li><p>uspPrintError</p>
-
-<pre><code class="language-sql">SET ANSI_NULLS ON
+</code></pre><blockquote><p>為了避免用來紀錄錯誤訊息的 stored procedure 也出現錯誤，另外加上一支只顯示錯誤資訊的 stored procedure</p></blockquote></li><li><p>uspPrintError</p><pre><code class=language-sql>SET ANSI_NULLS ON
 GO
             SET QUOTED_IDENTIFIER ON
 GO
@@ -348,25 +142,13 @@ END;
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', value=N'Prints error information about the error that caused xecution to jump to the CATCH block of a TRY...CATCH construct. hould be executed from within the scope of a CATCH block otherwise t will return without printing any error information.' , level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'PROCEDURE',level1name=N'uspPrintError'
 GO
-</code></pre></li>
-</ul>
-
-<h2 id="執行-script-並加入錯誤處理機制">執行 script 並加入錯誤處理機制</h2>
-
-<ul>
-<li><p>script</p>
-
-<pre><code class="language-sql">BEGIN TRY
+</code></pre></li></ul><h2 id=執行-script-並加入錯誤處理機制>執行 script 並加入錯誤處理機制</h2><ul><li><p>script</p><pre><code class=language-sql>BEGIN TRY
     SELECT 1+Name from [Sales].[Currency]
 END TRY
 BEGIN CATCH
     EXECUTE [dbo].[uspLogErrors];
 END CATCH;
-</code></pre></li>
-
-<li><p>stored procedure</p>
-
-<pre><code class="language-sql">CREATE PROCEDURE [dbo].[uspSelectSalesCurrency]
+</code></pre></li><li><p>stored procedure</p><pre><code class=language-sql>CREATE PROCEDURE [dbo].[uspSelectSalesCurrency]
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -378,193 +160,18 @@ END TRY
     END CATCH;
 END
 GO
-</code></pre>
-
-<ul>
-<li><p>執行</p>
-
-<blockquote>
-<p><code>exec uspSelectSalesCurrency</code></p>
-</blockquote></li>
-</ul></li>
-</ul>
-
-<h2 id="實際效果">實際效果</h2>
-
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/25351208/8a6be67a-295a-11e7-82fc-c07d5cd6854c.png" alt="2result" /></p>
-
-<ul>
-<li><p>ErrorProc 表示發生錯誤的程序</p>
-
-<ul>
-<li><code>NULL</code> 即是直接執行 script</li>
-</ul></li>
-</ul>
-
-<h1 id="參考資訊">參考資訊</h1>
-
-<ol>
-<li><a href="https://msftdbprodsamples.codeplex.com/downloads/get/880661" target="_blank">AdventureWorks2014</a></li>
-<li><a href="https://www.codeproject.com/Articles/38211/Exception-Handling-in-SQL-Server" target="_blank">Exception Handling in SQL Server</a></li>
-<li><a href="https://msdn.microsoft.com/zh-tw/library/ms175976.aspx" target="_blank">TRY&hellip;CATCH (Transact-SQL)</a></li>
-</ol>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">Yowko Tsai</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2017-04-25</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">授權合約</span>
-    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
-  </p>
-</div>
-
-	
-	
-	
-    
-    
-	
-    <footer class="post-footer">
-      <div class="post-tags">
-		  標籤：
-		  
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/debug/">Debug</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/sql-server/">SQL Server</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-		  <div>
-          <a class="prev" href="https://blog.yowko.com/jenkins-fail-and-continue/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job</span>			
-          </a>
-		  </div>
-		  <div>
-        
-          <a class="prev" href="https://blog.yowko.com/visual-studio-code-markdown-slide/" style="float: none;">
-            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
-            <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">如何在 Visual Studio Code 中快速使用 Markdown 建立簡報</span>			
-          </a>
-		  </div>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/sql-server-log-exception\/';  
-      
-    };
-
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'yowkonotes';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-  
-
-      </div>
-    </main>
-	
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
-  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主題 - 
-    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2016 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Yowko Tsai</span>
-  </span>
-</div>
-    </footer>
-	
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div> 
-  
-  
-<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
-
-
-<script data-no-instant>InstantClick.init();</script>
-
-
-<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-88810280-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-  
-
-</body>
-</html>
+</code></pre><ul><li><p>執行</p><blockquote><p><code>exec uspSelectSalesCurrency</code></p></blockquote></li></ul></li></ul><h2 id=實際效果>實際效果</h2><p><img src=https://cloud.githubusercontent.com/assets/3851540/25351208/8a6be67a-295a-11e7-82fc-c07d5cd6854c.png alt=2result></p><ul><li><p>ErrorProc 表示發生錯誤的程序</p><ul><li><code>NULL</code> 即是直接執行 script</li></ul></li></ul><h1 id=參考資訊>參考資訊</h1><ol><li><a href=https://msftdbprodsamples.codeplex.com/downloads/get/880661 target=_blank>AdventureWorks2014</a></li><li><a href=https://www.codeproject.com/Articles/38211/Exception-Handling-in-SQL-Server target=_blank>Exception Handling in SQL Server</a></li><li><a href=https://msdn.microsoft.com/zh-tw/library/ms175976.aspx target=_blank>TRY&hellip;CATCH (Transact-SQL)</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2017-04-25</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/debug/>Debug</a>
+<a href=https://blog.yowko.com/tags/sql-server/>SQL Server</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/jenkins-fail-and-continue/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">Jenkins 如何在 Pipeline 中平行 build Job 與失敗不中斷 job</span></a></div><div><a class=prev href=https://blog.yowko.com/visual-studio-code-markdown-slide/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">如何在 Visual Studio Code 中快速使用 Markdown 建立簡報</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/sql-server-log-exception\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

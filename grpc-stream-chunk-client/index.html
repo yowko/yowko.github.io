@@ -1,222 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>gRPC stream 如何傳送單一大物件 (Client 版) - Yowko&#39;s Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制" />
-
-  <meta name="keywords" content="yowko, .net, blog" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.51" />
-
-<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
-
-
-<link rel="canonical" href="https://blog.yowko.com/grpc-stream-chunk-client/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
-<link rel="manifest" href="https://blog.yowko.com/manifest.json">
-<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
-
-
-<meta property="og:title" content="gRPC stream 如何傳送單一大物件 (Client 版)" />
-<meta property="og:description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/grpc-stream-chunk-client/" /><meta property="article:published_time" content="2019-08-01T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
-
-<meta itemprop="name" content="gRPC stream 如何傳送單一大物件 (Client 版)">
-<meta itemprop="description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制">
-
-
-<meta itemprop="datePublished" content="2019-08-01T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="960">
-
-
-
-<meta itemprop="keywords" content="C#,gRPC," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="gRPC stream 如何傳送單一大物件 (Client 版)"/>
-<meta name="twitter:description" content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
-
-</head>
-<body>
-     
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="https://blog.yowko.com/">
-        <li class="mobile-menu-item">首頁</li>
-      </a><a href="https://blog.yowko.com/post/">
-        <li class="mobile-menu-item">歷史筆記</li>
-      </a><a href="https://blog.yowko.com/tags/">
-        <li class="mobile-menu-item">內容標籤</li>
-      </a><a href="https://blog.yowko.com/search">
-        <li class="mobile-menu-item">站內搜尋</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
-        <div class="logo-wrapper">
-  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-</div>
-<div style="padding-bottom: 60px;"> </div>
-</nav>
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
-    </li>
-  </ul>
-</nav>
-    </header>	
-    <main id="main" class="main">		
-      <div class="content-wrapper">		
-		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
-        <div id="content" class="content">		
-          <article class="post">
-    
-    <header class="post-header">
-      
-
-      <div class="post-meta">
-        <span class="post-time"> 2019-08-01 </span>
-        
-        <span class="more-meta"> 約 960 字 </span>
-          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目錄</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#grpc-stream-如何傳送單一大物件-client-版">gRPC stream 如何傳送單一大物件 (Client 版)</a></li>
-<li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#修改方式">修改方式</a></li>
-<li><a href="#心得">心得</a></li>
-<li><a href="#參考資訊">參考資訊</a></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h2 id="grpc-stream-如何傳送單一大物件-client-版">gRPC stream 如何傳送單一大物件 (Client 版)</h2>
-
-<p>繼之前筆記 <a href="https://blog.yowko.com/grpc-stream-big-object/">gRPC stream 如何傳送單一大物件</a> 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制的 api 改用 stream 以避免可能出現的 <code>RESOURCE_EXHAUSTED</code> 錯誤，截至目前使用上沒有遇到異常狀況。</p>
-
-<p>上班前同事問到，該如何透過 client 端來上傳單一大物件，我翻了翻筆記，發現沒得抄，想要直接開工卻想不起來該怎麼做 (看來真的不能不服老呀)，所以立馬來筆記一下，避免以後沒地方抄又想很久 QQ</p>
-
-<p>今天內容會以之前筆記 <a href="https://blog.yowko.com/grpc-stream-big-object/">gRPC stream 如何傳送單一大物件</a>  為基礎作延伸</p>
-
-<h2 id="基本環境說明">基本環境說明</h2>
-
-<ol>
-<li>macOS Mojave 10.14.6</li>
-<li>.NET Core SDK 2.2.301 (.NET Core Runtime 2.2.6)</li>
-
-<li><p>NuGet Package</p>
-
-<ul>
-<li>Google.Protobuf 3.8.0</li>
-
-<li><p>Bogus 28.0.1</p>
-
-<blockquote>
-<p>產生假資料用 (非必要)</p>
-</blockquote></li>
-
-<li><p>Grpc 1.22.0</p></li>
-
-<li><p>Grpc.Tools 1.22.0</p></li>
-</ul></li>
-
-<li><p>proto</p>
-
-<ul>
-<li><p>message</p>
-
-<pre><code class="language-proto">syntax = &quot;proto3&quot;;
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>gRPC stream 如何傳送單一大物件 (Client 版) - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/grpc-stream-chunk-client/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="gRPC stream 如何傳送單一大物件 (Client 版)"><meta property=og:description content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/grpc-stream-chunk-client/><meta property=article:published_time content=2019-08-01T21:30:00&#43;08:00><meta property=article:modified_time content=2020-12-11T21:30:31&#43;08:00><meta itemprop=name content="gRPC stream 如何傳送單一大物件 (Client 版)"><meta itemprop=description content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制"><meta itemprop=datePublished content=2019-08-01T21:30:00&#43;08:00><meta itemprop=dateModified content=2020-12-11T21:30:31&#43;08:00><meta itemprop=wordCount content=960><meta itemprop=keywords content=C#,gRPC,><meta name=twitter:card content=summary><meta name=twitter:title content="gRPC stream 如何傳送單一大物件 (Client 版)"><meta name=twitter:description content="gRPC stream 如何傳送單一大物件 (Client 版) 繼之前筆記 gRPC stream 如何傳送單一大物件 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2019-08-01</span>
+<span class=more-meta>約 960 字</span>
+<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#grpc-stream-如何傳送單一大物件-client-版>gRPC stream 如何傳送單一大物件 (Client 版)</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#修改方式>修改方式</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=grpc-stream-如何傳送單一大物件-client-版>gRPC stream 如何傳送單一大物件 (Client 版)</h2><p>繼之前筆記 <a href=https://blog.yowko.com/grpc-stream-big-object/>gRPC stream 如何傳送單一大物件</a> 提到該如何使用 gRPC stream 來傳送不是整齊 collection 物件後，公司專案已逐步將可能傳送超出預設 4mb 限制的 api 改用 stream 以避免可能出現的 <code>RESOURCE_EXHAUSTED</code> 錯誤，截至目前使用上沒有遇到異常狀況。</p><p>上班前同事問到，該如何透過 client 端來上傳單一大物件，我翻了翻筆記，發現沒得抄，想要直接開工卻想不起來該怎麼做 (看來真的不能不服老呀)，所以立馬來筆記一下，避免以後沒地方抄又想很久 QQ</p><p>今天內容會以之前筆記 <a href=https://blog.yowko.com/grpc-stream-big-object/>gRPC stream 如何傳送單一大物件</a> 為基礎作延伸</p><h2 id=基本環境說明>基本環境說明</h2><ol><li>macOS Mojave 10.14.6</li><li>.NET Core SDK 2.2.301 (.NET Core Runtime 2.2.6)</li><li><p>NuGet Package</p><ul><li>Google.Protobuf 3.8.0</li><li><p>Bogus 28.0.1</p><blockquote><p>產生假資料用 (非必要)</p></blockquote></li><li><p>Grpc 1.22.0</p></li><li><p>Grpc.Tools 1.22.0</p></li></ul></li><li><p>proto</p><ul><li><p>message</p><pre><code class=language-proto>syntax = &quot;proto3&quot;;
 
 package Messages; //will be placed in a namespace matching the package name if csharp_namespace is not specified
 option csharp_namespace = &quot;Messages&quot;;
@@ -255,11 +39,7 @@ message School{
 message Chunk {
     bytes chunk = 1;
 }
-</code></pre></li>
-
-<li><p>service</p>
-
-<pre><code class="language-proto">syntax = &quot;proto3&quot;;
+</code></pre></li><li><p>service</p><pre><code class=language-proto>syntax = &quot;proto3&quot;;
 
 package Messages; //will be placed in a namespace matching the package name if csharp_namespace is not specified
 option csharp_namespace = &quot;Messages&quot;;
@@ -269,12 +49,7 @@ import &quot;empty.proto&quot;;
 service TestService {
     rpc GetFakePerson (google.protobuf.Empty) returns (stream Chunk);
 }
-</code></pre></li>
-</ul></li>
-
-<li><p>使用 Bogus 產生假資料</p>
-
-<pre><code class="language-cs">static Person GeneratePerson()
+</code></pre></li></ul></li><li><p>使用 Bogus 產生假資料</p><pre><code class=language-cs>static Person GeneratePerson()
 {
     var certificates = new Faker&lt;Certificate&gt;()
         .RuleFor(a =&gt; a.Name, (f, u) =&gt; f.Random.Word())
@@ -303,29 +78,8 @@ service TestService {
     person.Schools.AddRange(schools);
     return person;
 }
-</code></pre></li>
-</ol>
-
-<h2 id="修改方式">修改方式</h2>
-
-<ol>
-<li><p>service.proto 加入允許使用 stream 上傳的方式</p>
-
-<pre><code class="language-proto">rpc CreatePerson (stream Chunk) returns (Person);
-</code></pre></li>
-
-<li><p>client 上傳大物件</p>
-
-<blockquote>
-<p>protobuf 序列化的用法可以參考 <a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></p>
-</blockquote>
-
-<ul>
-<li>使用 <code>stream</code></li>
-<li>透過 Google.Protobuf 轉為 byte[] 傳送</li>
-</ul>
-
-<pre><code class="language-cs">using (var creator = serviceClient.CreatePerson())
+</code></pre></li></ol><h2 id=修改方式>修改方式</h2><ol><li><p>service.proto 加入允許使用 stream 上傳的方式</p><pre><code class=language-proto>rpc CreatePerson (stream Chunk) returns (Person);
+</code></pre></li><li><p>client 上傳大物件</p><blockquote><p>protobuf 序列化的用法可以參考 <a href=https://blog.yowko.com/csharp-protobuf-serialize-deserialize/>C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></p></blockquote><ul><li>使用 <code>stream</code></li><li>透過 Google.Protobuf 轉為 byte[] 傳送</li></ul><pre><code class=language-cs>using (var creator = serviceClient.CreatePerson())
 {
     var createPerson = GeneratePerson();
 
@@ -350,20 +104,7 @@ service TestService {
     //回傳 gRPC call 結果
     return await creator;
 }
-</code></pre></li>
-
-<li><p>server 端接收大物件</p>
-
-<blockquote>
-<p>protobuf 反序列化的用法可以參考 <a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></p>
-</blockquote>
-
-<ul>
-<li>使用 stream 接收</li>
-<li>透過 Google.Protobuf 讀取 byte[] 轉型</li>
-</ul>
-
-<pre><code class="language-cs">var streamResult = new List&lt;byte&gt;();
+</code></pre></li><li><p>server 端接收大物件</p><blockquote><p>protobuf 反序列化的用法可以參考 <a href=https://blog.yowko.com/csharp-protobuf-serialize-deserialize/>C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></p></blockquote><ul><li>使用 stream 接收</li><li>透過 Google.Protobuf 讀取 byte[] 轉型</li></ul><pre><code class=language-cs>var streamResult = new List&lt;byte&gt;();
 //逐步接收內容
 while (await requestStream.MoveNext())
 {
@@ -374,176 +115,18 @@ while (await requestStream.MoveNext())
 var person =  Person.Parser.ParseFrom(streamResult.ToArray());
 //回傳收到的內容
 return person;
-</code></pre></li>
-</ol>
-
-<h2 id="心得">心得</h2>
-
-<p>仔細看上面所使用的例子可以發現有個 bug，我們使用 gRPC stream 就是想要處理超乎 4mb 單次傳送限制的內容， client 上傳改用 srteam 這部份程式沒有問題，但回傳時卻沒有用上 stream，如果上傳的物件真的超過 4mb 時就會出現錯誤，不過我考慮再三還是決定先不加，因為這次筆記的重點是紀錄 client 上傳使用 stream chunk 的做法，如果加上回傳也用上 stream 就變成雙向 stream，跟這次目的不符也會使得程式碼變複雜，如果有需要雙向 stream 之後再另外筆記囉</p>
-
-<h2 id="參考資訊">參考資訊</h2>
-
-<ol>
-<li><a href="https://blog.yowko.com/grpc-stream-big-object/">gRPC stream 如何傳送單一大物件</a></li>
-<li><a href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></li>
-</ol>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">Yowko Tsai</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2020-12-11</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">授權合約</span>
-    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
-  </p>
-</div>
-
-	
-	
-	
-    
-    
-	
-    <footer class="post-footer">
-      <div class="post-tags">
-		  標籤：
-		  
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/c/">C#</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/grpc/">gRPC</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-		  <div>
-          <a class="prev" href="https://blog.yowko.com/mongodb-interceptor/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">取得 MongoDB SDK 實際產生的指令</span>			
-          </a>
-		  </div>
-		  <div>
-        
-          <a class="prev" href="https://blog.yowko.com/csharp-mongodb-waitqueuefullexception/" style="float: none;">
-            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
-            <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">.Net Core 操作 MongoDB 出現 MongoWaitQueueFullException</span>			
-          </a>
-		  </div>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/grpc-stream-chunk-client\/';  
-      
-    };
-
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'yowkonotes';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-  
-
-      </div>
-    </main>
-	
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
-  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主題 - 
-    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2016 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Yowko Tsai</span>
-  </span>
-</div>
-    </footer>
-	
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div> 
-  
-  
-<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
-
-
-<script data-no-instant>InstantClick.init();</script>
-
-
-<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-88810280-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-  
-
-</body>
-</html>
+</code></pre></li></ol><h2 id=心得>心得</h2><p>仔細看上面所使用的例子可以發現有個 bug，我們使用 gRPC stream 就是想要處理超乎 4mb 單次傳送限制的內容， client 上傳改用 srteam 這部份程式沒有問題，但回傳時卻沒有用上 stream，如果上傳的物件真的超過 4mb 時就會出現錯誤，不過我考慮再三還是決定先不加，因為這次筆記的重點是紀錄 client 上傳使用 stream chunk 的做法，如果加上回傳也用上 stream 就變成雙向 stream，跟這次目的不符也會使得程式碼變複雜，如果有需要雙向 stream 之後再另外筆記囉</p><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://blog.yowko.com/grpc-stream-big-object/>gRPC stream 如何傳送單一大物件</a></li><li><a href=https://blog.yowko.com/csharp-protobuf-serialize-deserialize/>C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2020-12-11</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/c/>C#</a>
+<a href=https://blog.yowko.com/tags/grpc/>gRPC</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/mongodb-interceptor/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">取得 MongoDB SDK 實際產生的指令</span></a></div><div><a class=prev href=https://blog.yowko.com/csharp-mongodb-waitqueuefullexception/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">.Net Core 操作 MongoDB 出現 MongoWaitQueueFullException</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/grpc-stream-chunk-client\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

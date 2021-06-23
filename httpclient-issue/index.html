@@ -1,200 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>探討 HttpClient 可能的問題 - Yowko&#39;s Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="探討 HttpClient 可能的問題 印象中前幾年曾經看過有文章提到 HttpClient 雖然是 disposable 但透過 using 來使用 HttpClient 卻反而可能出現問題，當時覺得網路文章多數仍是使用 using，於是我抱" />
-
-  <meta name="keywords" content="yowko, .net, blog" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.51" />
-
-<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
-
-
-<link rel="canonical" href="https://blog.yowko.com/httpclient-issue/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
-<link rel="manifest" href="https://blog.yowko.com/manifest.json">
-<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
-
-
-<meta property="og:title" content="探討 HttpClient 可能的問題" />
-<meta property="og:description" content="探討 HttpClient 可能的問題 印象中前幾年曾經看過有文章提到 HttpClient 雖然是 disposable 但透過 using 來使用 HttpClient 卻反而可能出現問題，當時覺得網路文章多數仍是使用 using，於是我抱" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/httpclient-issue/" /><meta property="article:published_time" content="2018-12-10T23:45:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-12-11T23:44:30&#43;08:00"/>
-
-<meta itemprop="name" content="探討 HttpClient 可能的問題">
-<meta itemprop="description" content="探討 HttpClient 可能的問題 印象中前幾年曾經看過有文章提到 HttpClient 雖然是 disposable 但透過 using 來使用 HttpClient 卻反而可能出現問題，當時覺得網路文章多數仍是使用 using，於是我抱">
-
-
-<meta itemprop="datePublished" content="2018-12-10T23:45:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-12-11T23:44:30&#43;08:00" />
-<meta itemprop="wordCount" content="1752">
-
-
-
-<meta itemprop="keywords" content="C#," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="探討 HttpClient 可能的問題"/>
-<meta name="twitter:description" content="探討 HttpClient 可能的問題 印象中前幾年曾經看過有文章提到 HttpClient 雖然是 disposable 但透過 using 來使用 HttpClient 卻反而可能出現問題，當時覺得網路文章多數仍是使用 using，於是我抱"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
-
-</head>
-<body>
-     
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="https://blog.yowko.com/">
-        <li class="mobile-menu-item">首頁</li>
-      </a><a href="https://blog.yowko.com/post/">
-        <li class="mobile-menu-item">歷史筆記</li>
-      </a><a href="https://blog.yowko.com/tags/">
-        <li class="mobile-menu-item">內容標籤</li>
-      </a><a href="https://blog.yowko.com/search">
-        <li class="mobile-menu-item">站內搜尋</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
-        <div class="logo-wrapper">
-  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-</div>
-<div style="padding-bottom: 60px;"> </div>
-</nav>
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
-    </li>
-  </ul>
-</nav>
-    </header>	
-    <main id="main" class="main">		
-      <div class="content-wrapper">		
-		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
-        <div id="content" class="content">		
-          <article class="post">
-    
-    <header class="post-header">
-      
-
-      <div class="post-meta">
-        <span class="post-time"> 2018-12-10 </span>
-        
-        <span class="more-meta"> 約 1752 字 </span>
-          <span class="more-meta"> 預計閱讀 4 分鐘 </span>
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目錄</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#探討-httpclient-可能的問題">探討 HttpClient 可能的問題</a>
-<ul>
-<li><a href="#原始程式碼">原始程式碼</a></li>
-<li><a href="#可能問題與解決方式">可能問題與解決方式</a>
-<ul>
-<li><a href="#1-造成-通訊端耗盡-sockets-exhaustion">1. 造成 <code>通訊端耗盡 (sockets exhaustion)</code></a></li>
-<li><a href="#2-共用的-httpclient-可能會無法即時反應-dns-的異動">2. 共用的 HttpClient 可能會無法即時反應 DNS 的異動</a></li>
-</ul></li>
-<li><a href="#其他延伸現象">其他延伸現象</a></li>
-<li><a href="#心得">心得</a></li>
-</ul></li>
-<li><a href="#參考資訊">參考資訊</a></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h1 id="探討-httpclient-可能的問題">探討 HttpClient 可能的問題</h1>
-
-<p>印象中前幾年曾經看過有文章提到 HttpClient 雖然是 disposable 但透過 <code>using</code> 來使用 HttpClient 卻反而可能出現問題，當時覺得網路文章多數仍是使用 <code>using</code>，於是我抱著可能是特殊情境所造成的少數問題，沒有特別留意，最近在看 .NET Core 相關應用時，發現 .NET Core 已針對 HttpClient 使用另外打造新的類別，也讓我重新回想起當年的文章，就趁著這個機會來模擬看看到底會出現什麼問題吧</p>
-
-<h2 id="原始程式碼">原始程式碼</h2>
-
-<ol>
-<li><p>程式碼</p>
-
-<pre><code class="language-cs">void Main()
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>探討 HttpClient 可能的問題 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="探討 HttpClient 可能的問題 印象中前幾年曾經看過有文章提到 HttpClient 雖然是 disposable 但透過 using 來使用 HttpClient 卻反而可能出現問題，當時覺得網路文章多數仍是使用 using，於是我抱"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/httpclient-issue/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="探討 HttpClient 可能的問題"><meta property=og:description content="探討 HttpClient 可能的問題 印象中前幾年曾經看過有文章提到 HttpClient 雖然是 disposable 但透過 using 來使用 HttpClient 卻反而可能出現問題，當時覺得網路文章多數仍是使用 using，於是我抱"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/httpclient-issue/><meta property=article:published_time content=2018-12-10T23:45:00&#43;08:00><meta property=article:modified_time content=2020-12-11T23:44:30&#43;08:00><meta itemprop=name content="探討 HttpClient 可能的問題"><meta itemprop=description content="探討 HttpClient 可能的問題 印象中前幾年曾經看過有文章提到 HttpClient 雖然是 disposable 但透過 using 來使用 HttpClient 卻反而可能出現問題，當時覺得網路文章多數仍是使用 using，於是我抱"><meta itemprop=datePublished content=2018-12-10T23:45:00&#43;08:00><meta itemprop=dateModified content=2020-12-11T23:44:30&#43;08:00><meta itemprop=wordCount content=1752><meta itemprop=keywords content=C#,><meta name=twitter:card content=summary><meta name=twitter:title content="探討 HttpClient 可能的問題"><meta name=twitter:description content="探討 HttpClient 可能的問題 印象中前幾年曾經看過有文章提到 HttpClient 雖然是 disposable 但透過 using 來使用 HttpClient 卻反而可能出現問題，當時覺得網路文章多數仍是使用 using，於是我抱"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2018-12-10</span>
+<span class=more-meta>約 1752 字</span>
+<span class=more-meta>預計閱讀 4 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#探討-httpclient-可能的問題>探討 HttpClient 可能的問題</a><ul><li><a href=#原始程式碼>原始程式碼</a></li><li><a href=#可能問題與解決方式>可能問題與解決方式</a><ul><li><a href=#1-造成-通訊端耗盡-sockets-exhaustion>1. 造成 <code>通訊端耗盡 (sockets exhaustion)</code></a></li><li><a href=#2-共用的-httpclient-可能會無法即時反應-dns-的異動>2. 共用的 HttpClient 可能會無法即時反應 DNS 的異動</a></li></ul></li><li><a href=#其他延伸現象>其他延伸現象</a></li><li><a href=#心得>心得</a></li></ul></li><li><a href=#參考資訊>參考資訊</a></li></ul></nav></div></div><div class=post-content><h1 id=探討-httpclient-可能的問題>探討 HttpClient 可能的問題</h1><p>印象中前幾年曾經看過有文章提到 HttpClient 雖然是 disposable 但透過 <code>using</code> 來使用 HttpClient 卻反而可能出現問題，當時覺得網路文章多數仍是使用 <code>using</code>，於是我抱著可能是特殊情境所造成的少數問題，沒有特別留意，最近在看 .NET Core 相關應用時，發現 .NET Core 已針對 HttpClient 使用另外打造新的類別，也讓我重新回想起當年的文章，就趁著這個機會來模擬看看到底會出現什麼問題吧</p><h2 id=原始程式碼>原始程式碼</h2><ol><li><p>程式碼</p><pre><code class=language-cs>void Main()
 {
     &quot;Starting connections&quot;.Dump();
     // 執行多次 http request 取資料
@@ -211,31 +17,8 @@
     }
     &quot;Connections done&quot;.Dump();
 }
-</code></pre></li>
-
-<li><p>執行結果</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/49747856-4af0c600-fcdf-11e8-815d-280b2f4b6afd.png" alt="1sourceresult" /></p></li>
-</ol>
-
-<h2 id="可能問題與解決方式">可能問題與解決方式</h2>
-
-<h3 id="1-造成-通訊端耗盡-sockets-exhaustion">1. 造成 <code>通訊端耗盡 (sockets exhaustion)</code></h3>
-
-<blockquote>
-<p>using 區段工作完成後，會呼叫 <code>dispose</code> 方法來清除物件，根據於 TCP 通訊協定的內容，在完全關閉連線前有 <code>TIME-WAIT</code> 的緩衝來等待 <code>2 MSL</code> - MSL (Maximum Segment Lifetime) 時間以確保通訊的另一端已關閉連接。根據 <a href="https://tools.ietf.org/html/rfc793" target="_blank">RFC: 793 協定</a> MSL 為 <code>2</code> 分鐘，<code>2 MSL 即為 4 分鐘</code></p>
-</blockquote>
-
-<ul>
-<li>已完成 web call ，透過 <code>netstat</code> 確認狀態仍為 <code>TIME-WAIT</code>
-<img src="https://user-images.githubusercontent.com/3851540/49747858-4b895c80-fcdf-11e8-9b6c-69b79e1bed69.png" alt="2state" /></li>
-
-<li><p>模擬耗盡 sockets</p>
-
-<ul>
-<li><p>程式碼</p>
-
-<pre><code class="language-cs">void Main()
+</code></pre></li><li><p>執行結果</p><p><img src=https://user-images.githubusercontent.com/3851540/49747856-4af0c600-fcdf-11e8-815d-280b2f4b6afd.png alt=1sourceresult></p></li></ol><h2 id=可能問題與解決方式>可能問題與解決方式</h2><h3 id=1-造成-通訊端耗盡-sockets-exhaustion>1. 造成 <code>通訊端耗盡 (sockets exhaustion)</code></h3><blockquote><p>using 區段工作完成後，會呼叫 <code>dispose</code> 方法來清除物件，根據於 TCP 通訊協定的內容，在完全關閉連線前有 <code>TIME-WAIT</code> 的緩衝來等待 <code>2 MSL</code> - MSL (Maximum Segment Lifetime) 時間以確保通訊的另一端已關閉連接。根據 <a href=https://tools.ietf.org/html/rfc793 target=_blank>RFC: 793 協定</a> MSL 為 <code>2</code> 分鐘，<code>2 MSL 即為 4 分鐘</code></p></blockquote><ul><li>已完成 web call ，透過 <code>netstat</code> 確認狀態仍為 <code>TIME-WAIT</code>
+<img src=https://user-images.githubusercontent.com/3851540/49747858-4b895c80-fcdf-11e8-9b6c-69b79e1bed69.png alt=2state></li><li><p>模擬耗盡 sockets</p><ul><li><p>程式碼</p><pre><code class=language-cs>void Main()
 {
     &quot;Starting connections&quot;.Dump();
     //嘗試全數耗盡 65536 port
@@ -251,61 +34,30 @@
     }
     &quot;Connections done&quot;.Dump();
 }
-</code></pre></li>
-
-<li><p>錯誤訊息</p>
-
-<pre><code>Unable to connect to the remote server
+</code></pre></li><li><p>錯誤訊息</p><pre><code>Unable to connect to the remote server
 InnerException
 Only one usage of each socket address (protocol/network address/port) is normally permitted 127.0.0.1:80 
-</code></pre></li>
-</ul></li>
-
-<li><p>解決方式：使用 Singleton 或 static 方式建立 HttpClient 物件</p>
-
-<blockquote>
-<p>官方建議針對一個 domain 建立一個 HttpClient instance</p>
-</blockquote>
-
-<ul>
-<li><p>Singleton</p>
-
-<ul>
-<li><p><del>double-check locking</del></p>
-
-<p><del>public class HttpClientServiceA</del>
+</code></pre></li></ul></li><li><p>解決方式：使用 Singleton 或 static 方式建立 HttpClient 物件</p><blockquote><p>官方建議針對一個 domain 建立一個 HttpClient instance</p></blockquote><ul><li><p>Singleton</p><ul><li><p><del>double-check locking</del></p><p><del>public class HttpClientServiceA</del>
 <del>{</del>
-    <del>private HttpClientServiceA() { }</del>
-    <del>private static HttpClient httpClient;</del>
-    <del>private static readonly object alock = new object();</del>
-    <del>public static HttpClient GetHttpClient()</del>
-    <del>{</del>
-        <del>if (httpClient == null)</del>
-        <del>{</del>
-            <del>lock (alock)</del>
-            <del>{</del>
-                <del>if (httpClient == null)</del>
-                <del>{</del>
-                    <del>httpClient = new HttpClient();</del>
-                    <del>httpClient.BaseAddress = new Uri(&ldquo;/&rdquo;);</del>
-                <del>}</del>
-            <del>}</del>
-        <del>}</del>
-        <del>return httpClient;</del>
-    <del>}</del>
-<del>}</del></p>
-
-<blockquote>
-<p>經黑大提醒，重新閱讀 <a href="http://csharpindepth.com/articles/general/singleton.aspx" target="_blank">Implementing the Singleton Pattern in C#</a> : 作者建議不要使用 <code>double-check locking</code> ，建議作法使用 <code>Lazy&lt;T&gt;</code></p>
-</blockquote></li>
-
-<li><p>Safety through initialization</p>
-
-<blockquote>
-<p>如果無法使用 <code>Lazy&lt;T&gt;</code>，可以考慮使用這個做法</p>
-</blockquote>
-
-<pre><code class="language-cs">public sealed class HttpClientServiceA
+<del>private HttpClientServiceA() { }</del>
+<del>private static HttpClient httpClient;</del>
+<del>private static readonly object alock = new object();</del>
+<del>public static HttpClient GetHttpClient()</del>
+<del>{</del>
+<del>if (httpClient == null)</del>
+<del>{</del>
+<del>lock (alock)</del>
+<del>{</del>
+<del>if (httpClient == null)</del>
+<del>{</del>
+<del>httpClient = new HttpClient();</del>
+<del>httpClient.BaseAddress = new Uri(&ldquo;/&rdquo;);</del>
+<del>}</del>
+<del>}</del>
+<del>}</del>
+<del>return httpClient;</del>
+<del>}</del>
+<del>}</del></p><blockquote><p>經黑大提醒，重新閱讀 <a href=http://csharpindepth.com/articles/general/singleton.aspx target=_blank>Implementing the Singleton Pattern in C#</a> : 作者建議不要使用 <code>double-check locking</code> ，建議作法使用 <code>Lazy&lt;T&gt;</code></p></blockquote></li><li><p>Safety through initialization</p><blockquote><p>如果無法使用 <code>Lazy&lt;T&gt;</code>，可以考慮使用這個做法</p></blockquote><pre><code class=language-cs>public sealed class HttpClientServiceA
 {
     private static readonly HttpClient instance = new HttpClient() { BaseAddress = new Uri(&quot;/&quot;) };
 
@@ -327,11 +79,7 @@ Only one usage of each socket address (protocol/network address/port) is normall
         }
     }
 }
-</code></pre></li>
-
-<li><p>Lazy<T></p>
-
-<pre><code class="language-cs">public sealed class HttpClientServiceA
+</code></pre></li><li><p>Lazy<t></p><pre><code class=language-cs>public sealed class HttpClientServiceA
 {
     private static readonly Lazy&lt;HttpClient&gt; lazy = new Lazy&lt;HttpClient&gt;(
     () =&gt; { 
@@ -342,12 +90,7 @@ Only one usage of each socket address (protocol/network address/port) is normall
     public static HttpClient Instance { get { return lazy.Value; } }
     private HttpClientServiceA() {}
 }
-</code></pre></li>
-</ul></li>
-
-<li><p>static</p>
-
-<pre><code class="language-cs">class HttpClientServiceA
+</code></pre></li></ul></li><li><p>static</p><pre><code class=language-cs>class HttpClientServiceA
 {
     private static readonly HttpClient _httpClient;
     static HttpClientServiceA()
@@ -357,54 +100,18 @@ Only one usage of each socket address (protocol/network address/port) is normall
     }
     public HttpClient HttpclientInstance = _httpClient;
 }
-</code></pre></li>
-
-<li><p>實際使用</p>
-
-<ul>
-<li><p>singleton</p>
-
-<pre><code class="language-cs">var httpclient = HttpClientServiceA.Instance;
+</code></pre></li><li><p>實際使用</p><ul><li><p>singleton</p><pre><code class=language-cs>var httpclient = HttpClientServiceA.Instance;
 var result = httpclient.GetAsync(&quot;&quot;).GetAwaiter().GetResult();
-</code></pre></li>
-
-<li><p>static</p>
-
-<pre><code class="language-cs">HttpClientServiceA httpclient = new HttpClientServiceA();
+</code></pre></li><li><p>static</p><pre><code class=language-cs>HttpClientServiceA httpclient = new HttpClientServiceA();
 var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().GetResult();
-</code></pre></li>
-</ul></li>
-</ul></li>
-</ul>
-
-<h3 id="2-共用的-httpclient-可能會無法即時反應-dns-的異動">2. 共用的 HttpClient 可能會無法即時反應 DNS 的異動</h3>
-
-<ul>
-<li>重現問題流程
-
-<ul>
-<li>分別透過 using 與 singleton HttpClient 取得 <code>/</code> 內容</li>
-<li>修改 hosts file 將 <code>blog.yowko.com</code> 主機 ip 指向本機 (原理與修改方式可以參考之前筆記 <a href="https://blog.yowko.com/windows-host-file">在 Windows 環境將特定網址指向不同 IP</a>)</li>
-<li>重新透過 using 與 singleton HttpClient 取得 <code>/</code> 內容</li>
-</ul></li>
-
-<li><p>程式碼</p>
-
-<ul>
-<li><p>使用 singleton HttpClient</p>
-
-<pre><code class="language-cs">public IActionResult About()
+</code></pre></li></ul></li></ul></li></ul><h3 id=2-共用的-httpclient-可能會無法即時反應-dns-的異動>2. 共用的 HttpClient 可能會無法即時反應 DNS 的異動</h3><ul><li>重現問題流程<ul><li>分別透過 using 與 singleton HttpClient 取得 <code>/</code> 內容</li><li>修改 hosts file 將 <code>blog.yowko.com</code> 主機 ip 指向本機 (原理與修改方式可以參考之前筆記 <a href=https://blog.yowko.com/windows-host-file>在 Windows 環境將特定網址指向不同 IP</a>)</li><li>重新透過 using 與 singleton HttpClient 取得 <code>/</code> 內容</li></ul></li><li><p>程式碼</p><ul><li><p>使用 singleton HttpClient</p><pre><code class=language-cs>public IActionResult About()
 {
     var httpclient = HttpClientServiceB.Instance;
     var result = httpclient.GetAsync(&quot;&quot;).GetAwaiter().GetResult();
     ViewData[&quot;Message&quot;] = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
     return View();
 }
-</code></pre></li>
-
-<li><p>使用 using HtttpClient</p>
-
-<pre><code class="language-cs">public IActionResult Contact()
+</code></pre></li><li><p>使用 using HtttpClient</p><pre><code class=language-cs>public IActionResult Contact()
 {
     using (var httpclient = new HttpClient())
     {
@@ -414,43 +121,7 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
     }
     return View();
 }
-</code></pre></li>
-</ul></li>
-
-<li><p>未修改 hosts file : <code>兩者行為相同</code></p>
-
-<ul>
-<li><p>使用 singleton HttpClient</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/49747860-4b895c80-fcdf-11e8-9e10-505e7544a5f3.png" alt="4singletonbefore" /></p></li>
-
-<li><p>使用 using HtttpClient</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/49747861-4c21f300-fcdf-11e8-88f3-5559d37ae4b2.png" alt="5usingbefore" /></p></li>
-</ul></li>
-
-<li><p>修改 hosts file : <code>singleton HttpClient 未能即時反應 DNS 異動</code></p>
-
-<ul>
-<li><p>使用 singleton HttpClient</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/49747863-4c21f300-fcdf-11e8-960c-a34ece6a1455.png" alt="6singletonafter" /></p></li>
-
-<li><p>使用 using HtttpClient</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/49747864-4c21f300-fcdf-11e8-9f39-c1e3ebf5dcd9.png" alt="7usingafter" /></p></li>
-</ul></li>
-
-<li><p>解決方式</p>
-
-<blockquote>
-<p>將 HttpClient 的 <code>DefaultRequestHeaders.ConnectionClose</code> 屬性設定為 <code>true</code>，也就是將 HTTP 的 keep-alive header 設為 <code>false</code>，讓 socket 在每次處理完 request 即關閉</p>
-</blockquote>
-
-<ul>
-<li><p>singleton</p>
-
-<pre><code class="language-cs">public sealed class HttpClientServiceB
+</code></pre></li></ul></li><li><p>未修改 hosts file : <code>兩者行為相同</code></p><ul><li><p>使用 singleton HttpClient</p><p><img src=https://user-images.githubusercontent.com/3851540/49747860-4b895c80-fcdf-11e8-9e10-505e7544a5f3.png alt=4singletonbefore></p></li><li><p>使用 using HtttpClient</p><p><img src=https://user-images.githubusercontent.com/3851540/49747861-4c21f300-fcdf-11e8-88f3-5559d37ae4b2.png alt=5usingbefore></p></li></ul></li><li><p>修改 hosts file : <code>singleton HttpClient 未能即時反應 DNS 異動</code></p><ul><li><p>使用 singleton HttpClient</p><p><img src=https://user-images.githubusercontent.com/3851540/49747863-4c21f300-fcdf-11e8-960c-a34ece6a1455.png alt=6singletonafter></p></li><li><p>使用 using HtttpClient</p><p><img src=https://user-images.githubusercontent.com/3851540/49747864-4c21f300-fcdf-11e8-9f39-c1e3ebf5dcd9.png alt=7usingafter></p></li></ul></li><li><p>解決方式</p><blockquote><p>將 HttpClient 的 <code>DefaultRequestHeaders.ConnectionClose</code> 屬性設定為 <code>true</code>，也就是將 HTTP 的 keep-alive header 設為 <code>false</code>，讓 socket 在每次處理完 request 即關閉</p></blockquote><ul><li><p>singleton</p><pre><code class=language-cs>public sealed class HttpClientServiceB
 {
     private static readonly Lazy&lt;HttpClient&gt; lazy = new Lazy&lt;HttpClient&gt;(
         () =&gt; {
@@ -462,11 +133,7 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
     public static HttpClient Instance { get { return lazy.Value; } }
     private HttpClientServiceB() { }
 }
-</code></pre></li>
-
-<li><p>static</p>
-
-<pre><code class="language-cs">public class HttpClientServiceA
+</code></pre></li><li><p>static</p><pre><code class=language-cs>public class HttpClientServiceA
 {
     private static readonly HttpClient _httpClient;
     static HttpClientServiceA()
@@ -477,23 +144,7 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
     }
     public HttpClient HttpclientInstance = _httpClient;
 }
-</code></pre></li>
-</ul>
-
-<blockquote>
-<p>2018/12/31 補充，重新檢視 <a href="https://github.com/dotnet/corefx/issues/11224" target="_blank">iisue - Singleton HttpClient doesn&rsquo;t respect DNS changes</a> 後發現漏了一段內容：將 <code>DefaultRequestHeaders.ConnectionClose</code> 設為 <code>true</code> (也就是將 <code>keep-alive</code> header 設為 <code>false</code>) 會造成每次 request 結束後都關閉 socket，而增加大約 35 ms 的時間耗損，也失去了重複使用 socket 的好處，比較適用於每次 request 損耗 35 ms 不會造成影響的情境</p>
-
-<ul>
-<li>修改 <code>ConnectionLeaseTimeout</code> 時間 : 用來管理 TCP socket 保持開啟的時間，預設為 <code>-1</code> 永遠開啟</li>
-<li>修改 <code>DnsRefreshTimeout</code> 時間: 用來管理 DNS 更新間隔，預設為 <code>120000</code> (兩分鐘)</li>
-<li>兩者皆應視實際使用情境調整</li>
-</ul>
-</blockquote>
-
-<ul>
-<li><p>singleton 改良版</p>
-
-<pre><code class="language-cs">public sealed class HttpClientServiceB
+</code></pre></li></ul><blockquote><p>2018/12/31 補充，重新檢視 <a href=https://github.com/dotnet/corefx/issues/11224 target=_blank>iisue - Singleton HttpClient doesn&rsquo;t respect DNS changes</a> 後發現漏了一段內容：將 <code>DefaultRequestHeaders.ConnectionClose</code> 設為 <code>true</code> (也就是將 <code>keep-alive</code> header 設為 <code>false</code>) 會造成每次 request 結束後都關閉 socket，而增加大約 35 ms 的時間耗損，也失去了重複使用 socket 的好處，比較適用於每次 request 損耗 35 ms 不會造成影響的情境</p><ul><li>修改 <code>ConnectionLeaseTimeout</code> 時間 : 用來管理 TCP socket 保持開啟的時間，預設為 <code>-1</code> 永遠開啟</li><li>修改 <code>DnsRefreshTimeout</code> 時間: 用來管理 DNS 更新間隔，預設為 <code>120000</code> (兩分鐘)</li><li>兩者皆應視實際使用情境調整</li></ul></blockquote><ul><li><p>singleton 改良版</p><pre><code class=language-cs>public sealed class HttpClientServiceB
 {
     private static readonly Lazy&lt;HttpClient&gt; lazy = new Lazy&lt;HttpClient&gt;(
         () =&gt;
@@ -510,11 +161,7 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
     public static HttpClient Instance { get { return lazy.Value; } }
     private HttpClientServiceB() { }
 }
-</code></pre></li>
-
-<li><p>static</p>
-
-<pre><code class="language-cs">public class HttpClientServiceA
+</code></pre></li><li><p>static</p><pre><code class=language-cs>public class HttpClientServiceA
 {
     private static readonly HttpClient _httpClient;
     static HttpClientServiceA()
@@ -529,201 +176,18 @@ var result = httpclient.HttpclientInstance.GetAsync(&quot;&quot;).GetAwaiter().G
     }
     public HttpClient HttpclientInstance = _httpClient;
 }
-</code></pre></li>
-</ul></li>
-</ul>
-
-<h2 id="其他延伸現象">其他延伸現象</h2>
-
-<ol>
-<li><p>未耗盡 65536 ports ？！</p>
-
-<blockquote>
-<p>Windows 可使用的 port 設定可以查詢 <code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\MaxUserPort</code>，以我的 Windows 10 環境而言，預設值為 <code>15000</code></p>
-</blockquote>
-
-<pre><code class="language-ps1">Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters -name:MaxUserPort
-</code></pre>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/49747859-4b895c80-fcdf-11e8-9884-427873c3a8e3.png" alt="3maxuserport" /></p></li>
-
-<li><p>嘗試縮短 <code>TIME-WAIT</code> 時間</p>
-
-<blockquote>
-<p>Windows 環境可以透過設定 <code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\TcpTimedWaitDelay</code> 來修改</p>
-</blockquote></li>
-</ol>
-
-<h2 id="心得">心得</h2>
-
-<p>過去沒有真的遇到 HttpClient 的問題，主要原因應該就是過去經手的系統使用量還不足以引發問題，趁著理解 .NET Core 的新類別重新學習 HttpClient 可能的潛在問題與解決方式，只是出乎意料地花了很多時間來模擬與測試，所幸終於試出點心得了</p>
-
-<h1 id="參考資訊">參考資訊</h1>
-
-<ol>
-<li><a href="https://aspnetmonsters.com/2016/08/2016-08-27-httpclientwrong/" target="_blank">YOU&rsquo;RE USING HTTPCLIENT WRONG AND IT IS DESTABILIZING YOUR SOFTWARE</a><br /></li>
-<li><a href="https://medium.com/@nuno.caneco/c-httpclient-should-not-be-disposed-or-should-it-45d2a8f568bc" target="_blank">C#: HttpClient should NOT be disposed</a></li>
-<li><a href="https://blogs.msdn.microsoft.com/shacorn/2016/10/21/best-practices-for-using-httpclient-on-services/" target="_blank">Best practices for using HttpClient on Services</a></li>
-<li><a href="https://codereview.stackexchange.com/questions/69950/single-instance-of-reusable-httpclient" target="_blank">Single instance of reusable HttpClient</a></li>
-<li><a href="http://www.bizcoder.com/httpclient-it-lives-and-it-is-glorious" target="_blank">HttpClient, it lives, and it is glorious</a></li>
-<li><a href="http://blog.jangmt.com/2010/10/netstat.html" target="_blank">netstat 指令用法,及狀態說明</a></li>
-<li><a href="https://docs.microsoft.com/zh-tw/dotnet/api/system.net.http.httpclient?WT.mc_id=DOP-MVP-5002594" target="_blank">HttpClient Class</a></li>
-<li><a href="https://blog.miniasp.com/post/2010/11/17/How-to-deal-with-TIME_WAIT-problem-under-Windows.aspx" target="_blank">在 Windows 上遇到非常多 TIME_WAIT 連線時應如何處理</a></li>
-<li><a href="https://blog.yowko.com/windows-host-file">在 Windows 環境將特定網址指向不同 IP</a></li>
-</ol>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">Yowko Tsai</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2020-12-11</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">授權合約</span>
-    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
-  </p>
-</div>
-
-	
-	
-	
-    
-    
-	
-    <footer class="post-footer">
-      <div class="post-tags">
-		  標籤：
-		  
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/c/">C#</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-		  <div>
-          <a class="prev" href="https://blog.yowko.com/appdomain-apppoll-difference/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">Application Domain 與 Application Pool 的差異</span>			
-          </a>
-		  </div>
-		  <div>
-        
-          <a class="prev" href="https://blog.yowko.com/windows-host-file/" style="float: none;">
-            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
-            <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">在 Windows 環境將特定網址指向不同 IP</span>			
-          </a>
-		  </div>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/httpclient-issue\/';  
-      
-    };
-
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'yowkonotes';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-  
-
-      </div>
-    </main>
-	
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
-  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主題 - 
-    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2016 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Yowko Tsai</span>
-  </span>
-</div>
-    </footer>
-	
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div> 
-  
-  
-<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
-
-
-<script data-no-instant>InstantClick.init();</script>
-
-
-<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-88810280-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-  
-
-</body>
-</html>
+</code></pre></li></ul></li></ul><h2 id=其他延伸現象>其他延伸現象</h2><ol><li><p>未耗盡 65536 ports ？！</p><blockquote><p>Windows 可使用的 port 設定可以查詢 <code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\MaxUserPort</code>，以我的 Windows 10 環境而言，預設值為 <code>15000</code></p></blockquote><pre><code class=language-ps1>Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters -name:MaxUserPort
+</code></pre><p><img src=https://user-images.githubusercontent.com/3851540/49747859-4b895c80-fcdf-11e8-9884-427873c3a8e3.png alt=3maxuserport></p></li><li><p>嘗試縮短 <code>TIME-WAIT</code> 時間</p><blockquote><p>Windows 環境可以透過設定 <code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\TcpTimedWaitDelay</code> 來修改</p></blockquote></li></ol><h2 id=心得>心得</h2><p>過去沒有真的遇到 HttpClient 的問題，主要原因應該就是過去經手的系統使用量還不足以引發問題，趁著理解 .NET Core 的新類別重新學習 HttpClient 可能的潛在問題與解決方式，只是出乎意料地花了很多時間來模擬與測試，所幸終於試出點心得了</p><h1 id=參考資訊>參考資訊</h1><ol><li><a href=https://aspnetmonsters.com/2016/08/2016-08-27-httpclientwrong/ target=_blank>YOU&rsquo;RE USING HTTPCLIENT WRONG AND IT IS DESTABILIZING YOUR SOFTWARE</a><br></li><li><a href=https://medium.com/@nuno.caneco/c-httpclient-should-not-be-disposed-or-should-it-45d2a8f568bc target=_blank>C#: HttpClient should NOT be disposed</a></li><li><a href=https://blogs.msdn.microsoft.com/shacorn/2016/10/21/best-practices-for-using-httpclient-on-services/ target=_blank>Best practices for using HttpClient on Services</a></li><li><a href=https://codereview.stackexchange.com/questions/69950/single-instance-of-reusable-httpclient target=_blank>Single instance of reusable HttpClient</a></li><li><a href=http://www.bizcoder.com/httpclient-it-lives-and-it-is-glorious target=_blank>HttpClient, it lives, and it is glorious</a></li><li><a href=http://blog.jangmt.com/2010/10/netstat.html target=_blank>netstat 指令用法,及狀態說明</a></li><li><a href="https://docs.microsoft.com/zh-tw/dotnet/api/system.net.http.httpclient?WT.mc_id=DOP-MVP-5002594" target=_blank>HttpClient Class</a></li><li><a href=https://blog.miniasp.com/post/2010/11/17/How-to-deal-with-TIME_WAIT-problem-under-Windows.aspx target=_blank>在 Windows 上遇到非常多 TIME_WAIT 連線時應如何處理</a></li><li><a href=https://blog.yowko.com/windows-host-file>在 Windows 環境將特定網址指向不同 IP</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2020-12-11</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/c/>C#</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/appdomain-apppoll-difference/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">Application Domain 與 Application Pool 的差異</span></a></div><div><a class=prev href=https://blog.yowko.com/windows-host-file/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">在 Windows 環境將特定網址指向不同 IP</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/httpclient-issue\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

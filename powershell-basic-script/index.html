@@ -1,660 +1,72 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>PowerShell 基本語法筆記 - Yowko&#39;s Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="PowerShell 基本語法筆記 最近工作上的需要，用了 PowerShell 語法來處理，幾乎各式各樣的花式需求都可以達成，怪不得百敬老師非常推薦 PowerShell ，功能十分強大呀，只可惜學習資源" />
-
-  <meta name="keywords" content="yowko, .net, blog" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.51" />
-
-<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
-
-
-<link rel="canonical" href="https://blog.yowko.com/powershell-basic-script/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
-<link rel="manifest" href="https://blog.yowko.com/manifest.json">
-<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
-
-
-<meta property="og:title" content="PowerShell 基本語法筆記" />
-<meta property="og:description" content="PowerShell 基本語法筆記 最近工作上的需要，用了 PowerShell 語法來處理，幾乎各式各樣的花式需求都可以達成，怪不得百敬老師非常推薦 PowerShell ，功能十分強大呀，只可惜學習資源" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/powershell-basic-script/" /><meta property="article:published_time" content="2017-01-12T00:42:34&#43;08:00"/>
-<meta property="article:modified_time" content="2018-09-09T00:42:34&#43;08:00"/>
-
-<meta itemprop="name" content="PowerShell 基本語法筆記">
-<meta itemprop="description" content="PowerShell 基本語法筆記 最近工作上的需要，用了 PowerShell 語法來處理，幾乎各式各樣的花式需求都可以達成，怪不得百敬老師非常推薦 PowerShell ，功能十分強大呀，只可惜學習資源">
-
-
-<meta itemprop="datePublished" content="2017-01-12T00:42:34&#43;08:00" />
-<meta itemprop="dateModified" content="2018-09-09T00:42:34&#43;08:00" />
-<meta itemprop="wordCount" content="718">
-
-
-
-<meta itemprop="keywords" content="PowerShell," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="PowerShell 基本語法筆記"/>
-<meta name="twitter:description" content="PowerShell 基本語法筆記 最近工作上的需要，用了 PowerShell 語法來處理，幾乎各式各樣的花式需求都可以達成，怪不得百敬老師非常推薦 PowerShell ，功能十分強大呀，只可惜學習資源"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
-
-</head>
-<body>
-     
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="https://blog.yowko.com/">
-        <li class="mobile-menu-item">首頁</li>
-      </a><a href="https://blog.yowko.com/post/">
-        <li class="mobile-menu-item">歷史筆記</li>
-      </a><a href="https://blog.yowko.com/tags/">
-        <li class="mobile-menu-item">內容標籤</li>
-      </a><a href="https://blog.yowko.com/search">
-        <li class="mobile-menu-item">站內搜尋</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
-        <div class="logo-wrapper">
-  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-</div>
-<div style="padding-bottom: 60px;"> </div>
-</nav>
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
-    </li>
-  </ul>
-</nav>
-    </header>	
-    <main id="main" class="main">		
-      <div class="content-wrapper">		
-		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
-        <div id="content" class="content">		
-          <article class="post">
-    
-    <header class="post-header">
-      
-
-      <div class="post-meta">
-        <span class="post-time"> 2017-01-12 </span>
-        
-        <span class="more-meta"> 約 718 字 </span>
-          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目錄</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#powershell-基本語法筆記">PowerShell 基本語法筆記</a>
-<ul>
-<li><a href="#數字處理">數字處理</a></li>
-<li><a href="#字串處理">字串處理</a></li>
-<li><a href="#檔案處理">檔案處理</a></li>
-<li><a href="#list-處理">List 處理</a></li>
-<li><a href="#credential-相關">Credential 相關</a></li>
-<li><a href="#windows-服務相關">Windows 服務相關</a></li>
-<li><a href="#iis-相關">IIS 相關</a></li>
-<li><a href="#動態組成指令">動態組成指令</a></li>
-<li><a href="#遠端執行">遠端執行</a></li>
-<li><a href="#無線網路服務">無線網路服務</a></li>
-</ul></li>
-<li><a href="#參考資料">參考資料</a></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h1 id="powershell-基本語法筆記">PowerShell 基本語法筆記</h1>
-
-<p>最近工作上的需要，用了 PowerShell 語法來處理，幾乎各式各樣的花式需求都可以達成，怪不得百敬老師非常推薦 PowerShell ，功能十分強大呀，只可惜學習資源比較零碎，所以特別紀錄一下最近用到的語法，避免很快忘記又查了老半天XD</p>
-
-<h2 id="數字處理">數字處理</h2>
-
-<ol>
-<li><p>比較大小</p>
-
-<pre><code class="language-ps1">$a -gt $b #($a 是否大於 $b)
-</code></pre></li>
-</ol>
-
-<h2 id="字串處理">字串處理</h2>
-
-<ol>
-<li><p>字串分割</p>
-
-<ul>
-<li><p>1-1.</p>
-
-<pre><code class="language-ps1">$$serveritem -split ',' 
-</code></pre></li>
-
-<li><p>1-2.</p>
-
-<pre><code class="language-ps1">$serveritem.Split(',')
-</code></pre></li>
-</ul></li>
-
-<li><p>檢查是否為空值 (string.IsNullOrWhiteSpace)</p>
-
-<pre><code class="language-ps1">[string]::IsNullOrWhiteSpace($serveritem.ExcludeFolder)
-</code></pre></li>
-
-<li><p>比對字串開頭</p>
-
-<pre><code class="language-ps1"> $stringVariable.StartsWith('startString','CurrentCultureIgnoreCase')
-</code></pre></li>
-
-<li><p>字串比對</p>
-
-<pre><code class="language-ps1"> $stringVariable -eq &quot;Value&quot;
-</code></pre></li>
-</ol>
-
-<h2 id="檔案處理">檔案處理</h2>
-
-<ol>
-<li><p>檔案內容轉成 json</p>
-
-<pre><code class="language-ps1">Get-Content -Raw -Path $filelocation | ConvertFrom-Json
-</code></pre></li>
-
-<li><p>檔案壓縮與解壓縮</p>
-
-<ul>
-<li><p>PowerShell v5</p>
-
-<ul>
-<li><p>壓縮</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-ps1">Compress-Archive -Path $sourceFolder -DestinationPath $archiveFile
-</code></pre></li>
-
-<li><p>實際範例</p>
-
-<pre><code class="language-ps1">Compress-Archive -Path D:\Downloads\Demo -DestinationPath D:\Downloads\demo.zip
-</code></pre></li>
-</ul></li>
-
-<li><p>解壓縮</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-ps1">Expand-Archive -Path $archiveFile -DestinationPath $targetFolder
-</code></pre></li>
-
-<li><p>實際範例</p>
-
-<pre><code class="language-ps1">Expand-Archive -Path D:\Downloads\demo.zip -DestinationPath D:\Downloads\testPS
-</code></pre></li>
-</ul></li>
-</ul></li>
-
-<li><p>other</p>
-
-<ul>
-<li><p>壓縮</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-ps1">Add-Type -AssemblyName 'System.IO.Compression.Filesystem'
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>PowerShell 基本語法筆記 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="PowerShell 基本語法筆記 最近工作上的需要，用了 PowerShell 語法來處理，幾乎各式各樣的花式需求都可以達成，怪不得百敬老師非常推薦 PowerShell ，功能十分強大呀，只可惜學習資源"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/powershell-basic-script/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="PowerShell 基本語法筆記"><meta property=og:description content="PowerShell 基本語法筆記 最近工作上的需要，用了 PowerShell 語法來處理，幾乎各式各樣的花式需求都可以達成，怪不得百敬老師非常推薦 PowerShell ，功能十分強大呀，只可惜學習資源"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/powershell-basic-script/><meta property=article:published_time content=2017-01-12T00:42:34&#43;08:00><meta property=article:modified_time content=2018-09-09T00:42:34&#43;08:00><meta itemprop=name content="PowerShell 基本語法筆記"><meta itemprop=description content="PowerShell 基本語法筆記 最近工作上的需要，用了 PowerShell 語法來處理，幾乎各式各樣的花式需求都可以達成，怪不得百敬老師非常推薦 PowerShell ，功能十分強大呀，只可惜學習資源"><meta itemprop=datePublished content=2017-01-12T00:42:34&#43;08:00><meta itemprop=dateModified content=2018-09-09T00:42:34&#43;08:00><meta itemprop=wordCount content=718><meta itemprop=keywords content=PowerShell,><meta name=twitter:card content=summary><meta name=twitter:title content="PowerShell 基本語法筆記"><meta name=twitter:description content="PowerShell 基本語法筆記 最近工作上的需要，用了 PowerShell 語法來處理，幾乎各式各樣的花式需求都可以達成，怪不得百敬老師非常推薦 PowerShell ，功能十分強大呀，只可惜學習資源"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2017-01-12</span>
+<span class=more-meta>約 718 字</span>
+<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#powershell-基本語法筆記>PowerShell 基本語法筆記</a><ul><li><a href=#數字處理>數字處理</a></li><li><a href=#字串處理>字串處理</a></li><li><a href=#檔案處理>檔案處理</a></li><li><a href=#list-處理>List 處理</a></li><li><a href=#credential-相關>Credential 相關</a></li><li><a href=#windows-服務相關>Windows 服務相關</a></li><li><a href=#iis-相關>IIS 相關</a></li><li><a href=#動態組成指令>動態組成指令</a></li><li><a href=#遠端執行>遠端執行</a></li><li><a href=#無線網路服務>無線網路服務</a></li></ul></li><li><a href=#參考資料>參考資料</a></li></ul></nav></div></div><div class=post-content><h1 id=powershell-基本語法筆記>PowerShell 基本語法筆記</h1><p>最近工作上的需要，用了 PowerShell 語法來處理，幾乎各式各樣的花式需求都可以達成，怪不得百敬老師非常推薦 PowerShell ，功能十分強大呀，只可惜學習資源比較零碎，所以特別紀錄一下最近用到的語法，避免很快忘記又查了老半天XD</p><h2 id=數字處理>數字處理</h2><ol><li><p>比較大小</p><pre><code class=language-ps1>$a -gt $b #($a 是否大於 $b)
+</code></pre></li></ol><h2 id=字串處理>字串處理</h2><ol><li><p>字串分割</p><ul><li><p>1-1.</p><pre><code class=language-ps1>$$serveritem -split ',' 
+</code></pre></li><li><p>1-2.</p><pre><code class=language-ps1>$serveritem.Split(',')
+</code></pre></li></ul></li><li><p>檢查是否為空值 (string.IsNullOrWhiteSpace)</p><pre><code class=language-ps1>[string]::IsNullOrWhiteSpace($serveritem.ExcludeFolder)
+</code></pre></li><li><p>比對字串開頭</p><pre><code class=language-ps1> $stringVariable.StartsWith('startString','CurrentCultureIgnoreCase')
+</code></pre></li><li><p>字串比對</p><pre><code class=language-ps1> $stringVariable -eq &quot;Value&quot;
+</code></pre></li></ol><h2 id=檔案處理>檔案處理</h2><ol><li><p>檔案內容轉成 json</p><pre><code class=language-ps1>Get-Content -Raw -Path $filelocation | ConvertFrom-Json
+</code></pre></li><li><p>檔案壓縮與解壓縮</p><ul><li><p>PowerShell v5</p><ul><li><p>壓縮</p><ul><li><p>語法</p><pre><code class=language-ps1>Compress-Archive -Path $sourceFolder -DestinationPath $archiveFile
+</code></pre></li><li><p>實際範例</p><pre><code class=language-ps1>Compress-Archive -Path D:\Downloads\Demo -DestinationPath D:\Downloads\demo.zip
+</code></pre></li></ul></li><li><p>解壓縮</p><ul><li><p>語法</p><pre><code class=language-ps1>Expand-Archive -Path $archiveFile -DestinationPath $targetFolder
+</code></pre></li><li><p>實際範例</p><pre><code class=language-ps1>Expand-Archive -Path D:\Downloads\demo.zip -DestinationPath D:\Downloads\testPS
+</code></pre></li></ul></li></ul></li><li><p>other</p><ul><li><p>壓縮</p><ul><li><p>語法</p><pre><code class=language-ps1>Add-Type -AssemblyName 'System.IO.Compression.Filesystem'
 [System.IO.Compression.ZipFile]::CreateFromDirectory($folderSource,$fileDestination)
-</code></pre></li>
-
-<li><p>實際例範</p>
-
-<pre><code class="language-ps1">$folderSource='D:\Downloads\Demo'
+</code></pre></li><li><p>實際例範</p><pre><code class=language-ps1>$folderSource='D:\Downloads\Demo'
 $fileDestination='D:\Downloads\demo.zip'
 
 Add-Type -AssemblyName 'System.IO.Compression.Filesystem'
 [System.IO.Compression.ZipFile]::CreateFromDirectory($folderSource,$fileDestination)
-</code></pre></li>
-</ul></li>
-
-<li><p>解壓</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-ps1">Add-Type -AssemblyName 'System.IO.Compression.Filesystem'
+</code></pre></li></ul></li><li><p>解壓</p><ul><li><p>語法</p><pre><code class=language-ps1>Add-Type -AssemblyName 'System.IO.Compression.Filesystem'
 [System.IO.Compression.ZipFile]::ExtractToDirectory($fileSource, $folderDestination)
-</code></pre></li>
-
-<li><p>實際範例</p>
-
-<pre><code class="language-ps1">$fileSource='D:\Downloads\demo.zip'
+</code></pre></li><li><p>實際範例</p><pre><code class=language-ps1>$fileSource='D:\Downloads\demo.zip'
 $folderDestination='D:\Downloads\testPS'
 Add-Type -AssemblyName 'System.IO.Compression.Filesystem'
 [System.IO.Compression.ZipFile]::ExtractToDirectory($fileSource, $folderDestination)
-</code></pre></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ol>
-
-<h2 id="list-處理">List 處理</h2>
-
-<ol>
-<li><p>多個 List 取交集或是聯集</p>
-
-<pre><code class="language-ps1">$a = (1,2,3,4)
+</code></pre></li></ul></li></ul></li></ul></li></ol><h2 id=list-處理>List 處理</h2><ol><li><p>多個 List 取交集或是聯集</p><pre><code class=language-ps1>$a = (1,2,3,4)
 $b = (1,3,4,5)
-</code></pre>
-
-<ul>
-<li><p>1-1. 聯集</p>
-
-<pre><code class="language-ps1">$a + $b | select -uniq    #union
-</code></pre></li>
-
-<li><p>1-2. 交集</p>
-
-<pre><code class="language-ps1">$a | ?{$b -contains $_}   #intersection
-</code></pre></li>
-</ul></li>
-
-<li><p>List 加入 item</p>
-
-<ul>
-<li><p>2-1. 宣告個空的 List</p>
-
-<pre><code class="language-ps1">$a = New-Object System.Collections.ArrayList
-</code></pre></li>
-
-<li><p>2-2. 加入項目</p>
-
-<pre><code class="language-ps1">$a.Add('data')
+</code></pre><ul><li><p>1-1. 聯集</p><pre><code class=language-ps1>$a + $b | select -uniq    #union
+</code></pre></li><li><p>1-2. 交集</p><pre><code class=language-ps1>$a | ?{$b -contains $_}   #intersection
+</code></pre></li></ul></li><li><p>List 加入 item</p><ul><li><p>2-1. 宣告個空的 List</p><pre><code class=language-ps1>$a = New-Object System.Collections.ArrayList
+</code></pre></li><li><p>2-2. 加入項目</p><pre><code class=language-ps1>$a.Add('data')
 $a.Add('test')
-</code></pre></li>
-</ul></li>
-</ol>
-
-<h2 id="credential-相關">Credential 相關</h2>
-
-<ol>
-<li><p>指定 Credential</p>
-
-<pre><code class="language-ps1">#用來儲存密碼(僅需輸入一次，會加密儲存)
+</code></pre></li></ul></li></ol><h2 id=credential-相關>Credential 相關</h2><ol><li><p>指定 Credential</p><pre><code class=language-ps1>#用來儲存密碼(僅需輸入一次，會加密儲存)
 read-host -assecurestring | convertfrom-securestring | out-file C:\securestring.txt 
 #取出密碼(以下兩句效果相同)
 $pass = ConvertTo-SecureString -String (Get-Content C:\securestring.txt)  
 #$pass = cat C:\securestring.txt | convertto-securestring  
 #使用 username 及 密碼  建立 credential
 $Cred = new-object -typename System.Management.Automation.PSCredential -argumentlist &quot;AD\username&quot;,$pass    
-</code></pre></li>
-
-<li><p>取得密碼明碼</p>
-
-<pre><code class="language-ps1">$cred.GetNetworkCredential().Password
-</code></pre></li>
-</ol>
-
-<h2 id="windows-服務相關">Windows 服務相關</h2>
-
-<ol>
-<li><p>取得服務狀態</p>
-
-<pre><code class="language-ps1">Get-Service -Name &quot;serviceName&quot; #Get-Service -Name &quot;aspnet_state&quot;
-</code></pre></li>
-
-<li><p>停用服務</p>
-
-<pre><code class="language-ps1">Stop-Service -Name &quot;aspnet_state&quot;
-</code></pre></li>
-
-<li><p>啟用服務</p>
-
-<pre><code class="language-ps1">Start-Service -Name &quot;aspnet_state&quot;
-</code></pre></li>
-</ol>
-
-<h2 id="iis-相關">IIS 相關</h2>
-
-<ol>
-<li><p>AppPool</p>
-
-<ul>
-<li><p>1-1. 取得特定 AppPool 狀態</p>
-
-<pre><code class="language-ps1">Get-WebAppPoolState -Name &quot;appPoolName&quot; 
-</code></pre></li>
-
-<li><p>1-2. 停用 AppPool</p>
-
-<pre><code class="language-ps1">Stop-WebAppPool -Name &quot;appPoolName&quot;
-</code></pre></li>
-
-<li><p>1-3. 啟用 AppPool</p>
-
-<pre><code class="language-ps1">Start-WebAppPool -Name &quot;appPoolName&quot;
-</code></pre></li>
-</ul></li>
-
-<li><p>Website</p>
-
-<ul>
-<li><p>2-1. 取得特定網站狀態</p>
-
-<pre><code class="language-ps1">Get-WebsiteState -Name &quot;websiteName&quot;
-</code></pre></li>
-
-<li><p>2-2. 停用特定網站</p>
-
-<pre><code class="language-ps1">Stop-Website -Name &quot;websiteName&quot;
-</code></pre></li>
-
-<li><p>2-3. 啟用特定網站</p>
-
-<pre><code class="language-ps1">Start-Website -Name &quot;websiteName&quot;
-</code></pre></li>
-</ul></li>
-</ol>
-
-<h2 id="動態組成指令">動態組成指令</h2>
-
-<pre><code class="language-ps1">$ExecutionContext.InvokeCommand.NewScriptBlock(&quot; /XD $parameter&quot;)
-</code></pre>
-
-<h2 id="遠端執行">遠端執行</h2>
-
-<ul>
-<li><p>Invoke-Command</p>
-
-<ul>
-<li><p>語法</p>
-
-<pre><code class="language-ps1">Invoke-Command –ComputerName Production1 {$env:COMPUTERNAME}
-</code></pre></li>
-
-<li><p>傳遞其他參數語法</p>
-
-<pre><code class="language-ps1">Invoke-Command -ComputerName $Computer -ScriptBlock {param($comp) write-host &quot;This script is running on machine: $Comp&quot; } -ArgumentList $Computer
-</code></pre></li>
-</ul></li>
-
-<li><p>New-PSSession</p>
-
-<pre><code class="language-ps1">New-PSSession –ComputerName Production1
+</code></pre></li><li><p>取得密碼明碼</p><pre><code class=language-ps1>$cred.GetNetworkCredential().Password
+</code></pre></li></ol><h2 id=windows-服務相關>Windows 服務相關</h2><ol><li><p>取得服務狀態</p><pre><code class=language-ps1>Get-Service -Name &quot;serviceName&quot; #Get-Service -Name &quot;aspnet_state&quot;
+</code></pre></li><li><p>停用服務</p><pre><code class=language-ps1>Stop-Service -Name &quot;aspnet_state&quot;
+</code></pre></li><li><p>啟用服務</p><pre><code class=language-ps1>Start-Service -Name &quot;aspnet_state&quot;
+</code></pre></li></ol><h2 id=iis-相關>IIS 相關</h2><ol><li><p>AppPool</p><ul><li><p>1-1. 取得特定 AppPool 狀態</p><pre><code class=language-ps1>Get-WebAppPoolState -Name &quot;appPoolName&quot; 
+</code></pre></li><li><p>1-2. 停用 AppPool</p><pre><code class=language-ps1>Stop-WebAppPool -Name &quot;appPoolName&quot;
+</code></pre></li><li><p>1-3. 啟用 AppPool</p><pre><code class=language-ps1>Start-WebAppPool -Name &quot;appPoolName&quot;
+</code></pre></li></ul></li><li><p>Website</p><ul><li><p>2-1. 取得特定網站狀態</p><pre><code class=language-ps1>Get-WebsiteState -Name &quot;websiteName&quot;
+</code></pre></li><li><p>2-2. 停用特定網站</p><pre><code class=language-ps1>Stop-Website -Name &quot;websiteName&quot;
+</code></pre></li><li><p>2-3. 啟用特定網站</p><pre><code class=language-ps1>Start-Website -Name &quot;websiteName&quot;
+</code></pre></li></ul></li></ol><h2 id=動態組成指令>動態組成指令</h2><pre><code class=language-ps1>$ExecutionContext.InvokeCommand.NewScriptBlock(&quot; /XD $parameter&quot;)
+</code></pre><h2 id=遠端執行>遠端執行</h2><ul><li><p>Invoke-Command</p><ul><li><p>語法</p><pre><code class=language-ps1>Invoke-Command –ComputerName Production1 {$env:COMPUTERNAME}
+</code></pre></li><li><p>傳遞其他參數語法</p><pre><code class=language-ps1>Invoke-Command -ComputerName $Computer -ScriptBlock {param($comp) write-host &quot;This script is running on machine: $Comp&quot; } -ArgumentList $Computer
+</code></pre></li></ul></li><li><p>New-PSSession</p><pre><code class=language-ps1>New-PSSession –ComputerName Production1
 Enter-PSSession {sessionID}
-</code></pre></li>
-</ul>
-
-<h2 id="無線網路服務">無線網路服務</h2>
-
-<ol>
-<li><p>確認無線網路服務的狀態</p>
-
-<pre><code class="language-ps1">Get-WindowsFeature *Wireless*
-</code></pre></li>
-
-<li><p>安裝無線網路服務</p>
-
-<pre><code class="language-ps1">Install-WindowsFeature -Name Wireless-Networking
-</code></pre></li>
-
-<li><p>啟動服務</p>
-
-<pre><code class="language-ps1">net start WlanSvc
-</code></pre></li>
-</ol>
-
-<h1 id="參考資料">參考資料</h1>
-
-<ol>
-<li><a href="https://social.technet.microsoft.com/Forums/windowsserver/en-US/4760846a-3b31-401f-a49e-92e87beeb367/passing-array-of-strings-into-function?forum=winserverPowerShell" target="_blank">passing array of strings into function</a></li>
-<li><a href="http://ss64.com/ps/syntax-arrays.html" target="_blank">Arrays</a></li>
-<li><a href="http://www.informit.com/articles/article.aspx?p=2481897" target="_blank">Windows PowerShell: When to Choose Workflow Versus Script Functions</a></li>
-<li><a href="https://msdn.microsoft.com/en-us/library/jj148984%28v=vs.85%29.aspx" target="_blank">Creating a Workflow by Using a Windows PowerShell Script</a></li>
-<li><a href="https://msdn.microsoft.com/en-us/PowerShell/reference/5.1/microsoft.PowerShell.core/invoke-command" target="_blank">Invoke-Command</a></li>
-<li><a href="http://PowerShell-guru.com/faq-PowerShell-in-chinese-traditional/" target="_blank">POWERSHELL 常見問題 (繁體中文)</a></li>
-<li><a href="https://read01.com/DQ3M4.html" target="_blank">如何在遠程伺服器上運行PowerShell命令？</a></li>
-<li><a href="http://www.morgantechspace.com/2015/04/PowerShell-testing-if-string-is-null-or-empty.html" target="_blank">PowerShell - Testing if a String is NULL or EMPTY</a></li>
-<li><a href="https://msdn.microsoft.com/zh-tw/PowerShell/scripting/core-PowerShell/running-remote-commands" target="_blank">執行遠端命令</a></li>
-<li><a href="https://technet.microsoft.com/en-us/library/ee176858.aspx" target="_blank">Using the Get-Service Cmdlet</a></li>
-<li><a href="https://social.technet.microsoft.com/Forums/windows/en-US/17960e2b-bd47-44fd-b25e-c5092940bf40/how-to-pass-a-param-to-script-block-when-using-invokecommand?forum=winserverPowerShell" target="_blank">How to pass a param to script block when using invoke-command</a></li>
-<li><a href="https://msdn.microsoft.com/zh-tw/PowerShell/scripting/getting-started/basic-cookbooks" target="_blank">基本操作手冊參考</a></li>
-<li><a href="https://msdn.microsoft.com/en-us/PowerShell/reference/5.0/readme" target="_blank">Windows PowerShell 5.0</a></li>
-</ol>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">Yowko Tsai</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2018-09-09</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">授權合約</span>
-    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
-  </p>
-</div>
-
-	
-	
-	
-    
-    
-	
-    <footer class="post-footer">
-      <div class="post-tags">
-		  標籤：
-		  
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/powershell/">PowerShell</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-		  <div>
-          <a class="prev" href="https://blog.yowko.com/aspnet-mvc-http-error-404-15-not-found/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">ASP.NET MVC 出現 HTTP Error 404.15 - Not Found</span>			
-          </a>
-		  </div>
-		  <div>
-        
-          <a class="prev" href="https://blog.yowko.com/fb-messenger-connot-receive-message/" style="float: none;">
-            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
-            <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">FB Messenger 回應 &#39;此用戶目前無法收到你的訊息&#39;</span>			
-          </a>
-		  </div>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/powershell-basic-script\/';  
-      
-    };
-
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'yowkonotes';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-  
-
-      </div>
-    </main>
-	
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
-  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主題 - 
-    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2016 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Yowko Tsai</span>
-  </span>
-</div>
-    </footer>
-	
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div> 
-  
-  
-<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
-
-
-<script data-no-instant>InstantClick.init();</script>
-
-
-<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-88810280-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-  
-
-</body>
-</html>
+</code></pre></li></ul><h2 id=無線網路服務>無線網路服務</h2><ol><li><p>確認無線網路服務的狀態</p><pre><code class=language-ps1>Get-WindowsFeature *Wireless*
+</code></pre></li><li><p>安裝無線網路服務</p><pre><code class=language-ps1>Install-WindowsFeature -Name Wireless-Networking
+</code></pre></li><li><p>啟動服務</p><pre><code class=language-ps1>net start WlanSvc
+</code></pre></li></ol><h1 id=參考資料>參考資料</h1><ol><li><a href="https://social.technet.microsoft.com/Forums/windowsserver/en-US/4760846a-3b31-401f-a49e-92e87beeb367/passing-array-of-strings-into-function?forum=winserverPowerShell" target=_blank>passing array of strings into function</a></li><li><a href=http://ss64.com/ps/syntax-arrays.html target=_blank>Arrays</a></li><li><a href="http://www.informit.com/articles/article.aspx?p=2481897" target=_blank>Windows PowerShell: When to Choose Workflow Versus Script Functions</a></li><li><a href="https://msdn.microsoft.com/en-us/library/jj148984%28v=vs.85%29.aspx" target=_blank>Creating a Workflow by Using a Windows PowerShell Script</a></li><li><a href=https://msdn.microsoft.com/en-us/PowerShell/reference/5.1/microsoft.PowerShell.core/invoke-command target=_blank>Invoke-Command</a></li><li><a href=http://PowerShell-guru.com/faq-PowerShell-in-chinese-traditional/ target=_blank>POWERSHELL 常見問題 (繁體中文)</a></li><li><a href=https://read01.com/DQ3M4.html target=_blank>如何在遠程伺服器上運行PowerShell命令？</a></li><li><a href=http://www.morgantechspace.com/2015/04/PowerShell-testing-if-string-is-null-or-empty.html target=_blank>PowerShell - Testing if a String is NULL or EMPTY</a></li><li><a href=https://msdn.microsoft.com/zh-tw/PowerShell/scripting/core-PowerShell/running-remote-commands target=_blank>執行遠端命令</a></li><li><a href=https://technet.microsoft.com/en-us/library/ee176858.aspx target=_blank>Using the Get-Service Cmdlet</a></li><li><a href="https://social.technet.microsoft.com/Forums/windows/en-US/17960e2b-bd47-44fd-b25e-c5092940bf40/how-to-pass-a-param-to-script-block-when-using-invokecommand?forum=winserverPowerShell" target=_blank>How to pass a param to script block when using invoke-command</a></li><li><a href=https://msdn.microsoft.com/zh-tw/PowerShell/scripting/getting-started/basic-cookbooks target=_blank>基本操作手冊參考</a></li><li><a href=https://msdn.microsoft.com/en-us/PowerShell/reference/5.0/readme target=_blank>Windows PowerShell 5.0</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2018-09-09</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/powershell/>PowerShell</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/aspnet-mvc-http-error-404-15-not-found/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">ASP.NET MVC 出現 HTTP Error 404.15 - Not Found</span></a></div><div><a class=prev href=https://blog.yowko.com/fb-messenger-connot-receive-message/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">FB Messenger 回應 &#39;此用戶目前無法收到你的訊息&#39;</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/powershell-basic-script\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

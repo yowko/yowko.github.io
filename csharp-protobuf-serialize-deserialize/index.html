@@ -1,217 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>C# 中使用 Protocol Buffers 協定來序列化與反序列化物件 - Yowko&#39;s Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件 專案上剛好需要將 object 進行序列化，過去常用的方式都是序列為 json，後來同事覺得既然都使用 protobuf 了，為什麼不直" />
-
-  <meta name="keywords" content="yowko, .net, blog" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.51" />
-
-<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
-
-
-<link rel="canonical" href="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
-<link rel="manifest" href="https://blog.yowko.com/manifest.json">
-<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
-
-
-<meta property="og:title" content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件" />
-<meta property="og:description" content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件 專案上剛好需要將 object 進行序列化，過去常用的方式都是序列為 json，後來同事覺得既然都使用 protobuf 了，為什麼不直" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/csharp-protobuf-serialize-deserialize/" /><meta property="article:published_time" content="2019-07-06T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2019-07-06T21:30:31&#43;08:00"/>
-
-<meta itemprop="name" content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件">
-<meta itemprop="description" content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件 專案上剛好需要將 object 進行序列化，過去常用的方式都是序列為 json，後來同事覺得既然都使用 protobuf 了，為什麼不直">
-
-
-<meta itemprop="datePublished" content="2019-07-06T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-07-06T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="964">
-
-
-
-<meta itemprop="keywords" content="csharp,protobuf," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件"/>
-<meta name="twitter:description" content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件 專案上剛好需要將 object 進行序列化，過去常用的方式都是序列為 json，後來同事覺得既然都使用 protobuf 了，為什麼不直"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
-
-</head>
-<body>
-     
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="https://blog.yowko.com/">
-        <li class="mobile-menu-item">首頁</li>
-      </a><a href="https://blog.yowko.com/post/">
-        <li class="mobile-menu-item">歷史筆記</li>
-      </a><a href="https://blog.yowko.com/tags/">
-        <li class="mobile-menu-item">內容標籤</li>
-      </a><a href="https://blog.yowko.com/search">
-        <li class="mobile-menu-item">站內搜尋</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
-        <div class="logo-wrapper">
-  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-</div>
-<div style="padding-bottom: 60px;"> </div>
-</nav>
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
-    </li>
-  </ul>
-</nav>
-    </header>	
-    <main id="main" class="main">		
-      <div class="content-wrapper">		
-		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
-        <div id="content" class="content">		
-          <article class="post">
-    
-    <header class="post-header">
-      
-
-      <div class="post-meta">
-        <span class="post-time"> 2019-07-06 </span>
-        
-        <span class="more-meta"> 約 964 字 </span>
-          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目錄</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#c-中使用-protocol-buffers-協定來序列化與反序列化物件">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></li>
-<li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝-nuget-套件-google-protobuf">安裝 NuGet 套件：<code>Google.Protobuf</code></a></li>
-<li><a href="#序列化-serialize">序列化 (Serialize)</a></li>
-<li><a href="#反序列化-deserialize">反序列化 (Deserialize)</a></li>
-<li><a href="#心得">心得</a></li>
-<li><a href="#參考資訊">參考資訊</a></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h2 id="c-中使用-protocol-buffers-協定來序列化與反序列化物件">C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</h2>
-
-<p>專案上剛好需要將 object 進行序列化，過去常用的方式都是序列為 <code>json</code>，後來同事覺得既然都使用 protobuf 了，為什麼不直接使用 protobuf 進行序列化就好？！ 我這才晃然大悟，想起 protobuf 本來就是用來做序列化與反序列化的嘛XD  因為沒有實際使用經驗，於是我來筆記一下，為我的愚蠢做個紀錄</p>
-
-<h2 id="基本環境說明">基本環境說明</h2>
-
-<ol>
-<li>macOS Mojave 10.14.5</li>
-<li>.NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)</li>
-
-<li><p>NuGet Package</p>
-
-<ul>
-<li>Google.Protobuf 3.8.0</li>
-
-<li><p>Bogus 28.0.1</p>
-
-<blockquote>
-<p>產生假資料用 (非必要)</p>
-</blockquote></li>
-
-<li><p>Grpc 1.22.0</p></li>
-
-<li><p>Grpc.Tools 1.22.0</p></li>
-</ul></li>
-
-<li><p>proto</p>
-
-<pre><code class="language-ptoto">syntax = &quot;proto3&quot;;
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>C# 中使用 Protocol Buffers 協定來序列化與反序列化物件 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件 專案上剛好需要將 object 進行序列化，過去常用的方式都是序列為 json，後來同事覺得既然都使用 protobuf 了，為什麼不直"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/csharp-protobuf-serialize-deserialize/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件"><meta property=og:description content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件 專案上剛好需要將 object 進行序列化，過去常用的方式都是序列為 json，後來同事覺得既然都使用 protobuf 了，為什麼不直"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/csharp-protobuf-serialize-deserialize/><meta property=article:published_time content=2019-07-06T21:30:00&#43;08:00><meta property=article:modified_time content=2019-07-06T21:30:31&#43;08:00><meta itemprop=name content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件"><meta itemprop=description content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件 專案上剛好需要將 object 進行序列化，過去常用的方式都是序列為 json，後來同事覺得既然都使用 protobuf 了，為什麼不直"><meta itemprop=datePublished content=2019-07-06T21:30:00&#43;08:00><meta itemprop=dateModified content=2019-07-06T21:30:31&#43;08:00><meta itemprop=wordCount content=964><meta itemprop=keywords content=csharp,protobuf,><meta name=twitter:card content=summary><meta name=twitter:title content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件"><meta name=twitter:description content="C# 中使用 Protocol Buffers 協定來序列化與反序列化物件 專案上剛好需要將 object 進行序列化，過去常用的方式都是序列為 json，後來同事覺得既然都使用 protobuf 了，為什麼不直"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2019-07-06</span>
+<span class=more-meta>約 964 字</span>
+<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#c-中使用-protocol-buffers-協定來序列化與反序列化物件>C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#安裝-nuget-套件-google-protobuf>安裝 NuGet 套件：<code>Google.Protobuf</code></a></li><li><a href=#序列化-serialize>序列化 (Serialize)</a></li><li><a href=#反序列化-deserialize>反序列化 (Deserialize)</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=c-中使用-protocol-buffers-協定來序列化與反序列化物件>C# 中使用 Protocol Buffers 協定來序列化與反序列化物件</h2><p>專案上剛好需要將 object 進行序列化，過去常用的方式都是序列為 <code>json</code>，後來同事覺得既然都使用 protobuf 了，為什麼不直接使用 protobuf 進行序列化就好？！ 我這才晃然大悟，想起 protobuf 本來就是用來做序列化與反序列化的嘛XD 因為沒有實際使用經驗，於是我來筆記一下，為我的愚蠢做個紀錄</p><h2 id=基本環境說明>基本環境說明</h2><ol><li>macOS Mojave 10.14.5</li><li>.NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)</li><li><p>NuGet Package</p><ul><li>Google.Protobuf 3.8.0</li><li><p>Bogus 28.0.1</p><blockquote><p>產生假資料用 (非必要)</p></blockquote></li><li><p>Grpc 1.22.0</p></li><li><p>Grpc.Tools 1.22.0</p></li></ul></li><li><p>proto</p><pre><code class=language-ptoto>syntax = &quot;proto3&quot;;
 
 package Messages; //will be placed in a namespace matching the package name if csharp_namespace is not specified
 option csharp_namespace = &quot;Messages&quot;;
@@ -246,11 +35,7 @@ message School{
     google.protobuf.Timestamp DateFrom=3;
     google.protobuf.Timestamp DateTo=4;
 }
-</code></pre></li>
-
-<li><p>使用 Bogus 產生假資料</p>
-
-<pre><code class="language-cs">static Person GeneratePerson()
+</code></pre></li><li><p>使用 Bogus 產生假資料</p><pre><code class=language-cs>static Person GeneratePerson()
 {
     var certificates = new Faker&lt;Certificate&gt;()
         .RuleFor(a =&gt; a.Name, (f, u) =&gt; f.Random.Word())
@@ -281,33 +66,9 @@ message School{
     person.Schools.AddRange(schools);
     return person;
 }
-</code></pre></li>
-</ol>
-
-<h2 id="安裝-nuget-套件-google-protobuf">安裝 NuGet 套件：<code>Google.Protobuf</code></h2>
-
-<ul>
-<li><p>Package Manager</p>
-
-<pre><code class="language-txt">Install-Package Google.Protobuf
-</code></pre></li>
-
-<li><p>.NET CLI</p>
-
-<pre><code class="language-bash">dotnet add package Google.Protobuf
-</code></pre></li>
-</ul>
-
-<h2 id="序列化-serialize">序列化 (Serialize)</h2>
-
-<blockquote>
-<p>需加入 <code>using Google.Protobuf;</code></p>
-</blockquote>
-
-<ol>
-<li><p>byte[]</p>
-
-<pre><code class="language-cs">private static byte[] GetByteArray(Person person)
+</code></pre></li></ol><h2 id=安裝-nuget-套件-google-protobuf>安裝 NuGet 套件：<code>Google.Protobuf</code></h2><ul><li><p>Package Manager</p><pre><code class=language-txt>Install-Package Google.Protobuf
+</code></pre></li><li><p>.NET CLI</p><pre><code class=language-bash>dotnet add package Google.Protobuf
+</code></pre></li></ul><h2 id=序列化-serialize>序列化 (Serialize)</h2><blockquote><p>需加入 <code>using Google.Protobuf;</code></p></blockquote><ol><li><p>byte[]</p><pre><code class=language-cs>private static byte[] GetByteArray(Person person)
 {
     using (var ms = new MemoryStream())
     {
@@ -315,11 +76,7 @@ message School{
         return ms.ToArray();
     }
 }
-</code></pre></li>
-
-<li><p>ByteString</p>
-
-<pre><code class="language-cs">private static ByteString GetByteString(Person person)
+</code></pre></li><li><p>ByteString</p><pre><code class=language-cs>private static ByteString GetByteString(Person person)
 {
     using (var ms = new MemoryStream())
     {
@@ -327,244 +84,38 @@ message School{
         return ByteString.CopyFrom(ms.ToArray());
     }
 }
-</code></pre></li>
-
-<li><p>Stream</p>
-
-<blockquote>
-<p>序列化動作正常，<del>但無法正確反序列化回原物件</del>  經強大同事提點已可正常運作</p>
-</blockquote>
-
-<pre><code class="language-cs">private static MemoryStream GetStream(Person person)
+</code></pre></li><li><p>Stream</p><blockquote><p>序列化動作正常，<del>但無法正確反序列化回原物件</del> 經強大同事提點已可正常運作</p></blockquote><pre><code class=language-cs>private static MemoryStream GetStream(Person person)
 {
     var ms = new MemoryStream();
     person.WriteTo(ms);
     return ms;
 }
-</code></pre></li>
-</ol>
-
-<h2 id="反序列化-deserialize">反序列化 (Deserialize)</h2>
-
-<ol>
-<li><p>byte[]</p>
-
-<pre><code class="language-cs">private static Person GetPersonFromByteArray(byte[] bytes)
+</code></pre></li></ol><h2 id=反序列化-deserialize>反序列化 (Deserialize)</h2><ol><li><p>byte[]</p><pre><code class=language-cs>private static Person GetPersonFromByteArray(byte[] bytes)
 {
     return Person.Parser.ParseFrom(bytes);
 }
-</code></pre></li>
-
-<li><p>ByteString</p>
-
-<pre><code class="language-cs">private static Person GetPersonFromByteString(ByteString byteString)
+</code></pre></li><li><p>ByteString</p><pre><code class=language-cs>private static Person GetPersonFromByteString(ByteString byteString)
 {
     return Person.Parser.ParseFrom(byteString);
 }
-</code></pre></li>
-
-<li><p>Stream</p>
-
-<blockquote>
-<p><del>無法正確反序列化回原物件</del>  經強大同事提點已可正常運作</p>
-</blockquote>
-
-<pre><code class="language-cs">private static Person GetPersonFromStream(Stream ms)
+</code></pre></li><li><p>Stream</p><blockquote><p><del>無法正確反序列化回原物件</del> 經強大同事提點已可正常運作</p></blockquote><pre><code class=language-cs>private static Person GetPersonFromStream(Stream ms)
 {
     ms.Seek(0, SeekOrigin.Begin);
     return Person.Parser.ParseFrom(ms);
 }
-</code></pre></li>
-</ol>
-
-<h2 id="心得">心得</h2>
-
-<p>網路上多數透過 Protocol Buffer 進行序列化與反序列化的文章都是使用 <code>protobuf-net</code> NuGet 套件，一開始我也嘗試了一下：的確 <code>protobuf-net</code> 可以達成目的，不過需要在打算進行序列化的目標 class 上加入 <code>[ProtoContract]</code> 與 <code>[ProtoMember]</code> 才能進行序列化 (這動作與使用內建 <code>System.Runtime.Serialization</code> 加入 <code>[Serializable]</code> 相同)，雖然可以理解，不過使用上並不太便利</p>
-
-<ol>
-<li><p>protobuf 的 message 生成的 .cs 不該自行修改，就算強行修改，下次重新 build，修改也會不見</p>
-
-<blockquote>
-<p>未設定的錯誤</p>
-</blockquote>
-
-<pre><code class="language-txt">Unhandled Exception: System.InvalidOperationException: Type is not expected, and no contract can be inferred
-</code></pre></li>
-
-<li><p>class 常常有不同繼承關係，如果每層 class 都要手動加上 attibute，有些不切實際</p></li>
-</ol>
-
-<p>所以我改用 <code>Google.Protobuf</code> 後就不需要再手動加入 <code>[ProtoContract]</code> 與 <code>[ProtoMember]</code> 也不用擔心漏加或是重新 build 後忘了加回去</p>
-
-<p>另外官方提到 Serialize 與 Deserialize 可以透過 <code>stream</code>、<code>byte[]</code> 與 <code>ByteString</code>，不過 <code>stream</code> 我一直無法成功：我傳入 MemoryStream 進行 Deserialize 時，只能得到預設物件、一直無法取得正確資料，但這個問題我在 <code>protobuf-net</code> 上也有遇到，不知道是什麼原因不能這麼直接用，改天待發現根本原因，或是有大大願意提點時我再來註記</p>
-
-<p><code>2019/07/08 update  經同事說明 序列化到 stream 後要把 stream cursor 往回調才能解，確認可行，感謝強大同事指導</code></p>
-
-<h2 id="參考資訊">參考資訊</h2>
-
-<ol>
-<li><a href="https://stackoverflow.com/a/4865134/3600583" target="_blank">Convert any object to a byte array</a></li>
-<li><a href="https://developers.google.com/protocol-buffers/docs/csharptutorial" target="_blank">Protocol Buffer Basics: C#</a></li>
-</ol>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">Yowko Tsai</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2019-07-06</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">授權合約</span>
-    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
-  </p>
-</div>
-
-	
-	
-	
-    
-    
-	
-    <footer class="post-footer">
-      <div class="post-tags">
-		  標籤：
-		  
-          
-		    
-		    
-		      
-		    	
-            <a href="https://blog.yowko.com/tags/csharp/">C#</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/protobuf/">protobuf</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-		  <div>
-          <a class="prev" href="https://blog.yowko.com/grpc-stream-big-object/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">gRPC stream 如何傳送單一大物件</span>			
-          </a>
-		  </div>
-		  <div>
-        
-          <a class="prev" href="https://blog.yowko.com/aspdotnetcore-webapi-406-not-acceptable/" style="float: none;">
-            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
-            <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">ASP.NET Core WebAPI 回應 406 Not Acceptable</span>			
-          </a>
-		  </div>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/csharp-protobuf-serialize-deserialize\/';  
-      
-    };
-
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'yowkonotes';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-  
-
-      </div>
-    </main>
-	
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
-  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主題 - 
-    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2016 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Yowko Tsai</span>
-  </span>
-</div>
-    </footer>
-	
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div> 
-  
-  
-<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
-
-
-<script data-no-instant>InstantClick.init();</script>
-
-
-<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-88810280-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-  
-
-</body>
-</html>
+</code></pre></li></ol><h2 id=心得>心得</h2><p>網路上多數透過 Protocol Buffer 進行序列化與反序列化的文章都是使用 <code>protobuf-net</code> NuGet 套件，一開始我也嘗試了一下：的確 <code>protobuf-net</code> 可以達成目的，不過需要在打算進行序列化的目標 class 上加入 <code>[ProtoContract]</code> 與 <code>[ProtoMember]</code> 才能進行序列化 (這動作與使用內建 <code>System.Runtime.Serialization</code> 加入 <code>[Serializable]</code> 相同)，雖然可以理解，不過使用上並不太便利</p><ol><li><p>protobuf 的 message 生成的 .cs 不該自行修改，就算強行修改，下次重新 build，修改也會不見</p><blockquote><p>未設定的錯誤</p></blockquote><pre><code class=language-txt>Unhandled Exception: System.InvalidOperationException: Type is not expected, and no contract can be inferred
+</code></pre></li><li><p>class 常常有不同繼承關係，如果每層 class 都要手動加上 attibute，有些不切實際</p></li></ol><p>所以我改用 <code>Google.Protobuf</code> 後就不需要再手動加入 <code>[ProtoContract]</code> 與 <code>[ProtoMember]</code> 也不用擔心漏加或是重新 build 後忘了加回去</p><p>另外官方提到 Serialize 與 Deserialize 可以透過 <code>stream</code>、<code>byte[]</code> 與 <code>ByteString</code>，不過 <code>stream</code> 我一直無法成功：我傳入 MemoryStream 進行 Deserialize 時，只能得到預設物件、一直無法取得正確資料，但這個問題我在 <code>protobuf-net</code> 上也有遇到，不知道是什麼原因不能這麼直接用，改天待發現根本原因，或是有大大願意提點時我再來註記</p><p><code>2019/07/08 update 經同事說明 序列化到 stream 後要把 stream cursor 往回調才能解，確認可行，感謝強大同事指導</code></p><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://stackoverflow.com/a/4865134/3600583 target=_blank>Convert any object to a byte array</a></li><li><a href=https://developers.google.com/protocol-buffers/docs/csharptutorial target=_blank>Protocol Buffer Basics: C#</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2019-07-06</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/csharp/>C#</a>
+<a href=https://blog.yowko.com/tags/protobuf/>protobuf</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/grpc-stream-big-object/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">gRPC stream 如何傳送單一大物件</span></a></div><div><a class=prev href=https://blog.yowko.com/aspdotnetcore-webapi-406-not-acceptable/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">ASP.NET Core WebAPI 回應 406 Not Acceptable</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/csharp-protobuf-serialize-deserialize\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

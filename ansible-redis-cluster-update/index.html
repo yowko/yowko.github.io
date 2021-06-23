@@ -1,283 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Ansible 安裝 Redis Cluster (更新版) - Yowko&#39;s Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Cluster 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整" />
-
-  <meta name="keywords" content="yowko, .net, blog" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.51" />
-
-<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
-
-
-<link rel="canonical" href="https://blog.yowko.com/ansible-redis-cluster-update/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
-<link rel="manifest" href="https://blog.yowko.com/manifest.json">
-<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
-
-
-<meta property="og:title" content="Ansible 安裝 Redis Cluster (更新版)" />
-<meta property="og:description" content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Cluster 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/ansible-redis-cluster-update/" /><meta property="article:published_time" content="2020-08-16T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
-
-<meta itemprop="name" content="Ansible 安裝 Redis Cluster (更新版)">
-<meta itemprop="description" content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Cluster 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整">
-
-
-<meta itemprop="datePublished" content="2020-08-16T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="965">
-
-
-
-<meta itemprop="keywords" content="Ansible,Redis," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Ansible 安裝 Redis Cluster (更新版)"/>
-<meta name="twitter:description" content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Cluster 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
-
-</head>
-<body>
-     
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="https://blog.yowko.com/">
-        <li class="mobile-menu-item">首頁</li>
-      </a><a href="https://blog.yowko.com/post/">
-        <li class="mobile-menu-item">歷史筆記</li>
-      </a><a href="https://blog.yowko.com/tags/">
-        <li class="mobile-menu-item">內容標籤</li>
-      </a><a href="https://blog.yowko.com/search">
-        <li class="mobile-menu-item">站內搜尋</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
-        <div class="logo-wrapper">
-  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-</div>
-<div style="padding-bottom: 60px;"> </div>
-</nav>
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
-    </li>
-  </ul>
-</nav>
-    </header>	
-    <main id="main" class="main">		
-      <div class="content-wrapper">		
-		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
-        <div id="content" class="content">		
-          <article class="post">
-    
-    <header class="post-header">
-      
-
-      <div class="post-meta">
-        <span class="post-time"> 2020-08-16 </span>
-        
-        <span class="more-meta"> 約 965 字 </span>
-          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目錄</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#ansible-安裝-redis-cluster">Ansible 安裝 Redis Cluster</a></li>
-<li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#安裝語法">安裝語法</a></li>
-<li><a href="#心得">心得</a></li>
-<li><a href="#參考資訊">參考資訊</a></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h2 id="ansible-安裝-redis-cluster">Ansible 安裝 Redis Cluster</h2>
-
-<p>之前筆記 <a href="https://blog.yowko.com/ansible-redis-cluster">Ansible 安裝 Redis Cluster</a> 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整與優化，紀錄一下</p>
-
-<h2 id="基本環境說明">基本環境說明</h2>
-
-<ol>
-<li>Azure VM B2s (2 vcpu,4GiB memory)</li>
-<li>OpenLogic CentOS 7.7</li>
-<li>Redis 6.0.6</li>
-<li>ansible 2.9.11</li>
-</ol>
-
-<h2 id="安裝語法">安裝語法</h2>
-
-<ol>
-<li><p>專案結構</p>
-
-<ul>
-<li>roles
-
-<ul>
-<li>redis-cluster
-
-<ul>
-<li>defaults
-
-<ul>
-<li>main.yml</li>
-</ul></li>
-<li>handlers
-
-<ul>
-<li>main.yml</li>
-</ul></li>
-<li>tasks
-
-<ul>
-<li>checkdir.yml</li>
-<li>createcluster.yml</li>
-<li>installredis.yml</li>
-<li>installtools.yml</li>
-<li>main.yml</li>
-<li>prepareservice.yml</li>
-<li>prepareredisconfig.yml</li>
-<li>uninstall.yml</li>
-<li>upgrade.yml</li>
-</ul></li>
-<li>templates
-
-<ul>
-<li>config.j2</li>
-<li>service.j2</li>
-</ul></li>
-<li>vars
-
-<ul>
-<li>main.yml</li>
-</ul></li>
-<li>inventories
-
-<ul>
-<li>dev.ini</li>
-</ul></li>
-<li>README.md</li>
-</ul></li>
-</ul></li>
-<li>ansible.cfg</li>
-<li>main.yml</li>
-</ul></li>
-
-<li><p>完整內容</p>
-
-<ul>
-<li><p>roles</p>
-
-<ul>
-<li><p>redis-cluster</p>
-
-<ul>
-<li><p>defaults</p>
-
-<ul>
-<li>main.yml</li>
-</ul>
-
-<pre><code class="language-yml">  ---
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Ansible 安裝 Redis Cluster (更新版) - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Cluster 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/ansible-redis-cluster-update/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="Ansible 安裝 Redis Cluster (更新版)"><meta property=og:description content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Cluster 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/ansible-redis-cluster-update/><meta property=article:published_time content=2020-08-16T21:30:00&#43;08:00><meta property=article:modified_time content=2020-12-11T21:30:31&#43;08:00><meta itemprop=name content="Ansible 安裝 Redis Cluster (更新版)"><meta itemprop=description content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Cluster 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整"><meta itemprop=datePublished content=2020-08-16T21:30:00&#43;08:00><meta itemprop=dateModified content=2020-12-11T21:30:31&#43;08:00><meta itemprop=wordCount content=965><meta itemprop=keywords content=Ansible,Redis,><meta name=twitter:card content=summary><meta name=twitter:title content="Ansible 安裝 Redis Cluster (更新版)"><meta name=twitter:description content="Ansible 安裝 Redis Cluster 之前筆記 Ansible 安裝 Redis Cluster 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2020-08-16</span>
+<span class=more-meta>約 965 字</span>
+<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#ansible-安裝-redis-cluster>Ansible 安裝 Redis Cluster</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#安裝語法>安裝語法</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=ansible-安裝-redis-cluster>Ansible 安裝 Redis Cluster</h2><p>之前筆記 <a href=https://blog.yowko.com/ansible-redis-cluster>Ansible 安裝 Redis Cluster</a> 紀錄了以 ansible 內建 function 為主的 redis cluster 安裝 script，最近因為需要將 redis5 更新至 redis6，重新 review 了 script，做了些調整與優化，紀錄一下</p><h2 id=基本環境說明>基本環境說明</h2><ol><li>Azure VM B2s (2 vcpu,4GiB memory)</li><li>OpenLogic CentOS 7.7</li><li>Redis 6.0.6</li><li>ansible 2.9.11</li></ol><h2 id=安裝語法>安裝語法</h2><ol><li><p>專案結構</p><ul><li>roles<ul><li>redis-cluster<ul><li>defaults<ul><li>main.yml</li></ul></li><li>handlers<ul><li>main.yml</li></ul></li><li>tasks<ul><li>checkdir.yml</li><li>createcluster.yml</li><li>installredis.yml</li><li>installtools.yml</li><li>main.yml</li><li>prepareservice.yml</li><li>prepareredisconfig.yml</li><li>uninstall.yml</li><li>upgrade.yml</li></ul></li><li>templates<ul><li>config.j2</li><li>service.j2</li></ul></li><li>vars<ul><li>main.yml</li></ul></li><li>inventories<ul><li>dev.ini</li></ul></li><li>README.md</li></ul></li></ul></li><li>ansible.cfg</li><li>main.yml</li></ul></li><li><p>完整內容</p><ul><li><p>roles</p><ul><li><p>redis-cluster</p><ul><li><p>defaults</p><ul><li>main.yml</li></ul><pre><code class=language-yml>  ---
   purpose: update
-</code></pre></li>
-
-<li><p>handlers</p>
-
-<ul>
-<li>main.yml</li>
-</ul>
-
-<pre><code class="language-yml">  ---
+</code></pre></li><li><p>handlers</p><ul><li>main.yml</li></ul><pre><code class=language-yml>  ---
   - name: &quot;Restart Redis Service&quot;
     listen: restart-service
     systemd:
@@ -286,15 +11,7 @@
       enabled: yes
       state: restarted
     with_items: &quot;{{redis_ports}}&quot;
-</code></pre></li>
-
-<li><p>tasks</p>
-
-<ul>
-<li>checkdir.yml</li>
-</ul>
-
-<pre><code class="language-yml">  ---
+</code></pre></li><li><p>tasks</p><ul><li>checkdir.yml</li></ul><pre><code class=language-yml>  ---
   - name: Ensures dir exists
     file: 
       path: &quot;{{ folder }}&quot;
@@ -303,13 +20,7 @@
       owner: redis
       group: redis
       recurse: yes
-</code></pre>
-
-<ul>
-<li>createcluster.yml</li>
-</ul>
-
-<pre><code class="language-yaml">  ---
+</code></pre><ul><li>createcluster.yml</li></ul><pre><code class=language-yaml>  ---
   - name: Create Cluster debug
     debug:
       msg: redis-cli -a {{redispass}} --cluster-replicas 1 --cluster create {% for redis_node in groups['redis_all'] %} {% for redis_port in hostvars[redis_node].redis_ports %} {{ hostvars[redis_node].ip }}:{{ redis_port }} {% endfor %}{% endfor %}
@@ -317,24 +28,12 @@
   - name: Create Cluster
     shell: |
       echo &quot;yes&quot; |redis-cli -a {{redispass}} --cluster-replicas 1 --cluster create {% for redis_node in groups['redis_all'] %} {% for redis_port in hostvars[redis_node].redis_ports %} {{ hostvars[redis_node].ip }}:{{ redis_port }} {% endfor %}{% endfor %}
-</code></pre>
-
-<ul>
-<li>installredis.yml</li>
-</ul>
-
-<pre><code class="language-yml">  ---
+</code></pre><ul><li>installredis.yml</li></ul><pre><code class=language-yml>  ---
   - name: Install Redis
     yum:
       name: &quot;{{redisversion}}&quot;
       state: latest
-</code></pre>
-
-<ul>
-<li>installtools.yml</li>
-</ul>
-
-<pre><code class="language-yml">  - name: Get rpm
+</code></pre><ul><li>installtools.yml</li></ul><pre><code class=language-yml>  - name: Get rpm
     shell: wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
   - name: Install rpm
@@ -385,13 +84,7 @@
       name: firewalld
       state: stopped
       enabled: False
-</code></pre>
-
-<ul>
-<li>main.yml</li>
-</ul>
-
-<pre><code class="language-yml">  ---
+</code></pre><ul><li>main.yml</li></ul><pre><code class=language-yml>  ---
   - name: Uninstall
     include_tasks: uninstall.yml
     when: purpose == 'uninstall' or purpose == 'reinstall'
@@ -432,13 +125,7 @@
     include_tasks: createcluster.yml
     run_once: true
     when: purpose == 'install' or purpose == 'reinstall'
-</code></pre>
-
-<ul>
-<li>prepareredisconfig.yml</li>
-</ul>
-
-<pre><code class="language-yml">  ---
+</code></pre><ul><li>prepareredisconfig.yml</li></ul><pre><code class=language-yml>  ---
   - name: check dir - /etc/redis/redis_{{ item }}
     include_tasks: checkdir.yml
     vars:
@@ -454,13 +141,7 @@
       owner: redis
     notify: restart-service
     with_items:  &quot;{{redis_ports}}&quot;
-</code></pre>
-
-<ul>
-<li>prepareservice.yml</li>
-</ul>
-
-<pre><code class="language-yml">  ---
+</code></pre><ul><li>prepareservice.yml</li></ul><pre><code class=language-yml>  ---
   - name: Prepare services
     vars:
       redis_port: &quot;{{item}}&quot;
@@ -470,13 +151,7 @@
       owner: redis
       group: redis
     with_items: &quot;{{redis_ports}}&quot;
-</code></pre>
-
-<ul>
-<li>uninstall.yml</li>
-</ul>
-
-<pre><code class="language-yml">  - name: Stop Service
+</code></pre><ul><li>uninstall.yml</li></ul><pre><code class=language-yml>  - name: Stop Service
       service:
         name: &quot;redis_{{item}}&quot;
         state: stopped
@@ -508,23 +183,9 @@
       file:
         path: /etc/redis/
         state: absent
-</code></pre>
-
-<ul>
-<li>upgrade.yml</li>
-</ul>
-
-<pre><code class="language-yml">  ---
+</code></pre><ul><li>upgrade.yml</li></ul><pre><code class=language-yml>  ---
   - include_tasks: installredis.yml
-</code></pre></li>
-
-<li><p>templates</p>
-
-<ul>
-<li>config.j2</li>
-</ul>
-
-<pre><code class="language-j2">  dir /etc/redis/redis_{{redis_port}}
+</code></pre></li><li><p>templates</p><ul><li>config.j2</li></ul><pre><code class=language-j2>  dir /etc/redis/redis_{{redis_port}}
   bind {{redis_ip}} 127.0.0.1
   requirepass {{redispass}}
   masterauth {{redispass}}
@@ -539,13 +200,7 @@
   cluster-node-timeout 5000
   maxmemory-policy volatile-lru
   loglevel notice
-</code></pre>
-
-<ul>
-<li>service.j2</li>
-</ul>
-
-<pre><code class="language-j2">  [Unit]
+</code></pre><ul><li>service.j2</li></ul><pre><code class=language-j2>  [Unit]
   Description=Redis persistent key-value database
   After=network.target
   After=network-online.target
@@ -567,34 +222,13 @@
 
   [Install]
   WantedBy=multi-user.target
-</code></pre></li>
-
-<li><p>vars</p>
-
-<ul>
-<li>main.yml</li>
-</ul>
-
-<pre><code class="language-yml">  redispass: pass.123
+</code></pre></li><li><p>vars</p><ul><li>main.yml</li></ul><pre><code class=language-yml>  redispass: pass.123
   redisversion: redis-6.0.6-1.el7.remi
-</code></pre></li>
-
-<li><p>inventories</p>
-
-<ul>
-<li>dev.ini</li>
-</ul>
-
-<pre><code class="language-ini">  [redis_all]
+</code></pre></li><li><p>inventories</p><ul><li>dev.ini</li></ul><pre><code class=language-ini>  [redis_all]
   redis1 ansible_host=10.0.1.5 redis_ip=10.0.1.5 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7000,7003
   redis2 ansible_host=10.0.1.6 redis_ip=10.0.1.6  ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7001,7004
   redis3 ansible_host=10.0.1.7 redis_ip=10.0.1.7 ansible_ssh_user=root ansible_ssh_pass=pass.123 redis_ports=7002,7005
-</code></pre></li>
-
-<li><p>README.md</p></li>
-</ul>
-
-<pre><code class="language-txt">  ## 全新安裝
+</code></pre></li><li><p>README.md</p></li></ul><pre><code class=language-txt>  ## 全新安裝
 
       ```bash
       ansible-playbook -i roles/redis-replication/inventories/dev.ini -e &quot;purpose=install&quot; main.yml
@@ -624,201 +258,24 @@
       ```
       ansible-playbook -i roles/redis-replication/inventories/dev.ini -e &quot;purpose=restart&quot; main.yml
       ```
-</code></pre></li>
-</ul></li>
-
-<li><p>ansible.cfg</p>
-
-<pre><code class="language-conf">[defaults]
+</code></pre></li></ul></li><li><p>ansible.cfg</p><pre><code class=language-conf>[defaults]
 host_key_checking = False
 roles_path = ./roles
-</code></pre></li>
-
-<li><p>main.yml</p></li>
-</ul>
-
-<pre><code class="language-yaml">  - hosts: redis_all
+</code></pre></li><li><p>main.yml</p></li></ul><pre><code class=language-yaml>  - hosts: redis_all
     roles:
       - redis-cluster
-</code></pre></li>
-</ol>
-
-<h2 id="心得">心得</h2>
-
-<p>完整程式碼請參考 <a href="https://github.com/yowko/ansible-redis-cluster" target="_blank">ansible-redis-cluster</a></p>
-
-<p>此次修改重點如下：</p>
-
-<ol>
-<li>Redis 版本從 <code>5.0.7</code> 升級為 <code>6.0.6</code></li>
-<li>控制流程變數由 <code>action</code> 改用 <code>purpose</code> (<code>action</code> 是保留字)</li>
-<li><code>defaults</code> 放變數預設值；<code>vars</code> 放常數值</li>
-<li><code>redis_port</code> 改 <code>redis_ports</code> 可以用來處理單台 host 多個 redis instance，效能較好</li>
-</ol>
-
-<h2 id="參考資訊">參考資訊</h2>
-
-<ol>
-<li><a href="https://blog.yowko.com/ansible-redis-cluster">Ansible 安裝 Redis Cluster</a></li>
-<li><a href="https://github.com/yowko/ansible-redis-cluster" target="_blank">ansible-redis-cluster</a></li>
-</ol>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">Yowko Tsai</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2020-12-11</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">授權合約</span>
-    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
-  </p>
-</div>
-
-	
-	
-	
-    
-    
-	
-    <footer class="post-footer">
-      <div class="post-tags">
-		  標籤：
-		  
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/ansible/">Ansible</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/redis/">Redis</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-		  <div>
-          <a class="prev" href="https://blog.yowko.com/kubectl-patch-fail/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">kubectl patch 錯誤</span>			
-          </a>
-		  </div>
-		  <div>
-        
-          <a class="prev" href="https://blog.yowko.com/yum-specific-version/" style="float: none;">
-            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
-            <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">yum 安裝指定版本套件</span>			
-          </a>
-		  </div>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/ansible-redis-cluster-update\/';  
-      
-    };
-
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'yowkonotes';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-  
-
-      </div>
-    </main>
-	
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
-  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主題 - 
-    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2016 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Yowko Tsai</span>
-  </span>
-</div>
-    </footer>
-	
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div> 
-  
-  
-<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
-
-
-<script data-no-instant>InstantClick.init();</script>
-
-
-<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-88810280-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-  
-
-</body>
-</html>
+</code></pre></li></ol><h2 id=心得>心得</h2><p>完整程式碼請參考 <a href=https://github.com/yowko/ansible-redis-cluster target=_blank>ansible-redis-cluster</a></p><p>此次修改重點如下：</p><ol><li>Redis 版本從 <code>5.0.7</code> 升級為 <code>6.0.6</code></li><li>控制流程變數由 <code>action</code> 改用 <code>purpose</code> (<code>action</code> 是保留字)</li><li><code>defaults</code> 放變數預設值；<code>vars</code> 放常數值</li><li><code>redis_port</code> 改 <code>redis_ports</code> 可以用來處理單台 host 多個 redis instance，效能較好</li></ol><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://blog.yowko.com/ansible-redis-cluster>Ansible 安裝 Redis Cluster</a></li><li><a href=https://github.com/yowko/ansible-redis-cluster target=_blank>ansible-redis-cluster</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2020-12-11</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/ansible/>Ansible</a>
+<a href=https://blog.yowko.com/tags/redis/>Redis</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/kubectl-patch-fail/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">kubectl patch 錯誤</span></a></div><div><a class=prev href=https://blog.yowko.com/yum-specific-version/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">yum 安裝指定版本套件</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/ansible-redis-cluster-update\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

@@ -1,304 +1,14 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - Yowko&#39;s Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這個問題前些日子也在網路上掀起熱鬧的討論，相信大家都有各自的喜好，但不可否" />
-
-  <meta name="keywords" content="yowko, .net, blog" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.51" />
-
-<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
-
-
-<link rel="canonical" href="https://blog.yowko.com/add-aspnet-identity-empty-project/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
-<link rel="manifest" href="https://blog.yowko.com/manifest.json">
-<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
-
-
-<meta property="og:title" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中" />
-<meta property="og:description" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這個問題前些日子也在網路上掀起熱鬧的討論，相信大家都有各自的喜好，但不可否" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/add-aspnet-identity-empty-project/" /><meta property="article:published_time" content="2017-11-05T23:04:00&#43;08:00"/>
-<meta property="article:modified_time" content="2018-09-27T23:04:26&#43;08:00"/>
-
-<meta itemprop="name" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中">
-<meta itemprop="description" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這個問題前些日子也在網路上掀起熱鬧的討論，相信大家都有各自的喜好，但不可否">
-
-
-<meta itemprop="datePublished" content="2017-11-05T23:04:00&#43;08:00" />
-<meta itemprop="dateModified" content="2018-09-27T23:04:26&#43;08:00" />
-<meta itemprop="wordCount" content="1999">
-
-
-
-<meta itemprop="keywords" content="ASP.NET Identity,ASP.NET MVC," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中"/>
-<meta name="twitter:description" content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這個問題前些日子也在網路上掀起熱鬧的討論，相信大家都有各自的喜好，但不可否"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
-
-</head>
-<body>
-     
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="https://blog.yowko.com/">
-        <li class="mobile-menu-item">首頁</li>
-      </a><a href="https://blog.yowko.com/post/">
-        <li class="mobile-menu-item">歷史筆記</li>
-      </a><a href="https://blog.yowko.com/tags/">
-        <li class="mobile-menu-item">內容標籤</li>
-      </a><a href="https://blog.yowko.com/search">
-        <li class="mobile-menu-item">站內搜尋</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
-        <div class="logo-wrapper">
-  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-</div>
-<div style="padding-bottom: 60px;"> </div>
-</nav>
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
-    </li>
-  </ul>
-</nav>
-    </header>	
-    <main id="main" class="main">		
-      <div class="content-wrapper">		
-		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
-        <div id="content" class="content">		
-          <article class="post">
-    
-    <header class="post-header">
-      
-
-      <div class="post-meta">
-        <span class="post-time"> 2017-11-05 </span>
-        
-        <span class="more-meta"> 約 1999 字 </span>
-          <span class="more-meta"> 預計閱讀 4 分鐘 </span>
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目錄</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#將-asp-net-identity-加至-asp-net-mvc-empty-專案中">將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中</a>
-<ul>
-<li><a href="#使用空專案範本建立專案">使用空專案範本建立專案</a></li>
-<li><a href="#安裝-asp-net-identity-相關套件">安裝 ASP.NET Identity 相關套件</a></li>
-<li><a href="#在-model-資料中加入-usermodel">在 Model 資料中加入 UserModel</a></li>
-<li><a href="#在-models-中建立-db-溝通用物件">在 Models 中建立 DB 溝通用物件</a></li>
-<li><a href="#在-app-start-資料夾中加入-identityconfig-cs">在 <code>App_Start</code> 資料夾中加入 <code>IdentityConfig.cs</code></a></li>
-<li><a href="#在-app-start-目錄中加入-startup-auth-cs">在 <code>App_Start</code> 目錄中加入 <code>Startup.Auth.cs</code></a></li>
-<li><a href="#在根目錄加入-startup-cs">在根目錄加入 <code>Startup.cs</code></a></li>
-<li><a href="#實際使用時注意事項-以-register-為例">實際使用時注意事項 - 以 Register 為例</a></li>
-<li><a href="#心得">心得</a></li>
-</ul></li>
-<li><a href="#參考資訊">參考資訊</a></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h1 id="將-asp-net-identity-加至-asp-net-mvc-empty-專案中">將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中</h1>
-
-<p>MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這個問題前些日子也在網路上掀起熱鬧的討論，相信大家都有各自的喜好，但不可否認的是預設範本帶來的便利性以及提供基本使用方式的示範效果，而 Empty 範本則是讓工程師對專案程式碼有更高的掌握度避免預設載入無用套件</p>
-
-<p>過去我比較喜歡使用預設範本，為的是簡單修改就能有基本雛型功能，但近來我則是較喜歡 Empty 範本的簡單，Empty 範本不會預設加入用不到但又不知道能不能拿掉的套件，日後維護成本較低，不過我還是習慣透過預設範本來了解該如何使用</p>
-
-<p>今天就來紀錄一下，該如何在 MVC Empty 專案中加入 ASP.NET Identity 吧</p>
-
-<h2 id="使用空專案範本建立專案">使用空專案範本建立專案</h2>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32415921-3c31f038-c27c-11e7-9392-e6f1e7d2ac94.png" alt="1empty" /></p>
-
-<h2 id="安裝-asp-net-identity-相關套件">安裝 ASP.NET Identity 相關套件</h2>
-
-<ol>
-<li><p>Microsoft.AspNet.Identity.Owin</p>
-
-<ul>
-<li><p>相依套件</p>
-
-<ul>
-<li>Microsoft.Owin.Security.OAuth (&gt;= 2.1.0)</li>
-<li>Microsoft.Owin.Security (&gt;= 2.1.0)</li>
-<li>Microsoft.AspNet.Identity.Core (&gt;= 2.2.1)</li>
-<li>Microsoft.Owin.Security.Cookies (&gt;= 2.1.0)</li>
-</ul></li>
-
-<li><p>指令安裝
-&gt; Install-Package Microsoft.AspNet.Identity.Owin</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32415896-15bd5a6e-c27c-11e7-9de4-3683a8c7e5be.png" alt="2Identity.Owin" /></p></li>
-</ul></li>
-
-<li><p>Microsoft.AspNet.Identity.EntityFramework</p>
-
-<ul>
-<li><p>相依套件</p>
-
-<ul>
-<li>EntityFramework (&gt;= 6.1.0)</li>
-<li>Microsoft.AspNet.Identity.Core (&gt;= 2.2.1)</li>
-</ul></li>
-
-<li><p>指令安裝</p>
-
-<blockquote>
-<p>Install-Package Microsoft.AspNet.Identity.EntityFramework</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32415897-160f55da-c27c-11e7-9f92-9315775aeae1.png" alt="3Identity.EntityFramework" /></p></li>
-</ul></li>
-
-<li><p>Microsoft.Owin.Host.SystemWeb</p>
-
-<ul>
-<li><p>相依套件</p>
-
-<ul>
-<li>Owin (&gt;= 1.0.0)</li>
-<li>Microsoft.Owin (&gt;= 3.1.0)</li>
-</ul></li>
-
-<li><p>指令安裝</p>
-
-<blockquote>
-<p>Install-Package Microsoft.Owin.Host.SystemWeb</p>
-</blockquote>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32415898-163ac38c-c27c-11e7-9c3a-0c9fe3cbd012.png" alt="3Owin.SystemWeb" /></p></li>
-</ul></li>
-</ol>
-
-<ul>
-<li><p>建議安裝 NuGet 套件後將所有 NuGet 套件更新</p>
-
-<ul>
-<li><p>指令更新</p>
-
-<blockquote>
-<p>Update-Package</p>
-</blockquote></li>
-</ul></li>
-</ul>
-
-<h2 id="在-model-資料中加入-usermodel">在 Model 資料中加入 UserModel</h2>
-
-<ol>
-<li><p>建立 <code>CustomUser</code> 並繼承 <code>IdentityUser</code></p>
-
-<pre><code class="language-cs">public class CustomUser: IdentityUser
-</code></pre></li>
-
-<li><p>在 <code>CustomUser</code> 中建立 <code>GenerateUserIdentityAsync</code>要方法</p>
-
-<pre><code class="language-cs">public async Task&lt;ClaimsIdentity&gt; GenerateUserIdentityAsync(UserManager&lt;CustomUser&gt; manager)
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這個問題前些日子也在網路上掀起熱鬧的討論，相信大家都有各自的喜好，但不可否"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/add-aspnet-identity-empty-project/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中"><meta property=og:description content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這個問題前些日子也在網路上掀起熱鬧的討論，相信大家都有各自的喜好，但不可否"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/add-aspnet-identity-empty-project/><meta property=article:published_time content=2017-11-05T23:04:00&#43;08:00><meta property=article:modified_time content=2018-09-27T23:04:26&#43;08:00><meta itemprop=name content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中"><meta itemprop=description content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這個問題前些日子也在網路上掀起熱鬧的討論，相信大家都有各自的喜好，但不可否"><meta itemprop=datePublished content=2017-11-05T23:04:00&#43;08:00><meta itemprop=dateModified content=2018-09-27T23:04:26&#43;08:00><meta itemprop=wordCount content=1999><meta itemprop=keywords content="ASP.NET Identity,ASP.NET MVC,"><meta name=twitter:card content=summary><meta name=twitter:title content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中"><meta name=twitter:description content="將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這個問題前些日子也在網路上掀起熱鬧的討論，相信大家都有各自的喜好，但不可否"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2017-11-05</span>
+<span class=more-meta>約 1999 字</span>
+<span class=more-meta>預計閱讀 4 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#將-asp-net-identity-加至-asp-net-mvc-empty-專案中>將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中</a><ul><li><a href=#使用空專案範本建立專案>使用空專案範本建立專案</a></li><li><a href=#安裝-asp-net-identity-相關套件>安裝 ASP.NET Identity 相關套件</a></li><li><a href=#在-model-資料中加入-usermodel>在 Model 資料中加入 UserModel</a></li><li><a href=#在-models-中建立-db-溝通用物件>在 Models 中建立 DB 溝通用物件</a></li><li><a href=#在-app-start-資料夾中加入-identityconfig-cs>在 <code>App_Start</code> 資料夾中加入 <code>IdentityConfig.cs</code></a></li><li><a href=#在-app-start-目錄中加入-startup-auth-cs>在 <code>App_Start</code> 目錄中加入 <code>Startup.Auth.cs</code></a></li><li><a href=#在根目錄加入-startup-cs>在根目錄加入 <code>Startup.cs</code></a></li><li><a href=#實際使用時注意事項-以-register-為例>實際使用時注意事項 - 以 Register 為例</a></li><li><a href=#心得>心得</a></li></ul></li><li><a href=#參考資訊>參考資訊</a></li></ul></nav></div></div><div class=post-content><h1 id=將-asp-net-identity-加至-asp-net-mvc-empty-專案中>將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中</h1><p>MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這個問題前些日子也在網路上掀起熱鬧的討論，相信大家都有各自的喜好，但不可否認的是預設範本帶來的便利性以及提供基本使用方式的示範效果，而 Empty 範本則是讓工程師對專案程式碼有更高的掌握度避免預設載入無用套件</p><p>過去我比較喜歡使用預設範本，為的是簡單修改就能有基本雛型功能，但近來我則是較喜歡 Empty 範本的簡單，Empty 範本不會預設加入用不到但又不知道能不能拿掉的套件，日後維護成本較低，不過我還是習慣透過預設範本來了解該如何使用</p><p>今天就來紀錄一下，該如何在 MVC Empty 專案中加入 ASP.NET Identity 吧</p><h2 id=使用空專案範本建立專案>使用空專案範本建立專案</h2><p><img src=https://user-images.githubusercontent.com/3851540/32415921-3c31f038-c27c-11e7-9392-e6f1e7d2ac94.png alt=1empty></p><h2 id=安裝-asp-net-identity-相關套件>安裝 ASP.NET Identity 相關套件</h2><ol><li><p>Microsoft.AspNet.Identity.Owin</p><ul><li><p>相依套件</p><ul><li>Microsoft.Owin.Security.OAuth (&gt;= 2.1.0)</li><li>Microsoft.Owin.Security (&gt;= 2.1.0)</li><li>Microsoft.AspNet.Identity.Core (&gt;= 2.2.1)</li><li>Microsoft.Owin.Security.Cookies (&gt;= 2.1.0)</li></ul></li><li><p>指令安裝
+&gt; Install-Package Microsoft.AspNet.Identity.Owin</p><p><img src=https://user-images.githubusercontent.com/3851540/32415896-15bd5a6e-c27c-11e7-9de4-3683a8c7e5be.png alt=2Identity.Owin></p></li></ul></li><li><p>Microsoft.AspNet.Identity.EntityFramework</p><ul><li><p>相依套件</p><ul><li>EntityFramework (&gt;= 6.1.0)</li><li>Microsoft.AspNet.Identity.Core (&gt;= 2.2.1)</li></ul></li><li><p>指令安裝</p><blockquote><p>Install-Package Microsoft.AspNet.Identity.EntityFramework</p></blockquote><p><img src=https://user-images.githubusercontent.com/3851540/32415897-160f55da-c27c-11e7-9f92-9315775aeae1.png alt=3Identity.EntityFramework></p></li></ul></li><li><p>Microsoft.Owin.Host.SystemWeb</p><ul><li><p>相依套件</p><ul><li>Owin (&gt;= 1.0.0)</li><li>Microsoft.Owin (&gt;= 3.1.0)</li></ul></li><li><p>指令安裝</p><blockquote><p>Install-Package Microsoft.Owin.Host.SystemWeb</p></blockquote><p><img src=https://user-images.githubusercontent.com/3851540/32415898-163ac38c-c27c-11e7-9c3a-0c9fe3cbd012.png alt=3Owin.SystemWeb></p></li></ul></li></ol><ul><li><p>建議安裝 NuGet 套件後將所有 NuGet 套件更新</p><ul><li><p>指令更新</p><blockquote><p>Update-Package</p></blockquote></li></ul></li></ul><h2 id=在-model-資料中加入-usermodel>在 Model 資料中加入 UserModel</h2><ol><li><p>建立 <code>CustomUser</code> 並繼承 <code>IdentityUser</code></p><pre><code class=language-cs>public class CustomUser: IdentityUser
+</code></pre></li><li><p>在 <code>CustomUser</code> 中建立 <code>GenerateUserIdentityAsync</code>要方法</p><pre><code class=language-cs>public async Task&lt;ClaimsIdentity&gt; GenerateUserIdentityAsync(UserManager&lt;CustomUser&gt; manager)
 {
     var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
     return userIdentity;
 }
-</code></pre></li>
-
-<li><p>加入需要的自訂屬性</p>
-
-<blockquote>
-<p>這邊透過 <code>Address</code> 來示範</p>
-</blockquote>
-
-<pre><code class="language-cs">public string Address { get; set; }
-</code></pre></li>
-
-<li><p>UserModel 完整程式碼</p>
-
-<pre><code class="language-cs">using System.Security.Claims;
+</code></pre></li><li><p>加入需要的自訂屬性</p><blockquote><p>這邊透過 <code>Address</code> 來示範</p></blockquote><pre><code class=language-cs>public string Address { get; set; }
+</code></pre></li><li><p>UserModel 完整程式碼</p><pre><code class=language-cs>using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -315,41 +25,17 @@ namespace AddIdentity.Models
         public string Address { get; set; }
     }
 }
-</code></pre></li>
-</ol>
-
-<h2 id="在-models-中建立-db-溝通用物件">在 Models 中建立 DB 溝通用物件</h2>
-
-<ol>
-<li><p>建立 <code>ApplicationDbContext</code> 繼承至 <code>IdentityDbContext&lt;CustomUser&gt;</code></p>
-
-<pre><code class="language-cs">public class ApplicationDbContext : IdentityDbContext&lt;CustomUser&gt;
+</code></pre></li></ol><h2 id=在-models-中建立-db-溝通用物件>在 Models 中建立 DB 溝通用物件</h2><ol><li><p>建立 <code>ApplicationDbContext</code> 繼承至 <code>IdentityDbContext&lt;CustomUser&gt;</code></p><pre><code class=language-cs>public class ApplicationDbContext : IdentityDbContext&lt;CustomUser&gt;
 {
 }
-</code></pre></li>
-
-<li><p>讓建構子呼叫 base class 建構子並傳入正確連線字串</p>
-
-<blockquote>
-<p>這邊使用 <code>DefaultConnection</code> 當做做範例，請實際情況修改</p>
-</blockquote>
-
-<pre><code class="language-cs">public ApplicationDbContext(): base(&quot;DefaultConnection&quot;, throwIfV1Schema: false)
+</code></pre></li><li><p>讓建構子呼叫 base class 建構子並傳入正確連線字串</p><blockquote><p>這邊使用 <code>DefaultConnection</code> 當做做範例，請實際情況修改</p></blockquote><pre><code class=language-cs>public ApplicationDbContext(): base(&quot;DefaultConnection&quot;, throwIfV1Schema: false)
 {
 }
-</code></pre></li>
-
-<li><p>建立 Create 方法</p>
-
-<pre><code class="language-cs">public static ApplicationDbContext Create()
+</code></pre></li><li><p>建立 Create 方法</p><pre><code class=language-cs>public static ApplicationDbContext Create()
 {
     return new ApplicationDbContext();
 }
-</code></pre></li>
-
-<li><p>自訂 DbContext 完整程式碼</p>
-
-<pre><code class="language-cs">using Microsoft.AspNet.Identity.EntityFramework;
+</code></pre></li><li><p>自訂 DbContext 完整程式碼</p><pre><code class=language-cs>using Microsoft.AspNet.Identity.EntityFramework;
     
 namespace AddIdentity.Models
 {
@@ -365,36 +51,13 @@ namespace AddIdentity.Models
         }
     }
 }
-</code></pre></li>
-</ol>
-
-<h2 id="在-app-start-資料夾中加入-identityconfig-cs">在 <code>App_Start</code> 資料夾中加入 <code>IdentityConfig.cs</code></h2>
-
-<ol>
-<li><p>建立 <code>ApplicationUserManager</code> class</p>
-
-<blockquote>
-<p>用來管理 user 建立功能</p>
-</blockquote>
-
-<ul>
-<li><p>建立 <code>ApplicationUserManager</code> 繼承 <code>UserManager&lt;CustomUser&gt;</code></p>
-
-<pre><code class="language-cs">public class ApplicationUserManager : UserManager&lt;CustomUser&gt;
+</code></pre></li></ol><h2 id=在-app-start-資料夾中加入-identityconfig-cs>在 <code>App_Start</code> 資料夾中加入 <code>IdentityConfig.cs</code></h2><ol><li><p>建立 <code>ApplicationUserManager</code> class</p><blockquote><p>用來管理 user 建立功能</p></blockquote><ul><li><p>建立 <code>ApplicationUserManager</code> 繼承 <code>UserManager&lt;CustomUser&gt;</code></p><pre><code class=language-cs>public class ApplicationUserManager : UserManager&lt;CustomUser&gt;
 {
 }
-</code></pre></li>
-
-<li><p>讓建構子呼叫 base class 建構子</p>
-
-<pre><code class="language-cs">public ApplicationUserManager(IUserStore&lt;CustomUser&gt; store): base(store)
+</code></pre></li><li><p>讓建構子呼叫 base class 建構子</p><pre><code class=language-cs>public ApplicationUserManager(IUserStore&lt;CustomUser&gt; store): base(store)
 {
 }
-</code></pre></li>
-
-<li><p>建立 Create 方法</p>
-
-<pre><code class="language-cs">public static ApplicationUserManager Create(IdentityFactoryOptions&lt;ApplicationUserManager&gt; options, IOwinContext context)
+</code></pre></li><li><p>建立 Create 方法</p><pre><code class=language-cs>public static ApplicationUserManager Create(IdentityFactoryOptions&lt;ApplicationUserManager&gt; options, IOwinContext context)
 {
     var manager = new ApplicationUserManager(new UserStore&lt;CustomUser&gt;(context.Get&lt;ApplicationDbContext&gt;()));
     // 設定 usernames 驗證邏輯
@@ -441,50 +104,21 @@ namespace AddIdentity.Models
     }
     return manager;
 }
-</code></pre></li>
-</ul></li>
-
-<li><p>建立 <code>ApplicationSignInManager</code> class</p>
-
-<blockquote>
-<p>用來管理 user 登入</p>
-</blockquote>
-
-<ul>
-<li><p>建立 <code>ApplicationSignInManager</code> 繼承 <code>SignInManager&lt;CustomUser, string&gt;</code></p>
-
-<pre><code class="language-cs">public class ApplicationSignInManager : SignInManager&lt;CustomUser, string&gt;
+</code></pre></li></ul></li><li><p>建立 <code>ApplicationSignInManager</code> class</p><blockquote><p>用來管理 user 登入</p></blockquote><ul><li><p>建立 <code>ApplicationSignInManager</code> 繼承 <code>SignInManager&lt;CustomUser, string&gt;</code></p><pre><code class=language-cs>public class ApplicationSignInManager : SignInManager&lt;CustomUser, string&gt;
 {
 }
-</code></pre></li>
-
-<li><p>建構子呼叫 base class 建構子</p>
-
-<pre><code class="language-cs">public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager): base(userManager, authenticationManager)
+</code></pre></li><li><p>建構子呼叫 base class 建構子</p><pre><code class=language-cs>public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager): base(userManager, authenticationManager)
 {
 }
-</code></pre></li>
-
-<li><p>覆寫 <code>CreateUserIdentityAsync</code> 方法</p>
-
-<pre><code class="language-cs">public override Task&lt;ClaimsIdentity&gt; CreateUserIdentityAsync(CustomUser user)
+</code></pre></li><li><p>覆寫 <code>CreateUserIdentityAsync</code> 方法</p><pre><code class=language-cs>public override Task&lt;ClaimsIdentity&gt; CreateUserIdentityAsync(CustomUser user)
 {
     return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
 }
-</code></pre></li>
-
-<li><p>建立 Create 方法</p>
-
-<pre><code class="language-cs">public static ApplicationSignInManager Create(IdentityFactoryOptions&lt;ApplicationSignInManager&gt; options, IOwinContext context)
+</code></pre></li><li><p>建立 Create 方法</p><pre><code class=language-cs>public static ApplicationSignInManager Create(IdentityFactoryOptions&lt;ApplicationSignInManager&gt; options, IOwinContext context)
 {
     return new ApplicationSignInManager(context.GetUserManager&lt;ApplicationUserManager&gt;(), context.Authentication);
 }
-</code></pre></li>
-</ul></li>
-
-<li><p>完整程式碼</p>
-
-<pre><code class="language-cs">using System;
+</code></pre></li></ul></li><li><p>完整程式碼</p><pre><code class=language-cs>using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AddIdentity.Models;
@@ -585,22 +219,10 @@ namespace AddIdentity
         }
     }
 }
-</code></pre></li>
-</ol>
-
-<h2 id="在-app-start-目錄中加入-startup-auth-cs">在 <code>App_Start</code> 目錄中加入 <code>Startup.Auth.cs</code></h2>
-
-<ol>
-<li><p>建立 <code>Startup</code> class</p>
-
-<pre><code class="language-cs">public partial class Startup
+</code></pre></li></ol><h2 id=在-app-start-目錄中加入-startup-auth-cs>在 <code>App_Start</code> 目錄中加入 <code>Startup.Auth.cs</code></h2><ol><li><p>建立 <code>Startup</code> class</p><pre><code class=language-cs>public partial class Startup
 {
 }
-</code></pre></li>
-
-<li><p>建立 <code>ConfigureAuth</code> 方法</p>
-
-<pre><code class="language-cs">public void ConfigureAuth(IAppBuilder app)
+</code></pre></li><li><p>建立 <code>ConfigureAuth</code> 方法</p><pre><code class=language-cs>public void ConfigureAuth(IAppBuilder app)
 {
     app.CreatePerOwinContext(ApplicationDbContext.Create);
     app.CreatePerOwinContext&lt;ApplicationUserManager&gt;(ApplicationUserManager.Create);
@@ -619,11 +241,7 @@ namespace AddIdentity
     });
     app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 }
-</code></pre></li>
-
-<li><p>完整程式碼</p>
-
-<pre><code class="language-cs">using System;
+</code></pre></li><li><p>完整程式碼</p><pre><code class=language-cs>using System;
 using AddIdentity.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -656,39 +274,15 @@ namespace AddIdentity
         }
     }
 }
-</code></pre></li>
-</ol>
-
-<h2 id="在根目錄加入-startup-cs">在根目錄加入 <code>Startup.cs</code></h2>
-
-<blockquote>
-<p>用來將 Identity 註冊至 OWIN 中</p>
-</blockquote>
-
-<ol>
-<li><p>建立 Startup class</p>
-
-<pre><code class="language-cs">public partial class Startup
+</code></pre></li></ol><h2 id=在根目錄加入-startup-cs>在根目錄加入 <code>Startup.cs</code></h2><blockquote><p>用來將 Identity 註冊至 OWIN 中</p></blockquote><ol><li><p>建立 Startup class</p><pre><code class=language-cs>public partial class Startup
 {
 }
-</code></pre></li>
-
-<li><p>加入 Configuration 方法</p>
-
-<pre><code class="language-cs">public void Configuration(IAppBuilder app)
+</code></pre></li><li><p>加入 Configuration 方法</p><pre><code class=language-cs>public void Configuration(IAppBuilder app)
 {
     ConfigureAuth(app);
 }
-</code></pre></li>
-
-<li><p>在 namespace 上加入 <code>OwinStartupAttribute</code></p>
-
-<pre><code class="language-cs">[assembly: OwinStartup(typeof(AddIdentity.Startup))]
-</code></pre></li>
-
-<li><p>完整程式碼</p>
-
-<pre><code class="language-cs">using Microsoft.Owin;
+</code></pre></li><li><p>在 namespace 上加入 <code>OwinStartupAttribute</code></p><pre><code class=language-cs>[assembly: OwinStartup(typeof(AddIdentity.Startup))]
+</code></pre></li><li><p>完整程式碼</p><pre><code class=language-cs>using Microsoft.Owin;
 using Owin;
     
 [assembly: OwinStartup(typeof(AddIdentity.Startup))]
@@ -702,22 +296,10 @@ namespace AddIdentity
         }
     }
 }
-</code></pre></li>
-</ol>
-
-<h2 id="實際使用時注意事項-以-register-為例">實際使用時注意事項 - 以 Register 為例</h2>
-
-<ol>
-<li><p>建立 <code>AccountController</code> 繼承 Controller</p>
-
-<pre><code class="language-cs">public class AccountController : Controller
+</code></pre></li></ol><h2 id=實際使用時注意事項-以-register-為例>實際使用時注意事項 - 以 Register 為例</h2><ol><li><p>建立 <code>AccountController</code> 繼承 Controller</p><pre><code class=language-cs>public class AccountController : Controller
 {
 }
-</code></pre></li>
-
-<li><p>加入 <code>SignInManager</code> 與 <code>UserManager</code></p>
-
-<pre><code class="language-cs">private ApplicationSignInManager _signInManager;
+</code></pre></li><li><p>加入 <code>SignInManager</code> 與 <code>UserManager</code></p><pre><code class=language-cs>private ApplicationSignInManager _signInManager;
 private ApplicationUserManager _userManager;
 public ApplicationSignInManager SignInManager
 {
@@ -730,11 +312,7 @@ public ApplicationUserManager UserManager
     get =&gt; _userManager ?? HttpContext.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;();
     private set =&gt; _userManager = value;
 }
-</code></pre></li>
-
-<li><p>加入建構子</p>
-
-<pre><code class="language-cs">public AccountController()
+</code></pre></li><li><p>加入建構子</p><pre><code class=language-cs>public AccountController()
 {
 }
 
@@ -743,11 +321,7 @@ public AccountController(ApplicationUserManager userManager, ApplicationSignInMa
     UserManager = userManager;
     SignInManager = signInManager;
 }
-</code></pre></li>
-
-<li><p>加入 Register</p>
-
-<pre><code class="language-cs">[AllowAnonymous]
+</code></pre></li><li><p>加入 Register</p><pre><code class=language-cs>[AllowAnonymous]
 public ActionResult Register()
 {
     return View();
@@ -773,11 +347,7 @@ public async Task&lt;ActionResult&gt; Register(RegisterViewModel model)
     }
     return View(model);
 }
-</code></pre></li>
-
-<li><p>建立 <code>RegisterViewModel</code></p>
-
-<pre><code class="language-cs">public class RegisterViewModel
+</code></pre></li><li><p>建立 <code>RegisterViewModel</code></p><pre><code class=language-cs>public class RegisterViewModel
 {
     [Required]
     [EmailAddress]
@@ -795,22 +365,14 @@ public async Task&lt;ActionResult&gt; Register(RegisterViewModel model)
     [Compare(&quot;Password&quot;, ErrorMessage = &quot;The password and confirmation password do not match.&quot;)]
     public string ConfirmPassword { get; set; }
 }
-</code></pre></li>
-
-<li><p>建立 <code>AddErrors</code></p>
-
-<pre><code class="language-cs">private void AddErrors(IdentityResult result)
+</code></pre></li><li><p>建立 <code>AddErrors</code></p><pre><code class=language-cs>private void AddErrors(IdentityResult result)
 {
     foreach (var error in result.Errors)
     {
         ModelState.AddModelError(&quot;&quot;, error);
     }
 }
-</code></pre></li>
-
-<li><p>建立 <code>Register</code> view</p>
-
-<pre><code class="language-cs">@model AddIdentity.Models.RegisterViewModel
+</code></pre></li><li><p>建立 <code>Register</code> view</p><pre><code class=language-cs>@model AddIdentity.Models.RegisterViewModel
 @{
     ViewBag.Title = &quot;Register&quot;;
 }
@@ -846,189 +408,18 @@ public async Task&lt;ActionResult&gt; Register(RegisterViewModel model)
         &lt;/div&gt;
     &lt;/div&gt;
 }
-</code></pre></li>
-
-<li><p>效果</p>
-
-<ul>
-<li><p>預設使用 CodeFirst 會自動將需要的 table 產生出來</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32415899-1663a004-c27c-11e7-89b0-851a098d0440.png" alt="4addtable" /></p></li>
-
-<li><p>自訂的 <code>Address</code> 屬性也已被加入</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/32415900-168bfefa-c27c-11e7-8a98-fcdcb1461656.png" alt="5address" /></p></li>
-</ul></li>
-</ol>
-
-<h2 id="心得">心得</h2>
-
-<p>將 ASP.NET Identity 加入 MVC Empty 專案的動作，我做了好幾次，但從來沒有一次搞定完全不用查資料過，所以趁著假日又重做了一次，好好地紀錄一下，期望下次可以節省一些時間</p>
-
-<p>回到將 ASP.NET Identity 加入 MVC Empty 專案本身，我個人覺得需要執行的動作不少，有些眉眉角角得要注意，如果不是因為反覆參考 MVC 預設專案，我不認為可以輕鬆完成，這個部份可能還是有些改善的空間</p>
-
-<h1 id="參考資訊">參考資訊</h1>
-
-<ol>
-<li><a href="https://stackoverflow.com/questions/31960433/adding-asp-net-mvc5-identity-authentication-to-an-existing-project" target="_blank">Adding ASP.NET MVC5 Identity Authentication to an existing project</a></li>
-</ol>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">Yowko Tsai</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2018-09-27</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">授權合約</span>
-    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
-  </p>
-</div>
-
-	
-	
-	
-    
-    
-	
-    <footer class="post-footer">
-      <div class="post-tags">
-		  標籤：
-		  
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/asp.net-identity/">ASP.NET Identity</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/asp.net-mvc/">ASP.NET MVC</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-		  <div>
-          <a class="prev" href="https://blog.yowko.com/httpcontextbase-getowincontext/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">HttpContextBase 找不到 GetOwinContext 定義？！</span>			
-          </a>
-		  </div>
-		  <div>
-        
-          <a class="prev" href="https://blog.yowko.com/linqpad-5-oracle/" style="float: none;">
-            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
-            <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">LINQPad 5 無法連線 Oracle？！</span>			
-          </a>
-		  </div>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/add-aspnet-identity-empty-project\/';  
-      
-    };
-
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'yowkonotes';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-  
-
-      </div>
-    </main>
-	
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
-  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主題 - 
-    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2016 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Yowko Tsai</span>
-  </span>
-</div>
-    </footer>
-	
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div> 
-  
-  
-<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
-
-
-<script data-no-instant>InstantClick.init();</script>
-
-
-<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-88810280-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-  
-
-</body>
-</html>
+</code></pre></li><li><p>效果</p><ul><li><p>預設使用 CodeFirst 會自動將需要的 table 產生出來</p><p><img src=https://user-images.githubusercontent.com/3851540/32415899-1663a004-c27c-11e7-89b0-851a098d0440.png alt=4addtable></p></li><li><p>自訂的 <code>Address</code> 屬性也已被加入</p><p><img src=https://user-images.githubusercontent.com/3851540/32415900-168bfefa-c27c-11e7-8a98-fcdcb1461656.png alt=5address></p></li></ul></li></ol><h2 id=心得>心得</h2><p>將 ASP.NET Identity 加入 MVC Empty 專案的動作，我做了好幾次，但從來沒有一次搞定完全不用查資料過，所以趁著假日又重做了一次，好好地紀錄一下，期望下次可以節省一些時間</p><p>回到將 ASP.NET Identity 加入 MVC Empty 專案本身，我個人覺得需要執行的動作不少，有些眉眉角角得要注意，如果不是因為反覆參考 MVC 預設專案，我不認為可以輕鬆完成，這個部份可能還是有些改善的空間</p><h1 id=參考資訊>參考資訊</h1><ol><li><a href=https://stackoverflow.com/questions/31960433/adding-asp-net-mvc5-identity-authentication-to-an-existing-project target=_blank>Adding ASP.NET MVC5 Identity Authentication to an existing project</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2018-09-27</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/asp.net-identity/>ASP.NET Identity</a>
+<a href=https://blog.yowko.com/tags/asp.net-mvc/>ASP.NET MVC</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/httpcontextbase-getowincontext/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">HttpContextBase 找不到 GetOwinContext 定義？！</span></a></div><div><a class=prev href=https://blog.yowko.com/linqpad-5-oracle/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">LINQPad 5 無法連線 Oracle？！</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/add-aspnet-identity-empty-project\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

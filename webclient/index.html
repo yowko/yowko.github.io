@@ -1,213 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源 - Yowko&#39;s Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源 之前在專案中看到許多不同風格的程式，這種現象很常見，尤其在由來已久、團隊成員來來去去的專案中更是常發生，我並沒有太多想" />
-
-  <meta name="keywords" content="yowko, .net, blog" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.51" />
-
-<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
-
-
-<link rel="canonical" href="https://blog.yowko.com/webclient/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
-<link rel="manifest" href="https://blog.yowko.com/manifest.json">
-<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
-
-
-<meta property="og:title" content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源" />
-<meta property="og:description" content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源 之前在專案中看到許多不同風格的程式，這種現象很常見，尤其在由來已久、團隊成員來來去去的專案中更是常發生，我並沒有太多想" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/webclient/" /><meta property="article:published_time" content="2017-06-13T21:00:00&#43;08:00"/>
-<meta property="article:modified_time" content="2018-09-22T21:00:14&#43;08:00"/>
-
-<meta itemprop="name" content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源">
-<meta itemprop="description" content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源 之前在專案中看到許多不同風格的程式，這種現象很常見，尤其在由來已久、團隊成員來來去去的專案中更是常發生，我並沒有太多想">
-
-
-<meta itemprop="datePublished" content="2017-06-13T21:00:00&#43;08:00" />
-<meta itemprop="dateModified" content="2018-09-22T21:00:14&#43;08:00" />
-<meta itemprop="wordCount" content="1579">
-
-
-
-<meta itemprop="keywords" content="C#," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源"/>
-<meta name="twitter:description" content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源 之前在專案中看到許多不同風格的程式，這種現象很常見，尤其在由來已久、團隊成員來來去去的專案中更是常發生，我並沒有太多想"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
-
-</head>
-<body>
-     
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="https://blog.yowko.com/">
-        <li class="mobile-menu-item">首頁</li>
-      </a><a href="https://blog.yowko.com/post/">
-        <li class="mobile-menu-item">歷史筆記</li>
-      </a><a href="https://blog.yowko.com/tags/">
-        <li class="mobile-menu-item">內容標籤</li>
-      </a><a href="https://blog.yowko.com/search">
-        <li class="mobile-menu-item">站內搜尋</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
-        <div class="logo-wrapper">
-  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-</div>
-<div style="padding-bottom: 60px;"> </div>
-</nav>
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
-    </li>
-  </ul>
-</nav>
-    </header>	
-    <main id="main" class="main">		
-      <div class="content-wrapper">		
-		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
-        <div id="content" class="content">		
-          <article class="post">
-    
-    <header class="post-header">
-      
-
-      <div class="post-meta">
-        <span class="post-time"> 2017-06-13 </span>
-        
-        <span class="more-meta"> 約 1579 字 </span>
-          <span class="more-meta"> 預計閱讀 4 分鐘 </span>
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目錄</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#使用-webclient-來存取-get-post-put-delete-patch-網路資源">使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源</a>
-<ul>
-<li><a href="#webclient-基本資訊">WebClient 基本資訊</a></li>
-<li><a href="#get">GET</a></li>
-<li><a href="#post">POST</a></li>
-<li><a href="#put">PUT</a></li>
-<li><a href="#delete">DELETE</a></li>
-<li><a href="#patch">PATCH</a></li>
-<li><a href="#使用-proxy">使用 proxy</a></li>
-</ul></li>
-<li><a href="#參考資料">參考資料</a></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h1 id="使用-webclient-來存取-get-post-put-delete-patch-網路資源">使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源</h1>
-
-<p>之前在專案中看到許多不同風格的程式，這種現象很常見，尤其在由來已久、團隊成員來來去去的專案中更是常發生，我並沒有太多想法，但就取得外部網路資源的寫法也有好幾套這就讓我比較驚訝了，幾個常見呼叫網路資源的 api 都用了，所以心血來潮想要整理一下，後來又發現一部份還有加上自行封裝的用法，但封裝後的功能不夠全面，造成有些情境不得不改用原生 api</p>
-
-<p>之前簡單紀錄過 WebRequest,HttpWebRequest 的用法，有興趣可以參考 <a href="//blog.yowko.com/2017/03/webrequest-and-httpwebrequest.html" target="_blank">如何使用 WebRequest,HttpWebRequest 來存取 (GET,POST,PUT,DELETE,PATCH) 網路資源</a>，今天就來看看 WebClient 的用法吧</p>
-
-<h2 id="webclient-基本資訊">WebClient 基本資訊</h2>
-
-<p>提供通用方法使用 WebRequest 類別傳送及接收 URI (支援 <code>http:</code>, <code>https:</code>, <code>ftp:</code>,和 <code>file:</code> ) 的資源</p>
-
-<ul>
-<li>Namespace：System.Net</li>
-<li>Assembly：System (System.dll)</li>
-<li>基本要求：.NET Framework 1.1 以上</li>
-<li>WebClient 預設僅會傳送必要的 http header</li>
-<li>缺點：無法指定 Timeout ,另外保哥文章 <a href="http://blog.miniasp.com/post/2010/01/23/Emulate-Form-POST-with-WebClient-class.aspx" target="_blank">利用 WebClient 類別模擬 HTTP POST 表單送出的注意事項</a>有提到 <code>不適合用來下載大量的檔案，高負載的網站也不適合這樣用，即便你用非同步的方式撰寫，也會讓 WebClient 因為佔據過多 Threads 而導致效能降低</code> 這我不知道怎麼模擬，請大家參考保哥文章</li>
-</ul>
-
-<h2 id="get">GET</h2>
-
-<ol>
-<li><p>寫法 1</p>
-
-<pre><code class="language-cs">using (WebClient webClient = new WebClient())
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源 之前在專案中看到許多不同風格的程式，這種現象很常見，尤其在由來已久、團隊成員來來去去的專案中更是常發生，我並沒有太多想"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/webclient/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源"><meta property=og:description content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源 之前在專案中看到許多不同風格的程式，這種現象很常見，尤其在由來已久、團隊成員來來去去的專案中更是常發生，我並沒有太多想"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/webclient/><meta property=article:published_time content=2017-06-13T21:00:00&#43;08:00><meta property=article:modified_time content=2018-09-22T21:00:14&#43;08:00><meta itemprop=name content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源"><meta itemprop=description content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源 之前在專案中看到許多不同風格的程式，這種現象很常見，尤其在由來已久、團隊成員來來去去的專案中更是常發生，我並沒有太多想"><meta itemprop=datePublished content=2017-06-13T21:00:00&#43;08:00><meta itemprop=dateModified content=2018-09-22T21:00:14&#43;08:00><meta itemprop=wordCount content=1579><meta itemprop=keywords content=C#,><meta name=twitter:card content=summary><meta name=twitter:title content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源"><meta name=twitter:description content="使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源 之前在專案中看到許多不同風格的程式，這種現象很常見，尤其在由來已久、團隊成員來來去去的專案中更是常發生，我並沒有太多想"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2017-06-13</span>
+<span class=more-meta>約 1579 字</span>
+<span class=more-meta>預計閱讀 4 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#使用-webclient-來存取-get-post-put-delete-patch-網路資源>使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源</a><ul><li><a href=#webclient-基本資訊>WebClient 基本資訊</a></li><li><a href=#get>GET</a></li><li><a href=#post>POST</a></li><li><a href=#put>PUT</a></li><li><a href=#delete>DELETE</a></li><li><a href=#patch>PATCH</a></li><li><a href=#使用-proxy>使用 proxy</a></li></ul></li><li><a href=#參考資料>參考資料</a></li></ul></nav></div></div><div class=post-content><h1 id=使用-webclient-來存取-get-post-put-delete-patch-網路資源>使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源</h1><p>之前在專案中看到許多不同風格的程式，這種現象很常見，尤其在由來已久、團隊成員來來去去的專案中更是常發生，我並沒有太多想法，但就取得外部網路資源的寫法也有好幾套這就讓我比較驚訝了，幾個常見呼叫網路資源的 api 都用了，所以心血來潮想要整理一下，後來又發現一部份還有加上自行封裝的用法，但封裝後的功能不夠全面，造成有些情境不得不改用原生 api</p><p>之前簡單紀錄過 WebRequest,HttpWebRequest 的用法，有興趣可以參考 <a href=//blog.yowko.com/2017/03/webrequest-and-httpwebrequest.html target=_blank>如何使用 WebRequest,HttpWebRequest 來存取 (GET,POST,PUT,DELETE,PATCH) 網路資源</a>，今天就來看看 WebClient 的用法吧</p><h2 id=webclient-基本資訊>WebClient 基本資訊</h2><p>提供通用方法使用 WebRequest 類別傳送及接收 URI (支援 <code>http:</code>, <code>https:</code>, <code>ftp:</code>,和 <code>file:</code> ) 的資源</p><ul><li>Namespace：System.Net</li><li>Assembly：System (System.dll)</li><li>基本要求：.NET Framework 1.1 以上</li><li>WebClient 預設僅會傳送必要的 http header</li><li>缺點：無法指定 Timeout ,另外保哥文章 <a href=http://blog.miniasp.com/post/2010/01/23/Emulate-Form-POST-with-WebClient-class.aspx target=_blank>利用 WebClient 類別模擬 HTTP POST 表單送出的注意事項</a>有提到 <code>不適合用來下載大量的檔案，高負載的網站也不適合這樣用，即便你用非同步的方式撰寫，也會讓 WebClient 因為佔據過多 Threads 而導致效能降低</code> 這我不知道怎麼模擬，請大家參考保哥文章</li></ul><h2 id=get>GET</h2><ol><li><p>寫法 1</p><pre><code class=language-cs>using (WebClient webClient = new WebClient())
 // 從 url 讀取資訊至 stream
 using(Stream stream = webClient.OpenRead(&quot;http://jsonplaceholder.typicode.com/posts&quot;)    )
 // 使用 StreamReader 讀取 stream 內的字元
@@ -217,11 +10,7 @@ using(StreamReader reader= new StreamReader(stream))
     string request = reader.ReadToEnd();
     request.Dump();
 }
-</code></pre></li>
-
-<li><p>寫法 2</p>
-
-<pre><code class="language-cs">// 建立 webclient
+</code></pre></li><li><p>寫法 2</p><pre><code class=language-cs>// 建立 webclient
 using(WebClient webClient = new WebClient())
 {
     // 指定 WebClient 的編碼
@@ -232,24 +21,7 @@ using(WebClient webClient = new WebClient())
     var body = webClient.DownloadString(&quot;http://jsonplaceholder.typicode.com/posts&quot;);
     body.Dump();
 }
-</code></pre></li>
-</ol>
-
-<h2 id="post">POST</h2>
-
-<p>WebClient 共有四種 POST 相關的方法</p>
-
-<ol>
-<li><p>UploadString(string)</p>
-
-<blockquote>
-<p>將 String 傳送至資源。</p>
-</blockquote>
-
-<ul>
-<li><p>以下 demo 會搭配 <code>application/json</code></p>
-
-<pre><code class="language-cs">// 建立 WebClient
+</code></pre></li></ol><h2 id=post>POST</h2><p>WebClient 共有四種 POST 相關的方法</p><ol><li><p>UploadString(string)</p><blockquote><p>將 String 傳送至資源。</p></blockquote><ul><li><p>以下 demo 會搭配 <code>application/json</code></p><pre><code class=language-cs>// 建立 WebClient
 using (WebClient webClient = new WebClient())
 {
     // 指定 WebClient 編碼
@@ -267,19 +39,7 @@ using (WebClient webClient = new WebClient())
     // linqpad 將 post 結果輸出
     result.Dump();
 }
-</code></pre></li>
-</ul></li>
-
-<li><p>UploadData(byte[])</p>
-
-<blockquote>
-<p>將位元組陣列傳送至資源，並傳回含有任何回應的 Byte 陣列。</p>
-</blockquote>
-
-<ul>
-<li><p>以下 demo 會搭配 <code>application/x-www-form-urlencoded</code></p>
-
-<pre><code class="language-cs">// 建立 WebClient
+</code></pre></li></ul></li><li><p>UploadData(byte[])</p><blockquote><p>將位元組陣列傳送至資源，並傳回含有任何回應的 Byte 陣列。</p></blockquote><ul><li><p>以下 demo 會搭配 <code>application/x-www-form-urlencoded</code></p><pre><code class=language-cs>// 建立 WebClient
 using (WebClient webClient = new WebClient())
 {
     // 指定 WebClient 編碼
@@ -297,19 +57,7 @@ using (WebClient webClient = new WebClient())
     // linqpad 將 post 結果輸出
     result.Dump();
 }
-</code></pre></li>
-</ul></li>
-
-<li><p>UploadValues (byte[])</p>
-
-<blockquote>
-<p>將 NameValueCollection 傳送至資源，並傳回含有任何回應的 Byte 陣列。</p>
-</blockquote>
-
-<ul>
-<li><p>不需指定 content type</p>
-
-<pre><code class="language-cs">// 建立 WebClient
+</code></pre></li></ul></li><li><p>UploadValues (byte[])</p><blockquote><p>將 NameValueCollection 傳送至資源，並傳回含有任何回應的 Byte 陣列。</p></blockquote><ul><li><p>不需指定 content type</p><pre><code class=language-cs>// 建立 WebClient
 using (WebClient webClient = new WebClient())
 {
     // 指定 WebClient 編碼
@@ -328,23 +76,7 @@ using (WebClient webClient = new WebClient())
     // linqpad 將 post 結果輸出
     resultstr.Dump();
 }
-</code></pre></li>
-</ul></li>
-
-<li><p>UploadFile(byte[]) <span style="color:red">今天不會介紹</span></p>
-
-<blockquote>
-<p>將本機檔案傳送至資源，並傳回含有任何回應的 Byte 陣列。</p>
-</blockquote></li>
-</ol>
-
-<h2 id="put">PUT</h2>
-
-<blockquote>
-<p>方法與 POST 相同，只需在 url 與 data 間多傳一個 method 的參數，範例中 PUT 是將 jsonbin 的網址改為 public</p>
-</blockquote>
-
-<pre><code class="language-cs">// 建立 WebClient
+</code></pre></li></ul></li><li><p>UploadFile(byte[]) <span style=color:red>今天不會介紹</span></p><blockquote><p>將本機檔案傳送至資源，並傳回含有任何回應的 Byte 陣列。</p></blockquote></li></ol><h2 id=put>PUT</h2><blockquote><p>方法與 POST 相同，只需在 url 與 data 間多傳一個 method 的參數，範例中 PUT 是將 jsonbin 的網址改為 public</p></blockquote><pre><code class=language-cs>// 建立 WebClient
 using (WebClient webClient = new WebClient())
 {
     // 指定 WebClient 編碼
@@ -358,15 +90,7 @@ using (WebClient webClient = new WebClient())
     // linqpad 將 post 結果輸出
     result.Dump();
 }
-</code></pre>
-
-<h2 id="delete">DELETE</h2>
-
-<blockquote>
-<p>方法與 POST 相同，只需在 url 與 data 間多傳一個 method 的參數，範例中 DELETE 是將 jsonbin 的網址改為 private</p>
-</blockquote>
-
-<pre><code class="language-cs">// 建立 WebClient
+</code></pre><h2 id=delete>DELETE</h2><blockquote><p>方法與 POST 相同，只需在 url 與 data 間多傳一個 method 的參數，範例中 DELETE 是將 jsonbin 的網址改為 private</p></blockquote><pre><code class=language-cs>// 建立 WebClient
 using (WebClient webClient = new WebClient())
 {
     // 指定 WebClient 編碼
@@ -380,15 +104,7 @@ using (WebClient webClient = new WebClient())
     // linqpad 將 post 結果輸出
     result.Dump();
 }
-</code></pre>
-
-<h2 id="patch">PATCH</h2>
-
-<blockquote>
-<p>方法與 POST 相同，只需在 url 與 data 間多傳一個 method 的參數</p>
-</blockquote>
-
-<pre><code class="language-cs">// 建立 WebClient
+</code></pre><h2 id=patch>PATCH</h2><blockquote><p>方法與 POST 相同，只需在 url 與 data 間多傳一個 method 的參數</p></blockquote><pre><code class=language-cs>// 建立 WebClient
 using (WebClient webClient = new WebClient())
 {
     // 指定 WebClient 編碼
@@ -406,15 +122,7 @@ using (WebClient webClient = new WebClient())
     // linqpad 將 post 結果輸出
     result.Dump();
 }
-</code></pre>
-
-<h2 id="使用-proxy">使用 proxy</h2>
-
-<blockquote>
-<p>有時候程式的 host 環境無法直接上網或是我們想要確認傳出去的相關資訊，就需要設定 proxy</p>
-</blockquote>
-
-<pre><code class="language-cs">// 建立 WebClient
+</code></pre><h2 id=使用-proxy>使用 proxy</h2><blockquote><p>有時候程式的 host 環境無法直接上網或是我們想要確認傳出去的相關資訊，就需要設定 proxy</p></blockquote><pre><code class=language-cs>// 建立 WebClient
 using (WebClient webClient = new WebClient())
 {
     // 指定 WebClient 編碼
@@ -440,180 +148,17 @@ using (WebClient webClient = new WebClient())
     // linqpad 將 post 結果輸出
     result.Dump();
 }
-</code></pre>
-
-<ul>
-<li><p>以 fiddler 為例</p>
-
-<ul>
-<li>fiddler 的相關設定請參考 <a href="http://blog.yowko.com/2017/03/use-fiddler-proxy-gather-traffic.html" target="_blank">使用 fiddler 內建 proxy 來截錄手機或是程式封包</a></li>
-<li>截錄到的內容</li>
-</ul>
-
-<p><img src="https://cloud.githubusercontent.com/assets/3851540/23498993/2dcba8e8-ff65-11e6-8aaf-e1cc9ceb6a8c.png" alt="1result" /></p></li>
-</ul>
-
-<h1 id="參考資料">參考資料</h1>
-
-<ol>
-<li><a href="https://msdn.microsoft.com/zh-tw/library/system.net.webclient%28v=vs.110%29.aspx" target="_blank">WebClient 類別</a></li>
-<li><a href="http://blog.miniasp.com/post/2010/01/23/Emulate-Form-POST-with-WebClient-class.aspx" target="_blank">利用 WebClient 類別模擬 HTTP POST 表單送出的注意事項</a></li>
-<li><a href="//blog.yowko.com/2017/03/webrequest-and-httpwebrequest.html" target="_blank">如何使用 WebRequest,HttpWebRequest 來存取 (GET,POST,PUT,DELETE,PATCH) 網路資源</a></li>
-<li><a href="http://blog.yowko.com/2017/03/use-fiddler-proxy-gather-traffic.html" target="_blank">使用 fiddler 內建 proxy 來截錄手機或是程式封包</a></li>
-</ol>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">Yowko Tsai</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2018-09-22</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">授權合約</span>
-    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
-  </p>
-</div>
-
-	
-	
-	
-    
-    
-	
-    <footer class="post-footer">
-      <div class="post-tags">
-		  標籤：
-		  
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/c/">C#</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-		  <div>
-          <a class="prev" href="https://blog.yowko.com/httpclient/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">使用 HttpClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源</span>			
-          </a>
-		  </div>
-		  <div>
-        
-          <a class="prev" href="https://blog.yowko.com/specflow/" style="float: none;">
-            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
-            <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">使用 SpecFlow 建立人語化的單元測試</span>			
-          </a>
-		  </div>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/webclient\/';  
-      
-    };
-
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'yowkonotes';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-  
-
-      </div>
-    </main>
-	
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
-  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主題 - 
-    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2016 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Yowko Tsai</span>
-  </span>
-</div>
-    </footer>
-	
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div> 
-  
-  
-<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
-
-
-<script data-no-instant>InstantClick.init();</script>
-
-
-<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-88810280-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-  
-
-</body>
-</html>
+</code></pre><ul><li><p>以 fiddler 為例</p><ul><li>fiddler 的相關設定請參考 <a href=http://blog.yowko.com/2017/03/use-fiddler-proxy-gather-traffic.html target=_blank>使用 fiddler 內建 proxy 來截錄手機或是程式封包</a></li><li>截錄到的內容</li></ul><p><img src=https://cloud.githubusercontent.com/assets/3851540/23498993/2dcba8e8-ff65-11e6-8aaf-e1cc9ceb6a8c.png alt=1result></p></li></ul><h1 id=參考資料>參考資料</h1><ol><li><a href="https://msdn.microsoft.com/zh-tw/library/system.net.webclient%28v=vs.110%29.aspx" target=_blank>WebClient 類別</a></li><li><a href=http://blog.miniasp.com/post/2010/01/23/Emulate-Form-POST-with-WebClient-class.aspx target=_blank>利用 WebClient 類別模擬 HTTP POST 表單送出的注意事項</a></li><li><a href=//blog.yowko.com/2017/03/webrequest-and-httpwebrequest.html target=_blank>如何使用 WebRequest,HttpWebRequest 來存取 (GET,POST,PUT,DELETE,PATCH) 網路資源</a></li><li><a href=http://blog.yowko.com/2017/03/use-fiddler-proxy-gather-traffic.html target=_blank>使用 fiddler 內建 proxy 來截錄手機或是程式封包</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2018-09-22</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/c/>C#</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/httpclient/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">使用 HttpClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源</span></a></div><div><a class=prev href=https://blog.yowko.com/specflow/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">使用 SpecFlow 建立人語化的單元測試</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/webclient\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

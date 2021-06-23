@@ -1,216 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>嘗試為gRPC 中的 stream RPC 加上 Unit Test - Yowko&#39;s Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="嘗試為gRPC 中的 stream RPC 加上 Unit Test 之前筆記 C# 搭配 gRPC 中使用 stream RPC 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，" />
-
-  <meta name="keywords" content="yowko, .net, blog" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.51" />
-
-<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
-
-
-<link rel="canonical" href="https://blog.yowko.com/csharp-grpc-stream-unit-test/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
-<link rel="manifest" href="https://blog.yowko.com/manifest.json">
-<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
-
-
-<meta property="og:title" content="嘗試為gRPC 中的 stream RPC 加上 Unit Test" />
-<meta property="og:description" content="嘗試為gRPC 中的 stream RPC 加上 Unit Test 之前筆記 C# 搭配 gRPC 中使用 stream RPC 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/csharp-grpc-stream-unit-test/" /><meta property="article:published_time" content="2019-06-19T21:30:00&#43;08:00"/>
-<meta property="article:modified_time" content="2020-12-11T21:30:31&#43;08:00"/>
-
-<meta itemprop="name" content="嘗試為gRPC 中的 stream RPC 加上 Unit Test">
-<meta itemprop="description" content="嘗試為gRPC 中的 stream RPC 加上 Unit Test 之前筆記 C# 搭配 gRPC 中使用 stream RPC 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，">
-
-
-<meta itemprop="datePublished" content="2019-06-19T21:30:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-12-11T21:30:31&#43;08:00" />
-<meta itemprop="wordCount" content="1222">
-
-
-
-<meta itemprop="keywords" content="csharp,gRPC,Unit Test," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="嘗試為gRPC 中的 stream RPC 加上 Unit Test"/>
-<meta name="twitter:description" content="嘗試為gRPC 中的 stream RPC 加上 Unit Test 之前筆記 C# 搭配 gRPC 中使用 stream RPC 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
-
-</head>
-<body>
-     
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="https://blog.yowko.com/">
-        <li class="mobile-menu-item">首頁</li>
-      </a><a href="https://blog.yowko.com/post/">
-        <li class="mobile-menu-item">歷史筆記</li>
-      </a><a href="https://blog.yowko.com/tags/">
-        <li class="mobile-menu-item">內容標籤</li>
-      </a><a href="https://blog.yowko.com/search">
-        <li class="mobile-menu-item">站內搜尋</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
-        <div class="logo-wrapper">
-  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-</div>
-<div style="padding-bottom: 60px;"> </div>
-</nav>
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
-    </li>
-  </ul>
-</nav>
-    </header>	
-    <main id="main" class="main">		
-      <div class="content-wrapper">		
-		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
-        <div id="content" class="content">		
-          <article class="post">
-    
-    <header class="post-header">
-      
-
-      <div class="post-meta">
-        <span class="post-time"> 2019-06-19 </span>
-        
-        <span class="more-meta"> 約 1222 字 </span>
-          <span class="more-meta"> 預計閱讀 3 分鐘 </span>
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目錄</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#嘗試為grpc-中的-stream-rpc-加上-unit-test">嘗試為gRPC 中的 stream RPC 加上 Unit Test</a>
-<ul>
-<li><a href="#基本環境說明">基本環境說明</a></li>
-<li><a href="#主機端串流-rpc-server-side-streaming-rpc">主機端串流 RPC (server-side streaming RPC)</a></li>
-<li><a href="#用戶端串流-rpc-client-side-streaming-rpc">用戶端串流 RPC (client-side streaming RPC)</a></li>
-<li><a href="#雙向串流-rpc-bidirectional-streaming-rpc">雙向串流 RPC (bidirectional streaming RPC)</a></li>
-<li><a href="#心得">心得</a></li>
-<li><a href="#參考資訊">參考資訊</a></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h1 id="嘗試為grpc-中的-stream-rpc-加上-unit-test">嘗試為gRPC 中的 stream RPC 加上 Unit Test</h1>
-
-<p>之前筆記 <a href="https://blog.yowko.com/csharp-grpc-stream/">C# 搭配 gRPC 中使用 stream RPC</a> 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，仔細看了錯誤原因才發現 stream RPC 雖然只是在 service 的參數定義加上 <code>stream</code> 不過 generate 出來的實作方法中則用了不同的參數型別，儘管經過嘗試後有找到方法不過仍然有缺點，於是先筆記目前的做法，待日後有機會再看看有沒有其他更漂亮的方式</p>
-
-<h2 id="基本環境說明">基本環境說明</h2>
-
-<ol>
-<li>macOS Mojave 10.14.5</li>
-<li>.NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)</li>
-
-<li><p>NuGet package</p>
-
-<ul>
-<li>Grpc 1.21.0</li>
-<li>Grpc.Tools 1.21.0</li>
-<li>Google.Protobuf 3.8.0</li>
-<li>Bogus 27.0.1</li>
-</ul></li>
-
-<li><p>protobuf 定義</p>
-
-<blockquote>
-<p>大致上內容延續之前筆記 <a href="https://blog.yowko.com/csharp-grpc-stream/">C# 搭配 gRPC 中使用 stream RPC</a> 內容，多加上 server-side streaming RPC 回傳多筆資料</p>
-</blockquote>
-
-<ul>
-<li><p>message</p>
-
-<pre><code class="language-proto">syntax = &quot;proto3&quot;;
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>嘗試為gRPC 中的 stream RPC 加上 Unit Test - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="嘗試為gRPC 中的 stream RPC 加上 Unit Test 之前筆記 C# 搭配 gRPC 中使用 stream RPC 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/csharp-grpc-stream-unit-test/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="嘗試為gRPC 中的 stream RPC 加上 Unit Test"><meta property=og:description content="嘗試為gRPC 中的 stream RPC 加上 Unit Test 之前筆記 C# 搭配 gRPC 中使用 stream RPC 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/csharp-grpc-stream-unit-test/><meta property=article:published_time content=2019-06-19T21:30:00&#43;08:00><meta property=article:modified_time content=2020-12-11T21:30:31&#43;08:00><meta itemprop=name content="嘗試為gRPC 中的 stream RPC 加上 Unit Test"><meta itemprop=description content="嘗試為gRPC 中的 stream RPC 加上 Unit Test 之前筆記 C# 搭配 gRPC 中使用 stream RPC 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，"><meta itemprop=datePublished content=2019-06-19T21:30:00&#43;08:00><meta itemprop=dateModified content=2020-12-11T21:30:31&#43;08:00><meta itemprop=wordCount content=1222><meta itemprop=keywords content="csharp,gRPC,Unit Test,"><meta name=twitter:card content=summary><meta name=twitter:title content="嘗試為gRPC 中的 stream RPC 加上 Unit Test"><meta name=twitter:description content="嘗試為gRPC 中的 stream RPC 加上 Unit Test 之前筆記 C# 搭配 gRPC 中使用 stream RPC 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2019-06-19</span>
+<span class=more-meta>約 1222 字</span>
+<span class=more-meta>預計閱讀 3 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#嘗試為grpc-中的-stream-rpc-加上-unit-test>嘗試為gRPC 中的 stream RPC 加上 Unit Test</a><ul><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#主機端串流-rpc-server-side-streaming-rpc>主機端串流 RPC (server-side streaming RPC)</a></li><li><a href=#用戶端串流-rpc-client-side-streaming-rpc>用戶端串流 RPC (client-side streaming RPC)</a></li><li><a href=#雙向串流-rpc-bidirectional-streaming-rpc>雙向串流 RPC (bidirectional streaming RPC)</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h1 id=嘗試為grpc-中的-stream-rpc-加上-unit-test>嘗試為gRPC 中的 stream RPC 加上 Unit Test</h1><p>之前筆記 <a href=https://blog.yowko.com/csharp-grpc-stream/>C# 搭配 gRPC 中使用 stream RPC</a> 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，仔細看了錯誤原因才發現 stream RPC 雖然只是在 service 的參數定義加上 <code>stream</code> 不過 generate 出來的實作方法中則用了不同的參數型別，儘管經過嘗試後有找到方法不過仍然有缺點，於是先筆記目前的做法，待日後有機會再看看有沒有其他更漂亮的方式</p><h2 id=基本環境說明>基本環境說明</h2><ol><li>macOS Mojave 10.14.5</li><li>.NET Core SDK 2.2.107 (.NET Core Runtime 2.2.5)</li><li><p>NuGet package</p><ul><li>Grpc 1.21.0</li><li>Grpc.Tools 1.21.0</li><li>Google.Protobuf 3.8.0</li><li>Bogus 27.0.1</li></ul></li><li><p>protobuf 定義</p><blockquote><p>大致上內容延續之前筆記 <a href=https://blog.yowko.com/csharp-grpc-stream/>C# 搭配 gRPC 中使用 stream RPC</a> 內容，多加上 server-side streaming RPC 回傳多筆資料</p></blockquote><ul><li><p>message</p><pre><code class=language-proto>syntax = &quot;proto3&quot;;
 
 package Message; //will be placed in a namespace matching the package name if csharp_namespace is not specified
 option csharp_namespace = &quot;GRpc.Messages&quot;;
@@ -237,11 +27,7 @@ message DownloadByName {
 message CreateCvResponse {
     bool IsSuccess = 1;
 }
-</code></pre></li>
-
-<li><p>service</p>
-
-<pre><code class="language-proto">syntax = &quot;proto3&quot;;
+</code></pre></li><li><p>service</p><pre><code class=language-proto>syntax = &quot;proto3&quot;;
 
 package Message; //will be placed in a namespace matching the package name if csharp_namespace is not specified
 option csharp_namespace = &quot;GRpc.Messages&quot;;
@@ -254,20 +40,7 @@ service CandidateService {
     rpc DownloadAllCv (google.protobuf.Empty) returns (stream Candidate);
     rpc CreateDownloadCv (stream Candidate) returns (stream Candidates);
 }
-</code></pre></li>
-</ul></li>
-</ol>
-
-<h2 id="主機端串流-rpc-server-side-streaming-rpc">主機端串流 RPC (server-side streaming RPC)</h2>
-
-<ol>
-<li><p>建立 <code>TestServerStreamWriter</code> 實作 <code>IServerStreamWriter</code></p>
-
-<blockquote>
-<p>其中 <code>WriteOptions</code> 與 <code>WriteAsync</code> 是來自於 <code>IServerStreamWriter</code> 的底層 <code>IAsyncStreamWriter&lt;T&gt;</code></p>
-</blockquote>
-
-<pre><code class="language-cs">private class TestServerStreamWriter&lt;T&gt; : IServerStreamWriter&lt;T&gt;
+</code></pre></li></ul></li></ol><h2 id=主機端串流-rpc-server-side-streaming-rpc>主機端串流 RPC (server-side streaming RPC)</h2><ol><li><p>建立 <code>TestServerStreamWriter</code> 實作 <code>IServerStreamWriter</code></p><blockquote><p>其中 <code>WriteOptions</code> 與 <code>WriteAsync</code> 是來自於 <code>IServerStreamWriter</code> 的底層 <code>IAsyncStreamWriter&lt;T&gt;</code></p></blockquote><pre><code class=language-cs>private class TestServerStreamWriter&lt;T&gt; : IServerStreamWriter&lt;T&gt;
 {
     public WriteOptions WriteOptions { get; set; }
 
@@ -280,18 +53,7 @@ service CandidateService {
         return Task.CompletedTask;
     }
 }
-</code></pre></li>
-
-<li><p>測試程式</p>
-
-<blockquote>
-<p>建立 <code>TestServerStreamWriter</code> 實體，並當做實作方法的參數傳入以接受資料</p>
-</blockquote>
-
-<ul>
-<li><p>取得一筆</p>
-
-<pre><code class="language-cs">[Test]
+</code></pre></li><li><p>測試程式</p><blockquote><p>建立 <code>TestServerStreamWriter</code> 實體，並當做實作方法的參數傳入以接受資料</p></blockquote><ul><li><p>取得一筆</p><pre><code class=language-cs>[Test]
 public async Task DownloadCv_ShouldGetOne()
 {
     // arrange
@@ -309,11 +71,7 @@ public async Task DownloadCv_ShouldGetOne()
     // assert
     actual.Responses.Count.Should().Be(expected);
 }
-</code></pre></li>
-
-<li><p>取得多筆</p>
-
-<pre><code class="language-cs">[Test]
+</code></pre></li><li><p>取得多筆</p><pre><code class=language-cs>[Test]
 public async Task DownloadAllCv_ShouldGetFive()
 {
     // arrange
@@ -328,20 +86,7 @@ public async Task DownloadAllCv_ShouldGetFive()
     // assert
     actual.Responses.Count.Should().Be(expected);
 }
-</code></pre></li>
-</ul></li>
-</ol>
-
-<h2 id="用戶端串流-rpc-client-side-streaming-rpc">用戶端串流 RPC (client-side streaming RPC)</h2>
-
-<ol>
-<li><p>建立 <code>TestAsyncStreamReader</code> 實作 <code>IAsyncStreamReader&lt;T&gt;</code></p>
-
-<blockquote>
-<p>其中 <code>Current</code> 與 <code>MoveNext</code> 來自  <code>IAsyncStreamReader</code> 的底層 <code>IAsyncEnumerator&lt;out T&gt;</code></p>
-</blockquote>
-
-<pre><code class="language-cs">private class TestAsyncStreamReader&lt;T&gt; : IAsyncStreamReader&lt;T&gt;
+</code></pre></li></ul></li></ol><h2 id=用戶端串流-rpc-client-side-streaming-rpc>用戶端串流 RPC (client-side streaming RPC)</h2><ol><li><p>建立 <code>TestAsyncStreamReader</code> 實作 <code>IAsyncStreamReader&lt;T&gt;</code></p><blockquote><p>其中 <code>Current</code> 與 <code>MoveNext</code> 來自 <code>IAsyncStreamReader</code> 的底層 <code>IAsyncEnumerator&lt;out T&gt;</code></p></blockquote><pre><code class=language-cs>private class TestAsyncStreamReader&lt;T&gt; : IAsyncStreamReader&lt;T&gt;
 {
     public TestAsyncStreamReader(T message)
     {
@@ -364,15 +109,7 @@ public async Task DownloadAllCv_ShouldGetFive()
 
     public T Current { get; private set; }
 }
-</code></pre></li>
-
-<li><p>測試程式</p>
-
-<blockquote>
-<p>建立 <code>TestAsyncStreamReader</code> 實體，並當做實作方法的參數傳入以接受資料</p>
-</blockquote>
-
-<pre><code class="language-cs">[Test]
+</code></pre></li><li><p>測試程式</p><blockquote><p>建立 <code>TestAsyncStreamReader</code> 實體，並當做實作方法的參數傳入以接受資料</p></blockquote><pre><code class=language-cs>[Test]
 public async Task CreateCv_ShouldGetTrue()
 {
     // arrange
@@ -404,19 +141,7 @@ public async Task CreateCv_ShouldGetTrue()
     actual.Should().NotBeNull();
     actual.IsSuccess.Should().BeTrue();
 }
-</code></pre></li>
-</ol>
-
-<h2 id="雙向串流-rpc-bidirectional-streaming-rpc">雙向串流 RPC (bidirectional streaming RPC)</h2>
-
-<ol>
-<li><p>建立 <code>TestServerStreamWriter</code> 實作 <code>IServerStreamWriter</code> (如果之前已經建立過不需重新建立)</p>
-
-<blockquote>
-<p>其中 <code>WriteOptions</code> 與 <code>WriteAsync</code> 是來自於 <code>IServerStreamWriter</code> 的底層 <code>IAsyncStreamWriter&lt;T&gt;</code></p>
-</blockquote>
-
-<pre><code class="language-cs">private class TestServerStreamWriter&lt;T&gt; : IServerStreamWriter&lt;T&gt;
+</code></pre></li></ol><h2 id=雙向串流-rpc-bidirectional-streaming-rpc>雙向串流 RPC (bidirectional streaming RPC)</h2><ol><li><p>建立 <code>TestServerStreamWriter</code> 實作 <code>IServerStreamWriter</code> (如果之前已經建立過不需重新建立)</p><blockquote><p>其中 <code>WriteOptions</code> 與 <code>WriteAsync</code> 是來自於 <code>IServerStreamWriter</code> 的底層 <code>IAsyncStreamWriter&lt;T&gt;</code></p></blockquote><pre><code class=language-cs>private class TestServerStreamWriter&lt;T&gt; : IServerStreamWriter&lt;T&gt;
 {
     public WriteOptions WriteOptions { get; set; }
 
@@ -429,15 +154,7 @@ public async Task CreateCv_ShouldGetTrue()
         return Task.CompletedTask;
     }
 }
-</code></pre></li>
-
-<li><p>建立 <code>TestAsyncStreamReader</code> 實作 <code>IAsyncStreamReader&lt;T&gt;</code> (如果之前已經建立過不需重新建立)</p>
-
-<blockquote>
-<p>其中 <code>Current</code> 與 <code>MoveNext</code> 來自  <code>IAsyncStreamReader</code> 的底層 <code>IAsyncEnumerator&lt;out T&gt;</code></p>
-</blockquote>
-
-<pre><code class="language-cs">private class TestAsyncStreamReader&lt;T&gt; : IAsyncStreamReader&lt;T&gt;
+</code></pre></li><li><p>建立 <code>TestAsyncStreamReader</code> 實作 <code>IAsyncStreamReader&lt;T&gt;</code> (如果之前已經建立過不需重新建立)</p><blockquote><p>其中 <code>Current</code> 與 <code>MoveNext</code> 來自 <code>IAsyncStreamReader</code> 的底層 <code>IAsyncEnumerator&lt;out T&gt;</code></p></blockquote><pre><code class=language-cs>private class TestAsyncStreamReader&lt;T&gt; : IAsyncStreamReader&lt;T&gt;
 {
     public TestAsyncStreamReader(T message)
     {
@@ -460,15 +177,7 @@ public async Task CreateCv_ShouldGetTrue()
 
     public T Current { get; private set; }
 }
-</code></pre></li>
-
-<li><p>程式程式</p>
-
-<blockquote>
-<p>建立 <code>TestAsyncStreamReader</code> 與 <code>TestServerStreamWriter</code> 來當做測試資料的容器</p>
-</blockquote>
-
-<pre><code class="language-cs">[Test]
+</code></pre></li><li><p>程式程式</p><blockquote><p>建立 <code>TestAsyncStreamReader</code> 與 <code>TestServerStreamWriter</code> 來當做測試資料的容器</p></blockquote><pre><code class=language-cs>[Test]
 public async Task CreateDownloadCv_ShouldGetFive()
 {
     // arrange
@@ -503,186 +212,19 @@ public async Task CreateDownloadCv_ShouldGetFive()
     writer.Should().NotBeNull();
     writer.Responses.Should().BeEquivalentTo(expected);
 }
-</code></pre></li>
-</ol>
-
-<h2 id="心得">心得</h2>
-
-<p>為什麼筆記標題是 <code>嘗試</code>，主要是因為雖然透過繼承 stream 相關 interface，但方法或是屬性上還是與實作用法有些差異，而在 gRPC-dotnet 官方的 GitHub 相關測試也是使用同樣方式來進行，不知道是我沒看完整還是目前暫時只能這麼做</p>
-
-<p>其中我覺得做法上有重大缺陷的是 <code>雙向串流 RPC (bidirectional streaming RPC)</code> 中的 ServerStreamWriter 無法傳回多筆資料，原因不太好說明，大意是 <code>StreamReader</code> 與 <code>ServerStreamWriter</code> 都是 mock 出來的，沒有實際進行 stream 傳送與接放也就無法逐次取得 object</p>
-
-<h2 id="參考資訊">參考資訊</h2>
-
-<ol>
-<li><a href="https://blog.yowko.com/csharp-grpc-stream/">C# 搭配 gRPC 中使用 stream RPC</a></li>
-<li><a href="https://github.com/grpc/grpc-dotnet/blob/072a616b5a6a4250410f37f41128f0fbd8b2805b/test/Grpc.Net.Client.Tests/InterceptorTests.cs#L159" target="_blank">WrappedClientStreamWriter</a></li>
-<li><a href="https://github.com/grpc/grpc-dotnet/blob/bd453582ccba40134aa8fcf0eefd7fdfd8c53ad5/test/Grpc.AspNetCore.Server.Tests/Reflection/ReflectionGrpcServiceActivatorTests.cs#L82" target="_blank">TestServerStreamWriter</a></li>
-<li><a href="https://github.com/grpc/grpc-dotnet/blob/61de5a0305c7705d2dfc19905a8699191c16f4f2/src/Grpc.AspNetCore.Server/Internal/HttpContextStreamWriter.cs#L25" target="_blank">HttpContextStreamWriter</a></li>
-</ol>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">Yowko Tsai</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2020-12-11</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">授權合約</span>
-    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
-  </p>
-</div>
-
-	
-	
-	
-    
-    
-	
-    <footer class="post-footer">
-      <div class="post-tags">
-		  標籤：
-		  
-          
-		    
-		    
-		      
-		    	
-            <a href="https://blog.yowko.com/tags/csharp/">C#</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/grpc/">gRPC</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/unit-test/">Unit Test</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-		  <div>
-          <a class="prev" href="https://blog.yowko.com/aspdotnet-core-log-stackdriver/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver</span>			
-          </a>
-		  </div>
-		  <div>
-        
-          <a class="prev" href="https://blog.yowko.com/csharp-grpc-stream/" style="float: none;">
-            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
-            <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">C# 搭配 gRPC 中使用 stream RPC</span>			
-          </a>
-		  </div>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/csharp-grpc-stream-unit-test\/';  
-      
-    };
-
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'yowkonotes';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-  
-
-      </div>
-    </main>
-	
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
-  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主題 - 
-    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2016 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Yowko Tsai</span>
-  </span>
-</div>
-    </footer>
-	
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div> 
-  
-  
-<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
-
-
-<script data-no-instant>InstantClick.init();</script>
-
-
-<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-88810280-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-  
-
-</body>
-</html>
+</code></pre></li></ol><h2 id=心得>心得</h2><p>為什麼筆記標題是 <code>嘗試</code>，主要是因為雖然透過繼承 stream 相關 interface，但方法或是屬性上還是與實作用法有些差異，而在 gRPC-dotnet 官方的 GitHub 相關測試也是使用同樣方式來進行，不知道是我沒看完整還是目前暫時只能這麼做</p><p>其中我覺得做法上有重大缺陷的是 <code>雙向串流 RPC (bidirectional streaming RPC)</code> 中的 ServerStreamWriter 無法傳回多筆資料，原因不太好說明，大意是 <code>StreamReader</code> 與 <code>ServerStreamWriter</code> 都是 mock 出來的，沒有實際進行 stream 傳送與接放也就無法逐次取得 object</p><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://blog.yowko.com/csharp-grpc-stream/>C# 搭配 gRPC 中使用 stream RPC</a></li><li><a href=https://github.com/grpc/grpc-dotnet/blob/072a616b5a6a4250410f37f41128f0fbd8b2805b/test/Grpc.Net.Client.Tests/InterceptorTests.cs#L159 target=_blank>WrappedClientStreamWriter</a></li><li><a href=https://github.com/grpc/grpc-dotnet/blob/bd453582ccba40134aa8fcf0eefd7fdfd8c53ad5/test/Grpc.AspNetCore.Server.Tests/Reflection/ReflectionGrpcServiceActivatorTests.cs#L82 target=_blank>TestServerStreamWriter</a></li><li><a href=https://github.com/grpc/grpc-dotnet/blob/61de5a0305c7705d2dfc19905a8699191c16f4f2/src/Grpc.AspNetCore.Server/Internal/HttpContextStreamWriter.cs#L25 target=_blank>HttpContextStreamWriter</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2020-12-11</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/csharp/>C#</a>
+<a href=https://blog.yowko.com/tags/grpc/>gRPC</a>
+<a href=https://blog.yowko.com/tags/unit-test/>Unit Test</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/aspdotnet-core-log-stackdriver/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver</span></a></div><div><a class=prev href=https://blog.yowko.com/csharp-grpc-stream/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">C# 搭配 gRPC 中使用 stream RPC</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/csharp-grpc-stream-unit-test\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

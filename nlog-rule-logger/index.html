@@ -1,198 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>NLog 設定 Rule 僅包含部份 Logger - Yowko&#39;s Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Yowko Tsai" />
-  <meta name="description" content="NLog 設定 Rule 僅包含部份 Logger log 是系統正式上線後，少數可以用來協助 debug 的資訊，而 debug 的難易度與解決問題的速度也就跟著 log 的品質而有極大的差異。 今天想要紀錄最" />
-
-  <meta name="keywords" content="yowko, .net, blog" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.51" />
-
-<meta name="msvalidate.01" content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898" />
-
-
-<link rel="canonical" href="https://blog.yowko.com/nlog-rule-logger/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="https://blog.yowko.com/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.yowko.com/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.yowko.com/favicon-16x16.png">
-<link rel="manifest" href="https://blog.yowko.com/manifest.json">
-<link rel="mask-icon" href="https://blog.yowko.com/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
-
-
-<meta property="og:title" content="NLog 設定 Rule 僅包含部份 Logger" />
-<meta property="og:description" content="NLog 設定 Rule 僅包含部份 Logger log 是系統正式上線後，少數可以用來協助 debug 的資訊，而 debug 的難易度與解決問題的速度也就跟著 log 的品質而有極大的差異。 今天想要紀錄最" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.yowko.com/nlog-rule-logger/" /><meta property="article:published_time" content="2018-01-22T02:07:00&#43;08:00"/>
-<meta property="article:modified_time" content="2018-01-22T02:07:15&#43;08:00"/>
-
-<meta itemprop="name" content="NLog 設定 Rule 僅包含部份 Logger">
-<meta itemprop="description" content="NLog 設定 Rule 僅包含部份 Logger log 是系統正式上線後，少數可以用來協助 debug 的資訊，而 debug 的難易度與解決問題的速度也就跟著 log 的品質而有極大的差異。 今天想要紀錄最">
-
-
-<meta itemprop="datePublished" content="2018-01-22T02:07:00&#43;08:00" />
-<meta itemprop="dateModified" content="2018-01-22T02:07:15&#43;08:00" />
-<meta itemprop="wordCount" content="868">
-
-
-
-<meta itemprop="keywords" content="套件,NLog," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="NLog 設定 Rule 僅包含部份 Logger"/>
-<meta name="twitter:description" content="NLog 設定 Rule 僅包含部份 Logger log 是系統正式上線後，少數可以用來協助 debug 的資訊，而 debug 的難易度與解決問題的速度也就跟著 log 的品質而有極大的差異。 今天想要紀錄最"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-<link href="https://blog.yowko.com/opensearch.xml" rel='search' title='Content search' type='application/opensearchdescription+xml'/>
-
-</head>
-<body>
-     
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="https://blog.yowko.com/">
-        <li class="mobile-menu-item">首頁</li>
-      </a><a href="https://blog.yowko.com/post/">
-        <li class="mobile-menu-item">歷史筆記</li>
-      </a><a href="https://blog.yowko.com/tags/">
-        <li class="mobile-menu-item">內容標籤</li>
-      </a><a href="https://blog.yowko.com/search">
-        <li class="mobile-menu-item">站內搜尋</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header" style="height: 118px; padding-bottom: 0px;">
-        <div class="logo-wrapper">
-  <a href="https://blog.yowko.com/" class="logo">Yowko&#39;s Notes</a>
-</div>
-<div style="padding-bottom: 60px;"> </div>
-</nav>
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/">首頁</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/post/">歷史筆記</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/tags/">內容標籤</a>
-    </li><li class="menu-item">
-      <a class="menu-item-link" href="https://blog.yowko.com/search">站內搜尋</a>
-    </li>
-  </ul>
-</nav>
-    </header>	
-    <main id="main" class="main">		
-      <div class="content-wrapper">		
-		<hr style="border-top: 1px solid #e6e6e6; border-bottom: 0px; padding: 0px;" />
-        <div id="content" class="content">		
-          <article class="post">
-    
-    <header class="post-header">
-      
-
-      <div class="post-meta">
-        <span class="post-time"> 2018-01-22 </span>
-        
-        <span class="more-meta"> 約 868 字 </span>
-          <span class="more-meta"> 預計閱讀 2 分鐘 </span>
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目錄</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#nlog-設定-rule-僅包含部份-logger">NLog 設定 Rule 僅包含部份 Logger</a>
-<ul>
-<li><a href="#預設-nlog-設定">預設 nlog 設定</a></li>
-<li><a href="#如何僅包含指定-log">如何僅包含指定 log</a></li>
-<li><a href="#心得">心得</a></li>
-</ul></li>
-<li><a href="#參考資訊">參考資訊</a></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h1 id="nlog-設定-rule-僅包含部份-logger">NLog 設定 Rule 僅包含部份 Logger</h1>
-
-<p>log 是系統正式上線後，少數可以用來協助 debug 的資訊，而 debug 的難易度與解決問題的速度也就跟著 log 的品質而有極大的差異。</p>
-
-<p>今天想要紀錄最近專案遇到的一個需求：某些 log 內容很少使用加上資料量又大實際效用不高，但卻是追查 bug 的最後一道不可或缺的防線(像是 EntityFramework 實際產出的 SQL script)，而其他 log 則紀錄了整個程式流程的相關資訊，所以打算將 db 的 script log 與其他程式執行資訊分開儲存，避免 db 的大量 log 形成雜訊而拖慢 debug 的速度，就來看看 nlog 可以如何設定吧</p>
-
-<h2 id="預設-nlog-設定">預設 nlog 設定</h2>
-
-<blockquote>
-<p>以下是 nlog.config 的設定範例</p>
-</blockquote>
-
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>NLog 設定 Rule 僅包含部份 Logger - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="NLog 設定 Rule 僅包含部份 Logger log 是系統正式上線後，少數可以用來協助 debug 的資訊，而 debug 的難易度與解決問題的速度也就跟著 log 的品質而有極大的差異。 今天想要紀錄最"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/nlog-rule-logger/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="NLog 設定 Rule 僅包含部份 Logger"><meta property=og:description content="NLog 設定 Rule 僅包含部份 Logger log 是系統正式上線後，少數可以用來協助 debug 的資訊，而 debug 的難易度與解決問題的速度也就跟著 log 的品質而有極大的差異。 今天想要紀錄最"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/nlog-rule-logger/><meta property=article:published_time content=2018-01-22T02:07:00&#43;08:00><meta property=article:modified_time content=2018-01-22T02:07:15&#43;08:00><meta itemprop=name content="NLog 設定 Rule 僅包含部份 Logger"><meta itemprop=description content="NLog 設定 Rule 僅包含部份 Logger log 是系統正式上線後，少數可以用來協助 debug 的資訊，而 debug 的難易度與解決問題的速度也就跟著 log 的品質而有極大的差異。 今天想要紀錄最"><meta itemprop=datePublished content=2018-01-22T02:07:00&#43;08:00><meta itemprop=dateModified content=2018-01-22T02:07:15&#43;08:00><meta itemprop=wordCount content=868><meta itemprop=keywords content=套件,NLog,><meta name=twitter:card content=summary><meta name=twitter:title content="NLog 設定 Rule 僅包含部份 Logger"><meta name=twitter:description content="NLog 設定 Rule 僅包含部份 Logger log 是系統正式上線後，少數可以用來協助 debug 的資訊，而 debug 的難易度與解決問題的速度也就跟著 log 的品質而有極大的差異。 今天想要紀錄最"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2018-01-22</span>
+<span class=more-meta>約 868 字</span>
+<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#nlog-設定-rule-僅包含部份-logger>NLog 設定 Rule 僅包含部份 Logger</a><ul><li><a href=#預設-nlog-設定>預設 nlog 設定</a></li><li><a href=#如何僅包含指定-log>如何僅包含指定 log</a></li><li><a href=#心得>心得</a></li></ul></li><li><a href=#參考資訊>參考資訊</a></li></ul></nav></div></div><div class=post-content><h1 id=nlog-設定-rule-僅包含部份-logger>NLog 設定 Rule 僅包含部份 Logger</h1><p>log 是系統正式上線後，少數可以用來協助 debug 的資訊，而 debug 的難易度與解決問題的速度也就跟著 log 的品質而有極大的差異。</p><p>今天想要紀錄最近專案遇到的一個需求：某些 log 內容很少使用加上資料量又大實際效用不高，但卻是追查 bug 的最後一道不可或缺的防線(像是 EntityFramework 實際產出的 SQL script)，而其他 log 則紀錄了整個程式流程的相關資訊，所以打算將 db 的 script log 與其他程式執行資訊分開儲存，避免 db 的大量 log 形成雜訊而拖慢 debug 的速度，就來看看 nlog 可以如何設定吧</p><h2 id=預設-nlog-設定>預設 nlog 設定</h2><blockquote><p>以下是 nlog.config 的設定範例</p></blockquote><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
 &lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;
       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
       xsi:schemaLocation=&quot;http://www.nlog-project.org/schemas/NLog.xsd NLog.xsd&quot;
@@ -210,59 +18,12 @@
     &lt;logger name=&quot;*&quot; minlevel=&quot;Debug&quot; writeTo=&quot;f&quot; /&gt;
   &lt;/rules&gt;
 &lt;/nlog&gt;
-</code></pre>
-
-<ul>
-<li><p>target 設定說明</p>
-
-<ul>
-<li>預設寫至 <code>File</code></li>
-<li>target 名稱為 <code>f</code></li>
-<li>檔案路徑為 <code>${basedir}/logs/${shortdate}.log</code></li>
-<li>log 格式為 <code>${longdate} ${uppercase:${level}} ${message}</code></li>
-</ul></li>
-
-<li><p>rule 設定說明</p>
-
-<ul>
-<li>接受的 logger name 為 <code>*</code> (全部)</li>
-<li>log 會紀錄的 level 為 <code>Debug</code></li>
-<li>log 寫入 name 為 <code>f</code> 的 target</li>
-</ul></li>
-</ul>
-
-<h2 id="如何僅包含指定-log">如何僅包含指定 log</h2>
-
-<ul>
-<li><p>以需求來看很明確：在 rule 中正向表列 logger name</p>
-
-<blockquote>
-<p>但就 nlog 的文件看來是不支援這個需求，所以得要透過其他方式來達到目的了</p>
-</blockquote></li>
-
-<li><p>方法一：將排除的 log 指定 <code>final = &quot;true&quot;</code></p>
-
-<ul>
-<li><p>個別儲存所有 log</p>
-
-<pre><code class="language-xml">&lt;logger name=&quot;db&quot; minlevel=&quot;Debug&quot; writeTo=&quot;db&quot; /&gt;
+</code></pre><ul><li><p>target 設定說明</p><ul><li>預設寫至 <code>File</code></li><li>target 名稱為 <code>f</code></li><li>檔案路徑為 <code>${basedir}/logs/${shortdate}.log</code></li><li>log 格式為 <code>${longdate} ${uppercase:${level}} ${message}</code></li></ul></li><li><p>rule 設定說明</p><ul><li>接受的 logger name 為 <code>*</code> (全部)</li><li>log 會紀錄的 level 為 <code>Debug</code></li><li>log 寫入 name 為 <code>f</code> 的 target</li></ul></li></ul><h2 id=如何僅包含指定-log>如何僅包含指定 log</h2><ul><li><p>以需求來看很明確：在 rule 中正向表列 logger name</p><blockquote><p>但就 nlog 的文件看來是不支援這個需求，所以得要透過其他方式來達到目的了</p></blockquote></li><li><p>方法一：將排除的 log 指定 <code>final = &quot;true&quot;</code></p><ul><li><p>個別儲存所有 log</p><pre><code class=language-xml>&lt;logger name=&quot;db&quot; minlevel=&quot;Debug&quot; writeTo=&quot;db&quot; /&gt;
 &lt;logger name=&quot;audit&quot; minlevel=&quot;Debug&quot; writeTo=&quot;audit&quot; /&gt;
 &lt;logger name=&quot;normal&quot; minlevel=&quot;Debug&quot; writeTo=&quot;normal&quot; /&gt;
-</code></pre></li>
-
-<li><p>將需要結合的 log 組合</p>
-
-<pre><code class="language-xml">&lt;logger name=&quot;*&quot; minlevel=&quot;Debug&quot; writeTo=&quot;f&quot; /&gt;
-</code></pre></li>
-
-<li><p>指定排除不需結合的 log：加上 <code>final</code></p>
-
-<pre><code class="language-xml">&lt;logger name=&quot;db&quot; minlevel=&quot;Debug&quot; writeTo=&quot;db&quot; final=&quot;true&quot;/&gt;
-</code></pre></li>
-
-<li><p>測試程式</p>
-
-<pre><code class="language-cs">private static ILogger dblogger = LogManager.GetLogger(&quot;db&quot;);
+</code></pre></li><li><p>將需要結合的 log 組合</p><pre><code class=language-xml>&lt;logger name=&quot;*&quot; minlevel=&quot;Debug&quot; writeTo=&quot;f&quot; /&gt;
+</code></pre></li><li><p>指定排除不需結合的 log：加上 <code>final</code></p><pre><code class=language-xml>&lt;logger name=&quot;db&quot; minlevel=&quot;Debug&quot; writeTo=&quot;db&quot; final=&quot;true&quot;/&gt;
+</code></pre></li><li><p>測試程式</p><pre><code class=language-cs>private static ILogger dblogger = LogManager.GetLogger(&quot;db&quot;);
 private static ILogger auditlogger = LogManager.GetLogger(&quot;audit&quot;);
 private static ILogger normallogger = LogManager.GetLogger(&quot;normal&quot;);
 static void Main(string[] args)
@@ -271,23 +32,7 @@ static void Main(string[] args)
     auditlogger.Debug(&quot;audit&quot;);
     normallogger.Debug(&quot;normal&quot;);
 }
-</code></pre></li>
-
-<li><p>實際效果</p>
-
-<ul>
-<li><p>個別 log 及 整合 log</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/35197288-14d6fc8a-ff18-11e7-8ccb-0bfeda5627ab.png" alt="1logfiles" /></p></li>
-
-<li><p>db log 未寫至 all log 中</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/35197289-14ffd3e4-ff18-11e7-88c6-af02d65c5250.png" alt="2partlog" /></p></li>
-</ul></li>
-
-<li><p>完整 nlog.config</p>
-
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+</code></pre></li><li><p>實際效果</p><ul><li><p>個別 log 及 整合 log</p><p><img src=https://user-images.githubusercontent.com/3851540/35197288-14d6fc8a-ff18-11e7-8ccb-0bfeda5627ab.png alt=1logfiles></p></li><li><p>db log 未寫至 all log 中</p><p><img src=https://user-images.githubusercontent.com/3851540/35197289-14ffd3e4-ff18-11e7-88c6-af02d65c5250.png alt=2partlog></p></li></ul></li><li><p>完整 nlog.config</p><pre><code class=language-xml>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
 &lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;
     xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
     xsi:schemaLocation=&quot;http://www.nlog-project.org/schemas/NLog.xsd NLog.xsd&quot;
@@ -312,27 +57,11 @@ static void Main(string[] args)
     &lt;logger name=&quot;*&quot; minlevel=&quot;Debug&quot; writeTo=&quot;f&quot; /&gt;
 &lt;/rules&gt;
 &lt;/nlog&gt;
-</code></pre></li>
-</ul></li>
-
-<li><p>方法二：調整 logger 名稱</p>
-
-<ul>
-<li><p>個別儲存所有 log</p>
-
-<pre><code class="language-xml">&lt;logger name=&quot;db&quot; minlevel=&quot;Debug&quot; writeTo=&quot;db&quot; /&gt;
+</code></pre></li></ul></li><li><p>方法二：調整 logger 名稱</p><ul><li><p>個別儲存所有 log</p><pre><code class=language-xml>&lt;logger name=&quot;db&quot; minlevel=&quot;Debug&quot; writeTo=&quot;db&quot; /&gt;
 &lt;logger name=&quot;main.audit&quot; minlevel=&quot;Debug&quot; writeTo=&quot;audit&quot; /&gt;
 &lt;logger name=&quot;main.normal&quot; minlevel=&quot;Debug&quot; writeTo=&quot;normal&quot; /&gt;
-</code></pre></li>
-
-<li><p>透過 logger name 將需要結合的 log 組合</p>
-
-<pre><code class="language-xml">&lt;logger name=&quot;main.*&quot; minlevel=&quot;Debug&quot; /&gt;
-</code></pre></li>
-
-<li><p>測試程式</p>
-
-<pre><code class="language-cs">private static ILogger dblogger = LogManager.GetLogger(&quot;db&quot;);
+</code></pre></li><li><p>透過 logger name 將需要結合的 log 組合</p><pre><code class=language-xml>&lt;logger name=&quot;main.*&quot; minlevel=&quot;Debug&quot; /&gt;
+</code></pre></li><li><p>測試程式</p><pre><code class=language-cs>private static ILogger dblogger = LogManager.GetLogger(&quot;db&quot;);
 private static ILogger auditlogger = LogManager.GetLogger(&quot;main.audit&quot;);
 private static ILogger normallogger = LogManager.GetLogger(&quot;main.normal&quot;);
 static void Main(string[] args)
@@ -341,23 +70,7 @@ static void Main(string[] args)
     auditlogger.Debug(&quot;audit&quot;);
     normallogger.Debug(&quot;normal&quot;);
 }
-</code></pre></li>
-
-<li><p>實際效果</p>
-
-<ul>
-<li><p>個別 log 及 整合 log</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/35197290-15288c9e-ff18-11e7-9db3-30936fde6f85.png" alt="3loggername" /></p></li>
-
-<li><p>db log 未寫至 all log 中</p>
-
-<p><img src="https://user-images.githubusercontent.com/3851540/35197291-15738082-ff18-11e7-903c-6b2fecedc046.png" alt="4partlog" /></p></li>
-</ul></li>
-
-<li><p>完整 nlog.config</p>
-
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+</code></pre></li><li><p>實際效果</p><ul><li><p>個別 log 及 整合 log</p><p><img src=https://user-images.githubusercontent.com/3851540/35197290-15288c9e-ff18-11e7-9db3-30936fde6f85.png alt=3loggername></p></li><li><p>db log 未寫至 all log 中</p><p><img src=https://user-images.githubusercontent.com/3851540/35197291-15738082-ff18-11e7-903c-6b2fecedc046.png alt=4partlog></p></li></ul></li><li><p>完整 nlog.config</p><pre><code class=language-xml>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
 &lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;
     xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
     xsi:schemaLocation=&quot;http://www.nlog-project.org/schemas/NLog.xsd NLog.xsd&quot;
@@ -382,178 +95,18 @@ static void Main(string[] args)
     &lt;logger name=&quot;main.*&quot; minlevel=&quot;Debug&quot; writeTo=&quot;f&quot; /&gt;
 &lt;/rules&gt;
 &lt;/nlog&gt;
-</code></pre></li>
-</ul></li>
-</ul>
-
-<h2 id="心得">心得</h2>
-
-<p>雖然 nlog 要達成正向表面 log 對象 的做法比較沒那麼直覺(或者只是沒查到正確的文件)，但其他設定上相較其他 log library 還是方便不少</p>
-
-<p>趁著專案剛好有相關需求紀錄一下現在的做法，也許過陣子或是新版就會有不同的設定方式可更簡易地符合需求了</p>
-
-<h1 id="參考資訊">參考資訊</h1>
-
-<ol>
-<li><a href="https://github.com/NLog/NLog/wiki/Configuration-file#rules" target="_blank">NLog Configuration-file - Rules</a></li>
-</ol>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">Yowko Tsai</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2018-01-22</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">授權合約</span>
-    <span class="item-content">本部落格 (<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href="mailto:yowko@yowko.com">Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a></div><br />&nbsp;<a href="//blog.yowko.com" target="_blank">Yowko&#39;s Notes</a> 由 <a href="https://www.facebook.com/yowko.tsai" target="_blank">Yowko Tsai</a> 製作，以<a href="//creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank">創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span>
-  </p>
-</div>
-
-	
-	
-	
-    
-    
-	
-    <footer class="post-footer">
-      <div class="post-tags">
-		  標籤：
-		  
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/%E5%A5%97%E4%BB%B6/">套件</a>
-          
-		    
-		    	
-            <a href="https://blog.yowko.com/tags/nlog/">NLog</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-		  <div>
-          <a class="prev" href="https://blog.yowko.com/windbg-sos-does-not-support-current/" style="float: none;">
-            <span class="next-text nav-mobile" style="display: inline-block;">下一篇</span>			
-            <i class="fas fa-arrow-circle-right"></i>			
-            <span class="next-text nav-default">WinDBG 出現 SOS does not support the current target architecture ?!</span>			
-          </a>
-		  </div>
-		  <div>
-        
-          <a class="prev" href="https://blog.yowko.com/moment-js/" style="float: none;">
-            <span class="prev-text nav-mobile" style="display: inline-block;">上一篇</span>	  
-            <i class="fas fa-arrow-circle-left"></i>
-            <span class="prev-text nav-default">使用 Moment.js 來簡化 JavaScript 的時間處理</span>			
-          </a>
-		  </div>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    var disqus_config = function () {
-      this.page.url = 'https:\/\/blog.yowko.com\/nlog-rule-logger\/';  
-      
-    };
-
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'yowkonotes';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-  
-
-      </div>
-    </main>
-	
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:yowko@yowko.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://www.linkedin.com/in/yowko/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/yowko" class="iconfont icon-github" title="github"></a>
-  <a href="https://blog.yowko.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 強力驅動
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主題 - 
-    <a class="theme-link" href="https://github.com/huanlin/hugo-theme-even-more">Even More</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2016 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Yowko Tsai</span>
-  </span>
-</div>
-    </footer>
-	
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div> 
-  
-  
-<script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-  <script type="text/javascript" src="https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js" data-no-instant></script>
-
-
-<script data-no-instant>InstantClick.init();</script>
-
-
-<script type="text/javascript" src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-88810280-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-  
-
-</body>
-</html>
+</code></pre></li></ul></li></ul><h2 id=心得>心得</h2><p>雖然 nlog 要達成正向表面 log 對象 的做法比較沒那麼直覺(或者只是沒查到正確的文件)，但其他設定上相較其他 log library 還是方便不少</p><p>趁著專案剛好有相關需求紀錄一下現在的做法，也許過陣子或是新版就會有不同的設定方式可更簡易地符合需求了</p><h1 id=參考資訊>參考資訊</h1><ol><li><a href=https://github.com/NLog/NLog/wiki/Configuration-file#rules target=_blank>NLog Configuration-file - Rules</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2018-01-22</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/%E5%A5%97%E4%BB%B6/>套件</a>
+<a href=https://blog.yowko.com/tags/nlog/>NLog</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/windbg-sos-does-not-support-current/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">WinDBG 出現 SOS does not support the current target architecture ?!</span></a></div><div><a class=prev href=https://blog.yowko.com/moment-js/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">使用 Moment.js 來簡化 JavaScript 的時間處理</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/nlog-rule-logger\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
