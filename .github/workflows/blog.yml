@@ -1,0 +1,25 @@
+name: Hugo Build and Deploy
+on:
+  push:
+    branches:
+      - sourcecode
+jobs:
+  build-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.54.0'
+      - name: Build
+        run: hugo --minify
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.FORACTION }}
+          external_repository: yowko/yowko.github.io # <- 改成你自己的 user github page
+          publish_dir: ./public # <- 指定編譯後的成品放置的資料夾
+          publish_branch: master # <- 遠端 repo 的目標分支
