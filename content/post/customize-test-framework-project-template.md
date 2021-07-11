@@ -1,12 +1,12 @@
 ---
 title: "Test Framework 套件不好用嗎？！ 自己做一個囉"
 date: 2017-05-29T18:08:00+08:00
-lastmod: 2021-06-23T17:08:25+08:00
+lastmod: 2021-07-11T17:08:25+08:00
 draft: false
 tags: ["NUnit","Unit Test","Visual Studio"]
 slug: "customize-test-framework-project-template"
-aliases:
-    - /2017/05/customize-test-framework-project-template.html
+# aliases:
+#     - /2017/05/customize-test-framework-project-template.html
 ---
 
 ## Test Framework 套件不好用嗎？！ 自己做一個囉
