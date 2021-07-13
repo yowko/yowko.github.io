@@ -1,7 +1,7 @@
 ---
 title: "RabbitMQ Shovel 將訊息同步至不同 Vhost (Cluster)"
 date: 2021-04-05T09:30:00+08:00
-lastmod: 2021-04-05T09:30:31+08:00
+lastmod: 2021-07-13T09:30:31+08:00
 draft: false
 tags: ["RabbitMQ"]
 slug: "rabbitmq-shovel"
