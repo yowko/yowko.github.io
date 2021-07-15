@@ -1,0 +1,143 @@
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>使用 ProxySQL 來簡化 MySQL 的讀寫分離 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="使用 ProxySQL 來簡化 MySQL 的讀寫分離 隨著系統使用者愈來愈多，對於 MySQL 的存取量也跟提高許多，為了增加系統整體 capacity，首先打算從 MySQL 著手調整起，在經過"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/proxysql/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="使用 ProxySQL 來簡化 MySQL 的讀寫分離"><meta property=og:description content="使用 ProxySQL 來簡化 MySQL 的讀寫分離 隨著系統使用者愈來愈多，對於 MySQL 的存取量也跟提高許多，為了增加系統整體 capacity，首先打算從 MySQL 著手調整起，在經過"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/proxysql/><meta property=article:published_time content=2021-07-15T21:30:00&#43;08:00><meta property=article:modified_time content=2021-07-15T21:30:00&#43;08:00><meta itemprop=name content="使用 ProxySQL 來簡化 MySQL 的讀寫分離"><meta itemprop=description content="使用 ProxySQL 來簡化 MySQL 的讀寫分離 隨著系統使用者愈來愈多，對於 MySQL 的存取量也跟提高許多，為了增加系統整體 capacity，首先打算從 MySQL 著手調整起，在經過"><meta itemprop=datePublished content=2021-07-15T21:30:00&#43;08:00><meta itemprop=dateModified content=2021-07-15T21:30:00&#43;08:00><meta itemprop=wordCount content=1569><meta itemprop=keywords content=MySQL,ProxySQL,><meta name=twitter:card content=summary><meta name=twitter:title content="使用 ProxySQL 來簡化 MySQL 的讀寫分離"><meta name=twitter:description content="使用 ProxySQL 來簡化 MySQL 的讀寫分離 隨著系統使用者愈來愈多，對於 MySQL 的存取量也跟提高許多，為了增加系統整體 capacity，首先打算從 MySQL 著手調整起，在經過"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2021-07-15</span>
+<span class=more-meta>約 1569 字</span>
+<span class=more-meta>預計閱讀 4 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#使用-proxysql-來簡化-mysql-的讀寫分離>使用 ProxySQL 來簡化 MySQL 的讀寫分離</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#設定方式>設定方式</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=使用-proxysql-來簡化-mysql-的讀寫分離>使用 ProxySQL 來簡化 MySQL 的讀寫分離</h2><p>隨著系統使用者愈來愈多，對於 MySQL 的存取量也跟提高許多，為了增加系統整體 capacity，首先打算從 MySQL 著手調整起，在經過一連串指令的優化已經沒什麼調整空間後，便開始計劃加入 MySQL replication 機制，並使用讀寫分離的策略，雖然從程式面調整起，可能比較符合實際的需求，但整個調整的成本太高了，所以打算先評估 open source 工具：<code>ProxySQL</code>，今天簡單紀錄一下安裝與使用方式供同事 review</p><h2 id=基本環境說明>基本環境說明</h2><ol><li>macOS Big Sur 11.4</li><li>docker desktop 3.3.0 (62916)</li><li><p>docker images</p><ul><li>bitnami/mysql:8.0</li><li>proxysql/proxysql:2.1.0</li></ul></li><li><p>MySQL replication 與 ProxySQL 的安裝</p><blockquote><p>透過 <a href=https://github.com/bitnami/bitnami-docker-mysql target=_blank>bitnami/bitnami-docker-mysql</a> 提供的 yaml 加上 proxysql 來快速建立環境</p></blockquote><ul><li><p>proxysql.cnf</p><blockquote><ul><li><p>多給一組帳密 <code>radmin:radmin</code> 方便從 host 上連線至 proxysql；預設的 <code>admin:admin</code> 必需進到 proxysql 的 container 中使用，且需要自行安裝 mysql client</p></li><li><p>其中的 <code>monitor_username</code> 與 <code>monitor_password</code> 跟後續建立 monitor 用的 user 帳號密碼需相同，這邊以 <code>monitor:pass.123</code> 為例</p></li></ul></blockquote><pre><code class=language-cnf>datadir=&quot;/var/lib/proxysql&quot;
+
+admin_variables=
+{
+    admin_credentials=&quot;admin:admin;radmin:radmin&quot;
+    mysql_ifaces=&quot;0.0.0.0:6032&quot;
+}
+        
+mysql_variables=
+{
+    threads=4
+    max_connections=2048
+    default_query_delay=0
+    default_query_timeout=36000000
+    have_compress=true
+    poll_timeout=2000
+    interfaces=&quot;0.0.0.0:6033&quot;
+    default_schema=&quot;information_schema&quot;
+    stacksize=1048576
+    server_version=&quot;5.5.30&quot;
+    connect_timeout_server=3000
+    monitor_username=&quot;monitor&quot;
+    monitor_password=&quot;pass.123&quot;
+    monitor_history=600000
+    monitor_connect_interval=60000
+    monitor_ping_interval=10000
+    monitor_read_only_interval=1500
+    monitor_read_only_timeout=500
+    ping_interval_server_msec=120000
+    ping_timeout_server=500
+    commands_stats=true
+    sessions_sort=true
+    connect_retries_on_failure=10
+}
+</code></pre></li><li><p>docker-compose.yml</p><pre><code class=language-yaml>version: '2.1'
+        
+services:
+mysql-master:
+    image: docker.io/bitnami/mysql:8.0
+    ports:
+    - '3306:3306'
+    volumes:
+    - 'mysql_master_data:/bitnami/mysql/data'
+    environment:
+    - MYSQL_REPLICATION_MODE=master
+    - MYSQL_REPLICATION_USER=admin
+    - MYSQL_REPLICATION_PASSWORD=pass.123
+    - MYSQL_USER=yowko
+    - MYSQL_PASSWORD=pass.123
+    - MYSQL_DATABASE=test
+    # ALLOW_EMPTY_PASSWORD is recommended only for development.
+    #- ALLOW_EMPTY_PASSWORD=yes
+    - MYSQL_ROOT_PASSWORD=pass.123
+    healthcheck:
+    test: ['CMD', '/opt/bitnami/scripts/mysql/healthcheck.sh']
+    interval: 15s
+    timeout: 5s
+    retries: 6
+        
+mysql-slave:
+    image: docker.io/bitnami/mysql:8.0
+    ports:
+    - '3307:3307'
+    depends_on:
+    - mysql-master
+    environment:
+    - MYSQL_REPLICATION_MODE=slave
+    - MYSQL_REPLICATION_USER=admin
+    - MYSQL_REPLICATION_PASSWORD=pass.123
+    - MYSQL_USER=yowko
+    - MYSQL_PASSWORD=pass.123
+    - MYSQL_DATABASE=test
+    - MYSQL_MASTER_HOST=mysql-master
+    - MYSQL_MASTER_PORT_NUMBER=3306
+    - MYSQL_MASTER_ROOT_PASSWORD=pass.123
+    # ALLOW_EMPTY_PASSWORD is recommended only for development.
+    # - ALLOW_EMPTY_PASSWORD=yes
+    healthcheck:
+    test: ['CMD', '/opt/bitnami/scripts/mysql/healthcheck.sh']
+    interval: 15s
+    timeout: 5s
+    retries: 6
+proxysql:
+    image: proxysql/proxysql:2.1.0
+    ports:
+    - '6032:6032'
+    - '6033:6033'
+    - '6070:6070'
+    volumes:
+    - './proxysql.cnf:/etc/proxysql.cnf' 
+    depends_on:
+    - mysql-master
+    - mysql-slave
+        
+volumes:
+mysql_master_data:
+    driver: local
+</code></pre></li></ul></li><li><p>建立測試用 table 與資料</p><blockquote><p>用來驗證讀寫分離設定是否正確</p></blockquote><pre><code class=language-sql>use test;
+create table testuser(
+    userid INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(100) NOT NULL,
+    birthdate DATE,
+    PRIMARY KEY ( userid )
+);  
+insert into testuser(username) values ('yowko');
+</code></pre></li></ol><h2 id=設定方式>設定方式</h2><ol><li><p>新增並設定 ProxySQL 所需的 user</p><blockquote><ul><li>執行目標：<code>MySQL(master)</code></li><li>連線方式：<code>mysql -h 127.0.0.1 -uroot -ppass.123</code></li></ul></blockquote><p><img src=https://user-images.githubusercontent.com/3851540/125803417-613d7b43-e274-4f0f-9304-1a3a9505df05.png alt=2connect></p><ul><li><p>使用 <code>mysql_native_password</code> 驗證機制新增 ProxySQL 所需的 user</p><blockquote><p>ProxySQL 不支援 MySQL8 導入的 <code>caching_sha2_password</code> 驗證機式，必需指定使用舊驗證機制 <code>mysql_native_password</code></p></blockquote><ul><li><p><code>monitor</code></p><blockquote><p>用來確認 MySQL 各個 server 是否正常服務用</p></blockquote><pre><code class=language-sql>create user 'monitor'@'%' identified with mysql_native_password by 'pass.123';
+grant replication client on *.* to 'monitor'@'%';
+flush privileges;
+</code></pre></li><li><p><code>proxysql</code></p><blockquote><p>用來執行實際 sql script</p></blockquote><pre><code class=language-sql>create user 'proxysql'@'%' identified with mysql_native_password by 'pass.123';
+grant all privileges on *.* to 'proxysql'@'%';
+flush privileges;
+</code></pre></li></ul></li><li><p>未指定使用 <code>mysql_native_password</code> 的錯誤訊息</p><blockquote><p>這個是從 ProxySQL container 中使用 <code>monitor</code> 連線 MySQL (<code>mysql -h mysql-master -umonitor -ppass.123</code>)所取得的錯誤</p></blockquote><pre><code class=language-txt>ERROR 2059 (HY000): Authentication plugin 'caching_sha2_password' cannot be loaded: /usr/lib/x86_64-linux-gnu/mariadb18/plugin/caching_sha2_password.so: cannot open shared object file: No such file or directory
+</code></pre></li><li><p>未指定使用 <code>mysql_native_password</code> 的錯誤截圖</p><p><img src=https://user-images.githubusercontent.com/3851540/125803420-3d45afdb-5deb-4833-90f6-fb7c5f9d9707.png alt=3accessdenied></p><p><img src=https://user-images.githubusercontent.com/3851540/125803421-2625e290-36d5-49da-bbc3-b9691151a895.png alt=4pluginerror></p></li></ul></li><li><p>設定 ProxySQL 中的 MySQL 讀寫角色分組</p><blockquote><ul><li>執行目標：<code>ProxySQL 管理服務</code> (6032)</li><li>連線方式：<code>mysql -h 127.0.0.1 -P 6032 -uradmin -pradmin</code> (預設 proxysql container 的帳密是 <code>admin:admin</code>，但僅限 container 中使用)</li></ul></blockquote><p><img src=https://user-images.githubusercontent.com/3851540/125803406-949f373c-bdcd-4eb8-9da5-9278d5b81894.png alt=1connect></p><ul><li><p>新增組別</p><blockquote><p><code>writer_hostgroup</code> 和 <code>reader_hostgroup</code> 的設定值都要大於 0 且不能相同 (下面使用 <code>writer_hostgroup</code> : <code>10</code>；<code>reader_hostgroup</code> : <code>20</code> 為例)</p></blockquote><pre><code class=language-sql>insert into mysql_replication_hostgroups ( writer_hostgroup, reader_hostgroup, comment) values (10,20,'proxy');
+</code></pre></li><li><p>將 MySQL server 加入各自的組別中</p><pre><code class=language-sql>insert into mysql_servers(hostgroup_id,hostname,port) values (10,'mysql-master',3306);
+insert into mysql_servers(hostgroup_id,hostname,port) values (20,'mysql-slave',3306);
+</code></pre></li><li><p>將設定值載入 runtime</p><pre><code class=language-sql>load mysql servers to runtime;
+</code></pre></li><li><p>將設定值儲存至 disk (optional)</p><pre><code class=language-sql>save mysql servers to disk;
+</code></pre></li><li><p>確認是否可以正確連線至各個 MySQL</p><pre><code class=language-sql>select * from mysql_server_ping_log limit 10;
+</code></pre><ul><li><p>正常連線</p><p><img src=https://user-images.githubusercontent.com/3851540/125803423-5462ad6e-ff80-4fa4-8fcf-855ae5b8f69a.png alt=5pingok></p></li><li><p>無法連線</p><p><img src=https://user-images.githubusercontent.com/3851540/125803420-3d45afdb-5deb-4833-90f6-fb7c5f9d9707.png alt=3accessdenied></p></li></ul></li></ul></li><li><p>將 ProxySQL 連線 MySQL 用 user 加至 ProxySQL 中</p><blockquote><ul><li>執行目標：<code>ProxySQL 管理服務</code> (6032)</li><li>連線方式：<code>mysql -h 127.0.0.1 -P 6032 -uradmin -pradmin</code> (預設 proxysql container 的帳密是 <code>admin:admin</code>，但僅限 container 中使用)</li></ul></blockquote><ul><li><p>新增 ProxySQL 連線 MySQL 用 user；載入 runtime;儲存至 disk (optional)</p><pre><code class=language-sql>insert into mysql_users (username,password,default_hostgroup) values ('proxysql','pass.123',10);
+load mysql users to runtime;
+save mysql users to disk;
+</code></pre></li></ul></li><li><p>建立讀寫分流規則</p><blockquote><ul><li>執行目標：<code>ProxySQL 管理服務</code> (6032)</li><li>連線方式：<code>mysql -h 127.0.0.1 -P 6032 -uradmin -pradmin</code> (預設 proxysql container 的帳密是 <code>admin:admin</code>，但僅限 container 中使用)</li></ul></blockquote><ul><li><p>新增讀寫分流規則;載入規則至 runtime;儲存規則至 disk (optional)</p><pre><code class=language-sql>insert into mysql_query_rules(rule_id,active,match_pattern,destination_hostgroup,apply) values (2,1,'^select',20,1);
+load mysql query rules to runtime;
+save mysql query rules to disk;
+</code></pre></li></ul></li><li><p>實際效果</p><ol><li><p>新增並查詢資料</p><blockquote><ul><li>執行目標：<code>ProxySQL 對外服務</code> (6033)</li><li>連線方式：<code>mysql -uproxysql -ppass.123 -P 6033 -h 127.0.0.1</code></li></ul></blockquote><pre><code class=language-sql>mysql -uproxysql -ppass.123 -P 6033 -h 127.0.0.1 -e &quot;insert into test.testuser(username) values ('yowko');&quot;
+mysql -uproxysql -ppass.123 -P 6033 -h 127.0.0.1 -e &quot;select * from test.testuser;&quot;
+</code></pre></li><li><p>確認讀寫分離規則</p><blockquote><ul><li>執行目標：<code>ProxySQL 管理服務</code> (6032)</li><li>連線方式：<code>mysql -h 127.0.0.1 -P 6032 -uradmin -pradmin</code> (預設 proxysql container 的帳密是 <code>admin:admin</code>，但僅限 container 中使用)</li></ul></blockquote><pre><code class=language-sql>select hostgroup,schemaname,username,digest_text,count_star from  stats_mysql_query_digest;
+</code></pre><p><img src=https://user-images.githubusercontent.com/3851540/125803429-d9b0e27e-ba19-4077-b068-f678e1b1d531.png alt=6rulecheck></p></li></ol></li></ol><h2 id=心得>心得</h2><p>以我粗淺的 db 知識來看，ProxySQL 架構滿複雜的，但厲害的是指令並不難理解，不過我怕我講錯所以今天的筆記絕口不提架構，請大家自行努力了，我就先求個會用、過渡一下，待 DBA 報到後應該就可以交接給 DBA 了</p><p>雖然我從架環境到實際完成讀寫分離，花了好幾天，但與逐一調整每個 application 程式碼相比還是相當節省時間的，不過有個隱憂是畢竟多了一層 proxy，實際的效能衰退狀況還不確定，待做個測試取得前後差異再來決擇吧</p><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://github.com/bitnami/bitnami-docker-mysql target=_blank>bitnami/bitnami-docker-mysql</a></li><li><a href=https://proxysql.com/ target=_blank>ProxySQL</a></li><li><a href=https://github.com/sysown/proxysql target=_blank>sysown/proxysql</a></li><li><a href=https://stackoverflow.com/a/64595396 target=_blank>Why ERROR 1045 (28000): Access denied in ProxySQL server?</a></li><li><a href=https://www.cnblogs.com/keme/p/12290977.html target=_blank>ProxySQL 基礎篇</a></li><li><a href=https://www.cnblogs.com/kevingrace/p/10329714.html target=_blank>ProxySQL 配置详解及读写分离(+GTID)等功能说明 (完整篇)</a></li><li><a href=https://www.modb.pro/db/28841 target=_blank>MySQL ProxySQL介绍</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2021-07-15</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/mysql/>MySQL</a>
+<a href=https://blog.yowko.com/tags/proxysql/>ProxySQL</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/rabbitmq-shovel/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">RabbitMQ Shovel 將訊息同步至不同 Vhost (Cluster)</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/proxysql\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
