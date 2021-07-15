@@ -1,7 +1,7 @@
 ---
 title: "RabbitMQ Shovel 將訊息同步至不同 Vhost (Cluster)"
 date: 2021-04-05T09:30:00+08:00
-lastmod: 2021-07-13T09:30:31+08:00
+lastmod: 2021-07-15T09:30:31+08:00
 draft: false
 tags: ["RabbitMQ"]
 slug: "rabbitmq-shovel"
@@ -20,7 +20,7 @@ slug: "rabbitmq-shovel"
     - rabbitmq:3.8.14-management
 
         ```bash
-        docker run -d --rm --hostname my-rabbit --name test-rabbit -p 5672:5672 -p 15672:15672  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=pass.123 rabbitmq:3.8.14-management
+        docker run -d --rm --hostname my-rabbit --name test-rabbit -p 5672:5672 -p 15672:15672  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=pass.123 rabbitmq:3.8-management
         ```
 
 4. RabbitMQ 基本設定
