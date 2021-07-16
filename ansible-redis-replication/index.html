@@ -1,138 +1,138 @@
-<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Ansible 安裝 Redis Replication 更新版 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="Ansible 安裝 Redis Replication 更新版 之前筆記 使用 Ansible 安裝 Redis Replication 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/ansible-redis-replication/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="Ansible 安裝 Redis Replication 更新版"><meta property=og:description content="Ansible 安裝 Redis Replication 更新版 之前筆記 使用 Ansible 安裝 Redis Replication 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/ansible-redis-replication/><meta property=article:published_time content=2020-07-04T21:30:00&#43;08:00><meta property=article:modified_time content=2020-12-11T21:30:31&#43;08:00><meta itemprop=name content="Ansible 安裝 Redis Replication 更新版"><meta itemprop=description content="Ansible 安裝 Redis Replication 更新版 之前筆記 使用 Ansible 安裝 Redis Replication 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼"><meta itemprop=datePublished content=2020-07-04T21:30:00&#43;08:00><meta itemprop=dateModified content=2020-12-11T21:30:31&#43;08:00><meta itemprop=wordCount content=851><meta itemprop=keywords content=Ansible,Redis,><meta name=twitter:card content=summary><meta name=twitter:title content="Ansible 安裝 Redis Replication 更新版"><meta name=twitter:description content="Ansible 安裝 Redis Replication 更新版 之前筆記 使用 Ansible 安裝 Redis Replication 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2020-07-04</span>
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Ansible 安裝 Redis Replication 更新版 - Yowko&#39;s Notes</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Yowko Tsai"><meta name=description content="Ansible 安裝 Redis Replication 更新版 之前筆記 使用 Ansible 安裝 Redis Replication 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼"><meta name=keywords content="yowko,.net,blog"><meta name=generator content="Hugo 0.59.1"><meta name=msvalidate.01 content="FA1ADBDB8F0BBBD0F7F4E65CDEBF7898"><link rel=canonical href=https://blog.yowko.com/ansible-redis-replication/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property="og:title" content="Ansible 安裝 Redis Replication 更新版"><meta property="og:description" content="Ansible 安裝 Redis Replication 更新版 之前筆記 使用 Ansible 安裝 Redis Replication 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.yowko.com/ansible-redis-replication/"><meta property="article:published_time" content="2020-07-04T21:30:00+08:00"><meta property="article:modified_time" content="2020-12-11T21:30:31+08:00"><meta itemprop=name content="Ansible 安裝 Redis Replication 更新版"><meta itemprop=description content="Ansible 安裝 Redis Replication 更新版 之前筆記 使用 Ansible 安裝 Redis Replication 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼"><meta itemprop=datePublished content="2020-07-04T21:30:00&#43;08:00"><meta itemprop=dateModified content="2020-12-11T21:30:31&#43;08:00"><meta itemprop=wordCount content="851"><meta itemprop=keywords content="Ansible,Redis,"><meta name=twitter:card content="summary"><meta name=twitter:title content="Ansible 安裝 Redis Replication 更新版"><meta name=twitter:description content="Ansible 安裝 Redis Replication 更新版 之前筆記 使用 Ansible 安裝 Redis Replication 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2020-07-04</span>
 <span class=more-meta>約 851 字</span>
-<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#ansible-安裝-redis-replication-更新版>Ansible 安裝 Redis Replication 更新版</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#安裝語法>安裝語法</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=ansible-安裝-redis-replication-更新版>Ansible 安裝 Redis Replication 更新版</h2><p>之前筆記 <a href=https://blog.yowko.com/ansible-install-redis/>使用 Ansible 安裝 Redis Replication</a> 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼用 script 硬上的，經過一段時間的練習，來更新一下自己覺得比較好的寫法，做為比較紀錄</p><h2 id=基本環境說明>基本環境說明</h2><ol><li>Azure VM B2s (2 vcpu,4GiB memory)</li><li>CentOS-based 7.7</li><li>Redis 5.0.7</li><li>epel-release.noarch 0:7-11</li><li>ius-release.noarch 0:2-1.el7.ius</li><li>ansible 2.9.10</li><li>python 2.7.15</li></ol><h2 id=安裝語法>安裝語法</h2><ol><li><p>專案結構</p><ul><li>roles<ul><li>redis-replication<ul><li>handlers<ul><li>main.yml</li></ul></li><li>tasks<ul><li>checkdir.yml</li><li>installredis.yml</li><li>installtools.yml</li><li>main.yml</li><li>prepareservice.yml</li><li>prepareredisconfig.yml</li><li>preparesentinelconfig.yml</li><li>uninstall.yml</li><li>upgrade.yml</li></ul></li><li>templates<ul><li>config.j2</li><li>sentinel.j2</li><li>service.j2</li></ul></li><li>vars<ul><li>main.yml</li></ul></li><li>inventories<ul><li>dev.ini</li></ul></li><li>README.md</li></ul></li></ul></li><li>ansible.cfg</li><li>main.yml</li></ul></li><li><p>完整內容</p><ul><li><p>roles</p><ul><li><p>redis-replication</p><ul><li><p>handlers</p><ul><li>main.yml</li></ul><pre><code class=language-yml>  ---
-  - name: &quot;Restart Redis Service&quot;
-    listen: restart-service
-    systemd:
-      name: &quot;redis_{{redis_port}}&quot;
-      daemon_reload: yes
-      enabled: yes
-      state: restarted
-</code></pre></li><li><p>tasks</p><ul><li>checkdir.yml</li></ul><pre><code class=language-yml>  ---
-  - name: Ensures dir exists
-    file:
-      path: &quot;{{ item.folder }}&quot;
-      state: directory
-      mode: 0755
-      owner: redis
-      recurse: yes
-</code></pre><ul><li>installredis.yml</li></ul><pre><code class=language-yml>  ---
-  - name: Install Redis
-    yum:
-      name: &quot;{{redisversion}}&quot;
-      state: latest
-</code></pre><ul><li>installtools.yml</li></ul><pre><code class=language-yml>  - name: Install IUS
-    yum:
-      name:
-        - https://repo.ius.io/ius-release-el7.rpm
-        - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-      state: latest
+<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#ansible-安裝-redis-replication-更新版>Ansible 安裝 Redis Replication 更新版</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#安裝語法>安裝語法</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=ansible-安裝-redis-replication-更新版>Ansible 安裝 Redis Replication 更新版</h2><p>之前筆記 <a href=https://blog.yowko.com/ansible-install-redis/>使用 Ansible 安裝 Redis Replication</a> 中紀錄使用 Ansible 來安裝 Redis Replication，但畢竟是 Ansible 新手，很多好用的 function 都沒真的用上，多數都是土法鍊鋼用 script 硬上的，經過一段時間的練習，來更新一下自己覺得比較好的寫法，做為比較紀錄</p><h2 id=基本環境說明>基本環境說明</h2><ol><li>Azure VM B2s (2 vcpu,4GiB memory)</li><li>CentOS-based 7.7</li><li>Redis 5.0.7</li><li>epel-release.noarch 0:7-11</li><li>ius-release.noarch 0:2-1.el7.ius</li><li>ansible 2.9.10</li><li>python 2.7.15</li></ol><h2 id=安裝語法>安裝語法</h2><ol><li><p>專案結構</p><ul><li>roles<ul><li>redis-replication<ul><li>handlers<ul><li>main.yml</li></ul></li><li>tasks<ul><li>checkdir.yml</li><li>installredis.yml</li><li>installtools.yml</li><li>main.yml</li><li>prepareservice.yml</li><li>prepareredisconfig.yml</li><li>preparesentinelconfig.yml</li><li>uninstall.yml</li><li>upgrade.yml</li></ul></li><li>templates<ul><li>config.j2</li><li>sentinel.j2</li><li>service.j2</li></ul></li><li>vars<ul><li>main.yml</li></ul></li><li>inventories<ul><li>dev.ini</li></ul></li><li>README.md</li></ul></li></ul></li><li>ansible.cfg</li><li>main.yml</li></ul></li><li><p>完整內容</p><ul><li><p>roles</p><ul><li><p>redis-replication</p><ul><li><p>handlers</p><ul><li><p>main.yml</p><pre><code class=language-yml>---
+- name: &quot;Restart Redis Service&quot;
+listen: restart-service
+systemd:
+  name: &quot;redis_{{redis_port}}&quot;
+  daemon_reload: yes
+  enabled: yes
+  state: restarted
+</code></pre></li></ul></li><li><p>tasks</p><ul><li><p>checkdir.yml</p><pre><code class=language-yml>---
+- name: Ensures dir exists
+file:
+  path: &quot;{{ item.folder }}&quot;
+  state: directory
+  mode: 0755
+  owner: redis
+  recurse: yes
+</code></pre></li><li><p>installredis.yml</p><pre><code class=language-yml>---
+- name: Install Redis
+yum:
+  name: &quot;{{redisversion}}&quot;
+  state: latest
+</code></pre></li><li><p>installtools.yml</p><pre><code class=language-yml>- name: Install IUS
+yum:
+  name:
+    - https://repo.ius.io/ius-release-el7.rpm
+    - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+  state: latest
                   
-  - include_tasks: installredis.yml
+- include_tasks: installredis.yml
                   
-  - include_tasks: checkdir.yml
-    with_items:
-    - {folder: &quot;/etc/redis&quot;}
+- include_tasks: checkdir.yml
+with_items:
+- {folder: &quot;/etc/redis&quot;}
                   
-  - name: Remove default redis service
-    shell: |
-      systemctl disable redis
+- name: Remove default redis service
+shell: |
+  systemctl disable redis
                   
-  - name: Delete redis service
-    file: 
-      path: &quot;{{ item }}&quot;
-      state: absent
-    with_items: 
-      - /usr/lib/systemd/system/redis.service
-      - /etc/systemd/system/redis.service.d
-      - /etc/systemd/system/redis-sentinel.service.d
+- name: Delete redis service
+file: 
+  path: &quot;{{ item }}&quot;
+  state: absent
+with_items: 
+  - /usr/lib/systemd/system/redis.service
+  - /etc/systemd/system/redis.service.d
+  - /etc/systemd/system/redis-sentinel.service.d
                   
-  - name: Disable SELinux
-    shell: |
-      setenforce 0
-      sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+- name: Disable SELinux
+shell: |
+  setenforce 0
+  sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
                   
-  - name: Allow Overcommit Memory
-    sysctl:
-      name: vm.overcommit_memory
-      value: &quot;1&quot;
-      state: present
-      reload: yes
-      ignoreerrors: yes
+- name: Allow Overcommit Memory
+sysctl:
+  name: vm.overcommit_memory
+  value: &quot;1&quot;
+  state: present
+  reload: yes
+  ignoreerrors: yes
                   
-  - name: Stop and disable firewalld.
-    service:
-      name: firewalld
-      state: stopped
-      enabled: False
-</code></pre><ul><li>main.yml<br></li></ul><pre><code class=language-yml>  ---
-  - include_tasks: uninstall.yml
-    when: action == 'uninstall' or action == 'reinstall'
+- name: Stop and disable firewalld.
+service:
+  name: firewalld
+  state: stopped
+  enabled: False
+</code></pre></li><li><p>main.yml</p><pre><code class=language-yml>---
+- include_tasks: uninstall.yml
+when: action == 'uninstall' or action == 'reinstall'
                   
-  - include_tasks: installtools.yml
-    when: action == 'install'
+- include_tasks: installtools.yml
+when: action == 'install'
                   
-  - include_tasks: upgrade.yml
-    when: action == 'upgrade'
+- include_tasks: upgrade.yml
+when: action == 'upgrade'
                   
-  - include_tasks: prepareservice.yml
-    when: action == 'install' or action == 'reinstall'
+- include_tasks: prepareservice.yml
+when: action == 'install' or action == 'reinstall'
                   
-  - include_tasks: prepareredisconfig.yml
-    when: action != 'uninstall'
+- include_tasks: prepareredisconfig.yml
+when: action != 'uninstall'
                   
-  - include_tasks: preparesentinelconfig.yml
-    when: action != 'uninstall'
-</code></pre><ul><li>prepareservice.yml<br></li></ul><pre><code class=language-yml>  ---
-  - name: Prepare services
-    template:
-      src: service.j2
-      dest: &quot;/etc/systemd/system/redis_{{redis_port}}.service&quot;
-      owner: redis
-</code></pre><ul><li>prepareredisconfig.yml<br></li></ul><pre><code class=language-yml>  ---
-  - include_tasks: checkdir.yml
-    with_items: 
-    - {folder: &quot;/etc/redis/redis_{{ redis_port }}&quot;}
+- include_tasks: preparesentinelconfig.yml
+when: action != 'uninstall'
+</code></pre></li><li><p>prepareservice.yml</p><pre><code class=language-yml>---
+- name: Prepare services
+template:
+  src: service.j2
+  dest: &quot;/etc/systemd/system/redis_{{redis_port}}.service&quot;
+  owner: redis
+</code></pre></li><li><p>prepareredisconfig.yml</p><pre><code class=language-yml>---
+- include_tasks: checkdir.yml
+with_items: 
+- {folder: &quot;/etc/redis/redis_{{ redis_port }}&quot;}
                   
-  - name: Prepare Master Configs
-    template:
-      src: config.j2
-      dest: &quot;/etc/redis/redis_{{ redis_port }}.conf&quot;
-      owner: redis
-    when: redis_role == &quot;master&quot; or redis_role == &quot;slave&quot;
-    notify: restart-service
-</code></pre><ul><li>preparesentinelconfig.yml<br></li></ul><pre><code class=language-yml>  ---
-  - include_tasks: checkdir.yml
-    with_items: 
-    - {folder: &quot;/etc/redis&quot;}
+- name: Prepare Master Configs
+template:
+  src: config.j2
+  dest: &quot;/etc/redis/redis_{{ redis_port }}.conf&quot;
+  owner: redis
+when: redis_role == &quot;master&quot; or redis_role == &quot;slave&quot;
+notify: restart-service
+</code></pre></li><li><p>preparesentinelconfig.yml</p><pre><code class=language-yml>---
+- include_tasks: checkdir.yml
+with_items: 
+- {folder: &quot;/etc/redis&quot;}
                   
-  - name: Prepare Sentinel Configs
-    template:
-      src: sentinel.j2
-      dest: &quot;/etc/redis/redis_{{redis_port}}.conf&quot;
-      owner: redis
-    when: redis_role == &quot;sentinel&quot;
-    notify: restart-service
-</code></pre><ul><li>uninstall.yml<br></li></ul><pre><code class=language-yml>  - name: Stop Service
-    service:
-      name: &quot;redis_{{redis_port}}&quot;
-      state: stopped
+- name: Prepare Sentinel Configs
+template:
+  src: sentinel.j2
+  dest: &quot;/etc/redis/redis_{{redis_port}}.conf&quot;
+  owner: redis
+when: redis_role == &quot;sentinel&quot;
+notify: restart-service
+</code></pre></li><li><p>uninstall.yml</p><pre><code class=language-yml>- name: Stop Service
+service:
+  name: &quot;redis_{{redis_port}}&quot;
+  state: stopped
                   
-  - name: Disable Service
-    shell: |
-      systemctl disable redis_{{redis_port}}
+- name: Disable Service
+shell: |
+  systemctl disable redis_{{redis_port}}
                   
-  - name: Delete config
-    file:
-      path: &quot;{{ item }}&quot;
-      state: absent
-    with_items:
-      - /etc/redis/redis_{{redis_port}}.conf
-      - /etc/systemd/system/redis_{{redis_port}}.service
+- name: Delete config
+file:
+  path: &quot;{{ item }}&quot;
+  state: absent
+with_items:
+  - /etc/redis/redis_{{redis_port}}.conf
+  - /etc/systemd/system/redis_{{redis_port}}.service
 
-</code></pre><ul><li>upgrade.yml<br></li></ul><pre><code class=language-yml>  ---
-  - include_tasks: installredis.yml
-</code></pre></li><li><p>templates</p><ul><li><p>config.j2</p><pre><code class=language-j2>dir /etc/redis/redis_{{redis_port}}
+</code></pre></li><li><p>upgrade.yml</p><pre><code class=language-yml>---
+- include_tasks: installredis.yml
+</code></pre></li></ul></li><li><p>templates</p><ul><li><p>config.j2</p><pre><code class=language-j2>dir /etc/redis/redis_{{redis_port}}
 bind {{redis_ip}} 127.0.0.1
 requirepass {{redispass}}
 {% if redis_role == &quot;slave&quot; and master_target is defined %}
@@ -239,10 +239,10 @@ roles_path = ./roles
 
 [defaults]
 host_key_checking = False
-</code></pre></li><li><p>main.yml</p></li></ul><pre><code class=language-yaml>  - hosts: redis_all
-    roles:
-      - redis-replication
-</code></pre></li></ol><h2 id=心得>心得</h2><p>完整程式碼請參考 <a href=https://github.com/yowko/ansible-redis-replication target=_blank>ansible-redis-replication</a></p><p>大致流程與之前筆記 <a href=https://blog.yowko.com/ansible-install-redis/>使用 Ansible 安裝 Redis Replication</a> 相去不遠，只是改用 ansible 的 function 來處理</p><p>另外比較大的變化是使用 ansible role 的功能來管理，讓 ansible 的 script 可以擁有較高的共用性</p><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://blog.yowko.com/ansible-install-redis/>使用 Ansible 安裝 Redis Replication</a></li><li><a href=https://github.com/yowko/ansible-redis-replication target=_blank>ansible-redis-replication</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+</code></pre></li><li><p>main.yml</p><pre><code class=language-yaml>- hosts: redis_all
+roles:
+  - redis-replication
+</code></pre></li></ul></li></ol><h2 id=心得>心得</h2><p>完整程式碼請參考 <a href=https://github.com/yowko/ansible-redis-replication target=_blank>ansible-redis-replication</a></p><p>大致流程與之前筆記 <a href=https://blog.yowko.com/ansible-install-redis/>使用 Ansible 安裝 Redis Replication</a> 相去不遠，只是改用 ansible 的 function 來處理</p><p>另外比較大的變化是使用 ansible role 的功能來管理，讓 ansible 的 script 可以擁有較高的共用性</p><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://blog.yowko.com/ansible-install-redis/>使用 Ansible 安裝 Redis Replication</a></li><li><a href=https://github.com/yowko/ansible-redis-replication target=_blank>ansible-redis-replication</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
 <span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
 <span class=item-content>2020-12-11</span></p><p class=copyright-item><span class=item-title>授權合約</span>
 <span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
