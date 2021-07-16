@@ -1,6 +1,6 @@
-<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult 經過 91 哥三周的 TDD 訓練，我竟自大地以為我會 unit test 了，新專案到手立馬開啟 TDD 開發模式，不要臉地覺得同事寫的 api 可測試性低相當不可"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.54.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/unit-test-web-api-ihttpactionresult/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult"><meta property=og:description content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult 經過 91 哥三周的 TDD 訓練，我竟自大地以為我會 unit test 了，新專案到手立馬開啟 TDD 開發模式，不要臉地覺得同事寫的 api 可測試性低相當不可"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/unit-test-web-api-ihttpactionresult/><meta property=article:published_time content=2017-06-15T23:39:00&#43;08:00><meta property=article:modified_time content=2018-09-23T11:32:21&#43;08:00><meta itemprop=name content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult"><meta itemprop=description content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult 經過 91 哥三周的 TDD 訓練，我竟自大地以為我會 unit test 了，新專案到手立馬開啟 TDD 開發模式，不要臉地覺得同事寫的 api 可測試性低相當不可"><meta itemprop=datePublished content=2017-06-15T23:39:00&#43;08:00><meta itemprop=dateModified content=2018-09-23T11:32:21&#43;08:00><meta itemprop=wordCount content=575><meta itemprop=keywords content="MSTest,NUnit,Unit Test,xUnit,"><meta name=twitter:card content=summary><meta name=twitter:title content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult"><meta name=twitter:description content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult 經過 91 哥三周的 TDD 訓練，我竟自大地以為我會 unit test 了，新專案到手立馬開啟 TDD 開發模式，不要臉地覺得同事寫的 api 可測試性低相當不可"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2017-06-15</span>
-<span class=more-meta>約 575 字</span>
-<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#unit-test-如何驗證-asp-net-web-api-的-ihttpactionresult>Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult</a><ul><li><a href=#目標-api-內容>目標 api 內容</a></li><li><a href=#驗證概念說明>驗證概念說明</a></li><li><a href=#mstest-如何驗證>MSTest 如何驗證</a></li><li><a href=#nunit-3-如何驗證>NUnit 3 如何驗證</a></li><li><a href=#xunit-net-2-0-如何驗證>xUnit.net 2.0 如何驗證</a></li><li><a href=#心得>心得</a></li></ul></li><li><a href=#參考資訊>參考資訊</a></li></ul></nav></div></div><div class=post-content><h1 id=unit-test-如何驗證-asp-net-web-api-的-ihttpactionresult>Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult</h1><p>經過 91 哥三周的 TDD 訓練，我竟自大地以為我會 unit test 了，新專案到手立馬開啟 TDD 開發模式，不要臉地覺得同事寫的 api 可測試性低相當不可取 @@&rdquo; ，於是乎動手改造了起來，結果就卡住了 哈哈 果然上課跟實作還是存在著極大的落差呀，順手紀錄一下</p><h2 id=目標-api-內容>目標 api 內容</h2><ul><li><p>接受一個 url 的 query string 參數</p><ul><li>沒有傳參數或是參數是空字串就回傳 <code>BadRequest</code></li><li>一般正常 string 就回傳 <code>Ok</code></li></ul></li><li><p>範例程式碼</p><pre><code class=language-cs>public class DemoController : ApiController
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult 經過 91 哥三周的 TDD 訓練，我竟自大地以為我會 unit test 了，新專案到手立馬開啟 TDD 開發模式，不要臉地覺得同事寫的 api 可測試性低相當不可"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.57.0"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/unit-test-web-api-ihttpactionresult/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult"><meta property=og:description content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult 經過 91 哥三周的 TDD 訓練，我竟自大地以為我會 unit test 了，新專案到手立馬開啟 TDD 開發模式，不要臉地覺得同事寫的 api 可測試性低相當不可"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/unit-test-web-api-ihttpactionresult/><meta property=article:published_time content=2017-06-15T23:39:00+08:00><meta property=article:modified_time content=2018-09-23T11:32:21+08:00><meta itemprop=name content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult"><meta itemprop=description content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult 經過 91 哥三周的 TDD 訓練，我竟自大地以為我會 unit test 了，新專案到手立馬開啟 TDD 開發模式，不要臉地覺得同事寫的 api 可測試性低相當不可"><meta itemprop=datePublished content=2017-06-15T23:39:00&#43;08:00><meta itemprop=dateModified content=2018-09-23T11:32:21&#43;08:00><meta itemprop=wordCount content=585><meta itemprop=keywords content="MSTest,NUnit,Unit Test,xUnit,"><meta name=twitter:card content=summary><meta name=twitter:title content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult"><meta name=twitter:description content="Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult 經過 91 哥三周的 TDD 訓練，我竟自大地以為我會 unit test 了，新專案到手立馬開啟 TDD 開發模式，不要臉地覺得同事寫的 api 可測試性低相當不可"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2017-06-15</span>
+<span class=more-meta>約 585 字</span>
+<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#unit-test-如何驗證-asp-net-web-api-的-ihttpactionresult>Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult</a><ul><li><a href=#目標-api-內容>目標 api 內容</a></li><li><a href=#驗證概念說明>驗證概念說明</a></li><li><a href=#mstest-如何驗證>MSTest 如何驗證</a></li><li><a href=#心得>心得</a></li></ul></li><li><a href=#參考資訊>參考資訊</a></li></ul></nav></div></div><div class=post-content><h1 id=unit-test-如何驗證-asp-net-web-api-的-ihttpactionresult>Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult</h1><p>經過 91 哥三周的 TDD 訓練，我竟自大地以為我會 unit test 了，新專案到手立馬開啟 TDD 開發模式，不要臉地覺得同事寫的 api 可測試性低相當不可取 @@&rdquo; ，於是乎動手改造了起來，結果就卡住了 哈哈 果然上課跟實作還是存在著極大的落差呀，順手紀錄一下</p><h2 id=目標-api-內容>目標 api 內容</h2><ul><li><p>接受一個 url 的 query string 參數</p><ul><li>沒有傳參數或是參數是空字串就回傳 <code>BadRequest</code></li><li>一般正常 string 就回傳 <code>Ok</code></li></ul></li><li><p>範例程式碼</p><pre><code class=language-cs>public class DemoController : ApiController
 {
     public IHttpActionResult Post([FromUri]string name)
     {
@@ -23,64 +23,81 @@ public void Post_Name_StringEmpty_Return_BadRequest()
     Assert.IsNotNull(actual);
     Assert.IsInstanceOfType(actual, expected);
 }
-</code></pre></li><li><p>驗證 <code>Ok</code></p><p>```cs
-[TestMethod()]
+</code></pre></li><li><p>驗證 <code>Ok</code></p><pre><code class=language-cs>[TestMethod()]
+public void Post_Name_Yowko_Return_Ok()
+{
+    var target = new DemoController();
+    var name = &quot;Yowko&quot;;
+    var expected = typeof(OkResult);
+    //act
+    var actualAction = target.Post(name);
+    var actual = actualAction as OkResult;
+    //assert
+    Assert.IsNotNull(actual);
+    Assert.IsInstanceOfType(actual, expected);
+}
+
+## NUnit 3 如何驗證
+
+1.  驗證 `BadRequest`
+
+</code></pre><p>cs
+[Test()]
+public void Post_Name_StringEmpty_Return_BadRequest()
+{
+var target = new DemoController();
+var name = string.Empty;
+var expected = typeof(BadRequestResult);
+//act
+var actual = target.Post(name);
+//assert
+Assert.IsInstanceOf( expected,actual);
+}</p><pre><code>
+2.  驗證 `Ok`
+
+</code></pre><p>cs
+[Test()]
 public void Post_Name_Yowko_Return_Ok()
 {
 var target = new DemoController();
 var name = &ldquo;Yowko&rdquo;;
 var expected = typeof(OkResult);
 //act
-var actualAction = target.Post(name);
-var actual = actualAction as OkResult;
+var actual = target.Post(name);
 //assert
-Assert.IsNotNull(actual);
-Assert.IsInstanceOfType(actual, expected);
-}</p></li></ol><h2 id=nunit-3-如何驗證>NUnit 3 如何驗證</h2><ol><li><p>驗證 <code>BadRequest</code></p><pre><code class=language-cs>[Test()]
+Assert.IsInstanceOf(expected, actual);
+}</p><pre><code>
+## xUnit.net 2.0 如何驗證
+
+1.  驗證 `BadRequest`
+
+</code></pre><p>cs
+[Fact()]
 public void Post_Name_StringEmpty_Return_BadRequest()
 {
-    var target = new DemoController();
-    var name = string.Empty;
-    var expected = typeof(BadRequestResult);
-    //act
-    var actual = target.Post(name);
-    //assert
-    Assert.IsInstanceOf( expected,actual);
-}
-</code></pre></li><li><p>驗證 <code>Ok</code></p><pre><code class=language-cs>[Test()]
+var target = new DemoController();
+var name = string.Empty;
+var expected = typeof(BadRequestResult);
+//act
+var actual = target.Post(name);
+//assert
+Assert.IsType(expected, actual);
+}</p><pre><code>
+2.  驗證 `Ok`
+
+</code></pre><p>cs
+[Fact()]
 public void Post_Name_Yowko_Return_Ok()
 {
-    var target = new DemoController();
-    var name = &quot;Yowko&quot;;
-    var expected = typeof(OkResult);
-    //act
-    var actual = target.Post(name);
-    //assert
-    Assert.IsInstanceOf(expected, actual);
+var target = new DemoController();
+var name = &ldquo;Yowko&rdquo;;
+var expected = typeof(OkResult);
+//act
+var actual = target.Post(name);
+//assert
+Assert.IsType(expected, actual);
 }
-</code></pre></li></ol><h2 id=xunit-net-2-0-如何驗證>xUnit.net 2.0 如何驗證</h2><ol><li><p>驗證 <code>BadRequest</code></p><pre><code class=language-cs>[Fact()]
-public void Post_Name_StringEmpty_Return_BadRequest()
-{
-    var target = new DemoController();
-    var name = string.Empty;
-    var expected = typeof(BadRequestResult);
-    //act
-    var actual = target.Post(name);
-    //assert
-    Assert.IsType(expected, actual);
-}
-</code></pre></li><li><p>驗證 <code>Ok</code></p><pre><code class=language-cs>[Fact()]
-public void Post_Name_Yowko_Return_Ok()
-{
-    var target = new DemoController();
-    var name = &quot;Yowko&quot;;
-    var expected = typeof(OkResult);
-    //act
-    var actual = target.Post(name);
-    //assert
-    Assert.IsType(expected, actual);
-}
-</code></pre></li></ol><h2 id=心得>心得</h2><p>這讓我想起第一次上 TDD 時我也覺得我都會了，工作一忙沒機會用，到現在又上完了一次還是不會用，正如 91 哥說的，學習到內化是沒有捷徑的，只能靠不斷的練習，還好這次專案可以讓我練練功，期望這次可以真的學會</p><h1 id=參考資訊>參考資訊</h1><ol><li><a href=https://stackoverflow.com/questions/39115867/how-to-write-unit-test-case-for-badrequest target=_blank>How to write unit test case for BadRequest?</a></li><li><a href=https://blogs.msmvps.com/theproblemsolver/2013/11/13/unit-testing-a-asp-net-webapi-2-controller/ target=_blank>Unit testing a ASP.NET WebAPI 2 controller</a></li><li><a href=https://gist.github.com/RayKwon/6260978 target=_blank>WebAPI2 Unit Testing with IHttpActionResult</a></li><li><a href=//blog.yowko.com/2017/02/MStest-NUnit3-xUnit.net2-Compare.html target=_blank>MSTest,NUnit 3,xUnit.net 2.0 比較</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+```</p><h2 id=心得>心得</h2><p>這讓我想起第一次上 TDD 時我也覺得我都會了，工作一忙沒機會用，到現在又上完了一次還是不會用，正如 91 哥說的，學習到內化是沒有捷徑的，只能靠不斷的練習，還好這次專案可以讓我練練功，期望這次可以真的學會</p><h1 id=參考資訊>參考資訊</h1><ol><li><a href=https://stackoverflow.com/questions/39115867/how-to-write-unit-test-case-for-badrequest target=_blank>How to write unit test case for BadRequest?</a></li><li><a href=https://blogs.msmvps.com/theproblemsolver/2013/11/13/unit-testing-a-asp-net-webapi-2-controller/ target=_blank>Unit testing a ASP.NET WebAPI 2 controller</a></li><li><a href=https://gist.github.com/RayKwon/6260978 target=_blank>WebAPI2 Unit Testing with IHttpActionResult</a></li><li><a href=//blog.yowko.com/2017/02/MStest-NUnit3-xUnit.net2-Compare.html target=_blank>MSTest,NUnit 3,xUnit.net 2.0 比較</a></li></ol></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
 <span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
 <span class=item-content>2018-09-23</span></p><p class=copyright-item><span class=item-title>授權合約</span>
 <span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
