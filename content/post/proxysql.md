@@ -265,6 +265,8 @@ slug: "proxysql"
 
     - 新增讀寫分流規則;載入規則至 runtime;儲存規則至 disk (optional)
 
+        > 以下規則表示 script 若是以 `select` 開頭就導向 destination_hostgroup 為 `20` 的 `reader_hostgroup`
+
         ```sql
         insert into mysql_query_rules(rule_id,active,match_pattern,destination_hostgroup,apply) values (2,1,'^select',20,1);
         load mysql query rules to runtime;
