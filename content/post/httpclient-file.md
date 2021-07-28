@@ -1,7 +1,7 @@
 ---
 title: "使用 HttpClient 傳送檔案"
-date: 2021-07-26T21:30:00+08:00
-lastmod: 2021-07-26T21:30:00+08:00
+date: 2021-07-27T21:30:00+08:00
+lastmod: 2021-07-27T21:30:00+08:00
 draft: false
 tags: ["httpclient","csharp"]
 slug: "httpclient-file"

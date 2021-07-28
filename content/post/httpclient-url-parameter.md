@@ -1,7 +1,7 @@
 ---
 title: "HttpClient 使用 URL Parameters (Query Strings) 的方式"
 date: 2021-07-24T21:30:00+08:00
-lastmod: 2021-07-24T21:30:00+08:00
+lastmod: 2021-07-27T21:30:00+08:00
 draft: false
 tags: ["httpclient","csharp"]
 slug: "httpclient-url-parameter"
@@ -13,11 +13,11 @@ slug: "httpclient-url-parameter"
 
 ## 基本環境說明
 
-1. macOS Big Sur 11.4
+1. macOS Big Sur 11.5
 2. .NET Core SDK 5.0.202
 3. NuGet packages
 
-    - Microsoft.AspNetCore.WebUtilities
+    - Microsoft.AspNetCore.WebUtilities 2.2.0
 
 4. 測試 server
 
