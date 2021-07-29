@@ -1,7 +1,7 @@
 ---
 title: "HttpClient 使用 Polly 做 Timeout 重試"
 date: 2021-07-28T21:30:00+08:00
-lastmod: 2021-07-28T21:30:00+08:00
+lastmod: 2021-07-29T21:30:00+08:00
 draft: false
 tags: ["httpclient","csharp","polly"]
 slug: "httpclient-polly-timeout-retry"
@@ -9,7 +9,8 @@ slug: "httpclient-polly-timeout-retry"
 
 ## HttpClient 使用 Polly 做 Timeout 重試
 
-之前使用 HttpClient 做了一個內部的網頁回應偵測工具，原本沒有調整預設的 Timeout 時間 (預設為 100,000 毫秒 = 100 秒，相關說明可以參考 [Microsoft docs:HttpClient.Timeout 屬性](https://docs.microsoft.com/zh-tw/dotnet/api/system.net.http.httpclient.timeout?view=net-5.0&WT.mc_id=DOP-MVP-5002594))，但偵測頻率是 一分鐘 = 60 秒，表示有可能 HttpClient 仍在等待網頁回應時又開啟了下一輪的偵測，於是觀察一段時間的網頁回應都約在 100 毫秒以內，只有在 HttpClient 重新取得 DNS 紀錄時會出現 200-300 毫秒的回應時間，所以初步將 HttpClient Timeout 設定為 3 秒，結果一周內出現好幾次異常：工具偵測到網頁沒有回應，但人工開啟又正常，接著下一次偵測也正常，推測可能是因為該網頁經過層層轉導造成的，所以決定加上 retry 機制，避免 false alarm
+之前使用 HttpClient 做了一個內部的網頁回應偵測工具，原本沒有調整預設的 Timeout 時間 (預設為 100,000 毫秒 = 100 秒，相關說明可以參考 [Microsoft docs:HttpClient.Timeout 屬性](https://docs.microsoft.com/zh-tw/dotnet/api/system.net.http.httpclient.timeout?view=net-5.0&WT.mc_id=DOP-MVP-5002594))，為了更即時地知道系統問題，將偵測頻率設定為 一分鐘 = 60 秒，這樣一來表示有可能 HttpClient 仍在等待網頁回應時又開啟了下一輪的偵測，於是觀察一段時間的網頁回應都約在 100 毫秒以內
+(只在 HttpClient 重新取得 DNS 紀錄時會出現 200-300 毫秒的回應時間)，所以初步將 HttpClient Timeout 設定為 3 秒，結果一周內出現好幾次異常通知：工具偵測到網頁沒有回應，但人工開啟又正常，接著下一輪的工具偵測也正常，推測可能是因為該網頁經過層層轉導造成的，所以決定加上 retry 機制，避免 false alarm
 
 不加還好，一加才發現跟我預期的用法有不小落差，趕緊筆記一下避免下次又卡住
 
@@ -149,7 +150,7 @@ slug: "httpclient-polly-timeout-retry"
 
 ## 心得
 
-雖然我對於為什麼設定了 HttpClient.Timeout 就會造成 Polly 無法正確攔劫 exception 而執行 retry 很感興趣，但因為專案重要所以先筆記一下用法，回頭再花時間仔細了解一下相關機制，之後再回來補充我的心得
+雖然我對於為什麼設定了 HttpClient.Timeout 就會造成 Polly 無法成功攔劫 exception 而無法正確執行 retry 很感興趣，但因為專案重要所以先筆記一下用法，回頭再花時間仔細了解一下相關機制，之後再回來補充相關發現
 
 ## 參考資訊
 
