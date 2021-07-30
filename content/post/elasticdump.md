@@ -85,7 +85,7 @@ slug: "elasticdump"
 
 ## 心得
 
-個人覺得 elasticdump 設計的滿好用的，匯出與匯入都可以使用相同參數，在不同情境下參數可以有不同的意義，相當彈性
+個人覺得 elasticdump 的設計很好用，匯出與匯入都可以使用相同參數名稱，在不同情境下參數名稱可以有不同的意義，相當彈性，今天的筆記範例是先由 Elasticsearch 匯出檔案再使用檔案匯入 Elasticsearch，其實也支援直接由 Elasticsearch 匯入 Elasticsearch，不同的情境但完全可以用相同參數名稱搞定，只需要調整參數設定值
 
 poc 時測試下來覺得 batch size (`--limit` 預設是 `100`) 與 request 間隔 (`--concurrencyInterval` 預設是 `5000` 毫秒) 需要調整，以預設值測試的結果：約 13mb 的 index 需要 20 分鐘才能匯出，也需要差不多 20 分鐘才能匯入；我嘗試調整成 `--limit=10000` 與 `--concurrencyInterval=1000` 約在 3 分鐘，不過實際的時間與資料的狀況有關，使用前建議要重新調整參數與評估耗時，這邊只是提醒有機會縮短匯出匯入的時間
 
