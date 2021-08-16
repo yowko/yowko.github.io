@@ -1,7 +1,7 @@
 ---
 title: "在 CentOS7 上建立 RabbitMQ Cluster"
 date: 2021-08-02T21:30:00+08:00
-lastmod: 2021-08-02T21:30:00+08:00
+lastmod: 2021-08-16T21:30:00+08:00
 draft: false
 tags: ["RabbitMQ","CentOS"]
 slug: "rabbitmq-cluster-centos7"
@@ -22,7 +22,7 @@ slug: "rabbitmq-cluster-centos7"
     > 執行對象：`每一個 node`
 
     ```bash
-    sudo yum -y install epel-release && sudo yum update -y && yum install -y rabbitmq-server
+    sudo yum -y install epel-release && sudo yum update -y && sudo yum install -y rabbitmq-server
     ```
 
 2. 建立 RabbitMQ service
