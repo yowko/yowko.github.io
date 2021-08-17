@@ -29,9 +29,10 @@ slug: "aspdotnet-core-urls-setting-sequence"
 
     ```json
     {
-    "profiles": {
-        "WebApplication": {
-            "applicationUrl": "https://localhost:6001;http://localhost:6000"
+        "profiles": {
+            "KestrelEndpointsDemo": {
+                "applicationUrl": "https://localhost:6001;http://localhost:6000"
+            }
         }
     }
     ```
@@ -44,11 +45,12 @@ slug: "aspdotnet-core-urls-setting-sequence"
 
     ```json
     {
-    "profiles": {
-        "WebApplication": {
-            "applicationUrl": "https://localhost:6001;http://localhost:6000",
-            "environmentVariables":{
-                "ASPNETCORE_URLS": "https://localhost:7001;http://localhost:7000"
+        "profiles": {
+            "KestrelEndpointsDemo": {
+                "applicationUrl": "https://localhost:6001;http://localhost:6000",
+                "environmentVariables":{
+                    "ASPNETCORE_URLS": "https://localhost:7001;http://localhost:7000"
+                }
             }
         }
     }
