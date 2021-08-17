@@ -1,7 +1,7 @@
 ---
 title: "ASP.NET Core URLs 設定的套用順序"
 date: 2021-08-16T12:30:00+08:00
-lastmod: 2021-08-16T12:30:00+08:00
+lastmod: 2021-08-17T12:30:00+08:00
 draft: false
 tags: ["ASP.NET Core"]
 slug: "aspdotnet-core-urls-setting-sequence"
@@ -28,6 +28,7 @@ slug: "aspdotnet-core-urls-setting-sequence"
 2. launchSettings.json 中的 `applicationUrl`
 
     ```json
+    {
     "profiles": {
         "WebApplication": {
             "applicationUrl": "https://localhost:6001;http://localhost:6000"
@@ -42,6 +43,7 @@ slug: "aspdotnet-core-urls-setting-sequence"
     > environment 設定方式很多種，以下示範使用 launchSettings.json
 
     ```json
+    {
     "profiles": {
         "WebApplication": {
             "applicationUrl": "https://localhost:6001;http://localhost:6000",
