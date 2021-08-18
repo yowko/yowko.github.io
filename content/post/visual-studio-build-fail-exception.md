@@ -1,7 +1,7 @@
 ---
 title: "Visual Studio Build fail - Exception has been thrown by the target of an invocation"
 date: 2017-10-11T22:06:00+08:00
-lastmod: 2021-07-11T22:06:51+08:00
+lastmod: 2021-08-18T22:06:51+08:00
 draft: false
 tags: ["Visual Studio","Debug"]
 slug: "visual-studio-build-fail-exception"
