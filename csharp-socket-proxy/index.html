@@ -1,0 +1,229 @@
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>C# Socket 使用 proxy 連線 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="C# Socket 使用 proxy 連線 合作的 partner 在資料介接上提供 socket 的接口來確保資料更新的即時性，但為了有基本安全性所以只允許 whitelist server 可以連線，這在 production server 是很常見的限制，甚至"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.56.3"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/csharp-socket-proxy/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="C# Socket 使用 proxy 連線"><meta property=og:description content="C# Socket 使用 proxy 連線 合作的 partner 在資料介接上提供 socket 的接口來確保資料更新的即時性，但為了有基本安全性所以只允許 whitelist server 可以連線，這在 production server 是很常見的限制，甚至"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/csharp-socket-proxy/><meta property=article:published_time content=2021-08-23T12:30:00+08:00><meta property=article:modified_time content=2021-08-23T12:30:00+08:00><meta itemprop=name content="C# Socket 使用 proxy 連線"><meta itemprop=description content="C# Socket 使用 proxy 連線 合作的 partner 在資料介接上提供 socket 的接口來確保資料更新的即時性，但為了有基本安全性所以只允許 whitelist server 可以連線，這在 production server 是很常見的限制，甚至"><meta itemprop=datePublished content=2021-08-23T12:30:00&#43;08:00><meta itemprop=dateModified content=2021-08-23T12:30:00&#43;08:00><meta itemprop=wordCount content=1058><meta itemprop=keywords content=csharp,Network,><meta name=twitter:card content=summary><meta name=twitter:title content="C# Socket 使用 proxy 連線"><meta name=twitter:description content="C# Socket 使用 proxy 連線 合作的 partner 在資料介接上提供 socket 的接口來確保資料更新的即時性，但為了有基本安全性所以只允許 whitelist server 可以連線，這在 production server 是很常見的限制，甚至"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2021-08-23</span>
+<span class=more-meta>約 1058 字</span>
+<span class=more-meta>預計閱讀 3 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#c-socket-使用-proxy-連線>C# Socket 使用 proxy 連線</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#使用方式>使用方式</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=c-socket-使用-proxy-連線>C# Socket 使用 proxy 連線</h2><p>合作的 partner 在資料介接上提供 socket 的接口來確保資料更新的即時性，但為了有基本安全性所以只允許 whitelist server 可以連線，這在 production server 是很常見的限制，甚至在互相允許的測試環境也是合理的，但在開發階段這樣的安全性要求就顯得有些窒礙難行，所以打算透過 proxy server 來連線做開發，連同測試環境也透過 proxy 來跟 partner 做溝通</p><p>因為過去我沒有 socket 相關經驗，所以花了點時間做了簡單的 socket client/server 來協助測試開發，不過也擔心自己寫的程式無法反應出實際狀況，姑且走一步算一步，先求有再求好囉</p><p>最近團隊的 proxy 多數都使用 goproxy，今天也會以 goproxy 做範例，對於 goproxy 的詳細使用說明也可以參考之前筆記：<a href=https://blog.yowko.com/goproxy>使用 goproxy</a></p><h2 id=基本環境說明>基本環境說明</h2><ol><li>macOS Big Sur 11.5.1</li><li>.NET Core SDK 5.0.202</li><li><p>docker images</p><ul><li>snail007/goproxy:v11.0</li></ul></li><li><p>NuGet packages</p><ul><li>ProxySocket 1.1.2</li></ul></li><li><p>socket client/server</p><blockquote><p>詳細內容可以參考 <a href=https://github.com/yowko/SocketProxyDemo target=_blank>yowko/SocketProxyDemo</a></p></blockquote><ul><li><p>server Program.cs</p><pre><code class=language-cs>using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+        
+namespace SocketServer
+{
+    public class ThreadWork
+    {
+        public static void Send(object obj)
+        {
+            var client = ((Socket)obj);
+            while (true)
+            {
+                var input = Console.ReadLine();
+                if (input == &quot;exit&quot;)
+                {
+                    client.Close();
+                    Environment.Exit(0);
+                }
+        
+                Console.WriteLine(&quot;You: &quot; + input);
+        
+                client.Send(Encoding.UTF8.GetBytes(input));
+            }
+        }
+        
+        public static void Receive(object obj)
+        {
+            var client = ((Socket)obj);
+            while (true)
+            {
+                var data = new byte[1024];
+        
+                var receiveData = client.Receive(data);
+        
+                if (receiveData == 0)
+                {
+                    Console.WriteLine(&quot;Disconnected from {0}&quot;, client.RemoteEndPoint);
+        
+                    break;
+                }
+        
+        
+                Console.WriteLine(&quot;Client: &quot; + Encoding.UTF8.GetString(data, 0,         receiveData));
+            }
+        
+            Environment.Exit(0);
+        }
+    }
+        
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+        
+            var ipEndPoint = new IPEndPoint(IPAddress.Parse(&quot;127.0.0.1&quot;), 9050);
+        
+            var newSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream,         ProtocolType.Tcp);
+        
+            newSocket.Bind(ipEndPoint);
+        
+            newSocket.Listen(10);
+        
+        
+            AcceptClient(newSocket);
+        }
+        
+        private static void AcceptClient(Socket newSocket)
+        {
+            Console.WriteLine(&quot;Waiting for a client...&quot;);
+        
+            var client = newSocket.Accept();
+        
+            var clientEndpoint = (IPEndPoint)client.RemoteEndPoint;
+        
+            Console.WriteLine(&quot;Connected with {0} at port {1}&quot;, clientEndpoint.        Address, clientEndpoint.Port);
+        
+            const string welcome = &quot;Welcome to my test server&quot;;
+        
+            var data = Encoding.UTF8.GetBytes(welcome);
+        
+            client.Send(data, data.Length, SocketFlags.None);
+        
+        
+            var sendThread = new Thread(ThreadWork.Send);
+            var receiveThread = new Thread(ThreadWork.Receive);
+        
+            sendThread.Start(client);
+            receiveThread.Start(client);
+        }
+    }
+}
+</code></pre></li><li><p>client Program.cs</p><pre><code class=language-cs>using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+        
+namespace SocketClient
+{
+    public class ThreadWork
+    {
+        public static void Send(object obj)
+        {
+            while (true)
+            {
+                var input = Console.ReadLine();
+                var server = ((Socket)obj);
+        
+                if (input == &quot;exit&quot;)
+                {
+                    Console.WriteLine(&quot;Disconnecting from server...&quot;);
+        
+                    server.Shutdown(SocketShutdown.Both);
+        
+                    server.Close();
+        
+                    Console.WriteLine(&quot;Disconnected!&quot;);
+        
+                    Console.ReadLine();
+                    Environment.Exit(0);
+                }
+        
+        
+                Console.WriteLine(&quot;You: &quot; + input);
+        
+                server.Send(Encoding.UTF8.GetBytes(input));
+            }
+        }
+        
+        public static void Receive(object server)
+        {
+            while (true)
+            {
+                var data = new byte[1024];
+        
+                var receiveData = ((Socket)server).Receive(data);
+        
+                var stringData = Encoding.UTF8.GetString(data, 0, receiveData);
+        
+                Console.WriteLine(&quot;Server: &quot; + stringData);
+            }
+        }
+    }
+        
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+        
+            var data = new byte[1024];
+            var server = new Socket(AddressFamily.InterNetwork, SocketType.Stream,         ProtocolType.Tcp);
+        
+            var ipEndpoint = new IPEndPoint(IPAddress.Parse(&quot;127.0.0.1&quot;), 9050);
+                    
+            try
+            {
+                server.Connect(ipEndpoint);
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine(&quot;Unable to connect to server.&quot;);
+        
+                Console.WriteLine(e.ToString());
+        
+                return;
+            }
+        
+            var receiveData = server.Receive(data);
+        
+            var stringData = Encoding.UTF8.GetString(data, 0, receiveData);
+        
+            Console.WriteLine(stringData);
+        
+            var sendThread = new Thread(ThreadWork.Send);
+            sendThread.Start(server);
+        
+            var receiveThread = new Thread(ThreadWork.Receive);
+            receiveThread.Start(server);
+        }
+    }
+}
+</code></pre></li></ul></li></ol><h2 id=使用方式>使用方式</h2><ul><li><p>client 安裝 NuGet 套件： <code>ProxySocket</code></p><pre><code class=language-bash>dotnet add package ProxySocket --version 1.1.2
+</code></pre></li></ul><ol><li><p>使用 http proxy</p><ul><li><p>proxy 設定</p><pre><code class=language-bash>docker run --rm -d -p 33080:33080 snail007/goproxy http -p :33080
+</code></pre></li><li><p>程式調整</p><pre><code class=language-cs>//對於 server 的 socket 改用 ProxySocket 來建立
+var server = new ProxySocket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+//指定 proxy 的 endpoint
+var proxy = new IPEndPoint(IPAddress.Parse(&quot;127.0.0.1&quot;), 33080);
+//將上述的 proxy endpoint 設定給 ProxySocket
+server.ProxyEndPoint = proxy;
+//指定 ProxySocket 使用的 proxy 類型
+server.ProxyType = ProxyTypes.Https;
+</code></pre><p><img src=https://user-images.githubusercontent.com/3851540/130390159-d6c54d22-947f-4e55-bb0e-d7bb36c46f8c.png alt=3httpcode></p></li><li><p>實際效果：正常連線</p><ul><li><p>client</p><p><img src=https://user-images.githubusercontent.com/3851540/130390145-47455c72-a5ab-4c02-b6be-f96295dee693.png alt=1httpclient></p></li><li><p>server</p><p><img src=https://user-images.githubusercontent.com/3851540/130390152-709c0ed1-cc40-4aca-b7b3-822cd7bf17df.png alt=2httpserver></p></li><li><p>proxy</p><p><img src=https://user-images.githubusercontent.com/3851540/130390182-805ffaf1-f8fd-4f7d-bd0d-56808641c4ba.png alt=11httpproxy></p></li></ul></li></ul></li><li><p>使用 socks5 proxy</p><ul><li><p>proxy 設定</p><pre><code class=language-bash>docker run --rm -d -p 33081:33080 snail007/goproxy socks -p :33080
+</code></pre></li><li><p>程式調整</p><pre><code class=language-cs>//對於 server 的 socket 改用 ProxySocket 來建立
+var server = new ProxySocket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+//指定 proxy 的 endpoint
+var proxy = new IPEndPoint(IPAddress.Parse(&quot;127.0.0.1&quot;), 33081);
+//將上述的 proxy endpoint 設定給 ProxySocket
+server.ProxyEndPoint = proxy;
+//指定 ProxySocket 使用的 proxy 類型
+server.ProxyType = ProxyTypes.Socks5;
+</code></pre><p><img src=https://user-images.githubusercontent.com/3851540/130390161-11a9b879-2f15-4301-abba-25dc6306f467.png alt=4socks5code></p></li><li><p>實際效果：正常連線</p><ul><li><p>client</p><p><img src=https://user-images.githubusercontent.com/3851540/130390162-237b35a6-6d11-4a14-86dc-87a4bb6ac89e.png alt=5socks5client></p></li><li><p>server</p><p><img src=https://user-images.githubusercontent.com/3851540/130390163-8390c35f-134b-4df2-bd8f-6858af1afd67.png alt=6socks5server></p></li><li><p>proxy</p><p><img src=https://user-images.githubusercontent.com/3851540/130390176-4aab27fc-36a9-4013-81f2-8ddc6cf1d050.png alt=10socksproxy></p></li></ul></li></ul></li><li><p>不使用 proxy</p><ul><li><p>程式調整</p><pre><code class=language-cs>//對於 server 的 socket 改用 ProxySocket 來建立
+var server = new ProxySocket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+//指定 proxy 的 endpoint
+var proxy = new IPEndPoint(IPAddress.Parse(&quot;127.0.0.1&quot;), 33081);
+//將上述的 proxy endpoint 設定給 ProxySocket
+server.ProxyEndPoint = proxy;
+//指定 ProxySocket 使用的 proxy 類型
+server.ProxyType = ProxyTypes.None;
+</code></pre><p><img src=https://user-images.githubusercontent.com/3851540/130390165-f94bfaf4-1097-4964-87cd-1ce1b51c277c.png alt=7nonecode></p></li><li><p>實際效果：正常連線</p><ul><li><p>client</p><p><img src=https://user-images.githubusercontent.com/3851540/130390169-7483fb07-009b-4a68-82e7-0fa0508055a8.png alt=8noneclient></p></li><li><p>server</p><p><img src=https://user-images.githubusercontent.com/3851540/130390173-f276b2a0-e3ea-4aa6-8ba0-e7effa1e1054.png alt=9noneserver></p></li></ul></li></ul></li></ol><h2 id=心得>心得</h2><p><a href=https://github.com/poma/ProxySocket target=_blank>poma/ProxySocket</a> 是個非常好用的套件，個人覺得可以將 socket 連線都換成這個套件，如果不需要 proxy 時就將 <code>ProxyType</code> 設定成 <code>ProxyTypes.None</code> 即可停用 proxy 了</p><p>另外需要特別留意的是我用了簡單的方式建立 socket client server，可能沒辦法完整模擬實際情境，在實際使用上還需要另外測試</p><p>詳細程式碼跟歷程，請參考 <a href=https://github.com/yowko/SocketProxyDemo target=_blank>yowko/SocketProxyDemo</a></p><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://blog.yowko.com/goproxy>使用 goproxy</a></li><li><a href=https://github.com/yowko/SocketProxyDemo target=_blank>yowko/SocketProxyDemo</a></li><li><a href=https://github.com/poma/ProxySocket target=_blank>poma/ProxySocket</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2021-08-23</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/csharp/>C#</a>
+<a href=https://blog.yowko.com/tags/network/>Network</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/goproxy/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">使用 goproxy</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/csharp-socket-proxy\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2021
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
