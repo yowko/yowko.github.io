@@ -177,8 +177,11 @@ slug: "httpclient-different-timeout"
 
 至於需不需要針對每個 api 設定 Timeout 還是得看每個系統的特性，站在個人立場是支持的，原因是最小知識原則：單一 api 的 request 原本就不用也不該知道其他 api 的狀況
 
+原始程式碼請參考：[[GitHub]yowko/CancellationTokenSourceForHttpclient](https://github.com/yowko/CancellationTokenSourceForHttpclient)
+
 ## 參考資訊
 
 1. [[Microsoft Docs] CancellationTokenSource 類別](https://docs.microsoft.com/zh-tw/dotnet/api/system.threading.cancellationtokensource?view=net-5.0&WT.mc_id=DOP-MVP-5002594)
 2. [[Microsoft Docs] HttpClient.Timeout 屬性](https://docs.microsoft.com/zh-tw/dotnet/api/system.net.http.httpclient.timeout?view=net-5.0&WT.mc_id=DOP-MVP-5002594)
 3. [在C#中使用 CancellationToken 處理非同步任務](https://iter01.com/590833.html)
+4. [[GitHub]yowko/CancellationTokenSourceForHttpclient](https://github.com/yowko/CancellationTokenSourceForHttpclient)
