@@ -1,7 +1,7 @@
 ---
 title: "使用 cert-manager 建立憑證"
 date: 2021-02-08T21:30:00+08:00
-lastmod: 2021-02-08T21:30:31+08:00
+lastmod: 2021-08-30T21:30:31+08:00
 draft: false
 tags: ["Kubernetes"]
 slug: "cert-manager-certificate"
@@ -44,21 +44,21 @@ slug: "cert-manager-certificate"
 
     > 要注意 Issue 的 Ready 變成 true 再執行建立憑證，否則憑證 Type 會變成 `Opaque` 而不是 `kubernetes.io/tls`
 
-        ```bash
-        kubectl apply -f <(echo '
-        apiVersion: cert-manager.io/v1
-        kind: Certificate
-        metadata:
-        name: yowko-tls
-        spec:
-        secretName: yowko-tls
-        dnsNames:
+    ```bash
+    kubectl apply -f <(echo '
+    apiVersion: cert-manager.io/v1
+    kind: Certificate
+    metadata:
+      name: yowko-tls
+    spec:
+      secretName: yowko-tls
+      dnsNames:
         - "*.default.svc.cluster.local"
         - "*.testyowko.com"
-        issuerRef:
-            name: selfsigned-issuer
-        ')
-        ```
+      issuerRef:
+        name: selfsigned-issuer
+    ')
+    ```
 
     ![2secret](https://user-images.githubusercontent.com/3851540/107238250-98555300-6a62-11eb-90a6-5fc912539f2d.png)
 
