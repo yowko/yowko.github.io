@@ -1,21 +1,22 @@
 ---
 title: "客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性 (使用 JsonSerializer)"
 date: 2017-08-02T23:42:00+08:00
-lastmod: 2018-09-24T23:42:32+08:00
+lastmod: 2021-09-08T23:42:32+08:00
 draft: false
 tags: ["套件","C#"]
 slug: "jsonnet-jsonserializer-initial-value"
 aliases:
     - /2017/08/jsonnet-jsonserializer-initial-value.html
 ---
-# 客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性 (使用 JsonSerializer)
+## 客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性 (使用 JsonSerializer)
+
 之前文章 [客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性](http://blog.yowko.com/2017/07/custom-josnconverter-initial-valuetype.html) 介紹到可以在使用自訂 JsonConverter 在將物件轉為 json 前先進行初始化
 
 後來同事在使用自訂 JsonConverter 時需採用另個 Json.Net 的語法 - JsonSerializer 遇到問題，事實上核心語法都相同，筆記一下用法，之後需要時就可以直接抄 XD
 
 ## 基本環境說明
 
-1.  自訂型別
+1. 自訂型別
 
     ```cs
     public class userData<T>
@@ -30,7 +31,7 @@ aliases:
     }
     ```
 
-2.  使用方式
+2. 使用方式
 
     > 以下使用 LINQPad 進行 demo
 
@@ -142,20 +143,20 @@ public class InitialJsonConvert : JsonConverter
 
 ## 如何使用
 
-1.  指定 JsonSerializer 格式
+1. 指定 JsonSerializer 格式
 
     ```cs
     serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
     ```
 
-2.  加入自訂 JsonConverter 至 JsonSerializer 中
+2. 加入自訂 JsonConverter 至 JsonSerializer 中
 
     ```cs
     serializer.Converters.Add(new InitialJsonConvert(user.GetType()));
     ```
 
-3.  實際效果
-    *   修改前與修改後程式碼
+3. 實際效果
+    * 修改前與修改後程式碼
 
         > 以下請使用 LINQPas 執行
 
@@ -188,7 +189,7 @@ public class InitialJsonConvert : JsonConverter
         user.Dump();
         ```
 
-    *   輸出結果
+    * 輸出結果
 
         ![2result](https://user-images.githubusercontent.com/3851540/28881734-a9b1e294-77db-11e7-9b76-c881bd4241ab.png)
 
@@ -196,8 +197,8 @@ public class InitialJsonConvert : JsonConverter
 
 主要程式是延用 [客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性](http://blog.yowko.com/2017/07/custom-josnconverter-initial-valuetype.html) 並改用 JsonSerializer 來進行序列化的動作，適合用在 web request 直接將結果 data 序列化為 json 並透過 StreamWriter 輸出
 
-# 參考資訊
+## 參考資訊
 
-1.  [客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性](http://blog.yowko.com/2017/07/custom-josnconverter-initial-valuetype.html)
-2.  [Custom JsonConverter](http://www.newtonsoft.com/json/help/html/CustomJsonConverter.htm)
-3.  [Json.Net fails to serialize to a stream, but works just fine serializing to a string](https://stackoverflow.com/questions/9845741/json-net-fails-to-serialize-to-a-stream-but-works-just-fine-serializing-to-a-st)
+1. [客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性](http://blog.yowko.com/2017/07/custom-josnconverter-initial-valuetype.html)
+2. [Custom JsonConverter](http://www.newtonsoft.com/json/help/html/CustomJsonConverter.htm)
+3. [Json.Net fails to serialize to a stream, but works just fine serializing to a string](https://stackoverflow.com/questions/9845741/json-net-fails-to-serialize-to-a-stream-but-works-just-fine-serializing-to-a-st)
