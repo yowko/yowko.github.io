@@ -8,17 +8,20 @@ slug: "windows-server-2016-uefi-usb"
 aliases:
     - /2016/12/uefi-windows-server-2016-usb.html
 ---
-# 建立支援 UEFI 開機的 Windows Server 2016 安裝 USB
+## 建立支援 UEFI 開機的 Windows Server 2016 安裝 USB
+
 之前的筆記 [建立可開機的 Windows Server 2016 安裝 USB](http://blog.yowko.com/2016/12/windows-server-2016-usb.html)，我們看了如何建立可開機的 USB。
 
 而我自己在安裝 Windows Server 2016 過程中，卻是一開機就愣住：太久沒重灌忘了我的筆電預設使用 UEFI (UEFI 介紹可以看 [即將換掉傳統 BIOS 的 UEFI，你懂了嗎？（三）](https://www.techbang.com/posts/4361-fully-understand-uefi-bios-theory-and-actual-combat-3-liu-xiudian) 跟 [EFI、UEFI、MBR、GPT的區別](https://read01.com/kg2KyP.html#.W5FV_fn3l3g))，雖然透過調整開機設定還是能正常安裝，但想到下次可能仍然會忘記，所以紀錄一下供日後查閱.
 
-# 使用 diskpart
+## 使用 diskpart
+
 使用的方式與前一篇 [建立可開機的 Windows Server 2016 安裝 USB](/2016/12/(http://blog.yowko.com/2016/12/windows-server-2016-usb.html)) 大致相同，只是在針對 UEFI 設定會有些不同
 
 MVP-Weithenn 寫的很詳細，就請大家直接參閱專家的文章- [製作用於 UEFI 的 Bootable USB](http://www.weithenn.org/2016/01/uefi-bootable-usb.html)
 
-# 使用 PowerShell
+## 使用 PowerShell
+
 看過百敬老師的 PowerShell 介紹，不由得讚嘆其強大跟便利，雖然讓人躍躍欲試，但機會實在不多，剛好看到有國外高手用 PowerShell 寫的 [How to create UEFI bootable USB media to install Windows Server 2016](https://p0w3rsh3ll.wordpress.com/2016/10/30/how-to-create-uefi-bootable-usb-media-to-install-windows-server-2016/) 覺得有些改善的空間，就來動手修改囉。
 
 1. 基本要求
@@ -79,7 +82,8 @@ ParseName("$($volume.DriveLetter):").InvokeVerb('Eject')
 Dismount-DiskImage -ImagePath $iso
 ```
 
-# 參考資料
+## 參考資料
+
 1. [即將換掉傳統 BIOS 的 UEFI，你懂了嗎？（三](http://www.techbang.com/posts/4361-fully-understand-uefi-bios-theory-and-actual-combat-3-liu-xiudian)
 2. [EFI、UEFI、MBR、GPT的區別](https://read01.com/kg2KyP.html)
 3. [製作用於 UEFI 的 Bootable USB](http://www.weithenn.org/2016/01/uefi-bootable-usb.html)
