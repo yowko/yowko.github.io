@@ -1,14 +1,15 @@
 ---
 title: "為 Web Api 的 Message Handler 加上單元測試"
 date: 2017-06-25T12:18:00+08:00
-lastmod: 2020-12-11T12:18:44+08:00
+lastmod: 2021-10-08T12:18:44+08:00
 draft: false
 tags: ["ASP.NET Web API","Unit Test"]
 slug: "web-api-message-handler-unit-test"
 aliases:
     - /2017/06/web-api-message-handler-unit-test.html
 ---
-# 為 Web Api 的 Message Handler 加上單元測試
+## 為 Web Api 的 Message Handler 加上單元測試
+
 之前在 [為 ASP.NET WEB API 加上簡易的 Token 驗證](/2017/02/aspnet-web-api-fixed-token.html) 中曾經使用過 Message Handler 為 ASP.NET Web Api 加上簡易驗證。
 
 後來在 TDD 課堂中聽到可以為 Message Handler 加上單元測試，於是就來實作看看吧
@@ -17,11 +18,11 @@ aliases:
 
 詳細介紹請參考 [為 ASP.NET WEB API 加上簡易的 Token 驗證](/2017/02/aspnet-web-api-fixed-token.html)，程式碼因為需求異動已有差異，將會使用下方程式碼進行實作
 
-*   流程說明
+* 流程說明
 
     > request header 中如果沒有指定的 token 就回傳 401，有指定 token 就繼續執行
 
-*   Web Api 的 Authentication Message Handler 程式碼
+* Web Api 的 Authentication Message Handler 程式碼
 
     ```cs
     public class AuthenticationHandler : DelegatingHandler
@@ -61,7 +62,7 @@ aliases:
     }
     ```
 
-*   IAuthenticationService 程式碼
+* IAuthenticationService 程式碼
 
     ```cs
     public interface IAuthenticationService
@@ -72,11 +73,11 @@ aliases:
 
 ## 建立單元測試
 
-1.  第一個遇到的問題就是 `SendAsync` 是 `protected` 無法直接使用 `Create Unit Tests` 建立測試
+1. 第一個遇到的問題就是 `SendAsync` 是 `protected` 無法直接使用 `Create Unit Tests` 建立測試
 
     ![1portected](https://user-images.githubusercontent.com/3851540/27513602-9b3d005a-599e-11e7-8b1e-c11d72d183cf.png)
 
-    *   解決方式有兩個：
+    * 解決方式有兩個：
 
         * A. 自行建立測試專案
 
@@ -86,7 +87,7 @@ aliases:
 
             ![2overrideerror](https://user-images.githubusercontent.com/3851540/27513603-9b6497dc-599e-11e7-91d8-6b681a7a3e4e.png)
 
-2.  將測試方法改為語意清楚、一眼可以看出問題的名稱
+2. 將測試方法改為語意清楚、一眼可以看出問題的名稱
 
     ```cs
     [TestMethod()]
@@ -100,29 +101,29 @@ aliases:
     }
     ```
 
-3.  撰寫驗證 `未通過` 測試
-    *   建立 request 物件
-        
+3. 撰寫驗證 `未通過` 測試
+    * 建立 request 物件
+
         > 因為是 web api，方法會被呼叫到都是透過接受 web request
 
         ```cs
         var request = new HttpRequestMessage();
         ```
 
-    *   使用 NSubstitute 模擬外部驗證 token 的 service
+    * 使用 NSubstitute 模擬外部驗證 token 的 service
 
         ```cs
         var authService = Substitute.For<IAuthenticationService>();
         authService.Verify(string.Empty).ReturnsForAnyArgs(false);
         ```
 
-    *   建立測試目標程式的實體
+    * 建立測試目標程式的實體
 
         ```cs
         var authHandler = new AuthenticationHandler(authService);
         ```
 
-    *   建立 AuthenticationHandler PrivateObject 物件
+    * 建立 AuthenticationHandler PrivateObject 物件
 
         > 因需要呼叫 protected 方法，PrivateObject 用法請參考 [Unit Test 想驗證 private method 該怎麼做？ - 使用 PrivateObject](http://blog.yowko.com/2017/06/unit-test-private-method.html)
 
@@ -130,13 +131,13 @@ aliases:
         PrivateObject target = new PrivateObject(authHandler);
         ```
 
-    *   預期回傳 401
+    * 預期回傳 401
 
         ```cs
         var expected = HttpStatusCode.Unauthorized;
         ```
 
-    *   執行 AuthenticationHandler 中的 SendAsync 方法
+    * 執行 AuthenticationHandler 中的 SendAsync 方法
 
         > 記得傳入 request 及 CancellationToken 物件
 
@@ -144,18 +145,19 @@ aliases:
         var response = target.Invoke("SendAsync", new object[] { request, new CancellationToken() });
         ```
 
-    *   取得回應結果
+    * 取得回應結果
 
         ```cs
         var actual = response as Task<HttpResponseMessage>;
         ```
 
-    *   驗證是否通過
+    * 驗證是否通過
 
         ```cs
         Assert.AreEqual(expected, actual.Result.StatusCode);
         ```
-    *   完整程式碼
+
+    * 完整程式碼
 
         ```cs
         [TestMethod()]
@@ -183,12 +185,12 @@ aliases:
         }
         ```
 
-4.  撰寫驗證 `通過` 測試
+4. 撰寫驗證 `通過` 測試
     * 新增一個 `StubAuthenticationHandler` 繼承 `DelegatingHandler` 並覆寫 `SendAsync`
 
         > 動作與建立 `AuthenticationHandler` 相同，但回傳內容修改為回應我們要的 HttpStatusCode.OK，為什麼需要這麼做等等會說明
 
-    *   回應寫法有兩種
+    * 回應寫法有兩種
 
         ```cs
         internal class StubAuthenticationHandler : DelegatingHandler
@@ -203,25 +205,27 @@ aliases:
         }
         ```
 
-    *   建立 request 物件
+    * 建立 request 物件
 
         ```cs
         var request = new HttpRequestMessage();
         ```
-    *   為 request 加入 Authorization header
+
+    * 為 request 加入 Authorization header
 
         ```cs
         var token = "7e255df6-e953-438f-b51c-653a1939d103";
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
         ```
-    *   使用 NSubstitute 模擬外部驗證 token 的 service
+
+    * 使用 NSubstitute 模擬外部驗證 token 的 service
 
         ```cs
         var authService = Substitute.For<IAuthenticationService>();
         authService.Verify(token).ReturnsForAnyArgs(true);
         ```
 
-    *   建立 AuthenticationHandler ，並指定 InnerHandler 為我們新增的 stub handler
+    * 建立 AuthenticationHandler ，並指定 InnerHandler 為我們新增的 stub handler
 
         ```cs
         var authHandler = new AuthenticationHandler(authService)
@@ -230,9 +234,9 @@ aliases:
         };
         ```
 
-        *   這邊如果不是使用我們新增虛擬通過驗證的回應會出現下列錯誤
+        * 這邊如果不是使用我們新增虛擬通過驗證的回應會出現下列錯誤
 
-            ```
+            ```txt
             System.InvalidOperationException occurred
             HResult=0x80131509
             Message=The inner handler has not been assigned.
@@ -243,41 +247,45 @@ aliases:
 
             ![3innerhandlererror](https://user-images.githubusercontent.com/3851540/27513604-9b856ff2-599e-11e7-9c98-c2d6264891f2.png)
 
-        *   原因是通過驗證後，會去執行 `return base.SendAsync(request, cancellationToken);` 但我們建立用來測試 request 物件並沒有指定 target url 而造成沒有 handler 可以用來回應 request
+        * 原因是通過驗證後，會去執行 `return base.SendAsync(request, cancellationToken);` 但我們建立用來測試 request 物件並沒有指定 target url 而造成沒有 handler 可以用來回應 request
 
-        *   解決方式就是透過建立 `AuthenticationHandler` 時將 `InnerHandler` 指定為我們新增用來測試的 stub handler
+        * 解決方式就是透過建立 `AuthenticationHandler` 時將 `InnerHandler` 指定為我們新增用來測試的 stub handler
 
             > 因為 InnerHandler 是 HttpMessageHandler 物件並指向下一層 pipeline，會使用這個物件當做 base.SendAsync 的執行對象，詳細資訊請參考 [蔡煥麟老師的 ASP.NET Web API 訊息處理器](http://www.huanlintalk.com/2013/01/aspnet-web-api-message-handlers.html) 一文
 
-    *   建立 AuthenticationHandler PrivateObject 物件
+    * 建立 AuthenticationHandler PrivateObject 物件
 
         > 因需要呼叫 protected 方法，PrivateObject 用法請參考 [Unit Test 想驗證 private method 該怎麼做？ - 使用 PrivateObject](http://blog.yowko.com/2017/06/unit-test-private-method.html)
 
         ```cs
         PrivateObject target = new PrivateObject(authHandler);
         ```
-    *   預期回傳 200
+
+    * 預期回傳 200
 
         ```cs
         var expected = HttpStatusCode.OK;
         ```
-    
-    *   傳入 request 及 CancellationToken 物件 執行 SendAsync 方法
+
+    * 傳入 request 及 CancellationToken 物件 執行 SendAsync 方法
 
         ```cs
         var response = target.Invoke("SendAsync", new object[] { request, new CancellationToken() });
         ```
-    *   取得回應結果
+
+    * 取得回應結果
 
         ```cs
         var actual = response as Task<HttpResponseMessage>;
         ```
-    *   驗證是否通過
+
+    * 驗證是否通過
 
         ```cs
         Assert.AreEqual(expected, actual.Result.StatusCode);
         ```
-    *   完整程式碼
+
+    * 完整程式碼
 
         ```cs
         internal class StubAuthenticationHandler : DelegatingHandler
@@ -328,12 +336,12 @@ aliases:
 
 這讓我聯想到程式設計師絕對不能自恃經驗豐富而自滿，要抱著永遠都有更好解決方式的想法來督促自己持續努力跟進步，人外有人、天外有天，只有放下先入為主的想法、適時清空自己才能學到更多
 
-# 參考資訊
+## 參考資訊
 
-1.  [HTTP Message Handlers in ASP.NET Web API](https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/http-message-handlers?WT.mc_id=DOP-MVP-5002594)
-2.  [Unit testing Web API message handlers](http://blog.chatekar.com/unit-testing-web-api-message-handlers/)
-3.  [ASP.NET Web API Series - Part 6: MessageHandler explained](http://byterot.blogspot.tw/2012/05/aspnet-web-api-series-messagehandler.html)
-4.  [ASP.NET Web API Series - Part 7: Real world Message Handlers](http://byterot.blogspot.tw/2012/05/aspnet-web-api-messagehandler-real.html)
-5.  [為 ASP.NET WEB API 加上簡易的 Token 驗證](/2017/02/aspnet-web-api-fixed-token.html)
-6.  [ASP.NET Web API 訊息處理器](http://www.huanlintalk.com/2013/01/aspnet-web-api-message-handlers.html)
-7.  [Unit Test 想驗證 private method 該怎麼做？ - 使用 PrivateObject](http://blog.yowko.com/2017/06/unit-test-private-method.html)
+1. [HTTP Message Handlers in ASP.NET Web API](https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/http-message-handlers?WT.mc_id=DOP-MVP-5002594)
+2. [Unit testing Web API message handlers](http://blog.chatekar.com/unit-testing-web-api-message-handlers/)
+3. [ASP.NET Web API Series - Part 6: MessageHandler explained](http://byterot.blogspot.tw/2012/05/aspnet-web-api-series-messagehandler.html)
+4. [ASP.NET Web API Series - Part 7: Real world Message Handlers](http://byterot.blogspot.tw/2012/05/aspnet-web-api-messagehandler-real.html)
+5. [為 ASP.NET WEB API 加上簡易的 Token 驗證](/2017/02/aspnet-web-api-fixed-token.html)
+6. [ASP.NET Web API 訊息處理器](http://www.huanlintalk.com/2013/01/aspnet-web-api-message-handlers.html)
+7. [Unit Test 想驗證 private method 該怎麼做？ - 使用 PrivateObject](http://blog.yowko.com/2017/06/unit-test-private-method.html)

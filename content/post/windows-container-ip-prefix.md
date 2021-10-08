@@ -14,13 +14,13 @@ aliases:
 
 ## 確認使用的 IP 配發規則
 
-1.  Windows
+1. Windows
 
     > PowerShell 語法：`Get-NetNAT`
 
     ![1winipam](https://user-images.githubusercontent.com/3851540/30004096-771006d4-90fb-11e7-88ed-1db22c5d9d39.png)
 
-2.  Linux
+2. Linux
 
     > `docker network inspect bridge`
 
@@ -74,8 +74,8 @@ aliases:
 
 之前使用的方法是在 windows 環境下，透過修改 `C:\ProgramData\Docker\config\daemon.json` 就可以讓 windows container 使用自定 ip 前綴，但這兩天撰文時發現，windows 下的 docker config 根本不支援 `bip`，使用 `fixed-cidr` 也無效。難道是改版太快嗎？ 或是根本是我記錯 @@"
 
-# 參考資訊
+## 參考資訊
 
-1.  [Docker Engine on Windows](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon?WT.mc_id=DOP-MVP-5002594)
-2.  [docker 無法連線至特定網段 (172.17.x.x)](/2017/09/docker-172-17-ip.html)
-3.  [Set up a NAT network](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/setup-nat-network?WT.mc_id=DOP-MVP-5002594)
+1. [Docker Engine on Windows](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon?WT.mc_id=DOP-MVP-5002594)
+2. [docker 無法連線至特定網段 (172.17.x.x)](/2017/09/docker-172-17-ip.html)
+3. [Set up a NAT network](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/setup-nat-network?WT.mc_id=DOP-MVP-5002594)

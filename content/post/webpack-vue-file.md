@@ -1,14 +1,15 @@
 ---
 title: "使用 Webpack 來編譯 Vue.js Single File Components (.vue)"
 date: 2017-11-12T22:24:00+08:00
-lastmod: 2018-09-28T22:24:18+08:00
+lastmod: 2021-10-08T22:24:18+08:00
 draft: false
 tags: ["套件","Frontend","JavaScript"]
 slug: "webpack-vue-file"
 aliases:
     - /2017/11/webpack-vue-file.html
 ---
-# 使用 Webpack 來編譯 Vue.js Single File Components (.vue)
+## 使用 Webpack 來編譯 Vue.js Single File Components (.vue)
+
 最近因為新專案的部份頁面有較多的互動功能，所以打算透過 Vue.js 來處理，其中某些功能在多個頁面間可以共用，就使用了 Vue.js 的 Single File Components (.vue) - 單一檔案元件來模組化
 
 只是要使用 .Vue 檔案需要經過編譯，雖然可以透過 http-vue-loader (詳細內容請參考 Kuro 文章 - [不需編譯也能載入 .vue 元件檔: 使用 http-vue-loader](https://kuro.tw/posts/2017/07/11/%E4%B8%8D%E9%9C%80%E7%B7%A8%E8%AD%AF%E4%B9%9F%E8%83%BD%E8%BC%89%E5%85%A5-vue-%E5%85%83%E4%BB%B6%E6%AA%94-%E4%BD%BF%E7%94%A8-http-vue-loader/))做到直接在網頁載入 .Vue 檔案，不過效能上還是會有耗損的情況，因此還是透過正統方式來編譯及打包
@@ -17,43 +18,43 @@ aliases:
 
 ## 基本環境
 
-1.  建立新工作目錄
+1. 建立新工作目錄
 
-    ```
+    ```cmd
     mkdir vuetest
     ```
 
-2.  使用新工作目錄
+2. 使用新工作目錄
 
-    ```
+    ```cmd
     cd vuetest
     ```
 
-3.  加入使用 npm
+3. 加入使用 npm
 
-    ```
+    ```cmd
     npm init -y
     ```
 
     > 會自動加入 `package.json` 並產生基本內容
 
-4.  安裝 vue.js (最後需要輸出)
+4. 安裝 vue.js (最後需要輸出)
 
-    ```
+    ```cmd
     npm install vue -P
     ```
 
     > `-P` 是預設值可以不加，會加至 `dependencies` 其他還有 `-D` - 只在 dev(devDependencies) 跟 `-O`(optionalDependencies)
 
-5.  安裝相關套件
+5. 安裝相關套件
 
-    ```
+    ```cmd
     npm install webpack babel-loader babel-core css-loader vue-loader vue-template-compiler -D
     ```
 
 ## 建立網頁並加入 vue.js 功能 (用來確認 vue.js 功能正常 - 可略過)
 
-1.  加入 `index.html` 檔案
+1. 加入 `index.html` 檔案
 
     ```html
     <!DOCTYPE html>
@@ -74,13 +75,13 @@ aliases:
     </html>
     ```
 
-2.  引用 vue.js
+2. 引用 vue.js
 
     ```html
     <script src="./node_modules/vue/dist/vue.js"></script>
     ```
 
-3.  撰寫 vue.js 功能
+3. 撰寫 vue.js 功能
 
     ```html
     <script type="text/javascript">
@@ -93,7 +94,7 @@ aliases:
     </script>
     ```
 
-4.  index.html 完整程式碼
+4. index.html 完整程式碼
 
     ```html
     <!DOCTYPE html>
@@ -125,7 +126,7 @@ aliases:
 
 ## 將 vue.js 功能抽出 html (用來逐步製作 .vue 中 - 可略過)
 
-1.  建立 index.js
+1. 建立 index.js
 
     ```js
     new Vue({
@@ -136,7 +137,7 @@ aliases:
     })
     ```
 
-2.  index.html 改引用 index.js
+2. index.html 改引用 index.js
 
     ```html
     <script src="./src/index.js"></script>
@@ -146,7 +147,7 @@ aliases:
 
 > javascript 散落各處不好管理
 
-1.  修改 index.js 加入引用 vue
+1. 修改 index.js 加入引用 vue
 
     ```js
     import Vue from 'vue'
@@ -158,10 +159,10 @@ aliases:
     })
     ```
 
-2.  設定 webpack 編譯 index.js
+2. 設定 webpack 編譯 index.js
 
-    *   根目錄加入 `webpack.config.js`
-    *   設定 `webpack.config.js`
+    * 根目錄加入 `webpack.config.js`
+    * 設定 `webpack.config.js`
 
         ```js
         "use strict";
@@ -188,22 +189,22 @@ aliases:
         };
         ```
 
-3.  執行編譯
+3. 執行編譯
 
     > webpack
 
     ![1webpack](https://user-images.githubusercontent.com/3851540/32699865-5bfb316a-c7f7-11e7-9ea2-bbe974117f0d.png)
 
-4.  修改 js 引用
+4. 修改 js 引用
 
-    *   移除 index.html 相關 js 引用
-    *   加入編譯後檔案引用
+    * 移除 index.html 相關 js 引用
+    * 加入編譯後檔案引用
 
         ```html
         <script src="./dist/build.js"></script>
         ```
 
-    *   完整 index.html
+    * 完整 index.html
 
         ```html
         <!DOCTYPE html>
@@ -227,7 +228,7 @@ aliases:
 
 ## 使用 .vue 來模組輸出 (重點在此)
 
-1.  建立 `msg.vue`
+1. 建立 `msg.vue`
 
     > 將 html、javascript、css 部份全部移至 `msg.vue`
 
@@ -255,7 +256,7 @@ aliases:
     </style>
     ```
 
-2.  在 index.js 加入引用 msg.vue 並指定 components
+2. 在 index.js 加入引用 msg.vue 並指定 components
 
     ```js
     import Vue from 'vue'
@@ -266,17 +267,17 @@ aliases:
     })
     ```
 
-3.  webpack.config.js 加入編譯 `.vue` 設定
-    *   module --> loaders 加入 vue-loader
+3. webpack.config.js 加入編譯 `.vue` 設定
+    * module --> loaders 加入 vue-loader
 
-        ```
+        ```js
         {
             test: /\.vue$/,
             loader: 'vue-loader'//使用 babel-loader 來編譯 .vue
         }
         ```
 
-    *   webpack.config.js 完整版
+    * webpack.config.js 完整版
 
         ```js
         "use strict";
@@ -307,7 +308,7 @@ aliases:
         };
         ```
 
-4.  index.html 使用自訂 tag
+4. index.html 使用自訂 tag
 
     ```html
     <div id="app">
@@ -315,7 +316,7 @@ aliases:
     </div>
     ```
 
-    *   index.html 完整程式碼
+    * index.html 完整程式碼
 
         ```html
         <!DOCTYPE html>
@@ -335,11 +336,11 @@ aliases:
         </html>
         ```
 
-5.  重新編譯
+5. 重新編譯
 
     > webpack
 
-6.  完整專案結構
+6. 完整專案結構
 
     ![2folderstructure](https://user-images.githubusercontent.com/3851540/32699866-5c2efd56-c7f7-11e7-81b7-d4807d059a3b.png)
 
@@ -347,9 +348,9 @@ aliases:
 
 回顧起來內容不多，但可是花了我不少時間找解法也踩了不少雷才終於完整，當然難度來自於不熟悉，只是再次印證我堅信的名言：`難就是難在不會，會就不難了`，經過這次整理對一些細節比較有印象也比較清楚整個流程，只是我覺得前端工程真的滿辛苦，這真的應該力行專業分工，不然很難做得好做得快
 
-# 參考資訊
+## 參考資訊
 
-1.  [不需編譯也能載入 .vue 元件檔: 使用 http-vue-loader](https://kuro.tw/posts/2017/07/11/%E4%B8%8D%E9%9C%80%E7%B7%A8%E8%AD%AF%E4%B9%9F%E8%83%BD%E8%BC%89%E5%85%A5-vue-%E5%85%83%E4%BB%B6%E6%AA%94-%E4%BD%BF%E7%94%A8-http-vue-loader/)
-2.  [npm-install](https://docs.npmjs.com/cli/install)
-3.  [vue + webpack 起手式](https://segmentfault.com/a/1190000005363030)
-4.  [Single File Components](https://vuejs.org/v2/guide/single-file-components.html)
+1. [不需編譯也能載入 .vue 元件檔: 使用 http-vue-loader](https://kuro.tw/posts/2017/07/11/%E4%B8%8D%E9%9C%80%E7%B7%A8%E8%AD%AF%E4%B9%9F%E8%83%BD%E8%BC%89%E5%85%A5-vue-%E5%85%83%E4%BB%B6%E6%AA%94-%E4%BD%BF%E7%94%A8-http-vue-loader/)
+2. [npm-install](https://docs.npmjs.com/cli/install)
+3. [vue + webpack 起手式](https://segmentfault.com/a/1190000005363030)
+4. [Single File Components](https://vuejs.org/v2/guide/single-file-components.html)
