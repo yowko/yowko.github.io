@@ -1,14 +1,15 @@
 ---
 title: "在 Visual Studio 2017 中安裝其他 Test Framework - NUnit"
 date: 2017-05-28T00:30:00+08:00
-lastmod: 2018-09-22T00:30:11+08:00
+lastmod: 2021-10-14T00:30:11+08:00
 draft: false
 tags: ["NUnit","Unit Test","Visual Studio"]
 slug: "visual-studio-2017-test-framework-nunit"
 aliases:
     - /2017/05/visual-studio-2017-test-framework-nunit.html
 ---
-# 在 Visual Studio 2017 中安裝其他 Test Framework - NUnit
+## 在 Visual Studio 2017 中安裝其他 Test Framework - NUnit
+
 透過 Visual Studio 2017 建立專案後，可以使用的 Test Framework 預設只有 MSTest 與 MSTestv2，而 MSTest 一般普遍認為功能較陽春，而會想改使用 NUnit 或是 xUnit，順手筆記留個紀錄
 
 2017/05/17 xUnit.net 尚未支援 Visual Studio 2017 直接使用專案範本建立測試

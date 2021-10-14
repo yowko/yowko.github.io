@@ -1,13 +1,16 @@
 ---
 title: "修改 Windows container 的預設 IP"
 date: 2017-09-03T23:06:00+08:00
-lastmod: 2020-12-11T23:06:20+08:00
+lastmod: 2021-10-08T23:06:20+08:00
 draft: false
 tags: ["docker","Windows Server 2016"]
 slug: "windows-container-ip-prefix"
 aliases:
     - /2017/09/windows-container-ip-prefix.html
 ---
+
+## 修改 Windows container 的預設 IP
+
 之前文章 [docker 無法連線至特定網段 (172.17.x.x)](/2017/09/docker-172-17-ip.html) 分享了 docker 的 linux container bridge 會將特定 IP (172.17.*.*) 的 request 導向 container 內部而造成無法存取特定 IP (172.17.*.*) 問題，也介紹如何修改預設分配 IP 規則避免出現 172.17.*.* 的 request 無效
 
 經過 linux container 的折騰，可以預想到 windows container 應該也會有相同問題，就讓我們來看看如何修改 Windows container 分配 IP 的規則吧
