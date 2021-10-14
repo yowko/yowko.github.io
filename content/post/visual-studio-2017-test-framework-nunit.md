@@ -19,38 +19,38 @@ aliases:
 
 ## 安裝 NUnit
 
-*   Visual Studio 2017 主選單 --> Tools --> Extensions and Updates...
+* Visual Studio 2017 主選單 --> Tools --> Extensions and Updates...
 
     ![4extension](https://cloud.githubusercontent.com/assets/3851540/26522005/5e87c2de-4329-11e7-99d9-000de2ba680e.png)
 
-*   安裝以下兩個套件(順序不重要)
+* 安裝以下兩個套件(順序不重要)
 
     ![10extensions](https://cloud.githubusercontent.com/assets/3851540/26522025/c678659c-4329-11e7-917f-67869288d2c9.png)
 
-    *   `Test Generator NUnit extension`
+    * `Test Generator NUnit extension`
 
         > 讓 Create Unit Tests 時可以選擇 NUnit
 
-        *   會同時安裝 NUnit2 及 3
+        * 會同時安裝 NUnit2 及 3
 
             ![2testframework](https://cloud.githubusercontent.com/assets/3851540/26522000/5e5d5012-4329-11e7-8fb9-cb14117b231a.png)
 
-    *   `NUnit 3 Test Adapter`
+    * `NUnit 3 Test Adapter`
 
         > 執行 NUnit 測試
 
-        *   如果沒裝無法執行測試
-            *   錯誤訊息
+        * 如果沒裝無法執行測試
+            * 錯誤訊息
 
                 > `No tests found to run`
 
                 ![3notests](https://cloud.githubusercontent.com/assets/3851540/26522003/5e67ad46-4329-11e7-9004-689f7e147c2c.png)
 
-*   安裝後需手動重啟 Visual Studio 2017
+* 安裝後需手動重啟 Visual Studio 2017
 
     ![5needrestart](https://cloud.githubusercontent.com/assets/3851540/26521997/5e1aac12-4329-11e7-9398-325dabd970d2.png)
 
-*   手動關閉 Visual Studio 2017 會開始啟動安裝
+* 手動關閉 Visual Studio 2017 會開始啟動安裝
 
     ![6install1](https://cloud.githubusercontent.com/assets/3851540/26521998/5e3f7678-4329-11e7-838c-12cd53630298.png)
 
@@ -68,7 +68,7 @@ aliases:
 
 2017/5/29 更新：可以參考個人拙作：[xUnit.net.TestGenerator](https://marketplace.visualstudio.com/items?itemName=YowkoTsai.xUnitnetTestGenerator)
 
-# 參考資訊
+## 參考資訊
 
-1.  [Visual Studio 2015 如何產生 NUnit 或 xUnit 的測試專案](//blog.yowko.com/2017/02/visual-studio-2015-use-nunit-xunit.html)
-2.  [xUnit.net Test Extensions](https://marketplace.visualstudio.com/items?itemName=BradWilson.xUnitnetTestExtensions)
+1. [Visual Studio 2015 如何產生 NUnit 或 xUnit 的測試專案](//blog.yowko.com/2017/02/visual-studio-2015-use-nunit-xunit.html)
+2. [xUnit.net Test Extensions](https://marketplace.visualstudio.com/items?itemName=BradWilson.xUnitnetTestExtensions)

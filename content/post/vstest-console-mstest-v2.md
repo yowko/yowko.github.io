@@ -1,24 +1,26 @@
 ---
 title: "使用命令列指令 (VSTest.Console.exe) 執行 MSTest V2 測試"
 date: 2018-04-09T01:00:00+08:00
-lastmod: 2020-12-11T01:00:15+08:00
+lastmod: 2021-10-13T01:00:15+08:00
 draft: false
 tags: ["MSTest","Unit Test"]
 slug: "vstest-console-mstest-v2"
 aliases:
     - /2018/04/vstest-console-mstest-v2.html
 ---
-# 使用命令列指令 (VSTest.Console.exe) 執行 MSTest V2 測試
+## 使用命令列指令 (VSTest.Console.exe) 執行 MSTest V2 測試
+
 之前筆記 [使用 MSTest.exe 指令來進行測試](/2017/06/mstest-exe.html) 曾經介紹到使用 MSTest.exe 在 cmmand line 環境中執行測試，筆記結尾有提到未支援 MSTest V2 的測試功能，在原本使用 MSTest V2 專案不多的情況下影響不大，但近期專案為了使用 Live Unit Testing 逐漸改用 Visual Studio 2017 搭配 MSTest V2，除了開發階段方便外，為了讓 CI 充份發揮功能，得另外調整 unit test 的語法，就來看看該如何使用命令列指令執行 MSTest V2 測試
 
 ## 關於 `VSTest.Console.exe`
+
 VSTest.Console.exe 是在 Visual Studio 2012 首見的命令列指令，用來取代 Visual Studio 2012 及更新版本的 Visual Studio 中的  MSTest.exe，針對執行效能已做過優化，可以用來進行單元測試及程式碼 UI 測試
 
 VSTest.Console.exe 允許指定不同選項參數，而參數不分大小寫及順序
 
 透過 `VSTest.Console/?` 可以看到指令使用方式及相關參數說明
 
-```
+```txt
 Usage: vstest.console.exe [Arguments] [Options] [[--] <RunSettings arguments>...]]
 
 Description: Runs tests from the specified files.
@@ -134,21 +136,24 @@ RunSettings arguments:
 ```
 
 ## `VSTest.Console.exe` 指令
+
 - 指令用法
-    
-    ```
+
+    ```cmd
     vstest.console.exe [Arguments] [Options] [[--] <RunSettings arguments>...]]
     ```
+
 - 參數(Arguments)
     > 執行指定檔案的測試，可以使用 `空白符號` 當做分隔符號來指定多個檔案
-    
-    * 範例
-        
-        ```
-        vstest.console.exe WebAPITest_MSTestV1.dll WebAPITest_MSTestV2.dll
-        ```
+
+  - 範例
+
+      ```cmd
+      vstest.console.exe WebAPITest_MSTestV1.dll  WebAPITest_MSTestV2.dll
+      ```
+
 - 選項(Options)
-    
+
     選項|說明|用法
     :---|:---|:---
     `--Tests:<Test Names>`<br/>`/Tests:<Test Names>`|指定測試方法<br/>使用 `,` 為分隔符號指定多個|`vstest.console.exe WebAPITest_MSTestV2.dll /Tests:TestMethod1`<hr>`vstest.console.exe WebAPITest_MSTestV2.dll --Tests:V2_GetTest,V2_GetByIdTest`
@@ -177,11 +182,13 @@ RunSettings arguments:
     --InIsolation｜/InIsolation|在獨立的 process 中運行測試
 
 ## 實際使用
+
 - 前提說明
-    
+
     > 使用 MSTest v1 與 MSTest v2 分別建立完全相同的測試 
-    
+
     - MSTest v1
+
         ```cs
         using Microsoft.VisualStudio.TestTools.UnitTesting;
         using FluentAssertions;
@@ -220,8 +227,9 @@ RunSettings arguments:
             }
         }
         ```
+
     - MSTest v2
-        
+
         ```cs
         using Microsoft.VisualStudio.TestTools.UnitTesting;
         using FluentAssertions;
@@ -262,35 +270,38 @@ RunSettings arguments:
             }
         }
         ```
+
 - 結果
-    - mstest.exe 
+    - mstest.exe
         - 測試 MSTest v1 : **<span style="color:green">正常</span>**
-            
-            >![1mstestv1](https://user-images.githubusercontent.com/3851540/38466808-57a1ce70-3b61-11e8-876b-48e1a21cb2c5.png) 
-        
+
+            >![1mstestv1](https://user-images.githubusercontent.com/3851540/38466808-57a1ce70-3b61-11e8-876b-48e1a21cb2c5.png)
+
         - 測試 MSTest v2 : **<span style="color:red">無法測試</span>**
-            
-            >![2mstestv2](https://user-images.githubusercontent.com/3851540/38466809-57ce130e-3b61-11e8-9dd4-acda7bed6cc8.png) 
+
+            >![2mstestv2](https://user-images.githubusercontent.com/3851540/38466809-57ce130e-3b61-11e8-9dd4-acda7bed6cc8.png)
     - VSTest.console.exe
         - 測試 MSTest v1 : **<span style="color:green">正常</span>**
-            
-            >![3vstestv1](https://user-images.githubusercontent.com/3851540/38466810-57fdec82-3b61-11e8-8c26-5ab58b424294.png) 
-        
+
+            >![3vstestv1](https://user-images.githubusercontent.com/3851540/38466810-57fdec82-3b61-11e8-8c26-5ab58b424294.png)
+
         - 測試 MSTest v2 : **<span style="color:green">正常</span>**
-            
+
             >![4vstestv2](https://user-images.githubusercontent.com/3851540/38466811-5825cb8a-3b61-11e8-9d30-57feeb0c8562.png)
 
 ## 心得
+
 VSTest.console.exe 在基本使用上並不複雜，但相關說明文件就不是很好找，多個來源都有不同的參數列表，對於釐清詳細功能比較不利
 
 >![5replace](https://user-images.githubusercontent.com/3851540/38466807-575d3ed6-3b61-11e8-81b0-acb237654377.png)
 
 以文件說明及結果來看，最好全面改用 VSTest.console.exe 來執行測試：
-1. mstest.exe 完全不支援 MSTest v2 
+
+1. mstest.exe 完全不支援 MSTest v2
 2. VSTest.console.exe 在執行 MSTest v1 與 MSTest v2 並沒有出現問題，可直接使用
 
+## 參考資訊
 
-# 參考資訊
 1. [Using VSTest.console from the command line](https://msdn.microsoft.com/en-us/library/jj155800.aspx)
 2. [vstest-docs/docs/RunSettingsArguments.md](https://github.com/Microsoft/vstest-docs/blob/master/docs/RunSettingsArguments.md)
 3. [vstest-docs/docs/analyze.md](https://github.com/Microsoft/vstest-docs/blob/master/docs/analyze.md)
