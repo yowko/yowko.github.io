@@ -1,19 +1,19 @@
 ---
 title: "TimeZoneInfo 在 Mac/Linux 找不到 time zone ID"
 date: 2019-05-10T21:30:00+08:00
-lastmod: 2019-05-10T21:30:31+08:00
+lastmod: 2021-10-14T21:30:31+08:00
 draft: flase
 tags: ["C#","Linux","Mac"]
 slug: "timezoneinfo-time-zone-id-not-found"
 ---
-# TimeZoneInfo 在 Mac/Linux 找不到指定 time zone ID
+## TimeZoneInfo 在 Mac/Linux 找不到指定 time zone ID
 
 同事提到 TimeZoneInfo 的操作在 Linux server 會出現錯誤，想說我怎麼沒遇到立馬試試，於是發現原來是 time zone ID 在 Windows 與 Linux 不同造成的 XD 雖說可以理解，但不免還是有些違詞：微軟這類的問題在過去可是層出不窮，就是要跟別人不一樣 XD 幸虧這個狀況近幾年有大幅改善 (我個人最有感的就是 docker command 的 porting，不同平台有幾乎一致的使用體驗)，問題既然已經出現就得要找解決方式，紀錄一下用法備查
 
 ## 基本環境說明
 
 1. Mac/Linux : macOS Mojave 10.14.4
-2. Windows : https://dotnetfiddle.net/ 與 Windows 10 Version 1803 (OS Build 17134.590)
+2. Windows : [dotnetfiddle](https://dotnetfiddle.net/) 與 Windows 10 Version 1803 (OS Build 17134.590)
 3. .NET Core 2.2.101
 4. NuGet 套件
    - TimeZoneConverter 3.1.0
@@ -21,33 +21,32 @@ slug: "timezoneinfo-time-zone-id-not-found"
 
     ```cs
     TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("China Standard Time");
-	var utcNow = DateTime.UtcNow;
+    var utcNow = DateTime.UtcNow;
     Console.WriteLine(utcNow);
     Console.WriteLine(TimeZoneInfo.ConvertTime(utcNow, timeZone));
     ```
 
-5. Windows 平台結果
+6. Windows 平台結果
 
-    ```
+    ```txt
     5/10/2019 7:05:46 AM
     5/10/2019 3:05:46 PM
     ```
-
 
 ## 錯誤訊息
 
 1. 訊息內容
 
-    ```
+    ```txt
     Unhandled Exception: System.TimeZoneNotFoundException: The time zone ID 'China Standard Time' was not found on the local computer. ---> System.IO.FileNotFoundException: Could not find file '/usr/share/zoneinfo/China Standard Time'.
-   at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirectory, Func`2 errorRewriter)
-   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode)
-   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
-   at Internal.IO.File.ReadAllBytes(String path)
-   at System.TimeZoneInfo.TryGetTimeZoneFromLocalMachine(String id, TimeZoneInfo& value, Exception& e)
-   --- End of inner exception stack trace ---
-   at System.TimeZoneInfo.FindSystemTimeZoneById(String id)
-   at TestFluentd.Program.Main(String[] args) in /Users/yowko.tsai/Program.cs:line 30
+    at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirectory, Func`2 errorRewriter)
+    at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode)
+    at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+    at Internal.IO.File.ReadAllBytes(String path)
+    at System.TimeZoneInfo.TryGetTimeZoneFromLocalMachine(String id, TimeZoneInfo& value, Exception& e)
+    --- End of inner exception stack trace ---
+    at System.TimeZoneInfo.FindSystemTimeZoneById(String id)
+    at TestFluentd.Program.Main(String[] args) in /Users/yowko.tsai/Program.cs:line 30
 
     Process finished with exit code 6.
     ```
@@ -61,14 +60,14 @@ slug: "timezoneinfo-time-zone-id-not-found"
 1. 安裝套件
 
     - Package Manager
-    
-        ```
+
+        ```ps1
         Install-Package TimeZoneConverter
         ```
-    
+
     - .NET CLI
 
-        ```
+        ```cmd
         dotnet add package TimeZoneConverter
         ```
 
@@ -615,13 +614,14 @@ slug: "timezoneinfo-time-zone-id-not-found"
     Console.WriteLine(TimeZoneInfo.ConvertTime(utcNow, timeZone));
     ```
 
-## 心得 
+## 心得
 
-`解法 1 ： 使用套件` 比較方便，缺點是對套件有相依，需要多管理成本
+- 解法 1 ： `使用套件` 比較方便，缺點是對套件有相依，需要多管理成本
 
-`解法 2 ： 使用 TZ database name` 沒有套件相依問題，但跨平台應用的寫法上可能需要調整，try catch 很方便，不過效能的耗損在頻繁使用下是無法忽略
+- 解法 2 ： `使用 TZ database name` 沒有套件相依問題，但跨平台應用的寫法上可能需要調整，try catch 很方便，不過效能的耗損在頻繁使用下是無法忽略
 
-# 參考資訊
+## 參考資訊
+
 1. [mj1856/TimeZoneConverter](https://github.com/mj1856/TimeZoneConverter)
 2. [FindSystemTimeZoneById doesn't support "Eastern Standard Time" on Ubuntu](https://github.com/dotnet/corefx/issues/16871)
 3. [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
