@@ -51,7 +51,7 @@ aliases:
 
     - 使用 `乾淨模式` 開啟 Visual Studio
 
-         在 Visual Studio 開啟時加上 `/safemode`，詳細可參考 [Visual Studio 怪怪的？！ Visual Studio 好慢？！(Visual Studio 的無痕模式)](//blog.yowko.com/2016/12/visual-studio-safe-mode.html)
+         在 Visual Studio 開啟時加上 `/safemode`，詳細資訊可參考 [Visual Studio 怪怪的？！ Visual Studio 好慢？！(Visual Studio 的無痕模式)](/visual-studio-safe-mode)
 
     - 如果是套件影響的，就需要逐一過濾(disable)是哪個套件造成問題
 
