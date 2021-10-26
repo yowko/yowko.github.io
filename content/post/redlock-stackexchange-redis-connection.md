@@ -62,11 +62,6 @@ ASP.NET Core 註冊 StackExchange.Redis 的做法可以參考之前筆記 [ASP.N
                 const string resource = "yowko-test-redlock";
                 var expiry = TimeSpan.FromSeconds(30);
 
-                
-                const string resource = "yowko-test-redlock";
-                var expiry = TimeSpan.FromSeconds(30);
-
-
                 using var redLock =  _redlockFactory.CreateLockAsync(resource, expiry).ConfigureAwait(false).GetAwaiter().GetResult();
 
                 if (redLock.IsAcquired)
@@ -111,11 +106,6 @@ ASP.NET Core 註冊 StackExchange.Redis 的做法可以參考之前筆記 [ASP.N
                 const string resource = "yowko-test-redlock";
                 var expiry = TimeSpan.FromSeconds(30);
 
-                
-                const string resource = "yowko-test-redlock";
-                var expiry = TimeSpan.FromSeconds(30);
-
-
                 using var redLock =  _redlockFactory.CreateLockAsync(resource, expiry).ConfigureAwait(false).GetAwaiter().GetResult();
 
                 if (redLock.IsAcquired)
@@ -159,11 +149,6 @@ ASP.NET Core 註冊 StackExchange.Redis 的做法可以參考之前筆記 [ASP.N
 
                 const string resource = "yowko-test-redlock";
                 var expiry = TimeSpan.FromSeconds(30);
-
-                
-                const string resource = "yowko-test-redlock";
-                var expiry = TimeSpan.FromSeconds(30);
-
 
                 using var redLock =  _redlockFactory.CreateLockAsync(resource, expiry).ConfigureAwait(false).GetAwaiter().GetResult();
 
