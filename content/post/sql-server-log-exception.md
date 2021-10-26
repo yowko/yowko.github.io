@@ -1,14 +1,15 @@
 ---
 title: "SQL Server 如何紀錄執行錯誤"
 date: 2017-04-25T02:07:00+08:00
-lastmod: 2018-09-185T02:07:18+08:00
+lastmod: 2021-10-15T02:07:18+08:00
 draft: false
 tags: ["Debug","SQL Server"]
 slug: "sql-server-log-exception"
 aliases:
     - /2017/04/sql-server-log-exception.html
 ---
-# SQL Server 如何紀錄執行錯誤
+## SQL Server 如何紀錄執行錯誤
+
 程式在 production 環境上出現錯誤，大家會怎麼 debug 呢？最傳統也最普遍的做法當然就是追查各式各樣的 log，現在發生錯誤的對象換做是 db 該怎麼辦呢？ 如果是 DML(Data Manipulation Language：insert、update、delete) 或是 DQL(Data Query Language：select) 相關指令在執行發生錯誤會直接回傳給 AP 接著就會被 AP log 起來，相對容易除錯，一旦錯誤是發生在 stored procedure 裡難度就增加很多，一般來說 stored procedure 常常有一定程度的邏輯存在，以前我總是透過逐行下 log 的方式來除錯，只要 log 沒下好就得重來，加上系統龐大 stored procedure 眾多，debug 的慘況可想而知，所以我們一定得透過更有效率的方式來處理
 
 主要靈感來源是 [AdventureWorks2014](https://msftdbprodsamples.codeplex.com/downloads/get/880661)，其中 ErrorLog 是用來紀錄錯誤資訊的 table，uspLogError 則是用來寫入錯誤資訊的 stored procedure，後來參考 [Exception Handling in SQL Server](https://www.codeproject.com/Articles/38211/Exception-Handling-in-SQL-Server) 加入 host 欄位
@@ -82,7 +83,7 @@ GO
 
 ## 建立寫入錯誤資訊的 stored procedure
 
-*   uspLogErrors
+* uspLogErrors
 
     ```sql
     SET ANSI_NULLS ON
@@ -150,10 +151,10 @@ GO
     EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'回傳寫入至 ErrorLogs 的 id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'PROCEDURE',@level1name=N'uspLogErrors', @level2type=N'PARAMETER',@level2name=N'@ErrorLogID'
     GO
     ```
-    
+
     > 為了避免用來紀錄錯誤訊息的 stored procedure 也出現錯誤，另外加上一支只顯示錯誤資訊的 stored procedure
 
-*   uspPrintError
+* uspPrintError
 
     ```sql
     SET ANSI_NULLS ON
@@ -178,7 +179,7 @@ GO
 
 ## 執行 script 並加入錯誤處理機制
 
-*   script
+* script
 
     ```sql
     BEGIN TRY
@@ -188,7 +189,8 @@ GO
         EXECUTE [dbo].[uspLogErrors];
     END CATCH;
     ```
-*   stored procedure
+
+* stored procedure
 
     ```sql
     CREATE PROCEDURE [dbo].[uspSelectSalesCurrency]
@@ -204,22 +206,19 @@ GO
     END
     GO
     ```
-    *   執行
-        
-        > `exec uspSelectSalesCurrency`
+
+    > 執行 : `exec uspSelectSalesCurrency`
 
 ## 實際效果
 
 ![2result](https://cloud.githubusercontent.com/assets/3851540/25351208/8a6be67a-295a-11e7-82fc-c07d5cd6854c.png)
 
-*   ErrorProc 表示發生錯誤的程序
+* ErrorProc 表示發生錯誤的程序
 
-    *   `NULL` 即是直接執行 script
+  * `NULL` 即是直接執行 script
 
+## 參考資訊
 
-
-# 參考資訊
-
-1.  [AdventureWorks2014](https://msftdbprodsamples.codeplex.com/downloads/get/880661)
-2.  [Exception Handling in SQL Server](https://www.codeproject.com/Articles/38211/Exception-Handling-in-SQL-Server)
-3.  [TRY...CATCH (Transact-SQL)](https://msdn.microsoft.com/zh-tw/library/ms175976.aspx)
+1. [AdventureWorks2014](https://msftdbprodsamples.codeplex.com/downloads/get/880661)
+2. [Exception Handling in SQL Server](https://www.codeproject.com/Articles/38211/Exception-Handling-in-SQL-Server)
+3. [TRY...CATCH (Transact-SQL)](https://msdn.microsoft.com/zh-tw/library/ms175976.aspx)

@@ -1,14 +1,15 @@
 ---
 title: "你認識 SQL Server 的資料層應用程式(Data-tier Applications - DAC)嗎?"
 date: 2017-04-14T02:39:00+08:00
-lastmod: 2020-09-01T02:39:51+08:00
+lastmod: 2021-10-26T02:39:51+08:00
 draft: false
 tags: ["SQL Server"]
 slug: "sql-server-dac"
 aliases:
     - /2017/04/sql-server-dac.html
 ---
-# 你認識 SQL Server 的資料層應用程式(Data-tier Applications - DAC)嗎?
+## 你認識 SQL Server 的資料層應用程式(Data-tier Applications - DAC)嗎?
+
 DAC 首次出現於 SQL Server 2008 R2 ，但直至今日經過了這麼久時間還是很少聽到其他人討論這個功能，雖然曾經用過但還是認識不深，最近新專案在部署至 Azure 時選擇使用 DAC 相關技術，所以花了時間暸解內容，順手筆記
 
 ## 資料層應用程式(Data-tier Applications - DAC) 是什麼？
@@ -17,55 +18,53 @@ DAC 首次出現於 SQL Server 2008 R2 ，但直至今日經過了這麼久時�
 
 依內容分成兩種檔案：
 
-1.  DACPAC
-    *   僅資料庫結構描述
-    *   適合用來部署
+1. DACPAC
+    * 僅資料庫結構描述
+    * 適合用來部署
 
-2.  BACPAC
-    *   資料庫結構描述 + 資料內容
-    *   適合用來還原資料庫
-
-  
+2. BACPAC
+    * 資料庫結構描述 + 資料內容
+    * 適合用來還原資料庫
 
 ## DAC 所需權限
 
-*   Deploy ：dbmanager 或擁有 CREATE DATABASE 權限
-*   Delete：dbmanager  或擁有 DROP DATABASE 權限
-
+* Deploy ：dbmanager 或擁有 CREATE DATABASE 權限
+* Delete：dbmanager  或擁有 DROP DATABASE 權限
 
 ## DACPAC 相關操作
-1.  Extract
-    
+
+1. Extract
+
     > 將資料庫結構封裝為 DACPAC
 
     * 目標資料庫右鍵 --> Tasks --> Extract Data-tier Application...
-        
+
         ![1extract](https://cloud.githubusercontent.com/assets/3851540/25018436/e993754a-20b9-11e7-911e-bb9a3d53975e.png)
 
     * Introduction
-        
+
         ![2intro](https://cloud.githubusercontent.com/assets/3851540/25018438/e995d920-20b9-11e7-8a23-177de209b74b.png)
 
     * Set Properties
-        *   Appliaction name(名稱需相同才能進行升級)
-        *   Version(版本必需不同)
-        *   Description
-        *   Save tp DAC package file
-            
+        * Appliaction name(名稱需相同才能進行升級)
+        * Version(版本必需不同)
+        * Description
+        * Save tp DAC package file
+
             ![3info](https://cloud.githubusercontent.com/assets/3851540/25018437/e9945ab4-20b9-11e7-9720-5060d4395934.png)
 
     * Validation and Summary
-        
+
         ![4validation](https://cloud.githubusercontent.com/assets/3851540/25018439/e997e332-20b9-11e7-9903-023b8f0c3488.png)
 
     * Build Package
-        
+
         ![5inprogress](https://cloud.githubusercontent.com/assets/3851540/25018440/e9a0e69e-20b9-11e7-8e3b-76b201075bfb.png)
 
         ![6success](https://cloud.githubusercontent.com/assets/3851540/25018441/e9a636bc-20b9-11e7-9a07-2c15c12a987b.png)
 
-2.  Deploy
-    
+2. Deploy
+
     > 使用 DACPAC 建立資料庫, 預設將資料庫註冊為 DAC
 
     * 資料庫資料夾右鍵 --> Deploy Data-tier Application...
@@ -94,7 +93,7 @@ DAC 首次出現於 SQL Server 2008 R2 ，但直至今日經過了這麼久時�
 
         ![13sucess](https://cloud.githubusercontent.com/assets/3851540/25018449/e9e81992-20b9-11e7-870b-39cb58252128.png)
 
-3.  Register
+3. Register
 
     > 將資料庫註冊為 DAC(在 SQL Server 中建立版控)
 
@@ -107,10 +106,10 @@ DAC 首次出現於 SQL Server 2008 R2 ，但直至今日經過了這麼久時�
         ![15intro](https://cloud.githubusercontent.com/assets/3851540/25018450/e9faa4d6-20b9-11e7-9ded-f0de6a1a19d8.png)
 
     * Set Properties
-        *   DAC instance name
-        *   Application name
-        *   Version
-        *   Description
+        * DAC instance name
+        * Application name
+        * Version
+        * Description
 
         ![16properties](https://cloud.githubusercontent.com/assets/3851540/25018451/e9fe1940-20b9-11e7-9ca0-720b3668484c.png)
 
@@ -124,7 +123,7 @@ DAC 首次出現於 SQL Server 2008 R2 ，但直至今日經過了這麼久時�
 
         ![19success](https://cloud.githubusercontent.com/assets/3851540/25018455/ea1bcdaa-20b9-11e7-96ea-6f6928059a4f.png)
 
-4.  Upgrade
+4. Upgrade
 
     > 使用 DACPAC 來更新資料庫
 
@@ -144,20 +143,20 @@ DAC 首次出現於 SQL Server 2008 R2 ，但直至今日經過了這麼久時�
 
         ![23detect](https://cloud.githubusercontent.com/assets/3851540/25018456/ea33a876-20b9-11e7-92cf-c0f39de3189e.png)
 
-        *   顯示 no cahnges ?  這應該是 bug
-            
+        * 顯示 no cahnges ?  這應該是 bug
+
             ![24nochanges](https://cloud.githubusercontent.com/assets/3851540/25018458/ea34231e-20b9-11e7-8155-6af3552b9965.png)
 
     * Options
-        *   失敗是否 rollback
-            
+        * 失敗是否 rollback
+
             ![25option](https://cloud.githubusercontent.com/assets/3851540/25018461/ea530ac2-20b9-11e7-93f1-31a8c9e5090d.png)
 
     * Review Upgrade Plan
 
         ![26review](https://cloud.githubusercontent.com/assets/3851540/25018464/ea65e598-20b9-11e7-8e94-d01bc7f19665.png)
 
-        *   可能造成資料遺失
+        * 可能造成資料遺失
 
             ![27dataloss](https://cloud.githubusercontent.com/assets/3851540/25018462/ea6434d2-20b9-11e7-8b9a-a3328b299bb6.png)
 
@@ -171,29 +170,29 @@ DAC 首次出現於 SQL Server 2008 R2 ，但直至今日經過了這麼久時�
 
         ![30success](https://cloud.githubusercontent.com/assets/3851540/25018465/ea66df84-20b9-11e7-8b2d-91a90497bc58.png)
 
-5.  Delete
+5. Delete
 
     > 僅刪除在 SQL Server 的版本資訊
 
-    *   目標資料庫右鍵 --> Tasks --> Delete Data-tier Application...
+    * 目標資料庫右鍵 --> Tasks --> Delete Data-tier Application...
 
         ![31delete](https://cloud.githubusercontent.com/assets/3851540/25018467/ea7ae3ee-20b9-11e7-92dd-7e5fd38aa2e0.png)
 
-    *   Introduction
+    * Introduction
 
         ![32intro](https://cloud.githubusercontent.com/assets/3851540/25018468/ea8c04e4-20b9-11e7-83e7-390a806ec154.png)
 
-    *   Summary
+    * Summary
 
         ![33summary](https://cloud.githubusercontent.com/assets/3851540/25018470/ea92d0e4-20b9-11e7-84a1-6ddb8c0abfeb.png)
 
-    *   Delete DAC
+    * Delete DAC
 
         ![34success](https://cloud.githubusercontent.com/assets/3851540/25018471/ea9fad78-20b9-11e7-888a-40fcf20f863b.png)
 
 ## BACPAC 相關操作
 
-1.  Export
+1. Export
 
     > 將資料庫 schema 及資料封裝
 
@@ -229,7 +228,7 @@ DAC 首次出現於 SQL Server 2008 R2 ，但直至今日經過了這麼久時�
 
         ![41success](https://cloud.githubusercontent.com/assets/3851540/25018476/eacbe2b2-20b9-11e7-8900-fa754148f4aa.png)
 
-2.  Import
+2. Import
 
     > 使用 BACPAC 將資料庫 schema 及資料匯入
 
@@ -263,7 +262,7 @@ DAC 首次出現於 SQL Server 2008 R2 ，但直至今日經過了這麼久時�
 
         ![48success](https://cloud.githubusercontent.com/assets/3851540/25018431/e96ce9ac-20b9-11e7-8c52-c6fce60dab35.png)
 
+## 參考資訊
 
-# 參考資訊
-1.  [Data-tier Applications](https://docs.microsoft.com/en-us/sql/relational-databases/data-tier-applications/data-tier-applications?WT.mc_id=DOP-MVP-5002594)
-2.  [SQL Server 資料庫版本控管](https://channel9.msdn.com/Series/SQL-PASS-TAIWAN/SQL-Server-realase-management)
+1. [Data-tier Applications](https://docs.microsoft.com/en-us/sql/relational-databases/data-tier-applications/data-tier-applications?WT.mc_id=DOP-MVP-5002594)
+2. [SQL Server 資料庫版本控管](https://channel9.msdn.com/Series/SQL-PASS-TAIWAN/SQL-Server-realase-management?WT.mc_id=DOP-MVP-5002594)

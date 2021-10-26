@@ -1,21 +1,22 @@
 ---
 title: "製作 Selenium IDE 的 xUnit.net 2.0 版 Formatter"
 date: 2017-06-07T21:00:00+08:00
-lastmod: 2017-06-07T21:00:09+08:00
+lastmod: 2021-10-26T21:00:09+08:00
 draft: false
 tags: ["套件","xUnit","Tools","C#"]
 slug: "selenium-ide-xunit-formatter"
 aliases:
     - /2017/06/selenium-ide-xunitnet-20-formatter.html
 ---
-# 製作 Selenium IDE 的 xUnit.net 2.0 版 Formatter
+## 製作 Selenium IDE 的 xUnit.net 2.0 版 Formatter
+
 TDD 課程中，91 大介紹了 Selenium IDE 的用法，我的心得筆記請參考 [使用 Selenium IDE 與 C# 做 Web UI 測試](//blog.yowko.com/2017/06/selenium-ide-c-sharp-web-ui-test.html)，因為 Selenium IDE 預設只支援 Nunit，所以 91 大動手做了個 MSTest 的版本，詳細內容請參考 [Export to C#/WebDriver/MSTest](https://dotblogs.com.tw/hatelove/archive/2013/11/26/selenium-ide-export-to-csharp-webdriver-mstest.aspx)，當下就想到好像每次 xUnit 都被忽略，於是就興起自己做 xUnit Selenium IDE Formatter 的念頭，就來看看要怎麼修改吧
 
 ## 修改 formatter
 
 細節就不多提，有興趣的人可以仔細研究，大意就是引用 xUnit 的 namespace 並使用 xUnit 的寫法來調整 ，程式碼在如下，也放上 [GitHub：C-sharp-xUnit.net-2.0-WebDriver](https://github.com/yowko/C-sharp-xUnit.net-2.0-WebDriver)
 
-```
+```cs
 /*
 * Formatter for Selenium 2 / WebDriver .NET (C#) client.
 */
@@ -551,19 +552,19 @@ WDAPI.Utils.isAlertPresent = function() {
 
 > 準備好 formatter 的執行語法後就需要將語法匯入 Selenium IDE 備用
 
-1.  Selenium IDE 主選單 Options --> Options
+1. Selenium IDE 主選單 Options --> Options
 
     ![1options](https://user-images.githubusercontent.com/3851540/26862277-78321c4c-4b7c-11e7-8b40-9b8ce2cfc72c.png)
 
-2.  Formats --> Add
+2. Formats --> Add
 
     ![2add](https://user-images.githubusercontent.com/3851540/26862278-7833bc64-4b7c-11e7-802a-d16319e15f16.png)
 
-3.  給個顯示名稱 --> 再把 script 貼進編輯視窗中 --> Save
+3. 給個顯示名稱 --> 再把 script 貼進編輯視窗中 --> Save
 
     ![3name](https://user-images.githubusercontent.com/3851540/26862279-78359e12-4b7c-11e7-9802-4e53d40140fc.png)
 
-4.  存檔後，需要重開 Options --> Options ，剛加入的 formatter 才會出現
+4. 存檔後，需要重開 Options --> Options ，剛加入的 formatter 才會出現
 
     ![4newone](https://user-images.githubusercontent.com/3851540/26862280-783ed784-4b7c-11e7-87cd-733e9c36dee5.png)
 
@@ -571,14 +572,13 @@ WDAPI.Utils.isAlertPresent = function() {
 
 使用細節可以參考 [使用 Selenium IDE 與 C# 做 Web UI 測試](//blog.yowko.com/2017/06/selenium-ide-c-sharp-web-ui-test.html) 步驟大致如下：
 
-1.  使用 Selenium IDE 錄製 web 操作
-2.  匯出 `.cs` 並指定 foramtter
-3.  將匯出的 `.cs` 加入測試專案
-4.  引用適合的 NuGet packages
+1. 使用 Selenium IDE 錄製 web 操作
+2. 匯出 `.cs` 並指定 foramtter
+3. 將匯出的 `.cs` 加入測試專案
+4. 引用適合的 NuGet packages
 
+## 參考資訊
 
-# 參考資訊
-
-1.  [使用 Selenium IDE 與 C# 做 Web UI 測試](//blog.yowko.com/2017/06/selenium-ide-c-sharp-web-ui-test.html)
-2.  [Export to C#/WebDriver/MSTest](https://dotblogs.com.tw/hatelove/archive/2013/11/26/selenium-ide-export-to-csharp-webdriver-mstest.aspx)
-3.  [GitHub：C-sharp-xUnit.net-2.0-WebDriver](https://github.com/yowko/C-sharp-xUnit.net-2.0-WebDriver)
+1. [使用 Selenium IDE 與 C# 做 Web UI 測試](/selenium-ide-c-sharp-web-ui-test/)
+2. [Export to C#/WebDriver/MSTest](https://dotblogs.com.tw/hatelove/archive/2013/11/26/selenium-ide-export-to-csharp-webdriver-mstest.aspx)
+3. [GitHub：C-sharp-xUnit.net-2.0-WebDriver](https://github.com/yowko/C-sharp-xUnit.net-2.0-WebDriver)
