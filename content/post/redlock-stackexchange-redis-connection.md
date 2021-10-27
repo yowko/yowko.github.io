@@ -13,7 +13,7 @@ slug: "redlock-stackexchange-redis-connection"
 
 團隊中不少專案為了加快資料顯示的速度都使用 redis 做為 cache，其中 redis 的存取都是使用 StackExchange.Redis，而這與 RedLock.net 相依一致，為了統一連線管理為了避免建立多餘的連線，所以打算共用原有的 StackExchange.Redis multiplexer connection，簡單紀錄一下用法
 
-ASP.NET Core 註冊 StackExchange.Redis 的做法可以參考之前筆記 [ASP.NET Core 中 StackExchange.Redis 的註冊與使用方式](stackexchange-redis-in-aspdotnet-core)
+ASP.NET Core 註冊 StackExchange.Redis 的做法可以參考之前筆記 [ASP.NET Core 中 StackExchange.Redis 的註冊與使用方式](/stackexchange-redis-in-aspdotnet-core)
 
 ## 基本環境設定
 
@@ -171,6 +171,6 @@ ASP.NET Core 註冊 StackExchange.Redis 的做法可以參考之前筆記 [ASP.N
 ## 參考資訊
 
 1. [使用 RedLock.net 搭配 redis 達成分散式 Lock](/redlocknet-redis-lock/)
-2. [ASP.NET Core 中 StackExchange.Redis 的註冊與使用方式](stackexchange-redis-in-aspdotnet-core)
+2. [ASP.NET Core 中 StackExchange.Redis 的註冊與使用方式](/stackexchange-redis-in-aspdotnet-core)
 3. [samcook/RedLock.net](https://github.com/samcook/RedLock.net)
 4. [RedLockFactory as a Singleton](https://github.com/samcook/RedLock.net/issues/54#issuecomment-504080700)
