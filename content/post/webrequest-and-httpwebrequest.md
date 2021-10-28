@@ -3,7 +3,7 @@ title: "如何使用 WebRequest,HttpWebRequest 來存取(GET,POST,PUT,DELETE,PAT
 date: 2017-03-09T02:42:34+08:00
 lastmod: 2021-10-08T00:42:34+08:00
 draft: false
-tags: ["C#"]
+tags: ["csharp"]
 slug: "webrequest-and-httpwebrequest"
 aliases:
     - /2017/03/webrequest-and-httpwebrequest.html

@@ -3,7 +3,7 @@ title: "使用 Topshelf 搭配 Quartz.Net 撰寫 Windows Service 排程執行工
 date: 2018-04-12T21:00:00+08:00
 lastmod: 2021-10-14T21:00:39+08:00
 draft: false
-tags: ["套件","C#","Windows Service"]
+tags: ["套件","csharp","Windows Service"]
 slug: "topshelf-quartznet-windows-service"
 aliases:
     - /2018/04/topshelf-quartznet-windows-service.html

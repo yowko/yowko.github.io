@@ -3,7 +3,7 @@ title: "製作 Selenium IDE 的 xUnit.net 2.0 版 Formatter"
 date: 2017-06-07T21:00:00+08:00
 lastmod: 2021-10-26T21:00:09+08:00
 draft: false
-tags: ["套件","xUnit","Tools","C#"]
+tags: ["套件","xUnit","Tools","csharp"]
 slug: "selenium-ide-xunit-formatter"
 aliases:
     - /2017/06/selenium-ide-xunitnet-20-formatter.html

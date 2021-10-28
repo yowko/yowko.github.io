@@ -3,7 +3,7 @@ title: "使用 ConfigurationSection 自訂 ASP.NET config (web.config) 區段"
 date: 2017-02-19T01:42:34+08:00
 lastmod: 2021-10-08T00:42:34+08:00
 draft: false
-tags: ["C#","web.config"]
+tags: ["csharp","web.config"]
 slug: "webconfig-customize-configurationsection"
 aliases:
     - /2017/02/use-configurationsection-customize-aspnet-config.html

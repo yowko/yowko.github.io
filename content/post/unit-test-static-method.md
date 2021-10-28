@@ -3,7 +3,7 @@ title: "Unit Test 想驗證 private static method 該怎麼做？ - 使用 Priva
 date: 2017-06-18T21:26:00+08:00
 lastmod: 2021-10-14T21:26:48+08:00
 draft: false
-tags: ["C#","MSTest","Unit Test"]
+tags: ["csharp","MSTest","Unit Test"]
 slug: "unit-test-static-method"
 aliases:
     - /2017/06/unit-test-static-method.html

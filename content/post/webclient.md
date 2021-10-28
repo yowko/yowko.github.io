@@ -3,7 +3,7 @@ title: "使用 WebClient 來存取 GET,POST,PUT,DELETE,PATCH 網路資源"
 date: 2017-06-13T21:00:00+08:00
 lastmod: 2021-10-08T21:00:14+08:00
 draft: false
-tags: ["C#"]
+tags: ["csharp"]
 slug: "webclient"
 aliases:
     - /2017/06/webclient.html

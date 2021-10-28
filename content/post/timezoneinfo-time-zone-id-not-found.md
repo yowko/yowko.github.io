@@ -3,7 +3,7 @@ title: "TimeZoneInfo 在 Mac/Linux 找不到 time zone ID"
 date: 2019-05-10T21:30:00+08:00
 lastmod: 2021-10-14T21:30:31+08:00
 draft: flase
-tags: ["C#","Linux","Mac"]
+tags: ["csharp","Linux","Mac"]
 slug: "timezoneinfo-time-zone-id-not-found"
 ---
 ## TimeZoneInfo 在 Mac/Linux 找不到指定 time zone ID

@@ -3,7 +3,7 @@ title: "使用 Selenium IDE 與 C# 做 Web UI 測試"
 date: 2017-06-05T21:00:00+08:00
 lastmod: 2021-10-26T16:33:39+08:00
 draft: false
-tags: ["C#","NUnit","TDD","Unit Test"]
+tags: ["csharp","NUnit","TDD","Unit Test"]
 slug: "selenium-ide-csharp-web-ui-test"
 aliases:
     - /2017/06/selenium-ide-c-sharp-web-ui-test.html
