@@ -1,19 +1,20 @@
 ---
 title: "Redis bechmack 用法與參數說明"
 date: 2017-03-22T02:43:34+08:00
-lastmod: 2018-09-14T00:42:34+08:00
+lastmod: 2021-10-28T00:42:34+08:00
 draft: false
 tags: ["Redis"]
 slug: "redis-bechmack"
 aliases:
     - /2017/03/redis-bechmack.html
 ---
-# Redis bechmack 用法與參數說明
+## Redis bechmack 用法與參數說明
+
 透過 redis-benchmark 這個 redis 內建工具可以幫助我們瞭解 redis 環境的執行效能，測試過程中隨手紀錄一下指令用法
 
 ## 如何使用
 
-```
+```txt
 Usage: redis-benchmark [-h <host>] [-p <port>] [-c <clients>] [-n <requests]> [-k <boolean>]
 ```
 
@@ -38,6 +39,6 @@ Usage: redis-benchmark [-h <host>] [-p <port>] [-c <clients>] [-n <requests]> [-
  -t {tests}|-|僅執行指定的指令測試，多個指令以 `,` 分隔
  -I|-|建立 idle 連數，數量由 `-c` 決定
 
+## 參考資訊
 
-# 參考資訊
 1. [How fast is Redis?](https://redis.io/topics/benchmarks)
