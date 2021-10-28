@@ -27,7 +27,7 @@ public ValuesController(ILogger _logger)
 {
     logger = _logger;
 }
-</code></pre></li><li><p>從測試程式傳入 ILogger 物件</p><blockquote><p>搭配 <code>NSubstitute</code> 產生虛擬物件，關於如何驗證 IHttpActionResult 細節可以參考 <a href=//blog.yowko.com/2017/06/unit-test-web-api-ihttpactionresult.html target=_blank>Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult</a></p></blockquote><pre><code class=language-cs>[TestMethod]
+</code></pre></li><li><p>從測試程式傳入 ILogger 物件</p><blockquote><p>搭配 <code>NSubstitute</code> 產生虛擬物件，關於如何驗證 IHttpActionResult 細節可以參考 <a href=https://blog.yowko.com/unit-test-web-api-ihttpactionresult>Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult</a></p></blockquote><pre><code class=language-cs>[TestMethod]
 public void Post_StringEmpty_Return_BadRequest()
 {
     //arrange 

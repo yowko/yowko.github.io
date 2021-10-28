@@ -108,13 +108,13 @@ public class MyDatabaseTests : IClassFixture&lt;DatabaseFixture&gt;
 }
 </code></pre></li></ul></li></ol><ul><li><p>其他注意事項</p><ul><li>xUnit 不需要在測試 class 上加 attribute，但測試 class 仍需要 public</li><li>xUnit 沒有以 project base 或是 namespace 層級的方法</li><li><p>xUnit 無法使用 <code>Console.WriteLine</code>，想要輸出文字可以參考下面用法</p><pre><code class=language-cs>public class XUnitTest_GroupSum
 {
-    private readonly ITestOutputHelper output;
-    public XUnitTest_GroupSum(ITestOutputHelper output)
-    {
-        output.WriteLine(&quot;Init&quot;);
-    }
+private readonly ITestOutputHelper output;
+public XUnitTest_GroupSum(ITestOutputHelper output)
+{
+    output.WriteLine(&quot;Init&quot;);
 }
-</code></pre></li></ul></li></ul><h2 id=心得>心得</h2><p>xUnit 的使用方式與 MSTest 跟 NUint 差比較多，使用的上需要重新適應，功能也比不上 NUint，資源相對難找，使用便利性比較不足</p><h2 id=參考資訊>參考資訊</h2><ol><li><a href=//blog.yowko.com/2017/02/MStest-NUnit3-xUnit.net2-Compare.html target=_blank>MSTest,NUnit 3,xUnit.net 2.0 比較</a></li><li><a href=//blog.yowko.com/2017/05/mstestnunit-3xunitnet.html target=_blank>使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)</a></li><li><a href=http://xunit.github.io/docs/comparisons.html target=_blank>Comparing xUnit.net to other frameworks</a></li><li><a href=https://xunit.github.io/docs/shared-context.html target=_blank>Shared Context between Tests</a></li><li><a href=https://xunit.github.io/docs/capturing-output.html target=_blank>Capturing Output</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+}
+</code></pre></li></ul></li></ul><h2 id=心得>心得</h2><p>xUnit 的使用方式與 MSTest 跟 NUint 差比較多，使用的上需要重新適應，功能也比不上 NUint，資源相對難找，使用便利性比較不足</p><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://blog.yowko.com/MStest-NUnit3-xUnit.net2-Compare>MSTest,NUnit 3,xUnit.net 2.0 比較</a></li><li><a href=https://blog.yowko.com/mstestnunit-3xunitnet>使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)</a></li><li><a href=http://xunit.github.io/docs/comparisons.html target=_blank>Comparing xUnit.net to other frameworks</a></li><li><a href=https://xunit.github.io/docs/shared-context.html target=_blank>Shared Context between Tests</a></li><li><a href=https://xunit.github.io/docs/capturing-output.html target=_blank>Capturing Output</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
 <span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
 <span class=item-content>2021-10-14</span></p><p class=copyright-item><span class=item-title>授權合約</span>
 <span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
