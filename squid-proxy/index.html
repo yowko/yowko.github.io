@@ -9,23 +9,23 @@
 # Example rule allowing access from your local networks.
 # Adapt to list your (internal) IP networks from where browsing
 # should be allowed
-acl localnet src 10.0.0.0/8 # RFC1918 possible internal network
-acl localnet src 172.16.0.0/12  # RFC1918 possible internal     network
-acl localnet src 192.168.0.0/16 # RFC1918 possible internal     network
+acl localnet src 10.0.0.0/8    # RFC1918 possible internal network
+acl localnet src 172.16.0.0/12    # RFC1918 possible internal     network
+acl localnet src 192.168.0.0/16    # RFC1918 possible internal     network
 acl localnet src fc00::/7       # RFC 4193 local private    network range
 acl localnet src fe80::/10      # RFC 4291 link-local (directly     plugged) machines
 
 acl SSL_ports port 443
-acl Safe_ports port 80      # http
-acl Safe_ports port 21      # ftp
-acl Safe_ports port 443     # https
-acl Safe_ports port 70      # gopher
-acl Safe_ports port 210     # wais
-acl Safe_ports port 1025-65535  # unregistered ports
-acl Safe_ports port 280     # http-mgmt
-acl Safe_ports port 488     # gss-http
-acl Safe_ports port 591     # filemaker
-acl Safe_ports port 777     # multiling http
+acl Safe_ports port 80        # http
+acl Safe_ports port 21        # ftp
+acl Safe_ports port 443        # https
+acl Safe_ports port 70        # gopher
+acl Safe_ports port 210        # wais
+acl Safe_ports port 1025-65535    # unregistered ports
+acl Safe_ports port 280        # http-mgmt
+acl Safe_ports port 488        # gss-http
+acl Safe_ports port 591        # filemaker
+acl Safe_ports port 777        # multiling http
 acl CONNECT method CONNECT
 
 #
@@ -71,10 +71,10 @@ coredump_dir /var/spool/squid
 #
 # Add any of your own refresh_pattern entries above these.
 #
-refresh_pattern ^ftp:       1440    20% 10080
-refresh_pattern ^gopher:    1440    0%  1440
-refresh_pattern -i (/cgi-bin/|\?) 0 0%  0
-refresh_pattern .       0   20% 4320
+refresh_pattern ^ftp:        1440    20%    10080
+refresh_pattern ^gopher:    1440    0%    1440
+refresh_pattern -i (/cgi-bin/|\?) 0    0%    0
+refresh_pattern .        0    20%    4320
 </code></pre></li><li><p>直接啟動 squid</p><pre><code class=language-bash>/usr/sbin/squid start
 </code></pre></li><li><p>確認啟動</p><pre><code class=language-bash>netstat -tulnp | grep squid
 </code></pre><p><img src=https://user-images.githubusercontent.com/3851540/84596036-db3c3800-ae8d-11ea-8df1-cebaa8445270.jpg alt=1start></p></li></ol><ul><li><p>可設為開機啟動服務</p><pre><code class=language-bash>systemctl enable squid
