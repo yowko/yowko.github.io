@@ -20,7 +20,7 @@ TDD 來到了第二天，邀請我參加這次 TDD 課程的前同事 - Dino 問
 
 ## 第一天課程回顧
 
-> 第一天課程詳細內容可以參考 [自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1](//blog.yowko.com/2017/05/tdd-day-1.html)，以下內容只是個人理解後用來加強記憶用
+> 第一天課程詳細內容可以參考 [自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1](/tdd-day-1)，以下內容只是個人理解後用來加強記憶用
 
 1. legacy code 如何測試
 
@@ -80,7 +80,7 @@ TDD 來到了第二天，邀請我參加這次 TDD 課程的前同事 - Dino 問
 
         > 操作方式與使用者相同，intgration Test 是以程式觸發，一般還是由測試專案發動，驗收測試則是由使用者從外部觸發，可能是 UI 或是 App 驅動
 
-    * 粒度愈大愈擬真，愈接近使用者，也愈好寫
+    4. 粒度愈大愈擬真，愈接近使用者，也愈好寫
 
         > 只管 input 與 output ，其他都黑箱
 
@@ -94,12 +94,12 @@ TDD 來到了第二天，邀請我參加這次 TDD 課程的前同事 - Dino 問
 
 * Selenium IDE
 
-    > 基本操作方式請參考 [使用 Selenium IDE 與 C# 做 Web UI 測試](//blog.yowko.com/2017/06/selenium-ide-c-sharp-web-ui-test.html)
+    > 基本操作方式請參考 [使用 Selenium IDE 與 C# 做 Web UI 測試](/selenium-ide-c-sharp-web-ui-test)
 
     1. 可以用來降低開發人員進入 web testing 的門檻
     2. 可以將錄製完的結果轉換為測試腳本程式碼
 
-        > 原生支援 nunit ，可以透過自訂 formatter 產生 MSTest 及 xUnit，有興趣的請參考 [製作 Selenium IDE 的 xUnit.net 2.0 版 Formatter](//blog.yowko.com/2017/06/selenium-ide-xunitnet-20-formatter.html)
+        > 原生支援 nunit ，可以透過自訂 formatter 產生 MSTest 及 xUnit，有興趣的請參考 [製作 Selenium IDE 的 xUnit.net 2.0 版 Formatter](/selenium-ide-xunitnet-20-formatter)
 
     3. clickboard 指定取得不同語言的 element 寫法
 
@@ -135,17 +135,17 @@ TDD 來到了第二天，邀請我參加這次 TDD 課程的前同事 - Dino 問
 
 * Selenium 的問題
 
-    * Selenium api 太像程式碼
+    >  Selenium api 太像程式碼
 
-        1. 測試案例用來描述需求
-        2. 測試程式用來驗證需求是否與結果相符
+    1. 測試案例用來描述需求
+    2. 測試程式用來驗證需求是否與結果相符
 
 * Fluent Automation
 
     > 讓測試程式更加語意化
 
     1. 支援：selenium 及 watin
-    2. 詳細介紹與使用教學可以參考 [使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式](//blog.yowko.com/2017/06/fluent-automation-selenium-web-ui-test.html)
+    2. 詳細介紹與使用教學可以參考 [使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式](/fluent-automation-selenium-web-ui-test)
 
 * PageObject (Page Object Pattern)
 
@@ -157,8 +157,7 @@ TDD 來到了第二天，邀請我參加這次 TDD 課程的前同事 - Dino 問
 
         > 讓測試程式更符合物件導向程式設計，不是一直重複寫相同的程式碼
 
-    * 詳細介紹與使用教學可以參考 [使用 PageObject(Page Object Pattern) 建立物件導向的 Web UI 測試程式](//blog.yowko.com/2017/06/pageobject-web-ui-test.html)
-
+    3. 詳細介紹與使用教學可以參考 [使用 PageObject(Page Object Pattern) 建立物件導向的 Web UI 測試程式](/pageobject-web-ui-test)
 
 ## 課程心得 - 重構(Refactoring)
 
@@ -343,10 +342,10 @@ Day 2 內容很豐富，精彩度自然不在話下，只是以一整天的時�
 
 ## 參考資訊
 
-1. [自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1](//blog.yowko.com/2017/05/tdd-day-1.html)
-2. [使用 Selenium IDE 與 C# 做 Web UI 測試](//blog.yowko.com/2017/06/selenium-ide-c-sharp-web-ui-test.html)
-3. [製作 Selenium IDE 的 xUnit.net 2.0 版 Formatter](//blog.yowko.com/2017/06/selenium-ide-xunitnet-20-formatter.html)
-4. [使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式](//blog.yowko.com/2017/06/fluent-automation-selenium-web-ui-test.html)
-5. [使用 PageObject(Page Object Pattern) 建立物件導向的 Web UI 測試程式](//blog.yowko.com/2017/06/pageobject-web-ui-test.html)
+1. [自動測試與 TDD 實務開發 (使用 C# ) 心得 - Day 1](/tdd-day-1)
+2. [使用 Selenium IDE 與 C# 做 Web UI 測試](/selenium-ide-c-sharp-web-ui-test)
+3. [製作 Selenium IDE 的 xUnit.net 2.0 版 Formatter](/selenium-ide-xunitnet-20-formatter)
+4. [使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式](/fluent-automation-selenium-web-ui-test)
+5. [使用 PageObject(Page Object Pattern) 建立物件導向的 Web UI 測試程式](/pageobject-web-ui-test)
 6. [C# Test Legacy Code（1）Isolated by Inheritance and Override](http://www.codedata.com.tw/social-coding/csharp-legacy-code-test-1-isolated-by-inheritance-override/)
 7. [使用 GhostDoc 自動產出符合語意的註解](https://dotblogs.com.tw/wasichris/2016/01/21/172429)

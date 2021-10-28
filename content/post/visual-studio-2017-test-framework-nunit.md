@@ -28,20 +28,20 @@ aliases:
 
     ![10extensions](https://cloud.githubusercontent.com/assets/3851540/26522025/c678659c-4329-11e7-917f-67869288d2c9.png)
 
-    * `Test Generator NUnit extension`
+  * `Test Generator NUnit extension`
 
         > 讓 Create Unit Tests 時可以選擇 NUnit
 
-        * 會同時安裝 NUnit2 及 3
+    * 會同時安裝 NUnit2 及 3
 
             ![2testframework](https://cloud.githubusercontent.com/assets/3851540/26522000/5e5d5012-4329-11e7-8fb9-cb14117b231a.png)
 
-    * `NUnit 3 Test Adapter`
+  * `NUnit 3 Test Adapter`
 
         > 執行 NUnit 測試
 
-        * 如果沒裝無法執行測試
-            * 錯誤訊息
+    * 如果沒裝無法執行測試
+      * 錯誤訊息
 
                 > `No tests found to run`
 
@@ -71,5 +71,5 @@ aliases:
 
 ## 參考資訊
 
-1. [Visual Studio 2015 如何產生 NUnit 或 xUnit 的測試專案](//blog.yowko.com/2017/02/visual-studio-2015-use-nunit-xunit.html)
+1. [Visual Studio 2015 如何產生 NUnit 或 xUnit 的測試專案](/visual-studio-2015-use-nunit-xunit)
 2. [xUnit.net Test Extensions](https://marketplace.visualstudio.com/items?itemName=BradWilson.xUnitnetTestExtensions)

@@ -22,7 +22,7 @@ RabbitMQ 官方的介紹 [.NET/C# RabbitMQ client library](https://www.rabbitmq.
 ## 接收訊息
 
 > 如果有多個 consumer (接受端)，記得要先啟動 consumer，否則訊息將都會由第一啟動的 consumer 獨佔
-> 如果啟動接收訊息時出現錯誤，請先參考 [使用 RabbitMQ.Client 連線至 RabbitMQ 出現 BrokerUnreachableException](//blog.yowko.com/2017/05/rabbitmq-client-brokerunreachableexception.html)
+> 如果啟動接收訊息時出現錯誤，請先參考 [使用 RabbitMQ.Client 連線至 RabbitMQ 出現 BrokerUnreachableException](/rabbitmq-client-brokerunreachableexception)
 
 - 程式碼
 
@@ -70,7 +70,7 @@ RabbitMQ 官方的介紹 [.NET/C# RabbitMQ client library](https://www.rabbitmq.
 
 ## 發送訊息
 
-> 如果啟動發送訊息時出現錯誤，請先參考 [使用 RabbitMQ.Client 連線至 RabbitMQ 出現 BrokerUnreachableException](//blog.yowko.com/2017/05/rabbitmq-client-brokerunreachableexception.html)
+> 如果啟動發送訊息時出現錯誤，請先參考 [使用 RabbitMQ.Client 連線至 RabbitMQ 出現 BrokerUnreachableException](/rabbitmq-client-brokerunreachableexception)
 
 - 程式碼
 
@@ -115,6 +115,6 @@ RabbitMQ 官方的介紹 [.NET/C# RabbitMQ client library](https://www.rabbitmq.
 
 ## 參考資訊
 
-1. [使用 RabbitMQ.Client 連線至 RabbitMQ 出現 BrokerUnreachableException](//blog.yowko.com/2017/05/rabbitmq-client-brokerunreachableexception.html)
+1. [使用 RabbitMQ.Client 連線至 RabbitMQ 出現 BrokerUnreachableException](/rabbitmq-client-brokerunreachableexception)
 2. [.NET/C# RabbitMQ client library](https://www.rabbitmq.com/dotnet.html)
 3. [RabbitMQ原理與相關操作(一)](http://www.cnblogs.com/ericli-ericli/p/5917018.html)

@@ -10,7 +10,7 @@ aliases:
 ---
 ## 如何快速比對資料庫結構差異並產生同步指令
 
-之前文章 [如何為 SQL SERVER 建立資料庫版控](//blog.yowko.com/2017/04/sql-server-data-tools.html) 簡短地介紹如何使用 SQL Server Data Tools (SSDT) 來將資料庫物件轉換為程式碼以利進行版控，接著要來介紹 SSDT 另個好用的功能：Schema 比對
+之前文章 [如何為 SQL SERVER 建立資料庫版控](/sql-server-data-tools) 簡短地介紹如何使用 SQL Server Data Tools (SSDT) 來將資料庫物件轉換為程式碼以利進行版控，接著要來介紹 SSDT 另個好用的功能：Schema 比對
 
 資料庫版控對開發人員是一大福音，但如果只是知道版本差異而無法快速產生 sync db 的 script 對開發流程改善的效益還是有限，微軟 SSDT 開發人員也為我們設想到了：我們可以透過 SQL Server Data Tools (SSDT) 來快速比對資料庫間的差異，也可以比對資料庫及資料庫專案(轉換為程式碼的資料庫)，比較完成後不僅可以直接從 Visual Studio 異動資料庫，還能產生出 sync script 保留了讓 DBA 介入的彈性，讓無法由開發人員直接異動的環境也可以享受到便利性
 
@@ -111,4 +111,4 @@ aliases:
 
 ## 參考資訊
 
-1. [如何為 SQL SERVER 建立資料庫版控](//blog.yowko.com/2017/04/sql-server-data-tools.html)
+1. [如何為 SQL SERVER 建立資料庫版控](/sql-server-data-tools)

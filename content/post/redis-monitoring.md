@@ -105,14 +105,14 @@ Redis (REmote DIctionary Server), 是一個 Key-Value 資料庫，跟 memcached 
 
     - 使用 monitor
 
-        ![2withmoniotr](https://cloud.githubusercontent.com/assets/3851540/23451417/cf807b62-fe9a-11e6-81e4-e5587534abb8.png) 
+        ![2withmoniotr](https://cloud.githubusercontent.com/assets/3851540/23451417/cf807b62-fe9a-11e6-81e4-e5587534abb8.png)
 
     - 依我自行測試的結果(如上兩張圖)，並沒有非常明顯的差異，但大陸網友測試在某些特定條件，可能會降低 50% 吞吐量，如果想要仔細瞭解可以參考 [這裡](http://redis.cn/commands/monitor.html)
 
 3. [redis-stat](https://github.com/junegunn/redis-stat)
     - Ruby 撰寫
     - 使用 info 指令來進行監控 (相對 monitor 不影響效能)
-    - windows 安裝及使用方式請參考 [如何在 Windows OS 上架設 Redis 監控工具 redis-stat](//blog.yowko.com/2017/03/redis-stat-on-windows.html)
+    - windows 安裝及使用方式請參考 [如何在 Windows OS 上架設 Redis 監控工具 redis-stat](/redis-stat-on-windows)
 
 4. [RedisLive](https://github.com/nkrode/RedisLive)
     - Python 撰寫
@@ -122,7 +122,7 @@ Redis (REmote DIctionary Server), 是一個 Key-Value 資料庫，跟 memcached 
 5. [opserver](https://github.com/opserver/Opserver)
     - .NET 撰寫
     - 也是使用 info 指令
-    - 安裝及使用方式請參考 [如何使用 Opserver 監控 Redis](//blog.yowko.com/2017/03/opserver-redis.html)
+    - 安裝及使用方式請參考 [如何使用 Opserver 監控 Redis](/opserver-redis)
 
 ## 參考資料
 

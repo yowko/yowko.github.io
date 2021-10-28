@@ -11,13 +11,13 @@ aliases:
 ---
 ## 餵資料集給 SpecFlow 來執行測試及驗證
 
-之前文章 [使用 SpecFlow 建立人語化的單元測試](//blog.yowko.com/2017/06/specflow.html) 已經大致了解如何使用近似人類語言來描述需求跟寫測試案例，透過這樣的方式不僅讓需求更好被理解，也讓測試案例很清楚地被描述，但如果需要使用多筆資料來反覆進行測試驗證，一直 copy and paste 想必身為優秀工程師的大家也無法接受的
+之前文章 [使用 SpecFlow 建立人語化的單元測試](/specflow) 已經大致了解如何使用近似人類語言來描述需求跟寫測試案例，透過這樣的方式不僅讓需求更好被理解，也讓測試案例很清楚地被描述，但如果需要使用多筆資料來反覆進行測試驗證，一直 copy and paste 想必身為優秀工程師的大家也無法接受的
 
 今天就來介紹可以達成 NUnit 中 TestCase 、TestCaseSource 功能的 SpecFlow Outline 特性，
 
 ## 基礎程式
 
-> 以下內容與 [使用 SpecFlow 建立人語化的單元測試](//blog.yowko.com/2017/06/specflow.html) 相同，如果有什麼不清楚來由的，可以參考 [使用 SpecFlow 建立人語化的單元測試](//blog.yowko.com/2017/06/specflow.html)
+> 以下內容與 [使用 SpecFlow 建立人語化的單元測試](/specflow) 相同，如果有什麼不清楚來由的，可以參考 [使用 SpecFlow 建立人語化的單元測試](/specflow)
 
 1. Feature 檔內容
 
@@ -162,7 +162,7 @@ SpecFlow 也想到大家可能會有這樣的需求，因此透過 SpecFlow 的 
 
 簡單的修改可以讓 SpecFlow 應付相同測試程式而測試參數內容不同的情境，也不用看到一大堆重複的 Scenario 更可免了複製一堆 Scenario 時可能因為眼花、恍神造成參數填錯的狀況。
 
-跟 NUnit 的 TestCase 、TestCaseSource 功能很雷同，如果想要進一步了解 NUnit 的 TestCase 、TestCaseSource 功能，可以參考 [NUnit 幾個參數化測試的方式](//blog.yowko.com/2017/04/nunit-parameterized-test.html)
+跟 NUnit 的 TestCase 、TestCaseSource 功能很雷同，如果想要進一步了解 NUnit 的 TestCase 、TestCaseSource 功能，可以參考 [NUnit 幾個參數化測試的方式](/nunit-parameterized-test)
 
 ## 參考資訊
 

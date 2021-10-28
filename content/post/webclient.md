@@ -12,7 +12,7 @@ aliases:
 
 之前在專案中看到許多不同風格的程式，這種現象很常見，尤其在由來已久、團隊成員來來去去的專案中更是常發生，我並沒有太多想法，但就取得外部網路資源的寫法也有好幾套這就讓我比較驚訝了，幾個常見呼叫網路資源的 api 都用了，所以心血來潮想要整理一下，後來又發現一部份還有加上自行封裝的用法，但封裝後的功能不夠全面，造成有些情境不得不改用原生 api
 
-之前簡單紀錄過 WebRequest,HttpWebRequest 的用法，有興趣可以參考 [如何使用 WebRequest,HttpWebRequest 來存取 (GET,POST,PUT,DELETE,PATCH) 網路資源](//blog.yowko.com/2017/03/webrequest-and-httpwebrequest.html)，今天就來看看 WebClient 的用法吧
+之前簡單紀錄過 WebRequest,HttpWebRequest 的用法，有興趣可以參考 [如何使用 WebRequest,HttpWebRequest 來存取 (GET,POST,PUT,DELETE,PATCH) 網路資源](/webrequest-and-httpwebrequest)，今天就來看看 WebClient 的用法吧
 
 ## WebClient 基本資訊
 
@@ -258,5 +258,5 @@ using (WebClient webClient = new WebClient())
 
 1. [WebClient 類別](https://msdn.microsoft.com/zh-tw/library/system.net.webclient%28v=vs.110%29.aspx)
 2. [利用 WebClient 類別模擬 HTTP POST 表單送出的注意事項](http://blog.miniasp.com/post/2010/01/23/Emulate-Form-POST-with-WebClient-class.aspx)
-3. [如何使用 WebRequest,HttpWebRequest 來存取 (GET,POST,PUT,DELETE,PATCH) 網路資源](//blog.yowko.com/2017/03/webrequest-and-httpwebrequest.html)
-4. [使用 fiddler 內建 proxy 來截錄手機或是程式封包](http://blog.yowko.com/2017/03/use-fiddler-proxy-gather-traffic.html)
+3. [如何使用 WebRequest,HttpWebRequest 來存取 (GET,POST,PUT,DELETE,PATCH) 網路資源](/webrequest-and-httpwebrequest)
+4. [使用 fiddler 內建 proxy 來截錄手機或是程式封包](/use-fiddler-proxy-gather-traffic)

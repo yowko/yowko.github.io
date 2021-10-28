@@ -10,7 +10,7 @@ aliases:
 ---
 ## 如何在 Visual Studio Code 中快速使用 Markdown 建立簡報
 
-今天看到[保哥分享](https://www.facebook.com/groups/augularjs.tw/permalink/1588293701180994/) vscode-reveal 套件可以直接在 visual studio code 中使用 reveal.js 來開啟 markdown 檔做成簡報，感覺很像之前文章 [用 Markdown 與 Reveal.js 來製作簡報](//blog.yowko.com/2016/12/markdown-revealjs.html) 分享的做法，所以立馬吸引了我的目光，因此特別來體驗比較一下
+今天看到[保哥分享](https://www.facebook.com/groups/augularjs.tw/permalink/1588293701180994/) vscode-reveal 套件可以直接在 visual studio code 中使用 reveal.js 來開啟 markdown 檔做成簡報，感覺很像之前文章 [用 Markdown 與 Reveal.js 來製作簡報](/markdown-revealjs) 分享的做法，所以立馬吸引了我的目光，因此特別來體驗比較一下
 
 ## Visual Studio Code 安裝 `vscode-reveal` 套件(擇一即可)
 
@@ -98,7 +98,7 @@ aliases:
 2. 不需自己調整載入的 js 、css 、md 檔
 3. 參數設定方式較簡潔
 4. 在 visual studio code 中顯示簡報比較麻煩，有內容更新都要關閉預覽視窗再重開才會生效(瀏覽器只需 refresh)
-5. 一樣可以匯出 pdf ，詳細做法請參考 [如何將 Reveal.js 簡報匯出成 PDF](//blog.yowko.com/2016/12/revealjs-pdf.html)
+5. 一樣可以匯出 pdf ，詳細做法請參考 [如何將 Reveal.js 簡報匯出成 PDF](/revealjs-pdf)
 
 **總言之非常推薦改用這個做法**
 
@@ -107,5 +107,5 @@ aliases:
 1. [vscode-reveal(VSC markeplace)](https://marketplace.visualstudio.com/items?itemName=evilz.vscode-reveal)
 2. [vscode-reveal(GitHub)](https://github.com/evilz/vscode-reveal)
 3. [reveal.js](https://github.com/hakimel/reveal.js)
-4. [用 Markdown 與 Reveal.js 來製作簡報](//blog.yowko.com/2016/12/markdown-revealjs.html)
-5. [如何將 Reveal.js 簡報匯出成 PDF](//blog.yowko.com/2016/12/revealjs-pdf.html)
+4. [用 Markdown 與 Reveal.js 來製作簡報](/markdown-revealjs)
+5. [如何將 Reveal.js 簡報匯出成 PDF](/revealjs-pdf)

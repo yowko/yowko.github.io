@@ -16,8 +16,8 @@ aliases:
 
 * 接受一個 url 的 query string 參數
 
-    * 沒有傳參數或是參數是空字串就回傳 `BadRequest`
-    * 一般正常 string 就回傳 `Ok`
+  * 沒有傳參數或是參數是空字串就回傳 `BadRequest`
+  * 一般正常 string 就回傳 `Ok`
 
 * 範例程式碼
 
@@ -152,4 +152,4 @@ aliases:
 1. [How to write unit test case for BadRequest?](https://stackoverflow.com/questions/39115867/how-to-write-unit-test-case-for-badrequest)
 2. [Unit testing a ASP.NET WebAPI 2 controller](https://blogs.msmvps.com/theproblemsolver/2013/11/13/unit-testing-a-asp-net-webapi-2-controller/)
 3. [WebAPI2 Unit Testing with IHttpActionResult](https://gist.github.com/RayKwon/6260978)
-4. [MSTest,NUnit 3,xUnit.net 2.0 比較](//blog.yowko.com/2017/02/MStest-NUnit3-xUnit.net2-Compare.html)
+4. [MSTest,NUnit 3,xUnit.net 2.0 比較](/MStest-NUnit3-xUnit.net2-Compare)

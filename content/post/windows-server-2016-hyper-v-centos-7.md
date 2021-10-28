@@ -10,7 +10,7 @@ aliases:
 ---
 ## 如何在 Windows Server 2016 的 Hyper-V 上安裝 Centos 7
 
-之前文章 [如何在 Windows Server 2016 上安裝 Hyper-V](//blog.yowko.com/2017/05/windows-server-2016-hyper-v.html) 提到為了想體驗 linux container 所以在 Windows Server 2016 上安裝了 Hyper-V 打算安裝 linux，Windows Server 2016 跟 Hyper-V 都已經準備就緒，接著就是來安裝 linux 了。
+之前文章 [如何在 Windows Server 2016 上安裝 Hyper-V](/windows-server-2016-hyper-v) 提到為了想體驗 linux container 所以在 Windows Server 2016 上安裝了 Hyper-V 打算安裝 linux，Windows Server 2016 跟 Hyper-V 都已經準備就緒，接著就是來安裝 linux 了。
 
 linux 版本很多，ubuntu、centos、debian、redhat....etc，我身為一個 linux 小白實在分不太清楚其中的差異，只大概知道 redhat 要錢、ubuntu 比較適合個人使用、debian 很精簡但適合熟手、centos 適合當 server，經過 ~~精心~~ 比較版本後就選 centos，而 centos 7 是最新版本，於是就這麼決定選 centos 7XD
 
@@ -102,5 +102,5 @@ linux 版本很多，ubuntu、centos、debian、redhat....etc，我身為一個 
 
 ## 參考資訊
 
-1. [如何在 Windows Server 2016 上安裝 Hyper-V](//blog.yowko.com/2017/05/windows-server-2016-hyper-v.html)
+1. [如何在 Windows Server 2016 上安裝 Hyper-V](/windows-server-2016-hyper-v)
 2. [Hyper-V安裝Ubuntu 16.04](http://blog.xuite.net/yh96301/blog/463474218-Hyper-V%E5%AE%89%E8%A3%9DUbuntu+16.04)

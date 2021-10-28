@@ -10,7 +10,7 @@ aliases:
 ---
 ## 製作 Selenium IDE 的 xUnit.net 2.0 版 Formatter
 
-TDD 課程中，91 大介紹了 Selenium IDE 的用法，我的心得筆記請參考 [使用 Selenium IDE 與 C# 做 Web UI 測試](//blog.yowko.com/2017/06/selenium-ide-c-sharp-web-ui-test.html)，因為 Selenium IDE 預設只支援 Nunit，所以 91 大動手做了個 MSTest 的版本，詳細內容請參考 [Export to C#/WebDriver/MSTest](https://dotblogs.com.tw/hatelove/archive/2013/11/26/selenium-ide-export-to-csharp-webdriver-mstest.aspx)，當下就想到好像每次 xUnit 都被忽略，於是就興起自己做 xUnit Selenium IDE Formatter 的念頭，就來看看要怎麼修改吧
+TDD 課程中，91 大介紹了 Selenium IDE 的用法，我的心得筆記請參考 [使用 Selenium IDE 與 C# 做 Web UI 測試](/selenium-ide-c-sharp-web-ui-test)，因為 Selenium IDE 預設只支援 Nunit，所以 91 大動手做了個 MSTest 的版本，詳細內容請參考 [Export to C#/WebDriver/MSTest](https://dotblogs.com.tw/hatelove/archive/2013/11/26/selenium-ide-export-to-csharp-webdriver-mstest.aspx)，當下就想到好像每次 xUnit 都被忽略，於是就興起自己做 xUnit Selenium IDE Formatter 的念頭，就來看看要怎麼修改吧
 
 ## 修改 formatter
 
@@ -570,7 +570,7 @@ WDAPI.Utils.isAlertPresent = function() {
 
 ## 如何使用
 
-使用細節可以參考 [使用 Selenium IDE 與 C# 做 Web UI 測試](//blog.yowko.com/2017/06/selenium-ide-c-sharp-web-ui-test.html) 步驟大致如下：
+使用細節可以參考 [使用 Selenium IDE 與 C# 做 Web UI 測試](/selenium-ide-c-sharp-web-ui-test) 步驟大致如下：
 
 1. 使用 Selenium IDE 錄製 web 操作
 2. 匯出 `.cs` 並指定 foramtter

@@ -137,7 +137,7 @@ aliases:
 
 ## 三、使用 .bacpac
 
-較詳細的內容可以參考 [你認識 SQL Server 的資料層應用程式(Data-tier Applications - DAC)嗎?](//blog.yowko.com/2017/04/sql-server-dac.html)
+較詳細的內容可以參考 [你認識 SQL Server 的資料層應用程式(Data-tier Applications - DAC)嗎?](/sql-server-dac)
 
 1. 備份
     * 目標資料庫 --> 右鍵 --> Tasks --> Export Data-tier Application...

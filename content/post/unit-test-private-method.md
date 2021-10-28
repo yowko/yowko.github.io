@@ -10,7 +10,7 @@ aliases:
 ---
 ## Unit Test 想驗證 private method 該怎麼做？ - 使用 PrivateObject
 
-[Unit Test 該拿 private 屬性及欄位怎麼辦？ - 使用 PrivateObject](//blog.yowko.com/2017/06/unit-test-private-field-property.html) 針對的是 private 而且是 non-static 的 field 或是 property，[Unit Test 想驗證 private static method 該怎麼做？ - 使用 PrivateType](//blog.yowko.com/2017/06/unit-test-static-method.html) 則是針對 private static method，那對於 private 但 non-static method 就一樣需要 PrivateObject 來處理
+[Unit Test 該拿 private 屬性及欄位怎麼辦？ - 使用 PrivateObject](/unit-test-private-field-property) 針對的是 private 而且是 non-static 的 field 或是 property，[Unit Test 想驗證 private static method 該怎麼做？ - 使用 PrivateType](/unit-test-static-method) 則是針對 private static method，那對於 private 但 non-static method 就一樣需要 PrivateObject 來處理
 
 ## 基本環境
 
@@ -115,7 +115,7 @@ PrivateObject 的用法比較靈活，下一篇會介紹 PrivateType 與 Private
 
 ## 參考資訊
 
-1. [Unit Test 該拿 private 屬性及欄位怎麼辦？ - 使用 PrivateObject](//blog.yowko.com/2017/06/unit-test-private-field-property.html)
-2. [Unit Test 想驗證 private static method 該怎麼做？ - 使用 PrivateType](//blog.yowko.com/2017/06/unit-test-static-method.html)
+1. [Unit Test 該拿 private 屬性及欄位怎麼辦？ - 使用 PrivateObject](/unit-test-private-field-property)
+2. [Unit Test 想驗證 private static method 該怎麼做？ - 使用 PrivateType](/unit-test-static-method)
 3. [Unit test private methods?](https://akurniaga.wordpress.com/tag/unit-test-privateobject-visual-studio/)
 4. [How to Unit Test Private Methods in MS Test](https://www.infragistics.com/community/blogs/dhananjay_kumar/archive/2015/07/16/how-to-unit-test-private-methods-in-ms-test.aspx)

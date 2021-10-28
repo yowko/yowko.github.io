@@ -34,7 +34,7 @@ aliases:
             ```
 
     * 1-3. 違反方法簽章的錯誤訊息
-        - 訊息內容  
+        * 訊息內容  
 
             ```txt
             Test Name: ThrowNullReferenceException_realclass
@@ -45,7 +45,7 @@ aliases:
                         Result Message: Method TDD_Day1.UnitTest_GroupSum.Init has wrong signature. The method must be non-static, public, does not return a value and should not take any parameter. Additionally, if you are using async-await in method then return-type must be Task.
             ```
 
-        - 錯誤截圖
+        * 錯誤截圖
 
             ![1TestInitializeError](https://cloud.githubusercontent.com/assets/3851540/26749878/b14d8166-4847-11e7-82ff-b93a86c02ab9.png)
 
@@ -69,7 +69,7 @@ aliases:
             ```
 
     * 2-3. 違反方法簽章的錯誤訊息
-        - 錯誤訊息
+        * 錯誤訊息
 
             ```txt
             Test Name: ThrowNullReferenceException_realclass
@@ -80,7 +80,7 @@ aliases:
                         Result Message: Method TDD_Day1.UnitTest_GroupSum.Init has wrong signature. The method must be static, public, does not return a value and should take a single parameter of type TestContext. Additionally, if you are using async-await in method then return-type must be Task.
             ```
 
-        - 錯誤截圖
+        * 錯誤截圖
 
             ![2ClassInitializeError](https://cloud.githubusercontent.com/assets/3851540/26749879/b173adb4-4847-11e7-83d7-ab1bb838a782.png)
 
@@ -105,7 +105,7 @@ aliases:
 
     * 3-3. 違反方法簽章的錯誤訊息
 
-        - 訊息內容
+        * 訊息內容
 
             ```txt
             Test Name: ThrowNullReferenceException_realclass
@@ -116,7 +116,7 @@ aliases:
                         Result Message: Method TDD_Day1.UnitTest_GroupSum.Init has wrong signature. The method must be static, public, does not return a value and should take a single parameter of type TestContext. Additionally, if you are using async-await in method then return-type must be Task.
             ```
 
-        - 錯誤截圖
+        * 錯誤截圖
 
             ![3AssemblyInitializeError](https://cloud.githubusercontent.com/assets/3851540/26749880/b18cdcb2-4847-11e7-9c65-df7895a526a8.png)
 
@@ -147,7 +147,7 @@ aliases:
 
     * 1-3. 違反方法簽章的錯誤訊息
 
-        - 錯誤訊息
+        * 錯誤訊息
 
             ```txt
             Test Name: NInitThrowNullReferenceException_realclass_NTest
@@ -158,7 +158,7 @@ aliases:
                         Result Message: OneTimeSetUp: Invalid signature for SetUp or TearDown method: InitTest
             ```
 
-        - 錯誤截圖
+        * 錯誤截圖
 
             ![4setuperror](https://cloud.githubusercontent.com/assets/3851540/26749882/b1945a3c-4847-11e7-9743-1f0441accb0a.png)
 
@@ -189,7 +189,7 @@ aliases:
 
     * 2-3. 違反方法簽章的錯誤訊息
 
-        - 訊息內容
+        * 訊息內容
 
             ```txt
             Test Name: NInitThrowNullReferenceException_realclass_NTest
@@ -200,7 +200,7 @@ aliases:
                         Result Message: OneTimeSetUp: Invalid signature for SetUp or TearDown method: InitTest
             ```
 
-        - 錯誤截圖
+        * 錯誤截圖
 
             ![5onetimesetuperror](https://cloud.githubusercontent.com/assets/3851540/26749881/b1939c28-4847-11e7-9177-6ca029d25bdf.png)
 
@@ -276,7 +276,7 @@ aliases:
 
     * 違反方法簽章的錯誤訊息(for 建構子)
 
-        - 錯誤訊息
+        * 錯誤訊息
 
             ```txt
             Test Name: TDD_Day1.XUnit.XUnitTest_GroupSum.四筆一組取revenue總合_realclass
@@ -287,7 +287,7 @@ aliases:
                         Result Message: A test class may only define a single public constructor.
             ```
 
-        - 錯誤截圖
+        * 錯誤截圖
 
             ![7xunitsingle](https://cloud.githubusercontent.com/assets/3851540/26749883/b195bdfa-4847-11e7-8be8-dc9ebe304332.png)
 
@@ -324,20 +324,20 @@ aliases:
         ```
 
 * 其他注意事項
-    * xUnit 不需要在測試 class 上加 attribute，但測試 class 仍需要 public
-    * xUnit 沒有以 project base 或是 namespace 層級的方法
-    * xUnit 無法使用 `Console.WriteLine`，想要輸出文字可以參考下面用法
+  * xUnit 不需要在測試 class 上加 attribute，但測試 class 仍需要 public
+  * xUnit 沒有以 project base 或是 namespace 層級的方法
+  * xUnit 無法使用 `Console.WriteLine`，想要輸出文字可以參考下面用法
 
-        ```cs
-        public class XUnitTest_GroupSum
+    ```cs
+    public class XUnitTest_GroupSum
+    {
+        private readonly ITestOutputHelper output;
+        public XUnitTest_GroupSum(ITestOutputHelper output)
         {
-            private readonly ITestOutputHelper output;
-            public XUnitTest_GroupSum(ITestOutputHelper output)
-            {
-                output.WriteLine("Init");
-            }
+            output.WriteLine("Init");
         }
-        ```
+    }
+    ```
 
 ## 心得
 
@@ -345,8 +345,8 @@ xUnit 的使用方式與 MSTest 跟 NUint 差比較多，使用的上需要重�
 
 ## 參考資訊
 
-1. [MSTest,NUnit 3,xUnit.net 2.0 比較](//blog.yowko.com/2017/02/MStest-NUnit3-xUnit.net2-Compare.html)
-2. [使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)](//blog.yowko.com/2017/05/mstestnunit-3xunitnet.html)
+1. [MSTest,NUnit 3,xUnit.net 2.0 比較](/MStest-NUnit3-xUnit.net2-Compare)
+2. [使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)](/mstestnunit-3xunitnet)
 3. [Comparing xUnit.net to other frameworks](http://xunit.github.io/docs/comparisons.html)
 4. [Shared Context between Tests](https://xunit.github.io/docs/shared-context.html)
 5. [Capturing Output](https://xunit.github.io/docs/capturing-output.html)

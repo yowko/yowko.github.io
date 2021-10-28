@@ -76,7 +76,7 @@ aliases:
 
 4. 從測試程式傳入 ILogger 物件
 
-    > 搭配 `NSubstitute` 產生虛擬物件，關於如何驗證 IHttpActionResult 細節可以參考 [Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult](//blog.yowko.com/2017/06/unit-test-web-api-ihttpactionresult.html)
+    > 搭配 `NSubstitute` 產生虛擬物件，關於如何驗證 IHttpActionResult 細節可以參考 [Unit Test 如何驗證 ASP.NET Web Api 的 IHttpActionResult](/unit-test-web-api-ihttpactionresult)
 
     ```cs
     [TestMethod]

@@ -10,7 +10,7 @@ aliases:
 ---
 ## 在 Visual Studio 2017 中安裝其他 Test Framework - xUnit.net 2.0
 
-文章 [在 Visual Studio 2017 中安裝其他 Test Framework - NUnit](//blog.yowko.com/2017/05/visual-studio-2017-test-framework-nunit.html) 中測試安裝不同的 Test Framework 時，發現在 Visual Studio 2017 中竟然無法直接使用 xUnit 專案範本 create unit test，著實讓我驚訝不已，本著工程師的浪漫，剛好利用端午連假的空閒，於是興起了動手自己做的念頭
+文章 [在 Visual Studio 2017 中安裝其他 Test Framework - NUnit](/visual-studio-2017-test-framework-nunit) 中測試安裝不同的 Test Framework 時，發現在 Visual Studio 2017 中竟然無法直接使用 xUnit 專案範本 create unit test，著實讓我驚訝不已，本著工程師的浪漫，剛好利用端午連假的空閒，於是興起了動手自己做的念頭
 
 原本以為是件容易的事，想不到也讓我試了一整天才完成，過程改天再另文撰寫，就先來看看如何在 Visual Studio 2017 安裝 xUnit.net 2.0 的 test framework 專案範本
 
@@ -22,7 +22,7 @@ aliases:
 
 * 安裝 `xUnit.net.TestGenerator`
 
-    * 點擊 `Online` --> 搜尋 `xUnit` --> 下載 `xUnit.net.TestGenerator`
+  * 點擊 `Online` --> 搜尋 `xUnit` --> 下載 `xUnit.net.TestGenerator`
 
         ![1xunitextension](https://cloud.githubusercontent.com/assets/3851540/26530332/b417c8ca-4405-11e7-9b59-30fe81237c6b.png)
 
@@ -60,5 +60,5 @@ aliases:
 
 ## 參考資訊
 
-1. [在 Visual Studio 2017 中安裝其他 Test Framework - NUnit](//blog.yowko.com/2017/05/visual-studio-2017-test-framework-nunit.html)
+1. [在 Visual Studio 2017 中安裝其他 Test Framework - NUnit](/visual-studio-2017-test-framework-nunit)
 2. [xUnit.net.TestGenerator](https://marketplace.visualstudio.com/items?itemName=YowkoTsai.xUnitnetTestGenerator)

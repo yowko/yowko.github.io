@@ -16,11 +16,11 @@ aliases:
 2. 沒有設定 Sentinel 的 failover 機制
 3. 程式的連線字串也是寫死固定連線至 master
 
-之前文章 [Windows 環境如何設定 Redis Master-Slave 與 Sentinel](//blog.yowko.com/2017/03/windows-redis-master-slave-sentinel.html) 已經介紹了該如何在設定 Master-Slave 環境以及建立 Sentinel faiover機制，Redis server 算是已經做到初步 HA 了，接著當然就是程式面也要能配合，下面內容就是介紹如何在 StackExchange.Redis 設定 Sentinel 或是 Cluster
+之前文章 [Windows 環境如何設定 Redis Master-Slave 與 Sentinel](/windows-redis-master-slave-sentinel) 已經介紹了該如何在設定 Master-Slave 環境以及建立 Sentinel faiover機制，Redis server 算是已經做到初步 HA 了，接著當然就是程式面也要能配合，下面內容就是介紹如何在 StackExchange.Redis 設定 Sentinel 或是 Cluster
 
 ## 為什麼需要程式配合
 
-我們來看在之前文章 [如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 2 (使用 Hashes 型別)](//blog.yowko.com/2017/02/dotnet-use-redis-hash.html) 或是 Redis 相關系列文章也行，其中的 `RedisConnectionFactory` 部份
+我們來看在之前文章 [如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 2 (使用 Hashes 型別)](/dotnet-use-redis-hash) 或是 Redis 相關系列文章也行，其中的 `RedisConnectionFactory` 部份
 
 ```CS
 private static readonly Lazy<ConnectionMultiplexer> Connection;
@@ -132,7 +132,7 @@ private static readonly Lazy<ConnectionMultiplexer> Connection;
     - 原 master 回復後仍可正確提供服務 - 會自動變為 slave
     - 結果：正確同步至 `原 Master(6379)`
 
-        ![5syncok](https://cloud.githubusercontent.com/assets/3851540/24083529/5785af42-0d13-11e7-9989-b86cf5a04b53.png) 
+        ![5syncok](https://cloud.githubusercontent.com/assets/3851540/24083529/5785af42-0d13-11e7-9989-b86cf5a04b53.png)
 
 ## 參考資料
 

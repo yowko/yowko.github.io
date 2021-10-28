@@ -10,7 +10,7 @@ aliases:
 ---
 ## Unit Test 該拿 private 屬性及欄位怎麼辦？ - 使用 PrivateObject
 
-在 [Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType](//blog.yowko.com/2017/06/unit-test-static-field-property.html) 使用 NSubstitute 產生假物件後，透過 PrivateType 設定給原本是 private static 的屬性，但文末也提供 PrivateType 是針對 static field 或是 property 才能使用
+在 [Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType](/unit-test-static-field-property) 使用 NSubstitute 產生假物件後，透過 PrivateType 設定給原本是 private static 的屬性，但文末也提供 PrivateType 是針對 static field 或是 property 才能使用
 
 如果只是一般的 field 或是 property 該如何是好呢？ 這時候可以使用 PrivateObject
 
@@ -151,6 +151,6 @@ PrivateObject 的官方說明可以參考 [PrivateObject Class](https://msdn.mic
 
 ## 參考資訊
 
-1. [Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType](//blog.yowko.com/2017/06/unit-test-static-field-property.html)
+1. [Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType](/unit-test-static-field-property)
 2. [PrivateObject Class](https://msdn.microsoft.com/en-us/library/microsoft.visualstudio.testtools.unittesting.privateobject%28v=vs.120%29.aspx)
 3. [Accessing private and protected members - PrivateObject and PrivateType](http://yac.com.pl/mt.texts.vbnet-privateobject-privatetype.en.html)

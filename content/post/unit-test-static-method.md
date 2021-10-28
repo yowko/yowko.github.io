@@ -77,7 +77,7 @@ TDD 的第一天課程中就提到，以單元測試的角度 private method 不
 
 ## 有其他解決方式嗎？ - 使用 PrivateType
 
-在 [Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType](//blog.yowko.com/2017/06/unit-test-static-field-property.html) 過程中看官方 api 說明時看到可以直接執行 static method
+在 [Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType](/unit-test-static-field-property) 過程中看官方 api 說明時看到可以直接執行 static method
 
 * 使用 PrivateType 來執行 private static method
 
@@ -141,4 +141,4 @@ TDD 的第一天課程中就提到，以單元測試的角度 private method 不
 ## 參考資訊
 
 1. [PrivateType Class](https://msdn.microsoft.com/en-us/library/microsoft.visualstudio.testtools.unittesting.privatetype%28v=vs.120%29.aspx)
-2. [Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType](//blog.yowko.com/2017/06/unit-test-static-field-property.html)
+2. [Unit Test 該拿 static 屬性及欄位怎麼辦？ - 使用 PrivateType](/unit-test-static-field-property)
