@@ -1,13 +1,14 @@
 ---
 title: "[Benchmark] DB 物件對映至 C# class 的做法"
 date: 2019-01-01T00:42:34+08:00
-lastmod: 2019-01-01T00:42:34+08:00
+lastmod: 2021-10-29T00:42:34+08:00
 draft: false
-tags: ["C#","Dapper","套件","Benchmark"]
+tags: ["csharp","Dapper","套件","Benchmark"]
 slug: "object-relation-mapping"
 ---
-# [Benchmark] DB 物件對映至 C# class 的做法
-跟同事討論到 ORM 的優劣，當然各有擁護的對象，但相同的目標卻很一致：`速度快`，而在 `速度快` 這個基本前提下，我個人覺得還有討論空間： 
+## Benchmark : DB 物件對映至 C# class 的做法
+
+跟同事討論到 ORM 的優劣，當然各有擁護的對象，但相同的目標卻很一致：`速度快`，而在 `速度快` 這個基本前提下，我個人覺得還有討論空間：
 
 1. 程式執行速度高
 2. 系統開發速度快
@@ -23,16 +24,18 @@ slug: "object-relation-mapping"
 ，紀錄一下實際執行的效能數據、讓團隊擁有較多資訊才能做出較正確選擇
 
 ## 前提說明
+
 1. .NET Core 2.2.101
 2. 資料來源為 SQL Server 2014 範例資料庫 AdventureWorks2014 中的 Person.Person
 
     - 連線字串
-    
+
         ```cs
         const string constr = "Data Source=.;Integrated Security=SSPI;Initial Catalog=AdventureWorks2014;";
         ```
-    
+
     - model
+
         ```cs
         public class Person
         {
@@ -114,8 +117,6 @@ public List<Person> MunualMapping()
     }
 }
 ```
-
-
 
 ## 使法二：Dapper
 
@@ -217,6 +218,7 @@ public List<Person> FastMemberMapping()
     FastMemberMapping | <span style="color:lightgreen">427.4 ms</span> | 3.687 ms | 3.448 ms |
 
 ## 心得
+
 前幾年看過 Dapper 做的 ORM benchmark，印象中是手動 mapping 最快，Dapper 僅排第三，最近再看一次 ORM benchmark 排名大改，多了不少之前沒用過的 ORM framework，這待日後有機會再來研究
 
 這次專案不考慮 Dapper 以外的 ORM framework 主要是穩定性及開發上的熟悉度，擔心冒然使用新的 ORM 反而出現部份情境不支援的問題或是底層的 bug ，造成開發時程延宕
@@ -225,10 +227,12 @@ public List<Person> FastMemberMapping()
 
 1. 程式執行速度
 
-    >我會將三者執行效率視為接近或是一致，速度差距並不顯著，尤其加上考慮標準差影響後更是如此 
+    >我會將三者執行效率視為接近或是一致，速度差距並不顯著，尤其加上考慮標準差影響後更是如此
+
 2. 系統開發速度
 
     > Dapper 明顯程式碼少很多，也沒有手動 mapping 可能出現的打錯字問題及 FastMember 需要自行處理型別特性的狀況
 
-# 參考資訊
+## 參考資訊
+
 1. [Fastest way to map result of SqlDataReader to object](https://stackoverflow.com/a/44853182)

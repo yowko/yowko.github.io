@@ -1,9 +1,9 @@
 ---
 title: "如何客製化 Opserver - 使用不同帳號密碼來監控多台 Windows Server"
 date: 2017-03-30T01:00:00+08:00
-lastmod: 2021-07-11T01:00:44+08:00
+lastmod: 2021-10-29T01:00:44+08:00
 draft: false
-tags: ["C#","Monitoring","Tools"]
+tags: ["csharp","Monitoring","Tools"]
 slug: "opserver-windows-server_multiple_auth"
 # aliases:
 #     - /2017/03/opserver-windows-server_30.html
@@ -11,7 +11,7 @@ slug: "opserver-windows-server_multiple_auth"
 ---
 ## 如何客製化 Opserver - 使用不同帳號密碼來監控多台 Windows Server
 
-之前文章 [如何使用 Opserver 來監控 Windows Server](//blog.yowko.com/2017/03/opserver-windows-server.html) 介紹該怎麼設定 Opserver 來監控 Windows Server，但我們也發現只能使用同一組帳號密碼
+之前文章 [如何使用 Opserver 來監控 Windows Server](/opserver-windows-server) 介紹該怎麼設定 Opserver 來監控 Windows Server，但我們也發現只能使用同一組帳號密碼
 
 <span style="color:red">注意事項</span>：目前我只用到 WMI，所以修改是針對 WMI 來調整，<span style="color:red">bosun 與 orion 暫不適用</span>(其實是我還不會用 `bosun` 與 `orion`)
 
