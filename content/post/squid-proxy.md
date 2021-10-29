@@ -173,13 +173,13 @@ slug: "squid-proxy"
 
 2. 調整 config
 
-    - 原始設定
+    * 原始設定
 
         ```conf
         http_port 3128
         ```
 
-    - 新設定
+    * 新設定
 
         > 3.0 之前使用 `transparent`，3.1 開始改用 `intercept`
 

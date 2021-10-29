@@ -1,15 +1,16 @@
 ---
 title: "透過 ProGet 取得官方 NuGet 套件"
 date: 2018-01-13T23:57:00+08:00
-lastmod: 2020-12-11T23:57:31+08:00
+lastmod: 2021-10-28T23:57:31+08:00
 draft: false
 tags: ["套件","NuGet","Tools"]
 slug: "proget-nuget-connector"
 aliases:
     - /2018/01/proget-nuget-connector.html
 ---
-# 透過 ProGet 取得官方 NuGet 套件
-之前筆記 [將 NuGet Package 發行至 ProGet](/2017/09/nuget-package-proget.html) 曾經介紹到如何將內部使用的 NuGet package 發行至內部 NuGet server：ProGet 上，在試行一段時間後決定擴大範圍，將所有 NuGet package 皆透過內部 ProGet 來取得，不再將所有 NuGet package commit 至 git 中
+## 透過 ProGet 取得官方 NuGet 套件
+
+之前筆記 [將 NuGet Package 發行至 ProGet](/nuget-package-proget) 曾經介紹到如何將內部使用的 NuGet package 發行至內部 NuGet server：ProGet 上，在試行一段時間後決定擴大範圍，將所有 NuGet package 皆透過內部 ProGet 來取得，不再將所有 NuGet package commit 至 git 中
 
 因為公司的各個環境皆屬封閉環境，對外皆未開通網路連線，僅能連到 NuGet server，所以需要將 NuGet package 下載至內部 ProGet 上，立馬來看看可以如何設定
 
@@ -19,36 +20,36 @@ aliases:
 
 ## ProGet 設定官方 NuGet 連線
 
-1.  建立 Connector
-    *   Feeds --> Connectors --> Create Connector
+1. 建立 Connector
+    * Feeds --> Connectors --> Create Connector
 
         ![2createconnector](https://user-images.githubusercontent.com/3851540/34907624-8234bbf8-f8bc-11e7-9821-1460b275e3ea.png)
 
-    *   Connector 相關資訊
-        *   Feed type
+    * Connector 相關資訊
+        * Feed type
 
             > 選擇 `NuGet`
 
-        *   Connector URL
+        * Connector URL
 
             > 使用 `https://www.nuget.org/api/v2`
 
-        *   Connector name
+        * Connector name
 
             > 自訂識別用名稱
 
     ![3connectorinfo](https://user-images.githubusercontent.com/3851540/34907625-825a2d20-f8bc-11e7-9b46-5ae2c81e9f58.png)
 
-2.  綁定 Connector
-    *   Feeds --> Feeds --> {feed name}
+2. 綁定 Connector
+    * Feeds --> Feeds --> {feed name}
 
         ![4feeds](https://user-images.githubusercontent.com/3851540/34907626-82808a56-f8bc-11e7-8049-b145835c840e.png)
 
-    *   Manage Feed
+    * Manage Feed
 
         ![5mangefeed](https://user-images.githubusercontent.com/3851540/34907627-82a6fccc-f8bc-11e7-87b5-4bea757c8635.png)
 
-    *   add connector
+    * add connector
 
         ![6addconnector](https://user-images.githubusercontent.com/3851540/34907628-82ce70ea-f8bc-11e7-8702-49f0eedede37.png)
 
@@ -70,6 +71,6 @@ aliases:
 
 除此之外，ProGet 對應的 NuGet 還停留在 `NuGet V2 feeds` 版本，如果需要 v3 的相關功能要特別留意
 
-# 參考資訊
+## 參考資訊
 
-1.  [將 NuGet Package 發行至 ProGet](/2017/09/nuget-package-proget.html)
+1. [將 NuGet Package 發行至 ProGet](/nuget-package-proget)

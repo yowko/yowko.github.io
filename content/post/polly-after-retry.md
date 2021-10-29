@@ -1,7 +1,7 @@
 ---
 title: "Polly retry 之後的行為是？"
 date: 2019-12-01T21:30:00+08:00
-lastmod: 2019-12-01T21:30:31+08:00
+lastmod: 2021-10-29T21:30:31+08:00
 draft: false
 tags: ["csharp","Library","Polly"]
 slug: "polly-after-retry"
@@ -54,7 +54,7 @@ slug: "polly-after-retry"
 
 ## 測試內容
 
-測試用 url (http://test.yowko.com) 沒有實際提供服務
+測試用 url [http://test.yowko.com](http://test.yowko.com) 沒有實際提供服務
 
 1. 訂定 Polly policy
 

@@ -37,7 +37,6 @@ slug: "proxysql-benchmark-sysbench"
     - proxysql.cnf
 
         > - 多給一組帳密 `radmin:radmin` 方便從 host 上連線至 proxysql；預設的 `admin:admin` 必需進到 proxysql 的 container 中使用，且需要自行安裝 mysql client
-
         > - 其中的 `monitor_username` 與 `monitor_password` 跟後續建立 monitor 用的 user 帳號密碼需相同，這邊以 `monitor:pass.123` 為例
 
         ```cnf

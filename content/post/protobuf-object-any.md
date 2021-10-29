@@ -1,15 +1,17 @@
 ---
 title: "Protobuf 該如何處理不定型別"
 date: 2019-03-16T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-10-28T21:30:31+08:00
 draft: falae
-tags: ["C#","gRPC","Protobuf"]
+tags: ["csharp","gRPC","Protobuf"]
 slug: "protobuf-object-any"
 ---
-# Protobuf 該如何處理不定型別
+## Protobuf 該如何處理不定型別
+
 之前筆記 [Protobuf 時間屬性該如何表示？](/protobuf-datetime-timestamp/) 紀錄了 C# DateTime 屬性在 Protobuf 的 message 表示方式，當時在找資料時發現 `any.proto` 特別查了資料看可以應用在什麼地方，就個人理解應該就像是 C# 的 object，筆記一下用法，待日後驗證囉
 
 ## 基本環境說明
+
 1. macOS Mojave 10.14.3
 2. Grpc 1.19.0
 3. Grpc.Tools 1.19.0
@@ -18,8 +20,8 @@ slug: "protobuf-object-any"
 6. Bogus 26.0.1
 7. Newtonsoft.Json 12.0.1
 8. 資料夾結構
-    
-    ```
+
+    ```txt
     -- gRPC.Any
         -- gRPC.Any.sln
         -- proto
@@ -29,33 +31,36 @@ slug: "protobuf-object-any"
             -- gRPC.Client (netcoreapp2.2)
             -- gRPC.Server (netcoreapp2.2)
     ```
-9. gRPC.Message projcet 
-   - 安裝套件
-     - gRPC
-          - Package Manager
-          
-                ```
+
+9. gRPC.Message projcet
+    - 安裝套件
+        - gRPC
+            - Package Manager
+
+                ```bash
                 Install-Package Grpc
                 ```
-          
-          - .NET CLI 
-            
-                ```
+
+            - .NET CLI
+
+                ```bash
                 dotnet add package Grpc
-                ``` 
-      - Google.Protobuf
-          - Package Manager
-        
                 ```
-                Install-Package Google.Protobuf
-                ```
-        
-          - .NET CLI 
-          
-                ```
-                dotnet add package Google.Protobuf
-                ```
-    - 加入 model 
+
+    - Google.Protobuf
+        - Package Manager
+
+            ```bash
+            Install-Package Google.Protobuf
+            ```
+
+        - .NET CLI
+
+            ```bash
+            dotnet add package Google.Protobuf
+            ```
+
+    - 加入 model
 
         ```cs
         public class UserModel
@@ -78,7 +83,8 @@ slug: "protobuf-object-any"
 
     var serviceClient = new gRPCService.gRPCServiceClient(channel);
 
-    ```  
+    ```
+
 12. gRPC.Server 實作 gRPCService 並啟動 gRPC
     - 實作
 
@@ -100,7 +106,8 @@ slug: "protobuf-object-any"
                 return base.DeleteUser(request, context);
             }
         }
-        ``` 
+        ```
+
     - 啟動
 
         ```cs
@@ -132,9 +139,10 @@ slug: "protobuf-object-any"
         ```
 
 ## 方法一：使用 string
+
 1. message 定義
 
-    ```
+    ```proto
     syntax = "proto3";
 
     package gRPC.Message;
@@ -168,7 +176,7 @@ slug: "protobuf-object-any"
 2. 實際使用
 
     - client 端
-    
+
         ```cs
         static void Main(string[] args)
         {
@@ -209,6 +217,7 @@ slug: "protobuf-object-any"
             Console.WriteLine($"Msg:{delResult}");
         }
         ```
+
     - server 端
 
         ```cs
@@ -264,11 +273,12 @@ slug: "protobuf-object-any"
         ```
 
 ## 方法二：使用 any
+
 1. message 定義
 
-    >`any` 是 google 額外提供的型別，使用時需要 import 
+    >`any` 是 google 額外提供的型別，使用時需要 import
 
-    ```
+    ```proto
     syntax = "proto3";
 
     package gRPC.Message;
@@ -348,8 +358,8 @@ slug: "protobuf-object-any"
 4. 編譯需額外引用參考 any.proto
 
     > any.proto 位於 `/Users/``whoami``/.nuget/packages/google.protobuf.tools/3.7.0/tools/google/protobuf/any.proto`
-    
-    ```
+
+    ```bash
     /Users/`whoami`/.nuget/packages/grpc.tools/1.19.0/tools/macosx_x64/protoc -I /Users/`whoami`/.nuget/packages/google.protobuf.tools/3.7.0/tools/ -I proto/  --csharp_out src/gRPC.Message --grpc_out src/gRPC.Message proto/*.proto --plugin=protoc-gen-grpc=/Users/`whoami`/.nuget/packages/grpc.tools/1.19.0/tools/macosx_x64/grpc_csharp_plugin
     ```
 
@@ -390,8 +400,9 @@ slug: "protobuf-object-any"
             .ToByteArray());
         Console.WriteLine($"Msg:{delResult}");
         ```
+
     - server 端
-        
+
         ```cs
         public class gRPCServiceImpl : gRPCService.gRPCServiceBase
         {
@@ -452,16 +463,16 @@ slug: "protobuf-object-any"
         }
         ```
 
-
 ## 心得
+
 以結果來看 string 省事不少，但直覺上應該是 any 效率比較好，不過口說無憑，改天有時間再來效能評測一下
 
 回到 any 的使用情境，原本想試試可不可以達成 C# Generic 用途，但看來應該就是 object 而已，不過也是試過才知道，至少知道哪些可以做到哪些不行
 
-
 程式碼可以參考 [yowko/gRPC-Any-CSharp-Sample](https://github.com/yowko/gRPC-Any-CSharp-Sample.git)
 
-# 參考資訊
+## 參考資訊
+
 1. [gRPC development on .NET Core - Basic](https://blackie1019.github.io/2019/02/10/gRPC-development-on-NET-Core-Basic/)
 2. [How to convert byte array to any type](https://stackoverflow.com/a/33022788)
 3. [yowko/gRPC-Any-CSharp-Sample](https://github.com/yowko/gRPC-Any-CSharp-Sample.git)

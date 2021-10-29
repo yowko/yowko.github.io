@@ -1,14 +1,15 @@
 ---
 title: "使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)"
 date: 2017-06-27T22:47:00+08:00
-lastmod: 2020-12-11T22:47:48+08:00
+lastmod: 2021-10-29T22:47:48+08:00
 draft: false
 tags: ["MSTest","PowerShell","Tools","Unit Test"]
 slug: "pickles-specflow"
 aliases:
     - /2017/06/pickles-specflow.html
 ---
-# 使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)
+## 使用 Pickles 搭配 SpecFlow 產生即時更新文件(living documentation)
+
 你有遇過類似的狀況嗎？：改了 code 卻忘了改註解 或是 看既有 code 時發現 code 行為與註解說明不同？ 這兩種情況在我的工作經驗中不算是常見但也不算是罕見，其實我倒不認為造成問題的人(可能就是你我)是故意的，大多數都是不小心忘記或是漏了，畢竟人難免會犯錯，功能正常是第一優先也比較容易確認，註解的正確性相對難以保障。所以就會造成文件日益失去可靠性，程式也就愈來愈難維護
 
 當然程式可以自我解釋是最好，但並不是所有人都看得懂程式，老闆問商業邏輯時總不能叫他自己去看程式碼，而身為工程師的大家，我想應該都不喜歡寫文件。加上會隨著需求異動修改的也通常只有程式碼，所以如果可以從程式碼來產生文件就是最理想的狀態了。
@@ -23,31 +24,30 @@ Pickles 是套 open source 的即時更新文件(living documentation)產生工�
 
 Pickles 使用上有兩個類型：
 
-1.  Pickles
+1. Pickles
 
-    >*   提供 Pickles 核心功能
-    >*   需搭配 runner 使用
+    >* 提供 Pickles 核心功能
+    >* 需搭配 runner 使用
 
-    *   安裝方式
+    * 安裝方式
 
-        - 使用 Chocolatey 指令
+        * 使用 Chocolatey 指令
 
-            ```
+            ```cmd
             choco install pickles
             ```
 
-            > 詳細內容可以參考 [Pickles - The Open Source Living ](https://chocolatey.org/packages/pickles)
+            > 詳細內容可以參考 [Pickles - The Open Source Living](https://chocolatey.org/packages/pickles)
 
-        -  直接下載 .zip
+        * 直接下載 .zip
 
             > 至 [GitHub](https://github.com/picklesdoc/pickles/releases) 下載
 
-    *  安裝 runner
+    * 安裝 runner
 
-        *   使用 NuGet 安裝
+        * 使用 NuGet 安裝
 
-
-            -  PowerShell
+            * PowerShell
 
                 ```ps1
                 Install-Package Pickles
@@ -55,275 +55,287 @@ Pickles 使用上有兩個類型：
 
                 > 詳細內容可以參考 [Pickles](https://www.nuget.org/packages/Pickles/)
 
-            -   Command Line
+            * Command Line
 
-                ```
+                ```ps1
                 Install-Package Pickles.CommandLine
                 ```
 
                 > 詳細內容可以參考 [Command line version of Pickles](https://www.nuget.org/packages/Pickles.CommandLine/)
 
-            -  MSBuild
+            * MSBuild
 
-                ```
+                ```ps1
                 Install-Package Pickles.MSBuild
                 ```
 
                 > 詳細內容可以參考 [MSBuild Task for Pickles](https://www.nuget.org/packages/Pickles.MSBuild/)
 
-        *   直接下載 .zip
-            -   Pickles-powershell.zip
-            -   Pickles-msbuild.zip
+        * 直接下載 .zip
+            * Pickles-powershell.zip
+            * Pickles-msbuild.zip
 
             > 至 [GitHub](https://github.com/picklesdoc/pickles/releases) 下載
 
-2.  Pickles UI
+2. Pickles UI
 
-    > *   以 GUI 方式來執行 Pickles
-    > *   內建 runner 不需額外安裝
+    > * 以 GUI 方式來執行 Pickles
+    > * 內建 runner 不需額外安裝
 
-    *   安裝方式
+    * 安裝方式
 
-        -  使用 Chocolatey 指令
+        * 使用 Chocolatey 指令
 
-            ```
+            ```ps1
             choco install picklesui
             ```
 
             > 詳細內容可以參考 [Pickles UI - The Open Source Living](https://chocolatey.org/packages/picklesui)
 
-        -  直接下載 .zip
+        * 直接下載 .zip
 
             > 至 [GitHub](https://github.com/picklesdoc/pickles/releases) 下載
 
 ## [參數](http://docs.picklesdoc.com/en/latest/Arguments/)
 
-*   Feature Directory
+* Feature Directory
 
     > Feature 檔位置資料夾
 
-    *   Console
+  * Console
 
-        ```
-        Pickles.exe --feature-directory=C:\MyProject\Features
-        Pickles.exe -f=C:\MyProject\Features
-        ```
+    ```cmd
+    Pickles.exe --feature-directory=C:\MyProject\Features
+    Pickles.exe -f=C:\MyProject\Features
+    ```
 
-    *   Powershell
+  * Powershell
 
-        ```ps1
-        Pickle-Features -FeatureDirectory C:\MyProject\Features
-        ```
-    *   MSBuild
+    ```ps1
+    Pickle-Features -FeatureDirectory C:\MyProject\Features
+    ```
 
-        ```
-        <Target Name="document">
-            <Pickles FeatureDirectory="C:\MyProject\Features" />
-        </Target>
-        ```
+  * MSBuild
 
-*   Output Directory
+    ```xml
+    <Target Name="document">
+        <Pickles FeatureDirectory="C:\MyProject\Features" />
+    </Target>
+    ```
+
+* Output Directory
 
     > 報表產出目錄
 
-    *   Console
+  * Console
 
-        ```
-        Pickles.exe --output-directory=C:\GeneratedDocs
-        Pickles.exe -o=C:\GeneratedDocs
-        ```
+    ```cmd
+    Pickles.exe --output-directory=C:\GeneratedDocs
+    Pickles.exe -o=C:\GeneratedDocs
+    ```
 
-    *   Powershell
+  * Powershell
 
-        ```ps1
-        Pickle-Features -OutputDirectory C:\GeneratedDocs
-        ```
-    *   MSBuild
+    ```ps1
+    Pickle-Features -OutputDirectory C:\GeneratedDocs
+    ```
 
-        ```
-        <Target Name="document">
-            <Pickles OutputDirectory="C:\GeneratedDocs" />
-        </Target>
-        ```
+  * MSBuild
 
-*   Documentation Format
+    ```xml
+    <Target Name="document">
+        <Pickles OutputDirectory="C:\GeneratedDocs" />
+    </Target>
+    ```
+
+* Documentation Format
 
     > 指定輸出文件的格式 預設為 `html` 可以使用 html, dhtml, excel, json, word, cucumber
 
-    *   Console
+  * Console
 
-        ```
-        Pickles.exe --documentation-format=Word
-        Pickles.exe -df=Word
-        ```
+    ```cmd
+    Pickles.exe --documentation-format=Word
+    Pickles.exe -df=Word
+    ```
 
-    *   Powershell
+  * Powershell
 
-        ```ps1
-        Pickle-Features -DocumentationFormat Word
-        ```
-    *   MSBuild
+    ```ps1
+    Pickle-Features -DocumentationFormat Word
+    ```
 
-        ```
-        <target Name="document">
-            <pickles DocumentationFormat="Word" />
-        </target>
-        ```
+  * MSBuild
 
-    *   html 報表
+    ```xml
+    <target Name="document">
+        <pickles DocumentationFormat="Word" />
+    </target>
+    ```
 
-        ![1html](https://user-images.githubusercontent.com/3851540/27592692-a2023604-5b87-11e7-9d4e-e4be699d81d5.png)
+  * html 報表
 
-    *   dhtml 報表
+    ![1html](https://user-images.githubusercontent.com/3851540/27592692-a2023604-5b87-11e7-9d4e-e4be699d81d5.png)
 
-        ![2dhtml](https://user-images.githubusercontent.com/3851540/27592694-a22b70f0-5b87-11e7-9889-a232e926f214.png)
+  * dhtml 報表
 
-*   System Under Test Name
+    ![2dhtml](https://user-images.githubusercontent.com/3851540/27592694-a22b70f0-5b87-11e7-9889-a232e926f214.png)
+
+* System Under Test Name
 
     > 測試系統名稱，因為 Gherkin 是跨平台的，無法統一從 metadata 讀取系統名稱，所以需要由使用者自行指定(我沒用過)
 
-    *   Console
+  * Console
 
-        ```cmd
-        Pickles.exe --system-under-test-name=MyProject
-        Pickles.exe -sn=MyProject
-        ```
+    ```cmd
+    Pickles.exe --system-under-test-name=MyProject
+    Pickles.exe -sn=MyProject
+    ```
 
-    *   Powershell
+  * Powershell
 
-        ```ps1
-        Pickle-Features -SystemUnderTestName MyProject
-        ```
-    *   MSBuild
+    ```ps1
+    Pickle-Features -SystemUnderTestName MyProject
+    ```
 
-        ```
-        <Target Name="document">
-            <Pickles SystemUnderTestName="MyProject" />
-        </Target>
-        ```
+  * MSBuild
 
-*   System Under Test Version
+    ```xml
+    <Target Name="document">
+        <Pickles SystemUnderTestName="MyProject" />
+    </Target>
+    ```
+
+* System Under Test Version
 
     > 測試系統版本，原因同上
 
-    *   Console
+  * Console
 
-        ```
-        Pickles.exe --system-under-test-version=2.0.1beta
-        Pickles.exe -sv=2.0.1beta
-        ```
+    ```cmd
+    Pickles.exe --system-under-test-version=2.0.1beta
+    Pickles.exe -sv=2.0.1beta
+    ```
 
-    *   Powershell
+  * Powershell
 
-        ```
-        Pickle-Features -SystemUnderTestVersion 2.0.1beta
-        ```
-    *   MSBuild
+    ```ps1
+    Pickle-Features -SystemUnderTestVersion 2.0.1beta
+    ```
 
-        ```
-        <Target Name="document">
-            <Pickles SystemUnderTestVersion="2.0.1beta" />
-        </Target>
-        ```
+  * MSBuild
 
-*   Test Results Format
+    ```xml
+    <Target Name="document">
+        <Pickles SystemUnderTestVersion="2.0.1beta" />
+    </Target>
+    ```
+
+* Test Results Format
 
     > 測試結果的 test framework 格式，預設為 `nunit` 可接受 nunit, nunit3, xunit, xunit2, mstest, cucumberjson, specrun, vstest
 
-    *   Console
+  * Console
 
-        ```
-        Pickles.exe --test-results-format=mstest
-        Pickles.exe -trfmt=mstest
-        ```
+    ```cmd
+    Pickles.exe --test-results-format=mstest
+    Pickles.exe -trfmt=mstest
+    ```
 
-    *   Powershell
+  * Powershell
 
-        ```
-        Pickle-Features -TestResultsFormat mstest
-        ```
-    *   MSBuild
+    ```ps1
+    Pickle-Features -TestResultsFormat mstest
+    ```
 
-        ```
-        <Target Name="document">
-            <Pickles ResultsFormat="mstest" />
-        </Target>
-        ```
+  * MSBuild
 
-*   Test Results File
+    ```xml
+    <Target Name="document">
+        <Pickles ResultsFormat="mstest" />
+    </Target>
+    ```
+
+* Test Results File
 
     > 指定 xml(trx) 格式的測試結果檔案
 
-    *   Console
+  * Console
 
-        ```
-        Pickles.exe --link-results-file=C:\MyProject\Reports\results.trx
-        Pickles.exe -lr=C:\MyProject\Reports\results.trx
-        Pickles.exe -lr=C:\MyProject\Reports\*.trx
-        Pickles.exe -lr=C:\MyProject\UnitTest\results.xml;C:\MyProject\SystemTest\*
-        ```
-    *   Powershell
+    ```cmd
+    Pickles.exe --link-results-file=C:\MyProject\Reports\results.trx
+    Pickles.exe -lr=C:\MyProject\Reports\results.trx
+    Pickles.exe -lr=C:\MyProject\Reports\*.trx
+    Pickles.exe -lr=C:\MyProject\UnitTest\results.xml;C:\MyProject\SystemTest\*
+    ```
 
-        ```
-        Pickle-Features -TestResultsFile C:\MyProject\Reports\results.trx
-        ```
-    *   MSBuild
+  * Powershell
 
-        ```
-        <Target Name="document">
-            <Pickles ResultsFile="C:\MyProject\Reports\results.trx" />
-        </Target>
-        ```
+    ```ps1
+    Pickle-Features -TestResultsFile C:\MyProject\Reports\results.trx
+    ```
 
-    *   有指定測試結果  報告上會顯示測試結果
+  * MSBuild
 
-        ![3testresult](https://user-images.githubusercontent.com/3851540/27592699-a29e8036-5b87-11e7-8b37-3aa51ea08401.png)
+    ```xml
+    <Target Name="document">
+        <Pickles ResultsFile="C:\MyProject\Reports\results.trx" />
+    </Target>
+    ```
 
-*   Language
+  * 有指定測試結果  報告上會顯示測試結果
+
+    ![3testresult](https://user-images.githubusercontent.com/3851540/27592699-a29e8036-5b87-11e7-8b37-3aa51ea08401.png)
+
+* Language
 
     > feature 檔的語言 預設是 `en` (English)，不支援 `zh`
 
-    *   Console
+  * Console
 
-        ```
-        Pickles.exe --language=sv
-        Pickles.exe -l=sv
-        ```
-    *   Powershell
+    ```cmd
+    Pickles.exe --language=sv
+    Pickles.exe -l=sv
+    ```
 
-        ```
-        Pickle-Features -Language sv
-        ```
-    *   MSBuild
+  * Powershell
 
-        ```
-        <Target Name="document">
-            <Pickles Language="sv" />
-        </Target>
-        ```
+    ```ps1
+    Pickle-Features -Language sv
+    ```
 
-*   Include Experimental Features
+  * MSBuild
+
+    ```xml
+    <Target Name="document">
+        <Pickles Language="sv" />
+    </Target>
+    ```
+
+* Include Experimental Features
 
     > 是否啟用實驗性功能(我沒用過)
 
-    *   Console
+  * Console
 
-        ```
-        Pickles.exe --include-experimental-features
-        Pickles.exe -exp
-        ```
-    *   Powershell
+    ```cmd
+    Pickles.exe --include-experimental-features
+    Pickles.exe -exp
+    ```
 
-        ```
-        Pickle-Features -IncludeExperimentalFeatures
-        ```
-    *   MSBuild
+  * Powershell
 
-        ```
-        <target Name="document">
-            <pickles IncludeExperimentalFeatures="true" />
-        </target>
-        ```
+    ```ps1
+    Pickle-Features -IncludeExperimentalFeatures
+    ```
+
+  * MSBuild
+
+    ```xml
+    <target Name="document">
+        <pickles IncludeExperimentalFeatures="true" />
+    </target>
+    ```
 
 ## 如何使用 Pickles
 
@@ -331,10 +343,10 @@ Console (Pickles.exe) 是最容易也是用途最廣跟最普遍的方式；Pick
 
 以下 demo 會使用 Console 也就是透過 Pickles.exe 來產生報表搭配 Visual Studio 外部工具，過程會使用 PowerShell 語法(這邊用的 PowerShell 不是上面說的 Pickles Powershell：Pickle-Features)
 
-1.  建立一個 PowerShell 檔
+1. 建立一個 PowerShell 檔
 
-    *   用來執行測試、產生報表、開啟報表
-    *   `MSTest.exe 的檔案位置` 及 `Pickles-exe 的檔案位置` 需視實際情境修改
+    * 用來執行測試、產生報表、開啟報表
+    * `MSTest.exe 的檔案位置` 及 `Pickles-exe 的檔案位置` 需視實際情境修改
 
         ```ps1
         # 用來接收傳入的參數
@@ -376,51 +388,50 @@ Console (Pickles.exe) 是最容易也是用途最廣跟最普遍的方式；Pick
         ExeTest -MSTestPath $MSTestPath -TestDllPath $TargetName$TargetExt -TestResultFilePath $TestResultFilePath | GenerateReport -PicklesPath $PicklesPath -FeaturePath $FeaturePath -ResultPath $ResultPath -TestResultFilePath $TestResultFilePath | OpenReport -ResultIndexPath $ResultPath'/index.html'
         ```
 
-2.  設定 Visual Studio 外部工具
+2. 設定 Visual Studio 外部工具
 
     > 在 [關於 Visual Studio 中的外部工具(External Tools)](/2017/06/visual-studio-external-tools.html) 中有簡單介紹 Visual Studio 外部工具相關使用方式及參數
 
-    *   Visual Studio 主選單 Tools --> External Tools
+    * Visual Studio 主選單 Tools --> External Tools
 
         ![4addexternal](https://user-images.githubusercontent.com/3851540/27592695-a243b43a-5b87-11e7-989c-ee282bdd2562.png)
 
-    *   填寫外部工具資訊
-        *   Title
-            *   用來顯示在 Tools 選單上的名稱
+    * 填寫外部工具資訊
+        * Title
+            * 用來顯示在 Tools 選單上的名稱
 
                 ![5title](https://user-images.githubusercontent.com/3851540/27592697-a24ae638-5b87-11e7-930f-15237408f829.png)
 
-        *   Command
+        * Command
 
-            *   執行檔完整檔名
-            *   範例：`Powershell.exe`
+            * 執行檔完整檔名
+            * 範例：`Powershell.exe`
 
-        *   Arguments
+        * Arguments
 
-            *   執行檔所需參數，需注意欄位有長度限制
-            *   執行 `GeneratePicklesDoc.ps1` (上面新增的 powershell 檔案)，並依參數名稱指定參數值
+            * 執行檔所需參數，需注意欄位有長度限制
+            * 執行 `GeneratePicklesDoc.ps1` (上面新增的 powershell 檔案)，並依參數名稱指定參數值
 
-                *   `-executionpolicy remotesigned -File D:\GeneratePicklesDoc.ps1` 執行特定 powershell 檔案
-                *   `-TargetName $(TargetName)` 指定 `TargetName` 為 build 出來的 dll 檔名
-                *   `-TargetExt $(TargetExt)` 指定 `TargetExt` 為 build 出來的檔案副檔名
-                *   `-ResultPath "D:\20170626"` 指定 `ResultPath` 為報告產出位置(測試報告及 pickles 文件會放一起，如需修改請改上面的 ps 檔)
-                *   `-FeaturePath $(ProjectDir)` 指定 `FeaturePath` 為測試專案的 feature 檔實際路徑(需視專案位置調整)
+                * `-executionpolicy remotesigned -File D:\GeneratePicklesDoc.ps1` 執行特定 powershell 檔案
+                * `-TargetName $(TargetName)` 指定 `TargetName` 為 build 出來的 dll 檔名
+                * `-TargetExt $(TargetExt)` 指定 `TargetExt` 為 build 出來的檔案副檔名
+                * `-ResultPath "D:\20170626"` 指定 `ResultPath` 為報告產出位置(測試報告及 pickles 文件會放一起，如需修改請改上面的 ps 檔)
+                * `-FeaturePath $(ProjectDir)` 指定 `FeaturePath` 為測試專案的 feature 檔實際路徑(需視專案位置調整)
 
-            *   範例：
+            * 範例：
 
-                ```
+                ```ps1
                 -executionpolicy remotesigned -File  D:\GeneratePicklesDoc.ps1 -TargetName $(TargetName) -TargetExt $(TargetExt) -ResultPath "D:\20170626" -FeaturePath $(ProjectDir)
                 ```
 
-        *   Initial directory
+        * Initial directory
 
-            *   執行檔發動根目錄位置，可以縮短參數值長度(不用給到完整路徑)
-            *   範例：`$(BinDir)`
+            * 執行檔發動根目錄位置，可以縮短參數值長度(不用給到完整路徑)
+            * 範例：`$(BinDir)`
 
-3.  產生結果
+3. 產生結果
 
-
-    *   開啟測試專案後，直接按下剛剛新增的 Visual Studio 外部工具即可自動進行測試、產生文件並開啟文件了
+    * 開啟測試專案後，直接按下剛剛新增的 Visual Studio 外部工具即可自動進行測試、產生文件並開啟文件了
 
     ![6result](https://user-images.githubusercontent.com/3851540/27592696-a24b55f0-5b87-11e7-8bd6-b78d1c083928.png)
 
@@ -430,8 +441,8 @@ Pickles 的說明文件 [Pickles Docs](http://docs.picklesdoc.com/en/latest/) �
 
 設定 Pickles 過程中遇到還遇到不熟悉 MSTest.exe 及 Visual Studio 外部工具用法，也發現 MSTest.exe 尚不支援 MSTestV2 跟 Visual Studio 外部工具 參數列有長度限制，整個設定過程上有比較多眉眉角角的，使用上要特別留意，不過將整個流程串接起來讓開發不再只是開發，相信對日後維護有一定的幫助
 
-# 參考資訊
+## 參考資訊
 
-1.  [Pickles - GitHub](https://github.com/picklesdoc/pickles)
-2.  [Pickles Docs](http://docs.picklesdoc.com/en/latest/)
-3.  [Pickles Arguments](http://docs.picklesdoc.com/en/latest/Arguments/)
+1. [Pickles - GitHub](https://github.com/picklesdoc/pickles)
+2. [Pickles Docs](http://docs.picklesdoc.com/en/latest/)
+3. [Pickles Arguments](http://docs.picklesdoc.com/en/latest/Arguments/)
