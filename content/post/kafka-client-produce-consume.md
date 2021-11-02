@@ -1,49 +1,48 @@
 ---
-title: "使用 .Net client 連線至 Apache Kafka 收發訊息"
+title: "使用 .NET client 連線至 Apache Kafka 收發訊息"
 date: 2017-05-25T01:00:00+08:00
-lastmod: 2020-12-11T01:00:27+08:00
+lastmod: 2021-11-02T01:00:27+08:00
 draft: false
-tags: ["Kafka","C#"]
+tags: ["Kafka","csharp"]
 slug: "kafka-client-produce-consume"
 aliases:
     - /2017/05/kafka-client-produce-consume.html
 ---
-# 使用 .Net client 連線至 Apache Kafka 收發訊息
+## 使用 .NET client 連線至 Apache Kafka 收發訊息
 
 <span style="color:red">.NET Core 用法可以參考 [讓 Kafka 達成 Broadcast 效果](/kafka-broadcast-assign/)</span>
 
+繼之前紀錄 [如何在 Windows OS 安裝 Apache Kafka](/windows-os-apache-kafka) 到現在默默地過了兩個月XD，直到最近才有時間可以再開始進行 MQ 相關功能比較，經過初步比較後，目前打算以 RabbitMQ 與 Apache Kafka 兩個 MQ 系統為主要選項來做比較，之前文章 [使用 .Net client 連線至 RabbitMQ 收發訊息](/rabbitmq-client-send-consume) 介紹了使用 .Net Client 連線 RabbitMQ 進行基本發送訊息及接收訊息的程式碼，今天就來看看 .Net 如何連線 Apache Kafka 進行收發訊息
 
-繼之前紀錄 [如何在 Windows OS 安裝 Apache Kafka](//blog.yowko.com/2017/03/windows-os-apache-kafka.html) 到現在默默地過了兩個月XD，直到最近才有時間可以再開始進行 MQ 相關功能比較，經過初步比較後，目前打算以 RabbitMQ 與 Apache Kafka 兩個 MQ 系統為主要選項來做比較，之前文章 [使用 .Net client 連線至 RabbitMQ 收發訊息](//blog.yowko.com/2017/05/rabbitmq-client-send-consume.html) 介紹了使用 .Net Client 連線 RabbitMQ 進行基本發送訊息及接收訊息的程式碼，今天就來看看 .Net 如何連線 Apache Kafka 進行收發訊息
-
-身為 .Net 工程師，雖然想多熟悉 linux，但終究沒有那麼容易，今天的 demo 還是會以 Windows 上的 Kafka 當做範例，如果對 Windows 上安裝 Apache Kafka 有興趣的可以參考 [如何在 Windows OS 安裝 Apache Kafka](//blog.yowko.com/2017/03/windows-os-apache-kafka.html)
+身為 .NET 工程師，雖然想多熟悉 linux，但終究沒有那麼容易，今天的 demo 還是會以 Windows 上的 Kafka 當做範例，如果對 Windows 上安裝 Apache Kafka 有興趣的可以參考 [如何在 Windows OS 安裝 Apache Kafka](/windows-os-apache-kafka)
 
 ## 安裝 .Net Client
 
-*   ~~[Microsoft/CSharpClient-for-Kafka](https://github.com/Microsoft/CSharpClient-for-Kafka)~~
+* ~~[Microsoft/CSharpClient-for-Kafka](https://github.com/Microsoft/CSharpClient-for-Kafka)~~
 
     > Kafka .Net Client 在 NuGet 上有好幾套件，其實並不好選擇，本來想使用 Microsoft 出的 [CSharpClient-for-Kafka](https://github.com/Microsoft/CSharpClient-for-Kafka)，但專案說明出現：
-
+    >
     > 只支援到 Kafka 0.8，直到 Kafka 1.0 才會重新包裝 library，如果是 Kafaka 0.9 之後版本請使用 [confluent-kafka-dotnet](https://github.com/confluentinc/confluent-kafka-dotnet)
 
     ![1msnote](https://cloud.githubusercontent.com/assets/3851540/26392985/fa28a29e-409a-11e7-8a38-cf7212573d49.png)
 
-*   [confluentinc/confluent-kafka-dotnet](https://github.com/confluentinc/confluent-kafka-dotnet)
+* [confluentinc/confluent-kafka-dotnet](https://github.com/confluentinc/confluent-kafka-dotnet)
 
-    *   使用 Package Manager Console
+  * 使用 Package Manager Console
 
-        ```
+        ```cmd
         Install-Package Confluent.Kafka -Version 0.9.5
         ```
 
         >官方建議的安裝語法有指定版本為 0.9.5 我看最新版本就是 0.9.5 ，不指定還是會安裝 0.9.5
 
-    *   使用 NuGet Package Explorer
+  * 使用 NuGet Package Explorer
 
-        1.  專案(project) 上按右鍵 --> Manage NuGet Packages...
+        1. 專案(project) 上按右鍵 --> Manage NuGet Packages...
 
             ![2nugetmanage](https://cloud.githubusercontent.com/assets/3851540/26392986/fa2e19c2-409a-11e7-9c96-2bd621b9b87a.png)
 
-        2.  Browse --> 搜尋 `confluent.kafka` --> 點選 `Confluent.Kafka` --> Install
+        2. Browse --> 搜尋 `confluent.kafka` --> 點選 `Confluent.Kafka` --> Install
 
             ![3nugetinstall](https://cloud.githubusercontent.com/assets/3851540/26392984/fa269bb6-409a-11e7-8099-27d038d6ad3a.png)
 
@@ -51,7 +50,7 @@ aliases:
 
 > 使用 confluent-kafka-dotnet 的[官方範例](https://github.com/confluentinc/confluent-kafka-dotnet/tree/master/examples/SimpleConsumer)來建立 consumer
 
-*   範例程式
+* 範例程式
 
     ```cs
     void Main()
@@ -84,15 +83,13 @@ aliases:
     }
     ```
 
-*   注意事項
-    *   只會接受 producer 在 consumer 啟動後所發送的訊息
-    *   多個 consumer 都會收到同樣訊息，不是分配接受端
-
-
+* 注意事項
+  * 只會接受 producer 在 consumer 啟動後所發送的訊息
+  * 多個 consumer 都會收到同樣訊息，不是分配接受端
 
 ## 發送訊息
 
-*   範例程式
+* 範例程式
 
     ```cs
     void Main()
@@ -125,17 +122,15 @@ aliases:
     }
     ```
 
-*   注意事項
+* 注意事項
 
-    *   flush 動作不一定要執行，建議只針對重要訊息執行即可，會影響效能
-    *   如果會關閉 producer ，建議執行避免有未完成的 request 遺失
-
-
+  * flush 動作不一定要執行，建議只針對重要訊息執行即可，會影響效能
+  * 如果會關閉 producer ，建議執行避免有未完成的 request 遺失
 
 ## 其他選項
 
-*   使用其他 .Net Client -  [ah-/rdkafka-dotnet](https://github.com/ah-/rdkafka-dotnet)
-*   範例程式
+* 使用其他 .Net Client -  [ah-/rdkafka-dotnet](https://github.com/ah-/rdkafka-dotnet)
+* 範例程式
 
     ```cs
     void Main()
@@ -162,11 +157,9 @@ aliases:
     }
     ```
 
-*   注意事項
-    *   只有沒收過的訊息，啟動監聽後會全部收下來
-    *   一樣是非分配訊息接受，訊息會被後起的 consumer 收走
-
-
+* 注意事項
+  * 只有沒收過的訊息，啟動監聽後會全部收下來
+  * 一樣是非分配訊息接受，訊息會被後起的 consumer 收走
 
 ## 心得
 
@@ -176,10 +169,10 @@ Kafka 在 .Net 上的資源相對於 RabbitMQ 是比較少的，設定上也較�
 
 <span style="color:red">.NET Core 用法可以參考 [讓 Kafka 達成 Broadcast 效果](/kafka-broadcast-assign/)</span>
 
-# 參考資訊
+## 參考資訊
 
-1.  [如何在 Windows OS 安裝 Apache Kafka](//blog.yowko.com/2017/03/windows-os-apache-kafka.html)
-2.  [使用 .Net client 連線至 RabbitMQ 收發訊息](//blog.yowko.com/2017/05/rabbitmq-client-send-consume.html)
-3.  [Microsoft/CSharpClient-for-Kafka](https://github.com/Microsoft/CSharpClient-for-Kafka)
-4.  [confluentinc/confluent-kafka-dotnet](https://github.com/confluentinc/confluent-kafka-dotnet)
-5.  [ah-/rdkafka-dotnet](https://github.com/ah-/rdkafka-dotnet)
+1. [如何在 Windows OS 安裝 Apache Kafka](/03/windows-os-apache-kafka)
+2. [使用 .Net client 連線至 RabbitMQ 收發訊息](/rabbitmq-client-send-consume)
+3. [Microsoft/CSharpClient-for-Kafka](https://github.com/Microsoft/CSharpClient-for-Kafka)
+4. [confluentinc/confluent-kafka-dotnet](https://github.com/confluentinc/confluent-kafka-dotnet)
+5. [ah-/rdkafka-dotnet](https://github.com/ah-/rdkafka-dotnet)

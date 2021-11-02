@@ -1,7 +1,7 @@
 ---
 title: "在 Kubernetes 中使用自訂 Domain"
 date: 2020-06-27T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["Kubernetes"]
 slug: "kubernetes-custom-domain"
@@ -52,22 +52,22 @@ hostAliases:
 
 - 完整內容
 
-      ```yaml
-      apiVersion: v1
-      kind: Pod
-      metadata:
-        name: hostaliases-pod
-      spec:
-        restartPolicy: Never
-        hostAliases:
-        - ip: "192.168.50.97"
-          hostnames:
-          - "yowkotest.com"
-          - "testyowko.com"
-        containers:
-        - name: network-tools
-          image: praqma/network-multitool
-      ```
+    ```yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: hostaliases-pod
+    spec:
+      restartPolicy: Never
+      hostAliases:
+      - ip: "192.168.50.97"
+        hostnames:
+        - "yowkotest.com"
+        - "testyowko.com"
+      containers:
+      - name: network-tools
+        image: praqma/network-multitool
+    ```
 
 ## 實際效果
 

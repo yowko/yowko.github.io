@@ -1,7 +1,7 @@
 ---
 title: "使用 Kubespray 開啟 Kubernetes Dashboard"
 date: 2019-08-10T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["Kubernetes"]
 slug: "kubespray-kubernetes-dashboard"
@@ -81,31 +81,31 @@ Kubernetes Dashboard 是 Kubernetes 官方製作用來管理 Kubernetes clusters
 
     > 建立 `admin` 為管理者
 
-        ```yaml
-        kind: ClusterRoleBinding
-        apiVersion: rbac.authorization.k8s.io/v1beta1
-        metadata:
-        name: admin
-        annotations:
-            rbac.authorization.kubernetes.io/autoupdate: "true"
-        roleRef:
-        kind: ClusterRole
-        name: cluster-admin
-        apiGroup: rbac.authorization.k8s.io
-        subjects:
-        - kind: ServiceAccount
-        name: admin
-        namespace: kube-system
-        ---
-        apiVersion: v1
-        kind: ServiceAccount
-        metadata:
-        name: admin
-        namespace: kube-system
-        labels:
-            kubernetes.io/cluster-service: "true"
-            addonmanager.kubernetes.io/mode: Reconcile
-        ```
+    ```yaml
+    kind: ClusterRoleBinding
+    apiVersion: rbac.authorization.k8s.io/v1beta1
+    metadata:
+    name: admin
+    annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+    roleRef:
+    kind: ClusterRole
+    name: cluster-admin
+    apiGroup: rbac.authorization.k8s.io
+    subjects:
+    - kind: ServiceAccount
+    name: admin
+    namespace: kube-system
+    ---
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+    name: admin
+    namespace: kube-system
+    labels:
+        kubernetes.io/cluster-service: "true"
+        addonmanager.kubernetes.io/mode: Reconcile
+    ```
 
 2. 建立 Service Account 與角色綁定
 

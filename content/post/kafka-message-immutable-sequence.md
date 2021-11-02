@@ -1,7 +1,7 @@
 ---
 title: "讓特定 message 在 kafka 中可以有順序性"
 date: 2020-07-25T21:30:00+08:00
-lastmod: 2020-25-18T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["Kafka","csharp"]
 slug: "kafka-message-immutable-sequence"

@@ -1,7 +1,7 @@
 ---
 title: "在 Kubernetes 部署 Redis Cluster"
 date: 2019-08-15T01:30:00+08:00
-lastmod: 2019-12-17T01:30:31+08:00
+lastmod: 2021-11-02T01:30:31+08:00
 draft: false
 tags: ["Kubernetes","Redis"]
 slug: "kubernetes-redis-cluster"
@@ -185,47 +185,46 @@ slug: "kubernetes-redis-cluster"
 
         > 請自行替換 `metadata.name`,`spec.local.path` 直至建立 六 個 pv.yaml，另外如果資料夾不是建立在 `node1` 上的請修改 `spec.nodeAffinity.required.nodeSelectorTerms.matchExpressions.key.values`
 
-            ```yaml
-            apiVersion: v1
-            kind: PersistentVolume
-            metadata:
-              name: local-pv1
-            spec:
-              capacity:
-                storage: 1Gi
-              volumeMode: Filesystem
-              accessModes:
-              - ReadWriteOnce
-              persistentVolumeReclaimPolicy: Recycle
-              storageClassName: local-redis
-              local:
-                path: /mnt/disk/vol1
-              nodeAffinity:
-                required:
-                  nodeSelectorTerms:
-                  - matchExpressions:
-                    - key: kubernetes.io/hostname
-                      operator: In
-                      values:
-                      - node1
-            ```
-
+        ```yaml
+        apiVersion: v1
+        kind: PersistentVolume
+        metadata:
+          name: local-pv1
+        spec:
+          capacity:
+            storage: 1Gi
+          volumeMode: Filesystem
+          accessModes:
+          - ReadWriteOnce
+          persistentVolumeReclaimPolicy: Recycle
+          storageClassName: local-redis
+          local:
+            path: /mnt/disk/vol1
+          nodeAffinity:
+            required:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                  - node1
+        ```
 
     - 使用 pv.yaml 建立 Local Persistent Volume
 
-        > 重複 六 次直至建立 六 個 pv
+        > 重複 `6` 次直至建立 `6 個 pv`
 
         ```bash
         kubectl apply -f pv1.yaml
         ```
 
-        > 快速建立 六 個 pv
+        > 快速建立 6 個 pv
 
         ```bash
         kubectl create -f pv1.yaml -f pv2.yaml -f pv3.yaml -f pv4.yaml -f pv5.yaml -f pv6.yaml
         ```
 
-        > 快速刪除 六 個 pv
+        > 快速刪除 6 個 pv
 
         ```bash
         kubectl delete -f pv1.yaml -f pv2.yaml -f pv3.yaml -f pv4.yaml -f pv5.yaml -f pv6.yaml
@@ -340,7 +339,7 @@ slug: "kubernetes-redis-cluster"
 
 ## 心得
 
-本來就沒有 Kubernetes 的 production 相關經驗，一下跳到 Helm 不打緊，還用上了 Operator，還好同事很強大，讓我越級打怪還沒遇到解決不了的問題  讚啦 ~~~ 
+本來就沒有 Kubernetes 的 production 相關經驗，一下跳到 Helm 不打緊，還用上了 Operator，還好同事很強大，讓我越級打怪還沒遇到解決不了的問題  讚啦 ~~~
 
 回到這次透過 KubeDB 安裝 Redis Cluster 上，一開始依網站上的 Helm 安裝步驟操作總是遇到問題，同事建議改用網站上的 custom install script 停用 webhook 才過了第一關，直到後來在紀錄安裝步驟時才發現 Helm 其實也有提供停用 webhook 的參數設定，只是網站上沒提到，參數設定說明是在 GitHub 上翻到的，類似的情況還發生在一些 yaml 設定，官網上的說明文件有時比較新、比較正確，不過偶爾會反過來，GitHub 比較正確，就這樣兩邊參照、比對、嘗試可是吃盡了苦頭呀
 

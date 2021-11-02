@@ -1,7 +1,7 @@
 ---
 title: "透過 Kubespray 來架設 Kubernetes"
 date: 2019-07-13T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["Kubernetes"]
 slug: "kubespray-kubernetes"
@@ -110,7 +110,7 @@ slug: "kubespray-kubernetes"
 1. 下載 Kubespray
 
     > 2019/7/14 測試： `master` 仍無法順利完成安裝，需使用 `release-2.10` branch 最高僅能安裝 `Kubernetes v1.14.3`
-
+    >
     > 2019/9/6 測試：使用 `release-2.11` 可以順利安裝 `Kubernetes v1.15.3`
 
     ```bash

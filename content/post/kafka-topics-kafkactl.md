@@ -1,7 +1,7 @@
 ---
 title: "需要 kafka-topics.sh 嗎？ 可以試試 kafkactl"
 date: 2020-12-23T21:30:00+08:00
-lastmod: 2020-12-23T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["macOS","Kafka","Linux"]
 slug: "kafka-topics-kafkactl"
@@ -23,7 +23,7 @@ slug: "kafka-topics-kafkactl"
 
     >至 [GitHub release](https://github.com/jbvmio/kafkactl/releases) 下載對應版本
 
-    - macOS
+  - macOS
 
         1. 透過 homebrew 安裝
 
@@ -37,19 +37,19 @@ slug: "kafka-topics-kafkactl"
             curl -L https://github.com/jbvmio/kafkactl/releases/download/v1.0.26/kafkactl_1.0.26_Darwin_x86_64.tar.gz | tar -xzv
             ```
 
-    - Debian
+  - Debian
 
         ```bash
         wget -O kafkactl.deb https://github.com/jbvmio/kafkactl/releases/download/v1.0.26/kafkactl_1.0.26_linux_amd64.deb && dpkg -i kafkactl.deb 
         ```
 
-    - CentOS
+  - CentOS
 
         ```bash
         wget -O kafkactl.rpm https://github.com/jbvmio/kafkactl/releases/download/v1.0.26/kafkactl_1.0.26_linux_amd64.rpm && rpm -i kafkactl.rpm
         ```
 
-    - Linux 直接下載壓縮檔並解壓使用
+  - Linux 直接下載壓縮檔並解壓使用
 
         ```bash
         curl -L https://github.com/jbvmio/kafkactl/releases/download/v1.0.26/kafkactl_1.0.26_Linux_x86_64.tar.gz |tar -xzv 
@@ -59,15 +59,11 @@ slug: "kafka-topics-kafkactl"
 
     1. 語法
 
-        ```bash
-        kafkactl --broker {kafka connectionstring} admin create topic {topic name} --partitions {partition number} --replicas {replica number}
-        ```
+        `kafkactl --broker {kafka connectionstring} admin create topic {topic name} --partitions {partition number} --replicas {replica number}`
 
     2. 範例
 
-        ```bash
-        kafkactl --broker 10.0.16.2:9092 admin create topic yowko test --partitions 3 --replicas 1
-        ```
+        `kafkactl --broker 10.0.16.2:9092 admin create topic yowko test --partitions 3 --replicas 1`
 
 ## 心得
 

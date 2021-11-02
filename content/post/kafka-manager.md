@@ -1,24 +1,27 @@
 ---
 title: "在 Mac 上安裝 Kafka-Manager"
 date: 2019-03-09T21:30:00+08:00
-lastmod: 2019-03-09T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["Kafka","Mac"]
 slug: "kafka-manager"
 ---
-# 在 Mac 上安裝 Kafka-Manager
+## 在 Mac 上安裝 Kafka-Manager
+
 最近的專案使用了 Kafka 當做中間層的訊息傳遞工具，功能上還不到遇到問題就先遭遇開發 debug 的種種狀況，其中最常發生但問題原因又不太一樣的就是 producer 有送出訊息但 consumer 沒有成功收到，究竟是 producer 送錯 topic、consumer 聽錯 topic、還是 zookeeper 有問題.....
 
 當然直接連線至 kafka 查詢是最直接的也是最快速的，但永遠都是指令背不起來XD，常常是一開始開發或設定階段查完指令、問題解決後大概就沒再用過，使用率決定了記憶時間呀 @@"
 
 ## 基本環境說明
+
 1. macOS Mojave 10.14.3
 2. openjdk version "1.8.0_202"
 3. OpenJDK Runtime Environment (AdoptOpenJDK)(build 1.8.0_202-b08)
 4. OpenJDK 64-Bit Server VM (AdoptOpenJDK)(build 25.202-b08, mixed mode)
-3. kafka-manager-1.3.3.22
+5. kafka-manager-1.3.3.22
 
 ## 安裝步驟
+
 1. 安裝 Java 1.8
 
     > 我自己用了 11 無法成功編譯，降至 8 才行
@@ -26,9 +29,9 @@ slug: "kafka-manager"
     ```bash
     brew cask install adoptopenjdk8
     ```
- 
-   - 可以透過 `/usr/libexec/java_home -V` 確認目前安裝的 java 版本
-   - 透過 `export JAVA_HOME={上條指令查到的 java 位置}` 修改 java 版本
+
+    - 可以透過 `/usr/libexec/java_home -V` 確認目前安裝的 java 版本
+    - 透過 `export JAVA_HOME={上條指令查到的 java 位置}` 修改 java 版本
 
         ```bash
         export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
@@ -110,20 +113,20 @@ slug: "kafka-manager"
         - KMReassignPartitionsFeature - 允許產生 partition 分派及重新分派 partition
     - 啟用 jmx 的大型 cluster 可以考慮設定
         - kafka-manager.broker-view-thread-pool-size={3 * brokers 數量}
-        - kafka-manager.broker-view-max-queue-size={3 *  所有 topic 的總 partition 數}
-        - kafka-manager.broker-view-update-seconds={kafka-manager.broker-view-max-queue-size / (10 * brokers 數量) } 
+        - kafka-manager.broker-view-max-queue-size={3 * 所有 topic 的總 partition 數}
+        - kafka-manager.broker-view-update-seconds={kafka-manager.broker-view-max-queue-size / (10 * brokers 數量) }
 
 7. 啟動 kafka-manager
 
     - 使用預設值啟動
-    
+
         ```bash
         bin/kafka-manager
         ```
-    
+
     - 指定 application.conf 位置並指定服務的 port 為 9090
-        
-        > 預設為 9000 
+
+        > 預設為 9000
 
         ```bash
         bin/kafka-manager -Dconfig.file=/path/to/application.conf -Dhttp.port=9090
@@ -132,6 +135,7 @@ slug: "kafka-manager"
         ![2startservice](https://user-images.githubusercontent.com/3851540/54073297-76745400-42c0-11e9-815e-090117583938.png)
 
 ## 實際使用
+
 1. 設定 cluster
 
     ![3addcluster](https://user-images.githubusercontent.com/3851540/54073298-76745400-42c0-11e9-8a4f-d68ba2dc524d.png)
@@ -143,10 +147,12 @@ slug: "kafka-manager"
     ![5data](https://user-images.githubusercontent.com/3851540/54073300-770cea80-42c0-11e9-8989-2e1f752f8618.png)
 
 ## 心得
+
 kafka-manager 雖然宣稱使用 Java 8+ 但與同事都遇到非 Java 8 無法成功編譯的問題，依結果來看還是選用 Java 8 比較保險
 
 扣除 Java 8 的問題，整體說來設定過程還算輕鬆寫意，加上如此一來就可以很容易地看出 Kafka 使用情況，安裝摸索的時間非常值得投資
 
-# 參考資訊
-1. [How do I install Java on Mac OSX allowing version switching?](https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching) 
+## 參考資訊
+
+1. [How do I install Java on Mac OSX allowing version switching?](https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching)
 2. [yahoo/kafka-manager](https://github.com/yahoo/kafka-manager)
