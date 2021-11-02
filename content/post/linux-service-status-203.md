@@ -1,7 +1,7 @@
 ---
 title: "Linux Service Status 203 無法啟動"
 date: 2020-11-05T21:30:00+08:00
-lastmod: 2020-11-17T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["Linux","CentOS"]
 slug: "linux-service-status-203"
@@ -21,7 +21,7 @@ slug: "linux-service-status-203"
 
 * service 無法成功啟動
 
-    - 錯誤訊息 (service status)
+  * 錯誤訊息 (service status)
 
         ```txt
         [root@SB-TSRV14 ~]# service zookeeper_2181 start
@@ -39,13 +39,13 @@ slug: "linux-service-status-203"
         11月 04 18:35:38 SB-TSRV14 systemd[1]: zookeeper_2181.service: Failed with result 'exit-code'.
         ```
 
-    - 錯誤截圖
+  * 錯誤截圖
 
         ![1servicestatus](https://user-images.githubusercontent.com/3851540/98203310-c06a7d00-1f6e-11eb-8ad8-f6b06bb011a2.png)
 
 * 檢查 journalctl 沒有其他錯誤訊息
 
-    - 錯誤訊息
+  * 錯誤訊息
 
         ```txt
         ----
@@ -62,7 +62,7 @@ slug: "linux-service-status-203"
         11月 04 18:08:24 SB-TSRV14 systemd[1]: zookeeper_2181.service: Failed with result 'exit-code'.
         ```
 
-    - 錯誤截圖
+  * 錯誤截圖
 
         ![2journalctl](https://user-images.githubusercontent.com/3851540/98203315-c2ccd700-1f6e-11eb-9fdc-e426844a5aca.png)
 
@@ -76,25 +76,19 @@ slug: "linux-service-status-203"
 
     > 如果為 `Enforcing` 代表 service 無法啟動的原因很有可能就是 SELinux 未關閉造成的
 
-    ```bash
-    getenforce
-    ```
+    `getenforce`
 
 2. 暫時關閉 SELinux 進行確認
 
     > 將 SELinux 設為 `Permissive` (重新開機會重設)並嘗試重新啟動 service，若能順利啟動就確認問題是 SELinux 造成的
 
-    ```bash
-    setenforce 0
-    ```
+    `setenforce 0`
 
     ![4setenforce](https://user-images.githubusercontent.com/3851540/98203319-c52f3100-1f6e-11eb-8981-23cfb1be41ef.png)
 
 3. 完全關閉 SELinux
 
-    ```bash
-    setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
-    ```
+    `setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config`
 
 ## 心得
 
