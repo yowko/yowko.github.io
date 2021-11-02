@@ -1,7 +1,7 @@
 ---
 title: "使用 ngrok 讓本機上的網站讓全世界看到"
 date: 2016-12-19T00:42:34+08:00
-lastmod: 2021-08-02T00:42:34+08:00
+lastmod: 2021-11-02T00:42:34+08:00
 draft: false
 tags: ["Tools"]
 slug: "ngrok"
@@ -57,9 +57,7 @@ aliases:
 
 2. 啟動 ngrok
 
-    ```bash
-    ngrok http port
-    ```
+    `ngrok http port`
 
     > e.g. `ngrok http 80` 表示使用 http  80 port
 
@@ -75,8 +73,8 @@ aliases:
 
    - 使用 Web Interface
 
-       * 服務開啟後，預設會建立 Web Interface 來提供相關資訊
-       * 預設是 `http://127.0.0.1:4040/`
+       - 服務開啟後，預設會建立 Web Interface 來提供相關資訊
+       - 預設是 `http://127.0.0.1:4040/`
 
             ![6accessurl](https://cloud.githubusercontent.com/assets/3851540/22231650/b649523c-e21f-11e6-8438-8472224186aa.png)
 
@@ -104,9 +102,7 @@ aliases:
 
 7. 加上網址存取密碼
 
-    ```bash
-    ngrok http -auth="username:password" 80
-    ```
+    `ngrok http -auth="username:password" 80`
 
    - 設定`帳號` 及`密碼`，加強資安控管
 

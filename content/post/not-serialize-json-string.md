@@ -1,12 +1,12 @@
 ---
 title: "將 Object 序列化為 Json 時，攤平 Json string 欄位"
 date: 2019-05-05T21:30:00+08:00
-lastmod: 2019-05-05T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
-tags: ["C#"]
+tags: ["csharp"]
 slug: "not-serialize-json-string"
 ---
-# 將 Object 序列化為 Json 時，攤平 Json string 欄位
+## 將 Object 序列化為 Json 時，攤平 Json string 欄位
 
 在不同系統間透過 Json 來交換資料是很常見的設計，甚至在某些系統上還可以見到將 Json string 儲存在屬性中，當然有人會質疑這樣就失去強型別的好處，不過會這樣使用就是希望達到 schema-free 的彈性：在一開始未能完整設計但又是非核心常用的內容可以被保留下來。
 
@@ -60,7 +60,6 @@ slug: "not-serialize-json-string"
     };
     ```
 
-
 ## 重現問題
 
 1. 將上述 `people` 透過 serilog 輸出
@@ -71,7 +70,7 @@ slug: "not-serialize-json-string"
 
 2. 實際 log 內容
 
-    ```
+    ```log
     2019-05-05 23:41:09.770 +08:00 [INF] {"Name":"Yowko","UserId":1,"BirthDay":"1983-07-29T00:00:00","JobsString":"[{\"CompanyName\":\"C1\",\"Salary\":1000.0},{\"CompanyName\":\"C2\",\"Salary\":2000.0}]"}
     ```
 
@@ -122,7 +121,7 @@ slug: "not-serialize-json-string"
 
 4. 實際 log 內容
 
-    ```
+    ```log
     2019-05-05 23:43:09.847 +08:00 [INF] {"Name":"Yowko","UserId":1,"BirthDay":"1983-07-29T00:00:00","JobsString":[{"CompanyName":"C1","Salary":1000.0},{"CompanyName":"C2","Salary":2000.0}]}
     ```
 
@@ -144,7 +143,7 @@ slug: "not-serialize-json-string"
 
 其中因為 Container 是衍伸類別，所以改用 JToken
 
-# 參考資訊
+## 參考資訊
 
 1. [How to make sure that string is valid JSON using JSON.NET](https://stackoverflow.com/a/20218426)
 2. [Access to a static member of a type via a derived type](https://confluence.jetbrains.com/pages/viewpage.action?pageId=37232484)

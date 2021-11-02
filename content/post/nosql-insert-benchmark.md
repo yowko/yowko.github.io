@@ -1,12 +1,13 @@
 ---
 title: "[Benchmark] 使用 C# 對 NoSQL insert 操作的效能數據"
 date: 2019-02-24T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
-tags: ["C#","MongoDB","Cassandra","NoSQL"]
+tags: ["csharp","MongoDB","Cassandra","NoSQL"]
 slug: "nosql-insert-benchmark"
 ---
-# [Benchmark] 使用 C# 對 NoSQL insert 操作的效能數據
+## [Benchmark] 使用 C# 對 NoSQL insert 操作的效能數據
+
 最近專案需要將收到的原始 request 內容直接儲存下來，以備日後有問題或是後續加工使用。
 
 針對這類只有 insert 跟 select 操作的需要，過去大多透過 MongoDB 做為儲存媒介，但幾次使用下來對於 c# 操作 MongoDB 的 api 始終覺得不太順手，加上後來陸續看了些效能比較的數據， MongoDB 似乎沒有佔到優勢，所以想趁著這次機會試用 Cassandra , PostgreSQL , ArangoDB , RavenDB , CouchDB ，不過想要說服自己或是團隊改用其他技術最重要的莫過於執行效率了，於是老話一句：天下武功唯快不破，就直接來看看模擬實際情境透過 c# 來進行 insert data 的效能數據吧
@@ -14,6 +15,7 @@ slug: "nosql-insert-benchmark"
 因為這次開發的系統目標 concurrent user 及操作量很大，所以可以預見 log 數量也會有相當的級別，因此想要先測試 insert 的效能，先扛得住寫入再來想後續讀取的問題
 
 ## 基本環境說明
+
 1. macOS Mojave 10.14.2
 2. intel i5 2.3G
 3. 16 GB 2133 MHz Ram
@@ -38,6 +40,7 @@ slug: "nosql-insert-benchmark"
         public decimal CurrentSalary { get; set; }
     }
     ```
+
 9. Bogus 套件製造假資料
 
     ```cs
@@ -55,6 +58,7 @@ slug: "nosql-insert-benchmark"
     ```
 
 ## NoSQL 測試語法
+
 ### MongoDB
 
 1. 環境建立流程及使用可以參考 [使用 C# 存取 MongoDB](/csharp-mangodb/)
@@ -69,6 +73,7 @@ slug: "nosql-insert-benchmark"
 
     await collection.InsertManyAsync(fakesUsers);
     ```
+
 3. 數據
 
     |        Method |   Times |          Mean |      Error |     StdDev |        Median |
@@ -76,7 +81,6 @@ slug: "nosql-insert-benchmark"
     | MongoDbInsert |     100 |      4.824 ms |  0.2087 ms |  0.6087 ms |      4.648 ms |
     | MongoDbInsert |   10,000 |    111.686 ms |  2.2250 ms |  2.3807 ms |    111.603 ms |
     | MongoDbInsert | 1,000,000 | 10,725.614 ms | 65.2694 ms | 61.0531 ms | 10,727.612 ms |
-
 
 ### Cassandra
 
@@ -106,6 +110,7 @@ slug: "nosql-insert-benchmark"
         session.Execute(batch);
     }
     ```
+
 3. 數據
 
     |          Method |   Times |          Mean |        Error |       StdDev |
@@ -130,6 +135,7 @@ slug: "nosql-insert-benchmark"
         await db.BulkInsertAsync(userList.ToArray());
     }
     ```
+
 3. 數據
 
     |     Method |   Times |          Mean |         Error |       StdDev |
@@ -159,6 +165,7 @@ slug: "nosql-insert-benchmark"
         }
     }
     ```
+
 3. 數據
 
     |     Method |   Times |          Mean |        Error |     StdDev |
@@ -166,7 +173,6 @@ slug: "nosql-insert-benchmark"
     | InsertTest |     100 |      44.04 ms |     1.477 ms |   4.332 ms |
     | InsertTest |   10,000 |   1,066.53 ms |    21.480 ms |  43.877 ms |
     | InsertTest | 1,000,000 | 102,426.60 ms | 1,157.901 ms | 966.900 ms |
-
 
 ### ArangoDB
 
@@ -192,6 +198,7 @@ slug: "nosql-insert-benchmark"
         }
     }
     ```
+
 3. 數據
 
     |     Method |   Times |      Mean |     Error |    StdDev |    Median |
@@ -199,7 +206,6 @@ slug: "nosql-insert-benchmark"
     | InsertTest |     100 |  15.24 ms |  1.369 ms |  3.927 ms |  14.02 ms |
     | InsertTest |   10,000 | 696.75 ms | 13.726 ms | 28.652 ms | 692.08 ms |
     | InsertTest | 1,000,000 |        NA |        NA |        NA |        NA |
-
 
 ### PostgreSQL
 
@@ -224,6 +230,7 @@ slug: "nosql-insert-benchmark"
         }
     }
     ```
+
 3. 數據
 
     |     Method |   Times |         Mean |       Error |      StdDev |       Median |
@@ -233,6 +240,7 @@ slug: "nosql-insert-benchmark"
     | InsertTest | 1,000,000 | 7,523.930 ms | 147.6126 ms | 220.9395 ms | 7,540.428 ms |
 
 ## 實際數據比較
+
 1. 100
 
     |     Method |   Mean |
@@ -266,7 +274,6 @@ slug: "nosql-insert-benchmark"
     |ArangoDB|<font style="color:red">NA</font>|
     |PostgreSQL -json|<font style="color:lightgreen">7,523.930 ms</font>|
 
-
 ## 心得
 
 為了選擇 NoSQL ，事前查過網路上的相關比較：[Cassandra vs. MongoDB vs. Couchbase vs. HBase](https://www.datastax.com/nosql-databases/benchmarks-cassandra-vs-mongodb-vs-hbase) 與 [NoSQL Performance Benchmark 2018: MongoDB, PostgreSQL, OrientDB, Neo4j and ArangoDB](https://dzone.com/articles/nosql-performance-benchmark-2018-mongodb-postgresq)，就相關文獻看來選擇 Cassandra 的機會相對較高，因此我們確實也使用 Cassandra 完成了 POC，但 POC 過程中發現 .NET client 有一些缺陷，其中最嚴重的幾個大資料操作 API：CQLSSTableWriter、sstableloader 並沒有實作，讓實際透過 C# 操作 Cassandra 時效能並不如宣稱中的優異
@@ -278,9 +285,10 @@ slug: "nosql-insert-benchmark"
 關於這次我堅持自行測試效能數據，我認為團隊應該使用自己熟悉的語言、環境、工具來進行 POC，便可以儘早反應出實際使用上的現象，以本次測試為例：datasax 跑出的 Cassandra 數據完全碾壓 MongoDB 但加上語言及 library 因素後結果卻完全不同
 
 ### 2019-03-01 補充
-以測試結果來看，PostgreSQL 的 insert 數據是最好的，但該使用哪套技術則不是單純由數據來可以下定論的，以我所在團隊為例：雖然知道 PostgreSQL 在 insert json 的速度最快，但最後選了第二名的 MongoDB, 主要是團隊多數成員都有 MongoDB 使用經驗，對於 PostgreSQL 則幾乎沒有，更遑論 PostgreSQL 的調校、HA 機制架設能力 
 
+以測試結果來看，PostgreSQL 的 insert 數據是最好的，但該使用哪套技術則不是單純由數據來可以下定論的，以我所在團隊為例：雖然知道 PostgreSQL 在 insert json 的速度最快，但最後選了第二名的 MongoDB, 主要是團隊多數成員都有 MongoDB 使用經驗，對於 PostgreSQL 則幾乎沒有，更遑論 PostgreSQL 的調校、HA 機制架設能力
 
-# 參考資料
+## 參考資料
+
 1. [Cassandra vs. MongoDB vs. Couchbase vs. HBase](https://www.datastax.com/nosql-databases/benchmarks-cassandra-vs-mongodb-vs-hbase)
 2. [NoSQL Performance Benchmark 2018: MongoDB, PostgreSQL, OrientDB, Neo4j and ArangoDB](https://dzone.com/articles/nosql-performance-benchmark-2018-mongodb-postgresq)

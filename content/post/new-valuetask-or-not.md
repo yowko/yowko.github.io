@@ -1,7 +1,7 @@
 ---
 title: "需要在 return 前自行 new ValueTask 嗎？"
 date: 2019-08-11T21:30:00+08:00
-lastmod: 2019-08-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["csharp"]
 slug: "new-valuetask-or-not"
@@ -47,7 +47,7 @@ slug: "new-valuetask-or-not"
     }
     ```
 
-## IL - Intermediate Language 
+## IL - Intermediate Language
 
 先說個人發現，有興趣的朋友可以再看看詳細 IL 內容
 
@@ -884,6 +884,7 @@ slug: "new-valuetask-or-not"
     } // end of class ValueTaskResearch.Program
 
     ```
+
      </p>
     </details>
 
@@ -891,7 +892,7 @@ slug: "new-valuetask-or-not"
 
     <details><summary>Collapse or Expand</summary>
     <p>
-    
+
     ```txt
     // Type: ValueTaskResearch.Program 
     // Assembly: ValueTaskResearch, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -1138,6 +1139,7 @@ slug: "new-valuetask-or-not"
     } // end of method Program::'<Main>'
     } // end of class ValueTaskResearch.Program
     ```
+
     </p>
     </details>
 

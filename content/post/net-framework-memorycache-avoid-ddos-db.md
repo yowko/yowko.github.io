@@ -3,7 +3,7 @@ title: "使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Par
 date: 2017-01-31T00:42:34+08:00
 lastmod: 2021-08-18T00:42:34+08:00
 draft: false
-tags: ["C#","Cache"]
+tags: ["csharp","Cache"]
 slug: "net-framework-memorycache-2"
 aliases:
     - /2017/01/net-framework-memorycache-avoid-ddos-db.html
