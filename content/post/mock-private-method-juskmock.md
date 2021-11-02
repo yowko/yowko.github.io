@@ -1,15 +1,16 @@
 ---
 title: "如何 Mock Private Method 的回傳值 - 使用 JuskMock"
 date: 2017-07-10T01:00:00+08:00
-lastmod: 2020-12-11T22:41:58+08:00
+lastmod: 2021-11-02T22:41:58+08:00
 draft: false
 tags: ["套件","MSTest","Unit Test"]
 slug: "mock-private-method-juskmock"
 aliases:
     - /2017/07/mock-private-method-juskmock.html
 ---
-# 如何 Mock Private Method 的回傳值 - 使用 JuskMock
-前一篇筆記 [使用 Moq 來 Mock protected Method](/2017/07/moq-mock-protected-method.html) 文末心得中提到傳言中付費的 mock framewrok 號稱無論是什麼狀況都能 mock，想說改天要找個機會來測試一下，結果自己忍不住好奇心，立馬測試了起來 XD
+## 如何 Mock Private Method 的回傳值 - 使用 JuskMock
+
+前一篇筆記 [使用 Moq 來 Mock protected Method](/moq-mock-protected-method) 文末心得中提到傳言中付費的 mock framewrok 號稱無論是什麼狀況都能 mock，想說改天要找個機會來測試一下，結果自己忍不住好奇心，立馬測試了起來 XD
 
 就來看看該如何使用 JustMock 來 mock private method 吧
 
@@ -51,23 +52,23 @@ public class ValuesController : ApiController
 
 ## 撰寫測試程式
 
-1.  安裝 JustMock - [下載點](https://www.telerik.com/download-trial-file/v2/justmock)
-2.  引用 namespace
+1. 安裝 JustMock - [下載點](https://www.telerik.com/download-trial-file/v2/justmock)
+2. 引用 namespace
 
     ```cs
     using Telerik.JustMock;
     ```
 
-3.  啟用 JustMock
-    *   Visual Studio 主選單 JustMock --> Enable Profiler
+3. 啟用 JustMock
+    * Visual Studio 主選單 JustMock --> Enable Profiler
 
         ![1enable](https://user-images.githubusercontent.com/3851540/28023469-9458239a-65c0-11e7-835a-b95a1e2e0a74.png)
 
-    *   未啟用錯誤訊息
+    * 未啟用錯誤訊息
 
-        - 訊息內容
-            
-            ``` 
+        * 訊息內容
+
+            ```log
             Test Name: Get_StringEmpty_BadRequestResult
             Test FullName: UnitTestStaticField.Controllers.Tests.ValuesControllerTests.Get_StringEmpty_BadRequestResult
             Test Source: C:\Users\YowkoTsai\documents\visual studio 2017\Projects\UnitTestStaticField\UnitTestStaticFieldMTests\Controllers\ValuesControllerTests.cs : line 111
@@ -87,28 +88,29 @@ public class ValuesController : ApiController
             Test method UnitTestStaticField.Controllers.Tests.ValuesControllerTests.Get_StringEmpty_BadRequestResult threw exception: 
             Telerik.JustMock.Core.ElevatedMockingException: Cannot mock 'Boolean detectStringEmpty(System.String)'. The profiler must be enabled to mock, arrange or execute the specified target.
             ```
-        - 錯誤截圖
-            
+
+        * 錯誤截圖
+
             ![2error](https://user-images.githubusercontent.com/3851540/28023471-94849434-65c0-11e7-8af1-df5a6364bd09.png)
 
-4.  arrange
-    *   使用 JuskMock 語法 mock 測試目標
+4. arrange
+    * 使用 JuskMock 語法 mock 測試目標
 
-        ```
+        ```cs
         var target = Mock.Create<ValuesController>();
         ```
 
-    *   使用 JuskMock 語法 mock 測試目標方法回傳值
+    * 使用 JuskMock 語法 mock 測試目標方法回傳值
 
-        >*   重點 一：non-public 的 member 需使用 `NonPublic` api
-        >*   重點 二：執行目標方法具有回傳值，Arrange 要使用泛型版本並指定回傳型別
-        >*   重點 三：其他用法請參考官方文件 [Mocking Non-public Members and Types](http://docs.telerik.com/help/justmock/advanced-usage-mocking-non-public-members-and-types.html)
+        >* 重點 一：non-public 的 member 需使用 `NonPublic` api
+        >* 重點 二：執行目標方法具有回傳值，Arrange 要使用泛型版本並指定回傳型別
+        >* 重點 三：其他用法請參考官方文件 [Mocking Non-public Members and Types](http://docs.telerik.com/help/justmock/advanced-usage-mocking-non-public-members-and-types.html)
 
         ```cs
         Mock.NonPublic.Arrange<bool>(target, "detectStringEmpty", new object[] { string.Empty }).Returns(true);
         ```
 
-    *   通知 JuskMock 需執行原測試目標方法
+    * 通知 JuskMock 需執行原測試目標方法
 
         > 如果不加上 `.CallOriginal()` 會執行 JustMock 建立出來的 instance 方法，結果會跟預期完全不同，要特別留意
 
@@ -116,38 +118,40 @@ public class ValuesController : ApiController
         Mock.Arrange(() => target.Get(string.Empty)).CallOriginal();
         ```
 
-    *   定義預期結果
+    * 定義預期結果
 
         ```cs
         var expected = typeof(BadRequestResult);
         ```
 
-5.  act
-    *   執行測試目標程式方法
+5. act
+    * 執行測試目標程式方法
 
         ```cs
         var actualAction = target.Get(string.Empty);
         ```
 
-    *   將實際執行結果轉型為預期的 `BadRequestResult`
+    * 將實際執行結果轉型為預期的 `BadRequestResult`
 
         ```cs
         var actual = actualAction as BadRequestResult;
         ```
 
-6.  assert
+6. assert
 
-    *   檢查執行結果不能是 null
+    * 檢查執行結果不能是 null
 
         ```cs
         Assert.IsNotNull(actual);
         ```
-    *   驗證執行結果是否與預期相符
+
+    * 驗證執行結果是否與預期相符
 
         ```cs
         Assert.IsInstanceOfType(actual, expected);
         ```
-7.  完整程式碼
+
+7. 完整程式碼
 
     ```cs
     [TestMethod()]
@@ -172,19 +176,20 @@ public class ValuesController : ApiController
 
 使用 JustMock 的確達成我理想中完全不需調整測試目標程式的概念，但要不要實際採用 JustMock，我個人倒是持保留態度，原因詳述如下：
 
-1.  速度慢
+1. 速度慢
 
     > 執行測試時明顯感受到執行速度比未使用 JustMock 的版本緩慢，我自己測試下來常常超過 500 ms，而且偵錯時會慢更多，這會讓整個開發效率降低而不利測試程式的開發
 
-2.  價格不斐
+2. 價格不斐
 
     > 如果是只購買 JustMock 一個人是 399 美金，我沒看到時間限制應該是買斷的，如果有助於整體開發這錢絕點值得花，但軟體的導入需要配合其他團隊成員及 CI server，這樣一來就不是想用自己買就可以解決的了
 
 排除上述原因，JustMock 真的非常方便，尤其在面對 legacy code 時，讓開發人員可以專心在測試程式的撰寫上，而不需分心想著該如何重構才能讓程式具備可測試性，對於測試程式的開發實在是一大利器
 
-# 參考資訊
-1.  [使用 Moq 來 Mock protected Method](/2017/07/moq-mock-protected-method.html)
-2.  [JustMock](http://www.telerik.com/products/mocking.aspx)
-3.  [JustMock Lite](http://www.telerik.com/justmock/free-mocking)
-4.  [Telerik JustMock Documentation](http://docs.telerik.com/help/justmock/introduction.html)
-5.  [Mocking Non-public Members and Types](http://docs.telerik.com/help/justmock/advanced-usage-mocking-non-public-members-and-types.html)
+## 參考資訊
+
+1. [使用 Moq 來 Mock protected Method](/moq-mock-protected-method)
+2. [JustMock](http://www.telerik.com/products/mocking.aspx)
+3. [JustMock Lite](http://www.telerik.com/justmock/free-mocking)
+4. [Telerik JustMock Documentation](http://docs.telerik.com/help/justmock/introduction.html)
+5. [Mocking Non-public Members and Types](http://docs.telerik.com/help/justmock/advanced-usage-mocking-non-public-members-and-types.html)

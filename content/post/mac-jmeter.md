@@ -1,7 +1,7 @@
 ---
 title: "在 Mac 上安裝 JMeter"
 date: 2019-08-28T21:30:00+08:00
-lastmod: 2019-08-28T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["JMeter"]
 slug: "mac-jmeter"
@@ -38,7 +38,7 @@ slug: "mac-jmeter"
 
     > 會自動加入環境變數，不用指定執行路徑
 
-* 順利啟動
+3. 順利啟動
 
     ![jmeter](https://user-images.githubusercontent.com/3851540/63869019-126a5700-c9ea-11e9-9b08-3d4b366f73f0.png)
 

@@ -1,7 +1,7 @@
 ---
 title: "在 Docker for Mac 啟用 Kubernetes 後安裝 Helm"
 date: 2019-12-22T10:30:00+08:00
-lastmod: 2020-12-11T10:30:31+08:00
+lastmod: 2021-11-02T10:30:31+08:00
 draft: false
 tags: ["macOS","Tools","Helm","Kubernetes","Docker"]
 slug: "docker-mac-kubernetes-helm"
@@ -33,17 +33,17 @@ slug: "docker-mac-kubernetes-helm"
 
     > 詳細內容可以參考之前筆記 [使用 Homebrew 安裝舊版 Helm](/brew-install-specific-version-helm)
 
-    - 取得版本列表
+  - 取得版本列表
 
-        ```bash
-        brew search helm@
-        ```
+    ```bash
+    brew search helm@
+    ```
 
-    - 安裝指定版本 `helm@2`
+  - 安裝指定版本 `helm@2`
 
-        ```bash
-        brew install helm@2
-        ```
+    ```bash
+    brew install helm@2
+    ```
 
 ## 錯誤排除
 

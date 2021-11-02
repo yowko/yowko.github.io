@@ -1,7 +1,7 @@
 ---
 title: "找不到 roslyn\\csc.exe ?！"
 date: 2017-07-24T23:45:00+08:00
-lastmod: 2018-09-24T23:44:30+08:00
+lastmod: 2021-11-02T23:44:30+08:00
 draft: false
 tags: ["Debug"]
 slug: "missing-roslyn-csc"
@@ -9,14 +9,15 @@ aliases:
     - /2017/07/missing-roslyn-csc.html
     - /2017/07/missing-roslyn
 ---
-# 找不到 roslyn\csc.exe ?！
+## 找不到 roslyn\csc.exe ?！
+
 今天在整合 Jenkins 跟新的 ASP.NET Web Api 專案時，一如往常流暢地完成設定，過程中該卡的一樣也沒漏掉：application pool 要從 .net 2 改為 .net 4、要啟用 32 bit 相容....，但今天卻多了個不常見的錯誤：找不到 roslyn\csc.exe 檔案，印象中也發生過，今天又遇到了就該紀錄一下
 
 ## 錯誤訊息
 
-*   訊息內容
+* 訊息內容
 
-    ```
+    ```log
     Could not find a part of the path 'C:\WebAPI\bin\roslyn\csc.exe'. 
     
     Server Error in '/' Application.
@@ -54,14 +55,14 @@ aliases:
     System.Web.HttpRuntime.ProcessRequestNotificationPrivate(IIS7WorkerRequest wr, HttpContext context) +254
     ```
 
-*   錯誤訊息截圖
+* 錯誤訊息截圖
 
     ![1error](https://user-images.githubusercontent.com/3851540/28531349-2e9f0302-70c9-11e7-86e0-105fdecfd3d0.png)
 
 ## 解決方法
 
-1.  設定 `AfterBuild` 事件
-    *   修改 `.csproj`
+1. 設定 `AfterBuild` 事件
+    * 修改 `.csproj`
 
         ```xml
         <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
@@ -73,15 +74,15 @@ aliases:
         </Target>
         ```
 
-    *   將 `csc.exe` 複製至正確位置
+    * 將 `csc.exe` 複製至正確位置
 
-2.  移除 NuGet 套件
+2. 移除 NuGet 套件
 
     > 如果確認沒有使用到 Roslyn 相關功能，移除 Roslyn 相關套件是比較快的做法
 
-    *   `Microsoft.Net.Compilers`
-    *   `Microsoft.CodeDom.Providers.DotNetCompilerPlatform`
-    *   移除 web.config 相關定義
+    * `Microsoft.Net.Compilers`
+    * `Microsoft.CodeDom.Providers.DotNetCompilerPlatform`
+    * 移除 web.config 相關定義
 
         ```xml
         <system.codedom>
@@ -98,8 +99,8 @@ aliases:
 
 仍然歸納不出問題發生的條件，似乎只有某些條件下才會出現這個錯誤，只能期待下次手氣好一點可以找到問題發生原因
 
-# 參考資訊
+## 參考資訊
 
-1.  [Could not find a part of the path … bin\roslyn\csc.exe](https://stackoverflow.com/questions/32780315/could-not-find-a-part-of-the-path-bin-roslyn-csc-exe)
-2.  [Publish website without roslyn](https://stackoverflow.com/questions/32282880/publish-website-without-roslyn)
-3.  [Enabling the .NET Compiler Platform (「Roslyn」) in ASP.NET applications](https://blogs.msdn.microsoft.com/webdev/2014/05/12/enabling-the-net-compiler-platform-roslyn-in-asp-net-applications/)
+1. [Could not find a part of the path … bin\roslyn\csc.exe](https://stackoverflow.com/questions/32780315/could-not-find-a-part-of-the-path-bin-roslyn-csc-exe)
+2. [Publish website without roslyn](https://stackoverflow.com/questions/32282880/publish-website-without-roslyn)
+3. [Enabling the .NET Compiler Platform (「Roslyn」) in ASP.NET applications](https://blogs.msdn.microsoft.com/webdev/2014/05/12/enabling-the-net-compiler-platform-roslyn-in-asp-net-applications/)

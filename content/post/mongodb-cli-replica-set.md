@@ -1,7 +1,7 @@
 ---
 title: "MongoDB Cli Replica Set 連線方式"
 date: 2020-05-09T21:30:00+08:00
-lastmod: 2020-05-09T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["MongoDB"]
 slug: "mongodb-cli-replica-set"
@@ -26,7 +26,7 @@ slug: "mongodb-cli-replica-set"
 
 ## 問題與解決方式
 
-- 問題：未使用 replica set 來連線 failover 後無法正常執行
+1. 問題：未使用 replica set 來連線 failover 後無法正常執行
 
     - 連線方式：指定 `host` 與 `port`
 
@@ -38,18 +38,18 @@ slug: "mongodb-cli-replica-set"
 
         ```txt
         2020-05-09T22:47:22.603+0800 E  QUERY    [js] uncaught exception: Error: listDatabases failed:{
-        	"operationTime" : Timestamp(1589035642, 1),
-        	"ok" : 0,
-        	"errmsg" : "not master and slaveOk=false",
-        	"code" : 13435,
-        	"codeName" : "NotMasterNoSlaveOk",
-        	"$clusterTime" : {
-        		"clusterTime" : Timestamp(1589035642, 1),
-        		"signature" : {
-        			"hash" : BinData(0, "AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
-        			"keyId" : NumberLong(0)
-        		}
-        	}
+            "operationTime" : Timestamp(1589035642, 1),
+            "ok" : 0,
+            "errmsg" : "not master and slaveOk=false",
+            "code" : 13435,
+            "codeName" : "NotMasterNoSlaveOk",
+            "$clusterTime" : {
+                "clusterTime" : Timestamp(1589035642, 1),
+                "signature" : {
+                    "hash" : BinData(0, "AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                    "keyId" : NumberLong(0)
+                }
+            }
         } :
         ```
 
@@ -57,7 +57,7 @@ slug: "mongodb-cli-replica-set"
 
         ![1error](https://user-images.githubusercontent.com/3851540/81478816-3d33cd00-9252-11ea-8d18-975e912231b7.jpg)
 
-- 解決方式：使用完整連線字串
+2. 解決方式：使用完整連線字串
 
     - 連線方式
 

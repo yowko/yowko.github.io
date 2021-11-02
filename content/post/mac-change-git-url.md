@@ -1,7 +1,7 @@
 ---
 title: "快速更換 mac 中的所有 git repository 位置"
 date: 2020-12-22T21:30:00+08:00
-lastmod: 2020-12-22T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["macOS","git"]
 slug: "mac-change-git-url"
@@ -38,15 +38,15 @@ slug: "mac-change-git-url"
   
     > `sed -i` 在 mac 上有基本的保護機制：修改檔案前需要先做備份，但備份檔可以給空字串，這就是上述語法 `sed -i` 接著是 `""` 的原因
 
-    - 錯誤訊息
+  - 錯誤訊息
 
-        ```bash
-        sed: 1: ".git/config": invalid command code .
-        ```
+    ```bash
+    sed: 1: ".git/config": invalid command code .
+    ```
 
-    - 錯誤截圖
+  - 錯誤截圖
 
-        ![1error](https://user-images.githubusercontent.com/3851540/102957393-4473c680-4515-11eb-9689-551787ba0573.png)
+    ![1error](https://user-images.githubusercontent.com/3851540/102957393-4473c680-4515-11eb-9689-551787ba0573.png)
 
 ## 心得
 

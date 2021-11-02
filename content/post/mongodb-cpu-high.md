@@ -1,7 +1,7 @@
 ---
 title: "MongoDB CPU High 問題追查紀錄"
 date: 2019-08-04T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["MongoDB","Performance Tuning"]
 slug: "mongodb-cpu-high"
@@ -41,7 +41,7 @@ slug: "mongodb-cpu-high"
 2. 使用 `explain` 進行分析
 
     >`explain` 提供查詢資訊、使用索引以及查詢統計... 可以幫助釐清 command 在 MongoDB 中執行可能採用的執行計劃以利進一步的索引調校
-    
+
     - 以下使用個人錄到的 command 為例
 
         ```json
@@ -73,7 +73,7 @@ slug: "mongodb-cpu-high"
 
         > 連線至 MongoDB 執行，以下指令用來分析 `update` MongoDB 的操作，其中 explain 中的 `update` 為目標 collection 名稱，`updates` 則為欲分析的 script
 
-        ```
+        ```js
         db.runCommand(
         {
             explain: {
@@ -111,7 +111,7 @@ slug: "mongodb-cpu-high"
 
     ![1explain](https://user-images.githubusercontent.com/3851540/62425001-bffa8b00-b708-11e9-9262-d5f92fe33576.png)
 
-    上圖中的 winningPlan 為指令分析後產生出最適合的執行計劃，操作 (stage) 為 `UPDATE`，而問題的徵結就出現在 inputStage (child stage) 中，可以看到 inputStage 採用 `COLLSCAN` (full collection scan) 
+    上圖中的 winningPlan 為指令分析後產生出最適合的執行計劃，操作 (stage) 為 `UPDATE`，而問題的徵結就出現在 inputStage (child stage) 中，可以看到 inputStage 採用 `COLLSCAN` (full collection scan)
 
 4. 解決方式
 

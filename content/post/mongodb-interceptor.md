@@ -3,7 +3,7 @@ title: "取得 MongoDB SDK 實際產生的指令"
 date: 2019-08-03T21:30:00+08:00
 lastmod: 2020-12-11T21:30:31+08:00
 draft: false
-tags: ["C#","MongoDB"]
+tags: ["csharp","MongoDB"]
 slug: "mongodb-interceptor"
 ---
 

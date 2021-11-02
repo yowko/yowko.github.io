@@ -1,7 +1,7 @@
 ---
 title: "MSTest,NUnit 3,xUnit.net 2.0 比較"
 date: 2017-02-15T01:42:34+08:00
-lastmod: 2018-09-12T00:42:34+08:00
+lastmod: 2021-11-02T00:42:34+08:00
 draft: false
 tags: ["Unit Test","MSTest","NUnit","xUnit"]
 slug: "mstest-nunit-xunit"
@@ -9,12 +9,14 @@ aliases:
     - /2017/02/MStest-NUnit3-xUnit.net2-Compare.html
     - /2017/02/mstest-nunit-xunit/
 ---
-# MSTest,NUnit 3,xUnit.net 2.0 比較
+## MSTest,NUnit 3,xUnit.net 2.0 比較
+
 最近新專案期望使用較多的測試來保障程式品質，所以又到了要選擇相關工具的時候，首先遇到的就是測試框架 (Test Framework)：MSTest,NUnit 3,xUnit.net 2.0 是比較常見的三套，尤其又以 MSTest,NUnit 3 較多人使用，雖然主要功能差不多，但終究在語法上有差異，團隊使用還是得統一，所以就來做個不負責任比較XD 本來考慮要把 MSTest 加進來比的  但還在 preview 好像不太準，也許再過幾個月再來比一次吧@@"
 
 ## 語法比較 - Attributes
+
 <span style="color:red">我自己整理的比較表如下，如果有錯誤，還請各位大大指導，謝謝</span>
-    
+
 MSTest (v1)|NUnit 3|xUnit.net 2.x|Comments
 :---|:---|:---|:---
 [AssemblyCleanup]|n/a|n/a|識別方法，該方法包含組件中的所有測試都執行完畢後，為釋放此組件所佔用資源而要使用的程式碼。
@@ -53,7 +55,7 @@ n/a|[LevelOfParallelism]|n/a|平行測試的 thread 數，組件層級的 attrib
 n/a|[Maxtime]|n/a|指定測試最大可以執行時間(單位：毫秒)，超出時間即為失敗，仍會執行結束
 n/a|[Pairwise]|n/a|會產生所有參數的兩兩對應測試組合;combinatorial 適用於兩組參數,PairwiseAttribute 則適用於兩組以上
 n/a|[Parallelizable]|n/a|用來標示哪些測試要平行執行(會影響下層),可以指定影響範圍 (None-不使用平行執行;Self-自己與其他測試使用平行執行;Choldren-所屬下層測試使用平行測試;Fixture-使用平行測試);ParallelScope.Self 是預設值;並未實作於 method 這層(ParallelizableAttribute 套用在 method 上會被忽略);ParallelScope.Children 與 ParallelScope.Fixtures 功能相同
-n/a|[Platform]|n/a|用來指定測試的平台，詳細清單可以參考 https://github.com/nunit/docs/wiki/Platform-Attribute
+n/a|[Platform]|n/a|用來指定測試的平台，詳細清單可以參考 [nunit GitHub](https://github.com/nunit/docs/wiki/Platform-Attribute)
 n/a|[Random]|n/a|產生隨機參數來測試
 n/a|[Range]|n/a|將範圍內所有可能參數代入測試
 n/a|[RequiresThread]|n/a|以獨立的 thread 來執行測試
@@ -70,6 +72,7 @@ n/a|[Values]|n/a|為測試方法指定參數-用在描述 method 的參數
 n/a|[ValueSource]|n/a|先定義參數資料，再指定給 method 來進行測試，可以給自訂型別 - 用在描述 method 的參數
 
 ## 語法比較 - Assertions
+
 <span style="color:red">我自己整理的比較表如下，如果有錯誤，還請各位大大指導，謝謝</span>
 
 MSTest (v1)|NUnit 3|xUnit.net 2.x
@@ -130,26 +133,30 @@ n/a|n/a|ThrowsAny
 n/a|n/a|ThrowsAnyAsync
 
 ## 執行速度
-使用微軟官方範例，利用三個 test framewrok 進行兩個測試 
+
+使用微軟官方範例，利用三個 test framewrok 進行兩個測試
+
 1. 直接丟出驗證失敗
 2. 驗證值是否與預期相符
 
 - 測試 source code 請參考 [GitHub](https://github.com/yowko/MStest_NUnit_xUnit.net_Compare)
 
 - 測試結果如下
-    
+
     ![speedcompare](https://cloud.githubusercontent.com/assets/3851540/22892853/ec8c16e2-f24e-11e6-8b30-2cf20682a861.png)
 
 ## 其他功能
+
 - 有些網路文章都提到 NUnit 及 xUnit 的功能比較多，但我沒真的用過，實在無法比較，就請各位大大指導了
 
 ## 心得
+
 NUnit 功能明顯多上不少，xUnit.net 的文件非常難找而且速度與 Test Explorer 的顯示都相對比較弱些，最後我選了 MSTest ，功能面透過 Visual Studio 的強化再加上套件的輔助已經足夠，但如同我前面提到的，我用到的功能不多就是了
 
 上面整理的比較表也整理上 GitHub , 請參考 [MStest_NUnit_xUnit.net_Compare](https://github.com/yowko/MStest_NUnit_xUnit.net_Compare)
 
+## 參考資料
 
-# 參考資料
 1. [Comparing xUnit.net to other frameworks](http://xunit.github.io/docs/comparisons.html)
 2. [Microsoft.VisualStudio.TestTools.UnitTesting 命名空間](https://msdn.microsoft.com/zh-tw/library/microsoft.visualstudio.testtools.unittesting.aspx)
 3. [NUnit Attibutes](https://github.com/nunit/docs/wiki/Attributes)

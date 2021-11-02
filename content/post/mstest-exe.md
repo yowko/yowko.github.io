@@ -1,18 +1,18 @@
 ---
 title: "使用 MSTest.exe 指令來進行測試"
 date: 2017-06-22T23:12:00+08:00
-lastmod: 2018-09-23T16:11:41+08:00
+lastmod: 2021-11-02T16:11:41+08:00
 draft: false
 tags: ["MSTest","Unit Test","Visual Studio"]
 slug: "mstest-exe"
 aliases:
     - /2017/06/mstest-exe.html
 ---
-# 使用 MSTest.exe 指令來進行測試
+## 使用 MSTest.exe 指令來進行測試
+
 MSTest.exe 是用於執行 MSTest 測試的命令列命令，功能與 Nunit-console 相同，都是用來讓我們在沒有 Visual Studio 的情境下可以執行測試，像是 CI Server，就讓我們來看看 MSTest.exe 的相關可用參數吧
 
 ## 一般參數
-
 
 |參數|說明|使用方式|
 |--- |--- |--- |
@@ -30,12 +30,9 @@ MSTest.exe 是用於執行 MSTest 測試的命令列命令，功能與 Nunit-con
 |/nologo|不顯示程式啟始資訊及著作權訊息|/nologo|
 |/usestderr|使用標準錯誤來輸出錯誤資訊|/usestderr|
 
-
-
 ## 輸出結果參數
 
 > 必需是 Visual Studio Ultimate 或 Visual Studio Premium 以上版本，且需搭配 Team Foundation Server
-
 
 |參數|說明|使用方式|
 |--- |--- |--- |
@@ -46,53 +43,52 @@ MSTest.exe 是用於執行 MSTest 測試的命令列命令，功能與 Nunit-con
 |/platform:{platform}|指定要發行其測試結果之 build 的平台|/platform:AnyCPU or /platform:x86|
 |/flavor:{flavor}|指定要發行其測試結果之 build 的類別|/flavor:debug or /flavor:retail|
 
-
 ## 檔案位置
 
-1.  Visual Studio 2015
+1. Visual Studio 2015
 
     > `%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\Common7\IDE\MSTest.exe`
 
-    *   之前版本只差在版號而已
+    * 之前版本只差在版號而已
 
-2.  Visual Studio 2017 - Enterprise
+2. Visual Studio 2017 - Enterprise
 
     > `%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\MSTest.exe`
 
-    *   要留意 VS 的版本
+    * 要留意 VS 的版本
 
         ![4mstest](https://user-images.githubusercontent.com/3851540/27441097-1f4b8fe4-579f-11e7-9628-55e965a41c3c.png)
 
 ## 執行時出現錯誤訊息
 
-1.  訊息內容
+1. 訊息內容
 
     >Index was outside the bounds of the array.
-    
+
 2. 錯誤截圖
-    
+
     ![5mismatch](https://user-images.githubusercontent.com/3851540/27441098-1f77fc82-579f-11e7-83cb-d271a32f7144.png)
 
-##  問題發生原因
+## 問題發生原因
 
 > 測試對象所使用的 mstest 版本與現在執行的 mstest 版本不一致
 
-*   需要留意的是 Visual Studio 2017 新加入的 MSTestV2 無法使用 Visual Studio 2017 所帶的 mstest.exe 進行測試
+* 需要留意的是 Visual Studio 2017 新加入的 MSTestV2 無法使用 Visual Studio 2017 所帶的 mstest.exe 進行測試
 
 ## 心得
 
 相關文件最新版本已經是 Visual Studio 2013，沒有找到 Visual Studio 2015 或是 Visual Studio 2017 的版本，Visual Studio 2015 還 OK，使用上沒什麼不同的，但對於 Visual Studio 2017 就比較有問題
 
-1.  檔案位置變了
+1. 檔案位置變了
 
     > 還算好找
 
-2.  MSTestV2 測試
+2. MSTestV2 測試
 
     > 目前測試功能尚未支援，有使用到的朋友要特別留意
 
-# 參考資訊
+## 參考資訊
 
-1.  [MSTest.exe command-line options](https://msdn.microsoft.com/en-us/library/ms182489.aspx)
-2.  [Command-Line options for publishing test results](https://msdn.microsoft.com/en-us/library/ms243151.aspx)
-3.  [Why am I getting 「Index was outside the bounds of the array」 when running mstest.exe on the commandline?](https://stackoverflow.com/questions/7285268/why-am-i-getting-index-was-outside-the-bounds-of-the-array-when-running-mstest)
+1. [MSTest.exe command-line options](https://msdn.microsoft.com/en-us/library/ms182489.aspx)
+2. [Command-Line options for publishing test results](https://msdn.microsoft.com/en-us/library/ms243151.aspx)
+3. [Why am I getting 「Index was outside the bounds of the array」 when running mstest.exe on the commandline?](https://stackoverflow.com/questions/7285268/why-am-i-getting-index-was-outside-the-bounds-of-the-array-when-running-mstest)

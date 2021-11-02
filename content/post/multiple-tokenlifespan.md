@@ -1,24 +1,24 @@
 ---
 title: "ASP.NET Identity 如何依據不同用途設定個別 Token 時效"
 date: 2018-04-03T01:04:00+08:00
-lastmod: 2020-12-11T01:04:26+08:00
+lastmod: 2021-11-02T01:04:26+08:00
 draft: false
 tags: ["ASP.NET Identity"]
 slug: "multiple-tokenlifespan"
 aliases:
     - /2018/04/multiple-tokenlifespan.html
 ---
-# ASP.NET Identity 如何依據不同用途設定個別 Token 時效
-之前曾經筆記中 [改 ASP.NET Identity 2 的 Token 時效](/2017/12/aspnet-identity-2-token-lifetime.html) 紀錄到 ASP.NET Identity 預設的 token 時效及調整方式。在專案實際使用時，user 提出其他需求：依不同功能別而有不同的 token 時效，例：註冊新帳號 - 確認 E-mail 的時效為 24 小時；忘記密碼 - 重設密碼的時效為 15 分鐘
+## ASP.NET Identity 如何依據不同用途設定個別 Token 時效
+
+之前曾經筆記中 [改 ASP.NET Identity 2 的 Token 時效](/aspnet-identity-2-token-lifetime) 紀錄到 ASP.NET Identity 預設的 token 時效及調整方式。在專案實際使用時，user 提出其他需求：依不同功能別而有不同的 token 時效，例：註冊新帳號 - 確認 E-mail 的時效為 24 小時；忘記密碼 - 重設密碼的時效為 15 分鐘
 
 針對這個需求，有好幾個可行方案閃過，但沒有實際驗證過誰也說不準能不能用，所以立馬來試試看囉
 
 ## Solution 1：建立不同的 UserManager
 
-1.  IdentityConfig.cs 新增 UserManager
+1. IdentityConfig.cs 新增 UserManager
 
-
-    *   新增內容 (與預設的 ApplicationUserManager 同級)
+    * 新增內容 (與預設的 ApplicationUserManager 同級)
 
         ```cs
         public class MailUserManager : UserManager<ApplicationUser>
@@ -45,7 +45,7 @@ aliases:
         }
         ```
 
-    *   完整檔案內容
+    * 完整檔案內容
 
         ```cs
         using System;
@@ -176,15 +176,14 @@ aliases:
         }
         ```
 
-2.  Startup.Auth.cs 設定建立上述新增的 UserManager
-    *   新增內容 (新增至 `ConfigureAuth` 方法中)
+2. Startup.Auth.cs 設定建立上述新增的 UserManager
+    * 新增內容 (新增至 `ConfigureAuth` 方法中)
 
         ```cs
         app.CreatePerOwinContext<MailUserManager>(MailUserManager.Create);
         ```
 
-
-    *   完整檔案內容
+    * 完整檔案內容
 
         ```cs
         using System;
@@ -254,8 +253,8 @@ aliases:
         }
         ```
 
-3.  在 controller 中建立新增的 UserManager
-    *   新增內容
+3. 在 controller 中建立新增的 UserManager
+    * 新增內容
 
         ```cs
         private MailUserManager _mailUserManager;
@@ -278,8 +277,8 @@ aliases:
         }
         ```
 
-4.  使用新增的 UserManager 做為產生 token 的物件
-    *   以 `Register` 為例
+4. 使用新增的 UserManager 做為產生 token 的物件
+    * 以 `Register` 為例
 
         ```cs
         [HttpPost]
@@ -311,7 +310,7 @@ aliases:
         }
         ```
 
-    *   對應的 `ConfirmEmail` 也需調整
+    * 對應的 `ConfirmEmail` 也需調整
 
         ```cs
         [AllowAnonymous]
@@ -328,8 +327,8 @@ aliases:
 
 ## Solution 2：擴充 UserManager 方法
 
-1.  IdentityConfig.cs 加入不同 `DataProtectorTokenProvider` 並新增自訂方法用來存取 token
-    *   新增內容至 `ApplicationUserManager` class 中
+1. IdentityConfig.cs 加入不同 `DataProtectorTokenProvider` 並新增自訂方法用來存取 token
+    * 新增內容至 `ApplicationUserManager` class 中
 
         ```cs
         private static Microsoft.AspNet.Identity.Owin.DataProtectorTokenProvider<ApplicationUser> tokenprovider;
@@ -361,7 +360,7 @@ aliases:
         }
         ```
 
-    *   修改 `Create` 方法，加入以下程式碼
+    * 修改 `Create` 方法，加入以下程式碼
 
         ```cs
         tokenprovider = new Microsoft.AspNet.Identity.Owin.DataProtectorTokenProvider<ApplicationUser>(options.DataProtectionProvider.Create("ASP.NET Identity"))
@@ -369,7 +368,8 @@ aliases:
             TokenLifespan = TimeSpan.FromMinutes(5)
         };
         ```
-    *   完整檔案內容
+
+    * 完整檔案內容
 
         ```cs
         using System;
@@ -510,8 +510,8 @@ aliases:
         }
         ```
 
-2.  調整 AccountController
-    *   以 ForgotPassword 為例
+2. 調整 AccountController
+    * 以 ForgotPassword 為例
 
         ```cs
         [HttpPost]
@@ -541,7 +541,7 @@ aliases:
         }
         ```
 
-    *   實際 ResetPassword 也需要調整
+    * 實際 ResetPassword 也需要調整
 
         ```cs
         [AllowAnonymous]
@@ -557,7 +557,7 @@ aliases:
 
 ## Solution 3：自訂 DataProtectorTokenProvider
 
-1.  新增 `DataProtectorTokenProviderEx.cs`
+1. 新增 `DataProtectorTokenProviderEx.cs`
 
     ```cs
     using System;
@@ -709,7 +709,7 @@ aliases:
     }
     ```
 
-2.  IdentityConfig.cs 使用自訂 DataProtectorTokenProvider - `DataProtectorTokenProviderEx`
+2. IdentityConfig.cs 使用自訂 DataProtectorTokenProvider - `DataProtectorTokenProviderEx`
 
     ```cs
     if (dataProtectionProvider != null)
@@ -719,31 +719,28 @@ aliases:
     }
     ```
 
-3.  AccountController 使用無需任何調整
-
+3. AccountController 使用無需任何調整
 
 ## 心得
 
 上述三種方式都可以達到針對不同目的設定個別的 token 時效，只是選擇上各有優缺點
 
-1.  Solution 1：建立不同的 UserManager
-    *   優點：最直覺
-    *   缺點：相同的 code 太多
+1. Solution 1：建立不同的 UserManager
+    * 優點：最直覺
+    * 缺點：相同的 code 太多
 
-2.  Solution 2：擴充 UserManager 方法
-    *   優點：Identity 底層升級不易受到影響
-    *   缺點：使用上容易出現混淆
+2. Solution 2：擴充 UserManager 方法
+    * 優點：Identity 底層升級不易受到影響
+    * 缺點：使用上容易出現混淆
 
-3.  Solution 3：自訂 DataProtectorTokenProvider
-    *   優點：使用角度完全不需調整
-    *   缺點：可能會與 Identity 核心脫鉤
-
-
+3. Solution 3：自訂 DataProtectorTokenProvider
+    * 優點：使用角度完全不需調整
+    * 缺點：可能會與 Identity 核心脫鉤
 
 第一種做法冗贅的 code 太多直接排除，而在 `擴充 UserManager` 與 `自訂 DataProtectorTokenProvider` 間，我個人選擇 `擴充 UserManager`，原因是讓專案變動的範圍限縮，UserManager 跟 AccountController 都是專案內容的一部份，本來就會異動及修改，而不另外自訂 `DataProtectorTokenProvider`，避免日後如果遇到需要 update Identity 版本時，得手動將異動內容套用到自訂的 DataProtectorTokenProvider 上，也可以降低團隊成員額外理解 `DataProtectorTokenProvider` 的難度
 
-# 參考資訊
+## 參考資訊
 
-1.  [ArtemAvramenko/DataProtectorTokenProviderEx.cs](https://gist.github.com/ArtemAvramenko/8f34ec8aac5c0fb6380871a18e69ffd8#file-dataprotectortokenproviderex-cs)
-2.  [AspNetIdentity/src/Microsoft.AspNet.Identity.Owin/DataProtectorTokenProvider.cs](https://github.com/aspnet/AspNetIdentity/blob/9c48993a446288032f9824633e6dae81257da06e/src/Microsoft.AspNet.Identity.Owin/DataProtectorTokenProvider.cs)
-3.  [改 ASP.NET Identity 2 的 Token 時效](/2017/12/aspnet-identity-2-token-lifetime.html)
+1. [ArtemAvramenko/DataProtectorTokenProviderEx.cs](https://gist.github.com/ArtemAvramenko/8f34ec8aac5c0fb6380871a18e69ffd8#file-dataprotectortokenproviderex-cs)
+2. [AspNetIdentity/src/Microsoft.AspNet.Identity.Owin/DataProtectorTokenProvider.cs](https://github.com/aspnet/AspNetIdentity/blob/9c48993a446288032f9824633e6dae81257da06e/src/Microsoft.AspNet.Identity.Owin/DataProtectorTokenProvider.cs)
+3. [改 ASP.NET Identity 2 的 Token 時效](/aspnet-identity-2-token-lifetime)

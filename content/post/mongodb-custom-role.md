@@ -1,7 +1,7 @@
 ---
 title: "建立 MongoDB 自訂角色權限 (role)"
 date: 2020-09-08T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["MongoDB"]
 slug: "mongodb-custom-role"
@@ -13,7 +13,7 @@ slug: "mongodb-custom-role"
 
 1. 需要可以跨 database 備份資料、建立 database、建立 collection、搜尋
 2. 不能有破壞性操作 (dropCollection ....etc)
- 
+
 所以就興起使用 MongoDB [User-Defined Roles](https://docs.mongodb.com/manual/core/security-user-defined-roles/) 的念頭
 
 因為我對於 MongoDB 的使用上一直以來都不是很得應手，所以趁著還有印象，簡單紀錄一下  避免日後又想不起
