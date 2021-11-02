@@ -1,7 +1,7 @@
 ---
 title: "Git 如何設定一次 Push 至多個 Remote Repository"
 date: 2017-04-28T01:00:00+08:00
-lastmod: 2018-09-18T20:00:41+08:00
+lastmod: 2021-11-02T20:00:41+08:00
 draft: false
 tags: ["Git"]
 slug: "git-push-multiple-remote-repository"
@@ -24,25 +24,25 @@ aliases:
 
 * 使用指令加入其他 remote
 
-    * HTTPS
+  * HTTPS
 
         > `git remote set-url --add --push origin https://gitserver/repository.git`
 
-        * 範例
+    * 範例
 
             > `git remote set-url --add --push origin https://github.com/yowko/TestMilestone.git`
 
-    * SSH
+  * SSH
 
         > `git remote set-url --add --push origin ssh://git@gitserver:username/application.git/`
 
-        * 範例
+    * 範例
 
             > `git remote set-url --add --push origin git@github.com:yowko/TestMilestone.git`
 
 * 注意事項
 
-    * 如果原本已有 remote 設定，需要再手動 add 一次，否則僅會覆蓋 push 的設定
+  * 如果原本已有 remote 設定，需要再手動 add 一次，否則僅會覆蓋 push 的設定
 
         ![2resetsetting](https://cloud.githubusercontent.com/assets/3851540/25490926/f702c9c8-2ba0-11e7-818a-b67590f8f929.png)
 
@@ -50,17 +50,17 @@ aliases:
 
 * 確認是否已設定多個 remote
 
-    * `git remote -v`
+  * `git remote -v`
 
         ![3multipleremote](https://cloud.githubusercontent.com/assets/3851540/25490927/f7036c2a-2ba0-11e7-83e0-c1829cc3dc24.png)
 
 * push 至 remote
 
-    * `git push origin`
+  * `git push origin`
 
         ![5success](https://cloud.githubusercontent.com/assets/3851540/25490923/f6fee448-2ba0-11e7-90e9-aca63d1240d3.png)
 
-    * gui 工具
+  * gui 工具
 
         ![4multiplesuccess](https://cloud.githubusercontent.com/assets/3851540/25490924/f7007c2c-2ba0-11e7-89af-7bc50d68e352.png)
 

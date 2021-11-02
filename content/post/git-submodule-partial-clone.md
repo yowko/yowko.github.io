@@ -1,7 +1,7 @@
 ---
 title: "Git Submodule partial clone"
 date: 2020-07-19T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["Git"]
 slug: "git-submodule-partial-clone"
@@ -41,7 +41,7 @@ slug: "git-submodule-partial-clone"
 1. 建立 `.gitfilterspec`
 
     > 提供給其他 repo 進行 partial clone 的 repo (以我的範例就是 `partial-clone` )中加入 `.gitfilterspec`
-
+    >
     > - 只有在這個檔案中明確列出的路徑才會被下載 (前提是正確設定)
     > - 建議依據需求建立各個路徑的 `.gitfilterspec` (如果 `moduleA` 會單獨被參考使用就單獨建立一個 `.gitfilterspec` 檔案；`moduleB` 與 `moduleC` 會同時被參考使用可以使用同一個 `.gitfilterspec` 檔案)
 

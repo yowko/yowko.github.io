@@ -3,7 +3,7 @@ title: "gRPC stream 如何傳送單一大物件 (Client 版)"
 date: 2019-08-01T21:30:00+08:00
 lastmod: 2020-12-11T21:30:31+08:00
 draft: false
-tags: ["C#","gRPC"]
+tags: ["csharp","gRPC"]
 slug: "grpc-stream-chunk-client"
 ---
 

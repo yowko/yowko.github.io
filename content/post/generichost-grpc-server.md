@@ -1,12 +1,12 @@
 ---
 title: "使用 GenericHost 來 Host gRPC Server"
 date: 2019-05-26T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","gRPC","dotnet core"]
 slug: "generichost-grpc-server"
 ---
-# 使用 GenericHost 來 Host gRPC Server
+## 使用 GenericHost 來 Host gRPC Server
 
 之前筆記 [在 .NET Core console 上使用 Dependency Injection - DI](/dotnet-core-console-di/) 提到 ASP.NET Core 有兩種 host 方式：
 
