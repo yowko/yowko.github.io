@@ -1,7 +1,7 @@
 ---
 title: "安裝 Redis 時遇到的錯誤排除"
 date: 2020-02-09T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["Linux","Redis","Debug"]
 slug: "install-redis-error"
@@ -40,9 +40,8 @@ slug: "install-redis-error"
     - 解決方式
 
         > 關閉 `SELinux`，但有安全疑慮時則建議使用 `semanage` 調整，以下僅示範關閉 `SELinux` 用法
-        
+        >
         > - `setenforce 0` 是針對當前 server 狀態
-        
         > - `/etc/selinux/config` 是避免重開機時 server 狀態被重置
 
         ```bash

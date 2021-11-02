@@ -1,7 +1,7 @@
 ---
 title: "讓 iOS 裝置可以存取自訂 domain"
 date: 2019-12-25T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["iOS","Tools","macOS"]
 slug: "ios-private-domain"

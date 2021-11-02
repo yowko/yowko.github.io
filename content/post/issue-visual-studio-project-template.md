@@ -1,7 +1,7 @@
 ---
 title: "如何發行 Visual Studio 專案範本(project Template)"
 date: 2016-12-15T00:42:34+08:00
-lastmod: 2021-06-23T00:42:34+08:00
+lastmod: 2021-11-02T00:42:34+08:00
 draft: false
 tags: ["Visual Studio"]
 slug: "issue-visual-studio-project-template"
@@ -52,9 +52,9 @@ aliases:
         ![assetsnew](https://trello-attachments.s3.amazonaws.com/58399cb985f76f96f4a0a0f7/1200x637/9ae0f5def60fbe49227b9a04d7fbcb18/_output_assetsnew.png)
 
     - 6-2. 選擇 `Type`,`Source`,`Path`
-        * Type : `Microsoft.VisualStudio.ProjectTemplate`
-        * Source : `File on filesystem`
-        * Path : 選擇 `Bot Application.zip`
+        - Type : `Microsoft.VisualStudio.ProjectTemplate`
+        - Source : `File on filesystem`
+        - Path : 選擇 `Bot Application.zip`
 
             ![assetsdone](https://trello-attachments.s3.amazonaws.com/58399cb985f76f96f4a0a0f7/691x590/4ab26ac31dc0557bab9bc6efb8fd31bf/_output_assetsdone.png)
 
