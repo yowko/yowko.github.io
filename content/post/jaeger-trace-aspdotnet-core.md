@@ -1,18 +1,17 @@
 ---
 title: "使用 Jaeger 追蹤 ASP.NET Core 呼叫"
 date: 2019-04-13T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["dotnet core","ASP.NET Core","Jaeger"]
 slug: "jaeger-trace-aspdotnet-core"
 ---
-# 使用 Jaeger 追蹤 ASP.NET Core 呼叫
+## 使用 Jaeger 追蹤 ASP.NET Core 呼叫
 
-之前筆記 [.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫](/dotnet-core-jaeger-grpc/) 紀錄到如何使用 Jaeger 來追蹤 .NET Core Console project 中 gRPC 的呼叫歷程，不過想必未來應該免不了還是需要使用 REST api 的專案，趁著假日有空順手做個紀錄備忘 
-
-
+之前筆記 [.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫](/dotnet-core-jaeger-grpc/) 紀錄到如何使用 Jaeger 來追蹤 .NET Core Console project 中 gRPC 的呼叫歷程，不過想必未來應該免不了還是需要使用 REST api 的專案，趁著假日有空順手做個紀錄備忘
 
 ## 基本環境說明
+
 1. macOS Mojave 10.14.3
 2. Docker Engine - Community 18.09.2
 3. jaegertracing/all-in-one 1.11.0
@@ -29,19 +28,20 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
 ```
 
 ## 安裝 NuGet 套件
+
 1. OpenTracing.Contrib.NetCore
 
     > 目前最新版本為 `0.5.0`
 
     - Package Manager
 
-        ```
+        ```bash
         Install-Package OpenTracing.Contrib.NetCore
         ```
 
     - .NET CLI
 
-        ```
+        ```bash
         dotnet add package OpenTracing.Contrib.NetCore
         ```
 
@@ -50,14 +50,14 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
     > 目前最新版本為 `0.3.1`
 
     - Package Manager
-    
-        ```
+
+        ```bash
         Install-Package Jaeger
         ```
-    
+
     - .NET CLI
 
-        ```
+        ```bash
         dotnet add package Jaeger
         ```
 
@@ -100,6 +100,7 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
         return tracer;
     });
     ```
+
 5. 完整 Startup.cs 內容
 
     ```cs
@@ -174,6 +175,7 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
 ![jaegerresult](https://user-images.githubusercontent.com/3851540/56081705-e1c2c000-5e42-11e9-91c5-25e9a0e2ad64.png)
 
 ## 心得
+
 仔細看是不是發現我沒做什麼事XD，因為 `OpenTracing.Contrib.NetCore` 已經完成了大部份工作，我們只需要在實際使用時將 Jaeger tracer 註冊進去就行了, 其中實際效果的截圖中可以看到 `OpenTracing.Contrib.NetCore` 不僅把事情做完了，還打了 tag 跟加了不少內容在 log 中
 
 另外我還在試著搞清楚的是：測試時只有一次 request ，但 Jaeger 卻收到三個 tracer 的資料
@@ -182,6 +184,7 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
 
 完整專案請參考 [yowko/Jaeger-ASP.NET-Core](https://github.com/yowko/Jaeger-ASP.NET-Core)
 
-# 參考資訊
+## 參考資訊
+
 1. [Jaeger](https://www.jaegertracing.io/)
 2. [yowko/Jaeger-ASP.NET-Core](https://github.com/yowko/Jaeger-ASP.NET-Core)

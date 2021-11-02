@@ -1,19 +1,20 @@
 ---
 title: "JavaScript 在遞迴陣列中取得特定屬性值"
 date: 2017-12-24T00:59:00+08:00
-lastmod: 2020-12-11T00:59:31+08:00
+lastmod: 2021-11-02T00:59:31+08:00
 draft: false
 tags: ["JavaScript"]
 slug: "javascript-recursive-map"
 aliases:
     - /2017/12/javascript-recursive-map.html
 ---
-# JavaScript 在遞迴陣列中取得特定屬性值
-之前筆記 [JavaScript Array 的加總](/2017/12/javascript-array-sum.html) 紀錄到 int Array 的加總及 object Array 依屬性名稱加總內容的做法，今天則是要來紀錄如何將遞迴陣列中的特定屬性取出
+## JavaScript 在遞迴陣列中取得特定屬性值
+
+之前筆記 [JavaScript Array 的加總](/javascript-array-sum) 紀錄到 int Array 的加總及 object Array 依屬性名稱加總內容的做法，今天則是要來紀錄如何將遞迴陣列中的特定屬性取出
 
 ## 一般物件陣列
 
-*   範例物件
+* 範例物件
 
     ```js
     var objArray = [
@@ -25,19 +26,19 @@ aliases:
     ];
     ```
 
-*   使用 `map`
+* 使用 `map`
 
     ```js
     objArray.map(el=>el.id)
     ```
 
-*   結果
+* 結果
 
     ![1map](https://user-images.githubusercontent.com/3851540/34321219-9f329df2-e844-11e7-925d-96c7b4423e00.png)
 
 ## 遞迴物件陣列
 
-*   範例物件
+* 範例物件
 
     ```js
     var bues=[
@@ -99,7 +100,7 @@ aliases:
       ];
     ```
 
-*   使用 `map` 僅能取得第一層內容
+* 使用 `map` 僅能取得第一層內容
 
     ```js
     bues.map(el=>el.Id)
@@ -107,9 +108,9 @@ aliases:
 
     ![2recursivemap](https://user-images.githubusercontent.com/3851540/34321220-9f643d44-e844-11e7-9d59-34f481fbc8be.png)
 
-*   使用 `JSON.stringify`
+* 使用 `JSON.stringify`
 
-    1.  anonymous function
+    1. anonymous function
 
         ```js
         var allbu=[];
@@ -121,16 +122,16 @@ aliases:
 
         ![3anonymous](https://user-images.githubusercontent.com/3851540/34321221-9f93ade0-e844-11e7-8b55-e0f83b534b1c.png)
 
-    2.  arrow function
+    2. arrow function
 
         ```js
         var allbuid=[];
         JSON.stringify(bues,(k,v)=>{if(k==='Id')allbuid.push(v);return v;});
         ```
-        
+
         ![4arrow](https://user-images.githubusercontent.com/3851540/34321222-9fc70f96-e844-11e7-8cd4-f189327127f2.png)
 
-*   使用自訂遞迴 map
+* 使用自訂遞迴 map
 
     ```js
     function deepmap(arr,prop){
@@ -152,13 +153,13 @@ aliases:
     }
     ```
 
-    *   實際使用
+    * 實際使用
 
         ```js
         deepmap(bues,"Id")
         ```
 
-    *   結果
+    * 結果
 
         ![5deepmap](https://user-images.githubusercontent.com/3851540/34321223-9ffd2392-e844-11e7-86fd-74f4305251ed.png)
 
@@ -168,8 +169,8 @@ aliases:
 
 另外在自行撰寫 deepmap 時遇到一個問題：無法使用 `concat` 來 merge array，後來改用 map 搭配 push 解決，但還是覺得不太對勁，有點疙瘩
 
-# 參考資訊
+## 參考資訊
 
-1.  [JavaScript Array 的加總](/2017/12/javascript-array-sum.html)
-2.  [Check if object is array?](https://stackoverflow.com/questions/4775722/check-if-object-is-array)
-3.  [Object.keys()](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)
+1. [JavaScript Array 的加總](/javascript-array-sum)
+2. [Check if object is array?](https://stackoverflow.com/questions/4775722/check-if-object-is-array)
+3. [Object.keys()](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)

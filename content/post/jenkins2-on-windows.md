@@ -1,7 +1,7 @@
 ---
 title: "Windows OS 安裝 Jenkins 2.0 紀實"
 date: 2016-12-30T00:42:34+08:00
-lastmod: 2021-07-1T00:42:34+08:00
+lastmod: 2021-11-02T00:42:34+08:00
 draft: false
 tags: ["Jenkins"]
 slug: "jenkins2-on-windows"
@@ -73,18 +73,18 @@ Jenkins 2.0 主要多了 Pipeline 特性，功能上跟 Workflow plgin 雷同，
 
     ![9addadmin](https://cloud.githubusercontent.com/assets/3851540/21715701/08e9674e-d441-11e6-97db-608b54e3ccb0.png)
 
-    - 刪除 `secrets\initialAdminPassword`
-    - 刪除 `users\admin\config.xml`
-    - 新增 `jenkins.install.InstallUtil.lastExecVersion`
-    - 新增 `users\{usernam}\config.xml`
+  - 刪除 `secrets\initialAdminPassword`
+  - 刪除 `users\admin\config.xml`
+  - 新增 `jenkins.install.InstallUtil.lastExecVersion`
+  - 新增 `users\{usernam}\config.xml`
 
 - Continue as admin
 
     ![8asadmin](https://cloud.githubusercontent.com/assets/3851540/21715700/08e764a8-d441-11e6-9d47-ac00750c6a79.png)
 
-    - 新增 `jenkins.install.InstallUtil.lastExecVersion`
-    - username:admin
-    - password:- 使用 `\Jenkins\secrets\initialAdminPassword`(安裝目錄下) 取得密碼
+  - 新增 `jenkins.install.InstallUtil.lastExecVersion`
+  - username:admin
+  - password:- 使用 `\Jenkins\secrets\initialAdminPassword`(安裝目錄下) 取得密碼
 
 ## 安裝 plugin
 
@@ -121,7 +121,7 @@ Jenkins 2.0 主要多了 Pipeline 特性，功能上跟 Workflow plgin 雷同，
     - 5-3. 設定 theme
         - 可以至 [jenkins-material-theme](http://afonsof.com/jenkins-material-theme/) 挑選喜歡的 theme
 
-            ![6-6theme](https://cloud.githubusercontent.com/assets/3851540/21677008/2efc4d4e-d373-11e6-911d-9e0984399157.png) 
+            ![6-6theme](https://cloud.githubusercontent.com/assets/3851540/21677008/2efc4d4e-d373-11e6-911d-9e0984399157.png)
 
     - 5-4. 效果
 
