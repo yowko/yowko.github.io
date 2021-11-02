@@ -1,7 +1,7 @@
 ---
 title: "打包 Helm Chart"
 date: 2020-01-27T21:30:00+08:00
-lastmod: 2020-01-27T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["Helm","Kubernetes"]
 slug: "helm-package"
@@ -25,13 +25,13 @@ slug: "helm-package"
 
 * 使用 `helm` cli
 
-    - 語法
+    * 語法
 
         ```bash
         helm package {chart path}
         ```
 
-    - 範例
+    * 範例
 
         ```bash
         helm package yowkochart
@@ -49,13 +49,13 @@ slug: "helm-package"
 
     2. 自行控制產出的版本(加上 `--version` 參數)
 
-        - 語法
+        * 語法
 
             ```bash
             helm package {chart path} --version={version}
             ```
 
-        - 範例
+        * 範例
 
             ```bash
             helm package yowkochart --version=1.0.1

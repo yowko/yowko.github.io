@@ -1,7 +1,7 @@
 ---
 title: "在 Helm (Go Template) 中檢查 Value 是否有值"
 date: 2020-06-28T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["Kubernetes","Helm"]
 slug: "helm-check-values-null"
@@ -119,17 +119,17 @@ slug: "helm-check-values-null"
 
     - 檢查語法範例
 
-          ```yaml
-            {{- if kindIs "invalid" .Values.hostaliases }}
-            {{else}}
-            hostAliases:
-            - ip: {{ .Values.application.hostaliases.ip | quote}}
-              hostnames:
-              {{- range $hostname := .Values.application.hostaliases.hostnames }}
-              - {{$hostname | quote}}
-              {{- end }}
-            {{- end }}
-          ```
+        ```yaml
+        {{- if kindIs "invalid" .Values.hostaliases }}
+        {{else}}
+        hostAliases:
+        - ip: {{ .Values.application.hostaliases.ip | quote}}
+          hostnames:
+          {{- range $hostname := .Values.application.  hostaliases.hostnames }}
+          - {{$hostname | quote}}
+          {{- end }}
+        {{- end }}
+        ```
 
     - 完整 yaml
 
@@ -186,16 +186,16 @@ slug: "helm-check-values-null"
 
     - 檢查語法範例
 
-          ```yaml
-            {{- if kindIs "map" .Values.hostaliases}}
-            hostAliases:
-            - ip: {{ .Values.hostaliases.ip | quote}}
-              hostnames:
-              {{- range $hostname := .Values.hostaliases.hostnames }}
-              - {{$hostname | quote}}
-              {{- end }}
-            {{- end }}
-          ```
+        ```yaml
+        {{- if kindIs "map" .Values.hostaliases}}
+        hostAliases:
+        - ip: {{ .Values.hostaliases.ip | quote}}
+          hostnames:
+          {{- range $hostname := .Values.hostaliases.hostnames }}
+          - {{$hostname | quote}}
+          {{- end }}
+        {{- end }}
+        ```
 
     - 完整 yaml
 
