@@ -1,6 +1,6 @@
-<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>C# 的跳躍語法( break continue goto 與 return) - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="C# 的跳躍語法( break continue goto 與 return) 最近看了一段程式，感覺跑的順序跟預期的不同，查了 msdn 文件，順手做了個紀錄。 文件請務必看英文版，中文版的錯很大，完全不是"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.56.3"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/csharp-break-continue-goto-return/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="C# 的跳躍語法( break continue goto 與 return)"><meta property=og:description content="C# 的跳躍語法( break continue goto 與 return) 最近看了一段程式，感覺跑的順序跟預期的不同，查了 msdn 文件，順手做了個紀錄。 文件請務必看英文版，中文版的錯很大，完全不是"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/csharp-break-continue-goto-return/><meta property=article:published_time content=2017-02-14T01:42:34+08:00><meta property=article:modified_time content=2018-09-12T00:42:34+08:00><meta itemprop=name content="C# 的跳躍語法( break continue goto 與 return)"><meta itemprop=description content="C# 的跳躍語法( break continue goto 與 return) 最近看了一段程式，感覺跑的順序跟預期的不同，查了 msdn 文件，順手做了個紀錄。 文件請務必看英文版，中文版的錯很大，完全不是"><meta itemprop=datePublished content=2017-02-14T01:42:34&#43;08:00><meta itemprop=dateModified content=2018-09-12T00:42:34&#43;08:00><meta itemprop=wordCount content=1252><meta itemprop=keywords content=C#,><meta name=twitter:card content=summary><meta name=twitter:title content="C# 的跳躍語法( break continue goto 與 return)"><meta name=twitter:description content="C# 的跳躍語法( break continue goto 與 return) 最近看了一段程式，感覺跑的順序跟預期的不同，查了 msdn 文件，順手做了個紀錄。 文件請務必看英文版，中文版的錯很大，完全不是"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2017-02-14</span>
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>C# 的跳躍語法( break continue goto 與 return) - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="C# 的跳躍語法( break continue goto 與 return) 最近看了一段程式，感覺跑的順序跟預期的不同，查了 msdn 文件，順手做了個紀錄。 文件請務必看英文版，中文版的錯很大，完全不是"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.56.3"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/csharp-break-continue-goto-return/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="C# 的跳躍語法( break continue goto 與 return)"><meta property=og:description content="C# 的跳躍語法( break continue goto 與 return) 最近看了一段程式，感覺跑的順序跟預期的不同，查了 msdn 文件，順手做了個紀錄。 文件請務必看英文版，中文版的錯很大，完全不是"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/csharp-break-continue-goto-return/><meta property=article:published_time content=2017-02-14T01:42:34+08:00><meta property=article:modified_time content=2021-11-03T00:42:34+08:00><meta itemprop=name content="C# 的跳躍語法( break continue goto 與 return)"><meta itemprop=description content="C# 的跳躍語法( break continue goto 與 return) 最近看了一段程式，感覺跑的順序跟預期的不同，查了 msdn 文件，順手做了個紀錄。 文件請務必看英文版，中文版的錯很大，完全不是"><meta itemprop=datePublished content=2017-02-14T01:42:34&#43;08:00><meta itemprop=dateModified content=2021-11-03T00:42:34&#43;08:00><meta itemprop=wordCount content=1252><meta itemprop=keywords content=csharp,><meta name=twitter:card content=summary><meta name=twitter:title content="C# 的跳躍語法( break continue goto 與 return)"><meta name=twitter:description content="C# 的跳躍語法( break continue goto 與 return) 最近看了一段程式，感覺跑的順序跟預期的不同，查了 msdn 文件，順手做了個紀錄。 文件請務必看英文版，中文版的錯很大，完全不是"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2017-02-14</span>
 <span class=more-meta>約 1252 字</span>
-<span class=more-meta>預計閱讀 3 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#c-的跳躍語法-break-continue-goto-與-return>C# 的跳躍語法( break continue goto 與 return)</a><ul><li><a href=#break>break</a></li><li><a href=#continue>continue</a></li><li><a href=#goto>goto</a></li><li><a href=#return>return</a></li></ul></li><li><a href=#參考資料>參考資料</a></li></ul></nav></div></div><div class=post-content><h1 id=c-的跳躍語法-break-continue-goto-與-return>C# 的跳躍語法( break continue goto 與 return)</h1><p>最近看了一段程式，感覺跑的順序跟預期的不同，查了 msdn 文件，順手做了個紀錄。
+<span class=more-meta>預計閱讀 3 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#c-的跳躍語法-break-continue-goto-與-return>C# 的跳躍語法( break continue goto 與 return)</a></li><li><a href=#break>break</a></li><li><a href=#continue>continue</a></li><li><a href=#goto>goto</a></li><li><a href=#return>return</a></li><li><a href=#參考資料>參考資料</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=c-的跳躍語法-break-continue-goto-與-return>C# 的跳躍語法( break continue goto 與 return)</h2><p>最近看了一段程式，感覺跑的順序跟預期的不同，查了 msdn 文件，順手做了個紀錄。
 文件請務必看英文版，中文版的錯很大，完全不是同個意思XD</p><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816987/d99b55c2-ef9f-11e6-9d17-d110cc0da15b.png alt=12ERROR></p><h2 id=break>break</h2><blockquote><p>終止最近一層的 <code>迴圈</code>(<code>while</code>,<code>do</code>,<code>for</code>,<code>foreach</code>) 或 <code>switch</code>，接著執行後續程式碼</p></blockquote><ul><li><p>程式碼範例 1 ：單層迴圈</p><pre><code class=language-cs>for (int i = 1; i &lt;= 100; i++)
 {
     if (i == 5)
@@ -10,7 +10,7 @@
     Console.WriteLine(i);
 }
 Console.WriteLine(&quot;end&quot;);
-</code></pre><ul><li>跑第五次時遇到 <code>break</code> 跳離最近一層的 <code>迴圈</code> 或 <code>switch</code> &ndash;&gt; 接著執行 <code>Console.WriteLine(&quot;end&quot;);</code></li><li><p>執行結果</p><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816988/d99c8bea-ef9f-11e6-9b9a-c8cc2569df85.png alt=1break></p></li></ul></li><li><p>程式碼範例 2 ：雙層迴圈</p><pre><code class=language-cs>for (int a = 1; a &lt;= 3; a++)
+</code></pre><ul><li>跑第五次時遇到 <code>break</code> 跳離最近一層的 <code>迴圈</code> 或 <code>switch</code> &ndash;&gt; 接著執行 <code>Console.WriteLine(&quot;end&quot;);</code></li><li>執行結果</li></ul><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816988/d99c8bea-ef9f-11e6-9b9a-c8cc2569df85.png alt=1break></p></li><li><p>程式碼範例 2 ：雙層迴圈</p><pre><code class=language-cs>for (int a = 1; a &lt;= 3; a++)
 {
     for (int i = 1; i &lt;= 100; i++)
     {
@@ -24,7 +24,7 @@ Console.WriteLine(&quot;end&quot;);
 }
 
 Console.WriteLine(&quot;end&quot;);
-</code></pre><ul><li>僅會跳離最近一層迴圈(本例來看就是變數 i 這層)，外層 (變數 a 這層不受影響)</li><li><p>執行結果</p><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816989/d99fbad6-ef9f-11e6-8035-3c78c60df7fb.png alt=2break2></p></li></ul></li></ul><h2 id=continue>continue</h2><blockquote><p>會跳離最近一層迴圈該次迴圈(該次迴圈 continue 之後的內容皆不會執行)，執行(<code>while</code>,<code>do</code>,<code>for</code>,<code>foreach</code>)的下一個迭代(迴圈內容)</p></blockquote><ul><li><p>程式碼範例 1 ：單層迴圈</p><pre><code class=language-cs>for (int i = 1; i &lt;= 10; i++)
+</code></pre><ul><li>僅會跳離最近一層迴圈(本例來看就是變數 i 這層)，外層 (變數 a 這層不受影響)</li><li>執行結果</li></ul><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816989/d99fbad6-ef9f-11e6-8035-3c78c60df7fb.png alt=2break2></p></li></ul><h2 id=continue>continue</h2><blockquote><p>會跳離最近一層迴圈該次迴圈(該次迴圈 continue 之後的內容皆不會執行)，執行(<code>while</code>,<code>do</code>,<code>for</code>,<code>foreach</code>)的下一個迭代(迴圈內容)</p></blockquote><ul><li><p>程式碼範例 1 ：單層迴圈</p><pre><code class=language-cs>for (int i = 1; i &lt;= 10; i++)
 {
     if (i &lt; 9)
     {
@@ -34,7 +34,7 @@ Console.WriteLine(&quot;end&quot;);
 }
 
 Console.WriteLine(&quot;end&quot;);
-</code></pre><ul><li><code>i &lt; 9</code> 就跳離接著執行迴圈下一個內容直到 <code>i &gt;=9</code> 才會執行到 <code>Console.WriteLine(i);</code></li><li><p>執行結果</p><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816990/d9aa7a48-ef9f-11e6-8fa9-aee4c0764d8c.png alt=3continue></p></li></ul></li><li><p>程式碼範例 2 ：雙層迴圈</p><pre><code class=language-cs>for (int a = 1; a &lt;= 3; a++)
+</code></pre><ul><li><code>i &lt; 9</code> 就跳離接著執行迴圈下一個內容直到 <code>i &gt;=9</code> 才會執行到 <code>Console.WriteLine(i);</code></li><li>執行結果</li></ul><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816990/d9aa7a48-ef9f-11e6-8fa9-aee4c0764d8c.png alt=3continue></p></li><li><p>程式碼範例 2 ：雙層迴圈</p><pre><code class=language-cs>for (int a = 1; a &lt;= 3; a++)
 {
     for (int i = 1; i &lt;= 10; i++)
     {
@@ -48,7 +48,7 @@ Console.WriteLine(&quot;end&quot;);
 }
 
 Console.WriteLine(&quot;end&quot;);
-</code></pre><ul><li>僅會跳離最近一層迴圈(本例來看就是變數 i 這層)，外層 (變數 a 這層不受影響)</li><li><p>執行結果</p><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816992/d9bd83f4-ef9f-11e6-855c-b7e8fe66c3dd.png alt=4continue2></p></li></ul></li></ul><h2 id=goto>goto</h2><ol><li><p>改執行標記程式碼區段位置</p><pre><code class=language-cs>for (int i = 1; i &lt;= 10; i++)
+</code></pre><ul><li>僅會跳離最近一層迴圈(本例來看就是變數 i 這層)，外層 (變數 a 這層不受影響)</li><li>執行結果</li></ul><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816992/d9bd83f4-ef9f-11e6-855c-b7e8fe66c3dd.png alt=4continue2></p></li></ul><h2 id=goto>goto</h2><ol><li><p>改執行標記程式碼區段位置</p><pre><code class=language-cs>for (int i = 1; i &lt;= 10; i++)
 {
     if (i &gt;= 9)
     {
@@ -121,47 +121,47 @@ int Getint()
     int result= default(int);
     return result;
 }
-</code></pre><ul><li><p>執行結果</p><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816996/d9cdd466-ef9f-11e6-94bc-e4215e36fc2b.png alt=8return1></p></li></ul></li><li><p>可用來跳出迴圈，switch</p><ul><li><p>迴圈</p><pre><code class=language-cs>void Main()
+</code></pre><ul><li>執行結果</li></ul><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816996/d9cdd466-ef9f-11e6-94bc-e4215e36fc2b.png alt=8return1></p></li><li><p>可用來跳出迴圈，switch</p><ul><li><p>迴圈</p><pre><code class=language-cs>void Main()
 {
-    for (int i = 1; i &lt;= 10; i++)
-    {
-        if (i &gt;= 9)
-        {
-            return;
-        }
-        Console.WriteLine(i);
-    }
-        
-    Console.WriteLine(&quot;end&quot;);
-}
-</code></pre><ul><li><p>執行結果</p><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816983/d95f0694-ef9f-11e6-8a9b-5e209cb94b3b.png alt=9return2></p></li></ul></li><li><p>switch</p><pre><code class=language-cs>void Main()
+for (int i = 1; i &lt;= 10; i++)
 {
-    int n = default(int);
-    int cost = default(int);
-    n = 2;
-    //n = 3;
-    switch (n)
+    if (i &gt;= 9)
     {
-        case 1:
-            Console.WriteLine(&quot;case 1&quot;);
-            cost += 25;
-            break;
-        case 2:
-            Console.WriteLine(&quot;case 2&quot;);
-            return;
-            cost += 25;
-            goto case 1;
-        case 3:
-            Console.WriteLine(&quot;case 3&quot;);
-            cost += 50;
-            goto default;
-        default:
-            Console.WriteLine(&quot;default&quot;);
-            break;
+        return;
     }
-    Console.WriteLine($&quot;n={n},end:{cost}&quot;);
+    Console.WriteLine(i);
 }
-</code></pre><ul><li><p>執行結果</p><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816984/d98655d2-ef9f-11e6-84ee-ef560e897b25.png alt=9return3></p></li></ul></li></ul></li><li><p>void 方法可以不寫 return，也沒回傳值，僅用來轉換程式執行權</p><pre><code class=language-cs>void Main()
+    
+Console.WriteLine(&quot;end&quot;);
+}
+</code></pre></li><li><p>執行結果</p><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816983/d95f0694-ef9f-11e6-8a9b-5e209cb94b3b.png alt=9return2></p></li><li><p>switch</p><pre><code class=language-cs>void Main()
+{
+int n = default(int);
+int cost = default(int);
+n = 2;
+//n = 3;
+switch (n)
+{
+    case 1:
+        Console.WriteLine(&quot;case 1&quot;);
+        cost += 25;
+        break;
+    case 2:
+        Console.WriteLine(&quot;case 2&quot;);
+        return;
+        cost += 25;
+        goto case 1;
+    case 3:
+        Console.WriteLine(&quot;case 3&quot;);
+        cost += 50;
+        goto default;
+    default:
+        Console.WriteLine(&quot;default&quot;);
+        break;
+}
+Console.WriteLine($&quot;n={n},end:{cost}&quot;);
+}
+</code></pre></li><li><p>執行結果</p><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816984/d98655d2-ef9f-11e6-84ee-ef560e897b25.png alt=9return3></p></li></ul></li><li><p>void 方法可以不寫 return，也沒回傳值，僅用來轉換程式執行權</p><pre><code class=language-cs>void Main()
 {
     Console.WriteLine(&quot;before function&quot;);
     test();
@@ -174,7 +174,7 @@ void test()
     return ;
     Console.WriteLine(&quot;after return&quot;);
 }
-</code></pre><ul><li><p>執行結果</p><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816985/d999bcc6-ef9f-11e6-83fb-98b4353fe11f.png alt=10return4></p></li></ul></li><li><p>return 被 try 包著，會先執行 finally 內容</p><pre><code class=language-cs>void Main()
+</code></pre><ul><li>執行結果</li></ul><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816985/d999bcc6-ef9f-11e6-83fb-98b4353fe11f.png alt=10return4></p></li><li><p>return 被 try 包著，會先執行 finally 內容</p><pre><code class=language-cs>void Main()
 {
     Console.WriteLine(&quot;before function&quot;);
     test();
@@ -184,13 +184,13 @@ void test()
 void test()
 {
     try
-    {           
+    {            
         Console.WriteLine(&quot;function try&quot;);
         return;
     }
     catch (Exception ex)
     {
-        Console.WriteLine(&quot;catch&quot;); 
+        Console.WriteLine(&quot;catch&quot;);    
         throw;
     }
     finally
@@ -199,11 +199,11 @@ void test()
     }
         
 }
-</code></pre><ul><li><p>執行結果</p><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816986/d99a299a-ef9f-11e6-9283-2913f5c360d3.png alt=11return5></p></li></ul></li></ul><h1 id=參考資料>參考資料</h1><ol><li><a href=https://msdn.microsoft.com/en-us/library/adbctzc4.aspx target=_blank>break (C# Reference)</a></li><li><a href=https://msdn.microsoft.com/en-us/library/923ahwt1.aspx target=_blank>continue (C# Reference)</a></li><li><a href=https://msdn.microsoft.com/en-us/library/13940fs2.aspx target=_blank>goto (C# Reference)</a></li><li><a href=https://msdn.microsoft.com/en-us/library/1h3swy84.aspx target=_blank>return (C# Reference)</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+</code></pre><ul><li>執行結果</li></ul><p><img src=https://cloud.githubusercontent.com/assets/3851540/22816986/d99a299a-ef9f-11e6-9283-2913f5c360d3.png alt=11return5></p></li></ul><h2 id=參考資料>參考資料</h2><ol><li><a href=https://msdn.microsoft.com/en-us/library/adbctzc4.aspx target=_blank>break (C# Reference)</a></li><li><a href=https://msdn.microsoft.com/en-us/library/923ahwt1.aspx target=_blank>continue (C# Reference)</a></li><li><a href=https://msdn.microsoft.com/en-us/library/13940fs2.aspx target=_blank>goto (C# Reference)</a></li><li><a href=https://msdn.microsoft.com/en-us/library/1h3swy84.aspx target=_blank>return (C# Reference)</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
 <span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
-<span class=item-content>2018-09-12</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>2021-11-03</span></p><p class=copyright-item><span class=item-title>授權合約</span>
 <span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
-<a href=https://blog.yowko.com/tags/c/>C#</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/mstest-nunit-xunit/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<a href=https://blog.yowko.com/tags/csharp/>C#</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/mstest-nunit-xunit/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
 <i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">MSTest,NUnit 3,xUnit.net 2.0 比較</span></a></div><div><a class=prev href=https://blog.yowko.com/csharp-reflection-getproperty-getvalue/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
 <i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">C# reflection getProperty and getValue</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/csharp-break-continue-goto-return\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
 <span class=division>|</span>
