@@ -70,7 +70,7 @@ aliases:
 
 1. 加上 config section 定義
 
-    > 如果對 config section 有興趣，可以參考 [使用 ConfigurationSection 自訂 ASP.NET config (web.config) 區段](/2017/02/use-configurationsection-customize-aspnet-config.html)
+    > 如果對 config section 有興趣，可以參考 [使用 ConfigurationSection 自訂 ASP.NET config (web.config) 區段](/use-configurationsection-customize-aspnet-config)
 
     ```xml
     <?xml version="1.0" encoding="utf-8" ?>
@@ -304,5 +304,5 @@ aliases:
 
 1. [Common-logging](http://net-commons.github.io/common-logging/)
 2. [net-commons/common-logging](https://github.com/net-commons/common-logging)
-3. [使用 ConfigurationSection 自訂 ASP.NET config (web.config) 區段](/2017/02/use-configurationsection-customize-aspnet-config.html)
+3. [使用 ConfigurationSection 自訂 ASP.NET config (web.config) 區段](/use-configurationsection-customize-aspnet-config)
 4. [Chapter 1. Common Logging](http://netcommon.sourceforge.net/docs/2.0.0/reference/html/ch01.html)

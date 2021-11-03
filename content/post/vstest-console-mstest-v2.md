@@ -10,7 +10,7 @@ aliases:
 ---
 ## 使用命令列指令 (VSTest.Console.exe) 執行 MSTest V2 測試
 
-之前筆記 [使用 MSTest.exe 指令來進行測試](/2017/06/mstest-exe.html) 曾經介紹到使用 MSTest.exe 在 cmmand line 環境中執行測試，筆記結尾有提到未支援 MSTest V2 的測試功能，在原本使用 MSTest V2 專案不多的情況下影響不大，但近期專案為了使用 Live Unit Testing 逐漸改用 Visual Studio 2017 搭配 MSTest V2，除了開發階段方便外，為了讓 CI 充份發揮功能，得另外調整 unit test 的語法，就來看看該如何使用命令列指令執行 MSTest V2 測試
+之前筆記 [使用 MSTest.exe 指令來進行測試](/mstest-exe) 曾經介紹到使用 MSTest.exe 在 cmmand line 環境中執行測試，筆記結尾有提到未支援 MSTest V2 的測試功能，在原本使用 MSTest V2 專案不多的情況下影響不大，但近期專案為了使用 Live Unit Testing 逐漸改用 Visual Studio 2017 搭配 MSTest V2，除了開發階段方便外，為了讓 CI 充份發揮功能，得另外調整 unit test 的語法，就來看看該如何使用命令列指令執行 MSTest V2 測試
 
 ## 關於 `VSTest.Console.exe`
 

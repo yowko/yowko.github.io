@@ -16,7 +16,7 @@ aliases:
 
 ## 基本設定
 
-案例會持續延用 [使用 Selenium IDE 與 C# 做 Web UI 測試](//blog.yowko.com/2017/06/selenium-ide-c-sharp-web-ui-test.html)，錄製登入 GitHub
+案例會持續延用 [使用 Selenium IDE 與 C# 做 Web UI 測試](/selenium-ide-c-sharp-web-ui-test)，錄製登入 GitHub
 
 * 主要測試程式如下(如果你懶得錄，可以使用下面的版本，但請記得改帳號跟密碼)
 
@@ -355,6 +355,6 @@ Fluent Automation 從 2015 至今都沒有更新紀錄，而且連 Fluent Automa
 
 ## 參考資訊
 
-1. [使用 Selenium IDE 與 C# 做 Web UI 測試](//blog.yowko.com/2017/06/selenium-ide-c-sharp-web-ui-test.html)
+1. [使用 Selenium IDE 與 C# 做 Web UI 測試](/selenium-ide-c-sharp-web-ui-test)
 2. [FluentAutomation Docs](https://github.com/stirno/FluentAutomation/tree/dev/Docs/v3)
 3. [GitHub - FluentAutomation](https://github.com/stirno/FluentAutomation)

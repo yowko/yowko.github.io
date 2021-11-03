@@ -16,7 +16,7 @@ aliases:
 
 ## 環境前提
 
-請先安裝好兩組 RabbitMQ，如何在 Windows 安裝 RabbitMQ 請參考 [在 Windows 7、Winodws 10、Windows Server 2016 上安裝 RabbitMQ](/2017/05/install-rabbitmq-on-windows7-windows10-windows2016.html)
+請先安裝好兩組 RabbitMQ，如何在 Windows 安裝 RabbitMQ 請參考 [在 Windows 7、Winodws 10、Windows Server 2016 上安裝 RabbitMQ](/install-rabbitmq-on-windows7-windows10-windows2016)
 
 ## 設定 RabbitMQ Cluster
 

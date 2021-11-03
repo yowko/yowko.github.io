@@ -10,7 +10,7 @@ aliases:
 ---
 ## Windows 慣用者如何在 Red Hat Enterprise Linux 7.5 (CentOS ) 上使用 kubeadm 架設 Kubernetes (K8s)
 
-之前筆記 [Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)](/2018/05/ubuntu-kubeadm-kubernetes.html) 紀錄到如何在 Ubuntu 上使用 kubeadm 建立 Kubernetes cluster，考量到公司使用的 linux 都為 CentOS (RHEL) 所以趁著印象還新鮮時趕緊紀錄一下在 CentOS 上架設 Kubernetes 的做法
+之前筆記 [Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)](/ubuntu-kubeadm-kubernetes) 紀錄到如何在 Ubuntu 上使用 kubeadm 建立 Kubernetes cluster，考量到公司使用的 linux 都為 CentOS (RHEL) 所以趁著印象還新鮮時趕緊紀錄一下在 CentOS 上架設 Kubernetes 的做法
 
 ## 開始安裝前的小提醒
 
@@ -228,7 +228,7 @@ aliases:
 
 ## 心得
 
-大致安裝流程與 [Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)](/2018/05/ubuntu-kubeadm-kubernetes.html) 相同，只是語法上跟 Ubuntu 有些不同，另外需要特別留意的是 CentOS 安全性較高，需要自行關閉
+大致安裝流程與 [Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)](/ubuntu-kubeadm-kubernetes) 相同，只是語法上跟 Ubuntu 有些不同，另外需要特別留意的是 CentOS 安全性較高，需要自行關閉
 
 但對於關閉 `SELinux` 與防火牆，我還是覺得有點害怕，或許日後的版本會再做調整吧
 
@@ -240,4 +240,4 @@ aliases:
 4. [systemd (正體中文)](https://wiki.archlinux.org/index.php/Systemd_(%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87))
 5. [kubeadm join - Failed to request cluster info - getsockopt: no route to host](https://groups.google.com/forum/#!topic/kubernetes-dev/epes4exK6Ms)
 6. [sysctl 讀取 / 修改 Kernel 變數](https://www.phpini.com/linux/sysctl-read-modify-kernel-var)
-7. [Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)](/2018/05/ubuntu-kubeadm-kubernetes.html)
+7. [Windows 慣用者如何在 Ubuntu Server 16.04 LTS 上使用 kubeadm 架設 Kubernetes (K8s)](/ubuntu-kubeadm-kubernetes)

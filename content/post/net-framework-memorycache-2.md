@@ -10,7 +10,7 @@ aliases:
 ---
 ## 使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 2 使用 lock 避免 ddos db
 
-經過前一篇文章 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 1 極簡做法](http://blog.yowko.com/2017/01/net-framework-memorycache-simple.html) 介紹了最簡單達到 cache 資料的方法，文末也提到已知的問題，首先先解決程式可能 ddos db 的重大缺失
+經過前一篇文章 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 1 極簡做法](/net-framework-memorycache-simple) 介紹了最簡單達到 cache 資料的方法，文末也提到已知的問題，首先先解決程式可能 ddos db 的重大缺失
 
 ## 前情提要
 

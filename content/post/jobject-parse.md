@@ -16,7 +16,7 @@ aliases:
 
 ## 基本設定
 
-本文會延續 [使用 string 建立 instance 及反序列化 json 為 class](/2017/07/string-create-instance.html) 來進行比較，詳細資訊可以參考 使用 [string 建立 instance 及反序列化 json 為 class](/2017/07/string-create-instance.html) 內容
+本文會延續 [使用 string 建立 instance 及反序列化 json 為 class](//string-create-instance) 來進行比較，詳細資訊可以參考 使用 [string 建立 instance 及反序列化 json 為 class](/string-create-instance) 內容
 
 1. 共用的 model class
 
@@ -123,6 +123,6 @@ void Deserialize(string typename, string jsonstr)
 
 ## 參考資訊
 
-1. [使用 string 建立 instance 及反序列化 json 為 class](/2017/07/string-create-instance.html)
+1. [使用 string 建立 instance 及反序列化 json 為 class](/string-create-instance)
 2. [JObject](http://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm)
 3. [JObject.Parse Method](http://www.newtonsoft.com/json/help/html/M_Newtonsoft_Json_Linq_JObject_Parse.htm)

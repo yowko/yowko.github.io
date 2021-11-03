@@ -184,7 +184,7 @@ public static class CacheHelper
 
 ## 參考資訊
 
-1. [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 4 使用泛型來簡化](/2017/02/net-framework-memorycache-use-generic.html)
+1. [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 4 使用泛型來簡化](/net-framework-memorycache-use-generic)
 2. [dynamically specify select columns linq](http://stackoverflow.com/questions/38467681/dynamically-specify-select-columns-linq)
 3. [Dynamic Column Name in LinQ](http://stackoverflow.com/questions/24732724/dynamic-column-name-in-linq)
 4. [CONSTRUCT DYNAMIC FILTERS WITH C#](http://www.pashov.net/code/dynamic+filters)

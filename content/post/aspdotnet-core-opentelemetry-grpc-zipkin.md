@@ -147,6 +147,6 @@ slug: "aspdotnet-core-opentelemetry-grpc-zipkin"
 1. [[Jaeger] 使用 OpenTelemetry 來追蹤 ASP.NET Core](/aspdotnet-core-opentelemetry-jaeger)
 2. [.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫](/dotnet-core-jaeger-grpc/)
 3. [OpenTelemetry .NET reaches v1.0](https://devblogs.microsoft.com/dotnet/opentelemetry-net-reaches-v1-0/?WT.mc_id=DOP-MVP-5002594)
-4. [使用 Jaeger 追蹤 ASP.NET Core 呼叫](https://blog.yowko.com/jaeger-trace-aspdotnet-core/)
+4. [使用 Jaeger 追蹤 ASP.NET Core 呼叫](/jaeger-trace-aspdotnet-core/)
 5. [open-telemetry/opentelemetry-dotnet](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/examples/AspNetCore)
 6. [yowko/aspdotnet-core-opentelemetry-grpc](https://github.com/yowko/aspdotnet-core-opentelemetry-grpc)

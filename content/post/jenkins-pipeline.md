@@ -24,7 +24,7 @@ Pipeline 是 Jenkins 2 的一大特色，其概念就是將建置流程步驟透
 ## 實際做法
 
 1. checkout source code and build
-    - 可以參考 [如何使用 Jenkins 2 建置 .NET 專案](http://blog.yowko.com/2017/02/jenkins-2-build-dotnet-project.html) 來建立 build job, 這邊就不重複贅述
+    - 可以參考 [如何使用 Jenkins 2 建置 .NET 專案](/jenkins-2-build-dotnet-project) 來建立 build job, 這邊就不重複贅述
     - 需要注意的是 build 參數要加上 publish 設定後面才可以進行部署
 
         ```config
@@ -47,7 +47,7 @@ Pipeline 是 Jenkins 2 的一大特色，其概念就是將建置流程步驟透
     - 使用 PowerShell 來停止 website
 
         ![5ps](https://cloud.githubusercontent.com/assets/3851540/23155470/a4ed669c-f84d-11e6-8113-15045775ea85.png)
-        - 記得安裝 PowerShell plugin (沒裝過的可以參考 [Jenkins 2 如何使用 PowerShell 以及自定 build fail (指定 exit code)](/2017/02/jenkins2-powershell-plugin.html))
+        - 記得安裝 PowerShell plugin (沒裝過的可以參考 [Jenkins 2 如何使用 PowerShell 以及自定 build fail (指定 exit code)](/jenkins2-powershell-plugin))
         - 加入一個 build step 使用 Windows PowerShell
 
             ```ps1

@@ -10,7 +10,7 @@ aliases:
 ---
 ## DebugDiag 2 Analysis 出現 DacError
 
-繼前篇筆記 [WinDBG 出現 SOS does not support the current target architecture ?!](/2018/01/windbg-sos-does-not-support-current.html) 紀錄在使用 WinDBG 偵錯 production issue 時遇到使用 64-bit 工作管理員匯出 32-bit 程式的 dump 而無法順利完成偵錯的狀況
+繼前篇筆記 [WinDBG 出現 SOS does not support the current target architecture ?!](/windbg-sos-does-not-support-current) 紀錄在使用 WinDBG 偵錯 production issue 時遇到使用 64-bit 工作管理員匯出 32-bit 程式的 dump 而無法順利完成偵錯的狀況
 
 遇到問題當下並沒有其他心思去偵錯 WinDBG 所以立馬改使用黑大在 [ASP.NET CPU 飆高問題之傻瓜分析工具－DebugDiag Tools](http://blog2.darkthread.net/blogs/darkthreadtw/archive/2017/02/22/13021.aspx) 一文中介紹的 `Debug Diagnostic Tool (DebugDiag)` 來查問題，但第一次使用 Debug Diagnostic Tool (DebugDiag)，加上問題源頭原本就與工具無關，並沒有順利查出問題根源
 
@@ -103,7 +103,7 @@ aliases:
 
 ## 問題發生原因以及解決方式
 
-> 發生原因與 [WinDBG 出現 SOS does not support the current target architecture ?!](/2018/01/windbg-sos-does-not-support-current.html) 相同，皆是 32-bit 程式未使用 32-bit task manager 匯出 dump file 引起
+> 發生原因與 [WinDBG 出現 SOS does not support the current target architecture ?!](/windbg-sos-does-not-support-current) 相同，皆是 32-bit 程式未使用 32-bit task manager 匯出 dump file 引起
 
 * 32 位元程式未使用 32 位元 task manager 匯出 dump file
   * 32 位元 task manager 位於 `C:\Windows\SysWOW64\Taskmgr.exe`
@@ -141,6 +141,6 @@ aliases:
 ## 參考資訊
 
 1. [ASP.NET CPU 飆高問題之傻瓜分析工具－DebugDiag Tools](http://blog2.darkthread.net/blogs/darkthreadtw/archive/2017/02/22/13021.aspx)
-2. [WinDBG 出現 SOS does not support the current target architecture ?!](/2018/01/windbg-sos-does-not-support-current.html)
+2. [WinDBG 出現 SOS does not support the current target architecture ?!](/windbg-sos-does-not-support-current)
 3. [Debug Diagnostic Tool v2 Update 2](https://www.microsoft.com/en-us/download/details.aspx?id=49924)
 4. [線上網站很慢！使用DebugDiagnostic Tool進行線上IIS網站程式效能分析](http://blog.kkbruce.net/2017/09/use-debugdiagnostic-tool-dump-online-iis-appliaction-problem.html)

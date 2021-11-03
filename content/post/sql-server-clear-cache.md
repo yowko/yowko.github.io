@@ -10,7 +10,7 @@ aliases:
 ---
 ## 關於清除 SQL Server 查詢快取的那些事
 
-之前的筆記 [試著學會看懂 SQL Server IO 統計資訊](http://blog.yowko.com/2016/12/sql-server-io.html) 中，有粗略地介紹 SQL Server IO 的統計資訊，其中 `logical reads(邏輯讀取)` 是我們用來進行效能調校的重要依據，文中也提到 cache 來源是 `physical reads(實體讀取)`、`read-ahead reads(讀取前讀取)` 。在為了比較使用 memory 與使用 disk 的查詢時間差異，就得透過清除查詢 cache 來進行，接著就來看看該如何清除查詢 cache.
+之前的筆記 [試著學會看懂 SQL Server IO 統計資訊](/sql-server-io) 中，有粗略地介紹 SQL Server IO 的統計資訊，其中 `logical reads(邏輯讀取)` 是我們用來進行效能調校的重要依據，文中也提到 cache 來源是 `physical reads(實體讀取)`、`read-ahead reads(讀取前讀取)` 。在為了比較使用 memory 與使用 disk 的查詢時間差異，就得透過清除查詢 cache 來進行，接著就來看看該如何清除查詢 cache.
 
 ## 差異
 

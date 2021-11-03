@@ -390,7 +390,7 @@ Console (Pickles.exe) 是最容易也是用途最廣跟最普遍的方式；Pick
 
 2. 設定 Visual Studio 外部工具
 
-    > 在 [關於 Visual Studio 中的外部工具(External Tools)](/2017/06/visual-studio-external-tools.html) 中有簡單介紹 Visual Studio 外部工具相關使用方式及參數
+    > 在 [關於 Visual Studio 中的外部工具(External Tools)](/visual-studio-external-tools) 中有簡單介紹 Visual Studio 外部工具相關使用方式及參數
 
     * Visual Studio 主選單 Tools --> External Tools
 

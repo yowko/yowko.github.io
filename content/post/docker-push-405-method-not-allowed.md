@@ -10,7 +10,7 @@ aliases:
 ---
 ## Docker Push 出現 405 Method Not Allowed 錯誤？
 
-之前筆記 [解決 Docker build pip install fail](/2018/06/docker-build-pip-install-fail.html) 提到在練習 Kubernetes 過程中執行 docker build 指令時會出現 pip install fail 的 error，問題發生原因是 docker 的 DNS 解析不正確造成的，解決方式是設定 Docker 的 DNS。
+之前筆記 [解決 Docker build pip install fail](/docker-build-pip-install-fail) 提到在練習 Kubernetes 過程中執行 docker build 指令時會出現 pip install fail 的 error，問題發生原因是 docker 的 DNS 解析不正確造成的，解決方式是設定 Docker 的 DNS。
 
 完成 docker build 產生的 image 只會存在執行指令的機器上，除非手動打包 image 至其他 Kubernetes Node 上，否則在執行 Kubernetes 部署時會出現找不到 image 而出現部署失敗的錯誤訊息，但 Kubernetes Node 可以動態增減，手動複製並沒有真正解決問題，透過將 image push 至 registry 才可以一勞永逸，只是想不到一個 `docker push` 也讓我卡關了XD  就來看看問題發生原因及解決方式吧
 

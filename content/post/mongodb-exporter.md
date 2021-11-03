@@ -9,7 +9,7 @@ slug: "mongodb-exporter"
 
 ## 安裝 MongoDB Exporter
 
-之前筆記 [Prometheus 搭配 Alertmanager 發送警示](https://blog.yowko.com/prometheus-alertmanager/) 紀錄到如何使用 Prometheus 與 Alertmanager 來進行監控並主動發生通知，而 MongoDB 也可以是 Prometheus 監控的對象，透過安裝 MongoDB Exporter 將 metrics 資訊透過 http server 方式揭露再透過 Prometheus 主動 pull 即可將 MongoDB 相關資訊儲存至 Prometheus 中
+之前筆記 [Prometheus 搭配 Alertmanager 發送警示](/prometheus-alertmanager/) 紀錄到如何使用 Prometheus 與 Alertmanager 來進行監控並主動發生通知，而 MongoDB 也可以是 Prometheus 監控的對象，透過安裝 MongoDB Exporter 將 metrics 資訊透過 http server 方式揭露再透過 Prometheus 主動 pull 即可將 MongoDB 相關資訊儲存至 Prometheus 中
 
 今天就來快速紀錄一下 如何使用 Helm 來安裝 MongoDB Exporter
 

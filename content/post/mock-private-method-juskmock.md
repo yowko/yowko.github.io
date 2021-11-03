@@ -48,7 +48,7 @@ public class ValuesController : ApiController
 }
 ```
 
-> 以上內容皆與 [使用 Moq 來 Mock protected Method](/2017/07/moq-mock-protected-method.html) 相同
+> 以上內容皆與 [使用 Moq 來 Mock protected Method](/moq-mock-protected-method) 相同
 
 ## 撰寫測試程式
 

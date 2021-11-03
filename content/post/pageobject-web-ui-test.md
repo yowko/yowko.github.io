@@ -10,9 +10,9 @@ aliases:
 ---
 ## 使用 PageObject(Page Object Pattern) 建立物件導向的 Web UI 測試程式
 
-從 [使用 Selenium IDE 與 C# 做 Web UI 測試](//blog.yowko.com/2017/06/selenium-ide-c-sharp-web-ui-test.html) 介紹如何使用 Selenium IDE 錄製網頁操作再轉換為 c# 測試案例，讓測試程式也能觸發 Web UI 的測試驗證。
+從 [使用 Selenium IDE 與 C# 做 Web UI 測試](/selenium-ide-c-sharp-web-ui-test) 介紹如何使用 Selenium IDE 錄製網頁操作再轉換為 c# 測試案例，讓測試程式也能觸發 Web UI 的測試驗證。
 
-接著為了讓 Selenium 產生出來的測試案例可以有更好的可讀性跟說明需求的能力，[使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式](//blog.yowko.com/2017/06/fluent-automation-selenium-web-ui-test.html) 中使用了 Fluent Automation 來取代 Selenium api。
+接著為了讓 Selenium 產生出來的測試案例可以有更好的可讀性跟說明需求的能力，[使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式](/fluent-automation-selenium-web-ui-test) 中使用了 Fluent Automation 來取代 Selenium api。
 
 最後是 91 哥在 TDD 課程中介紹了 Martin Fowler 的概念：[PageObject](https://martinfowler.com/bliki/PageObject.html)，接下來我們就來看看 PageObject 的目的與使用方式
 
@@ -43,7 +43,7 @@ aliases:
 
 * Demo 案例如下
 
-    > 細節請參考 [使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式](//blog.yowko.com/2017/06/fluent-automation-selenium-web-ui-test.html)
+    > 細節請參考 [使用 Fluent Automation 與 Selenium 打造語意化 Web UI 測試程式](/fluent-automation-selenium-web-ui-test)
 
     ```cs
     using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -10,7 +10,7 @@ aliases:
 ---
 ## 建立支援 UEFI 開機的 Windows Server 2016 安裝 USB
 
-之前的筆記 [建立可開機的 Windows Server 2016 安裝 USB](http://blog.yowko.com/2016/12/windows-server-2016-usb.html)，我們看了如何建立可開機的 USB。
+之前的筆記 [建立可開機的 Windows Server 2016 安裝 USB](/windows-server-2016-usb)，我們看了如何建立可開機的 USB。
 
 而我自己在安裝 Windows Server 2016 過程中，卻是一開機就愣住：太久沒重灌忘了我的筆電預設使用 UEFI (UEFI 介紹可以看 [即將換掉傳統 BIOS 的 UEFI，你懂了嗎？（三）](https://www.techbang.com/posts/4361-fully-understand-uefi-bios-theory-and-actual-combat-3-liu-xiudian) 跟 [EFI、UEFI、MBR、GPT的區別](https://read01.com/kg2KyP.html#.W5FV_fn3l3g))，雖然透過調整開機設定還是能正常安裝，但想到下次可能仍然會忘記，所以紀錄一下供日後查閱.
 

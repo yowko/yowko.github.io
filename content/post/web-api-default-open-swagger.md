@@ -10,7 +10,7 @@ aliases:
 ---
 ## 開啟 Web Api Url 時直接導向 Swagger 頁面
 
-文章 [建立 ASP.NET Web API 專案的幾種方式](/2017/07/create-aspnet-web-api.html) 介紹到選擇適合的專案範本來建立 ASP.NET Web Api 專案以避免預設安裝過多用不到的套件，其中除了完整安裝的 ASP.NET Web API 專案範本之外，其他安裝方式都不會有 View，所以如果直接使用瀏覽器開啟 Web Api Url 時，會出現 403.14 的錯誤畫面，這對於 user 來說是不友善的，所以針對 dev 或是沒有資安風險的專案，打算預設導向 swagger 畫面，直接提供 user 相關 api 文件及使用方式，也可以有效隱藏 錯誤畫面
+文章 [建立 ASP.NET Web API 專案的幾種方式](/create-aspnet-web-api) 介紹到選擇適合的專案範本來建立 ASP.NET Web Api 專案以避免預設安裝過多用不到的套件，其中除了完整安裝的 ASP.NET Web API 專案範本之外，其他安裝方式都不會有 View，所以如果直接使用瀏覽器開啟 Web Api Url 時，會出現 403.14 的錯誤畫面，這對於 user 來說是不友善的，所以針對 dev 或是沒有資安風險的專案，打算預設導向 swagger 畫面，直接提供 user 相關 api 文件及使用方式，也可以有效隱藏 錯誤畫面
 
 來看看怎麼設定吧
 

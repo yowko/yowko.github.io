@@ -10,7 +10,7 @@ aliases:
 ---
 ## Fake Assembly 無法自動產生 *.Fakes dll 及出現 build fail
 
-在 [如何 Mock System.Web.Hosting.HostingEnvironment.MapPath 虛擬路徑](/2017/02/mock-hostingenvironment-mappath.html) 提到同事想要 mock `System.Web.Hosting.HostingEnvironment.MapPath` 的值，試了半天決定用 fake dll 的方法來直接解決，但過程不太順利，所以留下紀錄
+在 [如何 Mock System.Web.Hosting.HostingEnvironment.MapPath 虛擬路徑](/mock-hostingenvironment-mappath) 提到同事想要 mock `System.Web.Hosting.HostingEnvironment.MapPath` 的值，試了半天決定用 fake dll 的方法來直接解決，但過程不太順利，所以留下紀錄
 
 ## 重現問題：無法出現 System.Web.Fakes/System.Web.Http.Fakes dll
 

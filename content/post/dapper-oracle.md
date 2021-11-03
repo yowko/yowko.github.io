@@ -60,7 +60,7 @@ using (var cn = new System.Data.OracleClient.OracleConnection(cnstr))
     ![4error](https://user-images.githubusercontent.com/3851540/27827702-29a71b20-60eb-11e7-92b1-01373d547b8b.png)
 
     * 當時未能查明原因，推估應是測試當下 tns.ora 設定有誤造成
-  * </del><span style="color:red"> 2017/11/18 重新 review 後，發現內文有錯，正確用法連結：</span> [Dapper 讀取 Oracle 資料 - 更新版 (使用 Oracle.ManagedDataAccess )](//blog.yowko.com/2018/01/dapper-oracle-manageddataaccess.html)
+  * </del><span style="color:red"> 2017/11/18 重新 review 後，發現內文有錯，正確用法連結：</span> [Dapper 讀取 Oracle 資料 - 更新版 (使用 Oracle.ManagedDataAccess )](/dapper-oracle-manageddataaccess)
 
   * 完整程式碼
 
@@ -99,4 +99,4 @@ Oracle 與 SQL Server 在 sql secript 中使用參數寫法不同
 1. [Dapper連接Oracle](http://www.cnblogs.com/ushou/p/3359973.html)
 2. [好用的微型 ORM：Dapper](http://www.huanlintalk.com/2014/03/a-micro-orm-dapper.html)
 3. [短小精悍的.NET ORM神器-- Dapper](http://blog.darkthread.net/post-2014-05-15-dapper.aspx)
-4. [Dapper 讀取 Oracle 資料 - 更新版 (使用 Oracle.ManagedDataAccess )](//blog.yowko.com/2018/01/dapper-oracle-manageddataaccess.html)
+4. [Dapper 讀取 Oracle 資料 - 更新版 (使用 Oracle.ManagedDataAccess )](/dapper-oracle-manageddataaccess)

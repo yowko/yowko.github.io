@@ -59,7 +59,7 @@ aliases:
 
 ## 設定 OpenSearch
 
-> 詳細操作流程請參考過去筆記 [怎麼讓網站在輸入網址後按tab 就可以直接搜尋網站內容(OpenSearch)](/2016/12/opensearch/)，以下內容僅列出步驟
+> 詳細操作流程請參考過去筆記 [怎麼讓網站在輸入網址後按tab 就可以直接搜尋網站內容(OpenSearch)](/opensearch/)，以下內容僅列出步驟
 
 1. 建立 OpenSearch 描述 xml 檔案
 

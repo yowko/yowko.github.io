@@ -80,7 +80,7 @@ aliases:
 
     > `RedisConnectionFactory.RedisServer.Keys(pattern: "{pattern}");`
 
-**如果執行速度緩慢請參 [取得 Redis 中指定 key 條件的筆數](/2018/07/redis-key-count.html)**
+**如果執行速度緩慢請參 [取得 Redis 中指定 key 條件的筆數](/redis-key-count)**
 
 ## 參考資訊
 

@@ -109,6 +109,6 @@ aliases:
 
 1. [How can I convert an enumeration into a List\<selectlistitem>?\</selectlistitem>](https://stackoverflow.com/questions/3489453/how-can-i-convert-an-enumeration-into-a-listselectlistitem)
 2. [How to get the values of an enum into a SelectList](https://stackoverflow.com/questions/1110070/how-to-get-the-values-of-an-enum-into-a-selectlist)
-3. [有 EnumDropDownListFor 為什麼還要客製 Enum to Dropdownlist ？！](/2017/02/customize-asp-dot-net-mvc-enum-to-dropdownlist.html)
+3. [有 EnumDropDownListFor 為什麼還要客製 Enum to Dropdownlist ？！](/customize-asp-dot-net-mvc-enum-to-dropdownlist)
 4. [Can you loop through all enum values?](https://stackoverflow.com/questions/972307/can-you-loop-through-all-enum-values)
 5. [Query Syntax and Method Syntax in LINQ (C#)](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/query-syntax-and-method-syntax-in-linq?WT.mc_id=DOP-MVP-5002594)

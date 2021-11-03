@@ -10,7 +10,7 @@ aliases:
 ---
 ## ASP.NET MVC 如何 POST LIST 資料 2
 
-先前筆記 [ASP.NET MVC 如何 POST LIST 資料 1](/2017/02/aspnet-mvc-post-list-1) 紀錄著該如何 post 單一資料屬性 list 到後端，而這篇將介紹該如何 post 多種資料屬性 list 到後端
+先前筆記 [ASP.NET MVC 如何 POST LIST 資料 1](/aspnet-mvc-post-list-1) 紀錄著該如何 post 單一資料屬性 list 到後端，而這篇將介紹該如何 post 多種資料屬性 list 到後端
 
 ## 定義資料欄位
 
@@ -153,4 +153,4 @@ aliases:
 
 ## 參考資訊
 
-1. [ASP.NET MVC 如何 POST LIST 資料 1](/2017/02/aspnet-mvc-post-list-1)
+1. [ASP.NET MVC 如何 POST LIST 資料 1](/aspnet-mvc-post-list-1)

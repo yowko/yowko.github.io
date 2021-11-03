@@ -10,7 +10,7 @@ aliases:
 ---
 ## 將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中 - MongoDB 版
 
-在之前筆記 [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](/2017/11/add-aspnet-identity-empty-project.html) 中有提到我個人事實上比較喜歡 MVC Empty 專案範本的乾淨風格，當時也是因為不想讓專案中有過多預設套件及程式碼特別紀錄如何從 Empty 專案範本來逐步加入 ASP.NET Identity，最近專案剛好有用到 MongoDB 來儲存 ASP.NET Identity 資料 (詳細內容請參考 [使用 MongoDB 儲存 ASP.NET Identity 資料](/2018/07/aspnet-identity-mongodb.html))，所以順手紀錄一下如何逐步將 ASP.NET Identity 搭配 MongoDB 加至 ASP.NET MVC Empty 專案中
+在之前筆記 [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](/add-aspnet-identity-empty-project) 中有提到我個人事實上比較喜歡 MVC Empty 專案範本的乾淨風格，當時也是因為不想讓專案中有過多預設套件及程式碼特別紀錄如何從 Empty 專案範本來逐步加入 ASP.NET Identity，最近專案剛好有用到 MongoDB 來儲存 ASP.NET Identity 資料 (詳細內容請參考 [使用 MongoDB 儲存 ASP.NET Identity 資料](/aspnet-identity-mongodb))，所以順手紀錄一下如何逐步將 ASP.NET Identity 搭配 MongoDB 加至 ASP.NET MVC Empty 專案中
 
 ## 使用空專案範本建立專案
 
@@ -683,6 +683,6 @@ aliases:
 
 ## 參考資訊
 
-1. [使用 MongoDB 儲存 ASP.NET Identity 資料](/2018/07/aspnet-identity-mongodb.html)
-2. [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](/2017/11/add-aspnet-identity-empty-project.html)
+1. [使用 MongoDB 儲存 ASP.NET Identity 資料](/aspnet-identity-mongodb)
+2. [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](/add-aspnet-identity-empty-project)
 3. [專案原始碼](https://github.com/yowko/ASP.NET-Identity_MongoDB-Sample.git)

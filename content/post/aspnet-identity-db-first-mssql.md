@@ -175,7 +175,7 @@ aliases:
 
     * 使用 Empty MVC 專案範本
 
-        > 之前筆記 [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](/2017/11/add-aspnet-identity-empty-project.html) 有介紹該如何從無至有加入 ASP.NET Identity
+        > 之前筆記 [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](/add-aspnet-identity-empty-project) 有介紹該如何從無至有加入 ASP.NET Identity
 
     * 使用預設 MVC 專案範本
 
@@ -293,4 +293,4 @@ aliases:
 ## 參考資訊
 
 1. [Using Asp.Net Identity DataBase first approach](https://stackoverflow.com/questions/20668328/using-asp-net-identity-database-first-approach)
-2. [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](/2017/11/add-aspnet-identity-empty-project.html)
+2. [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](/add-aspnet-identity-empty-project)

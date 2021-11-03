@@ -10,7 +10,7 @@ aliases:
 ---
 ## 使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 4 使用泛型來簡化
 
-經過第一篇文章 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 1 極簡做法](/2017/01/net-framework-memorycache-simple.html) 介紹了最簡單達到 cache 資料的方法，也在 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 2 使用 lock 避免 ddos db](/2017/01/net-framework-memorycache-avoid-ddos-db.html) 先解決程式可能 ddos db 的重大缺失, 加上無意中發現的 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 3 隱藏的效能瓶頸](/2017/02/net-framework-memorycache-cache-part-3.html),接著就是來改善程式未使用泛型而造成程式碼雜亂的問題.
+經過第一篇文章 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 1 極簡做法](/net-framework-memorycache-simple) 介紹了最簡單達到 cache 資料的方法，也在 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 2 使用 lock 避免 ddos db](/net-framework-memorycache-avoid-ddos-db) 先解決程式可能 ddos db 的重大缺失, 加上無意中發現的 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 3 隱藏的效能瓶頸](/net-framework-memorycache-cache-part-3),接著就是來改善程式未使用泛型而造成程式碼雜亂的問題.
 
 ## 前情提要
 

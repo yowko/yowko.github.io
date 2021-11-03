@@ -174,7 +174,7 @@ aliases:
 
 ## 心得
 
-原本以為程式碼與之前筆記 [JavaScript 依屬性值過濾陣列取得完整物件](/2017/12/javascript-filter-array-by-value.html) 會非常相似，想不到測試撰寫過程才知道是我想得太簡單了，更進一步證實我的 JavaScript 技能相當薄弱呀(這時才發現 `forEach` 與 `map` 無法中途終止 - 沒有 `break` 跟 `continue`)，幸虧本身就不是靠 js 吃穿的，覺得還過得去 哈哈
+原本以為程式碼與之前筆記 [JavaScript 依屬性值過濾陣列取得完整物件](/javascript-filter-array-by-value) 會非常相似，想不到測試撰寫過程才知道是我想得太簡單了，更進一步證實我的 JavaScript 技能相當薄弱呀(這時才發現 `forEach` 與 `map` 無法中途終止 - 沒有 `break` 跟 `continue`)，幸虧本身就不是靠 js 吃穿的，覺得還過得去 哈哈
 
 不過經過一番測試與查閱資料後，已經比較清楚其中差異，相信下次一定可以比較快解決問題，至少有地方可以<del>抄</del>參考
 

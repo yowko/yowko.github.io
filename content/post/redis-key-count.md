@@ -185,5 +185,5 @@ aliases:
 
 1. [KEY](https://redis.io/commands/keys)
 2. [SCAN](https://redis.io/commands/scan)
-3. [如何使用 StackExchange.Redis 取得所有 keys 值與指定 pattern 的 key](/2017/04/stackexchange-redis-get-all-keys-or-pattern.html)
+3. [如何使用 StackExchange.Redis 取得所有 keys 值與指定 pattern 的 key](/stackexchange-redis-get-all-keys-or-pattern)
 4. [Where are KEYS, SCAN, FLUSHDB etc?](https://stackexchange.github.io/StackExchange.Redis/KeysScan)

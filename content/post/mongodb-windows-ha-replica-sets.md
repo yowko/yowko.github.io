@@ -47,7 +47,7 @@ Replica Set 是數個 MongoDB 的 instance，用來同時儲存相同資料，�
 
 ## 建立 Replica Set
 
-以下將會透過 `yaml` 格式建立 Windows Service 版的 MongoDB instance，如果不清楚做法請參考 [如何在 Windows 環境安裝及設定 MongoDB](/2017/08/windows-mongodb.html)
+以下將會透過 `yaml` 格式建立 Windows Service 版的 MongoDB instance，如果不清楚做法請參考 [如何在 Windows 環境安裝及設定 MongoDB](/windows-mongodb)
 
 1. 建立 MongoDB 的 yaml 設定檔
 

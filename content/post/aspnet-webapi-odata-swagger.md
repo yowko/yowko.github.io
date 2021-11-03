@@ -16,7 +16,7 @@ Swagger 的強大功能不需要再重複強調，重要性在團隊開發上已
   
 ## 安裝 NuGet 套件
 
-該套件僅支援 OData V4，如果還在使用 OData V3 可以考慮升級 OData v4，詳細做法請參考 [如何將 OData v3 升級為 OData v4](/2017/10/odata-v3-to-odata-v4.html)
+該套件僅支援 OData V4，如果還在使用 OData V3 可以考慮升級 OData v4，詳細做法請參考 [如何將 OData v3 升級為 OData v4](/odata-v3-to-odata-v4)
 
 ```cmd
 Install-Package Swashbuckle.OData
@@ -198,5 +198,5 @@ Install-Package Swashbuckle.OData
 
 ## 參考資訊
 
-1. [如何將 OData v3 升級為 OData v4](/2017/10/odata-v3-to-odata-v4.html)
+1. [如何將 OData v3 升級為 OData v4](/odata-v3-to-odata-v4)
 2. [rbeauchamp/Swashbuckle.OData](https://github.com/rbeauchamp/Swashbuckle.OData)

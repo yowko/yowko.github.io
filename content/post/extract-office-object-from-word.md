@@ -10,7 +10,7 @@ aliases:
 ---
 ## 使用 C# 取出 Word (.docx) 中的內嵌 Office 物件
 
-之前筆記 [取得 Word(.docx) 中的內嵌檔案](/2018/01/extract-embedded-file-in-word.html) 紀錄到如何在 word 中嵌入其他物件，也提到如何簡易地取出內嵌物件
+之前筆記 [取得 Word(.docx) 中的內嵌檔案](/extract-embedded-file-in-word) 紀錄到如何在 word 中嵌入其他物件，也提到如何簡易地取出內嵌物件
 
 今天則是要紀錄如何使用 C# 將 Word 中的內嵌物件取出
 
@@ -57,5 +57,5 @@ using (Package pkg = Package.Open(sourcefile))
 
 ## 參考資訊
 
-1. [取得 Word(.docx) 中的內嵌檔案](/2018/01/extract-embedded-file-in-word.html)
+1. [取得 Word(.docx) 中的內嵌檔案](/extract-embedded-file-in-word)
 2. [c# OpenXML Example of Retrieving an embedded word doc's relationship info](https://social.msdn.microsoft.com/Forums/windows/en-US/3b061fdf-7b10-4aeb-96e6-883593aaea87/c-openxml-example-of-retrieving-an-embedded-word-docs-relationship-info?forum=oxmlsdk)

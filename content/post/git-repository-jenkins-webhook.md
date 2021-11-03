@@ -10,7 +10,7 @@ aliases:
 ---
 ## 遠端 Git Repository 有變動時自動通知 Jenkins 2 進行編譯建置 (webhook)
 
-之前筆記 [如何使用 Jenkins 2.0 建置 .NET 專案](/2017/02/jenkins-2-build-dotnet-project.html) 紀錄到該如何使用 Jenkins 2 來建置 .NET 專案，為了讓整個開發建置流程更加自動化也更確保品質，可以透過 Git server 所提供的 webhook 功能來 demo 該如何設定 Jenkins 2 和 Git server (將以 GitHub 為例)，讓版控 (git) 可以主動通知 build server (Jenkins 2) 發動建置
+之前筆記 [如何使用 Jenkins 2.0 建置 .NET 專案](/jenkins-2-build-dotnet-project) 紀錄到該如何使用 Jenkins 2 來建置 .NET 專案，為了讓整個開發建置流程更加自動化也更確保品質，可以透過 Git server 所提供的 webhook 功能來 demo 該如何設定 Jenkins 2 和 Git server (將以 GitHub 為例)，讓版控 (git) 可以主動通知 build server (Jenkins 2) 發動建置
 
 ## 文章大綱
 
@@ -72,7 +72,7 @@ aliases:
 
                 ![9uncsrf](https://cloud.githubusercontent.com/assets/3851540/21797561/cb3e5104-d74a-11e6-9eab-63957e76b4b7.png)
 
-*如果沒有對外 domain ，可以參考 [使用 ngrok 讓本機上的網站可以被全世界看到](/2016/12/ngrok.html)*
+*如果沒有對外 domain ，可以參考 [使用 ngrok 讓本機上的網站可以被全世界看到](/ngrok)*
 
 ## 2. 以 GitHub 為例設定
 

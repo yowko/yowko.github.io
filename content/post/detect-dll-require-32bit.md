@@ -16,7 +16,7 @@ aliases:
 
 ## 使用 dumpbin：<span style="color:red">無法識別是否需要 32 位元模式</span>
 
-> 曾經在之前筆記 [如何看程式是 32 bit 還是 64 bit](/2017/11/binary-is-32-bit-64-bit.html) 紀錄到，詳細的使用方式可以參考原文 [如何看程式是 32 bit 還是 64 bit](/2017/11/binary-is-32-bit-64-bit.html)
+> 曾經在之前筆記 [如何看程式是 32 bit 還是 64 bit](/binary-is-32-bit-64-bit) 紀錄到，詳細的使用方式可以參考原文 [如何看程式是 32 bit 還是 64 bit](/binary-is-32-bit-64-bit)
 
 - 使用方式
 
@@ -583,7 +583,7 @@ aliases:
 
 ## 參考資訊
 
-1. [如何看程式是 32 bit 還是 64 bit](/2017/11/binary-is-32-bit-64-bit.html)
+1. [如何看程式是 32 bit 還是 64 bit](/binary-is-32-bit-64-bit)
 2. [Check whether a .NET dll is built for Any CPU, x86, or x64](https://malvinly.com/2016/11/16/check-whether-a-net-dll-is-built-for-any-cpu-x86-or-x64/)
 3. [ProcessorArchitecture 列舉](https://msdn.microsoft.com/library/system.reflection.processorarchitecture)
 4. [How to determine if a .NET assembly was built for x86 or x64?](https://stackoverflow.com/questions/270531/how-to-determine-if-a-net-assembly-was-built-for-x86-or-x64)

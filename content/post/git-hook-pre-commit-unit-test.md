@@ -16,7 +16,7 @@ aliases:
 
 ## 加上 Git Hook
 
-之前文章 [Windows 環境下為 Git Repository 加上 Git Hook](/2017/05/git-hook-windows.html)，對於 Git Hook 有簡單介紹可以參考
+之前文章 [Windows 環境下為 Git Repository 加上 Git Hook](/git-hook-windows)，對於 Git Hook 有簡單介紹可以參考
 
 1. 在專案的 `.git\hooks` 資料夾將 `pre-commit.sample` rename 為 `pre-commit` (去掉附檔名)
 

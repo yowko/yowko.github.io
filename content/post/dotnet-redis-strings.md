@@ -11,7 +11,7 @@ aliases:
 ---
 ## 如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 1 (使用 Strings 型別)
 
-在前面文章 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 1 極簡做法](/2017/01/net-framework-memorycache-simple.html) 介紹了最簡單達到 cache 資料的方法，也[使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 2 使用 lock 避免 ddos db](/2017/01/net-framework-memorycache-avoid-ddos-db.html)，加上意外發現的[使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 3 隱藏的效能瓶頸](/2017/02/net-framework-memorycache-cache-part-3.html)以及最後在 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 4 使用泛型來簡化](/2017/02/net-framework-memorycache-use-generic.html) 中，將 cache 的 function 做了一些簡化，但也想到了新的問題：目前的 cache 都是使用 application server 的 local memory，多台 server 的情境還是可能對 db 產生壓力加上還可能因為 cache 取得時間的落差而有資料不一致的問題，所以我們接著就來將原本使用 .NET Framework 內建 MemoryCache 的 cahce 改使用 Redis 做為共用的 Cache Server
+在前面文章 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 1 極簡做法](/net-framework-memorycache-simple) 介紹了最簡單達到 cache 資料的方法，也[使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 2 使用 lock 避免 ddos db](/net-framework-memorycache-avoid-ddos-db)，加上意外發現的[使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 3 隱藏的效能瓶頸](/net-framework-memorycache-cache-part-3)以及最後在 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 4 使用泛型來簡化](/net-framework-memorycache-use-generic) 中，將 cache 的 function 做了一些簡化，但也想到了新的問題：目前的 cache 都是使用 application server 的 local memory，多台 server 的情境還是可能對 db 產生壓力加上還可能因為 cache 取得時間的落差而有資料不一致的問題，所以我們接著就來將原本使用 .NET Framework 內建 MemoryCache 的 cahce 改使用 Redis 做為共用的 Cache Server
 
 ## 原本程式碼
 
@@ -295,7 +295,7 @@ public static class CacheHelper
 
 1. [Using Redis Cache with .NET and C#](http://www.codefluff.com/using-redis-cache-with-net-and-c/)
 2. [Redis Desktop Manager](https://redisdesktop.com/)
-3. [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 1 極簡做法](http://blog.yowko.com/2017/01/net-framework-memorycache-simple.html)
-4. [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 2 使用 lock 避免 ddos db](http://blog.yowko.com/2017/01/net-framework-memorycache-avoid-ddos-db.html)
-5. [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 3 隱藏的效能瓶頸](http://blog.yowko.com/2017/02/net-framework-memorycache-cache-part-3.html)
-6. [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 4 使用泛型來簡化](http://blog.yowko.com/2017/02/net-framework-memorycache-use-generic.html)
+3. [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 1 極簡做法](/net-framework-memorycache-simple)
+4. [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 2 使用 lock 避免 ddos db](/net-framework-memorycache-avoid-ddos-db)
+5. [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 3 隱藏的效能瓶頸](/net-framework-memorycache-cache-part-3)
+6. [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 4 使用泛型來簡化](/net-framework-memorycache-use-generic)

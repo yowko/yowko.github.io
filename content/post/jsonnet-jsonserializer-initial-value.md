@@ -195,7 +195,7 @@ public class InitialJsonConvert : JsonConverter
 
 ## 心得
 
-主要程式是延用 [客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性](http://blog.yowko.com/2017/07/custom-josnconverter-initial-valuetype.html) 並改用 JsonSerializer 來進行序列化的動作，適合用在 web request 直接將結果 data 序列化為 json 並透過 StreamWriter 輸出
+主要程式是延用 [客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性](/custom-josnconverter-initial-valuetype) 並改用 JsonSerializer 來進行序列化的動作，適合用在 web request 直接將結果 data 序列化為 json 並透過 StreamWriter 輸出
 
 ## 參考資訊
 

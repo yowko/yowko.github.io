@@ -10,7 +10,7 @@ aliases:
 ---
 ## Windows Dockerfile 如何指定 VOLUME
 
-同事在參考 [使用 dockerfile 建立 Windows Container 版 Jenkins](/2017/08/dockerfile-windows-container-jenkins.html) 後，打算透過指定 volume 的方式將 Jenkins 相關設定儲存在 host 環境上不用隨 container 異動重新設定，經過一番嘗試，終於找出正確設定，還督促著我要記得將筆記補齊 XD
+同事在參考 [使用 dockerfile 建立 Windows Container 版 Jenkins](/dockerfile-windows-container-jenkins) 後，打算透過指定 volume 的方式將 Jenkins 相關設定儲存在 host 環境上不用隨 container 異動重新設定，經過一番嘗試，終於找出正確設定，還督促著我要記得將筆記補齊 XD
 
 所以為了讓其他同事在實作時也能更順利完成，就來看看該如何設定吧
 
@@ -54,7 +54,7 @@ container 本身是個用完即丟的概念，而 container 中的相關檔案�
 
 ## Dockerfile 中指定 Volume
 
-以 [使用 dockerfile 建立 Windows Container 版 Jenkins](/2017/08/dockerfile-windows-container-jenkins.html) 為例
+以 [使用 dockerfile 建立 Windows Container 版 Jenkins](/dockerfile-windows-container-jenkins) 為例
 
 ```dockerfile
 #指定基礎 os image
@@ -136,6 +136,6 @@ windows 的 volume 用法跟 linux 不太相同，不同的點在於對符號的
 ## 參考資訊
 
 1. [Dockerfile on Windows](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/manage-windows-dockerfile?WT.mc_id=DOP-MVP-5002594)
-2. [使用 dockerfile 建立 Windows Container 版 Jenkins](/2017/08/dockerfile-windows-container-jenkins.html)
+2. [使用 dockerfile 建立 Windows Container 版 Jenkins](/dockerfile-windows-container-jenkins)
 3. [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 4. [深入理解Docker Volume（一）](http://dockone.io/article/128)

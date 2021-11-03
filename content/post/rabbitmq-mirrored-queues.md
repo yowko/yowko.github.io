@@ -20,7 +20,7 @@ Mirrored Queues 會在多個 node 中互相複製及儲存 queue 及其內容，
 
 ## 基本環境
 
-最重要的前提就是必需要先設定好 RabbitMQ Cluster ，詳細設定可以參考 [如何在 Windwos 上設定 RabbitMQ Cluster](/2017/08/windwos-rabbitmq-cluster.html)，這邊就不重複贅述
+最重要的前提就是必需要先設定好 RabbitMQ Cluster ，詳細設定可以參考 [如何在 Windwos 上設定 RabbitMQ Cluster](/windwos-rabbitmq-cluster)，這邊就不重複贅述
 
 ## 設定 Mirrored Queues
 
@@ -109,7 +109,7 @@ RabbitMQ server 端的設定大致已完備，但 client 的 publisher 與 consu
 
 ## 參考資訊
 
-1. [如何在 Windwos 上設定 RabbitMQ Cluster](/2017/08/windwos-rabbitmq-cluster.html)
+1. [如何在 Windwos 上設定 RabbitMQ Cluster](/windwos-rabbitmq-cluster)
 2. [RabbitMQ官網文檔翻譯 -- Highly Available Queue](https://my.oschina.net/moooofly/blog/94113)
 3. [Highly Available (Mirrored) Queues](https://www.rabbitmq.com/ha.html)
 4. [Rabbitmq HTTP API request UnAuthorized](https://stackoverflow.com/questions/10647631/rabbitmq-http-api-request-unauthorized)

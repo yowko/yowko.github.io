@@ -10,7 +10,7 @@ aliases:
 ---
 ## Visual Studio 建置前事件( Pre-build Event ) / 建置後事件( Post-build Event) - PART 2
 
-之前文章 [Visual Studio 建置前事件( Pre-build Event ) / 建置後事件( Post-build Event)](/2017/01/visual-studio-pre-build-event-post-build-event.html) 介紹到該如何使用 visual studio 的兩種 build event 跟內建的巨集。後來同事問幾個相關問題，馬上就漏氣，查了資料立馬來紀錄一下
+之前文章 [Visual Studio 建置前事件( Pre-build Event ) / 建置後事件( Post-build Event)](/visual-studio-pre-build-event-post-build-event) 介紹到該如何使用 visual studio 的兩種 build event 跟內建的巨集。後來同事問幾個相關問題，馬上就漏氣，查了資料立馬來紀錄一下
 
 ## 撰寫原則
 

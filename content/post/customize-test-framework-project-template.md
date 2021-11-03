@@ -11,7 +11,7 @@ slug: "customize-test-framework-project-template"
 
 ## Test Framework 套件不好用嗎？！ 自己做一個囉
 
-前幾天在測試不同 Test Framework 特性時發現 NuGet 上 Visual Studio 2017 沒有 xUnit.net 2.0 的專案範本套件 ([在 Visual Studio 2017 中安裝其他 Test Framework - NUnit](//blog.yowko.com/2017/05/visual-studio-2017-test-framework-nunit.html))，所以就自己做了一個，使用上自己覺得很方便，詳情可以參考 [在 Visual Studio 2017 中安裝其他 Test Framework - xUnit.net 2.0](//blog.yowko.com/2017/05/visual-studio-2017-test-framework-xunit.html)。
+前幾天在測試不同 Test Framework 特性時發現 NuGet 上 Visual Studio 2017 沒有 xUnit.net 2.0 的專案範本套件 ([在 Visual Studio 2017 中安裝其他 Test Framework - NUnit](/visual-studio-2017-test-framework-nunit))，所以就自己做了一個，使用上自己覺得很方便，詳情可以參考 [在 Visual Studio 2017 中安裝其他 Test Framework - xUnit.net 2.0](/visual-studio-2017-test-framework-xunit)。
 
 完成了 xUnit 後，突然想起安裝 NUnit 時需要自行安裝
 
@@ -333,7 +333,7 @@ slug: "customize-test-framework-project-template"
 
 5. 如果沒有上架需求，直接 build 專案後，可以從 bin/debug or release 資料夾中找到 `.vsix` 檔即可用來安裝
 
-6. 如果有上架需要請參考 [如何發行 Visual Studio 專案範本(project Template)](//blog.yowko.com/2016/12/publish-visual-studio-project-template.html)
+6. 如果有上架需要請參考 [如何發行 Visual Studio 專案範本(project Template)](/publish-visual-studio-project-template)
 
 ## 測試成品
 
@@ -345,8 +345,8 @@ slug: "customize-test-framework-project-template"
 
 ## 參考資訊
 
-1. [在 Visual Studio 2017 中安裝其他 Test Framework - NUnit](//blog.yowko.com/2017/05/visual-studio-2017-test-framework-nunit.html)
-2. [在 Visual Studio 2017 中安裝其他 Test Framework - xUnit.net 2.0](//blog.yowko.com/2017/05/visual-studio-2017-test-framework-xunit.html)
+1. [在 Visual Studio 2017 中安裝其他 Test Framework - NUnit](/visual-studio-2017-test-framework-nunit)
+2. [在 Visual Studio 2017 中安裝其他 Test Framework - xUnit.net 2.0](/visual-studio-2017-test-framework-xunit)
 3. [nunit3-vs-adapter](https://github.com/nunit/nunit3-vs-adapter)
-4. [如何發行 Visual Studio 專案範本(project Template)](//blog.yowko.com/2016/12/publish-visual-studio-project-template.html)
+4. [如何發行 Visual Studio 專案範本(project Template)](/publish-visual-studio-project-template)
 5. ~~[NUnit3.TestGenerator](https://github.com/yowko/NUnit3.TestGenerator)~~

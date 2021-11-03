@@ -10,7 +10,7 @@ aliases:
 ---
 ## 使用 Common.Logging 同時將 log 寫至多個 Logging Framework
 
-之前文章 [使用 Common.Logging 搭配 NLog 及 Log4Net](/2017/07/common-logging.html) 介紹到透過 Common.Logging 可以使用一致的 log 語法將 log 轉由不同 logging framework 處理，在不同專案間就可以使用統一 log 語法而且依團隊習慣自由選擇不同的 logging framework
+之前文章 [使用 Common.Logging 搭配 NLog 及 Log4Net](/common-logging) 介紹到透過 Common.Logging 可以使用一致的 log 語法將 log 轉由不同 logging framework 處理，在不同專案間就可以使用統一 log 語法而且依團隊習慣自由選擇不同的 logging framework
 
 測試過程聯想到，是不是可以同時發送 log 給不同的 logging framework，動手測試果然不支援 XD，後來找到方法，順手紀錄一下
 

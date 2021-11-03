@@ -10,7 +10,7 @@ aliases:
 ---
 ## 修改 Windows 上 Linux Container (MobyLinuxVM) 的 bip 設定
 
-最近幾篇筆記都是跟 ip 設定有關，主要是因為 docker 預設分配 container 使用的 ip 區段與公司測試環境衝突，造成 docker host 與 container 無法存取測試環境的 server (詳細原因請參考 [docker 無法連線至特定網段 (172.17.x.x)](/2017/09/docker-172-17-ip.html))
+最近幾篇筆記都是跟 ip 設定有關，主要是因為 docker 預設分配 container 使用的 ip 區段與公司測試環境衝突，造成 docker host 與 container 無法存取測試環境的 server (詳細原因請參考 [docker 無法連線至特定網段 (172.17.x.x)](/docker-172-17-ip))
 
 之前分別介紹過 linux container 與 windows container 的設定，今天就來分享一下 Windows 上的 Linux container 該如何設定
 
@@ -20,11 +20,11 @@ aliases:
 
 1. Linux 上修改 container 預設 IP 設定
 
-    > [docker 無法連線至特定網段 (172.17.x.x)](/2017/09/docker-172-17-ip.html)
+    > [docker 無法連線至特定網段 (172.17.x.x)](/docker-172-17-ip)
 
 2. 使用 docker for windows 來快連切換 linux container 與 windows container
 
-    > [在 Windows Server 2016 上使用 Linux container](/2017/09/windows-server-2016-linux-container.html)
+    > [在 Windows Server 2016 上使用 Linux container](/windows-server-2016-linux-container)
 
 ## 如何設定 Windows 上的 linux container
 
@@ -72,6 +72,6 @@ aliases:
 
 ## 參考資訊
 
-1. [docker 無法連線至特定網段 (172.17.x.x)](/2017/09/docker-172-17-ip.html)
-2. [在 Windows Server 2016 上使用 Linux container](/2017/09/windows-server-2016-linux-container.html)
+1. [docker 無法連線至特定網段 (172.17.x.x)](/docker-172-17-ip)
+2. [在 Windows Server 2016 上使用 Linux container](/windows-server-2016-linux-container)
 3. [dockerd](https://docs.docker.com/engine/reference/commandline/dockerd/)

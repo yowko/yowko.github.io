@@ -235,7 +235,7 @@ aliases:
 
 * 以 fiddler 為例
 
-  * fiddler 的相關設定請參考 [使用 fiddler 內建 proxy 來截錄手機或是程式封包](http://blog.yowko.com/2017/03/use-fiddler-proxy-gather-traffic.html)
+  * fiddler 的相關設定請參考 [使用 fiddler 內建 proxy 來截錄手機或是程式封包](/use-fiddler-proxy-gather-traffic)
   * 截錄到的內容
 
     ![1result](https://cloud.githubusercontent.com/assets/3851540/23498993/2dcba8e8-ff65-11e6-8aaf-e1cc9ceb6a8c.png)

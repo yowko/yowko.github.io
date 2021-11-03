@@ -120,7 +120,7 @@ NuGet Packager 是 Visual Studio 專案範本，得透過 Visual Studio 擴充�
 
 ## 設定 Jenkins
 
-原則上就是依照一般 Jenkins build .net 專案的設定，如果不熟悉的可以參考 [如何使用 Jenkins 2 建置 .NET 專案](//blog.yowko.com/2017/02/jenkins-2-build-dotnet-project.html)
+原則上就是依照一般 Jenkins build .net 專案的設定，如果不熟悉的可以參考 [如何使用 Jenkins 2 建置 .NET 專案](/jenkins-2-build-dotnet-project)
 
 1. 加入 free style 專案
 2. 設定 SCM (Source Code Management)

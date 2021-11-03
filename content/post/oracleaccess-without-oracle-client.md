@@ -138,11 +138,11 @@ using (OracleCommand oracleCommand = oracleConnection.CreateCommand())
 
 ## 心得
 
-之前筆記 [不用安裝 Oracle Client 使用 C# 透過 tnsnamses.ora 連結 Oracle](/2017/11/c-sharp-oracle-tns-without-client.html) 紀錄到如何在不安裝 Oracle client 透過 tns 來連線 Oracle，當時還因為終於避開直接相依 Oracle client 的一個重要功能而洋洋得意，今天再次搞定 `Oracle.DataAccess` 對 Oracle client 的依賴，更是開心呀，讓我再也不用擔心我的 Oracle client 無法正常運作而影響工作進度了
+之前筆記 [不用安裝 Oracle Client 使用 C# 透過 tnsnamses.ora 連結 Oracle](/c-sharp-oracle-tns-without-client) 紀錄到如何在不安裝 Oracle client 透過 tns 來連線 Oracle，當時還因為終於避開直接相依 Oracle client 的一個重要功能而洋洋得意，今天再次搞定 `Oracle.DataAccess` 對 Oracle client 的依賴，更是開心呀，讓我再也不用擔心我的 Oracle client 無法正常運作而影響工作進度了
 
 不過再次強調，如果情況允許，請改用 `Oracle.ManagedDataAccess` 真的省事很多，不用搞這些有的沒的，還可以在 64-bit 下執行，可以使用的記憶體增加後也能讓程式效率變好，值得推薦呀
 
 ## 參考資訊
 
 1. [the type initializer for Oracle.DataAccess.Client.OracleConnection threw an exception](https://www.daniweb.com/programming/software-development/threads/372248/the-type-initializer-for-oracle-dataaccess-client-oracleconnection-threw-an-exception)
-2. [不用安裝 Oracle Client 使用 C# 透過 tnsnamses.ora 連結 Oracle](/2017/11/c-sharp-oracle-tns-without-client.html)
+2. [不用安裝 Oracle Client 使用 C# 透過 tnsnamses.ora 連結 Oracle](/c-sharp-oracle-tns-without-client)

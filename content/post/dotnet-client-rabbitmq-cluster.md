@@ -10,13 +10,13 @@ aliases:
 ---
 ## C# 連線至 RabbitMQ Cluster - 使用 RabbitMQ .Net Client 及 EasyNetQ
 
-之前文章 [如何在 Windwos 上設定 RabbitMQ Cluster](//blog.yowko.com/2017/08/windwos-rabbitmq-cluster.html) 介紹到透過建立 cluster 的方式來讓 RabbtMQ 可以擁有 HA ，而在 queue 及 message 完整性方面則利用 mirrored queue 的機制來處理，詳細內容可以參考 [設定 RabbitMQ 的 Mirrored Queues - 讓 Queue 內容可以在多組 RabbitMQ 同步](//blog.yowko.com/2017/08/rabbitmq-mirrored-queues.html)
+之前文章 [如何在 Windwos 上設定 RabbitMQ Cluster](/windwos-rabbitmq-cluster) 介紹到透過建立 cluster 的方式來讓 RabbtMQ 可以擁有 HA ，而在 queue 及 message 完整性方面則利用 mirrored queue 的機制來處理，詳細內容可以參考 [設定 RabbitMQ 的 Mirrored Queues - 讓 Queue 內容可以在多組 RabbitMQ 同步](/rabbitmq-mirrored-queues)
 
 基礎建設已經有了雛型，接著就來看看 C# 該如何連線 RabbitMQ cluster 吧
 
 ## 使用 RabbitMQ .Net Client
 
-詳細說明請參考 [使用 .Net client 連線至 RabbitMQ 收發訊息](/2017/05/rabbitmq-client-send-consume.html)，以下就節錄其中內容重點說明連線 cluster 的差異
+詳細說明請參考 [使用 .Net client 連線至 RabbitMQ 收發訊息](/rabbitmq-client-send-consume)，以下就節錄其中內容重點說明連線 cluster 的差異
 
 1. producer
 
@@ -188,6 +188,6 @@ aliases:
 
 ## 參考資訊
 
-1. [如何在 Windwos 上設定 RabbitMQ Cluster](/2017/08/windwos-rabbitmq-cluster.html)
-2. [設定 RabbitMQ 的 Mirrored Queues - 讓 Queue 內容可以在多組 RabbitMQ 同步](http://blog.yowko.com/2017/08/rabbitmq-mirrored-queues.html)
+1. [如何在 Windwos 上設定 RabbitMQ Cluster](/windwos-rabbitmq-cluster)
+2. [設定 RabbitMQ 的 Mirrored Queues - 讓 Queue 內容可以在多組 RabbitMQ 同步](/rabbitmq-mirrored-queues)
 3. [EasyNetQ/EasyNetQ](https://github.com/EasyNetQ/EasyNetQ)

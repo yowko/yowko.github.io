@@ -10,9 +10,9 @@ aliases:
 ---
 ## 如何 Debug 你做的 Visual Studio 擴充套件(vsix)
 
-從 bot framework project template 到最近做的 xUnit.net 2.0、NUnit2、NUnit3 test framework，前前後後也上架了四個擴充套件(vsix)，我都有把相關實作紀錄下來：[如何發行 Visual Studio 專案範本(project Template)](//blog.yowko.com/2016/12/publish-visual-studio-project-template.html)、[Test Framework 套件不好用嗎？！ 自己做一個囉](//blog.yowko.com/2017/05/customize-test-framework-project-template.html)，但前面文章都只紀錄該如何可以成功實作，沒紀錄背後花最多時間的嘗試及摸索，今天就來分享該如何 debug Visual Studio 擴充套件(vsix)
+從 bot framework project template 到最近做的 xUnit.net 2.0、NUnit2、NUnit3 test framework，前前後後也上架了四個擴充套件(vsix)，我都有把相關實作紀錄下來：[如何發行 Visual Studio 專案範本(project Template)](/publish-visual-studio-project-template)、[Test Framework 套件不好用嗎？！ 自己做一個囉](/customize-test-framework-project-template)，但前面文章都只紀錄該如何可以成功實作，沒紀錄背後花最多時間的嘗試及摸索，今天就來分享該如何 debug Visual Studio 擴充套件(vsix)
 
-以下會以 [Test Framework 套件不好用嗎？！ 自己做一個囉](//blog.yowko.com/2017/05/customize-test-framework-project-template.html) 製作的專案範本做為範例，程式碼在 [NUnit3.TestGenerator](https://github.com/yowko/NUnit3.TestGenerator)
+以下會以 [Test Framework 套件不好用嗎？！ 自己做一個囉](/customize-test-framework-project-template) 製作的專案範本做為範例，程式碼在 [NUnit3.TestGenerator](https://github.com/yowko/NUnit3.TestGenerator)
 
 ## 開啟具有 vsix 專案的 solution
 
@@ -80,8 +80,8 @@ aliases:
 
 ## 參考資訊
 
-1. [如何發行 Visual Studio 專案範本(project Template)](//blog.yowko.com/2016/12/publish-visual-studio-project-template.html)
-2. [Test Framework 套件不好用嗎？！ 自己做一個囉](//blog.yowko.com/2017/05/customize-test-framework-project-template.html)
+1. [如何發行 Visual Studio 專案範本(project Template)](/publish-visual-studio-project-template)
+2. [Test Framework 套件不好用嗎？！ 自己做一個囉](/customize-test-framework-project-template)
 3. [NUnit3.TestGenerator](https://github.com/yowko/NUnit3.TestGenerator)
 4. [How to debug a Vsix project](https://stackoverflow.com/questions/24653486/how-to-debug-a-vsix-project)
 5. [The Experimental Instance](https://msdn.microsoft.com/en-us/library/bb166560.aspx)

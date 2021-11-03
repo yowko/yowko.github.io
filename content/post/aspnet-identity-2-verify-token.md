@@ -10,7 +10,7 @@ aliases:
 ---
 ## ASP.NET Identity 2 手動檢查 Token 有效性
 
-之前筆記 [改 ASP.NET Identity 2 的 Token 時效](/2017/12/aspnet-identity-2-token-lifetime.html) 紀錄到可以調整 ASP.NET Identity 產生出 Token 的有效時間，而其中也提到可以參考 ForgotPassword 的寫法 (Forgotpasswrod --> 產生含有 token 的 reset password 連結 --> 使用 link 來 reset password)
+之前筆記 [改 ASP.NET Identity 2 的 Token 時效](/aspnet-identity-2-token-lifetime) 紀錄到可以調整 ASP.NET Identity 產生出 Token 的有效時間，而其中也提到可以參考 ForgotPassword 的寫法 (Forgotpasswrod --> 產生含有 token 的 reset password 連結 --> 使用 link 來 reset password)
 
 整體功能是沒有問題的，只是使用體驗個人覺得稍嫌不足：link 包含 token，卻不是在開啟連結時就驗證 token 有效性，而是在填完相關資料才驗證，個人覺得既然 token 無效何必讓 user 多花那個時間填完資料才告訴 user token 無效，所以就來看可以如何調整吧
 
@@ -99,4 +99,4 @@ aliases:
 
 ## 參考資訊
 
-1. [改 ASP.NET Identity 2 的 Token 時效](/2017/12/aspnet-identity-2-token-lifetime.html)
+1. [改 ASP.NET Identity 2 的 Token 時效](/aspnet-identity-2-token-lifetime)

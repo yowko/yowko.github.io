@@ -193,7 +193,7 @@ aliases:
 
     * attribute
 
-        > 很多就不一一列出，有興趣可以參考 [MSTest,NUnit 3,xUnit.net 2.0 比較](/2017/02/MStest-NUnit3-xUnit.net2-Compare.html)
+        > 很多就不一一列出，有興趣可以參考 [MSTest,NUnit 3,xUnit.net 2.0 比較](/MStest-NUnit3-xUnit.net2-Compare)
 
     * event hook
         * AssemblyInitialize
@@ -361,4 +361,4 @@ aliases:
 1. [一窩蜂驅動開發](https://blog.chunfuchao.com/?p=656&variant=zh-tw)
 2. [91 敏捷開發之路](https://www.facebook.com/91agile/)
 3. [[隨筆] 學問－該怎麼提高上課的學習效果？](https://dotblogs.com.tw/hatelove/2016/04/27/learn-to-ask-and-answer-questions)
-4. [MSTest,NUnit 3,xUnit.net 2.0 比較](/2017/02/MStest-NUnit3-xUnit.net2-Compare.html)
+4. [MSTest,NUnit 3,xUnit.net 2.0 比較](/MStest-NUnit3-xUnit.net2-Compare)

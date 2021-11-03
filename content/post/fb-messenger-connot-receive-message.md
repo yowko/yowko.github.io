@@ -39,4 +39,4 @@ facebook 開發人員網站 [facebook for developers](https://developers.faceboo
 
 ## 參考資料
 
-1. [Facebook Messenger Bot 需要申請什麼呢？](http://blog.yowko.com/2016/12/facebook-messenger-bot.html)
+1. [Facebook Messenger Bot 需要申請什麼呢？](/facebook-messenger-bot)

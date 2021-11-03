@@ -68,5 +68,5 @@ aliases:
 
 ## 參考資訊
 
-1. [Visual Studio 怪怪的？！ Visual Studio 好慢？！(Visual Studio 的無痕模式)](//blog.yowko.com/2016/12/visual-studio-safe-mode.html)
+1. [Visual Studio 怪怪的？！ Visual Studio 好慢？！(Visual Studio 的無痕模式)](/visual-studio-safe-mode)
 2. [VS2013 periodically crashes and needs setup repair](https://social.msdn.microsoft.com/Forums/vstudio/en-US/1263cd5f-26f3-448f-80ec-a20c9d77ffd6/vs2013-periodically-crashes-and-needs-setup-repair?forum=vssetup)

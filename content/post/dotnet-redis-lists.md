@@ -11,7 +11,7 @@ aliases:
 ---
 ## 如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 3 (使用 Lists 型別)
 
-先前文章 [如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 2 (使用 Hashes 型別)](http://blog.yowko.com/2017/02/dotnet-use-redis-hash.html) 使用了 Hashed 型別來 cache 資料，但總覺得不太清楚各型別間的差異加上 Redis 型別不多，打算每個來用用看，再好好比較一番
+先前文章 [如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 2 (使用 Hashes 型別)](/dotnet-use-redis-hash) 使用了 Hashed 型別來 cache 資料，但總覺得不太清楚各型別間的差異加上 Redis 型別不多，打算每個來用用看，再好好比較一番
 
 ## 基礎建設
 

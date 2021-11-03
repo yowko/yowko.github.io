@@ -45,7 +45,7 @@ http://[jenkins-server]/[command]
 ## 如何安裝多個 Jenkins 2
 
 1. 安裝 Jenkins 2
-    - 單一安裝可以參考 [Windows OS 安裝 Jenkins 2.0 紀實](http://blog.yowko.com/2016/12/windows-install-jenkins-2.html)
+    - 單一安裝可以參考 [Windows OS 安裝 Jenkins 2.0 紀實](/windows-install-jenkins-2)
 
 2. 複製既有 Jenkins 2
     - 複製整個 Jenkins 資料夾至新位置

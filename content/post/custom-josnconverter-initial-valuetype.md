@@ -14,7 +14,7 @@ aliases:
 
 問題描述：使用 XML 在 Value Type 未給值時，程式會自動初始化才寫入 XML (這個部份是同事轉述，我沒有實際測試，說錯請指教)，後來改用 json 後未給值的 Value Type 則是會直接使用 null 進行寫入，這讓接收端未檢查 property 是否 null 的程式出現 NullPointerException
 
-第一個念頭：在接收端使用 `Null 條件運算子(Null-conditional / Elvis operator – ?.)`，但要改的程式碼非常多，立馬放棄
+第一個念頭：在接收端使用 `Null 條件運算子(Null-conditional / Elvis operator - ?.)`，但要改的程式碼非常多，立馬放棄
 
 第二個念頭：修改 Json.NET 的 JsonConverter，直接在寫入 json 前先進行初始化動作，最後就是這個方案雀屏中選了，就來看看該怎麼做吧
 
@@ -259,7 +259,7 @@ public class InitialJsonConvert : JsonConverter
 ## 參考資訊
 
 1. [Custom JsonConverter](http://www.newtonsoft.com/json/help/html/CustomJsonConverter.htm)
-2. [c# reflection getProperty and getValue](/2017/02/c-sharp-reflection-getproperty-and-getvalue.html)
+2. [c# reflection getProperty and getValue](/c-sharp-reflection-getproperty-and-getvalue)
 3. [How to check if a variable is Array or Object?](https://stackoverflow.com/questions/10118324/how-to-check-if-a-variable-is-array-or-object)
 4. [How do I create a C# array using Reflection and only type info?](https://stackoverflow.com/questions/3419456/how-do-i-create-a-c-sharp-array-using-reflection-and-only-type-info)
 5. [Get a new object instance from a Type](https://stackoverflow.com/questions/752/get-a-new-object-instance-from-a-type)

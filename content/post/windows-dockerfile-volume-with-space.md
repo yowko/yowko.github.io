@@ -10,11 +10,11 @@ aliases:
 ---
 ## Windows Dockerfile 如何指定 VOLUME - 更新版
 
-前幾天同事打算將 Windows container 中的 Jenkins 中的 job 跟 log 保留在 container 外部，避免因為 jenkins container 更新而造成設定資料遺失，經過一番測試後出現了 [Windows Dockerfile 如何指定 VOLUME](/2017/09/windows-dockerfile-volume.html) 一文，結果同事今天跟著實作時卻發現有問題，所以我又來了XD 非常感謝同事的測試，果然不愧是 King of QA，一直抓出我的錯誤
+前幾天同事打算將 Windows container 中的 Jenkins 中的 job 跟 log 保留在 container 外部，避免因為 jenkins container 更新而造成設定資料遺失，經過一番測試後出現了 [Windows Dockerfile 如何指定 VOLUME](/windows-dockerfile-volume) 一文，結果同事今天跟著實作時卻發現有問題，所以我又來了XD 非常感謝同事的測試，果然不愧是 King of QA，一直抓出我的錯誤
 
 ## 問題描述
 
-[Windows Dockerfile 如何指定 VOLUME](/2017/09/windows-dockerfile-volume.html) 提到在 dockerfile 中指定 volume 的方法有兩種(因為兩種作法都是錯的，這邊就略過不提)，錯誤的不是語法本身而是邏輯 - 文中提到的兩種 volume 指定語法都可以通過編譯，但最後結果卻是不正確的
+[Windows Dockerfile 如何指定 VOLUME](/windows-dockerfile-volume) 提到在 dockerfile 中指定 volume 的方法有兩種(因為兩種作法都是錯的，這邊就略過不提)，錯誤的不是語法本身而是邏輯 - 文中提到的兩種 volume 指定語法都可以通過編譯，但最後結果卻是不正確的
 
 * 預期結果
 
@@ -74,7 +74,7 @@ dockerfile 中指定 volume 的方式有兩種：(詳細說明請參考官網 [D
     CMD [ "ping localhost -t" ]
     ```
 
-以下步驟可以參考 [使用 dockerfile 建立 Windows Container 版 Jenkins](/2017/08/dockerfile-windows-container-jenkins.html)
+以下步驟可以參考 [使用 dockerfile 建立 Windows Container 版 Jenkins](/dockerfile-windows-container-jenkins)
 
 * build 成 image
 
@@ -96,7 +96,7 @@ dockerfile 中指定 volume 的方式有兩種：(詳細說明請參考官網 [D
 
 ## 參考資訊
 
-1. [Windows Dockerfile 如何指定 VOLUME](/2017/09/windows-dockerfile-volume.html)
+1. [Windows Dockerfile 如何指定 VOLUME](/windows-dockerfile-volume)
 2. [Dockerfile reference](https://docs.docker.com/engine/reference/builder/#volume)
-3. [使用 dockerfile 建立 Windows Container 版 Jenkins](/2017/08/dockerfile-windows-container-jenkins.html)
+3. [使用 dockerfile 建立 Windows Container 版 Jenkins](/dockerfile-windows-container-jenkins)
 4. [Dockerfile VOLUME 和 -v 的區別](http://elickzhao.github.io/2016/04/Dockerfile%20VOLUME%20%E5%92%8C%20-v%20%E7%9A%84%E5%8C%BA%E5%88%AB/)

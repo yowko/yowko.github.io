@@ -22,19 +22,19 @@ aliases:
 
 1. 專案範本
 
-    > 以下將會使用 Common.Logging 當做範例,示範如何在安裝時自動將相關設定加入 config 中，關於 Common.Loggin 使用，請參考 [使用 Common.Logging 搭配 NLog 及 Log4Net](/2017/07/common-logging.html)
+    > 以下將會使用 Common.Logging 當做範例,示範如何在安裝時自動將相關設定加入 config 中，關於 Common.Loggin 使用，請參考 [使用 Common.Logging 搭配 NLog 及 Log4Net](/common-logging)
 
 2. 使用 NuGet Package Explorer
 
-    > 利用 NuGet Package Explorer 來示範打包 NuGet package 讓設定的步驟可以更清楚，NuGet Package Explorer 的詳細用法可以參考 [使用 NuGet Package Explorer 建立 NuGet 套件](/2017/07/nuget-package-explorer.html)
+    > 利用 NuGet Package Explorer 來示範打包 NuGet package 讓設定的步驟可以更清楚，NuGet Package Explorer 的詳細用法可以參考 [使用 NuGet Package Explorer 建立 NuGet 套件](/nuget-package-explorer)
 
 3. NuGet Package 將使用自建 NuGet server 進行示範
 
-    > 關於自建 NuGet server 詳細資訊可以參考 [自建 NuGet Server](/2017/07/self-host-nuget-server.html)
+    > 關於自建 NuGet server 詳細資訊可以參考 [自建 NuGet Server](/self-host-nuget-server)
 
 ## 建立 NuGet
 
-[使用 NuGet Package Explorer 建立 NuGet 套件](/2017/07/nuget-package-explorer.html) 有從頭建立的詳細步驟，以下我使用線上的 package 來建立
+[使用 NuGet Package Explorer 建立 NuGet 套件](/nuget-package-explorer) 有從頭建立的詳細步驟，以下我使用線上的 package 來建立
 
 1. Open a package from online feed
 
@@ -129,8 +129,8 @@ aliases:
 
 ## 參考資訊
 
-1. [使用 Common.Logging 搭配 NLog 及 Log4Net](/2017/07/common-logging.html)
-2. [使用 NuGet Package Explorer 建立 NuGet 套件](/2017/07/nuget-package-explorer.html)
-3. [自建 NuGet Server](/2017/07/self-host-nuget-server.html)
+1. [使用 Common.Logging 搭配 NLog 及 Log4Net](/common-logging)
+2. [使用 NuGet Package Explorer 建立 NuGet 套件](/nuget-package-explorer)
+3. [自建 NuGet Server](/self-host-nuget-server)
 4. [Transforming source code and configuration files](https://docs.microsoft.com/en-us/nuget/create-packages/source-and-config-file-transformations?WT.mc_id=DOP-MVP-5002594)
 5. [NuGet](https://www.nuget.org/)

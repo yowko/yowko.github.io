@@ -10,7 +10,7 @@ aliases:
 ---
 ## Git webhook 如何驅動 Jenkins 的參數化建置 (Build with Parameters)
 
-之前文章 [Jenkins 2 將其他 job 名稱變成可選擇的參數](/2017/03/jenkins2-parameterize-with-job.html)、[Jenkins 2 如何建立 Pipeline job](/2017/02/jenkins-2-pipeline-job.html) 曾經簡單地介紹過模組化 build flow 的想法，透過參數化建置 (Build with Parameters) 達成使用相同 job 執行不同 project 的建置
+之前文章 [Jenkins 2 將其他 job 名稱變成可選擇的參數](/jenkins2-parameterize-with-job)、[Jenkins 2 如何建立 Pipeline job](/jenkins-2-pipeline-job) 曾經簡單地介紹過模組化 build flow 的想法，透過參數化建置 (Build with Parameters) 達成使用相同 job 執行不同 project 的建置
 
 但這樣的做法在設定 webhook 執行 Continuous integration - CI build 時需要額外在 Git Server 的 Repository 上動些手腳，就來看看該如何設定
 
@@ -31,7 +31,7 @@ aliases:
 
 ## Jenkins 2 上的 webhook 設定
 
-這邊就不重複贅述，請大家直接參考之前文章 [遠端 Git Repository 有 merge 時自動通知 Jenkins 2 進行編譯建置 (webhook)](/2017/02/git-repository-jenkins2-webhook.html)
+這邊就不重複贅述，請大家直接參考之前文章 [遠端 Git Repository 有 merge 時自動通知 Jenkins 2 進行編譯建置 (webhook)](/git-repository-jenkins2-webhook)
 
 * 需要留意的是 Jenkins 上關於 webhook 的說明
 
@@ -113,6 +113,6 @@ aliases:
 
 ## 參考資訊
 
-1. [Jenkins 2 將其他 job 名稱變成可選擇的參數](/2017/03/jenkins2-parameterize-with-job.html)
-2. [Jenkins 2 如何建立 Pipeline job](/2017/02/jenkins-2-pipeline-job.html)
-3. [遠端 Git Repository 有 merge 時自動通知 Jenkins 2 進行編譯建置 (webhook)](/2017/02/git-repository-jenkins2-webhook.html)
+1. [Jenkins 2 將其他 job 名稱變成可選擇的參數](/jenkins2-parameterize-with-job)
+2. [Jenkins 2 如何建立 Pipeline job](/jenkins-2-pipeline-job)
+3. [遠端 Git Repository 有 merge 時自動通知 Jenkins 2 進行編譯建置 (webhook)](/git-repository-jenkins2-webhook)

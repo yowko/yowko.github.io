@@ -106,7 +106,7 @@ slug: "macos-aspnetcore-grpc"
 
 ## 心得
 
-對照一下 Windows 上的寫法 [在 Windows 上的 ASP.NET Core 中呼叫 gRPC](https;//blog.yowko.com/windows-aspnetcore-grpc)，還是覺得 macOS 上的這些設定很多餘，不僅讓程式碼變多、複雜、也讓程式碼需要有處理不同環境而走不同 flow 的能力，我感覺起來是變醜滿多的，但牽扯到 os level 的架構問題，似乎也是沒什麼調整空間，不過我還是對 Microsoft 有信心，總覺得過陣子會有不錯的解決方案出來的
+對照一下 Windows 上的寫法 [在 Windows 上的 ASP.NET Core 中呼叫 gRPC](/windows-aspnetcore-grpc)，還是覺得 macOS 上的這些設定很多餘，不僅讓程式碼變多、複雜、也讓程式碼需要有處理不同環境而走不同 flow 的能力，我感覺起來是變醜滿多的，但牽扯到 os level 的架構問題，似乎也是沒什麼調整空間，不過我還是對 Microsoft 有信心，總覺得過陣子會有不錯的解決方案出來的
 
 ## 參考資訊
 
@@ -114,4 +114,4 @@ slug: "macos-aspnetcore-grpc"
 2. [使用 .NET Core 用戶端呼叫不安全的 gRPC 服務](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-3.1&WT.mc_id=DOP-MVP-5002594#call-insecure-grpc-services-with-net-core-client)
 3. [ASP.NET Core gRPC 無法在 macOS 上啟動？！](/aspdotnet-core-grpc-macos/)
 4. [無法在 macOS 上啟動 ASP.NET Core gRPC 應用程式](https://docs.microsoft.com/zh-tw/aspnet/core/grpc/troubleshoot?view=aspnetcore-3.1&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos)
-5. [在 Windows 上的 ASP.NET Core 中呼叫 gRPC](https;//blog.yowko.com/windows-aspnetcore-grpc)
+5. [在 Windows 上的 ASP.NET Core 中呼叫 gRPC](/windows-aspnetcore-grpc)

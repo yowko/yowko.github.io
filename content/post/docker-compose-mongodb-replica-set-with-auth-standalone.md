@@ -88,11 +88,11 @@ slug: "docker-compose-mongodb-replica-set-with-auth-standalone"
 
 但就我個人覺得還是差了點，畢竟 MongoDB 官方的 Replica Set 至少也要三個 nodes，所以這就列為改善項目
 
-如果需要透過 docker compose 建立完整三個 nodes 且兼具 auth 功能的 MongoDB Replica Set 可以參考 [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set](ttps://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth)
+如果需要透過 docker compose 建立完整三個 nodes 且兼具 auth 功能的 MongoDB Replica Set 可以參考 [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set](/docker-compose-mongodb-replica-set-with-auth)
 
 ## 參考資訊
 
 1. [Docker Compose 建立 MongoDB Replica Set](/docker-compose-mongodb-replica-set/)
 2. [docker-compose deploy replicaSet in standalone MongoDB cluster and with auth](https://www.cnblogs.com/autohome7390/p/11390465.html)
 3. [yowko/docker-compose-mongodb-replica-set-with-auth-standalone](https://github.com/yowko/docker-compose-mongodb-replica-set-with-auth-standalone)
-4. [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set](ttps://blog.yowko.com/docker-compose-mongodb-replica-set-with-auth)
+4. [使用 Docker Compose 建立有 Auth 的 MongoDB Replica Set](/docker-compose-mongodb-replica-set-with-auth)

@@ -11,7 +11,7 @@ slug: "aspdotnet-core-opentelemetry-jaeger"
 
 前幾天看到微軟官方部落格 [OpenTelemetry .NET reaches v1.0](https://devblogs.microsoft.com/dotnet/opentelemetry-net-reaches-v1-0/?WT.mc_id=DOP-MVP-5002594) 公開了 OpenTelemetry .NET v1.0 版，之前在研究 OpenTracing 也有考慮過 OpenTelemetry 畢竟大一統的規格未來性跟前景應該都比較好，但當時相關套件在 .NET 環境中還相當欠缺；既然看到官方公開宣告了，想必已達可用水準，立馬來測試看看吧
 
-如果想與使用 OpenTracing 做比較可以參考之前筆記 [使用 Jaeger 追蹤 ASP.NET Core 呼叫](https://blog.yowko.com/jaeger-trace-aspdotnet-core/)
+如果想與使用 OpenTracing 做比較可以參考之前筆記 [使用 Jaeger 追蹤 ASP.NET Core 呼叫](/jaeger-trace-aspdotnet-core/)
 
 ## 基本環境說明
 
@@ -96,6 +96,6 @@ slug: "aspdotnet-core-opentelemetry-jaeger"
 ## 參考資訊
 
 1. [OpenTelemetry .NET reaches v1.0](https://devblogs.microsoft.com/dotnet/opentelemetry-net-reaches-v1-0/?WT.mc_id=DOP-MVP-5002594)
-2. [使用 Jaeger 追蹤 ASP.NET Core 呼叫](https://blog.yowko.com/jaeger-trace-aspdotnet-core/)
+2. [使用 Jaeger 追蹤 ASP.NET Core 呼叫](/jaeger-trace-aspdotnet-core/)
 3. [open-telemetry/opentelemetry-dotnet](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/examples/AspNetCore)
 4. [yowko/aspdotnet-core-opentelemetry](https://github.com/yowko/aspdotnet-core-opentelemetry)

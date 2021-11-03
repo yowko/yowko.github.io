@@ -16,7 +16,7 @@ aliases:
 
 1. 測試框架：NUint 3
 
-    > Visula Studio 中的相關使用可以參考 [Visual Studio 2015 如何產生 NUnit 或 xUnit 的測試專案](//blog.yowko.com/2017/02/visual-studio-2015-use-nunit-xunit.html)
+    > Visula Studio 中的相關使用可以參考 [Visual Studio 2015 如何產生 NUnit 或 xUnit 的測試專案](/visual-studio-2015-use-nunit-xunit)
 
 2. 測試範例：使用 ASP.NET WebApi 預設專案範本(包含測試)
 

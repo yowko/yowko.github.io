@@ -10,7 +10,7 @@ aliases:
 ---
 ## 在 Visual Studio 中使用 WebPack 來編譯 Vue.js
 
-筆記 [使用 Webpack 來編譯 Vue.js Single File Components (.vue)](/2017/11/webpack-vue-file.html) 紀錄著使用 webpack 來編譯 .vue 檔案的做法，而我平常主要還是使用 Visual Studio 開發，所以還是得將 WebPack 及 Visual Studio 做個整合，來看看該如何設定吧
+筆記 [使用 Webpack 來編譯 Vue.js Single File Components (.vue)](/webpack-vue-file) 紀錄著使用 webpack 來編譯 .vue 檔案的做法，而我平常主要還是使用 Visual Studio 開發，所以還是得將 WebPack 及 Visual Studio 做個整合，來看看該如何設定吧
 
 ## 基本設定
 
@@ -177,12 +177,12 @@ aliases:
 
 ## 心得
 
-經過之前筆記 [使用 Webpack 來編譯 Vue.js Single File Components (.vue)](/2017/11/webpack-vue-file.html) 的經驗，在 Visual Studio 上的設定並沒有遇到太多問題，對於前端框架及工具的支援度很好，只是網路上相對介紹文章略少，如果沒有之前 [使用 Webpack 來編譯 Vue.js Single File Components (.vue)](/2017/11/webpack-vue-file.html) 的經驗，我想一定又少不了一番折騰
+經過之前筆記 [使用 Webpack 來編譯 Vue.js Single File Components (.vue)](/webpack-vue-file) 的經驗，在 Visual Studio 上的設定並沒有遇到太多問題，對於前端框架及工具的支援度很好，只是網路上相對介紹文章略少，如果沒有之前 [使用 Webpack 來編譯 Vue.js Single File Components (.vue)](/webpack-vue-file) 的經驗，我想一定又少不了一番折騰
 
 另外 Task Runner Explorer 還有一些設定可以調整，就待日後用到再紀錄囉
 
 ## 參考資訊
 
 1. [How To Integrate Webpack Into Visual Studio 2015](https://sochix.ru/how-to-integrate-webpack-into-visual-studio-2015/)
-2. [使用 Webpack 來編譯 Vue.js Single File Components (.vue)](/2017/11/webpack-vue-file.html)
+2. [使用 Webpack 來編譯 Vue.js Single File Components (.vue)](/webpack-vue-file)
 3. [Visual Studio 2015 工作執行器 (Task Runners) 簡介](https://blogs.msdn.microsoft.com/msdntaiwan/2016/01/06/visual-studio-2015-task-runners/)

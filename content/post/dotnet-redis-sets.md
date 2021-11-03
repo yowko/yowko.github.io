@@ -11,7 +11,7 @@ aliases:
 ---
 ## 如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 4 (使用 Sets 型別)
 
-今天來看看 Sets 該怎麼使用，建議可與 [如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 3 (使用 Lists 型別)](/2017/02/dotnet-use-redis-lists.html) 參照
+今天來看看 Sets 該怎麼使用，建議可與 [如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 3 (使用 Lists 型別)](/dotnet-use-redis-lists) 參照
 
 先說重點：用法與 Lists 幾乎相同，差別是 Sets 的元素不允許重複，如果有興趣多瞭解 StackExchange.Redis 指令對應文中有對應與簡介說明表
 

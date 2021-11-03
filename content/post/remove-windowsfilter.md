@@ -10,7 +10,7 @@ aliases:
 ---
 ## 解決無法刪除 dcoker 在 Windows 下的 image 預設目錄 windowsfilter
 
-之前文章 [Widnows 環境中修改 Docker image 的儲存位置](/2017/08/windows-docker-image-location.html) 介紹如何修改 Windows 環境中的 docker image 儲存位置，讓 image 可以不需佔用系統槽空間
+之前文章 [Widnows 環境中修改 Docker image 的儲存位置](/windows-docker-image-location) 介紹如何修改 Windows 環境中的 docker image 儲存位置，讓 image 可以不需佔用系統槽空間
 
 今天同事反應，原本預設的 image 儲存位置 `C:\ProgramData\dcoker\windowsfilter` 因為已有 image，加上 windows 環境的 image size 都不小，一下就把系統槽的空間吃光了，想刪掉還刪不掉
 
@@ -67,6 +67,6 @@ aliases:
 
 ## 參考資訊
 
-1. [Widnows 環境中修改 Docker image 的儲存位置](/2017/08/windows-docker-image-location.html)
+1. [Widnows 環境中修改 Docker image 的儲存位置](/windows-docker-image-location)
 2. [[Windows] windowsfilter folder impossible to delete](https://github.com/moby/moby/issues/26873)
 3. [docker-ci-zap.exe 下載位置](https://github.com/jhowardmsft/docker-ci-zap/blob/master/docker-ci-zap.exe)

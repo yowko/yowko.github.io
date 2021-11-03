@@ -10,7 +10,7 @@ aliases:
 ---
 ## 如何在 .NET 程式中使用 Redis 做為 Cache Server - Part 2 (使用 Hashes 型別)
 
-在 [如何在 .NET 程式中使用 Redis 做為 Cache Server](/2017/02/use-redis-cache-server-for-dotnet.html) 一文中把原本使用 .NET 的 MemoryCache 改為使用 Redis，其中用的是 Redis 最基本的型別 `string` ，今天將會用 `Hash` 型別來改寫，你可能跟我一樣想瞭解 Redis 各型別的 `實際` 差異，雖然官網上把各型別內容都清楚說明還附上 big O - O(1/n) 資訊，但我還是搞不清楚什麼情境要用哪個XD，所以打算來親身體驗一下其中差異，最後有空再來個大比較，今天就從最常被討論到的型別 `Hash` 開始
+在 [如何在 .NET 程式中使用 Redis 做為 Cache Server](/use-redis-cache-server-for-dotnet) 一文中把原本使用 .NET 的 MemoryCache 改為使用 Redis，其中用的是 Redis 最基本的型別 `string` ，今天將會用 `Hash` 型別來改寫，你可能跟我一樣想瞭解 Redis 各型別的 `實際` 差異，雖然官網上把各型別內容都清楚說明還附上 big O - O(1/n) 資訊，但我還是搞不清楚什麼情境要用哪個XD，所以打算來親身體驗一下其中差異，最後有空再來個大比較，今天就從最常被討論到的型別 `Hash` 開始
 
 ## 為什麼選擇 Hashes
 
@@ -33,7 +33,7 @@ Rico 大在 [Redis(5)-好用的Hash](https://dotblogs.com.tw/ricochen/2017/01/15
 2. 在 abstract class 加上 ToRedisHash 方法
     - 讓其他 class 可以直接呼叫使用，減少重複的 code
 3. ToRedisHash 方法會回傳 `KeyValuePair<string, HashEntry[]>`
-    - 使用前一篇文章 [c# 如何用特定的 attribute 取得 property 資訊](/2017/02/c-sharp-use-specific-attribute-get-property-info.html) 提到的技巧，會將 class object 使用 reflection 組成需要的格式
+    - 使用前一篇文章 [c# 如何用特定的 attribute 取得 property 資訊](/c-sharp-use-specific-attribute-get-property-info) 提到的技巧，會將 class object 使用 reflection 組成需要的格式
 4. 將需要 Redis Hash 的 class 繼承 abstract class
 5. 在需要 cache 的 class 上套用 Keyattribute 用來標記為 key
     - 需要 key-vlaue 的結構，所以需要有一個 key

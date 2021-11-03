@@ -83,7 +83,7 @@ aliases:
 
         ![11newmancommand](https://cloud.githubusercontent.com/assets/3851540/23580683/27f1a656-0141-11e7-85e2-db67358f9fef.png)
 3. 加入 pipeline 中
-    * pipeline 詳細設定請參考  [Jenkins 2 如何建立 Pipeline job](/2017/02/jenkins-2-pipeline-job.htm)
+    * pipeline 詳細設定請參考  [Jenkins 2 如何建立 Pipeline job](/jenkins-2-pipeline-job)
 4. 實際效果
     * 測試中
 

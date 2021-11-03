@@ -11,7 +11,7 @@ aliases:
 ---
 ## 使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 3 隱藏的效能瓶頸
 
-之前筆記 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 2 使用 lock 避免 ddos db](/2017/01/net-framework-memorycache-avoid-ddos-db.html) 解決程式可能 ddos db 的重大缺失，最近重新 review code 時發現一個效能瓶頸：取資料時會 lock 所有 MemoryCache 物件而造成所有 access cache 都被 blocking。
+之前筆記 [使用 .NET Framework 內建的 MemoryCache 來 Cache 常用資料 - Part 2 使用 lock 避免 ddos db](/net-framework-memorycache-avoid-ddos-db) 解決程式可能 ddos db 的重大缺失，最近重新 review code 時發現一個效能瓶頸：取資料時會 lock 所有 MemoryCache 物件而造成所有 access cache 都被 blocking。
 
 ## 問題發生原因
 

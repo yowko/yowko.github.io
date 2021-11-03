@@ -10,7 +10,7 @@ aliases:
 ---
 ## 專案間如何共用 config 設定 - 使用 MSBuild Community Tasks
 
-之前文章 [專案間如何共用 config 設定 - 使用 MSBuildExtensionPack](/2017/08/shared-config.html) 提供跨專案使用相同 config 設定值的概念，也介紹了透過 MSBuildExtensionPack 實作的細節
+之前文章 [專案間如何共用 config 設定 - 使用 MSBuildExtensionPack](/shared-config) 提供跨專案使用相同 config 設定值的概念，也介紹了透過 MSBuildExtensionPack 實作的細節
 
 今天則要介紹另一套功能類似的 library - MSBuild Community Tasks，在進行功能比較前，先來看看該如何使用吧
 
@@ -293,6 +293,6 @@ aliases:
 
 ## 參考資訊
 
-1. [專案間如何共用 config 設定 - 使用 MSBuildExtensionPack](/2017/08/shared-config.html)
+1. [專案間如何共用 config 設定 - 使用 MSBuildExtensionPack](/shared-config)
 2. [MSBuild Community Tasks 下載位置](https://github.com/loresoft/msbuildtasks/releases)
 3. [TaskDocs.md](https://github.com/loresoft/msbuildtasks/blob/master/Documentation/TaskDocs.md)

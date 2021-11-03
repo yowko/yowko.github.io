@@ -18,7 +18,7 @@ aliases:
 
 ## 準備 collection
 
-將需要基本監控的 request 準備專屬的 collection，當然也可以將開發用的 collection 拿來用，但需要注意不同環境間的參數是否可通用，建議使用參數化寫法，可以參考 [如何在 POSTMAN 中使用參數化寫法來進行不同環境的測試](/2017/03/postman-parameter-test.html), 我就延用其中的範例來進行後續的 demo
+將需要基本監控的 request 準備專屬的 collection，當然也可以將開發用的 collection 拿來用，但需要注意不同環境間的參數是否可通用，建議使用參數化寫法，可以參考 [如何在 POSTMAN 中使用參數化寫法來進行不同環境的測試](/postman-parameter-test), 我就延用其中的範例來進行後續的 demo
 
 1. 逐一將 request 加入 collection 中
     - 按下 `Save` or `Save to collection`
@@ -76,7 +76,7 @@ aliases:
         tests["Body is correct"] = jsonData === _return;
         ```
 
-- 可以透過 console.log 的方式來為撰寫的 test 偵錯，設定方式請參考 [如何對 POSTMAN desktop app 偵錯](/2017/03/debug-postman-test.html)
+- 可以透過 console.log 的方式來為撰寫的 test 偵錯，設定方式請參考 [如何對 POSTMAN desktop app 偵錯](/debug-postman-test)
 
 ## 使用 postman runner 來執行測試
 
@@ -103,4 +103,4 @@ aliases:
 
 1. [Running a collection](https://www.getpostman.com/docs/running_collections)
 2. [Testing examples](https://www.getpostman.com/docs/testing_examples)
-3. [如何對 POSTMAN desktop app 偵錯](http://blog.yowko.com/2017/03/debug-postman-test.html)
+3. [如何對 POSTMAN desktop app 偵錯](/debug-postman-test)
