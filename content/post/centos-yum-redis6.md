@@ -1,7 +1,7 @@
 ---
 title: "CentOS 使用 yum 安裝 Redis6"
 date: 2020-08-16T14:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["Redis","Linux"]
 slug: "centos-yum-redis6"

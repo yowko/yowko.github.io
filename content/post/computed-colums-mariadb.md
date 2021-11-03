@@ -1,31 +1,30 @@
 ---
 title: "Generated Columns - MariaDB 上的 Computed Columns"
 date: 2019-05-19T21:30:00+08:00
-lastmod: 2019-05-19T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["MariaDB"]
 slug: "computed-colums-mariadb"
 ---
-# Generated Columns - MariaDB 上的 Computed Columns
+## Generated Columns - MariaDB 上的 Computed Columns
 
 之前有個需求會用到合併既有的兩個欄位來進行資料檢索，當下想起了 SQL Server 上的 Computed Columns (計算欄位)，雖然後來採用了其他做法，不過既然都查了資料就紀錄一下吧
 
 Generated Columns 是 MariaDB 10.2 加入的，語法上與 MySQL's generated columns 相同，包含兩種格式
 
 1. `PERSISTENT` OR `STORED`
-   
+
     > 會將值實際儲存在 table 中
 
 2. `VIRTUAL`：預設值
-    
-    > 不會實際儲存在 table 中，會在 query 當下動態產生值
 
+    > 不會實際儲存在 table 中，會在 query 當下動態產生值
 
 ## 使用方式
 
 1. 語法
 
-    ```
+    ```txt
     <type>  [GENERATED ALWAYS]  AS   ( <expression> )
     [VIRTUAL | PERSISTENT | STORED]  [UNIQUE] [UNIQUE KEY] [COMMENT <text>]
     ```
@@ -51,7 +50,6 @@ Generated Columns 是 MariaDB 10.2 加入的，語法上與 MySQL's generated co
     ```
 
     ![1output](https://user-images.githubusercontent.com/3851540/57984534-36cfa280-7a8f-11e9-92d0-35ddb3b7e172.png)
-
 
 ## 心得
 

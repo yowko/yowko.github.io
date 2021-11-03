@@ -1,12 +1,13 @@
 ---
 title: "使用 C# (.NET Core) 傳訊息至 Slack"
 date: 2019-02-06T23:45:00+08:00
-lastmod: 2020-12-11T23:44:30+08:00
+lastmod: 2021-11-03T23:44:30+08:00
 draft: false
-tags: ["C#","dotnet core"]
+tags: ["csharp","dotnet core"]
 slug: "csharp-message-slack"
 ---
-# 使用 C# (.NET Core) 傳訊息至 Slack
+## 使用 C# (.NET Core) 傳訊息至 Slack
+
 公司有個臨時性需求：某個重要功能開啟或是關閉時，立即通知營運團隊及各級主管知道，讓大家在討論 production issue 有共同的討論基準。
 
 經過一番討論後決定將功能開關通知透過 slack 來實作，雖然用 slack 整點好段時間卻沒真的自己寫過，一時間沒能快速找到程式碼可以抄XD  所以就能紀錄一篇以後就省事了  哈哈
@@ -32,7 +33,7 @@ slug: "csharp-message-slack"
 
     ![5complete](https://user-images.githubusercontent.com/3851540/52357867-e6997b00-2a71-11e9-8365-7f4828dcbcda.png)
 
-    ![7initscreenshot](https://user-images.githubusercontent.com/3851540/52357868-e6997b00-2a71-11e9-99ff-5bd6ee5f385a.png) 
+    ![7initscreenshot](https://user-images.githubusercontent.com/3851540/52357868-e6997b00-2a71-11e9-99ff-5bd6ee5f385a.png)
 
 ## 建立 Token
 
@@ -46,7 +47,7 @@ slug: "csharp-message-slack"
 
 2. 使用 bot token
 
-    - 透過 [Build something amazing.](https://api.slack.com/apps) 建立 Apps 
+    - 透過 [Build something amazing.](https://api.slack.com/apps) 建立 Apps
 
         ![13buildapp](https://user-images.githubusercontent.com/3851540/52357877-e8633e80-2a71-11e9-88a0-c7fad5ccd34a.png)
 
@@ -72,7 +73,7 @@ slug: "csharp-message-slack"
 
         ![20accesstoken](https://user-images.githubusercontent.com/3851540/52357887-ea2d0200-2a71-11e9-85b6-8b2442672d87.png)
 
-* 關於 token 類型請參考 [Types of tokens](https://api.slack.com/docs/token-types) 
+- 關於 token 類型請參考 [Types of tokens](https://api.slack.com/docs/token-types)
 
 ## 取得 channel id
 
@@ -90,7 +91,7 @@ slug: "csharp-message-slack"
 
     ![22bottoken](https://user-images.githubusercontent.com/3851540/52357890-eac59880-2a71-11e9-985e-41d4a3edf1a0.png)
 
-## 使用 C# (.NET Core) 傳訊息至 Slack
+## 傳送訊息至 Slack
 
 > Slack 的 `chat.postMessage` 是 REST API,以下透過 .NET Core console 搭配 HttpClientFactory 來傳送訊息
 
@@ -127,7 +128,7 @@ slug: "csharp-message-slack"
     var channel = "xxxx";//channelId
     ```
 
-1. 簡易內容 (僅文字)
+2. 簡易內容 (僅文字)
 
     ```cs
     var text = System.Web.HttpUtility.UrlEncode("yowko 測試");//實際內容
@@ -137,7 +138,7 @@ slug: "csharp-message-slack"
 
     ![24simpletext](https://user-images.githubusercontent.com/3851540/52357893-ebf6c580-2a71-11e9-8ded-a2ef63da492c.png)
 
-2. 格式化內容 (包含圖片、超連結、或是按鈕....)
+3. 格式化內容 (包含圖片、超連結、或是按鈕....)
 
     ```cs
     //準備格式化內谷實際顯示值
@@ -178,8 +179,8 @@ Slack 文件滿雜亂的，感覺起來應該歷經了許多演化，就連 API 
 
 另外最令我困擾的是 REST API 的說明，明明文件說要用 POST，但怎麼用就是失敗，查了資料才發現很多人說應該是 GET 才對XD  將程式改為 GET 問題就解決了，不知道官方的立場是什麼  感覺不是基本的錯誤而是有其他層面的考量  
 
+## 參考資訊
 
-# 參考資訊
 1. [Create a new workspace](https://slack.com/get-started#create)
 2. [Legacy tokens](https://api.slack.com/custom-integrations/legacy-tokens)
 3. [Build something amazing.](https://api.slack.com/apps)

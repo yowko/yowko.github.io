@@ -1,14 +1,15 @@
 ---
 title: "客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性"
 date: 2017-07-07T21:00:00+08:00
-lastmod: 2020-12-11T14:17:40+08:00
+lastmod: 2021-11-03T14:17:40+08:00
 draft: false
 tags: ["套件","Debug"]
 slug: "custom-josnconverter-initial-valuetype"
 aliases:
     - /2017/07/custom-josnconverter-initial-valuetype.html
 ---
-# 客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性
+## 客製 Json.NET 的 JsonConverter - 自動 Initial Value Type 屬性
+
 同事負責的專案原本使用 XML 做為資料傳遞的媒介，為了縮小網路傳輸封包，所以改用 json，而這個動作讓原本正常運行的功能出現問題
 
 問題描述：使用 XML 在 Value Type 未給值時，程式會自動初始化才寫入 XML (這個部份是同事轉述，我沒有實際測試，說錯請指教)，後來改用 json 後未給值的 Value Type 則是會直接使用 null 進行寫入，這讓接收端未檢查 property 是否 null 的程式出現 NullPointerException
@@ -19,7 +20,7 @@ aliases:
 
 ## 基本環境說明
 
-1.  自訂型別
+1. 自訂型別
 
     ```cs
     public class userData<T>
@@ -36,7 +37,7 @@ aliases:
     }
     ```
 
-2.  使用方式
+2. 使用方式
 
     > 以下使用 LINQPad demo
 
@@ -100,7 +101,7 @@ public class InitialJsonConvert : JsonConverter
 
 ## 開始客製
 
-1.  使用 reflection 檢查內容
+1. 使用 reflection 檢查內容
 
     ```cs
     // 取得傳入 class 型別
@@ -142,7 +143,7 @@ public class InitialJsonConvert : JsonConverter
     }
     ```
 
-2.  完整程式碼
+2. 完整程式碼
 
     ```cs
     public class InitialJsonConvert : JsonConverter
@@ -221,17 +222,17 @@ public class InitialJsonConvert : JsonConverter
 
 ## 如何使用
 
-1.  在 SerializeObject 時使用 `Formatting` 與自訂 `JsonConvert`
+1. 在 SerializeObject 時使用 `Formatting` 與自訂 `JsonConvert`
 
     > 以下使用 LINQPad demo
 
-    ```
+    ```cs
     JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented, new InitialJsonConvert(user.GetType())).Dump();
     ```
 
-2.  實際效果
-    *   修改前後程式碼對比
-        
+2. 實際效果
+    * 修改前後程式碼對比
+
         > 請使用 LINQPad 執行
 
         ```cs
@@ -247,7 +248,7 @@ public class InitialJsonConvert : JsonConverter
         user.Dump();
         ```
 
-    *   輸出結果
+    * 輸出結果
 
         ![2result](https://user-images.githubusercontent.com/3851540/27953764-9a9eb2f6-633f-11e7-88a2-a9c60a1468b3.png)
 
@@ -255,10 +256,10 @@ public class InitialJsonConvert : JsonConverter
 
 我覺得應該有更簡單的做法，這個需求應該很常見才是，但因為是 production issue 時間緊迫，先求可以解決問題，有空再來找更好的解法，如果大家知道有哪個設定可以達成目的，拜託請告訴我，讓小弟學習一下，感謝
 
-# 參考資訊
+## 參考資訊
 
-1.  [Custom JsonConverter](http://www.newtonsoft.com/json/help/html/CustomJsonConverter.htm)
-2.  [c# reflection getProperty and getValue](/2017/02/c-sharp-reflection-getproperty-and-getvalue.html)
-3.  [How to check if a variable is Array or Object?](https://stackoverflow.com/questions/10118324/how-to-check-if-a-variable-is-array-or-object)
-4.  [How do I create a C# array using Reflection and only type info?](https://stackoverflow.com/questions/3419456/how-do-i-create-a-c-sharp-array-using-reflection-and-only-type-info)
-5.  [Get a new object instance from a Type](https://stackoverflow.com/questions/752/get-a-new-object-instance-from-a-type)
+1. [Custom JsonConverter](http://www.newtonsoft.com/json/help/html/CustomJsonConverter.htm)
+2. [c# reflection getProperty and getValue](/2017/02/c-sharp-reflection-getproperty-and-getvalue.html)
+3. [How to check if a variable is Array or Object?](https://stackoverflow.com/questions/10118324/how-to-check-if-a-variable-is-array-or-object)
+4. [How do I create a C# array using Reflection and only type info?](https://stackoverflow.com/questions/3419456/how-do-i-create-a-c-sharp-array-using-reflection-and-only-type-info)
+5. [Get a new object instance from a Type](https://stackoverflow.com/questions/752/get-a-new-object-instance-from-a-type)

@@ -1,12 +1,12 @@
 ---
 title: "使用 C# 存取 MongoDB"
 date: 2019-02-16T22:40:00+08:00
-lastmod: 2019-02-16T22:40:30+08:00
+lastmod: 2021-11-03T22:40:30+08:00
 draft: false
-tags: ["C#","NoSQL","MongoDB"]
+tags: ["csharp","NoSQL","MongoDB"]
 slug: "csharp-mangodb"
 ---
-# 使用 C# 存取 MongoDB
+## 使用 C# 存取 MongoDB
 
 之前筆記 [使用 C# 存取 Cassandra](https://blog.yokwo.com/csharp-cassandra) 提到想要將 log 存放至 NoSQL 中而正在嘗試某幾套 NoSQL，現在就來看看 MongoDB 的使用吧
 
@@ -35,17 +35,18 @@ docker run -p 27017:27017 -d mongo
     > 本次測試使用 MongoDB.Driver 版本為 `2.7.3` ，另外 `mongocsharpdriver` 是相容於 MongoDB 1.X，官方已不建議在新專案上使用
 
     - Package Manager
-    
-        ```
+
+        ```cmd
         Install-Package MongoDB.Driver
         ```
-    
+
     - .NET CLI
 
-        ```
+        ```cmd
         dotnet add package MongoDB.Driver 
         ```
-2. 
+
+2.
 3. 實際存取 MongoDB
 
     - Insert
@@ -77,12 +78,12 @@ docker run -p 27017:27017 -d mongo
         //取得 user collection
         var collection = db.GetCollection<User>("user");
         
-	    //依 name 過濾並取得一筆資料
-	    var document = collection.Find(a => a.Name == "name").FirstOrDefault();
+        //依 name 過濾並取得一筆資料
+        var document = collection.Find(a => a.Name == "name").FirstOrDefault();
         ```
-    
+
     - Update
-    
+
         ```cs
         // mongodb 連線字串
         var connString = "mongodb://127.0.0.1:27017";
@@ -100,6 +101,7 @@ docker run -p 27017:27017 -d mongo
         //將過濾條件與設定值傳入 collection 進行更新
         collection.UpdateOne(filter, update);
         ```
+
     - Delete
 
         ```cs
@@ -121,11 +123,12 @@ docker run -p 27017:27017 -d mongo
         ```
 
 ## 心得
+
 MongoDB 是老牌 Document 類型的 NoSQL 資料，在 Linux 與 Windows 都有不錯的支援程度，使用體驗也差不多
 
 功能上也是目前用過幾套 NoSQL 中最豐富的，C# client 在多年發展下已顯得成熟，使用上比起過去方便許多，看來 MongoDB 受到青睞是有道理的
 
+## 參考資訊
 
-# 參考資訊
 1. [MongoDB Driver Quick Tour](http://mongodb.github.io/mongo-csharp-driver/2.7/getting_started/quick_tour/)
 2. [mongodb/mongo-csharp-driver](https://github.com/mongodb/mongo-csharp-driver)

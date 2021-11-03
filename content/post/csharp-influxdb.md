@@ -1,9 +1,9 @@
 ---
 title: "使用 C# 存取 InfluxDB"
 date: 2019-09-15T20:40:00+08:00
-lastmod: 2019-09-15T20:40:30+08:00
+lastmod: 2021-11-03T20:40:30+08:00
 draft: false
-tags: ["C#","InfluxDB"]
+tags: ["csharp","InfluxDB"]
 slug: "csharp-influxdb-curd"
 ---
 

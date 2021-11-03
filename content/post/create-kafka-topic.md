@@ -3,7 +3,7 @@ title: "建立 Kafka 的 Topic"
 date: 2019-06-07T21:30:00+08:00
 lastmod: 2020-12-23T21:30:31+08:00
 draft: false
-tags: ["Kafka","C#"]
+tags: ["Kafka","csharp"]
 slug: "create-kafka-topic"
 ---
 

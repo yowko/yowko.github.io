@@ -1,13 +1,13 @@
 ---
 title: "C# 搭配 gRPC 中使用 stream RPC"
 date: 2019-06-16T21:30:00+08:00
-lastmod: 2019-06-16T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["csharp","gRPC"]
 slug: "csharp-grpc-stream"
 ---
 
-# C# 搭配 gRPC 中使用 stream RPC
+## C# 搭配 gRPC 中使用 stream RPC
 
 gRPC 允許使用四種則型的 service 方法：
 
@@ -208,7 +208,7 @@ gRPC 允許使用四種則型的 service 方法：
         }
         ```
 
-    - `Client` 實作 stream 
+    - `Client` 實作 stream
 
         ```cs
         using (var call = candidateServiceClient.CreateDownloadCv())

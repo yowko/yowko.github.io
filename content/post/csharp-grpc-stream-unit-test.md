@@ -1,13 +1,13 @@
 ---
 title: "嘗試為gRPC 中的 stream RPC 加上 Unit Test"
 date: 2019-06-19T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["csharp","gRPC","Unit Test"]
 slug: "csharp-grpc-stream-unit-test"
 ---
 
-# 嘗試為gRPC 中的 stream RPC 加上 Unit Test
+## 嘗試為gRPC 中的 stream RPC 加上 Unit Test
 
 之前筆記 [C# 搭配 gRPC 中使用 stream RPC](/csharp-grpc-stream/) 紀錄到在 gRPC 中使用 stream RPC 的操作語法，但實際應用在專案上時卻卡關，主因是單元測試出現錯誤，仔細看了錯誤原因才發現 stream RPC 雖然只是在 service 的參數定義加上 `stream` 不過 generate 出來的實作方法中則用了不同的參數型別，儘管經過嘗試後有找到方法不過仍然有缺點，於是先筆記目前的做法，待日後有機會再看看有沒有其他更漂亮的方式
 
@@ -314,7 +314,7 @@ slug: "csharp-grpc-stream-unit-test"
 為什麼筆記標題是 `嘗試`，主要是因為雖然透過繼承 stream 相關 interface，但方法或是屬性上還是與實作用法有些差異，而在 gRPC-dotnet 官方的 GitHub 相關測試也是使用同樣方式來進行，不知道是我沒看完整還是目前暫時只能這麼做
 
 其中我覺得做法上有重大缺陷的是 `雙向串流 RPC (bidirectional streaming RPC)` 中的 ServerStreamWriter 無法傳回多筆資料，原因不太好說明，大意是 `StreamReader` 與 `ServerStreamWriter` 都是 mock 出來的，沒有實際進行 stream 傳送與接放也就無法逐次取得 object
- 
+
 ## 參考資訊
 
 1. [C# 搭配 gRPC 中使用 stream RPC](/csharp-grpc-stream/)

@@ -1,7 +1,7 @@
 ---
 title: "將憑證 secret 以檔案掛戴至 Container 中"
 date: 2021-02-09T15:30:00+08:00
-lastmod: 2021-02-09T15:30:31+08:00
+lastmod: 2021-11-03T15:30:31+08:00
 draft: false
 tags: ["Kubernetes"]
 slug: "certificate-secret-mount-volume-file"

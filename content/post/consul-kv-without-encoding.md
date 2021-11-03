@@ -1,7 +1,7 @@
 ---
 title: "取得 Consul 中的 Key/Value"
 date: 2020-04-11T21:30:00+08:00
-lastmod: 2020-04-11T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["Consul","Tools"]
 slug: "consul-kv-without-encoding"

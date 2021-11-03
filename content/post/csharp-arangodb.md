@@ -1,12 +1,12 @@
 ---
 title: "使用 C# 存取 ArangoDB"
 date: 2019-02-12T22:40:00+08:00
-lastmod: 2019-02-12T22:44:30+08:00
+lastmod: 2021-11-03T22:44:30+08:00
 draft: false
-tags: ["C#","NoSQL"]
+tags: ["csharp","NoSQL"]
 slug: "csharp-arangodb"
 ---
-# 使用 C# 存取 ArangoDB
+## 使用 C# 存取 ArangoDB
 
 之前筆記 [使用 C# 存取 Cassandra](https://blog.yokwo.com/csharp-cassandra) 提到想要將 log 存放至 NoSQL 中而正在嘗試某幾套 NoSQL，現在就來看看 ArangoDB 的使用吧
 
@@ -30,7 +30,7 @@ docker run -e ARANGO_ROOT_PASSWORD=pass.123 -p 8529:8529 -d arangodb
 
 ## 使用方式
 
-> 透過 http://localhost:8529 可以開啟設定介面
+> 透過 <http://localhost:8529> 可以開啟設定介面
 
 1. 登入 ArangoDB
 
@@ -52,14 +52,16 @@ docker run -e ARANGO_ROOT_PASSWORD=pass.123 -p 8529:8529 -d arangodb
 4. 安裝 NuGet 套件：
     - Package Manager
 
-        ```
+        ```cmd
         Install-Package ArangoDB.Client
-        ``` 
+        ```
+
     - .NET CLI
 
-        ```
+        ```cmd
         dotnet add package ArangoDB.Client
         ```
+
 5. 實際存取 ArangoDB
 
     - Insert
@@ -99,9 +101,9 @@ docker run -e ARANGO_ROOT_PASSWORD=pass.123 -p 8529:8529 -d arangodb
             var user = db.Document<User>"document-key");
         }
         ```
-    
+
     - Update
-    
+
         ```cs
         ArangoDatabase.ChangeSetting(s =>
         {
@@ -117,6 +119,7 @@ docker run -e ARANGO_ROOT_PASSWORD=pass.123 -p 8529:8529 -d arangodb
             db.UpdateById<User>("document-key", new { Name = "Yowko" });    
         }
         ```
+
     - Delete
 
         ```cs
@@ -131,16 +134,17 @@ docker run -e ARANGO_ROOT_PASSWORD=pass.123 -p 8529:8529 -d arangodb
         using (var db = ArangoDatabase.CreateWithSetting())
         {
             //依 document-key 刪除資料
-        	db.RemoveById<User>("document-key");
+            db.RemoveById<User>("document-key");
         }
         ```
 
 ## 心得
+
 ArangoDB 與 RavenDB、CouchDB 相同預設就帶有 GUI 管理介面不用另外準備，管理上很便利
 
-可以滿足 Shcema-less 的需求，資料的處理上可以透過 AQL 或是 REST 方式來操作，.NET 使用的套件：ArangoDB.Client 底層也是也是直接使用 Http 來發送 request ，不過在 api 的使用上比起 RavenDB.Client 便利性稍差 
+可以滿足 Shcema-less 的需求，資料的處理上可以透過 AQL 或是 REST 方式來操作，.NET 使用的套件：ArangoDB.Client 底層也是也是直接使用 Http 來發送 request ，不過在 api 的使用上比起 RavenDB.Client 便利性稍差
 
+## 參考資訊
 
-# 參考資訊
 1. [ra0o0f/arangoclient.net](https://github.com/ra0o0f/arangoclient.net)
 2. [Tutorial: C# in 10 Minutes](https://github.com/ra0o0f/arangoclient.net/blob/next/docs/tutorial/csharp-in-10-minutes.md)

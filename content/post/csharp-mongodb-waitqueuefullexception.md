@@ -3,7 +3,7 @@ title: ".Net Core 操作 MongoDB 出現 MongoWaitQueueFullException"
 date: 2019-07-28T21:30:00+08:00
 lastmod: 2020-12-11T21:30:31+08:00
 draft: false
-tags: ["C#","dotnet core","MongoDB"]
+tags: ["csharp","dotnet core","MongoDB"]
 slug: "csharp-mongodb-waitqueuefullexception"
 ---
 

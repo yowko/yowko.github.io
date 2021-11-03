@@ -1,7 +1,7 @@
 ---
 title: "Container 中執行 apt-get update 時遇到 GPG KEYEXPIRED"
 date: 2020-07-26T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["Linux","Docker"]
 slug: "container-gpg-keyexpired"

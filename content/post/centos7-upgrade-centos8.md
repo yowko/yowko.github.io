@@ -1,7 +1,7 @@
 ---
 title: "CentOS 7 升級 CentOS 8 連帶安裝 Linux Kernel 5"
 date: 2020-10-10T21:30:00+08:00
-lastmod: 2020-11-01T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["Linux"]
 slug: "centos7-upgrade-centos8-linux-kernel5"
@@ -36,7 +36,7 @@ slug: "centos7-upgrade-centos8-linux-kernel5"
         ![1oskernel](https://user-images.githubusercontent.com/3851540/95656343-67aaee80-0b40-11eb-9f55-df9819e957ca.png)
 
 4. 新環境
-    - CentOS 8.2.2004 
+    - CentOS 8.2.2004
     - Linux Kernel 5.8.14
 
 ## 升級步驟
@@ -127,7 +127,7 @@ slug: "centos7-upgrade-centos8-linux-kernel5"
 
     > 移除 python 3 的動作是我在數十次安裝中都會遇到的問題，所以先加上來，如果有疑慮可以先執行升級，待出現衝突再移除即可
 
-    - 移除 python 3 
+    - 移除 python 3
 
         ```bash
         dnf remove -y python3

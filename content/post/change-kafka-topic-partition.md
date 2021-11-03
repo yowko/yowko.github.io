@@ -1,9 +1,9 @@
 ---
 title: "調整 Kafka 中 Topic 的 Partition 數量"
 date: 2019-06-07T23:30:00+08:00
-lastmod: 2019-06-07T23:30:31+08:00
+lastmod: 2021-11-03T23:30:31+08:00
 draft: false
-tags: ["Kafka","C#"]
+tags: ["Kafka","csharp"]
 slug: "change-kafka-topic-partition"
 ---
 

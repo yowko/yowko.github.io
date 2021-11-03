@@ -1,12 +1,12 @@
 ---
 title: "使用 C# 存取 RavenDB"
 date: 2019-02-11T22:45:00+08:00
-lastmod: 2019-02-11T22:44:30+08:00
+lastmod: 2021-11-03T22:44:30+08:00
 draft: false
-tags: ["C#","NoSQL"]
+tags: ["csharp","NoSQL"]
 slug: "csharp-ravendb"
 ---
-# 使用 C# 存取 RavenDB
+## 使用 C# 存取 RavenDB
 
 之前筆記 [使用 C# 存取 Cassandra](https://blog.yokwo.com/csharp-cassandra) 提到想要將 log 存放至 NoSQL 中而正在嘗試某幾套 NoSQL，現在就來看看 RavenDB 的使用吧
 
@@ -30,7 +30,7 @@ docker run -d -p 8080:8080 ravendb/ravendb
 
 ## 使用方式
 
-> 透過 http://localhost:8080/ 可以開啟設定介面
+> 透過 <http://localhost:8080/> 可以開啟設定介面
 
 1. 設定 RavenDB
 
@@ -44,14 +44,16 @@ docker run -d -p 8080:8080 ravendb/ravendb
 3. 安裝 NuGet 套件：
     - Package Manager
 
-        ```
+        ```cmd
         Install-Package RavenDB.Client
-        ``` 
+        ```
+
     - .NET CLI
 
-        ```
+        ```cmd
         dotnet add package RavenDB.Client
         ```
+
 4. 實際存取 RavenDB
 
     - Insert
@@ -101,8 +103,9 @@ docker run -d -p 8080:8080 ravendb/ravendb
             .ToList();
         }
         ```
+
     - Update
-    
+
         ```cs
         var store = new DocumentStore
         {
@@ -127,6 +130,7 @@ docker run -d -p 8080:8080 ravendb/ravendb
             session.SaveChanges();
         }
         ```
+
     - Delete
 
         ```cs
@@ -149,11 +153,12 @@ docker run -d -p 8080:8080 ravendb/ravendb
         ```
 
 ## 心得
+
 RavenDB 與 CouchDB 相同預設就帶有 GUI 管理介面不用另外準備，管理上很便利
 
 可以滿足 Shcema-less 的需求，RavenDB.Client 在 DB 的操作上底層也是也是直接使用 Http 來發送 request ，不過在 api 的使用上比起 CouchDB 對於 LINQ 支援度更高，非常符合 .NET 開發人員的使用習慣
 
+## 參考資訊
 
-# 參考資訊
 1. [ravendb/ravendb](https://github.com/ravendb/ravendb)
 2. [RavenDB Documentation](https://ravendb.net/docs/article-page/4.1/csharp)

@@ -1,12 +1,13 @@
 ---
 title: "使用 C# 存取 Cassandra"
 date: 2019-02-09T23:45:00+08:00
-lastmod: 2019-02-09T23:44:30+08:00
+lastmod: 2021-11-03T23:44:30+08:00
 draft: false
-tags: ["C#","NoSQL"]
+tags: ["csharp","NoSQL"]
 slug: "csharp-cassandra"
 ---
-# 使用 C# 存取 Cassandra
+## 使用 C# 存取 Cassandra
+
 公司專案因為流量龐大連帶也會產生大量 log，過去都是使用 local file 來儲存，但在 cluster 的環境下 log file 會散落在許多主機上，一旦需要查閱詳細內容或是追查 issue 就是苦工也很浪費時間，因此希望可以更有效率地存取 log、讓 log 也可以更有系統化的具備 HA 機制所以考慮將 log 儲存至 NoSQL 中，至於 NoSQL 百家爭鳴，該用哪一套則還沒有定論，就看實際效能表現再決定，首先就先來看看 Cassandra
 
 ## 基本環境說明
@@ -28,11 +29,12 @@ docker run -d -p 9042:9042 cassandra
 ```
 
 ## 使用方式
+
 1. 建立 keyspace (如同一般資料庫的 database)
 
     > 如 keyspace 不存在就建立，僅建立於單一節點的 cluster 中
 
-    ```
+    ```sql
     CREATE KEYSPACE benchmark
     WITH REPLICATION = { 
     'class' : 'SimpleStrategy', 
@@ -40,11 +42,11 @@ docker run -d -p 9042:9042 cassandra
     };
     ```
 
-2. 建立 table 
+2. 建立 table
 
     >需預先定義資料表結構
 
-    ```
+    ```sql
     CREATE TABLE IF NOT EXISTS benchmark.user
     (
         userid uuid primary key,
@@ -53,17 +55,20 @@ docker run -d -p 9042:9042 cassandra
         name text
     )
     ```
+
 3. 安裝 NuGet 套件：
     - Package Manager
 
-        ```
+        ```cmd
         Install-Package CassandraCSharpDriver
-        ``` 
+        ```
+
     - .NET CLI
 
-        ```
+        ```cmd
         dotnet add package CassandraCSharpDriver
         ```
+
 4. 實際存取 Cassandra
 
     - Insert
@@ -110,8 +115,9 @@ docker run -d -p 9042:9042 cassandra
         IEnumerable<User> users = mapper.Fetch<User>("SELECT * FROM user");
 
         ```
+
     - Update
-    
+
         ```cs
         //準備 cassandra 的連線資訊
         var cluster = Cluster.Builder()
@@ -131,6 +137,7 @@ docker run -d -p 9042:9042 cassandra
         //實際執行指令
         await session.ExecuteAsync(statement);
         ```
+
     - Delete
 
         ```cs
@@ -154,11 +161,13 @@ docker run -d -p 9042:9042 cassandra
         ```
 
 ## 心得
+
 在實際使用 Cassandra 前，我一直以為 Cassandra 與 MongoDB 一樣是 Document store 類型的 NoSQL，所以比照之前使用 MongoDB 經驗而有的先入為主印象：Cassandra 不需要預先定義欄位型態，沒想到 Cassandra 跟預期不同，這樣一來似乎就少了使用 Document store 類型 schema-free 的好處
 
 實際使用之後 Cassanadra 特有的 CQL 與一般 SQL 相似性很高，非常方便，但思維上還需要做些調整：像是 user type、frozen 以及搜尋為導向的設計方式
 
-# 參考資訊
+## 參考資訊
+
 1. [datastax/csharp-driver](https://github.com/datastax/csharp-driver)
 2. [DataStax C# Driver for Apache Cassandra](https://docs.datastax.com/en/developer/csharp-driver/3.7/)
 3. [Mapper component](https://docs.datastax.com/en/developer/csharp-driver/3.7/features/components/mapper/)

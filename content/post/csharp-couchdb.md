@@ -1,12 +1,12 @@
 ---
 title: "使用 C# 存取 CouchDB"
 date: 2019-02-10T23:43:00+08:00
-lastmod: 2019-02-10T23:44:30+08:00
+lastmod: 2021-11-03T23:44:30+08:00
 draft: false
-tags: ["C#","NoSQL"]
+tags: ["csharp","NoSQL"]
 slug: "csharp-couchdb"
 ---
-# 使用 C# 存取 CouchDB
+## 使用 C# 存取 CouchDB
 
 之前筆記 [使用 C# 存取 Cassandra](https://blog.yokwo.com/csharp-cassandra) 提到想要將 log 存放至 NoSQL 中而正在嘗試某幾套 NoSQL，現在就來看看 CouchDB 的使用吧
 
@@ -30,7 +30,7 @@ docker run -p 5984:5984 -d couchdb
 
 ## 使用方式
 
-> 透過 http://127.0.0.1:5984/_utils 可以開啟設定介面
+> 透過 <http://127.0.0.1:5984/_utils> 可以開啟設定介面
 
 1. 建立 Database
 
@@ -39,14 +39,16 @@ docker run -p 5984:5984 -d couchdb
 2. 安裝 NuGet 套件：
     - Package Manager
 
-        ```
+        ```cmd
         Install-Package MyCouch
-        ``` 
+        ```
+
     - .NET CLI
 
-        ```
+        ```cmd
         dotnet add package MyCouch
         ```
+
 3. 實際存取 CouchDB
 
     - Insert
@@ -73,8 +75,9 @@ docker run -p 5984:5984 -d couchdb
             await client.Documents.GetAsync("id");
         }
         ```
+
     - Update
-    
+
         ```cs
         //連線至 CouchDB 的 benchmark Database
         using (var client = new MyCouchClient("http://localhost:5984/", "benchmark"))
@@ -83,6 +86,7 @@ docker run -p 5984:5984 -d couchdb
             await client.Documents.PutAsync("id","docRevision", JsonConvert.SerializeObject(new {name="yowko"}));
         }
         ```
+
     - Delete
 
         ```cs
@@ -95,9 +99,10 @@ docker run -p 5984:5984 -d couchdb
         ```
 
 ## 心得
+
 CouchDB 預設就帶有 GUI 管理介面不用另外準備，管理上很便利，另外是 API 部份 CouchDB 都是直接使用 Http 來發送 request 所以 API 的命名也很有 Http RESTful 風格，但直覺上透過 Http 應該沒辦法快速處理大量資料，就待後續效能比較結果囉
 
+## 參考資訊
 
-# 參考資訊
 1. [danielwertheim/mycouch](https://github.com/danielwertheim/mycouch)
 2. [Apache CouchDB 2.3 Documentation](http://docs.couchdb.org/en/stable/index.html)
