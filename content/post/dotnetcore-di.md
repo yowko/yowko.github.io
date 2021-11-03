@@ -1,13 +1,14 @@
 ---
 title: "在 .NET Core console 上使用 Dependency Injection - DI"
 date: 2018-11-28T23:45:00+08:00
-lastmod: 2020-09-01T23:44:30+08:00
+lastmod: 2021-11-03T23:44:30+08:00
 draft: false
-tags: ["C#","dotnet core"]
+tags: ["csharp","dotnet core"]
 slug: "dotnet-core-console-di"
 ---
-# 在 .NET Core console 上使用 Dependency Injection - DI
-開始撰寫 ASP.NET Core 後，對於整個開發流程雖然不至於陌生卻也一直覺得掌握度不足，尤其在習慣 ASP.NET Core 註冊及啟動流程後，突然要寫 .NET Core console application 時卻一直不順手，似乎總少些了什麼。主要原因就是 ASP.NET Core 專案範本預設已經使用 DI，而 .NET Core console 並沒有，但現在很多套件、範例都是透過 DI 來註冊使用，為了一致的開發體驗就趁著這個機會嘗試看看如何在 .NET Core console 使用與 ASP.NET Core 相同的 DI 
+## 在 .NET Core console 上使用 Dependency Injection - DI
+
+開始撰寫 ASP.NET Core 後，對於整個開發流程雖然不至於陌生卻也一直覺得掌握度不足，尤其在習慣 ASP.NET Core 註冊及啟動流程後，突然要寫 .NET Core console application 時卻一直不順手，似乎總少些了什麼。主要原因就是 ASP.NET Core 專案範本預設已經使用 DI，而 .NET Core console 並沒有，但現在很多套件、範例都是透過 DI 來註冊使用，為了一致的開發體驗就趁著這個機會嘗試看看如何在 .NET Core console 使用與 ASP.NET Core 相同的 DI
 
 官方文件沒有完整的介紹，看了些文件，順手紀錄一下
 
@@ -16,15 +17,16 @@ slug: "dotnet-core-console-di"
 1. 安裝套件 - `Microsoft.Extensions.DependencyInjection`
 
     - Package Manager Console
-    
-        ```
+
+        ```bash
         Install-Package Microsoft.Extensions.DependencyInjection
         ```
+
     - .NET CLI
 
-        ```
+        ```bash
         dotnet add package Microsoft.Extensions.DependencyInjection
-        ``` 
+        ```
 
 2. 程式碼
 
@@ -83,34 +85,34 @@ slug: "dotnet-core-console-di"
 
 - `Generic Host`
 
-    > 目前版本主要用來 host 非 web application (e.g. 背景執行的工作)，之後預計發展成可以同時 host 任何類型的應用程式，包含 web，也預計徹底取代 Web Host 
+    > 目前版本主要用來 host 非 web application (e.g. 背景執行的工作)，之後預計發展成可以同時 host 任何類型的應用程式，包含 web，也預計徹底取代 Web Host
 
     ![1generichost](https://user-images.githubusercontent.com/3851540/49169687-4f2ef200-f375-11e8-9a90-1c74dc70b09b.png)
 
-1. 安裝套件 
+1. 安裝套件
     - `Microsoft.Extensions.Hosting`
         - Package Manager Console
-        
-            ```
+
+            ```bash
             Install-Package Microsoft.Extensions.Hosting
             ```
-        
+
         - .NET CLI
 
-            ```
+            ```bash
             dotnet add package Microsoft.Extensions.Hosting
             ```  
-    
+
     - `Microsoft.Extensions.DependencyInjection`
         - Package Manager Console
-        
-            ```
+
+            ```bash
             Install-Package Microsoft.Extensions.DependencyInjection
             ```
-        
+
         - .NET CLI
 
-            ```
+            ```bash
             dotnet add package Microsoft.Extensions.DependencyInjection
             ```
 
@@ -121,7 +123,7 @@ slug: "dotnet-core-console-di"
         - Microsoft.Extensions.Hosting.Abstractions
         - Microsoft.Extensions.Logging
 
-        ![2dependency](https://user-images.githubusercontent.com/3851540/49169688-4fc78880-f375-11e8-9bcf-7724db826571.png) 
+        ![2dependency](https://user-images.githubusercontent.com/3851540/49169688-4fc78880-f375-11e8-9bcf-7724db826571.png)
 
 2. 程式碼
 
@@ -180,7 +182,7 @@ slug: "dotnet-core-console-di"
 
 回到這次紀錄的內容，程式碼數量上並沒有太多差異，不過整個 host 啟動與初始化流程卻有很大的不同，但說實話對於 Generic Host 的用法還是有些疑慮，主要是官方都說還在開發階段，依過去 MicroSoft 的習慣，大幅改動是非常有可能的XD 現在冒然使用難免有些風險呀
 
-# 參考資料
+## 參考資料
 
 1. [Host in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/index?WT.mc_id=DOP-MVP-5002594)
 2. [Using IHost .net core console applications](https://garywoodfine.com/ihost-net-core-console-applications/)

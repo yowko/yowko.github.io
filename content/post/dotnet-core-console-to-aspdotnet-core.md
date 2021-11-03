@@ -1,13 +1,13 @@
 ---
 title: "將 .NET Core Console 專案轉換為 ASP.NET Core"
 date: 2019-05-21T19:30:00+08:00
-lastmod: 2020-12-11T19:30:31+08:00
+lastmod: 2021-11-03T19:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","dotnet core"]
 slug: "dotnet-core-console-to-aspdotnet-core"
 ---
 
-# 將 .NET Core Console 專案轉換為 ASP.NET Core
+## 將 .NET Core Console 專案轉換為 ASP.NET Core
 
 console 因為組成簡單、建立快速，常被用來確認語法或是 POC 特定功能需求，不過一旦 POC 沒問題就會遇到程式碼彙總的狀況，如果程式碼數量眾多，要一隻隻程式檔案慢慢搬至目標專案，不僅容易出錯也很沒效率，身為一名 ~~懶惰~~ 追求高效的開發人員絕對是不允許的，剛好這幾天有個專案有類似需求，順手留個紀錄待日後重新檢視做法 (猜測 .NET Core 3 可能有些不同)
 
@@ -110,9 +110,9 @@ public void ConfigureServices(IServiceCollection services)
 
 直接 access 預設的 url
 
-1. http://localhost:5000
+1. <http://localhost:5000>
 
-2. https://localhost:5001
+2. <https://localhost:5001>
 
 即可在 console 看到訊息輸出
 
@@ -120,7 +120,7 @@ public void ConfigureServices(IServiceCollection services)
 
 - 改善console 訊息不明顯
 
-  - 修改 interface 及實作
+    - 修改 interface 及實作
 
         ```cs
         public interface IRunner
@@ -143,7 +143,7 @@ public void ConfigureServices(IServiceCollection services)
         }
         ```
   
-  - 修改實際使用
+    - 修改實際使用
 
         ```cs
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IRunner runner)

@@ -1,17 +1,19 @@
 ---
 title: ".NET Core 上使用 Jaeger 追蹤 gRPC 呼叫"
 date: 2019-03-13T21:30:00+08:00
-lastmod: 2019-03-13T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
-tags: ["dotnet core","C#","gRPC","Protobuf","Jaeger"]
+tags: ["dotnet core","csharp","gRPC","Protobuf","Jaeger"]
 slug: "dotnet-core-jaeger-grpc"
 ---
-# .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫
+## .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫
+
 隨著系統使用人數愈來愈多，架構也跟著愈來愈複雜，各種技術為了解決既有問題或是加快反應速度不斷推陳出新，服務的架構也從單一系統變成多層式設計再轉為微服務，但不變的還是需要 trace log 來解決 bug，為了解決日益困難的 trace 問題，2010 年 Google 發表了 [Dapper, a Large-Scale Distributed Systems Tracing Infrastructure](https://ai.google/research/pubs/pub36356) 論文，立下了分散式追蹤系統的根基，有很多系統就是基於該篇論文內容的實作，包含了 Zipkin、Jaeger ....etc
 
 所在團隊需要一套可以 trace ASP.NET Core + gRPC 的軟體，過程中嘗試了 Zipkin、Jaeger、SkyWalking，最後選擇了 Jaeger，剛完成 .NET Core 上使用 Jaeger 追蹤 gRPC 呼叫的 POC, 立馬紀錄一下，不然我相信我一定記不了多久的XD
 
 ## 基本環境說明
+
 1. macOS Mojave 10.14.3
 2. Docker Engine - Community 18.09.2
 3. Grpc 1.19.0
@@ -25,7 +27,7 @@ slug: "dotnet-core-jaeger-grpc"
 
     - message
 
-        ```
+        ```proto
         syntax = "proto3";
 
         package gRPC.Message;
@@ -46,9 +48,10 @@ slug: "dotnet-core-jaeger-grpc"
             string ResponseMsg=2;
         }
         ```
+
     - service
 
-        ```
+        ```proto
         syntax = "proto3";
 
         package gRPC.Message; 
@@ -75,76 +78,88 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
     - Grpc
 
         - Package Manager
-        
-            ```
+
+            ```bash
             Install-Package Grpc
             ```
+
         - .NET CLI
 
-            ```
+            ```bash
             dotnet add package Grpc
             ```
+
     - Grpc.Tools
         - Package Manager
-        
-            ```
+
+            ```bash
             Install-Package Grpc.Tools
             ```
+
         - .NET CLI
 
-            ```
+            ```bash
             dotnet add package Grpc.Tools
             ```
+
     - Google.Protobuf
         - Package Manager
-        
-            ```
+
+            ```bash
             Install-Package Google.Protobuf
             ```
+
         - .NET CLI
 
-            ```
+            ```bash
             dotnet add package Google.Protobuf
-            ``` 
+            ```
+
     - OpenTracing.Contrib.Grpc
         - Package Manager
-        
-            ```
+
+            ```bash
             Install-Package OpenTracing.Contrib.Grpc
             ```
+
         - .NET CLI
 
-            ```
+            ```bash
             dotnet add package OpenTracing.Contrib.Grpc
-            ``` 
+            ```
+
     - Jaeger
         - Package Manager
-        
-            ```
+
+            ```bash
             Install-Package Jaeger
             ```
+
         - .NET CLI
 
-            ```
+            ```bash
             dotnet add package Jaeger
-            ``` 
+            ```
+
     - Microsoft.Extensions.Logging.Console
         - Package Manager
-        
-            ```
+
+            ```bash
             Install-Package Microsoft.Extensions.Logging.Console
             ```
+
         - .NET CLI
 
-            ```
+            ```bash
             dotnet add package Microsoft.Extensions.Logging.Console
-            ``` 
+            ```
 
 2. 將 protobuf 轉為 C# class
 
-    ```
+    ```bash
     /Users/`whoami`/.nuget/packages/grpc.tools/1.19.0/tools/macosx_x64/protoc -I /Users/`whoami`/.nuget/packages/google.protobuf.tools/3.7.0/tools/ -I ./proto/ --csharp_out src/gRPC.Message --grpc_out src/gRPC.Message ./proto/*.proto --plugin=protoc-gen-grpc=/Users/`whoami`/.nuget/packages/grpc.tools/1.19.0/tools/macosx_x64/grpc_csharp_plugin
     ```
+
 3. 加入 TracingHelper.cs
 
     ```cs
@@ -174,7 +189,8 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
     }
     ```
 
-## 建立 gRPC.Server 
+## 建立 gRPC.Server
+
 1. 將 gRPC.Message 加入參考
 2. 加入 gRPCServiceImpl.cs 並繼承 gRPCService.gRPCServiceBase
 
@@ -214,6 +230,7 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
         }
     }
     ```
+
 3. 建立 gRPC interceptor 並啟動 gRPC server
 
     ```cs
@@ -260,6 +277,7 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
     ```
 
 ## 建立 gRPC.Client
+
 1. 將 gRPC.Message 加入參考
 2. 建立 gRPC interceptor 並啟動 gRPC server
 
@@ -310,7 +328,8 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
     ```
 
 ## 實際使用
-- 使用 http://localhost:16686 開啟 Jaeger UI
+
+- 使用 <http://localhost:16686> 開啟 Jaeger UI
 
     ![1jaegerui](https://user-images.githubusercontent.com/3851540/54298274-68da0980-45f3-11e9-84d7-193c50ce1837.png)
 - 依 `Service` 及 `Operation` 來搜尋
@@ -325,12 +344,13 @@ docker run --rm -d -p 6831:6831/udp -p 16686:16686 jaegertracing/all-in-one
 
     ![4tracedetail](https://user-images.githubusercontent.com/3851540/54298279-6972a000-45f3-11e9-9fcb-c1bf37d317ec.png)
 
-
 ## 心得
+
 前面提到嘗試了 Zipkin、Jaeger、SkyWalking，其中 Zipkin 因為在 interceptor 的處理相對複雜而出局;SkyWalking 使用的組件較多、問題也較多下決定放棄，以使用的難易度來看，Jaeger 相較 Zipkin 與 SkyWalking 下，至少輕了二個量級：架構容易、使用方式也簡單
 
 完成程式碼內容請參考 [yowko/dotnetCore-gRPC-Jaeger](https://github.com/yowko/dotnetCore-gRPC-Jaeger.git)
 
-# 參考資訊
+## 參考資訊
+
 1. [OpenTracing gRPC Tutorial - C#](https://github.com/opentracing-contrib/csharp-grpc/blob/master/getting_started/README.md)
 2. [yowko/dotnetCore-gRPC-Jaeger](https://github.com/yowko/dotnetCore-gRPC-Jaeger.git)

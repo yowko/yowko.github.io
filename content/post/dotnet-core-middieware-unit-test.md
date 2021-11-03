@@ -1,7 +1,7 @@
 ---
 title: "為 .NET Core Middleware 加上 Unit Test"
 date: 2019-04-28T21:30:00+08:00
-lastmod: 2020-09-01T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["dotnet core","Unit Test"]
 slug: "dotnet-core-middieware-unit-test"
@@ -136,11 +136,10 @@ slug: "dotnet-core-middieware-unit-test"
 ## 心得
 
 實際使用起來與過去 ASP.NET Web API 的 Message Handler 測試流程很像，但又更輕鬆點：不用建立 request object 也不用 mock HttpContex，使用體驗很棒，愈用 .NET Core 愈覺得好用呀
- 
+
 像這樣的中介層因為事關重大，沒有測試保護 (不管是 unit test 或是 integration test) 對於新加入團隊的成員難免都是進入障礙，團隊也很難確保穩定的產出品質，就算是團隊成員都很小心，開發時不會犯錯，也無法確保所有成員過了半年後還記得商業邏輯跟程式碼用意，雖然每個人立場不同(也許覺得測試很浪費時間)，但也許該試著看看為什麼有那麼多人推崇測試
 
 ## 參考資訊
 
 1. [撰寫自訂的 ASP.NET Core 中介軟體](https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/middleware/write?view=aspnetcore-2.2&WT.mc_id=DOP-MVP-5002594)
 2. [ASP.NET Core 2.1 middlewares part 2: Unit test a custom middleware](http://anthonygiretti.com/2018/09/04/asp-net-core-2-1-middlewares-part2-unit-test-a-custom-middleware/)
-3. 

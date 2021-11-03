@@ -1,11 +1,11 @@
 ---
 title: "docker images 指令筆記"
 date: 2019-09-08T01:30:00+08:00
-lastmod: 2019-09-08T01:30:31+08:00
+lastmod: 2021-11-03T01:30:31+08:00
 draft: false
 tags: ["docker"]
 slug: "docker-images-command"
----
+---
 
 ## docker images 指令筆記
 
@@ -168,10 +168,10 @@ slug: "docker-images-command"
 
     可用變數|說明
     :---|:---
-    .ID	|Image ID
+    .ID    |Image ID
     .Repository|Image repository
     .Tag|Image tag
-    .Digest	|Image digest
+    .Digest    |Image digest
     .CreatedSince|image 建立以來經過的時間
     .CreatedAt|image 建立時間
     .Size|image 大小

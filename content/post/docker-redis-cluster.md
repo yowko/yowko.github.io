@@ -1,12 +1,12 @@
 ---
 title: "使用 docker 建立 Redis Cluster"
 date: 2019-03-02T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["Container","Redis","Docker"]
 slug: "docker-redis-cluster"
 ---
-# 使用 docker 建立 Redis Cluster
+## 使用 docker 建立 Redis Cluster
 
 <font style="color:red">~~請參考新版內容 [使用 docker 建立 Redis Cluster - 更新版](/redis-cluster-docker)~~</font>
 
@@ -17,6 +17,7 @@ slug: "docker-redis-cluster"
 跟 redis replication 只有一個 master node 與一個 slave node 不同，redis cluster 需有三組 master - slave，再加上三個 sentinel node，基本消費立馬來到 9 個 container
 
 ## 基本環境說明
+
 1. macOS Mojave 10.14.2
 2. Docker Community 18.09.2
 3. docker-compose version 1.23.2, build 1110ad01
@@ -25,11 +26,12 @@ slug: "docker-redis-cluster"
 6. OpenSSL version: OpenSSL 1.1.0h  27 Mar 2018
 
 ## Master 與 Slave node
+
 1. 準備 redis config
 
     > redis 預設未啟用 cluster，需要透過 config 來啟用
 
-    ```
+    ```config
     # 指定 redis port
     port 6379
     # 啟用 cluster
@@ -45,11 +47,12 @@ slug: "docker-redis-cluster"
     # 設定連線密碼
     requirepass pass.123
     ```
+
 2. 準備 dockerfile
 
     > 使用上述建立的 config 來啟動 redis
 
-    ```
+    ```dockerfile
     FROM redis:5.0.3-alpine3.9
 
     MAINTAINER Yowko Tsai <yowko@yowko.com>
@@ -59,13 +62,13 @@ slug: "docker-redis-cluster"
     ENTRYPOINT redis-server /etc/redis/rediscluster.conf
     ```
 
-
 ## Sentinel node
+
 1. 準備 sentinel 用的 config
 
     > 因為 redis cluster 有三個 node，所以 sentinel 需加入三組 replication 的 monitor
 
-    ```
+    ```config
     # sentinel port
     port 26379
     # bind ip
@@ -90,11 +93,12 @@ slug: "docker-redis-cluster"
     sentinel parallel-syncs mymaster3 1
     sentinel failover-timeout mymaster3 10000
     ```
+
 2. 準備 dockerfile
 
     > 使用上述的 sentinel config 來啟動 sentinel
 
-    ```
+    ```dockerfile
     FROM redis:5.0.3-alpine3.9
 
     MAINTAINER Yowko Tsai <yowko@yowko.com>
@@ -110,7 +114,7 @@ slug: "docker-redis-cluster"
 - 透過 redis-cli 建立 cluster 是 redis 5 加入的功能，已經無法使用 redis-trib.rb
 - 建立 cluster 時需要輸入 `yes` 確認加入
 
-    ```
+    ```dockerfile
     FROM redis:5.0.3-alpine3.9
 
     MAINTAINER Yowko Tsai <yowko@yowko.com>
@@ -244,7 +248,7 @@ networks:
 
 > 資料夾及檔案名稱只是範例，不需相同
 
-```
+```txt
 -- sentinel
     -- sentinel.conf
     -- dockerfile
@@ -258,7 +262,6 @@ networks:
 
 ![1folderstructure](https://user-images.githubusercontent.com/3851540/53691577-dbf5ab80-3dbb-11e9-88e4-8dbe0f922bb0.png)
 
-
 ## 建立  Redis Cluster 並確認運作正常
 
 1. 進入 `docker-redis-cluster` 資料夾中
@@ -268,7 +271,6 @@ networks:
     ```
 
 2. 啟動 Redis Cluster
-
 
     ```bash
     docker-compose up -d --build
@@ -285,6 +287,7 @@ networks:
     ![2clusterinfo](https://user-images.githubusercontent.com/3851540/53691578-dbf5ab80-3dbb-11e9-90af-026926abc619.png)
 
 ## 心得
+
 查了些資料，發現網路上多數透過 docker 建立 redis cluster 的例子都是使用 redis 4 而不是 redis 5，我猜測是因為 redis 5 預設使用 redis-cli 而無法使用 ruby 或是 python 來建立 cluster，讓原本可以從 shell script 中處理掉 container ip 取得與使用而不需指定 ip 的做法失效
 
 原本我還不信邪地把想到的方法試過一輪，確認 redis 5 建立 cluster 暫時沒有比較漂亮的做法了, 不過如果目的只是測試應該夠用了，需要留意的只有 container ip 不要與 host 環境衝突即可
@@ -295,7 +298,8 @@ networks:
 
 <font style="color:red">請參考新版內容 [使用 Docker Compose 建立 Redis Cluster](/docker-compose-redis-cluster/)</font>
 
-# 參考資訊
+## 參考資訊
+
 1. [使用 docker 建立 Redis Master-Slave Replication Instance](/docker-redis-master-slave-replication)
 2. [Grokzen/docker-redis-cluster](https://github.com/Grokzen/docker-redis-cluster)
 3. [How to answer install question in dockerfile?](https://stackoverflow.com/questions/52257866/how-to-answer-install-question-in-dockerfile)

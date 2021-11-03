@@ -1,7 +1,7 @@
 ---
 title: "使用 dotnet-grpc-cli 取得 gRPC Service 內容"
 date: 2020-09-13T12:30:00+08:00
-lastmod: 2020-12-11T12:30:31+08:00
+lastmod: 2021-11-03T12:30:31+08:00
 draft: false
 tags: ["gRPC","dotnet"]
 slug: "dotnet-grpc-cli"
@@ -93,7 +93,7 @@ slug: "dotnet-grpc-cli"
 
 ## 心得
 
-dotnet-grpc-cli 與 grpc-cli 
+`dotnet-grpc-cli` 相對於 `grpc-cli`
 
 減少了：
 

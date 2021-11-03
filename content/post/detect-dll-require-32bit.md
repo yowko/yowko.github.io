@@ -1,14 +1,15 @@
 ---
 title: "如何知道使用的 dll 是否需以 32 位元模式執行"
 date: 2018-05-08T09:57:00+08:00
-lastmod: 2020-12-11T09:57:26+08:00
+lastmod: 2021-11-03T09:57:26+08:00
 draft: false
-tags: ["C#","IIS","PowerShell","Tools"]
+tags: ["csharp","IIS","PowerShell","Tools"]
 slug: "detect-dll-require-32bit"
 aliases:
     - /2018/05/detect-dll-require-32bit.html
 ---
-# 如何知道使用的 dll 是否需以 32 位元模式執行
+## 如何知道使用的 dll 是否需以 32 位元模式執行
+
 最近因為年度計畫預計做些 Windows server OS 的升級作業，將大部份 OS 升級為 Windows Server 2016，也順便整理 server 上的 application，發現仍有不少 application 執行在 32 位模式下，過去主要的原因是 `Oracle.DataAccess.dll`，原以為只要搞定 `Oracle.DataAccess.dll` 就可以，想不到後續又遇到其他參考的 dll 需要執行在 32 bit 模式下，所以找了幾個方式來試著不需要反覆部署至 IIS 上進行測試即可得知特定的 dll 是否需要執行在 32 bit 的相容執行環境
 
 網路上分享的方法有很多種，今天會以本次遇到問題的 dll 中的 `Oracle.DataAccess.dll` 與 `System.Data.dll`當做範例來進行測試，立馬來看看哪個方式比較方便吧
@@ -18,14 +19,15 @@ aliases:
 > 曾經在之前筆記 [如何看程式是 32 bit 還是 64 bit](/2017/11/binary-is-32-bit-64-bit.html) 紀錄到，詳細的使用方式可以參考原文 [如何看程式是 32 bit 還是 64 bit](/2017/11/binary-is-32-bit-64-bit.html)
 
 - 使用方式
-    
+
     ```bash
     dumpbin.exe /headers {檔案}
-    ``` 
+    ```
+
 - 實際使用
     - `System.Data.dll`
         - 需要 32 位元模式
-            
+
             ```cmd
             $ "G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\amd64\dumpbin.exe" /headers D:\Test\System.Data.dll
             Microsoft (R) COFF/PE Dumper Version 12.00.40629.0
@@ -93,12 +95,13 @@ aliases:
                         0 [       0] RVA [size] of Delay Import Directory
                     110C4 [      48] RVA [size] of COM Descriptor Directory
                         0 [       0] RVA [size] of Reserved Directory
-            ``` 
-            
-            ![1dumpbinsystemdata](https://user-images.githubusercontent.com/3851540/39715721-c55a85ea-5260-11e8-895c-1374bca2dfa7.png)
-        - 不需 32 位元模式
-            
             ```
+
+            ![1dumpbinsystemdata](https://user-images.githubusercontent.com/3851540/39715721-c55a85ea-5260-11e8-895c-1374bca2dfa7.png)
+
+        - 不需 32 位元模式
+
+            ```log
             Dump of file D:\Test\System.Data_ok.dll
 
             PE signature found
@@ -163,12 +166,12 @@ aliases:
                         2008 [      48] RVA [size] of COM Descriptor Directory
                         0 [       0] RVA [size] of Reserved Directory
             ```
-            
+
             ![2dumpbinsystemdata32](https://user-images.githubusercontent.com/3851540/39715722-c583e520-5260-11e8-8ae9-8fd9f2e60a17.png)
     - `Oracle.DataAccess.dll`
         - 需要 32 位元
-            
-            ```
+
+            ```cmd
             $ "G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\amd64\dumpbin.exe" /headers D:\Test\Oracle.DataAccess.dll
             Microsoft (R) COFF/PE Dumper Version 12.00.40629.0
             Copyright (C) Microsoft Corporation.  All rights reserved.
@@ -240,12 +243,13 @@ aliases:
                         0 [       0] RVA [size] of Delay Import Directory
                         2008 [      48] RVA [size] of COM Descriptor Directory
                         0 [       0] RVA [size] of Reserved Directory
-            ``` 
-            
-            ![3dumpbinoracle](https://user-images.githubusercontent.com/3851540/39715723-c5ab92e6-5260-11e8-8b7f-a868594996c6.png)
-        - 不需要 32 位元
-            
             ```
+
+            ![3dumpbinoracle](https://user-images.githubusercontent.com/3851540/39715723-c5ab92e6-5260-11e8-8b7f-a868594996c6.png)
+
+        - 不需要 32 位元
+
+            ```cmd
             $ "G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\amd64\dumpbin.exe" /headers D:\Test\Oracle.DataAccess_ok.dll
             Microsoft (R) COFF/PE Dumper Version 12.00.40629.0
             Copyright (C) Microsoft Corporation.  All rights reserved.
@@ -318,7 +322,7 @@ aliases:
                         2000 [      48] RVA [size] of COM Descriptor Directory
                         0 [       0] RVA [size] of Reserved Directory
             ```
-            
+
             ![4dumpbinoracle](https://user-images.githubusercontent.com/3851540/39715724-c5d5b88c-5260-11e8-89a8-6035c798d279.png)
 
 ## 使用 CorFlags：<span style="color:red">個人測試下不一定可以識別是否需要 32 位元模式</span>
@@ -326,18 +330,18 @@ aliases:
 > `CorFlags.exe` 是 .net framework 的內建工具
 
 - 判斷基準
-    
+
     platform|PE|32BITREQ
     :---|:---|:---
     Any CPU|PE32| 0
     x86| PE32| 1
-    x64|PE32+| 0 
+    x64|PE32+| 0
 
 - 實際使用
     - `System.Data.dll`
         - 需要 32 位元模式
-            
-            ```
+
+            ```cmd
             $ "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.7.1 Tools\CorFlags.exe" d:\TEST\System.Data.dll
             Microsoft (R) .NET Framework CorFlags Conversion Tool.  Version  4.7.2558.0
             Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -351,11 +355,11 @@ aliases:
             32BITPREF : 0
             Signed    : 1 
             ```
-            
+
             ![5corflagssystemdata](https://user-images.githubusercontent.com/3851540/39715725-c5fc2440-5260-11e8-91b7-2a1fe5456262.png)
         - 不需要 32 位元模式
-            
-            ```
+
+            ```cmd
             $ "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.7.1 Tools\CorFlags.exe" d:\TEST\System.Data_ok.dll
             Microsoft (R) .NET Framework CorFlags Conversion Tool.  Version  4.7.2558.0
             Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -368,13 +372,13 @@ aliases:
             32BITREQ  : 0
             32BITPREF : 0
             Signed    : 1
-            ``` 
-            
+            ```
+
             ![6corflagsystemdata](https://user-images.githubusercontent.com/3851540/39715727-c624472c-5260-11e8-9e4b-46da12ef7119.png)
     - `Oracle.DataAccess.dll`
         - 需要 32 位元模式
-            
-            ```
+
+            ```cmd
             $ "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.7.1 Tools\CorFlags.exe" d:\TEST\Oracle.DataAccess.dll
             Microsoft (R) .NET Framework CorFlags Conversion Tool.  Version  4.7.2558.0
             Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -387,12 +391,12 @@ aliases:
             32BITREQ  : 1
             32BITPREF : 0
             Signed    : 1
-            ``` 
-            
+            ```
+
             ![7corflagoracle](https://user-images.githubusercontent.com/3851540/39715728-c64d8812-5260-11e8-9f18-7ca879c4ab9b.png)
         - 不需要 32 位元模式
-            
-            ```
+
+            ```cmd
             $ "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.7.1 Tools\CorFlags.exe" d:\TEST\Oracle.DataAccess_ok.dll
             Microsoft (R) .NET Framework CorFlags Conversion Tool.  Version  4.7.2558.0
             Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -405,26 +409,27 @@ aliases:
             32BITREQ  : 0
             32BITPREF : 0
             Signed    : 1
-            ``` 
-            
+            ```
+
             ![8corflagoracle](https://user-images.githubusercontent.com/3851540/39715730-c683bcac-5260-11e8-9cb4-8c461d341e92.png)
 
 ## 使用 powershell：<span style="color:red">勉強可識別是否需要 32 位元模式</span>
+
 - ProcessorArchitecture
-    
+
     ProcessorArchitecture|說明
     :---|:---
     Amd64|僅 64-bit AMD 處理器適用
-    Arm	| ARM 處理器適用
-    IA64	|僅 64-bit Intel 處理器適用.
-    MSIL	|不限處理器
-    None	|無法辨識處理器
-    X86	|32-bit Intel 處理器, 或是 64-bit 平台上 Windows on Windows 環境(WOW64). 
+    Arm    | ARM 處理器適用
+    IA64    |僅 64-bit Intel 處理器適用.
+    MSIL    |不限處理器
+    None    |無法辨識處理器
+    X86    |32-bit Intel 處理器, 或是 64-bit 平台上 Windows on Windows 環境(WOW64).
 
 - 實際使用
     - `System.Data.dll`
         - 需要 32 位元模式
-            
+
             ```ps1
             PS C:\Users\yowko.tsai> $dllpath="d:\TEST\System.Data.dll"
 
@@ -445,10 +450,11 @@ aliases:
             KeyPair               : 
             FullName              : System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
             ```
-            
+
             ![9pssystemdata](https://user-images.githubusercontent.com/3851540/39715731-c6af75a4-5260-11e8-9b1a-632b027f90e4.png)
+
         - 不需要 32 位元模式
-            
+
             ```ps1
             PS C:\Users\yowko.tsai> $dllpath="d:\TEST\System.Data_ok.dll"
 
@@ -470,11 +476,12 @@ aliases:
             FullName              : System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
 
             ```
-            
+
             ![10pssystemdata](https://user-images.githubusercontent.com/3851540/39715733-c6d750b0-5260-11e8-82ad-41dc242598f5.png)
+
     - `Oracle.DataAccess.dll`
         - 需要 32 位元模式
-            
+
             ```ps1
             PS C:\Users\yowko.tsai> $dllpath="d:\TEST\Oracle.DataAccess.dll"
 
@@ -494,11 +501,11 @@ aliases:
             VersionCompatibility  : SameMachine
             KeyPair               : 
             FullName              : Oracle.DataAccess, Version=2.111.7.0, Culture=neutral, PublicKeyToken=89b483f429c47342
-            ``` 
-            
+            ```
+
             ![11psoracle](https://user-images.githubusercontent.com/3851540/39715734-c7248056-5260-11e8-8998-c9a7ac0c115e.png)
         - 不需要 32 位元模式
-            
+
             ```ps1
             PS C:\Users\yowko.tsai> $dllpath="d:\TEST\Oracle.DataAccess_ok.dll"
 
@@ -519,7 +526,7 @@ aliases:
             KeyPair               : 
             FullName              : Oracle.DataAccess, Version=2.112.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342
             ```
-            
+
             ![12psoracle](https://user-images.githubusercontent.com/3851540/39715735-c74f7766-5260-11e8-9d7b-86f1ba68190f.png)
 
 ## 使用 c#：<span style="color:red">可識別是否需要 32 位元模式</span>
@@ -527,54 +534,55 @@ aliases:
 - 實際使用
     - `System.Data.dll`
         - 需要 32 位元模式
-            
+
             ```cs
             string dllpath = @"D:\Test\System.Data.dll";
             Assembly assembly = Assembly.ReflectionOnlyLoadFrom(dllpath);
             assembly.ManifestModule.GetPEKind(out PortableExecutableKinds peKind, out ImageFileMachine machine);
             peKind.Dump();
             ```
-            
+
             ![13cssystemdata](https://user-images.githubusercontent.com/3851540/39715736-c77b7848-5260-11e8-9911-8863abee38f7.png)
         - 不需要 32 位元模式
-            
+
             ```cs
             string dllpath = @"D:\Test\System.Data_ok.dll";
             Assembly assembly = Assembly.ReflectionOnlyLoadFrom(dllpath);
             assembly.ManifestModule.GetPEKind(out PortableExecutableKinds peKind, out ImageFileMachine machine);
             peKind.Dump();
-            ``` 
-            
+            ```
+
             ![14cssystemdata](https://user-images.githubusercontent.com/3851540/39715737-c7a18740-5260-11e8-83ea-82a9edad16d7.png)
     - `Oracle.DataAccess.dll`
         - 需要 32 位元模式
-            
+
             ```cs
             string dllpath = @"D:\Test\Oracle.DataAccess.dll";
             Assembly assembly = Assembly.ReflectionOnlyLoadFrom(dllpath);
             assembly.ManifestModule.GetPEKind(out PortableExecutableKinds peKind, out ImageFileMachine machine);
             peKind.Dump();
             ```
-            
+
             ![15csoracle](https://user-images.githubusercontent.com/3851540/39715740-c7cb025a-5260-11e8-8f45-7f339d698ab7.png)
-        - 不需要 32 位元模式 
-            
+        - 不需要 32 位元模式
+
             ```cs
             string dllpath = @"D:\Test\Oracle.DataAccess_ok.dll";
             Assembly assembly = Assembly.ReflectionOnlyLoadFrom(dllpath);
             assembly.ManifestModule.GetPEKind(out PortableExecutableKinds peKind, out ImageFileMachine machine);
             peKind.Dump();
             ```
-            
+
             ![16csoracle](https://user-images.githubusercontent.com/3851540/39715742-c7f29586-5260-11e8-9c49-668d4a1de62d.png)
 
 ## 心得
+
 方法乍看之下有好幾個，但實際使用上可以正確判讀出是否需要 32 bit 模式的並不多，嚴格說起來只有 PowerShell 跟 c# 的方法可以滿足要求，CorFlag 實際使用上有的 dll 可以正確判讀有的則不行，而 c# 與 PowerShell 相比，PowerShell 的訊息仍然相對模糊，c# 整體的訊息非常直覺，但 PowerShell 不用編譯的優點則是 C# 望塵莫及的
 
 透過將幾個方式測試一輪順便紀錄，到時有需要就視情況取用即可，雖然花了一些時間，但日後再次用到時就划算了(應該)
 
+## 參考資訊
 
-# 參考資訊
 1. [如何看程式是 32 bit 還是 64 bit](/2017/11/binary-is-32-bit-64-bit.html)
 2. [Check whether a .NET dll is built for Any CPU, x86, or x64](https://malvinly.com/2016/11/16/check-whether-a-net-dll-is-built-for-any-cpu-x86-or-x64/)
 3. [ProcessorArchitecture 列舉](https://msdn.microsoft.com/library/system.reflection.processorarchitecture)

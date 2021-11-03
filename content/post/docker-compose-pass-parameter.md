@@ -1,7 +1,7 @@
 ---
 title: "傳遞參數來執行 Docker Compose"
 date: 2020-05-19T21:30:00+08:00
-lastmod: 2020-05-19T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["Redis","Docker"]
 slug: "docker-compose-pass-parameter"
@@ -25,9 +25,9 @@ slug: "docker-compose-pass-parameter"
 
 > 我個人最常用的就是將 host ip 傳進去 docker compose 中做為 service bind 的參數，因為 ip 可能會變動，常態性將 ip 寫死在 docker compose 中，不時會遇到 ip 變了造成 service 沒有正確啟動而多花了不少時間在 debug
 
-* 直接寫死 ip
+- 直接寫死 ip
 
-    - yaml
+  - yaml
 
         ```yaml
         version: "3"
@@ -36,20 +36,20 @@ slug: "docker-compose-pass-parameter"
             image: busybox
             entrypoint: [ echo,192.168.1.112 ]
         ```
-    
-    - 啟動：`docker-compose up`
+
+  - 啟動：`docker-compose up`
 
         ```bash
         docker-compose up
         ```
 
-    - 結果
+  - 結果
 
         ![1old](https://user-images.githubusercontent.com/3851540/82342682-80492980-9a24-11ea-8bc1-7c99f30484b5.jpg)
 
-* 使用參數
+- 使用參數
 
-    - yaml
+  - yaml
 
         ```yaml
         version: "3"
@@ -58,14 +58,14 @@ slug: "docker-compose-pass-parameter"
             image: busybox
             entrypoint: [ echo,"${ip}" ]
         ```
-    
-    - 啟動：`docker-compose up`
+
+  - 啟動：`docker-compose up`
 
         ```bash
         ip=$(ipconfig getifaddr en0) docker-compose up
         ```
 
-    - 結果
+  - 結果
 
         ![2new](https://user-images.githubusercontent.com/3851540/82342690-817a5680-9a24-11ea-8af1-f8a36909f325.jpg)
 

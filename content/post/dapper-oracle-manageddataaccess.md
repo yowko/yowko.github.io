@@ -1,14 +1,15 @@
 ---
 title: "Dapper 讀取 Oracle 資料 - 更新版 (使用 Oracle.ManagedDataAccess)"
 date: 2018-01-14T17:20:00+08:00
-lastmod: 2020-12-11T17:20:06+08:00
+lastmod: 2021-11-03T17:20:06+08:00
 draft: false
 tags: ["套件","Dapper","Oracle"]
 slug: "dapper-oracle-manageddataaccess"
 aliases:
     - /2018/01/dapper-oracle-manageddataaccess.html
 ---
-# Dapper 讀取 Oracle 資料 - 更新版 (使用 Oracle.ManagedDataAccess)
+## Dapper 讀取 Oracle 資料 - 更新版 (使用 Oracle.ManagedDataAccess)
+
 之前筆記 [Dapper 讀取 Oracle 資料](/2017/07/dapper-oracle.html) 提到使用 ~~x64 版本的 oracle client - Oracle.ManagedDataAccess 無法成功連線~~，<span style="color:red">這句話是錯誤的</span>，一來 `Oracle.ManagedDataAccess` 本身是 32位元，另外就是 `Oracle.ManagedDataAccess` 絕對可以正常連線 oracle 讀寫資料
 
 就來看看如何使用 `Oracle.ManagedDataAccess` 搭配 `dapper` 連線 oracle 吧
@@ -46,13 +47,12 @@ using (var cn = new Oracle.ManagedDataAccess.Client.OracleConnection(cnstr))
 
 與之前使用 `Oracle.DataAccess.Client` 最大的差別只在建立連線時使用的 namespace 的不同，當然背後隱藏了很多細節：(以下參考黑大說明 - [Managed ODP.NET簡介](http://blog.darkthread.net/post-2015-03-31-managed-odp-net.aspx))
 
-1.  可以直接使用 Oracle.ManagedDataAccess ，無需安裝 Oracle Client
-2.  Oracle.ManagedDataAccess 不必區分 32位元及 64位元
-
+1. 可以直接使用 Oracle.ManagedDataAccess ，無需安裝 Oracle Client
+2. Oracle.ManagedDataAccess 不必區分 32位元及 64位元
 
 現在回想之前筆記時，已經忘記為什麼當時內容錯誤原因，當然不懂是主因但畢竟在真正紀錄時我都會再做過測試，確認結果才做筆記，當時內容有問題也代表測試也出錯，但現在完全沒有印象當時出了什麼差錯，不過也多虧這次經驗讓我更覺得該好好做筆記，至少有印象曾經寫錯還能好好檢視當時錯誤原因並改進，不是一直帶著錯誤的觀念持續錯下去
 
-# 參考資訊
+## 參考資訊
 
-1.  [Dapper 讀取 Oracle 資料](/2017/07/dapper-oracle.html)
-2.  [Managed ODP.NET簡介](http://blog.darkthread.net/post-2015-03-31-managed-odp-net.aspx)
+1. [Dapper 讀取 Oracle 資料](/2017/07/dapper-oracle.html)
+2. [Managed ODP.NET簡介](http://blog.darkthread.net/post-2015-03-31-managed-odp-net.aspx)

@@ -1,15 +1,17 @@
 ---
 title: "使用 docker 建立 MongoDB Replica Set"
 date: 2019-03-07T01:30:00+08:00
-lastmod: 2020-12-11T01:30:31+08:00
+lastmod: 2021-11-03T01:30:31+08:00
 draft: false
 tags: ["Container","MongoDB","Docker"]
 slug: "docker-mongodb-replica-set"
 ---
-# 使用 docker 建立 MongoDB Replica Set
+## 使用 docker 建立 MongoDB Replica Set
+
 前幾天筆記 [使用 docker 建立 Redis Cluster - 更新版](/redis-cluster-docker) 提到為了要測試 Redis 完整 cluster 功能但又不想每次都重頭建立三組 Master-Slave 以及三個 Sentinel，所以透過 docker-compose 來建立整個 Redis cluster，而最近用到的 MongoDB Replica Set 也是類似情況，但比 Redis 輕鬆的是 MongoDB Replica Set 只要三個 node 即可，就來看看可以怎麼做吧
 
 ## 基本環境說明
+
 - Mac
     1. macOS Mojave 10.14.2
     2. Docker Community 18.09.2
@@ -25,7 +27,7 @@ slug: "docker-mongodb-replica-set"
 
 > 這個 image 是用來設定 MongoDB 的 Replica Set 前讓三個 MongoDB 暖機用的，實際上沒什麼作用，只是我找不到可以在 docker-compse 中同時執行 sleep 與 mongo shell 的方法而做的
 
-```
+```dockerfile
 FROM mongo:4-xenial
 
 MAINTAINER Yowko Tsai <yowko@yowko.com>
@@ -70,7 +72,7 @@ services:
 
 ## 資料夾結構
 
-```
+```txt
 -- docker-mongodb-replica-set
     -- creator
         -- dockerfile
@@ -80,6 +82,7 @@ services:
 ![folderstructure](https://user-images.githubusercontent.com/3851540/53899681-b72c5d00-4075-11e9-9558-e5cc2e804a29.png)
 
 ## 啟動與實際運作
+
 1. 啟動建立 MongoDB Replica Set
 
     ```bash
@@ -98,19 +101,22 @@ services:
 
 3. 確認 Replica Set 狀態
 
-    ```
+    ```js
     rs.status()
     ```
+
     ![_output_4rsstatus](https://user-images.githubusercontent.com/3851540/53900427-79303880-4077-11e9-9ea4-9e9ad5798248.png)
 
 ## 心得
+
 自己動手做之前我有 google 過其他人做法，大部份都是透過 shell 來加入 Replica Set，會多一個 conatiner，加上 shell 又是另種語法，我個人不想額外 maintain shell 所以才想利用 docker 相關功能解決就好
 
 以結果來看的確是完成的 MongoDB Replica Set 的建立，但多了個沒實際作用的 container ，作法上不是很漂亮，不過先求有，如果之後被嫌棄或是緣份到了再來找更好的做法囉
 
 完整 dockerfile 及 docker-compose.yml 請參考 [yowko/Docker-Compose-MongoDB-Replica-Set](https://github.com/yowko/Docker-Compose-MongoDB-Replica-Set)
 
-# 參考資訊
+## 參考資訊
+
 1. [MongoDB 在 Windows 上的 HA 機制 - Replica Sets](/mongodb-windows-ha-replica-sets/)
 2. [How to execute mongo commands through shell scripts?](https://stackoverflow.com/a/6000360)
 3. [yowko/Docker-Compose-MongoDB-Replica-Set](https://github.com/yowko/Docker-Compose-MongoDB-Replica-Set)

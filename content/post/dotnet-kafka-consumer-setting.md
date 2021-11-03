@@ -1,13 +1,13 @@
 ---
 title: "Kafka Consumer 處理速度緩慢，設定調整紀實"
 date: 2019-06-01T19:30:00+08:00
-lastmod: 2020-12-11T19:30:31+08:00
+lastmod: 2021-11-03T19:30:31+08:00
 draft: false
 tags: ["Kafka","dotnet core"]
 slug: "dotnet-kafka-consumer-setting"
 ---
 
-# Kafka Consumer 處理速度緩慢，設定調整紀實
+## Kafka Consumer 處理速度緩慢，設定調整紀實
 
 最近專案用了 Kafka 做為中介的 message queue，近期已經陸陸續續開始準備上線的前置作業，其中一項就是壓測數據，不過 Kafka 的 consumer 在核心 component 間處理大量資料的表現非常不好，完全沒有展現出該有的效能水準，於是就得來進行效能調校，但筆記的標題實在不敢提到效能調校，怕被同事幾位大大恥笑 XD, 就簡單紀錄一下我調整的參數值與效能數據結果
 

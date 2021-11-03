@@ -1,14 +1,15 @@
 ---
 title: "C# 連線至 RabbitMQ Cluster - 使用 RabbitMQ .Net Client 及 EasyNetQ"
 date: 2017-08-20T01:26:00+08:00
-lastmod: 2020-12-11T13:50:55+08:00
+lastmod: 2021-11-03T13:50:55+08:00
 draft: false
-tags: ["套件","RabbitMQ","C#"]
+tags: ["套件","RabbitMQ","csharp"]
 slug: "dotnet-client-rabbitmq-cluster"
 aliases:
     - /2017/08/dotnet-client-rabbitmq-cluster.html
 ---
-# C# 連線至 RabbitMQ Cluster - 使用 RabbitMQ .Net Client 及 EasyNetQ
+## C# 連線至 RabbitMQ Cluster - 使用 RabbitMQ .Net Client 及 EasyNetQ
+
 之前文章 [如何在 Windwos 上設定 RabbitMQ Cluster](//blog.yowko.com/2017/08/windwos-rabbitmq-cluster.html) 介紹到透過建立 cluster 的方式來讓 RabbtMQ 可以擁有 HA ，而在 queue 及 message 完整性方面則利用 mirrored queue 的機制來處理，詳細內容可以參考 [設定 RabbitMQ 的 Mirrored Queues - 讓 Queue 內容可以在多組 RabbitMQ 同步](//blog.yowko.com/2017/08/rabbitmq-mirrored-queues.html)
 
 基礎建設已經有了雛型，接著就來看看 C# 該如何連線 RabbitMQ cluster 吧
@@ -17,7 +18,7 @@ aliases:
 
 詳細說明請參考 [使用 .Net client 連線至 RabbitMQ 收發訊息](/2017/05/rabbitmq-client-send-consume.html)，以下就節錄其中內容重點說明連線 cluster 的差異
 
-1.  producer
+1. producer
 
     ```cs
     //初始化連線資訊
@@ -56,7 +57,7 @@ aliases:
 
     > 變化不大，就是原本在 `ConnectionFactory` 指定連線字串，現在改由 `CreateConnection` 時傳入多個 host 資訊，該連線哪個 host，client 會自行決定
 
-2.  consumer
+2. consumer
 
     ```cs
     //初始化連線資訊
@@ -123,7 +124,7 @@ aliases:
 
 `EasyNetQ` 在 GitHub 的 star 數比 `RabbitMQ .Net Client` 高出一倍，想必有一定的水準，相關內容請直接參考 [EasyNetQ/EasyNetQ](https://github.com/EasyNetQ/EasyNetQ)
 
-1.  producer
+1. producer
 
     ```cs
     //建立連線，並透過 `,` 指定多個 host，prefetchcount 指定一次只處理一筆 message
@@ -146,7 +147,7 @@ aliases:
     }
     ```
 
-2.  consumer
+2. consumer
 
     ```cs
     //建立連線，並透過 `,` 指定多個 host，prefetchcount 指定一次只處理一筆 message
@@ -185,8 +186,8 @@ aliases:
 
 經過一番測試，分別使用 `RabbitMQ .Net Client` 與 `EasyNetQ` 對 RabbitMQ 收發訊息，並執行 RabbitMQ failover 來檢視兩個 library 的行為及效果，最後是 `EasyNetQ` 以較簡易的 API 使用雀屏中選，主要是 RabbitMQ failover 時不需自行處理，再來連線字串寫法比較彈性，使用 `EasyNetQ` 方便性絕對比 `RabbitMQ .Net Client` 好上許多
 
-# 參考資訊
+## 參考資訊
 
-1.  [如何在 Windwos 上設定 RabbitMQ Cluster](/2017/08/windwos-rabbitmq-cluster.html)
-2.  [設定 RabbitMQ 的 Mirrored Queues - 讓 Queue 內容可以在多組 RabbitMQ 同步](http://blog.yowko.com/2017/08/rabbitmq-mirrored-queues.html)
-3.  [EasyNetQ/EasyNetQ](https://github.com/EasyNetQ/EasyNetQ)
+1. [如何在 Windwos 上設定 RabbitMQ Cluster](/2017/08/windwos-rabbitmq-cluster.html)
+2. [設定 RabbitMQ 的 Mirrored Queues - 讓 Queue 內容可以在多組 RabbitMQ 同步](http://blog.yowko.com/2017/08/rabbitmq-mirrored-queues.html)
+3. [EasyNetQ/EasyNetQ](https://github.com/EasyNetQ/EasyNetQ)

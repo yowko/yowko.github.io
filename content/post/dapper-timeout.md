@@ -1,14 +1,14 @@
 ---
 title: "C# 使用 Dapper 連線 DB 時指定逾時時間 (timeout)：0x80004005"
 date: 2018-04-22T23:34:00+08:00
-lastmod: 2020-09-01T23:34:43+08:00
+lastmod: 2021-11-03T23:34:43+08:00
 draft: false
-tags: ["套件","C#","Dapper","SQL Server"]
+tags: ["套件","csharp","Dapper","SQL Server"]
 slug: "dapper-timeout"
 aliases:
     - /2018/04/dapper-timeout.html
 ---
-# C# 使用 Dapper 連線 DB 時指定逾時時間 (timeout)：0x80004005
+## C# 使用 Dapper 連線 DB 時指定逾時時間 (timeout)：0x80004005
 
 最近專案在 production 環境執行時常常遇到 [Win32Exception (0x80004005): The wait operation timed out]，造成程式未完整執行，但再執行一次後又正常了，想當然爾這個狀況在開發階段未曾發現過(再次證實在我的電腦上都是好的XD)，經過追查 log 後發現是 db 資料量略大，加上查詢語法在目標 db 上沒有建立對應的 index，所以執行查詢時都會耗費較多時間，但第二次之後的查詢則因為第一次查詢的犧牲已 trigger db 協助建立相關 cache，讓後續查詢得已順利完成
 
@@ -17,13 +17,15 @@ aliases:
 ## 預設環境設定
 
 1. 使用 sql 語法模擬高耗時 db 操作
-    
+
     ```sql
     select getdate();
     waitfor delay '00:00:30';
     select getdate();
     ```
+
 2. 使用 dapper 連線
+
     ```cs
      var sql = @"select getdate();
                  waitfor delay '00:00:30';
@@ -38,6 +40,7 @@ aliases:
 ## 錯誤訊息
 
 1. 訊息內容
+
     ```text
     Server Error in '/' Application.
     The wait operation timed out
@@ -120,22 +123,23 @@ aliases:
     
     Version Information: Microsoft .NET Framework Version:4.0.30319; ASP.NET Version:4.7.2633.0
     ```
+
 2. 錯誤截圖
-    
+
     >![1error](https://user-images.githubusercontent.com/3851540/39096566-27cacb7e-4684-11e8-941b-62a55c6b9635.png)
 
-## ConnectionTimeout vs CommandTimeout 
+## ConnectionTimeout vs CommandTimeout
 
 - ConnectionTimeout
-    - 嘗試建立連線的時間
-    - 預設值為 `15 秒`，`0` 表示永遠不 timeout
-    - 可以針對 Connection 設定 (ConnectTimeout ) 或是在 connection string 指定 (Connection Timeout )
+  - 嘗試建立連線的時間
+  - 預設值為 `15 秒`，`0` 表示永遠不 timeout
+  - 可以針對 Connection 設定 (ConnectTimeout ) 或是在 connection string 指定 (Connection Timeout )
 
 - CommandTimeout
-    - 完成執行 sql 語法的時間
-    - 預設值為 `30 秒`，`0` 表示永遠不 timeout
-    - 對於非同步 command 無效：System.Data.SqlClient.SqlCommand.BeginExecuteReader
-    - 對於 context connection 無效，connection string 有 `context connection=true`
+  - 完成執行 sql 語法的時間
+  - 預設值為 `30 秒`，`0` 表示永遠不 timeout
+  - 對於非同步 command 無效：System.Data.SqlClient.SqlCommand.BeginExecuteReader
+  - 對於 context connection 無效，connection string 有 `context connection=true`
 
 ## dapper 設定
 
@@ -151,7 +155,7 @@ var result = cn.Query<DateTime>(sql,commandTimeout:60);
 
 所以趁著這次機會筆記一下，加深印象，下次再有疑問時就有個對照基準了
 
-# 參考資訊
+## 參考資訊
 
 1. [SqlConnection.ConnectionTimeout](https://msdn.microsoft.com/zh-tw/library/system.data.sqlclient.sqlconnection.connectiontimeout%28v=vs.110%29.aspx)
 2. [SqlCommand.CommandTimeout](https://msdn.microsoft.com/zh-tw/library/system.data.sqlclient.sqlcommand.commandtimeout%28v=vs.110%29.aspx)

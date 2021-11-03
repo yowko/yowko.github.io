@@ -1,13 +1,13 @@
 ---
 title: "Kafka Producer 不同壓縮方式對發送速度的影響"
 date: 2019-06-02T19:30:00+08:00
-lastmod: 2020-12-11T19:30:31+08:00
+lastmod: 2021-11-03T19:30:31+08:00
 draft: false
 tags: ["Kafka","dotnet core"]
 slug: "dotnet-kafka-producer-compresstype"
 ---
 
-# Kafka Producer 不同壓縮方式對發送速度的影響
+## Kafka Producer 不同壓縮方式對發送速度的影響
 
 這兩天在測試 Kafka consumer 各項設定對於處理速度的影響 (詳細內容可以參考 [Kafka Consumer 處理速度緩慢，設定調整紀實](/dotnet-kafka-consumer-setting))，經過一輪比較後發現實際影響有限，最重要的還是需要降低 message 內容大小，在不調整發送流程、訊息內容的情況下，想要達到降低的 message 內容大小的做法就是對 message 進行壓縮了，只是壓縮不會是萬能藥對速度一定會有影響，就看影響的幅度多寡了
 

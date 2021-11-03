@@ -1,7 +1,7 @@
 ---
 title: "Docker Container 佔用磁碟大小"
 date: 2021-02-22T09:30:00+08:00
-lastmod: 2021-02-22T09:30:31+08:00
+lastmod: 2021-11-03T09:30:31+08:00
 draft: false
 tags: ["Docker","Container"]
 slug: "docker-container-size"
@@ -35,9 +35,9 @@ slug: "docker-container-size"
     > 這邊是根據 [Explain the SIZE column in "docker ps -s" and what "virtual" keyword means](https://github.com/docker/docker.github.io/issues/1520#issuecomment-305179362) 的個人理解，為了避免我誤導，強烈建議對照 [Explain the SIZE column in "docker ps -s" and what "virtual" keyword means](https://github.com/docker/docker.github.io/issues/1520#issuecomment-305179362)
 
     - 第一個數字是 container `可讀磁區` 的大小
-    
+
         > 每個 container 都是獨立的
-    
+
     - 第二個數字 (virtual) 是 container `可讀磁區 + 唯讀磁區` 的大小
 
         > 其中 `virtual` 的數字是所有使用相同 image 建立的 container 共用的 (使用相同 image 建立的所有 container 會有相同的 virtual size)
