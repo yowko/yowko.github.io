@@ -31,32 +31,32 @@ slug: "ansible-install-influxdb"
 
     > 其中有用到 Ansible 的 heredoc 技巧，詳細內容可以參考之前筆記 [Ansible 使用 Here document (cat << EOF) 遇到的問題](/ansible-cat-eof/)
 
-        ```yaml
-        ---
-        - name: Install Influxdb
-          gather_facts: false
-          hosts: influxdb
-          tasks:
-            - name: Add repo
-              shell:
-                cmd: |
-                  cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
-                  [influxdb]
-                  name = InfluxDB Repository - RHEL \$releasever
-                  baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
-                  enabled = 1
-                  gpgcheck = 1
-                  gpgkey = https://repos.influxdata.com/influxdb.key
-                  EOF
-            - name: Install influxdb
-              yum:
-                name: influxdb
-                state: latest
-            - name: Start influxdb Service
-              service:
-                name: influxdb
-                state: restarted
-        ```
+    ```yaml
+    ---
+    - name: Install Influxdb
+      gather_facts: false
+      hosts: influxdb
+      tasks:
+        - name: Add repo
+          shell:
+            cmd: |
+              cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
+              [influxdb]
+              name = InfluxDB Repository - RHEL \$releasever
+              baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
+              enabled = 1
+              gpgcheck = 1
+              gpgkey = https://repos.influxdata.com/influxdb.key
+              EOF
+        - name: Install influxdb
+          yum:
+            name: influxdb
+            state: latest
+        - name: Start influxdb Service
+          service:
+            name: influxdb
+            state: restarted
+    ```
 
 ## 心得
 
