@@ -1,13 +1,13 @@
 ---
 title: "ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別"
 date: 2019-06-08T21:30:00+08:00
-lastmod: 2019-06-08T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core"]
 slug: "aspdotnet-core-addmvc-addmvccore"
 ---
 
-# ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別
+## ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別
 
 ASP.NET Core 將過去 ASP.NET MVC 與 ASP.NET Web API 兩套 framework 整合在一起，對於開發人員是種福音：不用再想到底該引用哪個 NameSpace、不用再為該繼承哪個類別煩惱、不用再記兩種開發模式(到底該用 action filter 還是 MessageHandler)，不過實際上在 ASP.NET Core 中還是有 `AddMvc()` 與 `AddMvcCore()` 兩種服務註冊方式
 
@@ -97,7 +97,7 @@ private static IMvcCoreBuilder AddControllersCore(IServiceCollection services)
 
 從 [AddMvc](https://github.com/aspnet/AspNetCore/blob/v2.2.5/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs) 追起就可以發現最後殊途同歸：最後還是使用到 [AddMvcCore](https://github.com/aspnet/AspNetCore/blob/258d34e3828a1870a16d13cd3c62d1b7a65acc4a/src/Mvc/Mvc.Core/src/DependencyInjection/MvcCoreServiceCollectionExtensions.cs#L47)
 
-[services.AddControllersWithViews();](https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L34) 
+[services.AddControllersWithViews();](https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L34)
 
 -->
 [public static IMvcBuilder AddControllersWithViews(this IServiceCollection services)](https://github.com/aspnet/AspNetCore/blob/0303c9e90b5b48b309a78c2ec9911db1812e6bf3/src/Mvc/Mvc/src/MvcServiceCollectionExtensions.cs#L176)

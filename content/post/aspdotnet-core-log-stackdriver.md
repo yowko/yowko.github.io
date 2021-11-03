@@ -1,13 +1,13 @@
 ---
 title: "在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver"
 date: 2019-06-22T21:30:00+08:00
-lastmod: 2019-06-12221:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","GCP"]
 slug: "aspdotnet-core-log-stackdriver"
 ---
 
-# 在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver
+## 在 ASP.NET Core 中將 log 寫至 GCP 的 Stackdriver
 
 之前剛好有個功能在內部環境運作時都一直出現錯誤，經過一輪測試後決定將功能搬至 GCP 的 GKE 上執行來確認問題是不是內部環境設定所造成的
 
@@ -55,7 +55,7 @@ slug: "aspdotnet-core-log-stackdriver"
         dotnet add package Google.Cloud.Diagnostics.AspNetCore --version 2.0.1
         ```
 
-2. 將 `Stackdriver` 所需設定加至 `appsettings.json `
+2. 將 `Stackdriver` 所需設定加至 `appsettings.json`
 
     ```json
     {

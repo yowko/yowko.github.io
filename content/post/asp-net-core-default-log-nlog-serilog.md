@@ -1,18 +1,19 @@
 ---
 title: "將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog"
 date: 2019-03-10T21:00:00+08:00
-lastmod: 2019-03-10T21:00:31+08:00
+lastmod: 2021-11-03T21:00:31+08:00
 draft: false
 tags: ["ASP.NET Core","Log","Nlog","Serilog"]
 slug: "asp-net-core-default-log-nlog-serilog"
 ---
-# 將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog
+## 將 ASP.NET Core 的預設 log 輸出至 NLog 或 Serilog
+
 ASP.NET Core 預設會將 WebHost 執行細節透過 stdout 輸出至 console 上，application 的所有動作都一目暸然，這在 debug 時很方便，不過部署在一般的 server 就不會有人時時刻刻去盯著 console，所以需要將 log 內容透過其他方式(e.g. 檔案、db、...etc)紀錄下來備查
 
 過去我個人是比較習慣 NLog 的設定風格，而現在團隊使用 Serilog，所以一併紀錄兩個 log framework 的設定方式
 
-
 ## 基本環境說明
+
 1. .NET Core 2.2.101
 2. ASP.NET Core 2.2.0
 3. 使用 ASP.NET Core - API 預設範本建立環境
@@ -23,7 +24,7 @@ ASP.NET Core 預設會將 WebHost 執行細節透過 stdout 輸出至 console �
 
 ## 預設行為：輸出至 console
 
-```
+```log
 Hosting environment: Development
 Content root path: C:\Users\yowko\source\repos\TestLog\LogTest
 Now listening on: https://localhost:5001
@@ -61,12 +62,13 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
 
     - Package Manager
 
-        ```
+        ```cmd
         Install-Package NLog.Web.AspNetCore
         ```
+
     - .NET CLI
 
-        ```
+        ```cmd
         dotnet add package NLog.Web.AspNetCore
         ```
 
@@ -109,6 +111,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
     </rules>
     </nlog>
     ```
+
 3. 將 `nlog.config` 設定輸出
 
     - nlog.config 上按右鍵 --> Properties
@@ -133,6 +136,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
                 .UseNLog();
     }
     ```
+
 5. 完整 program.cs 內容
 
     ```cs
@@ -167,16 +171,17 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
 
 ## Serilog
 
-1. 安裝基礎套件 Serilog.AspNetCore 
+1. 安裝基礎套件 Serilog.AspNetCore
 
     - Package Manager
 
-        ```
+        ```cmd
         Install-Package Serilog.AspNetCore
         ```
+
     - .NET CLI
 
-        ```
+        ```cmd
         dotnet add package Serilog.AspNetCore
         ```
 
@@ -184,12 +189,13 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
 
     - Package Manage
 
-        ```
+        ```cmd
         Install-Package Serilog.Sinks.File
         ```
+
     - .NET CLI
 
-        ```
+        ```cmd
         dotnet add package Serilog.Sinks.File
         ```
 
@@ -199,12 +205,13 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
 
     - Package Manage
 
-        ```
+        ```cmd
         Install-Package Serilog.Settings.Configuration
         ```
+
     - .NET CLI
 
-        ```
+        ```cmd
         dotnet add package Serilog.Settings.Configuration
         ```
 
@@ -233,7 +240,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
 
 5. 設定啟用 Serilog
     - Main method
-    
+
         ```cs
         //從 appsettings.json 讀取設定資料
         var configuration = new ConfigurationBuilder()
@@ -246,6 +253,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
                     .ReadFrom.Configuration(configuration)
                 .CreateLogger();
         ```
+
     - CreateWebHostBuilder method
 
         ```cs
@@ -299,7 +307,8 @@ NLog 有點像過去的 .NET Framework 中的 System.Web ：功能齊全，只�
 
 整個 Serilog 在使用的概念上與文件是比較接近 .NET Core，好處、壞處都很像XD
 
-# 參考資訊
+## 參考資訊
+
 1. [NLog](https://nlog-project.org/)
 2. [Getting started with ASP.NET Core 2](https://github.com/NLog/NLog.Web/wiki/Getting-started-with-ASP.NET-Core-2)
 3. [serilog/serilog](https://github.com/serilog/serilog/wiki/Getting-Started)

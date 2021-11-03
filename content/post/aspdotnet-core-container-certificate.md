@@ -327,7 +327,7 @@ slug: "aspdotnet-core-container-certificate"
 
 反覆測試了幾次，大致上歸納出目前的設定方式供參考
 
-### <span style="color:red"> 經 2021/03/04 測試，本文內容失效，請參考 [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate) </span>
+> <span style="color:red"> 經 2021/03/04 測試，本文內容失效，請參考 [ASP.NET Core gRPC 使用自發憑證](/aspdotnetcore-grpc-self-signed-certificate) </span>
 
 ## 參考資訊
 

@@ -1,23 +1,24 @@
 ---
 title: "ASP.NET MVC 如何 POST LIST 資料 2"
 date: 2017-02-03T00:42:34+08:00
-lastmod: 2020-12-11T00:42:34+08:00
+lastmod: 2021-11-03T00:42:34+08:00
 draft: false
 tags: ["ASP.NET MVC"]
 slug: "aspnet-mvc-post-list-2"
 aliases:
     - /2017/02/aspnet-mvc-post-list-2.html
 ---
-# ASP.NET MVC 如何 POST LIST 資料 2
+## ASP.NET MVC 如何 POST LIST 資料 2
+
 先前筆記 [ASP.NET MVC 如何 POST LIST 資料 1](/2017/02/aspnet-mvc-post-list-1) 紀錄著該如何 post 單一資料屬性 list 到後端，而這篇將介紹該如何 post 多種資料屬性 list 到後端
 
-
 ## 定義資料欄位
+
 * 欄位名稱
 * 相關屬性設定
 * 基本檢核
 
-    ```cs 
+    ```cs
     public class PstData
     {
         public int Id { get; set; }
@@ -34,14 +35,14 @@ aliases:
     ```
 
 ## Controller
- 
+
 >controller 程式碼相對單純
 
 1. 起始畫面用的 action
 2. 準備接受 post 資料的 action
-    - 套用 `[HttpPost]`
-    - 建議也套用 `[ValidateAntiForgeryToken]` 以增加安全性
-    - 接受 list 資料的參數
+    * 套用 `[HttpPost]`
+    * 建議也套用 `[ValidateAntiForgeryToken]` 以增加安全性
+    * 接受 list 資料的參數
 3. 接受資料的 action 加上基本檢核判斷
 
     ```cs
@@ -68,24 +69,25 @@ aliases:
     ```
 
 ## View
+
 1. 定義 post list 遞增變數 `i`
 
 2. 使用 form
-    - `@using (Html.BeginForm())`
-    - 如果 post action 名稱與 get 相同，不用另外寫
+    * `@using (Html.BeginForm())`
+    * 如果 post action 名稱與 get 相同，不用另外寫
 3. 加上 `Html.AntiForgeryToken` 增加安全性 `@Html.AntiForgeryToken()`
 4. 加入迴圈並在迴圈內定義所有回傳資料欄位
-    - `name` 為 controller 接受參數名稱加上 `i` 再加上 `欄位名稱`
-        - e.g. `data[i].name`
-    - 為不同欄位屬性加上不同 input
-        - textbox
-        - checkbox
-        - radiobutton
+    * `name` 為 controller 接受參數名稱加上 `i` 再加上 `欄位名稱`
+        * e.g. `data[i].name`
+    * 為不同欄位屬性加上不同 input
+        * textbox
+        * checkbox
+        * radiobutton
 5. 加上驗證訊息
-    - `name` 為 controller 接受參數名稱加上 `i` 再加上 `欄位名稱`
-    - e.g. `data[i].name`
+    * `name` 為 controller 接受參數名稱加上 `i` 再加上 `欄位名稱`
+    * e.g. `data[i].name`
 6. 完整程式碼
-    
+
     ```cs
     <div class="row">
     @using (Html.BeginForm())
@@ -148,5 +150,7 @@ aliases:
     }
     </div>
     ```
-# 參考資訊
+
+## 參考資訊
+
 1. [ASP.NET MVC 如何 POST LIST 資料 1](/2017/02/aspnet-mvc-post-list-1)

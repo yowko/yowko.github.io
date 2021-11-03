@@ -1,23 +1,24 @@
 ---
 title: "ASP.NET MVC 上的 Ajax 動作都被觸發多次？！"
 date: 2018-01-07T20:01:00+08:00
-lastmod: 2018-10-02T20:01:17+08:00
+lastmod: 2021-11-03T20:01:17+08:00
 draft: false
 tags: ["ASP.NET MVC"]
 slug: "aspnet-mvc-ajax-not-only-once"
 aliases:
     - /2018/01/aspnet-mvc-ajax-not-only-once.html
 ---
-# ASP.NET MVC 上的 Ajax 動作都被觸發多次？！
+## ASP.NET MVC 上的 Ajax 動作都被觸發多次？!
+
 幫同事調整程式的過程中發現，View 的 Ajax 功能都會被觸發不止一次，本來以為是手殘按了兩次，特別留意後發現問題仍然存在，改懷疑起是不是軌跡球出現連點XD，最後證實只是人為造成的 bug
 
 ## 特別提醒
 
 如果在 ASP.NET MVC 5 中有使用內建的 Ajax helper 但是一直沒有發揮 Ajax 效果，請檢查是否已安裝 Microsoft jQuery Unobtrusive Ajax 套件，原本 ASP.NET MVC 4 內建的套件在 MVC 5 時不再內建安裝，需要自行手動安裝，詳情請參考保哥的文章 [ASP.NET MVC 5 遺失的 Microsoft jQuery Unobtrusive Ajax 函式庫](https://blog.miniasp.com/post/2014/11/10/ASPNET-MVC-5-Microsoft-jQuery-Unobtrusive-Ajax-lost-and-found.aspx)
 
-*   以分頁(使用 PagedList.Mvc) 為例
+* 以分頁(使用 PagedList.Mvc) 為例
 
-    1.  index.cshtml
+    1. index.cshtml
 
         ```cs
         @model PagedList.IPagedList<TestUnobtrusive.Models.Customers>
@@ -36,7 +37,7 @@ aliases:
         }
         ```
 
-    2.  _indexdata.cshtml
+    2. _indexdata.cshtml
 
         ```cs
         @using PagedList.Mvc
@@ -139,12 +140,12 @@ aliases:
                 new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "indexdata" }))
         ```
 
-*   預期效果
+* 預期效果
 
-    1.  透過 Ajax 執行換頁
-    2.  畫面上的時間不會異動
+    1. 透過 Ajax 執行換頁
+    2. 畫面上的時間不會異動
 
-*   未安裝套件時的實際狀況
+* 未安裝套件時的實際狀況
 
     > 使用 GET 方法，重新 render 整個頁面
 
@@ -152,20 +153,19 @@ aliases:
 
 ## Ajax 觸發多次
 
-1.  使用 URL 直接開啟頁面僅出現一次 request
+1. 使用 URL 直接開啟頁面僅出現一次 request
 
     ![2getone](https://user-images.githubusercontent.com/3851540/34649190-046d51b6-f3e5-11e7-9f5c-46b5c9076983.png)
 
-2.  透過 MVC pager 換頁卻同時出現兩次 request
+2. 透過 MVC pager 換頁卻同時出現兩次 request
 
     ![3post2](https://user-images.githubusercontent.com/3851540/34649191-04977cc0-f3e5-11e7-851d-7093349d9bc6.png)
 
-3.  原因：重複載入 `jquery.unobtrusive-ajax`
+3. 原因：重複載入 `jquery.unobtrusive-ajax`
 
     > 在 _layout 已載入一次，而在特定頁面的又重複載入，造成 Ajax helper 相關功能都會被執行多次
 
-4.  解決方式：`移除重複載入檔案即可`
-
+4. 解決方式：`移除重複載入檔案即可`
 
 ## 心得
 
@@ -173,6 +173,6 @@ aliases:
 
 單就功能面來看並沒有異常，只是無形中造成 CPU 甚至 DB 資源浪費，當然我相信同事不是刻意寫錯，只是對於 MVC 行為還沒有了解透徹造成的
 
-# 參考資訊
+## 參考資訊
 
-1.  [ASP.NET MVC 5 遺失的 Microsoft jQuery Unobtrusive Ajax 函式庫](https://blog.miniasp.com/post/2014/11/10/ASPNET-MVC-5-Microsoft-jQuery-Unobtrusive-Ajax-lost-and-found.aspx)
+1. [ASP.NET MVC 5 遺失的 Microsoft jQuery Unobtrusive Ajax 函式庫](https://blog.miniasp.com/post/2014/11/10/ASPNET-MVC-5-Microsoft-jQuery-Unobtrusive-Ajax-lost-and-found.aspx)

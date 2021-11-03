@@ -1,13 +1,13 @@
 ---
 title: "使用 ASP.NET Core 2.2 來 Host gRPC Server"
 date: 2019-05-21T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","gRPC"]
 slug: "aspdotnet-core-2-host-grpc-server"
 ---
 
-# 使用 ASP.NET Core 2.2 來 Host gRPC Server
+## 使用 ASP.NET Core 2.2 來 Host gRPC Server
 
 之前筆記 [Protobuf 該如何處理不定型別](/protobuf-object-any/), [.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫](/dotnet-core-jaeger-grpc/), [Protobuf 時間屬性該如何表示？](/protobuf-datetime-timestamp/) 在 host gRPC Server 時都是透過 console project 來進行，但 console 專案需要使用 `Console.ReadLine()` 或是 `Console.ReadKey()` 來讓程式持續運作，實在不太保險，所以打算改用 ASP.NET Core 來 host gRPC Server
 
@@ -33,7 +33,7 @@ ASP.NET Core 將在 .NET Core 3 正式支援 gRPC，其中 gRPC Server host 的�
 2. 編輯 `gRPC.Message.csproj`
 
     > include `.proto` ，並加上 `OutputDir` 與 `CompileOutputs`，存檔時就會自動產生 c# 內容
-    
+    >
     > - `Include` : 指定 `proto` 檔案位置
     > - `OutputDir` : 指定 cs 產出位置，預設為 `/obj/Debug/netstandard2.0` or `/obj/Release/netstandard2.0` 下，視 configuration 而定
     > - `CompileOutputs` : 說明看不懂，但實際上可以避免重複產生 cs 及沒有內容的 cs

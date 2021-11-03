@@ -1,24 +1,24 @@
 ---
 title: "設定 ASP.NET WebAPI OData 的 Swagger"
 date: 2017-10-15T17:45:00+08:00
-lastmod: 2020-12-11T17:45:17+08:00
+lastmod: 2021-11-03T17:45:17+08:00
 draft: false
 tags: ["套件","ASP.NET Web API","OData"]
 slug: "aspnet-webapi-odata-swagger"
 aliases:
     - /2017/10/aspnet-webapi-odata-swagger.html
 ---
-# 設定 ASP.NET WebAPI OData 的 Swagger
+## 設定 ASP.NET WebAPI OData 的 Swagger
+
 Swagger 的強大功能不需要再重複強調，重要性在團隊開發上已經扮演著不可或缺的地位，常常在建立 Web API 專案後就會順手將 swagger 設定好，而在以 Web API 為基礎的 OData，當然也可以加上 swagger ，就來看看該如何設定吧
 
-*   以下設定相容使用 `OData V4`
+* 以下設定相容使用 `OData V4`
   
-
 ## 安裝 NuGet 套件
 
 該套件僅支援 OData V4，如果還在使用 OData V3 可以考慮升級 OData v4，詳細做法請參考 [如何將 OData v3 升級為 OData v4](/2017/10/odata-v3-to-odata-v4.html)
 
-```
+```cmd
 Install-Package Swashbuckle.OData
 ```
 
@@ -26,8 +26,8 @@ Install-Package Swashbuckle.OData
 
 ## 設定 SwaggerConfig
 
-1.  在 `App_Start` 資料夾加上 `SwaggerConfig.cs`
-2.  在 `SwaggerConfig.cs` 加上 `Register()`
+1. 在 `App_Start` 資料夾加上 `SwaggerConfig.cs`
+2. 在 `SwaggerConfig.cs` 加上 `Register()`
 
     ```cs
     public static void Register()
@@ -42,13 +42,13 @@ Install-Package Swashbuckle.OData
     }
     ```
 
-3.  在 namespace 上加入註冊 attribute
+3. 在 namespace 上加入註冊 attribute
 
     ```cs
     [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
     ```
 
-4.  完整 `SwaggerConfig.cs` 內容
+4. 完整 `SwaggerConfig.cs` 內容
 
     ```cs
     using System.Web;
@@ -78,8 +78,8 @@ Install-Package Swashbuckle.OData
 
 ## 設定 Route
 
-1.  在 `App_Start` 資料夾加上 `RouteConfig.cs`
-2.  在 `RouteConfig.cs` 加上 `RegisterRoutes(RouteCollection routes)`
+1. 在 `App_Start` 資料夾加上 `RouteConfig.cs`
+2. 在 `RouteConfig.cs` 加上 `RegisterRoutes(RouteCollection routes)`
 
     ```cs
     public static void RegisterRoutes(RouteCollection routes)
@@ -94,7 +94,7 @@ Install-Package Swashbuckle.OData
     }
     ```
 
-3.  完整 `RouteConfig.cs` 內容
+3. 完整 `RouteConfig.cs` 內容
 
     ```cs
     using System.Web.Http;
@@ -119,7 +119,7 @@ Install-Package Swashbuckle.OData
     }
     ```
 
-4.  將 RouteConfig 註冊至 `Global.asax`
+4. 將 RouteConfig 註冊至 `Global.asax`
 
     ```cs
     public class WebApiApplication : System.Web.HttpApplication
@@ -134,13 +134,13 @@ Install-Package Swashbuckle.OData
 
 ## 顯示自訂訊息
 
-1.  開啟專案 XML 註解並設定 XML 位置
+1. 開啟專案 XML 註解並設定 XML 位置
 
     ![1xmldoc](https://user-images.githubusercontent.com/3851540/31583490-ae8e680e-b1cf-11e7-8ca7-575a6704815c.png)
 
-2.  在 `SwaggerConfig.cs` 設定讀取 XML
+2. 在 `SwaggerConfig.cs` 設定讀取 XML
 
-    *   加上以下設定
+    * 加上以下設定
 
         ```cs
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -149,7 +149,7 @@ Install-Package Swashbuckle.OData
         c.IncludeXmlComments(commentsFile);
         ```
 
-    *   完整內容
+    * 完整內容
 
         ```cs
         using System.Web;
@@ -184,8 +184,7 @@ Install-Package Swashbuckle.OData
         }
         ```
 
-3.  記得在要顯示自訂說明的方法上加上 xml 註解
-
+3. 記得在要顯示自訂說明的方法上加上 xml 註解
 
 ## 實際效果
 
@@ -197,7 +196,7 @@ Install-Package Swashbuckle.OData
 
 這又是一個設定時覺得難度不高，但重新設定又困難重重的例子，我想主要是文件的官方說明不是那麼完整，設定時需要東找西找，加上每個專案狀況不一，可能遇到的問題不太一樣所造成的，經過這次紀錄我想下次花的時間一定會少很多的
 
-# 參考資訊
+## 參考資訊
 
-1.  [如何將 OData v3 升級為 OData v4](/2017/10/odata-v3-to-odata-v4.html)
-2.  [rbeauchamp/Swashbuckle.OData](https://github.com/rbeauchamp/Swashbuckle.OData)
+1. [如何將 OData v3 升級為 OData v4](/2017/10/odata-v3-to-odata-v4.html)
+2. [rbeauchamp/Swashbuckle.OData](https://github.com/rbeauchamp/Swashbuckle.OData)

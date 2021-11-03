@@ -1,13 +1,13 @@
 ---
 title: "關於 ASP.NET Core IMemoryCache RegisterPostEvictionCallback 的觸發時機"
 date: 2019-05-14T21:30:00+08:00
-lastmod: 2020-09-01T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core MVC","ASP.NET Core","Cache"]
 slug: "aspdotnet-core-imemorycache-registerpostevictioncallback"
 ---
 
-# 關於 ASP.NET Core IMemoryCache RegisterPostEvictionCallback 的觸發時機
+## 關於 ASP.NET Core IMemoryCache RegisterPostEvictionCallback 的觸發時機
 
 同事提到想用 ASP.NET Core 的 IMemoryCache 來處理 application 本身的 cache，無奈小弟學藝不精沒有太多想法可以參與討論，所以趕緊惡補，藉這個機會學習也順便做些 POC，大致上與過去使用 `System.Runtime.Caching` 的 `MemoryCache` 用法概念接近，但實際用法則不全然相同
 
@@ -21,7 +21,7 @@ Assembly|Microsoft.Extensions.Caching.Memory.dll|System.Runtime.Caching.dll
 實作|IMemoryCache,IDisposable|IEnumerable,IDisposable
 建構子|MemoryCache(IOptions＜MemoryCacheOptions＞)|MemoryCache(String, NameValueCollection)<br/>MemoryCache(String, NameValueCollection, Boolean)
 屬性|Count|CacheMemoryLimit<br/>Default<br/>DefaultCacheCapabilities<br/>Item[String]<br/>Name<br/>PhysicalMemoryLimit<br/>PollingInterval
-方法|Compact(Double)<br/>CreateEntry(Object)<br/>Dispose()<br/>Dispose(Boolean)<br/>Finalize()<br/>Remove(Object)<br/>TryGetValue(Object, Object)|Add(CacheItem, CacheItemPolicy)<br/>AddOrGetExisting(CacheItem, CacheItemPolicy)<br/>AddOrGetExisting(String, Object, CacheItemPolicy, String)<br/>AddOrGetExisting(String, Object, DateTimeOffset, String)<br/>Contains(String, String)<br/>CreateCacheEntryChangeMonitor(IEnumerable＜String＞, String)<br/>Dispose()<br/>Get(String, String)	<br/>GetCacheItem(String, String)<br/>GetCount(String)<br/>GetEnumerator()	<br/>GetLastSize(String)	<br/>GetValues(IEnumerable<String>, String)<br/>Remove(String, CacheEntryRemovedReason, String)<br/>Remove(String, String)<br/>Set(CacheItem, CacheItemPolicy)<br/>Set(String, Object, CacheItemPolicy, String)<br/>Set(String, Object, DateTimeOffset, String)<br/>Trim(Int32)
+方法|Compact(Double)<br/>CreateEntry(Object)<br/>Dispose()<br/>Dispose(Boolean)<br/>Finalize()<br/>Remove(Object)<br/>TryGetValue(Object, Object)|Add(CacheItem, CacheItemPolicy)<br/>AddOrGetExisting(CacheItem, CacheItemPolicy)<br/>AddOrGetExisting(String, Object, CacheItemPolicy, String)<br/>AddOrGetExisting(String, Object, DateTimeOffset, String)<br/>Contains(String, String)<br/>CreateCacheEntryChangeMonitor(IEnumerable＜String＞, String)<br/>Dispose()<br/>Get(String, String)    <br/>GetCacheItem(String, String)<br/>GetCount(String)<br/>GetEnumerator()    <br/>GetLastSize(String)    <br/>GetValues(IEnumerable\<String>, String)<br/>Remove(String, CacheEntryRemovedReason, String)<br/>Remove(String, String)<br/>Set(CacheItem, CacheItemPolicy)<br/>Set(String, Object, CacheItemPolicy, String)<br/>Set(String, Object, DateTimeOffset, String)<br/>Trim(Int32)
 明確介面實作 |-|IEnumerable.GetEnumerator()
 擴充方法|Get(IMemoryCache, Object)<br/>Get＜TItem＞(IMemoryCache, Object)<br/>GetOrCreate＜TItem＞(IMemoryCache, Object, Func<ICacheEntry,TItem>)<br/>GetOrCreateAsync＜TItem＞(IMemoryCache, Object, Func＜ICacheEntry,Task＜TItem＞＞)<br/>Set＜TItem＞(IMemoryCache, Object, TItem)<br/>Set＜TItem＞(IMemoryCache, Object, TItem, MemoryCacheEntryOptions)<br/>Set＜TItem＞(IMemoryCache, Object, TItem, IChangeToken)<br/>Set＜TItem＞(IMemoryCache, Object, TItem, DateTimeOffset)<br/>Set＜TItem＞(IMemoryCache, Object, TItem, TimeSpan)<br/>TryGetValue＜TItem＞(IMemoryCache, Object, TItem)|CopyToDataTable＜T＞(IEnumerable＜T＞)<br/>CopyToDataTable＜T＞(IEnumerable＜T＞, DataTable, LoadOption)<br/>CopyToDataTable＜T＞(IEnumerable＜T＞, DataTable, LoadOption, FillErrorEventHandler)<br/>Cast＜TResult＞(IEnumerable)<br/>OfType＜TResult＞(IEnumerable)<br/>AsParallel(IEnumerable)<br/>AsQueryable(IEnumerable)<br/>Ancestors＜T＞(IEnumerable＜T＞)<br/>Ancestors＜T＞(IEnumerable＜T＞, XName)<br/>DescendantNodes＜T＞(IEnumerable＜T＞)<br/>Descendants＜T＞(IEnumerable＜T＞)<br/>Descendants＜T＞(IEnumerable＜T＞, XName)<br/>Elements＜T＞(IEnumerable＜T＞)<br/>Elements＜T＞(IEnumerable＜T＞, XName)<br/>InDocumentOrder＜T＞(IEnumerable＜T＞)<br/>Nodes＜T＞(IEnumerable＜T＞)<br/>Remove＜T＞(IEnumerable＜T＞)
 
@@ -36,14 +36,14 @@ Assembly|Microsoft.Extensions.Caching.Memory.dll|System.Runtime.Caching.dll
 
 ## 前置準備
 
-1. 註冊 IMemoryCache 
+1. 註冊 IMemoryCache
 
     - `Startup.cs` 中的 `ConfigureServices` 方法中加入
 
         ```cs
         services.AddMemoryCache();
         ```
-    
+
     - 準備 `RegisterPostEvictionCallback`
 
         ```cs
@@ -196,7 +196,6 @@ Assembly|Microsoft.Extensions.Caching.Memory.dll|System.Runtime.Caching.dll
 以測試結果來看， cache 的 expire 機制是被動式的：cache 在無人存取時不會主動刪除，在存取時當下檢查 expire 與否，確定 expire 會連帶刪除 cache 內容接著觸發 `RegisterPostEvictionCallback`
 
 而觸發 `RegisterPostEvictionCallback` 的 cache 當次存取除了會造成刪除 cache 內容還會直接回傳 cache miss 無法取得預期中的 cache 內容，因此光憑 `RegisterPostEvictionCallback` 是沒辦法達成絕對的定期 recache
-
 
 ## 參考資訊
 

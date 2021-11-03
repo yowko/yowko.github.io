@@ -1,13 +1,13 @@
 ---
 title: "從 Empty 建立 ASP.NET Core Web API"
 date: 2019-06-29T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core"]
 slug: "add-webapi-to-aspdotnetcore-empty"
 ---
 
-# 從 Empty 建立 ASP.NET Core Web API
+## 從 Empty 建立 ASP.NET Core Web API
 
 之前曾經在筆記 [建立ASP.NET Web API 專案的幾種方式- Yowko's Notes](/create-aspnet-web-api/) 提到專案的起源分為兩派：
 
@@ -36,7 +36,7 @@ slug: "add-webapi-to-aspdotnetcore-empty"
 
     - Package Manager
 
-        ```
+        ```cmd
         Install-Package Microsoft.AspNetCore.Mvc.Core
         ```
 

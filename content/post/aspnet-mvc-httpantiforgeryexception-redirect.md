@@ -1,7 +1,7 @@
 ---
 title: "在 ASP.NET MVC 出現 HttpAntiForgeryException 錯誤時 Redirect 至指定 Controller、Action"
 date: 2018-05-01T16:43:00+08:00
-lastmod: 2018-10-06T22:28:47+08:00
+lastmod: 2021-11-03T22:28:47+08:00
 draft: false
 tags: ["ASP.NET MVC"]
 slug: "aspnet-mvc-httpantiforgeryexception-redirect"
@@ -9,18 +9,20 @@ aliases:
     - /2018/05/aspnet-mvc-httpantiforgeryexception-redirect.html
     - /2018/05/aspnet-mvc-httpantiforgeryexception-redirect/
 ---
-# ASP.NET MVC 的 System.Web.Mvc.HttpAntiForgeryException 錯誤
+## ASP.NET MVC 的 System.Web.Mvc.HttpAntiForgeryException 錯誤
+
 user 反應在操作系統時出現 System.Web.Mvc.HttpAntiForgeryException錯誤，而 System.Web.Mvc.HttpAntiForgeryException 的錯誤在 ASP.NET MVC 上並不算罕見，是個為了避免 XSRF 的保護機制：在網頁表單上加上個隱藏欄位用來儲存 token ，實際 submit 時 server 會檢查這個 token 是否有效，常發生在網頁開啟閒置一段時間後再次 submit 資料的情境下，通常只要 refresh 頁面讓網頁重新取得 token 即可解決
 
 本次專案的 owner 希望可以給 user 更好的使用者體驗，所以希望在 token 過期失效時重新導向登入頁面並提示需重新登入(經 user 這麼說，我也覺得讓錯誤直接裸奔在外實在不好，但我以前怎麼不會這麼想，難道我愈來愈客戶導向了嗎XD)
 
-
 ## 錯誤訊息
+
 遇到的錯誤有兩個：
 
 1. 錯誤一：The required anti-forgery cookie "__RequestVerificationToken" is not present.
-    - 訊息內容 
-        ```
+    - 訊息內容
+
+        ```log
         Server Error in '/' Application.
         The required anti-forgery cookie "__RequestVerificationToken" is not present.
         Description: An unhandled exception occurred during the execution of the current web request. Please review the stack trace for more information about the error and where it originated in the code. 
@@ -64,12 +66,14 @@ user 反應在操作系統時出現 System.Web.Mvc.HttpAntiForgeryException錯�
         System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously) +159
 
         Version Information: Microsoft .NET Framework Version:4.0.30319; ASP.NET Version:4.7.2623.0
-        ``` 
+        ```
+
     - 錯誤截圖
         >![1error_notpresent](https://user-images.githubusercontent.com/3851540/39466336-f47e9236-4d5a-11e8-9e02-23e42318c862.png)
 2. 錯誤二：The anti-forgery cookie token and form field token do not match.
     - 錯誤訊息
-        ```
+
+        ```log
         Server Error in '/' Application.
         The anti-forgery cookie token and form field token do not match.
         Description: An unhandled exception occurred during the execution of the current web request. Please review the stack trace for more information about the error and where it originated in the code. 
@@ -113,12 +117,14 @@ user 反應在操作系統時出現 System.Web.Mvc.HttpAntiForgeryException錯�
 
         Version Information: Microsoft .NET Framework Version:4.0.30319; ASP.NET Version:4.6.1586.0
         ```
+
     - 錯誤截圖
         >![2error_notmatch](https://user-images.githubusercontent.com/3851540/39466337-f4c0e924-4d5a-11e8-9f66-7ea4b9e9faf0.png)
 
 ## 解決方式
+
 1. 自訂 `AntiForgeryErrorHandlerAttribute` 繼承自 `HandleErrorAttribute`
-    
+
     ```cs
     public class AntiForgeryErrorHandlerAttribute : HandleErrorAttribute
     {
@@ -148,11 +154,14 @@ user 反應在操作系統時出現 System.Web.Mvc.HttpAntiForgeryException錯�
                 base.OnException(filterContext);// exception 不是 HttpAntiForgeryException 就照 mvc 預設流程
         }
     }
-    ``` 
+    ```
+
 2. 在需要處理 AntiForgeryError 的 action 上套用自訂的 `AntiForgeryErrorHandlerAttribute`
+
     ```cs
     [AntiForgeryErrorHandler(ExceptionType = typeof(HttpAntiForgeryException), View = "Login", Controller = "Account", ErrorMessage = "Session Timeout")]
-    ``` 
+    ```
+
     ```cs
     // POST: /Account/Login
     [HttpPost]
@@ -183,7 +192,9 @@ user 反應在操作系統時出現 System.Web.Mvc.HttpAntiForgeryException錯�
         }
     }
     ```
+
 3. redirect 目標的 action 處理暫存資料
+
     ```cs
     [AllowAnonymous]
     public ActionResult Login(string returnUrl)
@@ -197,8 +208,10 @@ user 反應在操作系統時出現 System.Web.Mvc.HttpAntiForgeryException錯�
         }
         return View();
     }
-    ``` 
+    ```
+
 4. 前端頁面處理提示訊息
+
     ```js
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
@@ -214,14 +227,17 @@ user 反應在操作系統時出現 System.Web.Mvc.HttpAntiForgeryException錯�
         </script>
     }
     ```
+
 5. 實際效果
-    
+
     >![3result](https://user-images.githubusercontent.com/3851540/39466338-f4ed2d4a-4d5a-11e8-8140-a7687c52eae0.png)
 
 ## 心得
+
 原本覺得只是 redirect 應該很容易，但動手實做才發現眉眉角角還不少，像是 ExceptionHandler 預設是導向 shared 下的 view、master 的設定根本沒用到，還要將 ExceptionHandled 屬性設為 true，另外還有 ViewData 及 ViewBag 都是無效的，雖然說的這些都是我沒有詳閱公開說明書導致在未充份瞭解整個運作機製造成的，幸虧透過實作還是多少接觸了其他中的原理，這也就是我為什麼喜歡自己動作做的原因：搞清楚運作機制的踏實跟完成目標後所帶來的成就感都相當令人難以割捨呀
 
-# 參考資訊
+## 參考資訊
+
 1. [Best Practices for Error Handling in ASP.NET MVC](https://stackify.com/aspnet-mvc-error-handling/)
 2. [ASP.NET MVC - ValidateAntiForgeryToken expiring](https://stackoverflow.com/questions/12678938/asp-net-mvc-validateantiforgerytoken-expiring)
 3. [Error Handling - Controller's OnException and Application_Error](https://codereview.stackexchange.com/questions/60759/error-handling-controllers-onexception-and-application-error)

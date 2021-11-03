@@ -1,12 +1,12 @@
 ---
 title: "讓 ASP.NET Core MVC 自行停止運作"
 date: 2019-05-12T21:30:00+08:00
-lastmod: 2020-09-01T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core MVC","ASP.NET Core"]
 slug: "aspdotnet-core-mvc-stop-by-itself"
 ---
-# 讓 ASP.NET Core MVC 自行停止運作
+## 讓 ASP.NET Core MVC 自行停止運作
 
 公司專案有個系統在啟動時執行 init script，接著就等待後台管理者下指令才會有後續動作，但開發階段暫時還不會有後台管理者的角色，因此希望可以透過參數設定來決定是否讓該系統持續提供服務或是執行工作完成後即可自行關閉以節省資源，紀錄一下加深印象
 
@@ -41,10 +41,10 @@ slug: "aspdotnet-core-mvc-stop-by-itself"
 
     > 執行 `_applicationLifetime.StopApplication();`
 
-   - 在 `Start.cs` 的 `Configue` 執行
-   
+    - 在 `Start.cs` 的 `Configue` 執行
+
         我自己在專案上使用啟動參數 (`stop`)來決定是否關閉
-   
+
         ```cs
         var stop = Configuration.GetValue<bool>("stop");
         if (stop)
@@ -53,14 +53,14 @@ slug: "aspdotnet-core-mvc-stop-by-itself"
 
         使用下列指令即可執行關閉
 
-        ```
-         dotnet {project}.dll stop=true  
+        ```bash
+        dotnet {project}.dll stop=true  
         ```
 
-   - 在 Controller 中執行
+    - 在 Controller 中執行
 
         - 加入 field 並在建構子允許 DI
-        
+
             ```cs
             private IApplicationLifetime _applicationLifetime;
 
@@ -69,7 +69,7 @@ slug: "aspdotnet-core-mvc-stop-by-itself"
                 _applicationLifetime = applicationLifetime;
             }
             ```
-        
+
         - Action 執行 shutdown
 
             ```cs
@@ -95,11 +95,11 @@ slug: "aspdotnet-core-mvc-stop-by-itself"
 
     > application 完成正常關閉後觸發
 
-
 一個方法
 
 1. StopApplication()
 
-# 參考資訊
+## 參考資訊
+
 1. [如何以編程方式重啟 ASP.NET Core 網站](http://www.dalbll.com/Group/Topic/ASP.NET/7315)
 2. [IApplicationLifetime Interface](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime?WT.mc_id=DOP-MVP-5002594)

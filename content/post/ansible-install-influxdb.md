@@ -1,7 +1,7 @@
 ---
 title: "使用 Ansible 安裝 InfluxDB"
 date: 2020-03-01T12:30:00+08:00
-lastmod: 2020-12-11T12:30:31+08:00
+lastmod: 2021-11-03T12:30:31+08:00
 draft: false
 tags: ["Ansible","InfluxDB"]
 slug: "ansible-install-influxdb"
@@ -31,6 +31,7 @@ slug: "ansible-install-influxdb"
 
     > 其中有用到 Ansible 的 heredoc 技巧，詳細內容可以參考之前筆記 [Ansible 使用 Here document (cat << EOF) 遇到的問題](/ansible-cat-eof/)
 
+        ```yaml
         ---
         - name: Install Influxdb
           gather_facts: false
@@ -55,6 +56,7 @@ slug: "ansible-install-influxdb"
               service:
                 name: influxdb
                 state: restarted
+        ```
 
 ## 心得
 

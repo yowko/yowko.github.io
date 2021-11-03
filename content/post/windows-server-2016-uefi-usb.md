@@ -16,7 +16,7 @@ aliases:
 
 ## 使用 diskpart
 
-使用的方式與前一篇 [建立可開機的 Windows Server 2016 安裝 USB](/2016/12/(http://blog.yowko.com/2016/12/windows-server-2016-usb.html)) 大致相同，只是在針對 UEFI 設定會有些不同
+使用的方式與前一篇 [建立可開機的 Windows Server 2016 安裝 USB](/windows-server-2016-usb) 大致相同，只是在針對 UEFI 設定會有些不同
 
 MVP-Weithenn 寫的很詳細，就請大家直接參閱專家的文章- [製作用於 UEFI 的 Bootable USB](http://www.weithenn.org/2016/01/uefi-bootable-usb.html)
 

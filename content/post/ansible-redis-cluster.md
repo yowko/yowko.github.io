@@ -1,7 +1,7 @@
 ---
 title: "Ansible 安裝 Redis Cluster"
 date: 2020-07-05T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["Ansible","Redis"]
 slug: "ansible-redis-cluster"
@@ -82,6 +82,7 @@ slug: "ansible-redis-cluster"
                       owner: redis
                       recurse: yes
                   ```
+
                 - createcluster.yml
 
                   ```yaml
@@ -153,9 +154,9 @@ slug: "ansible-redis-cluster"
                       state: stopped
                       enabled: False
                   ```
-                
+
                 - main.yml
-                
+
                   ```yml
                   ---
                   - include_tasks: uninstall.yml
@@ -186,9 +187,9 @@ slug: "ansible-redis-cluster"
                     run_once: true
                     when: action == 'install' or action == 'reinstall'
                   ```
-                
+
                 - prepareservice.yml
-                
+
                   ```yml
                   ---
                   - name: Prepare services
@@ -197,9 +198,9 @@ slug: "ansible-redis-cluster"
                       dest: "/etc/systemd/system/redis_{{redis_port}}.service"
                       owner: redis
                   ```
-                
+
                 - prepareredisconfig.yml
-                
+
                   ```yml
                   ---
                   - include_tasks: checkdir.yml
@@ -213,9 +214,9 @@ slug: "ansible-redis-cluster"
                       owner: redis
                     notify: restart-service
                   ```
-                
+
                 - uninstall.yml
-                
+
                   ```yml
                   - name: Stop Service
                     service:
@@ -235,9 +236,9 @@ slug: "ansible-redis-cluster"
                       - /etc/systemd/system/redis_{{redis_port}}.service
 
                   ```
-                
+
                 - upgrade.yml
-            
+
                   ```yml
                   ---
                   - include_tasks: installredis.yml
@@ -245,7 +246,7 @@ slug: "ansible-redis-cluster"
 
             - templates
                 - config.j2
-                
+
                   ```j2
                   dir /etc/redis/redis_{{redis_port}}
                   bind {{redis_ip}} 127.0.0.1

@@ -1,7 +1,7 @@
 ---
 title: "使用 Ansible 安裝 InfluxDB 並建立 User，Database，Retention Policy"
 date: 2020-03-01T15:30:00+08:00
-lastmod: 2020-12-11T15:30:31+08:00
+lastmod: 2021-11-03T15:30:31+08:00
 draft: false
 tags: ["Ansible","InfluxDB"]
 slug: "ansible-influxdb-create-user-database-rententionpolicy"
@@ -28,79 +28,19 @@ slug: "ansible-influxdb-create-user-database-rententionpolicy"
 
     - install.yml
 
-            ---
-            - name: Install Influxdb
-              gather_facts: false
-              hosts: influxdb
-              tasks:
-                - name: Add repo
-                  shell:
-                    cmd: |
-                      cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
-                      [influxdb]
-                      name = InfluxDB Repository - RHEL \$releasever
-                      baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/    stable
-                      enabled = 1
-                      gpgcheck = 1
-                      gpgkey = https://repos.influxdata.com/influxdb.key
-                      EOF
-                - name: Install influxdb
-                  yum:
-                    name: influxdb
-                    state: latest
-                - name: Start influxdb Service
-                  service:
-                    name: influxdb
-                    state: restarted
-
-## 個別語法
-
-1. create user
-
-        - name: Create a user
-          shell: |
-            curl -XPOST http://localhost:8086/query --data-urlencode "q=CREATE USER admin WITH PASSWORD pass.123 WITH ALL PRIVILEGES"
-
-2. create database
-
-        - name: Create Database
-          shell: |
-            curl -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE yowko"
-
-3. create retention policy
-
-        - name: Create Retention Policy
-          shell: |
-            curl -XPOST http://localhost:8086/query --data-urlencode "q=CREATE RETENTION POLICY yowko_test ON yowko DURATION 90d REPLICATION 1"
-
-## 實際語法
-
-1. 將可以設定的變數皆抽出來統一管理
-2. 需要檢查 influxdb service 啟動與否
-
-    > 詳細內容可以參考之前筆記 [Ansible 透過 Http Status Code 當做檢核條件](/ansible-when-http-status-code)
-
-3. 需要設定啟用 auth
-4. 完整語法
-
+        ```yaml
         ---
         - name: Install Influxdb
-          gather_facts: false
-          vars:
-            influxdb_username: admin
-            influxdb_password: pass.123
-            influxdb_database_name: yowko
-            influxdb_rp_name: yowko_test
-            influxdb_url: http://localhost:8086
-          hosts: influxdb
-          tasks:
+        gather_facts: false
+        hosts: influxdb
+        tasks:
             - name: Add repo
               shell:
                 cmd: |
                   cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
                   [influxdb]
                   name = InfluxDB Repository - RHEL \$releasever
-                  baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
+                  baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/    stable
                   enabled = 1
                   gpgcheck = 1
                   gpgkey = https://repos.influxdata.com/influxdb.key
@@ -113,30 +53,100 @@ slug: "ansible-influxdb-create-user-database-rententionpolicy"
               service:
                 name: influxdb
                 state: restarted
-            - name: "wait for InfluxDB to come up"
-              uri:
-                url: "{{influxdb_url}}/ping"
-                status_code: 204
-              register: result
-              until: result.status == 204
-              retries: 60
-              delay: 1
-            - name: Create a user
-              shell: |
-                curl -XPOST {{influxdb_url}}/query --data-urlencode "q=CREATE USER {    {influxdb_username}} WITH PASSWORD '{{influxdb_password}}' WITH ALL PRIVILEGES"
-            - name: Create Database
-              shell: |
-                curl -XPOST {{influxdb_url}}/query --data-urlencode "q=CREATE DATABASE {    {influxdb_database_name}}"
-            - name: Create Retention Policy
-              shell: |
-                curl -XPOST {{influxdb_url}}/query --data-urlencode "q=CREATE RETENTION POLICY {    {influxdb_rp_name}} ON {{influxdb_database_name}} DURATION 90d REPLICATION 1"
-            - name: Enable http auth
-              shell: |
-                sed -i 's/# auth-enabled = false/auth-enabled = true/g' /etc/influxdb/influxdb.conf
-            - name: Restart influxdb Service
-              service:
-                name: influxdb
-                state: restarte
+        ```
+
+## 個別語法
+
+1. create user
+
+    ```yml
+    - name: Create a user
+      shell: |
+        curl -XPOST http://localhost:8086/query --data-urlencode "q=CREATE USER admin WITH PASSWORD pass.123 WITH ALL PRIVILEGES"
+    ```
+
+2. create database
+
+    ```yml
+    - name: Create Database
+      shell: |
+        curl -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE yowko"
+    ```
+
+3. create retention policy
+
+    ```yml
+    - name: Create Retention Policy
+      shell: |
+        curl -XPOST http://localhost:8086/query --data-urlencode "q=CREATE RETENTION POLICY yowko_test ON yowko DURATION 90d REPLICATION 1"
+    ```
+
+## 實際語法
+
+1. 將可以設定的變數皆抽出來統一管理
+2. 需要檢查 influxdb service 啟動與否
+
+    > 詳細內容可以參考之前筆記 [Ansible 透過 Http Status Code 當做檢核條件](/ansible-when-http-status-code)
+
+3. 需要設定啟用 auth
+4. 完整語法
+
+    ```yml
+    ---
+    - name: Install Influxdb
+      gather_facts: false
+      vars:
+        influxdb_username: admin
+        influxdb_password: pass.123
+        influxdb_database_name: yowko
+        influxdb_rp_name: yowko_test
+        influxdb_url: http://localhost:8086
+      hosts: influxdb
+      tasks:
+        - name: Add repo
+          shell:
+            cmd: |
+              cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
+              [influxdb]
+              name = InfluxDB Repository - RHEL \$releasever
+              baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
+              enabled = 1
+              gpgcheck = 1
+              gpgkey = https://repos.influxdata.com/influxdb.key
+              EOF
+        - name: Install influxdb
+          yum:
+            name: influxdb
+            state: latest
+        - name: Start influxdb Service
+          service:
+            name: influxdb
+            state: restarted
+        - name: "wait for InfluxDB to come up"
+          uri:
+            url: "{{influxdb_url}}/ping"
+            status_code: 204
+          register: result
+          until: result.status == 204
+          retries: 60
+          delay: 1
+        - name: Create a user
+          shell: |
+            curl -XPOST {{influxdb_url}}/query --data-urlencode "q=CREATE USER {    {influxdb_username}} WITH PASSWORD '{{influxdb_password}}' WITH ALL PRIVILEGES"
+        - name: Create Database
+          shell: |
+            curl -XPOST {{influxdb_url}}/query --data-urlencode "q=CREATE DATABASE {    {influxdb_database_name}}"
+        - name: Create Retention Policy
+          shell: |
+            curl -XPOST {{influxdb_url}}/query --data-urlencode "q=CREATE RETENTION POLICY {    {influxdb_rp_name}} ON {{influxdb_database_name}} DURATION 90d REPLICATION 1"
+        - name: Enable http auth
+          shell: |
+            sed -i 's/# auth-enabled = false/auth-enabled = true/g' /etc/influxdb/influxdb.conf
+        - name: Restart influxdb Service
+          service:
+            name: influxdb
+            state: restarte
+    ```
 
 ## 心得
 

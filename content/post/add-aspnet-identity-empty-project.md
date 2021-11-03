@@ -1,14 +1,15 @@
 ---
 title: "將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中"
 date: 2017-11-05T23:04:00+08:00
-lastmod: 2018-09-27T23:04:26+08:00
+lastmod: 2021-11-03T23:04:26+08:00
 draft: false
 tags: ["ASP.NET Identity","ASP.NET MVC"]
 slug: "add-aspnet-identity-empty-project"
 aliases:
     - /2017/11/add-aspnet-identity-empty-project.html
 ---
-# 將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中
+## 將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中
+
 MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這個問題前些日子也在網路上掀起熱鬧的討論，相信大家都有各自的喜好，但不可否認的是預設範本帶來的便利性以及提供基本使用方式的示範效果，而 Empty 範本則是讓工程師對專案程式碼有更高的掌握度避免預設載入無用套件
 
 過去我比較喜歡使用預設範本，為的是簡單修改就能有基本雛型功能，但近來我則是較喜歡 Empty 範本的簡單，Empty 範本不會預設加入用不到但又不知道能不能拿掉的套件，日後維護成本較低，不過我還是習慣透過預設範本來了解該如何使用
@@ -21,54 +22,54 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
 
 ## 安裝 ASP.NET Identity 相關套件
 
-1.  Microsoft.AspNet.Identity.Owin
-    *   相依套件
-        *   Microsoft.Owin.Security.OAuth (>= 2.1.0)
-        *   Microsoft.Owin.Security (>= 2.1.0)
-        *   Microsoft.AspNet.Identity.Core (>= 2.2.1)
-        *   Microsoft.Owin.Security.Cookies (>= 2.1.0)
+1. Microsoft.AspNet.Identity.Owin
+    * 相依套件
+        * Microsoft.Owin.Security.OAuth (>= 2.1.0)
+        * Microsoft.Owin.Security (>= 2.1.0)
+        * Microsoft.AspNet.Identity.Core (>= 2.2.1)
+        * Microsoft.Owin.Security.Cookies (>= 2.1.0)
 
-    *   指令安裝
+    * 指令安裝
         > Install-Package Microsoft.AspNet.Identity.Owin
 
         ![2Identity.Owin](https://user-images.githubusercontent.com/3851540/32415896-15bd5a6e-c27c-11e7-9de4-3683a8c7e5be.png)
 
-2.  Microsoft.AspNet.Identity.EntityFramework
-    *   相依套件
-        *   EntityFramework (>= 6.1.0)
-        *   Microsoft.AspNet.Identity.Core (>= 2.2.1)
+2. Microsoft.AspNet.Identity.EntityFramework
+    * 相依套件
+        * EntityFramework (>= 6.1.0)
+        * Microsoft.AspNet.Identity.Core (>= 2.2.1)
 
-    *   指令安裝
+    * 指令安裝
 
         > Install-Package Microsoft.AspNet.Identity.EntityFramework
 
         ![3Identity.EntityFramework](https://user-images.githubusercontent.com/3851540/32415897-160f55da-c27c-11e7-9f92-9315775aeae1.png)
 
-3.  Microsoft.Owin.Host.SystemWeb
-    *   相依套件
-        *   Owin (>= 1.0.0)
-        *   Microsoft.Owin (>= 3.1.0)
+3. Microsoft.Owin.Host.SystemWeb
+    * 相依套件
+        * Owin (>= 1.0.0)
+        * Microsoft.Owin (>= 3.1.0)
 
-    *   指令安裝
+    * 指令安裝
 
         > Install-Package Microsoft.Owin.Host.SystemWeb
 
         ![3Owin.SystemWeb](https://user-images.githubusercontent.com/3851540/32415898-163ac38c-c27c-11e7-9c3a-0c9fe3cbd012.png)
 
-*   建議安裝 NuGet 套件後將所有 NuGet 套件更新
-    *   指令更新
+* 建議安裝 NuGet 套件後將所有 NuGet 套件更新
+    * 指令更新
 
         > Update-Package
 
 ## 在 Model 資料中加入 UserModel
 
-1.  建立 `CustomUser` 並繼承 `IdentityUser`
+1. 建立 `CustomUser` 並繼承 `IdentityUser`
 
     ```cs
     public class CustomUser: IdentityUser
     ```
 
-2.  在 `CustomUser` 中建立 `GenerateUserIdentityAsync`要方法
+2. 在 `CustomUser` 中建立 `GenerateUserIdentityAsync`要方法
 
     ```cs
     public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<CustomUser> manager)
@@ -78,7 +79,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-3.  加入需要的自訂屬性
+3. 加入需要的自訂屬性
 
     > 這邊透過 `Address` 來示範
 
@@ -86,7 +87,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     public string Address { get; set; }
     ```
 
-4.  UserModel 完整程式碼
+4. UserModel 完整程式碼
 
     ```cs
     using System.Security.Claims;
@@ -110,7 +111,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
 
 ## 在 Models 中建立 DB 溝通用物件
 
-1.  建立 `ApplicationDbContext` 繼承至 `IdentityDbContext<CustomUser>`
+1. 建立 `ApplicationDbContext` 繼承至 `IdentityDbContext<CustomUser>`
 
     ```cs
     public class ApplicationDbContext : IdentityDbContext<CustomUser>
@@ -118,7 +119,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-2.  讓建構子呼叫 base class 建構子並傳入正確連線字串
+2. 讓建構子呼叫 base class 建構子並傳入正確連線字串
 
     > 這邊使用 `DefaultConnection` 當做做範例，請實際情況修改
 
@@ -128,7 +129,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-3.  建立 Create 方法
+3. 建立 Create 方法
 
     ```cs
     public static ApplicationDbContext Create()
@@ -137,7 +138,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-4.  自訂 DbContext 完整程式碼
+4. 自訂 DbContext 完整程式碼
 
     ```cs
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -160,11 +161,11 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
 
 ## 在 `App_Start` 資料夾中加入 `IdentityConfig.cs`
 
-1.  建立 `ApplicationUserManager` class
+1. 建立 `ApplicationUserManager` class
 
     > 用來管理 user 建立功能
 
-    *   建立 `ApplicationUserManager` 繼承 `UserManager<CustomUser>`
+    * 建立 `ApplicationUserManager` 繼承 `UserManager<CustomUser>`
 
         ```cs
         public class ApplicationUserManager : UserManager<CustomUser>
@@ -172,7 +173,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
         }
         ```
 
-    *   讓建構子呼叫 base class 建構子
+    * 讓建構子呼叫 base class 建構子
 
         ```cs
         public ApplicationUserManager(IUserStore<CustomUser> store): base(store)
@@ -180,7 +181,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
         }
         ```
 
-    *   建立 Create 方法
+    * 建立 Create 方法
 
         ```cs
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
@@ -232,11 +233,11 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
         }
         ```
 
-2.  建立 `ApplicationSignInManager` class
+2. 建立 `ApplicationSignInManager` class
 
     > 用來管理 user 登入
 
-    *   建立 `ApplicationSignInManager` 繼承 `SignInManager<CustomUser, string>`
+    * 建立 `ApplicationSignInManager` 繼承 `SignInManager<CustomUser, string>`
 
         ```cs
         public class ApplicationSignInManager : SignInManager<CustomUser, string>
@@ -244,7 +245,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
         }
         ```
 
-    *   建構子呼叫 base class 建構子
+    * 建構子呼叫 base class 建構子
 
         ```cs
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager): base(userManager, authenticationManager)
@@ -252,7 +253,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
         }
         ```
 
-    *   覆寫 `CreateUserIdentityAsync` 方法
+    * 覆寫 `CreateUserIdentityAsync` 方法
 
         ```cs
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(CustomUser user)
@@ -261,7 +262,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
         }
         ```
 
-    *   建立 Create 方法
+    * 建立 Create 方法
 
         ```cs
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
@@ -270,7 +271,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
         }
         ```
 
-3.  完整程式碼
+3. 完整程式碼
 
     ```cs
     using System;
@@ -378,7 +379,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
 
 ## 在 `App_Start` 目錄中加入 `Startup.Auth.cs`
 
-1.  建立 `Startup` class
+1. 建立 `Startup` class
 
     ```cs
     public partial class Startup
@@ -386,7 +387,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-2.  建立 `ConfigureAuth` 方法
+2. 建立 `ConfigureAuth` 方法
 
     ```cs
     public void ConfigureAuth(IAppBuilder app)
@@ -410,7 +411,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-3.  完整程式碼
+3. 完整程式碼
 
     ```cs
     using System;
@@ -452,7 +453,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
 
 > 用來將 Identity 註冊至 OWIN 中
 
-1.  建立 Startup class
+1. 建立 Startup class
 
     ```cs
     public partial class Startup
@@ -460,7 +461,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-2.  加入 Configuration 方法
+2. 加入 Configuration 方法
 
     ```cs
     public void Configuration(IAppBuilder app)
@@ -469,13 +470,13 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-3.  在 namespace 上加入 `OwinStartupAttribute`
+3. 在 namespace 上加入 `OwinStartupAttribute`
 
     ```cs
     [assembly: OwinStartup(typeof(AddIdentity.Startup))]
     ```
 
-4.  完整程式碼
+4. 完整程式碼
 
     ```cs
     using Microsoft.Owin;
@@ -496,7 +497,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
 
 ## 實際使用時注意事項 - 以 Register 為例
 
-1.  建立 `AccountController` 繼承 Controller
+1. 建立 `AccountController` 繼承 Controller
 
     ```cs
     public class AccountController : Controller
@@ -504,7 +505,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-2.  加入 `SignInManager` 與 `UserManager`
+2. 加入 `SignInManager` 與 `UserManager`
 
     ```cs
     private ApplicationSignInManager _signInManager;
@@ -522,7 +523,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-3.  加入建構子
+3. 加入建構子
 
     ```cs
     public AccountController()
@@ -536,7 +537,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-4.  加入 Register
+4. 加入 Register
 
     ```cs
     [AllowAnonymous]
@@ -567,7 +568,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-5.  建立 `RegisterViewModel`
+5. 建立 `RegisterViewModel`
 
     ```cs
     public class RegisterViewModel
@@ -590,7 +591,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-6.  建立 `AddErrors`
+6. 建立 `AddErrors`
 
     ```cs
     private void AddErrors(IdentityResult result)
@@ -602,7 +603,7 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-7.  建立 `Register` view
+7. 建立 `Register` view
 
     ```cs
     @model AddIdentity.Models.RegisterViewModel
@@ -643,13 +644,13 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
     }
     ```
 
-8.  效果
+8. 效果
 
-    *   預設使用 CodeFirst 會自動將需要的 table 產生出來
+    * 預設使用 CodeFirst 會自動將需要的 table 產生出來
 
         ![4addtable](https://user-images.githubusercontent.com/3851540/32415899-1663a004-c27c-11e7-89b0-851a098d0440.png)
 
-    *   自訂的 `Address` 屬性也已被加入
+    * 自訂的 `Address` 屬性也已被加入
 
         ![5address](https://user-images.githubusercontent.com/3851540/32415900-168bfefa-c27c-11e7-8a98-fcdcb1461656.png)
 
@@ -659,6 +660,6 @@ MVC 預設專案範本 v.s. MVC Empty 專案範本，你會怎麼選呢？ 這�
 
 回到將 ASP.NET Identity 加入 MVC Empty 專案本身，我個人覺得需要執行的動作不少，有些眉眉角角得要注意，如果不是因為反覆參考 MVC 預設專案，我不認為可以輕鬆完成，這個部份可能還是有些改善的空間
 
-# 參考資訊
+## 參考資訊
 
-1.  [Adding ASP.NET MVC5 Identity Authentication to an existing project](https://stackoverflow.com/questions/31960433/adding-asp-net-mvc5-identity-authentication-to-an-existing-project)
+1. [Adding ASP.NET MVC5 Identity Authentication to an existing project](https://stackoverflow.com/questions/31960433/adding-asp-net-mvc5-identity-authentication-to-an-existing-project)

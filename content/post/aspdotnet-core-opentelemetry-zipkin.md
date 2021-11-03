@@ -1,7 +1,7 @@
 ---
 title: "[Zipkin] 使用 OpenTelemetry 來追蹤 ASP.NET Core"
 date: 2021-04-03T22:00:00+08:00
-lastmod: 2021-04-03T22:00:31+08:00
+lastmod: 2021-11-03T22:00:31+08:00
 draft: false
 tags: ["Zipkin","OpenTelemetry","ASP.NET Core"]
 slug: "aspdotnet-core-opentelemetry-zipkin"
@@ -81,7 +81,6 @@ slug: "aspdotnet-core-opentelemetry-zipkin"
 依 [官方 GitHub sample](https://github.com/open-telemetry/opentelemetry-dotnet/blob/5bf2b42379d1d993fc2f1cec1e54ab1aab3bb3f0/examples/AspNetCore/Startup.cs#L71) 程式碼設定會出現 `unknown_service:dotnet`
 
 ![3zipkinnoservicename](https://user-images.githubusercontent.com/3851540/112747568-cbd74700-8fe8-11eb-8262-7fe23f59d680.png)
-
 
 完整程式碼可以參考：[yowko/aspdotnet-core-opentelemetry](https://github.com/yowko/aspdotnet-core-opentelemetry)
 

@@ -1,58 +1,62 @@
 ---
 title: "使用 MongoDB 儲存 ASP.NET Identity 資料"
 date: 2018-07-20T16:36:00+08:00
-lastmod: 2020-12-11T21:45:51+08:00
+lastmod: 2021-11-03T21:45:51+08:00
 draft: false
 tags: ["ASP.NET Identity","MongoDB"]
 slug: "aspnet-identity-mongodb"
 aliases:
     - /2018/07/aspnet-identity-mongodb.html
 ---
-# 使用 MongoDB 儲存 ASP.NET Identity 資料
+## 使用 MongoDB 儲存 ASP.NET Identity 資料
+
 近期處理的某個專案需要 website 來呈現報表類資訊，起初 user 說只需要基本的登入，不需要其他使用者相關功能(e.g. 修改密碼、權限管理、帳號申請...etc)，於是便透過 [如何在 ASP.NET MVC 加上簡易表單驗證](/2017/03/aspnet-mvc.html) 中提到的小技巧快速地完成了一個有登入功能的網站，不過 user 在使用過幾次後還是覺得使用者相關功能 `nice to have`，但尷尬的事來了：user 一直覺得 website 有 "完整" 的使用者功能，只是未開放 "登入" 之外的其他功能，殊不知在建立 website 登入機制時根本連 DB 權限都沒申請，相關使用者 credential 資訊都存在 web.config 中
 
-後來想到該 website 原本就有專屬的 MongoDB 來儲存相關 log，於是興起將 Identity 資料儲存在 MongoDB 的念頭，立馬來看看如何使用 MongoDB 搭配 ASP.NET Identity 
+後來想到該 website 原本就有專屬的 MongoDB 來儲存相關 log，於是興起將 Identity 資料儲存在 MongoDB 的念頭，立馬來看看如何使用 MongoDB 搭配 ASP.NET Identity
 
 ## 基本設定
+
 1. 使用 ASP.NET MVC 專案範本
-    
+
     ![1projecttemplate](https://user-images.githubusercontent.com/3851540/42991954-c32c88fa-8c39-11e8-85a2-d45cff9f1185.png)
 2. 選擇 authentication type 為 Individual User Accounts
-    
+
     ![2identity](https://user-images.githubusercontent.com/3851540/42991955-c36e401a-8c39-11e8-9183-1fccca8beb2b.png)
 
 ## 調整 NuGet packages
+
 1. 移除 `Microsoft.AspNet.Identity.EntityFramework`
-    
-    ```
+
+    ```ps1
     Uninstall-Package Microsoft.AspNet.Identity.EntityFramework
     ```
-    
+
     ![3removeidef](https://user-images.githubusercontent.com/3851540/42991956-c3967eb8-8c39-11e8-8a2f-f2ccc64f4c76.png)
 2. 移除 `EntityFramework`
-    
-    ```
+
+    ```ps1
     Uninstall-Package EntityFramework
     ```
-    
+
     ![4removeef](https://user-images.githubusercontent.com/3851540/42991957-c3c11998-8c39-11e8-89b2-d7198dff5da5.png)
 3. 安裝 `AspNet.Identity.MongoDB`
-    
-    ```
+
+    ```ps1
     Install-Package AspNet.Identity.MongoDB
     ```
-    
+
     ![5installaspidmongo](https://user-images.githubusercontent.com/3851540/42991958-c3e7cbce-8c39-11e8-82c6-49601ddaf4e5.png)
 
 ## 調整 namespace
+
 1. IdentityModels.cs
-    
+
     >預設路徑：`~/Models/IdentityModels.cs`
-    
+
     - 移除 `using Microsoft.AspNet.Identity.EntityFramework;` 及 `using System.Data.Entity;`
     - 加入 `using AspNet.Identity.MongoDB;` 及 `using MongoDB.Driver;`
-    - 修改 `ApplicationDbContext` class 
-        
+    - 修改 `ApplicationDbContext` class
+
         ```cs
         public class ApplicationDbContext : IDisposable
         {
@@ -78,8 +82,9 @@ aliases:
             }
         }
         ```
+
     - 完整程式碼
-        
+
         ```cs
         using System;
         using System.Configuration;
@@ -128,20 +133,22 @@ aliases:
                 }
             }
         }
-        ``` 
-3. IdentityConfig.cs
-    
-    > 預設位置：` ~/App_Start/IdentityConfig.cs`
-    
+        ```
+
+2. IdentityConfig.cs
+
+    > 預設位置：`~/App_Start/IdentityConfig.cs`
+
     - 移除 `using Microsoft.AspNet.Identity.EntityFramework;` 及 `using System.Data.Entity;`
     - 加入 `using AspNet.Identity.MongoDB;`
     - 修改 `ApplicationUserManager` 的建立
-        
+
         ```cs
         var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>().Users));
-        ``` 
+        ```
+
     - 完整程式碼
-        
+
         ```cs
         using System;
         using System.Security.Claims;
@@ -248,13 +255,16 @@ aliases:
                 }
             }
         }
-        ``` 
+        ```
+
 ## 心得
+
 雖然過去一直有印象可以將 ASP.NET Identity 的資料儲存至 MongoDB，但過去專案都還是透過 relation DB 來儲存資料，幸虧平常有留意相關應用讓這次臨時加入的需求不至影響到專案的時程
 
 至於 ASP.NET Identity 與 MongoDB 的整合，在沒有 Microsoft 官方的支持，多虧有網路上的神人願意分享，雖然文件及使用的便利性仍有很大的改進空間，但不用自己從頭處理已是大幸呀
 
-# 參考資訊
+## 參考資訊
+
 1. [如何在 ASP.NET MVC 加上簡易表單驗證](/2017/03/aspnet-mvc.html)
 2. [將 ASP.NET Identity 加至 ASP.NET MVC Empty 專案中](/2017/11/add-aspnet-identity-empty-project.html)
 3. [g0t4/aspnet-identity-mongo](https://github.com/g0t4/aspnet-identity-mongo/tree/AspNet.Identity.MongoDB)

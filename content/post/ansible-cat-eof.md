@@ -1,7 +1,7 @@
 ---
 title: "Ansible 使用 Here document (cat << EOF) 遇到的問題"
 date: 2020-03-01T09:30:00+08:00
-lastmod: 2020-12-11T09:30:31+08:00
+lastmod: 2021-11-03T09:30:31+08:00
 draft: false
 tags: ["Ansible"]
 slug: "ansible-cat-eof"
@@ -17,23 +17,25 @@ slug: "ansible-cat-eof"
 2. Centos 7.7
 3. ansible 2.7.8
 4. ansible script
-    
-        ---
-        - name: Install Influxdb
-          gather_facts: false
-          vars:
-          hosts: influxdb
-          tasks:
-            - name: Add repo
-              shell: |
-                cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
-                [influxdb]
-                name = InfluxDB Repository - RHEL \$releasever
-                baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
-                enabled = 1
-                gpgcheck = 1
-                gpgkey = https://repos.influxdata.com/influxdb.key
-                EOF
+
+    ```yaml
+    ---
+    - name: Install Influxdb
+      gather_facts: false
+      vars:
+      hosts: influxdb
+      tasks:
+        - name: Add repo
+          shell: |
+            cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
+            [influxdb]
+            name = InfluxDB Repository - RHEL \$releasever
+            baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
+            enabled = 1
+            gpgcheck = 1
+            gpgkey = https://repos.influxdata.com/influxdb.key
+            EOF
+    ```
 
 ## 錯誤訊息
 

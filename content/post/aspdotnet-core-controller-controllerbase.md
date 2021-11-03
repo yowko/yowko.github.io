@@ -1,13 +1,13 @@
 ---
 title: "ASP.NET Core 中 Controller 與 ControllerBase 的差別"
 date: 2019-06-09T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["ASP.NET Core"]
 slug: "aspdotnet-core-controller-controllerbase"
 ---
 
-# ASP.NET Core 中 Controller 與 ControllerBase 的差別
+## ASP.NET Core 中 Controller 與 ControllerBase 的差別
 
 之前筆記 [ASP.NET Core 中 AddMvc() 與 AddMvcCore() 的差別](/aspdotnet-core-addmvc-addmvccore) 提到 `AddMvc()` 與 `AddMvcCore()` 的差別，今天剛好在整理如何從 Empty 專案加入 Web API 時聯想到似乎沒有很清楚實際差別，趁著自己查資料，順手筆記一下
 
@@ -41,8 +41,6 @@ slug: "aspdotnet-core-controller-controllerbase"
 - 是 abstract class
 - 非 View 相關的 MVC 核心操作皆定義於此
 
-
-
 ## Controller
 
 完整程式碼請參考 [AspNetCore/src/Mvc/Mvc.ViewFeatures/src/Controller.cs](https://github.com/aspnet/AspNetCore/blob/v2.2.5/src/Mvc/Mvc.ViewFeatures/src/Controller.cs)
@@ -64,8 +62,6 @@ slug: "aspdotnet-core-controller-controllerbase"
 
 - 是 abstract class 且繼承自 `ControllerBase`
 - 比 `ControllerBase` 多了 View 相關支援
-
-
 
 ## 心得
 
