@@ -1,15 +1,16 @@
 ---
 title: "從 Json String 中取得物件的屬性值"
 date: 2017-07-30T23:55:00+08:00
-lastmod: 2020-12-11T00:41:54+08:00
+lastmod: 2021-11-02T00:41:54+08:00
 draft: false
 tags: ["套件","csharp"]
 slug: "jobject-parse"
 aliases:
     - /2017/07/jobject-parse.html
 ---
-# 從 Json String 中取得物件的屬性值
-之前文章 [使用 string 建立 instance 及反序列化 json 為 class](/2017/07/string-create-instance.html) 介紹到如何使用 string 產生 instance 及反序列化 json 為 class，後來同事看到寫法建議可以用 json.net 的 `JObject.Parse` 語法
+## 從 Json String 中取得物件的屬性值
+
+之前文章 [使用 string 建立 instance 及反序列化 json 為 class](/string-create-instance) 介紹到如何使用 string 產生 instance 及反序列化 json 為 class，後來同事看到寫法建議可以用 json.net 的 `JObject.Parse` 語法
 
 後來試了一下，覺得滿方便的，但用途不太一樣，順手紀錄一下
 

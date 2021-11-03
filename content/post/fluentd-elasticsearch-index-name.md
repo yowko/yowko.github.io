@@ -1,7 +1,7 @@
 ---
 title: "Fluentd 指定 Elasticsearch Index 名稱"
 date: 2020-04-30T21:30:00+08:00
-lastmod: 2020-12-28T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["EFK","Tools"]
 slug: "fluentd-elasticsearch-index-name"
@@ -31,7 +31,7 @@ slug: "fluentd-elasticsearch-index-name"
     logstash_format true
     ```
 
-- Fluentd 預設會使用 `logstash-%Y.%m.%d` 做為 index name 
+- Fluentd 預設會使用 `logstash-%Y.%m.%d` 做為 index name
 
     > 會覆寫 `index_name` 設定
 

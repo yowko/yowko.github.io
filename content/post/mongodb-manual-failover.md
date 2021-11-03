@@ -1,7 +1,7 @@
 ---
 title: "手動觸發 MongoDB failover"
 date: 2020-06-07T15:30:00+08:00
-lastmod: 2020-12-11T15:30:31+08:00
+lastmod: 2021-11-02T15:30:31+08:00
 draft: false
 tags: ["MongoDB"]
 slug: "mongodb-manual-failover"
@@ -83,7 +83,6 @@ slug: "mongodb-manual-failover"
     mongo "mongodb://localhost:27017,localhost:27027,localhost:27037/?replicaSet=rs0" --eval "rs.stepDown()"
     ```
 
-    
 ## 心得
 
 雖然跟 MongoDB 交手也幾年了，但總覺得 MongoDB 還是很陌生，當然我自己沒有特別花時間去徹底了解它、熟悉它是我的問題，不過其他工具在使用上就不會遇到像 MongoDB 這樣老覺得陌生的狀況

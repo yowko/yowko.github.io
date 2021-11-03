@@ -1,31 +1,30 @@
 ---
 title: "Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image"
 date: 2019-05-02T21:30:00+08:00
-lastmod: 2019-05-02T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["Fluentd","Docker"]
 slug: "fluentd-elasticsearch-docker"
 ---
-# Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image
+## Fluentd 安裝 Elasticsearch Output Plugin 封裝成 Docker image
 
 近期專案的 log 集中化採用 EFK - Elasticsearch + Fluentd + Kibana (log parser 改用 Fluentd 而非 Logstash 主要是因為 Logstash 有 memory 使用量大的問題)，這幾天發現設定上有些問題導致資料不如預期，於是我就開始 debug 了。
 
 之前環境建置是由同事負責，因此在開始 debug 前就必需先架設環境接著才能重現錯誤，其中一個核心步驟：把 Fluentd 蒐集到得資料餵給 Elasticsearch 需要透過 Fluentd 的 Elasticsearch Output Plugin 才行，加上現在團隊的環境都由 docker 組成， Fluentd 官方又沒有提供對應的 image，所以我就來紀錄一下可以怎麼製作已經安裝 Elasticsearch Output Plugin 的 Fluentd base image 吧
 
 ## 基本環境說明
+
 1. macOS Mojave 10.14.4
 2. Docker Engine - Community 18.09.2
 3. fluent/fluentd:edge (1.4.2)
-
 
 ## 方法一：fluentd GitHub 提供的 Dockerfile
 
 > 詳細內容請參考 fluentd 官方 GitHub [Fluentd Docker Image](https://github.com/fluent/fluentd-docker-image#3-customize-dockerfile-to-install-plugins-optional)
 
-
 1. Alpine version
 
-    ```
+    ```dockerfile
     FROM fluent/fluentd:v1.4-2
 
     # Use root account to use apk
@@ -46,10 +45,9 @@ slug: "fluentd-elasticsearch-docker"
     USER fluent
     ```
 
-
 2. Debian version
 
-    ```
+    ```dockerfile
     FROM fluent/fluentd:v1.4-debian-2
 
     # Use root account to use apt
@@ -81,7 +79,7 @@ slug: "fluentd-elasticsearch-docker"
 
 1. 基本用法
 
-    ```
+    ```dockerfile
     FROM fluent/fluentd:edge
     USER root
     RUN fluent-gem install fluent-plugin-elasticsearch
@@ -92,9 +90,9 @@ slug: "fluentd-elasticsearch-docker"
 
 2. 錯誤範例
 
-    - Dockerfile 未切換 User 
+    - Dockerfile 未切換 User
 
-        ```
+        ```dockerfile
         FROM fluent/fluentd:edge
         RUN fluent-gem install fluent-plugin-elasticsearch
         ```
@@ -103,7 +101,7 @@ slug: "fluentd-elasticsearch-docker"
 
         - 訊息內容
 
-            ```
+            ```log
             ERROR:  While executing gem ... (Gem::FilePermissionError)
                 You don't have write permissions for the /usr/lib/ruby/gems/2.5.0 directory.
             ```
@@ -116,7 +114,7 @@ slug: "fluentd-elasticsearch-docker"
 
     > 加上 expose port 可以用來處理 forward 或是接受 http request
 
-    ```
+    ```dockerfile
     FROM fluent/fluentd:edge
     USER root
     RUN fluent-gem install fluent-plugin-elasticsearch
@@ -130,6 +128,7 @@ slug: "fluentd-elasticsearch-docker"
 
 原始 Dockerfile：[yowko/Fluentd-elasticsearch-dockerfile](https://github.com/yowko/Fluentd-elasticsearch-dockerfile)
 
-# 參考資訊
+## 參考資訊
+
 1. [Fluentd Docker Image](https://github.com/fluent/fluentd-docker-image#3-customize-dockerfile-to-install-plugins-optional)
 2. [Elasticsearch Output Plugin](https://docs.fluentd.org/v1.0/articles/out_elasticsearch)

@@ -1,7 +1,7 @@
 ---
 title: "Fluentd 使用自定 Log 時間當做 Timestamp"
 date: 2019-05-04T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-02T21:30:31+08:00
 draft: false
 tags: ["Fluentd","Log","ELK"]
 slug: "fluentd-log-time"
@@ -102,7 +102,7 @@ slug: "fluentd-log-time"
 
     ![ha](https://user-images.githubusercontent.com/3851540/64233979-e9851d00-cf27-11e9-8605-32d46ce9d71e.png)
 
-    >圖片出處：https://docs.fluentd.org/v1.0/articles/high-availability
+    >圖片出處：<https://docs.fluentd.org/v1.0/articles/high-availability>
 
 ## Fluentd 的原始設定
 
@@ -188,13 +188,13 @@ slug: "fluentd-log-time"
 
     > 如果 parser 的 format 中即使用 `time` 變數來儲存 log time，就可以不用額外指定 key name。e.g. `format /^(?<time>[^ ]* [^ ]*) \[(?<application>[^ \]]+)\]\[(?<thread>[\d]+)\]\[(?<type>[A-Za-z_][A-Za-z0-9_]+)\](?<message>\{.+\})/` 就可以省略
 
-    ```
+    ```config
     time_key logdate
     ```
 
 2. forwarder 設定保留 key
 
-    ```
+    ```config
     keep_time_key true
     ```
 
@@ -202,7 +202,7 @@ slug: "fluentd-log-time"
 
     > 如果時間欄位為 `time` 這邊亦可省略
 
-    ```
+    ```config
     time_key logdate
     ```
 
