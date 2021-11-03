@@ -1,7 +1,7 @@
 ---
 title: "使用 Homebrew 安裝舊版工具"
 date: 2019-12-21T20:30:00+08:00
-lastmod: 2020-12-11T20:30:31+08:00
+lastmod: 2021-11-03T20:30:31+08:00
 draft: false
 tags: ["macOS","Tools"]
 slug: "brew-install-old-version"

@@ -1,21 +1,22 @@
 ---
 title: "如何從無至有建立 React.js 開發環境"
 date: 2016-12-29T00:42:34+08:00
-lastmod: 2018-09-07T00:42:34+08:00
-draft: false
+lastmod: 2021-11-03T00:42:34+08:00
+draft: true
 tags: ["Frontend","JavaScript"]
 slug: "build-your-own-react-js-starter"
 aliases:
     - /2016/12/Build-Your-Own-React-js-Starter.html
     - /2016/12/build-your-own-react-js-starter
 ---
-# 如何從無至有建立 React.js 開發環境
-React.js 有著 facebook 的效能品質保證，快速襲捲前端開發生態，很多嶄新觀念也大大地改變前端開發人員的思維，也因為快速地發展與演化讓 React.js 開發流程一直很多元，結果讓開發 React.js 的進入門檻變高，好像有好多方法可行(e.g.需不需要 jsx 語法、jsx 需要預先編譯嗎、預先編譯要用什麼？ gulp、browserify 還是 webpack+babel?)。
+## 如何從無至有建立 React.js 開發環境
 
+React.js 有著 facebook 的效能品質保證，快速襲捲前端開發生態，很多嶄新觀念也大大地改變前端開發人員的思維，也因為快速地發展與演化讓 React.js 開發流程一直很多元，結果讓開發 React.js 的進入門檻變高，好像有好多方法可行(e.g.需不需要 jsx 語法、jsx 需要預先編譯嗎、預先編譯要用什麼？ gulp、browserify 還是 webpack+babel?)。
 
 之前在公司分享基礎 React.js 開發時有針對簡化開發環境建置以降低門檻做簡易的比較，順手整理了心得及做法，請大家指教, 而其中最方便的做法是使用 react cli ，接著是 BYOS(Build Your Own Starter)，以下是兩種開發環境建置的流程及步驟
 
 ## React.js cli
+
 1. 安裝 create-react-app (擇一即可)
     - `npm install -g create-react-app`
     - `yarn global add create-react-app`
@@ -25,14 +26,15 @@ React.js 有著 facebook 的效能品質保證，快速襲捲前端開發生態�
 
 3. 測試(擇一即可)
     - npm
-        
-        ```
+
+        ```cmd
         cd hello-world
         npm start
         ```
+
     - yarn
-        
-        ```
+
+        ```cmd
         cd hello-world
         yarn start
         ```
@@ -43,30 +45,30 @@ React.js 有著 facebook 的效能品質保證，快速襲捲前端開發生態�
 > - 建議先看過 [Build Your Own Starter](http://andrewhfarmer.com/build-your-own-starter) 視覺化的網頁介面大致瞭解過程的變化歷程
 > - 使用 webpack+babel
 > - 適合情境
->     - 簡單的環境設定(React.js cli 已經包裝過，需要客製時相關設定需要花點時間)
->     - 想要建立較小的 package
+>   - 簡單的環境設定(React.js cli 已經包裝過，需要客製時相關設定需要花點時間)
+>   - 想要建立較小的 package
 > - 適用於 windows command prompt
 
-
 1. 建立工作目錄
-    
-    ```
+
+    ```cmd
     mkdir ReactJS_Demo
     cd ReactJS_Demo
     ```
 
 2. 加入 Git 版控
-    
-    ```
+
+    ```cmd
     git init
     echo node_modules > .gitignore
     echo www/bundle.js >> .gitignore
     git add .
     git commit -m "initial commit"
     ```
+
 3. 加入 npm 套件管理
 
-    ```
+    ```cmd
     npm init -y
     git add .
     git commit -m "add npm package.json"
@@ -74,7 +76,7 @@ React.js 有著 facebook 的效能品質保證，快速襲捲前端開發生態�
 
 4. 加入 babel
 
-    ```
+    ```cmd
     npm install --save babel-core
     npm install --save babel-preset-es2015
     npm install --save babel-preset-react
@@ -87,7 +89,7 @@ React.js 有著 facebook 的效能品質保證，快速襲捲前端開發生態�
 
 5. 加入 webpack
 
-    ``` 
+    ```cmd
     npm install --save webpack babel-loader
     mkdir src
     echo console.log('Hello World!'); >> src/main.js
@@ -123,25 +125,28 @@ React.js 有著 facebook 的效能品質保證，快速襲捲前端開發生態�
     echo };>> webpack.config.js
     echo module.exports = config;>> webpack.config.js
     ```
+
 6. 修改 package.json
     - 6-1. 需手動修改 package.json 檔案的 "scripts" 區段
-        
-        ``` 
+
+        ```cmd
         "scripts": {
         "compile": "webpack",
         "test": "echo \"Error: no test specified\" && exit 1"
         },
         ```
+
     - 6-12 commit packge.json
-        
-        ```
+
+        ```cmd
         git add .
         git commit -m "use webpack to compile"
         ```
+
 7. 設定測試 server
     - 7-1. 設定使用 3100 port
-        
-        ``` 
+
+        ```cmd
         npm install --save express webpack-dev-middleware
         echo var express = require('express'); > server.js
         echo var webpackDevMiddleware = require('webpack-dev-middleware'); >>server.js
@@ -174,28 +179,31 @@ React.js 有著 facebook 的效能品質保證，快速襲捲前端開發生態�
         echo ^</body^> >>www/index.html
         echo ^</html^> >>www/index.html
         ```
+
     - 7-1. 修改 package.json
 
-        * 需手動修改 package.json 檔案的 "scripts" 區段
-            
-            ```
+        - 需手動修改 package.json 檔案的 "scripts" 區段
+
+            ```cmd
             "scripts": {
                 "compile": "webpack",
             "start": "node server.js",
             "test": "echo \"Error: no test specified\" && exit 1"
                 },
             ```
+
     - 7-2. commit package.json
-        
-        ```
+
+        ```cmd
         git add .
         git commit -m "add server"
         npm start
         ```
+
     - 7-3. 測試 server [http://localhost:3100](http://localhost:3100)
 8. 加入 React
 
-    ```
+    ```cmd
     npm install --save react react-dom
     echo import React from 'react';>src/Counter.js
     echo /**>>src/Counter.js
@@ -225,7 +233,8 @@ React.js 有著 facebook 的效能品質保證，快速襲捲前端開發生態�
 
     - 8-1. 修改 src/main.js
         - 手動修改 src/main.js(程式進入點)
-            ``` 
+
+            ```cmd
             import React from 'react';
             import ReactDOM from 'react-dom';
             import Counter from './Counter';
@@ -236,6 +245,7 @@ React.js 有著 facebook 的效能品質保證，快速襲捲前端開發生態�
                 );
             });
             ```
+
     - 8-2. 修改 www/index.html
         - 手動修改 www/index.html body 區段
 
@@ -244,20 +254,25 @@ React.js 有著 facebook 的效能品質保證，快速襲捲前端開發生態�
                 <div id="mount"></div>
             </body>
             ```
-    - 8-3. test 
-    
-        ```
+
+    - 8-3. test
+
+        ```cmd
         npm start
         ```
+
     - 8-4. commit
 
-        ```
+        ```cmd
         git add .
         git commit -m "add react"
         ```
-## 心得 
+
+## 心得
+
 經過一連串操作，現在終於建立起 React.js 的開發環境，是不是想用 React.js cli 就好？！繁瑣過程與設定彈性在這個案例是個 trade-off 的關係，就得視實際情況來選擇
 
-# 參考資料
+## 參考資料
+
 1. [create-react-app](https://github.com/facebookincubator/create-react-app)
 2. [Build Your Own Starter](http://andrewhfarmer.com/build-your-own-starter)

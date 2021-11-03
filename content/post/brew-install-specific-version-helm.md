@@ -1,7 +1,7 @@
 ---
 title: "使用 Homebrew 安裝舊版 Helm"
 date: 2019-12-21T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["macOS","Tools","Helm"]
 slug: "brew-install-specific-version-helm"
@@ -121,7 +121,7 @@ slug: "brew-install-specific-version-helm"
 
 ## 心得
 
-虧我安裝前還特地到 [Helm 官網](https://v2.helm.sh/docs/using_helm/#installing-helm) 確認安裝語法，就是怕直接搜尋會出現多個 fomula 而裝錯，結果問題反而是出在官網沒有即時更新說明文件XD  不過總歸一句還是我自己第一時間沒有仔細看 brew 的執行訊息讓我多花了不少時間 debug 
+虧我安裝前還特地到 [Helm 官網](https://v2.helm.sh/docs/using_helm/#installing-helm) 確認安裝語法，就是怕直接搜尋會出現多個 fomula 而裝錯，結果問題反而是出在官網沒有即時更新說明文件XD  不過總歸一句還是我自己第一時間沒有仔細看 brew 的執行訊息讓我多花了不少時間 debug
 
 只是我自以為是地覺得畢竟過去不了解 homebrew 的用法，第一時間沒看出問題應該情有可原吧@@" 反正學習就這麼回事嘛：多踩些別人沒踩到的雷，也許下次就有機會比別人快解決問題囉
 
