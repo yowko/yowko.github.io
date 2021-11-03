@@ -1,7 +1,7 @@
 ---
 title: "使用 ElastAlert 監控 Elasticsearch 發出通知"
 date: 2021-01-26T21:30:00+08:00
-lastmod: 2021-01-26T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["EFK","Monitoring"]
 slug: "elastalert-alert"
@@ -129,28 +129,28 @@ slug: "elastalert-alert"
 
     1. 設定 ElastAlert rule
 
-            ```yaml
-            name: test # rule 名稱
-            type: frequency # rule 的類型 (細節可以參考 [Rule Types](https://elastalert.readthedocs.io/en/latest/ruletypes.html#ruletypes))
-            index: logstash-* # 監控哪個 elasticsearch index
-            num_events: 1 # 命中查詢條件次數
-            buffer_time: # 查詢 elasticsearch 的時間區間
-            minutes: 5
-            run_every: # 查詢 elasticsearch 的頻率
-            minutes: 1
-            timeframe: # 目標時間範圍 (60 分鐘內事件發生次數；事件內容依 type 來決定)
-            minutes: 60
-            realert: # 相同警告多久才發送一次避免收到過多警告，預設一分鐘，`0` 為每次警告都發送
-            minutes: 0
-            filter: # 查詢條件 (詳細內容可以參考 [Common Filter Types](https://elastalert.readthedocs.io/en/latest/recipes/writing_filters.html#common-filter-types))
-            - query:
-                query_string:
-                query: "message:fluentd worker"
-            alert: # 警示通知類型 (詳細內容可以參考 [Alerts](https://elastalert.readthedocs.io/en/latest/ruletypes.html#alerts))
-            - "post"
-            http_post_url: "http://blog.yowko.com" # post 目標 url
-            http_post_proxy: "192.168.80.3:8866" # proxy 非必要設定值，這邊是我用來攔 http post 內容用的
-            ```
+        ```yaml
+        name: test # rule 名稱
+        type: frequency # rule 的類型 (細節可以參考 [Rule Types](https://elastalert.readthedocs.io/en/latest/ruletypes.html#ruletypes))
+        index: logstash-* # 監控哪個 elasticsearch index
+        num_events: 1 # 命中查詢條件次數
+        buffer_time: # 查詢 elasticsearch 的時間區間
+        minutes: 5
+        run_every: # 查詢 elasticsearch 的頻率
+        minutes: 1
+        timeframe: # 目標時間範圍 (60 分鐘內事件發生次數；事件內容依 type 來決定)
+        minutes: 60
+        realert: # 相同警告多久才發送一次避免收到過多警告，預設一分鐘，`0` 為每次警告都發送
+        minutes: 0
+        filter: # 查詢條件 (詳細內容可以參考 [Common Filter Types](https://elastalert.readthedocs.io/en/latest/recipes/writing_filters.html#common-filter-types))
+        - query:
+            query_string:
+            query: "message:fluentd worker"
+        alert: # 警示通知類型 (詳細內容可以參考 [Alerts](https://elastalert.readthedocs.io/en/latest/ruletypes.html#alerts))
+        - "post"
+        http_post_url: "http://blog.yowko.com" # post 目標 url
+        http_post_proxy: "192.168.80.3:8866" # proxy 非必要設定值，這邊是我用來攔 http post 內容用的
+        ```
 
         > 這邊我使用 Fiddler Everywhere 來攔 http post 的內容
 
@@ -177,11 +177,11 @@ slug: "elastalert-alert"
 
         - 差異內容
 
-                ```yaml
-                - type: bind
-                source: ./elastalert/config/emailauth.yaml
-                target: /opt/elastalert/config/emailauth.yaml
-                ```
+            ```yaml
+            - type: bind
+            source: ./elastalert/config/emailauth.yaml
+            target: /opt/elastalert/config/emailauth.yaml
+            ```
 
         - elastalert 完整範例
 
@@ -223,32 +223,32 @@ slug: "elastalert-alert"
 
     3. 設定 ElastAlert rule
 
-            ```yaml
-            name: test # rule 名稱 
-            type: frequency # rule 的類型 (細節可以參考 [Rule Types](https://elastalert.readthedocs.io/en/latest/ruletypes.        html#ruletypes))
-            index: logstash-* # 監控哪個 elasticsearch index
-            num_events: 1 # 命中查詢條件次數
-            buffer_time: # 查詢 elasticsearch 的時間區間
-            minutes: 5
-            run_every: # 查詢 elasticsearch 的頻率
-            minutes: 1
-            timeframe: # 目標時間範圍 (60 分鐘內事件發生次數；事件內容依 type 來決定)
-            minutes: 60
-            realert: # 相同警告多久才發送一次避免收到過多警告，預設一分鐘，`0` 為每次警告都發送
-            minutes: 0
-            filter: # 查詢條件 (詳細內容可以參考 [Common Filter Types](https://elastalert.readthedocs.io/en/latest/recipes/        writing_filters.html#common-filter-types))
-            - query:
-                query_string:
-                query: "message:fluentd worker"
-            alert: # 警示通知類型 (詳細內容可以參考 [Alerts](https://elastalert.readthedocs.io/en/latest/ruletypes.        html#alerts))
-            - "email"
-            email: # email 發送目標
-            - "elastalert@example.com"
-            alert_subject: "test alert via email" # email subject
-            smtp_host: smtp.mailtrap.io
-            smtp_port: 2525
-            smtp_auth_file: /opt/elastalert/config/emailauth.yaml # email 帳號密碼設定檔位置
-            ```
+        ```yaml
+        name: test # rule 名稱 
+        type: frequency # rule 的類型 (細節可以參考 [Rule Types](https://elastalert.readthedocs.io/en/latest/ruletypes.        html#ruletypes))
+        index: logstash-* # 監控哪個 elasticsearch index
+        num_events: 1 # 命中查詢條件次數
+        buffer_time: # 查詢 elasticsearch 的時間區間
+        minutes: 5
+        run_every: # 查詢 elasticsearch 的頻率
+        minutes: 1
+        timeframe: # 目標時間範圍 (60 分鐘內事件發生次數；事件內容依 type 來決定)
+        minutes: 60
+        realert: # 相同警告多久才發送一次避免收到過多警告，預設一分鐘，`0` 為每次警告都發送
+        minutes: 0
+        filter: # 查詢條件 (詳細內容可以參考 [Common Filter Types](https://elastalert.readthedocs.io/en/latest/recipes/        writing_filters.html#common-filter-types))
+        - query:
+            query_string:
+            query: "message:fluentd worker"
+        alert: # 警示通知類型 (詳細內容可以參考 [Alerts](https://elastalert.readthedocs.io/en/latest/ruletypes.        html#alerts))
+        - "email"
+        email: # email 發送目標
+        - "elastalert@example.com"
+        alert_subject: "test alert via email" # email subject
+        smtp_host: smtp.mailtrap.io
+        smtp_port: 2525
+        smtp_auth_file: /opt/elastalert/config/emailauth.yaml # email 帳號密碼設定檔位置
+        ```
 
         ![2email](https://user-images.githubusercontent.com/3851540/105938792-e3e72480-6092-11eb-801c-a619476133ea.png)
 
