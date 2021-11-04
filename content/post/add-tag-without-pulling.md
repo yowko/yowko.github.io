@@ -1,7 +1,7 @@
 ---
 title: "不 Pull Image 直接新增 Image Tag"
 date: 2020-01-08T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-03T21:30:31+08:00
 draft: false
 tags: ["Container","Docker","macOS"]
 slug: "add-tag-without-pulling"

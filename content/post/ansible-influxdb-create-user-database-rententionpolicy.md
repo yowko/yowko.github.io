@@ -145,7 +145,7 @@ slug: "ansible-influxdb-create-user-database-rententionpolicy"
         - name: Restart influxdb Service
           service:
             name: influxdb
-            state: restarte
+            state: restart
     ```
 
 ## 心得

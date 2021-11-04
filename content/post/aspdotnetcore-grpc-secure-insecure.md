@@ -1,7 +1,7 @@
 ---
 title: "ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法"
 date: 2021-03-07T09:30:00+08:00
-lastmod: 2021-03-28T09:30:31+08:00
+lastmod: 2021-11-03T09:30:31+08:00
 draft: false
 tags: ["ASP.NET Core","gRPC","macOS"]
 slug: "aspdotnetcore-grpc-secure-insecure"

@@ -1,7 +1,7 @@
 ---
 title: "C# 使用 Lua 取得 Redis 自訂複雜型別"
 date: 2019-12-09T22:30:00+08:00
-lastmod: 2020-12-11T22:30:31+08:00
+lastmod: 2021-11-03T22:30:31+08:00
 draft: false
 tags: ["csharp","Redis","Lua"]
 slug: "csharp-lua-redis-custom-type"

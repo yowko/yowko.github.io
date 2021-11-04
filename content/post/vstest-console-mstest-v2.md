@@ -306,4 +306,4 @@ VSTest.console.exe 在基本使用上並不複雜，但相關說明文件就不�
 2. [vstest-docs/docs/RunSettingsArguments.md](https://github.com/Microsoft/vstest-docs/blob/master/docs/RunSettingsArguments.md)
 3. [vstest-docs/docs/analyze.md](https://github.com/Microsoft/vstest-docs/blob/master/docs/analyze.md)
 4. [Configure unit tests by using a .runsettings file](https://msdn.microsoft.com/en-us/library/jj635153.aspx)
-5. [使用 MSTest.exe 指令來進行測試](/2017/06/mstest-exe.html)
+5. [使用 MSTest.exe 指令來進行測試](/mstest-exe)
