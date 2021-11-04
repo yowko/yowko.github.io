@@ -88,7 +88,7 @@ tasks:
     - name: Restart influxdb Service
       service:
         name: influxdb
-        state: restarte
+        state: restart
 </code></pre></li></ol><h2 id=心得>心得</h2><p>之前安裝測試時失敗了好幾次，主要是因為 InfluxDB 安裝後，服務啟動需要時間，Ansible 直接執行 http request 動作時會遇到 servive 尚未提供服務的問題，後來加上 InfluxDB 建立的 health check 確認之後就利完成本設定，最後修改 InfluxDB 的 auth 設定並重啟服務即可</p><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://blog.yowko.com/ansible-install-influxdb/>使用 Ansible 安裝 InfluxDB</a></li><li><a href=https://blog.yowko.com/ansible-when-http-status-code>Ansible 透過 Http Status Code 當做檢核條件</a></li><li><a href=https://docs.influxdata.com/influxdb/v1.7/tools/api/ target=_blank>InfluxDB API reference</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
 <span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
 <span class=item-content>2021-11-03</span></p><p class=copyright-item><span class=item-title>授權合約</span>
