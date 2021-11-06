@@ -203,7 +203,7 @@ slug: "kafka-max-message-size"
 
 3. 調整 consumer config (實測下不需要調整)
 
-    [confluent 官網](https://docs.confluent.io/platform/current/installation/configuration/broker-configs.html#brokerconfigs_message.max.bytes) consumer 版本如果小於 `0.10.2` 需要調整 consumer fetch size，但我測試 NuGet 上最舊版本 `0.9.4` 也不需要額外設定
+    [confluent 官網](https://docs.confluent.io/platform/current/installation/configuration/broker-configs.html#brokerconfigs_message.max.bytes) consumer 版本如果小於 `0.10.2` 需要調整 consumer fetch size，但我測試 NuGet 上最舊版本 `0.9.4` 也不需要額外設定，我這才意識到 [confluent 官網](https://docs.confluent.io/platform/current/installation/configuration/broker-configs.html#brokerconfigs_message.max.bytes) 提到的 `0.10.2` 是不是 kafka 的版本而不是 confluent 的版本，不過 kafka `0.10.2` 實在是滿舊的  我沒有特別測試，如果日後有遇到再紀錄，這邊就提醒一下而已囉
 
 ## 心得
 
