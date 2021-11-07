@@ -1,7 +1,7 @@
 ---
 title: "取得 Kafka 與 zookeeper 版本"
 date: 2021-11-05T00:30:00+08:00
-lastmod: 2021-11-05T00:30:31+08:00
+lastmod: 2021-11-07T00:30:31+08:00
 draft: false
 tags: ["csharp",".NET Core","kafka"]
 slug: "kafka-zookeeper-version"
@@ -41,8 +41,10 @@ slug: "kafka-zookeeper-version"
 
     - 範例
 
+        > default admin port 為 `8080`
+
         ```bash
-        curl -s http://localhost:8880/commands/envi |grep zookeeper.version
+        curl -s http://localhost:8080/commands/envi |grep zookeeper.version
         ```
 
     ![2zookeeper](https://user-images.githubusercontent.com/3851540/140494764-2e872453-f207-4b9f-b12e-a99e75fbbc8b.png)
