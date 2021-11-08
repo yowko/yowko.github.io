@@ -29,7 +29,7 @@ slug: "kafka-zookeeper-version"
         kafka-topics.sh --version
         ```
 
-    ![1kafka](https://user-images.githubusercontent.com/3851540/140494759-42dc9ff9-2bc8-4b4d-8de8-eccb170e6462.png)
+        ![1kafka](https://user-images.githubusercontent.com/3851540/140494759-42dc9ff9-2bc8-4b4d-8de8-eccb170e6462.png)
 
 2. zookeeper
 
@@ -41,13 +41,13 @@ slug: "kafka-zookeeper-version"
 
     - 範例
 
-        > default admin port 為 `8080`
+        > default admin port 為 `8080`，可以透過 zookeeper config (檔案位置：`{kafka_home}/config/zookeeper.properties`) 修改 `admin.serverPort={zookeeper_adminport}`
 
         ```bash
         curl -s http://localhost:8080/commands/envi |grep zookeeper.version
         ```
 
-    ![2zookeeper](https://user-images.githubusercontent.com/3851540/140494764-2e872453-f207-4b9f-b12e-a99e75fbbc8b.png)
+        ![2zookeeper](https://user-images.githubusercontent.com/3851540/140494764-2e872453-f207-4b9f-b12e-a99e75fbbc8b.png)
 
 ## 心得
 
