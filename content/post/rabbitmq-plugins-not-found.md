@@ -56,6 +56,8 @@ slug: "rabbitmq-plugins-not-found"
 
 1. 下載需要的 plugin 至 plugins 資料夾中
 
+    > 可以檔案可以到 [rabbitmq GitHub](https://github.com/rabbitmq/rabbitmq-message-timestamp/releases) 搜尋
+
     ```bash
     wget -P plugins https://github.com/rabbitmq/rabbitmq-message-timestamp/releases/download/v3.8.0/rabbitmq_message_timestamp-3.8.0.ez
     ```
@@ -85,5 +87,6 @@ slug: "rabbitmq-plugins-not-found"
 ## 參考資訊
 
 1. [rabbitmq/rabbitmq-message-timestamp](https://github.com/rabbitmq/rabbitmq-message-timestamp)
-2. [RabbitMQ 3.1.3 and the missing timestamp header](https://stackoverflow.com/a/33640262)
-3. [RabbitMQ 3.7.0 plugins_not_found](https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/issues/104#issuecomment-373319933)
+2. [rabbitmq GitHub](https://github.com/rabbitmq/rabbitmq-message-timestamp/releases)
+3. [RabbitMQ 3.1.3 and the missing timestamp header](https://stackoverflow.com/a/33640262)
+4. [RabbitMQ 3.7.0 plugins_not_found](https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/issues/104#issuecomment-373319933)
