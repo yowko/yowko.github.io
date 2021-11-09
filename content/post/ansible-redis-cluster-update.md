@@ -363,38 +363,38 @@ slug: "ansible-redis-cluster-update"
 
             - README.md
 
-              ```md
-              ## 全新安裝
+                ```md
+                ## 全新安裝
+  
+                    ```bash
+                    ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "purpose=install" main.yml
+                    ```
 
-                  ```bash
-                  ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "purpose=install" main.yml
-                  ```
+                ## 重新安裝
 
-              ## 重新安裝
+                    > 先 uninstall 並排除安裝基本套件
 
-                  > 先 uninstall 並排除安裝基本套件
+                    ```bash
+                    ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "purpose=reinstall" main.yml
+                    ```
 
-                  ```bash
-                  ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "purpose=reinstall" main.yml
-                  ```
+                ## 更新 config
 
-              ## 更新 config
+                    ```bash
+                    ansible-playbook -i roles/redis-replication/inventories/dev.ini main.yml
+                    ```
 
-                  ```bash
-                  ansible-playbook -i roles/redis-replication/inventories/dev.ini main.yml
-                  ```
+                ## 升級
 
-              ## 升級
+                    ```
+                    ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "purpose=upgrade" main.yml
+                    ```
+                ## restart service
 
-                  ```
-                  ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "purpose=upgrade" main.yml
-                  ```
-              ## restart service
-
-                  ```
-                  ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "purpose=restart" main.yml
-                  ```
-              ```
+                    ```
+                    ansible-playbook -i roles/redis-replication/inventories/dev.ini -e "purpose=restart" main.yml
+                    ```
+                ```
 
     - ansible.cfg
 
