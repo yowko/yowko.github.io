@@ -1,7 +1,7 @@
 ---
 title: "Ansible 安裝 Redis Cluster (更新版)"
 date: 2020-08-16T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2021-11-08T21:30:31+08:00
 draft: false
 tags: ["Ansible","Redis"]
 slug: "ansible-redis-cluster-update"
@@ -363,7 +363,7 @@ slug: "ansible-redis-cluster-update"
 
             - README.md
 
-              ```txt
+              ```md
               ## 全新安裝
 
                   ```bash
