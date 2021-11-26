@@ -1,5 +1,5 @@
 ---
-title: "使用 jq 達成覆寫 json key 相同的效果"
+title: "使用 jq 達成覆寫相同 json key 的效果"
 date: 2021-11-16T00:30:00+08:00
 lastmod: 2021-11-16T00:30:31+08:00
 draft: false
@@ -7,7 +7,7 @@ tags: ["Tools","jq"]
 slug: "jq-merge-json"
 ---
 
-## 使用 jq 達成覆寫 json key 相同的效果
+## 使用 jq 達成覆寫相同 json key 的效果
 
 過去網站開發需要的 config 都是透過 [Configuration in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-6.0&WT.mc_id=DOP-MVP-5002594#appsettingsjson) 來處理，雖然沒有用過其他工具，不過使用上沒遇到什麼問題，也就一直延用至今
 
