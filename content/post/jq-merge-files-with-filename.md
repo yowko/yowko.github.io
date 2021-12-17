@@ -1,9 +1,9 @@
 ---
 title: "使用 jq 將多個檔案內容組成一份 key/value json"
 date: 2021-12-17T00:30:00+08:00
-lastmod: 2021-17-16T00:30:31+08:00
+lastmod: 2021-12-17T00:30:31+08:00
 draft: false
-tags: ["Tools","jq"]
+tags: ["Tools","jq","Linux"]
 slug: "jq-merge-files-with-filename"
 ---
 
