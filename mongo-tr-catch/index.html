@@ -1,0 +1,140 @@
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>MongoDB cli 中的 try catch - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="MongoDB cli 中的 try catch 這是在調整團隊 MongoDB instance 時遇到的問題：某一隻 js 會在 db init 時執行 create user 的動作，完成後會繼續建立其他 collection 跟 index，但因為這個 user 是跨 db 的 user ，已"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.56.3"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/mongo-tr-catch/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="MongoDB cli 中的 try catch"><meta property=og:description content="MongoDB cli 中的 try catch 這是在調整團隊 MongoDB instance 時遇到的問題：某一隻 js 會在 db init 時執行 create user 的動作，完成後會繼續建立其他 collection 跟 index，但因為這個 user 是跨 db 的 user ，已"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/mongo-tr-catch/><meta property=article:published_time content=2022-01-16T00:30:00+08:00><meta property=article:modified_time content=2022-01-16T00:30:31+08:00><meta itemprop=name content="MongoDB cli 中的 try catch"><meta itemprop=description content="MongoDB cli 中的 try catch 這是在調整團隊 MongoDB instance 時遇到的問題：某一隻 js 會在 db init 時執行 create user 的動作，完成後會繼續建立其他 collection 跟 index，但因為這個 user 是跨 db 的 user ，已"><meta itemprop=datePublished content=2022-01-16T00:30:00&#43;08:00><meta itemprop=dateModified content=2022-01-16T00:30:31&#43;08:00><meta itemprop=wordCount content=565><meta itemprop=keywords content=docker,><meta name=twitter:card content=summary><meta name=twitter:title content="MongoDB cli 中的 try catch"><meta name=twitter:description content="MongoDB cli 中的 try catch 這是在調整團隊 MongoDB instance 時遇到的問題：某一隻 js 會在 db init 時執行 create user 的動作，完成後會繼續建立其他 collection 跟 index，但因為這個 user 是跨 db 的 user ，已"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2022-01-16</span>
+<span class=more-meta>約 565 字</span>
+<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#mongodb-cli-中的-try-catch>MongoDB cli 中的 try catch</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#錯誤訊息>錯誤訊息</a></li><li><a href=#解決方式-在-mongo-shell-中使用-try-catch>解決方式：在 mongo shell 中使用 try catch</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=mongodb-cli-中的-try-catch>MongoDB cli 中的 try catch</h2><p>這是在調整團隊 MongoDB instance 時遇到的問題：某一隻 js 會在 db init 時執行 create user 的動作，完成後會繼續建立其他 collection 跟 index，但因為這個 user 是跨 db 的 user ，已經被其他 db init 建立過了，所以打算透過 try catch 來處理：create user 失敗就改用 grant 的方式來讓 user 有權限</p><h2 id=基本環境說明>基本環境說明</h2><ol><li>macOS Monterey 12.1</li><li>docker desktop 4.3.2 (72729)</li><li><p>docker images</p><ul><li>mongo:4.4.11</li></ul></li><li><p>建立測試環境</p><ol><li><p>init/0.js</p><pre><code class=language-js>use admin;
+db.createUser(
+    {
+        user: &quot;backupuser&quot;,
+        pwd: &quot;pass.123&quot;,
+        roles: [ { role: &quot;readWrite&quot;, db: &quot;demo&quot; } ]
+    }
+);
+</code></pre></li><li><p>init/1.js</p><pre><code class=language-js>use admin;
+db.createUser(
+    {
+        user: &quot;backupuser&quot;,
+        pwd: &quot;pass.123&quot;,
+        roles: [ { role: &quot;readWrite&quot;, db: &quot;test&quot; } ]
+    }
+);
+</code></pre></li><li><p>mongo-init.sh</p><pre><code class=language-bash>#! /bin/bash
+init_mongodb(){
+        
+    for file in /tmp/mongo/*.js; do
+        echo $file
+        mongo -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD &lt; $file
+    done
+}
+        
+main(){
+    echo &quot;init_data&quot;
+    init_mongodb
+}
+        
+main &quot;$@&quot;
+</code></pre></li><li><p>docker-compose</p><pre><code class=language-yaml>version: '3.1'
+services:
+  mongo:
+    image: mongo:4.4.11
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass.123
+    volumes:
+      - ${PWD}/init:/tmp/mongo
+      - ${PWD}/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
+</code></pre></li></ol></li></ol><h2 id=錯誤訊息>錯誤訊息</h2><ol><li><p>訊息內容</p><pre><code class=language-txt>mongo_1  | uncaught exception: Error: couldn't add user: User &quot;backupuser@admin&quot; already exists :
+mongo_1  | _getErrorWithCode@src/mongo/shell/utils.js:25:13
+mongo_1  | DB.prototype.createUser@src/mongo/shell/db.js:1386:11
+mongo_1  | @(shell):1:1
+mongo_1  | bye
+</code></pre></li><li><p>錯誤截圖</p><p><img src=https://user-images.githubusercontent.com/3851540/149724467-2764c887-7780-4373-9095-aaec29e786f1.png alt=1error></p></li></ol><h2 id=解決方式-在-mongo-shell-中使用-try-catch>解決方式：在 mongo shell 中使用 try catch</h2><ol><li><p>調整啟動方式</p><ul><li><p>1-1. init/0.js</p><pre><code class=language-js>db = db.getSiblingDB(&quot;admin&quot;)
+try {
+    db.createUser(
+        {
+            user: &quot;backupuser&quot;,
+            pwd: &quot;pass.123&quot;,
+            roles: [ { role: &quot;readWrite&quot;, db: &quot;demo&quot; } ]
+        }
+    );
+}
+catch (err) {
+    print (&quot;backupuser user already created&quot;);
+    db.grantRolesToUser( &quot;backupuser&quot;, [ { role: &quot;readWrite&quot;, db: &quot;demo&quot; }] );
+}
+</code></pre></li><li><p>1-2. init/1.js</p><pre><code class=language-js>db = db.getSiblingDB(&quot;admin&quot;)
+try {
+    db.createUser(
+        {
+            user: &quot;backupuser&quot;,
+            pwd: &quot;pass.123&quot;,
+            roles: [ { role: &quot;readWrite&quot;, db: &quot;test&quot; } ]
+        }
+    );
+}
+catch (err) {
+    print (&quot;backupuser user already created&quot;);
+    db.grantRolesToUser( &quot;backupuser&quot;, [ { role: &quot;readWrite&quot;, db: &quot;test&quot; }] );
+}
+</code></pre></li><li><p>1-3. docker-compose</p><pre><code class=language-yaml>version: '3.1'
+services:
+  mongo:
+    image: mongo:4.4.11
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass.123
+    volumes:
+      - ${PWD}/init:/docker-entrypoint-initdb.d/
+</code></pre></li></ul></li><li><p>調整 js 寫法</p><ul><li><p>2-1. init/0.js</p><pre><code class=language-js>use admin;
+initFunction= {
+    start: function(){
+        try {
+            db.createUser(
+                {
+                    user: &quot;backupuser&quot;,
+                    pwd: &quot;pass.123&quot;,
+                    roles: [ { role: &quot;readWrite&quot;, db: &quot;demo&quot; } ]
+                }
+            );
+        }
+        catch (err) {
+            print(err);
+            db.grantRolesToUser( &quot;backupuser&quot;, [ { role: &quot;readWrite&quot;, db: &quot;demo&quot; }] );
+        }
+    }
+}
+        
+initFunction.start();
+</code></pre></li><li><p>2-2. init/1.js</p><pre><code class=language-js>use admin;
+initFunction= {
+    start: function(){
+        try {
+            db.createUser(
+                {
+                    user: &quot;backupuser&quot;,
+                    pwd: &quot;pass.123&quot;,
+                    roles: [ { role: &quot;readWrite&quot;, db: &quot;test&quot; } ]
+                }
+            );
+        }
+        catch (err) {
+            print(err);
+            db.grantRolesToUser( &quot;backupuser&quot;, [ { role: &quot;readWrite&quot;, db: &quot;test&quot; }] );
+        }
+    }
+}
+        
+initFunction.start();
+</code></pre></li></ul></li></ol><h2 id=心得>心得</h2><p>如果是 for docker image 的 init 使用 mongodb image 預設的 <a href="https://hub.docker.com/_/mongo?tab=description" target=_blank>MONGO_INITDB_DATABASE</a> 機制：<code>調整啟動方式</code> 會單純許多</p><p>但如果想要讓 container 與實體 mongodb instance 行為一致，就可以參考使用 <code>調整 js 寫法</code></p><ul><li><p>修改前</p><p><img src=https://user-images.githubusercontent.com/3851540/149724486-e730337c-13cd-413a-9974-7ed822ed849f.png alt=2before></p></li><li><p>修改後</p><p><img src=https://user-images.githubusercontent.com/3851540/149724489-0711ec04-a529-43c0-baa0-d4eb1a04d518.png alt=3after></p></li></ul><h2 id=參考資訊>參考資訊</h2><ol><li><a href="https://hub.docker.com/_/mongo?tab=description" target=_blank>MONGO_INITDB_DATABASE</a></li><li><a href=https://stackoverflow.com/a/56479750 target=_blank>try..catch errors in mongo shell</a></li><li><a href=https://docs.mongodb.com/manual/tutorial/write-scripts-for-the-mongo-shell/ target=_blank>Write Scripts for the mongo Shell</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2022-01-16</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/docker/>docker</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/bash-try-catch/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">Bash 中的 try/catch</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/mongo-tr-catch\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2022
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
