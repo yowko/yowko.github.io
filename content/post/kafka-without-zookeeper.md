@@ -1,7 +1,7 @@
 ---
 title: "試試不依賴 ZooKeeper 的 Kafka"
 date: 2022-01-28T00:30:00+08:00
-lastmod: 2022-01-28T00:30:31+08:00
+lastmod: 2022-02-07T00:30:31+08:00
 draft: false
 tags: ["Kafka"]
 slug: "kafka-without-zookeeper"
@@ -60,7 +60,7 @@ Kafka 的優異效能一直為大家所稱道，但建置部署與管理的難�
 4. 建立 kafka cluster id 並建立 storage
 
     ```bash
-     bin/kafka-storage.sh format -t $(bin/kafka-storage.sh random-uuid) -c config/kafka.properties
+    bin/kafka-storage.sh format -t $(bin/kafka-storage.sh random-uuid) -c config/kafka.properties
     ```
 
 5. 啟動 kafka
