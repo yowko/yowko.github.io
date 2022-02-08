@@ -1,7 +1,7 @@
 ---
 title: "使用 Docker 啟動不依賴 ZooKeeper 的 Kafka"
 date: 2022-02-07T00:30:00+08:00
-lastmod: 2022-02-07T00:30:31+08:00
+lastmod: 2022-02-08T00:30:31+08:00
 draft: false
 tags: ["Kafka","Docker"]
 slug: "docker-kafka-without-zookeeper"
@@ -127,7 +127,10 @@ slug: "docker-kafka-without-zookeeper"
 
 用 root user 啟動不是很漂亮，畢竟有資安的風險，所以主流是 rootless，不過我不想多花時間去解決 folder 權限問題，畢竟用 container 啟動 kafka 的情境應該是測試或 local 開發為主，除此之外將 container 資料 mount 到 host 上會需要在每次重新啟動前都執行清除前次資料的動作，我個人覺得不是很直覺，無法享受 container 一鍵啟動(repeatable) 的好處
 
+完整程式碼請參考 [yowko/kafka-without-zookeeper](https://github.com/yowko/kafka-without-zookeeper)
+
 ## 參考資訊
 
 1. [試試不依賴 ZooKeeper 的 Kafka](./kafka-without-zookeeper)
 2. [Three easy ways to run Kafka without Zookeeper](https://hellokube.dev/posts/three-ways-zookeepeerless-kafka/)
+3. [yowko/kafka-without-zookeeper](https://github.com/yowko/kafka-without-zookeeper)

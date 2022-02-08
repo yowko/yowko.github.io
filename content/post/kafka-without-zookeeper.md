@@ -1,7 +1,7 @@
 ---
 title: "試試不依賴 ZooKeeper 的 Kafka"
 date: 2022-01-28T00:30:00+08:00
-lastmod: 2022-02-07T00:30:31+08:00
+lastmod: 2022-02-08T00:30:31+08:00
 draft: false
 tags: ["Kafka"]
 slug: "kafka-without-zookeeper"
@@ -89,8 +89,11 @@ Kafka 的優異效能一直為大家所稱道，但建置部署與管理的難�
 
 索性先自己手動安裝，想不到手動安裝不如預期的容易，文件說明還是相當不足，但我相信在正式版推出後會慢慢變好的
 
+如果需要 docker 版本，請參考 [使用 Docker 啟動不依賴 ZooKeeper 的 Kafka](/docker-kafka-without-zookeeper)
+
 ## 參考資訊
 
 1. [KRaft (aka KIP-500) mode Early Access Release](https://github.com/apache/kafka/blob/3.1/config/kraft/README.md)
 2. [深度解读：Kafka 放弃 ZooKeeper，消息系统兴起二次革命](https://www.infoq.cn/article/phf3gfjutdhwmctg6kxe)
 3. [How to install and configure a Kafka cluster without ZooKeeper](https://sleeplessbeastie.eu/2021/10/27/how-to-install-and-configure-a-kafka-cluster-without-zookeeper/)
+4. [使用 Docker 啟動不依賴 ZooKeeper 的 Kafka](/docker-kafka-without-zookeeper)
