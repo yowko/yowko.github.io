@@ -1,17 +1,17 @@
 ---
-title: "Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image"
-date: 2022-02-15T00:30:00+08:00
+title: "Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image 更新"
+date: 2022-02-18T00:30:00+08:00
 lastmod: 2022-02-18T00:30:31+08:00
 draft: false
 tags: ["Kafka","Container"]
-slug: "container-kafka-without-zookeeper-create-topic"
+slug: "container-kafka-without-zookeeper-create-topic-update"
 ---
 
-## Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image
+## Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image 更新
 
-之前筆記 [使用 Docker 啟動不依賴 ZooKeeper 的 Kafka](/docker-kafka-without-zookeeper) 紀錄到如何使用 docker compose 啟動 kraft mode (不依賴 zookeeper) 的 kafka
+之前筆記 [Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image](/container-kafka-without-zookeeper-create-topic-update) 紀錄到如何使用 docker compose 啟動 kraft mode (不依賴 zookeeper) 的 kafka，並在 kafka 啟動時依據 environment varaible 自動建立 topic
 
-為了讓 kraft mode 的 kafka 更符合團隊的使用情境：需要在 kafka 啟動時依據 environment varaible 自動建立 topic，今天就來紀錄一下建立方式與如何使用
+後來想起不同做法，立馬紀錄一下備忘
 
 ## 基本環境說明
 
@@ -27,7 +27,7 @@ slug: "container-kafka-without-zookeeper-create-topic"
 
     - create-topic.sh
 
-        > 依 environment varaible 來建立 topic (注意新建檔案時，需要有執行權限 : `chmode +x create-topic.sh`)
+        > 依 environment varaible 來建立 topic (這個檔案與 [Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image](/container-kafka-without-zookeeper-create-topic-update) 相同)
 
         ```bash
         #!/bin/bash
@@ -85,6 +85,7 @@ slug: "container-kafka-without-zookeeper-create-topic"
 
         > - 需要以 `root` 為執行身份
         > - 將想要建立的 topic 透過 `{topic name}:{partition 數量}:{replication 數量}` 格式，並在需要多個 topic 時以 `,` 分隔指定至 environment variable `KAFKA_CREATE_TOPICS`
+        > - 這個檔案與 [Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image](/container-kafka-without-zookeeper-create-topic-update) 大致相同，只改了 image tag
 
         ```yaml
         version: '3'
@@ -95,7 +96,7 @@ slug: "container-kafka-without-zookeeper-create-topic"
               dockerfile: dockerfile
             container_name: kafka
             user: root
-            image: yowko/kafkanozk:v1
+            image: yowko/kafkanozk:v2
             environment:
               - KAFKA_CREATE_TOPICS=yowkotest:3:1,yowkodemo:3:1
             ports:
@@ -104,17 +105,21 @@ slug: "container-kafka-without-zookeeper-create-topic"
 
     - dockerfile
 
+        > 這是唯一有異動的檔案：將 `create-topic.sh` 賦予執行權限，並移除額外的啟動 shell
+
         ```dockerfile
         FROM quay.io/strimzi/kafka:latest-kafka-3.1.0-amd64
         COPY ./server.properties /opt/kafka/config/kraft/server.properties
         COPY ./create-topic.sh /opt/kafka/bin/create-topic.sh
-        COPY ./start.sh /opt/kafka/bin/start.sh
-        ENTRYPOINT ["bin/start.sh"]
+        USER root
+        RUN ["chmod", "+x", "/opt/kafka/bin/create-topic.sh"]
+        USER kafka
+        CMD bash -c  "bin/create-topic.sh & bin/kafka-storage.sh format -t $(bin/kafka-storage.sh random-uuid) -c /opt/kafka/config/kraft/server.properties && bin/kafka-server-start.sh /opt/kafka/config/kraft/server.properties"
         ```
 
     - server.properties
 
-        > 主要是 kraft mode 的設定，另外關閉自動 create topic
+        > 主要是 kraft mode 的設定，另外關閉自動 create topic (這個檔案與 [Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image](/container-kafka-without-zookeeper-create-topic-update) 相同)
 
         ```config
         process.roles=broker,controller
@@ -126,24 +131,6 @@ slug: "container-kafka-without-zookeeper-create-topic"
         listener.security.protocol.map=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
         log.dirs=kafka_data
         auto.create.topics.enable=false
-        ```
-
-    - start.sh
-
-        > 將 kafka 使用 kraft mode 啟動，並執行建立 create topic (注意新建檔案時，需要有執行權限 : `chmode +x start.sh`)
-
-        ```bash
-        #!/bin/bash
-
-        bin/kafka-storage.sh format -t $(bin/kafka-storage.sh random-uuid) -c /opt/kafka/config/kraft/server.properties && bin/kafka-server-start.sh /opt/kafka/config/kraft/server.properties &
-
-        bin/create-topic.sh
-
-        # Wait for any process to exit
-        wait -n
-        
-        # Exit with status of process that exited first
-        exit $?
         ```
 
 2. build 與 run
@@ -162,18 +149,19 @@ slug: "container-kafka-without-zookeeper-create-topic"
 
 ## 心得
 
-原本以為拔掉 zookeeper 後，自動建立 topic 會比較快，但實際使用上並沒有差異，以團隊的使用現況 (約莫 75 個 topic) 來看需要約 90 秒才能完成 topic 的建立，速度上差強人意但至少沒有比較慢，加上少了一顆 zookeeper container 的基本消耗跟設定，個人覺得還是可行的
+這個做法的概念是：
 
-完整程式碼請參考：[yowko/container-kafka-without-zookeeper-create-topic](https://github.com/yowko/container-kafka-without-zookeeper-create-topic)
+1. 不依賴用來啟動的 shell，只使用 docker 本身的 entrypoint 來完成啟動 kafak 與建立 topic 的動作
+2. 建立 topic 的 shell 先啟動並維持背景執行 (持續檢查 kafak 是否 ready)，再啟動 kafka
 
-如果不想自己 build image，也可以使用 [yowko/kafkanozk:v1](https://hub.docker.com/r/yowko/kafkanozk)
+    > 需要保持 kafka 在前景執行，避免建立 topic 在前景而造成 topic 建立完讓 docker 認定該 container 狀態為 completed
 
-2022-02-18 update: 另一種寫法可以參考 [Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image 更新](/container-kafka-without-zookeeper-create-topic-update)
+完整程式碼請參考：[yowko/container-kafka-without-zookeeper-create-topic-update](https://github.com/yowko/container-kafka-without-zookeeper-create-topic-update)
+
+如果不想自己 build image，也可以使用 [yowko/kafkanozk:v2](https://hub.docker.com/r/yowko/kafkanozk/tags)
 
 ## 參考資訊
 
-1. [使用 Docker 啟動不依賴 ZooKeeper 的 Kafka](/docker-kafka-without-zookeeper)
-2. [yowko/container-kafka-without-zookeeper-create-topic](https://github.com/yowko/container-kafka-without-zookeeper-create-topic)
-3. [docker-compose](https://docs.docker.com/compose/compose-file/compose-file-v3/)
-4. [yowko/kafkanozk:v1](https://hub.docker.com/r/yowko/kafkanozk)
-5. [Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image 更新](/container-kafka-without-zookeeper-create-topic-update)
+1. [Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image](/container-kafka-without-zookeeper-create-topic-update)
+2. [yowko/container-kafka-without-zookeeper-create-topic-update](https://github.com/yowko/container-kafka-without-zookeeper-create-topic-update)
+3. [yowko/kafkanozk:v2](https://hub.docker.com/r/yowko/kafkanozk/tags)
