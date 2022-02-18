@@ -1,7 +1,7 @@
 ---
 title: "Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image"
 date: 2022-02-15T00:30:00+08:00
-lastmod: 2022-02-15T00:30:31+08:00
+lastmod: 2022-02-18T00:30:31+08:00
 draft: false
 tags: ["Kafka","Container"]
 slug: "container-kafka-without-zookeeper-create-topic"
@@ -95,7 +95,7 @@ slug: "container-kafka-without-zookeeper-create-topic"
               dockerfile: dockerfile
             container_name: kafka
             user: root
-            image: yowko/rexbetkafka:v1
+            image: yowko/kafkanozk:v1
             environment:
               - KAFKA_CREATE_TOPICS=yowkotest:3:1,yowkodemo:3:1
             ports:
@@ -166,11 +166,11 @@ slug: "container-kafka-without-zookeeper-create-topic"
 
 完整程式碼請參考：[yowko/container-kafka-without-zookeeper-create-topic](https://github.com/yowko/container-kafka-without-zookeeper-create-topic)
 
-如果不想自己 build image，也可以使用 [yowko/rexbetkafka:v1](https://hub.docker.com/r/yowko/rexbetkafka)
+如果不想自己 build image，也可以使用 [yowko/kafkanozk:v1](https://hub.docker.com/r/yowko/kafkanozk)
 
 ## 參考資訊
 
 1. [使用 Docker 啟動不依賴 ZooKeeper 的 Kafka](/docker-kafka-without-zookeeper)
 2. [yowko/container-kafka-without-zookeeper-create-topic](https://github.com/yowko/container-kafka-without-zookeeper-create-topic)
 3. [docker-compose](https://docs.docker.com/compose/compose-file/compose-file-v3/)
-4. [yowko/rexbetkafka:v1](https://hub.docker.com/r/yowko/rexbetkafka)
+4. [yowko/kafkanozk:v1](https://hub.docker.com/r/yowko/kafkanozk)
