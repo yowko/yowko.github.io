@@ -1,13 +1,15 @@
 ---
-title: "RabbitMQ 為不同帳號設定不同 topic 權限"
+title: "RabbitMQ 為不同帳號設定不同 Queue 權限"
 date: 2021-03-14T09:30:00+08:00
-lastmod: 2021-03-14T09:30:31+08:00
+lastmod: 2022-03-11T09:30:31+08:00
 draft: false
 tags: ["RabbitMQ","ASP.NET Core"]
-slug: "rabbitmq-user-topic-authorisation"
+slug: "rabbitmq-user-queue-authorisation"
+aliases:
+    - rabbitmq-user-topic-authorisation
 ---
 
-## RabbitMQ 為不同帳號設定不同 topic 權限
+## RabbitMQ 為不同帳號設定不同 Queue 權限
 
 同事在新功能的架構設計時想要讓不同 user 在 MQ 存取時可以有權限的概念，但以團隊之前使用的 Kafka 至少就我個人所知是無法達成的，不過這個需求在 RabbitMQ 上就有幾種不同的做法，今天就來紀錄一下相關的 POC 過程與設定方式
 
@@ -23,7 +25,7 @@ slug: "rabbitmq-user-topic-authorisation"
         docker run -d --rm --hostname my-rabbit --name test-rabbit -p 5672:5672 -p 15672:15672  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=pass.123 rabbitmq:3.8.14-management
         ```
 
-4. RABBITMQ 基本設定
+4. RabbitMQ 基本設定
 
     - 建立 exchange
 
@@ -141,7 +143,7 @@ slug: "rabbitmq-user-topic-authorisation"
 
 ## 心得
 
-透過 user 的權限設定可以將不同 topic 的讀寫權限分離，但這樣的做法是基於同一個 vhost 的前提下，如果想要更完整地做隔離或是需要 multiple tenants 概念就不是那麼適合，相關的做法待之後筆記再補充了
+透過 user 的權限設定可以將不同 Queue 的讀寫權限分離，但這樣的做法是基於同一個 vhost 的前提下，如果想要更完整地做隔離或是需要 multiple tenants 概念就不是那麼適合，相關的做法待之後筆記再補充了
 
 ## 參考資訊
 
