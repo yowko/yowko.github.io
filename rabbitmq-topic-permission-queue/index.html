@@ -1,0 +1,78 @@
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>RabbitMQ 關於寫入部份 Queue 的權限設定 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="RabbitMQ 關於寫入部份 Queue 的權限設定 之前筆記 RabbitMQ 為不同帳號設定不同 Queue 權限 紀錄到讓不同 user 有不同權限，當時的情境是以讀取資料為例，最近同事想要為寫入也加上不"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.56.3"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/rabbitmq-topic-permission-queue/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="RabbitMQ 關於寫入部份 Queue 的權限設定"><meta property=og:description content="RabbitMQ 關於寫入部份 Queue 的權限設定 之前筆記 RabbitMQ 為不同帳號設定不同 Queue 權限 紀錄到讓不同 user 有不同權限，當時的情境是以讀取資料為例，最近同事想要為寫入也加上不"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/rabbitmq-topic-permission-queue/><meta property=article:published_time content=2022-03-12T00:30:00+08:00><meta property=article:modified_time content=2022-03-12T00:30:31+08:00><meta itemprop=name content="RabbitMQ 關於寫入部份 Queue 的權限設定"><meta itemprop=description content="RabbitMQ 關於寫入部份 Queue 的權限設定 之前筆記 RabbitMQ 為不同帳號設定不同 Queue 權限 紀錄到讓不同 user 有不同權限，當時的情境是以讀取資料為例，最近同事想要為寫入也加上不"><meta itemprop=datePublished content=2022-03-12T00:30:00&#43;08:00><meta itemprop=dateModified content=2022-03-12T00:30:31&#43;08:00><meta itemprop=wordCount content=673><meta itemprop=keywords content=RabbitMQ,csharp,><meta name=twitter:card content=summary><meta name=twitter:title content="RabbitMQ 關於寫入部份 Queue 的權限設定"><meta name=twitter:description content="RabbitMQ 關於寫入部份 Queue 的權限設定 之前筆記 RabbitMQ 為不同帳號設定不同 Queue 權限 紀錄到讓不同 user 有不同權限，當時的情境是以讀取資料為例，最近同事想要為寫入也加上不"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2022-03-12</span>
+<span class=more-meta>約 673 字</span>
+<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#rabbitmq-關於寫入部份-queue-的權限設定>RabbitMQ 關於寫入部份 Queue 的權限設定</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#設定與說明>設定與說明</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=rabbitmq-關於寫入部份-queue-的權限設定>RabbitMQ 關於寫入部份 Queue 的權限設定</h2><p>之前筆記 <a href=https://blog.yowko.com/rabbitmq-user-queue-authorisation/>RabbitMQ 為不同帳號設定不同 Queue 權限</a> 紀錄到讓不同 user 有不同權限，當時的情境是以讀取資料為例，最近同事想要為寫入也加上不同權限設定，依照之前的做法卻無法成功生效，我重新確認後發現之前筆記觀念不是完全正確，趁這個機會梳理一下規則，希望下次不要再打自己臉了XD</p><h2 id=基本環境說明>基本環境說明</h2><ol><li>macOS Monterey 12.2.1</li><li>docker desktop 4.2.0(70708)</li><li><p>docker images</p><ul><li>rabbitmq:3.9.13-management</li></ul></li><li><p>.NET SDK 6.0.200</p></li><li><p>NuGet packages</p><ul><li>RabbitMQ.Client 6.2.1</li></ul></li><li><p>簡化情境說明</p><ol><li>一個 exchange 在 vhost root 下：yowkoex</li><li>兩個 queue binding 在 yowkoex 中：q1 (routing_key:1)；q2 (routing_key:2)</li><li>user：yowko 只有寫 q1 與讀 q2 的權限</li></ol></li><li><p>rabbitmq 環境建立</p><ul><li><p>使用 docker 啟動 rabbitmq</p><pre><code class=language-bash>docker run -d --rm --name rabbitmq -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=pass.123 rabbitmq:3.9.13-management
+</code></pre></li><li><p>建立 user: yowko</p><pre><code class=language-bash>rabbitmqctl add_user yowko pass.123
+</code></pre></li><li><p>建立 exchange: yowkoex</p><pre><code class=language-bash>rabbitmqadmin declare exchange name=yowkoex type=topic -u admin -p pass.123
+</code></pre></li><li><p>建立 queue</p><ul><li><p>q1</p><pre><code class=language-bash>rabbitmqadmin declare queue name=q1 durable=true -u admin -p pass.123
+</code></pre></li><li><p>q2</p><pre><code class=language-bash>rabbitmqadmin declare queue name=q2 durable=true -u admin -p pass.123
+</code></pre></li></ul></li><li><p>將 exchange 與 queue 做 binding</p><ul><li><p>q1</p><pre><code class=language-bash>rabbitmqadmin declare binding source=&quot;yowkoex&quot; destination_type=&quot;queue&quot; destination=&quot;q1&quot; routing_key=&quot;1&quot; -u admin -p pass.123
+</code></pre></li><li><p>q2</p><pre><code class=language-bash>rabbitmqadmin declare binding source=&quot;yowkoex&quot; destination_type=&quot;queue&quot; destination=&quot;q2&quot; routing_key=&quot;2&quot; -u admin -p pass.123
+</code></pre></li></ul></li></ul></li><li><p>存取訊息程式碼</p><pre><code class=language-cs>static void Main(string[] args)
+    {
+        PublishMessage();
+
+        //ConsumeMessage();
+    }
+
+    private static void PublishMessage()
+    {
+        var factory = new ConnectionFactory() { Uri = new Uri(&quot;amqp://yowko:pass.123@localhost:5672/&quot;) };
+        using (var connection = factory.CreateConnection())
+        using (var channel = connection.CreateModel())
+        {
+            var message = $@&quot;Hello World! @{DateTime.Now}&quot;;
+            var body = Encoding.UTF8.GetBytes(message);
+            var props = channel.CreateBasicProperties();
+
+            channel.BasicPublish(exchange: &quot;yowkoex&quot;,
+                routingKey: &quot;1&quot;,
+                basicProperties: props,
+                body: body);
+
+            Console.WriteLine($&quot;[x] Sent {message}&quot;);
+        }
+
+        Console.WriteLine(&quot;Press [enter] to exit.&quot;);
+        Console.ReadLine();
+    }
+        
+    private static void ConsumeMessage()
+    {
+        var factory = new ConnectionFactory() { Uri = new Uri(&quot;amqp://yowko:pass.123@localhost:5672/&quot;) };
+
+        using var connection = factory.CreateConnection();
+        using var channel = connection.CreateModel();
+            
+        var consumer = new EventingBasicConsumer(channel);
+        consumer.Received += (model, ea) =&gt;
+        {
+            var body = ea.Body.ToArray();
+            var message = Encoding.UTF8.GetString(body);
+            Console.WriteLine(&quot; [x] Received {0}&quot;, message);
+        };
+            
+        channel.BasicConsume(queue: &quot;q2&quot;,
+            autoAck: true,
+            consumer: consumer);
+
+        Console.WriteLine(&quot; Press [enter] to exit.&quot;);
+        Console.ReadLine();
+    }
+</code></pre></li></ol><h2 id=設定與說明>設定與說明</h2><ol><li><p>設定 user 權限</p><p><img src=https://user-images.githubusercontent.com/3851540/158097854-1e6c8d5a-5f80-49a4-bc76-89ab1245917e.png alt=1setpermission></p><pre><code class=language-bash>rabbitmqctl set_permissions -p / yowko &quot;&quot; &quot;yowkoex&quot; &quot;q2&quot;
+</code></pre><blockquote><p>針對存取的 resource 來做設定，寫入是對 <code>exchange</code>，讀取是對 <code>queue</code></p></blockquote></li><li><p>設定 user topic 權限</p><p><img src=https://user-images.githubusercontent.com/3851540/158097861-85d576f8-b700-4e97-a453-183aca5b6a58.png alt=2settopicpwermission></p><pre><code class=language-bash>rabbitmqctl set_topic_permissions -p / yowko yowkoex &quot;1&quot; &quot;&quot;
+</code></pre><blockquote><p>針對指定 exchange 加上寫入的 routing key 限制，不過我不理解的為什麼讀取都是直接對 queue 怎麼會出現 rouiting key 限制設定</p></blockquote></li></ol><h2 id=心得>心得</h2><ol><li>嘗試發送訊息到沒有寫入權限的 q2 (routing_key 帶 <code>2</code>) 不會拋出錯誤</li><li><p>嘗試從沒有讀取權限的 q1 接收訊息會出現錯誤</p><ul><li><p>錯誤訊息</p><pre><code class=language-txt>Unhandled exception. RabbitMQ.Client.Exceptions.OperationInterruptedException: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=403, text='ACCESS_REFUSED - access to queue 'q1' in vhost '/' refused for user 'yowko'', classId=60, methodId=20
+</code></pre></li><li><p>錯誤截圖</p><p><img src=https://user-images.githubusercontent.com/3851540/158097865-c72b46ac-26b2-4754-a757-ce8eae030a8b.png alt=3error></p></li></ul></li></ol><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://blog.yowko.com/rabbitmq-user-queue-authorisation/>RabbitMQ 為不同帳號設定不同 Queue 權限</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2022-03-12</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/rabbitmq/>RabbitMQ</a>
+<a href=https://blog.yowko.com/tags/csharp/>C#</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/pulsar-manager/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">透過 container 啟動 Pulsar Manager</span></a></div><div><a class=prev href=https://blog.yowko.com/aspdotnet-core-pulsar-reader/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">在 ASP.NET Core 中從 Apache Pulsar 接收訊息 (Reader)</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/rabbitmq-topic-permission-queue\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2022
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-88810280-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
