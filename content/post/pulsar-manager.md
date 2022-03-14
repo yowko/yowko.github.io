@@ -108,3 +108,4 @@ Pulsar Manager 的 UI 有些地方 ux 不是那麼直覺
 ## 參考資訊
 
 1. [Pulsar Manager](https://pulsar.apache.org/docs/en/administration-pulsar-manager/)
+2. [apache/pulsar-manager](https://github.com/apache/pulsar-manager)
