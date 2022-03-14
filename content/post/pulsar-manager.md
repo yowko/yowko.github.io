@@ -92,7 +92,7 @@ Message Queue 在正式服務上運行時大部份不會啟用 GUI，甚至像 k
 
             ![4error](https://user-images.githubusercontent.com/3851540/158127335-ceb6f418-ae86-4cec-a1a6-188edfee2713.png)
 
-        - 若未填 schema 則畫面不會有任何動作
+        - 如果沒有提供 protocol 則畫面不會有任何動作
 
             ![5noschema](https://user-images.githubusercontent.com/3851540/158127339-9a6746e7-d565-4237-87f6-7b140d6b7dfe.png)
 
@@ -100,7 +100,7 @@ Message Queue 在正式服務上運行時大部份不會啟用 GUI，甚至像 k
 
 Pulsar Manager 的 UI 有些地方 ux 不是那麼直覺
 
-1. 像是前面提到的 Environment 設定，沒有填 schema 卻沒有反應
+1. 像是前面提到的 Environment 設定，沒有提供 protocol 卻沒有反應
 2. 後面 New Topic 如果 pulsar 無法連線也不會提示，就是畫面沒有反應而已
 3. 部份功能 tab 也許是 cache，點來點去不如預期  後來才發現是 session 過期
 4. 我沒找到直接 consume 訊息的功能
