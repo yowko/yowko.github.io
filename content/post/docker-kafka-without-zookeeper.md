@@ -1,7 +1,7 @@
 ---
 title: "使用 Docker 啟動不依賴 ZooKeeper 的 Kafka"
 date: 2022-02-07T00:30:00+08:00
-lastmod: 2022-02-08T00:30:31+08:00
+lastmod: 2022-03-14T00:30:31+08:00
 draft: false
 tags: ["Kafka","Docker"]
 slug: "docker-kafka-without-zookeeper"
@@ -26,6 +26,7 @@ slug: "docker-kafka-without-zookeeper"
     ```config
     process.roles=broker,controller
     node.id=1
+    offsets.topic.replication.factor=1
     controller.quorum.voters=1@kafka:9093
     listeners=PLAINTEXT://:9092,CONTROLLER://:9093
     advertised.listeners=PLAINTEXT://kafka:9092

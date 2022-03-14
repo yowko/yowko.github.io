@@ -1,7 +1,7 @@
 ---
 title: "試試不依賴 ZooKeeper 的 Kafka"
 date: 2022-01-28T00:30:00+08:00
-lastmod: 2022-02-08T00:30:31+08:00
+lastmod: 2022-03-14T00:30:31+08:00
 draft: false
 tags: ["Kafka"]
 slug: "kafka-without-zookeeper"
@@ -41,6 +41,7 @@ Kafka 的優異效能一直為大家所稱道，但建置部署與管理的難�
     cd kafka && cat <<EOF > config/kafka.properties
     process.roles=broker,controller
     node.id=1
+    offsets.topic.replication.factor=1
     controller.quorum.voters=1@$(hostname):9093
     listeners=PLAINTEXT://:9092,CONTROLLER://:9093
     advertised.listeners=PLAINTEXT://$(hostname):9092
