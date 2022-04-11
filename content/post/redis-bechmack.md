@@ -1,12 +1,12 @@
 ---
 title: "Redis bechmack 用法與參數說明"
 date: 2017-03-22T02:43:34+08:00
-lastmod: 2021-10-28T00:42:34+08:00
+lastmod: 2022-04-11T00:42:34+08:00
 draft: false
 tags: ["Redis"]
 slug: "redis-bechmack"
-aliases:
-    - /2017/03/redis-bechmack.html
+# aliases:
+#     - /2017/03/redis-bechmack.html
 ---
 ## Redis bechmack 用法與參數說明
 

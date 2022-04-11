@@ -1,7 +1,7 @@
 ---
 title: "Visual Studio Build fail - Exception has been thrown by the target of an invocation"
 date: 2017-10-11T22:06:00+08:00
-lastmod: 2021-08-18T22:06:51+08:00
+lastmod: 2022-04-11T22:06:51+08:00
 draft: false
 tags: ["Visual Studio","Debug"]
 slug: "visual-studio-build-fail-exception"
@@ -36,7 +36,7 @@ slug: "visual-studio-build-fail-exception"
 
     ![2iisexpress](https://user-images.githubusercontent.com/3851540/31444697-7dfe5e2c-aecf-11e7-9f93-bda4a410dc2e.png)
 
-* 解決方式：<span style="color:red">關閉 IIS Express</span>
+* 解決方式：`關閉 IIS Express`
 
     ![3exitiisexpress](https://user-images.githubusercontent.com/3851540/31444698-7e241e82-aecf-11e7-9ae0-3844942f90e4.png)
 

@@ -1,12 +1,12 @@
 ---
 title: "Visual Studio JavaScript 編輯視窗出現 ECMAScript 錯誤提示"
 date: 2017-10-28T08:47:00+08:00
-lastmod: 2021-10-14T08:47:59+08:00
+lastmod: 2022-04-11T08:47:59+08:00
 draft: false
 tags: ["套件","Visual Studio"]
 slug: "visual-studio-ecmascript-level"
-aliases:
-    - /2017/10/visual-studio-ecmascript-level.html
+# aliases:
+#     - /2017/10/visual-studio-ecmascript-level.html
 ---
 ## Visual Studio JavaScript 編輯視窗出現 ECMAScript 錯誤提示
 
