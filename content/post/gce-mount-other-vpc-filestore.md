@@ -44,7 +44,7 @@ slug: "gce-mount-other-vpc-filestore"
 
         > - 分屬於兩個 VPC：
         >   - `test-filestore-1` 在 `vpc-1`
-        >   - `test-filestore-2` 在 `vpc-2` 
+        >   - `test-filestore-2` 在 `vpc-2`
         > - 這個部份 ui 上沒有提供 gcloud shell 建議語法，就不附了
 
         ![1test-filestore-1](https://user-images.githubusercontent.com/3851540/165066073-a9b160bb-6da1-4597-8895-9378b01321f1.png)
