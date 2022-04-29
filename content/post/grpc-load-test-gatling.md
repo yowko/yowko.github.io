@@ -393,3 +393,4 @@ slug: "grpc-load-test-gatling"
 3. [GitHub:phiSgr/gatling-grpc-gradle-demo](https://github.com/phiSgr/gatling-grpc-gradle-demo)
 4. [Load testing for gRPC - the case](https://alexromanov.github.io/2021/08/23/gatling-grpc/)
 5. [GitHub:alexromanov/gatling-grpc-tests-sample](https://github.com/alexromanov/gatling-grpc-tests-sample)
+6. [GitHub:phiSgr/gatling-grpc](https://github.com/phiSgr/gatling-grpc)
