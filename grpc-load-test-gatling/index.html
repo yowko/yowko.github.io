@@ -1,0 +1,277 @@
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>使用 Gatling 來對 gRPC 做負載測試 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="使用 Gatling 來對 gRPC 做負載測試 關於 Gatling 先決條件：安裝 64bits OpenJDK LTS：8,11,17 &amp;gt; 其他 JVM 像是 JDK 12, client JVMs, 32bits systems or OpenJ9 都不支援 Gatling 3.7 開始支援 Java, Kotlin and Scala 來撰寫測試腳本 &amp;gt;"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.56.3"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/grpc-load-test-gatling/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="使用 Gatling 來對 gRPC 做負載測試"><meta property=og:description content="使用 Gatling 來對 gRPC 做負載測試 關於 Gatling 先決條件：安裝 64bits OpenJDK LTS：8,11,17 &gt; 其他 JVM 像是 JDK 12, client JVMs, 32bits systems or OpenJ9 都不支援 Gatling 3.7 開始支援 Java, Kotlin and Scala 來撰寫測試腳本 &gt;"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/grpc-load-test-gatling/><meta property=article:published_time content=2022-04-28T00:30:00+08:00><meta property=article:modified_time content=2022-04-28T00:30:31+08:00><meta itemprop=name content="使用 Gatling 來對 gRPC 做負載測試"><meta itemprop=description content="使用 Gatling 來對 gRPC 做負載測試 關於 Gatling 先決條件：安裝 64bits OpenJDK LTS：8,11,17 &gt; 其他 JVM 像是 JDK 12, client JVMs, 32bits systems or OpenJ9 都不支援 Gatling 3.7 開始支援 Java, Kotlin and Scala 來撰寫測試腳本 &gt;"><meta itemprop=datePublished content=2022-04-28T00:30:00&#43;08:00><meta itemprop=dateModified content=2022-04-28T00:30:31&#43;08:00><meta itemprop=wordCount content=1657><meta itemprop=keywords content="ASP.NET Core,csharp,gRPC,Benchmark,"><meta name=twitter:card content=summary><meta name=twitter:title content="使用 Gatling 來對 gRPC 做負載測試"><meta name=twitter:description content="使用 Gatling 來對 gRPC 做負載測試 關於 Gatling 先決條件：安裝 64bits OpenJDK LTS：8,11,17 &gt; 其他 JVM 像是 JDK 12, client JVMs, 32bits systems or OpenJ9 都不支援 Gatling 3.7 開始支援 Java, Kotlin and Scala 來撰寫測試腳本 &gt;"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2022-04-28</span>
+<span class=more-meta>約 1657 字</span>
+<span class=more-meta>預計閱讀 4 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#使用-gatling-來對-grpc-做負載測試>使用 Gatling 來對 gRPC 做負載測試</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#下載與安裝>下載與安裝</a></li><li><a href=#實際使用>實際使用</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=使用-gatling-來對-grpc-做負載測試>使用 Gatling 來對 gRPC 做負載測試</h2><p>關於 Gatling</p><ul><li>先決條件：安裝 64bits OpenJDK LTS：<code>8</code>,<code>11</code>,<code>17</code>
+&gt; 其他 JVM 像是 <code>JDK 12</code>, <code>client JVMs</code>, <code>32bits systems</code> or <code>OpenJ9</code> 都不支援</li><li>Gatling 3.7 開始支援 <code>Java</code>, <code>Kotlin</code> and <code>Scala</code> 來撰寫測試腳本
+&gt; 舊版本只能使用 <code>Scala</code></li><li>不要使用 maven central 上的 <code>M</code> 版本
+&gt; 僅供 內部 與 Gatling Enterprise 使用</li></ul><h2 id=基本環境說明>基本環境說明</h2><ol><li>macOS Monterey 12.3</li><li><p><del>openjdk 17.0.2 2022-01-18 LTS</del> openjdk 11.0.14.1 2022-02-08</p><pre><code class=language-txt>java.lang.UnsupportedOperationException: The Security Manager is deprecated and will be removed in a future release
+    at java.base/java.lang.System.setSecurityManager(System.java:416)
+    at sbt.TrapExit$.installManager(TrapExit.scala:54)
+    at sbt.StandardMain$.runManaged(Main.scala:184)
+    at sbt.xMain$.$anonfun$run$6(Main.scala:100)
+    at scala.util.DynamicVariable.withValue(DynamicVariable.scala:62)
+    at scala.Console$.withIn(Console.scala:230)
+    at sbt.internal.util.Terminal$.withIn(Terminal.scala:553)
+    at sbt.internal.util.Terminal$.$anonfun$withStreams$1(Terminal.scala:343)
+    at scala.util.DynamicVariable.withValue(DynamicVariable.scala:62)
+    at scala.Console$.withOut(Console.scala:167)
+    at sbt.internal.util.Terminal$.$anonfun$withOut$2(Terminal.scala:543)
+    at scala.util.DynamicVariable.withValue(DynamicVariable.scala:62)
+    at scala.Console$.withErr(Console.scala:196)
+    at sbt.internal.util.Terminal$.withOut(Terminal.scala:543)
+    at sbt.internal.util.Terminal$.withStreams(Terminal.scala:343)
+    at sbt.xMain$.run(Main.scala:83)
+    at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+    at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+    at sbt.internal.XMainConfiguration.run(XMainConfiguration.scala:83)
+    at sbt.xMain.run(Main.scala:46)
+    at xsbt.boot.Launch$.$anonfun$run$1(Launch.scala:149)
+    at xsbt.boot.Launch$.withContextLoader(Launch.scala:176)
+    at xsbt.boot.Launch$.run(Launch.scala:149)
+    at xsbt.boot.Launch$.$anonfun$apply$1(Launch.scala:44)
+    at xsbt.boot.Launch$.launch(Launch.scala:159)
+    at xsbt.boot.Launch$.apply(Launch.scala:44)
+    at xsbt.boot.Launch$.apply(Launch.scala:21)
+    at xsbt.boot.Boot$.runImpl(Boot.scala:78)
+    at xsbt.boot.Boot$.run(Boot.scala:73)
+    at xsbt.boot.Boot$.main(Boot.scala:21)
+    at xsbt.boot.Boot.main(Boot.scala)
+[error] [launcher] error during sbt launcher: java.lang.UnsupportedOperationException: The Security Manager is deprecated and will be removed in a future release
+</code></pre></li><li><p>Sbt 1.6.2</p><blockquote><p>實際上還會看專案設定</p></blockquote></li><li><p>Scala 2.12.15</p></li><li><p>Gatling 3.7.6</p></li><li><p>gatling-sbt</p></li><li><p>ASP.NET Core gRPC server default project template</p><ul><li><p>greet.proto</p><pre><code class=language-proto>syntax = &quot;proto3&quot;;
+option csharp_namespace = &quot;grpc6&quot;;
+        
+package greet;
+        
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+        
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+        
+// The response message containing the greetings.
+message HelloReply {
+  string message = 1;
+}
+        
+</code></pre></li></ul></li><li><p>streaming 部份參考之前筆記 <a href=https://blog.yowko.com/csharp-grpc-stream/>C# 搭配 gRPC 中使用 stream RPC</a></p><ul><li><p>greet.proto</p><pre><code class=language-proto>service CandidateService {
+  rpc DownloadCv (DownloadByName) returns (stream Candidate);
+  rpc CreateCv (stream Candidate) returns (CreateCvResponse);
+  rpc CreateDownloadCv (stream Candidate) returns (stream Candidates);
+}
+        
+message Candidates {
+    repeated Candidate Candidates = 2;
+}
+message Candidate {
+    string Name = 1;
+    repeated Job Jobs = 2;
+}
+message Job {
+    string Title = 1;
+    int32 Salary = 2;
+    string JobDescription = 3;
+}
+message DownloadByName {
+    string Name = 1;
+}
+message CreateCvResponse {
+    bool IsSuccess = 1;
+}
+</code></pre></li><li><p>CandidateService</p><pre><code class=language-cs>public class CandidateService:grpc6.CandidateService.CandidateServiceBase
+{
+    public override async Task&lt;CreateCvResponse&gt; CreateCv(IAsyncStreamReader&lt;Candidate&gt; requestStream, ServerCallContext context)
+    {
+        var result = new CreateCvResponse
+        {
+            IsSuccess = false
+        };
+        // stream 讀取
+        while (await requestStream.MoveNext())
+        {
+            var candidate = requestStream.Current;
+            // 實際處理
+            Console.WriteLine(candidate.Name);
+        }
+        return result;
+    }
+        
+        
+    public override async Task DownloadCv(DownloadByName request, IServerStreamWriter&lt;Candidate&gt; responseStream, ServerCallContext context)
+    {
+        var fakeJobs = new Faker&lt;Job&gt;()
+            .RuleFor(a =&gt; a.Title, (f, u) =&gt; f.Company.Bs())
+            .RuleFor(a =&gt; a.Salary, (f, u) =&gt; f.Commerce.Random.Int(1000, 2000))
+            .RuleFor(a =&gt; a.JobDescription, (f, u) =&gt; f.Lorem.Text());
+        var createRequests = new Faker&lt;Candidate&gt;()
+            .RuleFor(a =&gt; a.Name, (f, u) =&gt; f.Name.FullName())
+            .RuleFor(a =&gt; a.Jobs, (f, u) =&gt;
+            {
+                u.Jobs.AddRange(fakeJobs.GenerateBetween(3, 5));
+                return u.Jobs;
+            }).Generate();
+        // 將每筆資料逐一透過 WriteAsync 輸出
+        await responseStream.WriteAsync(createRequests);
+    }
+        
+    public override async Task CreateDownloadCv(IAsyncStreamReader&lt;Candidate&gt; requestStream, IServerStreamWriter&lt;Candidates&gt; responseStream, ServerCallContext context)
+    {
+        var candidates = new Candidates();
+        // 將收到的資料逐一取出
+        while (await requestStream.MoveNext())
+        {
+            var candidate = requestStream.Current;
+            candidates.Candidates_.Add(candidate);
+            // 將處理後的資料回傳
+            await responseStream.WriteAsync(candidates);
+        }
+    }
+}
+</code></pre></li></ul></li></ol><h2 id=下載與安裝>下載與安裝</h2><ol><li><p>安裝 64bits OpenJDK LTS：<code>8</code> or <code>11</code> or <code>17</code></p><blockquote><ul><li>其他 JVM 像是 <code>JDK 12</code>, <code>client JVMs</code>, <code>32bits systems</code> or <code>OpenJ9</code> 都不支援</li><li>我在使用 <code>OpenJDK 17</code> 參考幾個網路上的範例都會出現 <code>error during sbt launcher: java.lang.UnsupportedOperationException: The Security Manager is deprecated and will be removed in a future release</code> 我個人是沒有能力解決，所以我選擇退到 <code>OpenJDK 11</code></li></ul></blockquote></li><li><p>安裝 sbt</p><pre><code class=language-bash>brew install sbt
+</code></pre></li><li><p>專案設定</p><blockquote><p>這個部份我卡很久，嘗試一陣子搞不定後就 fork 其他專案來修改</p></blockquote><p>我參考的是 Gatling-gRPC 的作者所建立的 example project <a href=https://github.com/phiSgr/gatling-grpc-gradle-demo target=_blank>GitHub:phiSgr/gatling-grpc-gradle-demo</a>，他作者有寫篇文章在 <a href=https://medium.com/@georgeleung_7777/a-demo-of-gatling-grpc-bc92158ca808 target=_blank>A Demo of Gatling-gRPC</a>，另外部份內容參考 <a href=https://alexromanov.github.io/2021/08/23/gatling-grpc/ target=_blank>Load testing for gRPC - the case</a>，專案範本在 <a href=https://github.com/alexromanov/gatling-grpc-tests-sample target=_blank>GitHub:alexromanov/gatling-grpc-tests-sample</a></p></li><li><p>調整 <code>.proto</code></p><blockquote><p>proto 檔案位置在 <code>src/main/protobuf</code></p></blockquote><p>需要加上下面這行，原來是 scala 會這個設定來做為 import service 與參數型態的 package 名稱</p><pre><code class=language-proto>option java_package = &quot;demo.yowko.helloworld.grpc&quot;;
+</code></pre></li></ol><h2 id=實際使用>實際使用</h2><blockquote><p>需要留意 import 的 proto service 與參數定義格式：<code>[java_package].[proto_file_name].[{需要的內容} or _]</code></p></blockquote><ol><li><p>Unary call</p><pre><code class=language-scala>package load
+
+import com.github.phisgr.gatling.grpc.Predef._
+import io.gatling.core.Predef._
+import demo.yowko.helloworld.grpc.greet.{GreeterGrpc,HelloRequest}
+import io.grpc.Status
+import scala.concurrent.duration._
+
+class UnarySimulation extends Simulation {
+
+  val HOST: String = &quot;127.0.0.1&quot;
+  val PORT = 5143
+  val grpcConf = grpc(managedChannelBuilder(name = HOST, port = PORT).usePlaintext())
+      
+  val request = grpc(&quot;request_1&quot;)
+    .rpc(GreeterGrpc.METHOD_SAY_HELLO)
+    .payload(HelloRequest(&quot;Gatling Load Test&quot;))
+    .extract(_.message.some)(_ saveAs &quot;message&quot;)
+    .check(statusCode is Status.Code.OK)
+
+  val scn = scenario(&quot;Scenario Name&quot;)
+    .exec(request)
+    .pause(7.seconds)
+    .exec(request)
+
+  setUp(scn.inject(rampUsersPerSec(1) to (2) during (20 seconds)).protocols(grpcConf.shareChannel))
+}
+</code></pre></li><li><p>client streaming</p><blockquote><p>這個我覺得有缺陷，執行測試完成後不會停止專案，而是等待，造成卡住後面的測試，我不知道怎麼解決</p></blockquote><pre><code class=language-scala>package load
+    
+import com.github.phisgr.gatling.grpc.Predef._
+import io.gatling.core.Predef._
+import demo.yowko.helloworld.grpc.greet._ //{GreeterGrpc,Candidate}
+import io.grpc.{CallOptions, Status}
+import scala.concurrent.duration._
+
+class ClientStreamingSimulation extends Simulation {
+
+  val HOST: String = &quot;127.0.0.1&quot;
+  val PORT = 5143
+  val grpcConf = grpc(managedChannelBuilder(name = HOST, port = PORT).usePlaintext())
+    
+  val clientStream = grpc(&quot;client&quot;).clientStream(&quot;client&quot;)
+
+  var z = new Array[Job](2)
+  z(0) = new Job(&quot;it&quot;,1,&quot;test&quot;)
+  z(1)= new Job(&quot;hr&quot;,2,&quot;test hr&quot;)
+    
+  var candidate = new Candidate(&quot;yowko&quot;,z)
+  val speaker = scenario(&quot;Client streaming&quot;)
+    .exec(
+      clientStream.connect(CandidateServiceGrpc.METHOD_CREATE_CV)
+      .check(statusCode is Status.Code.OK)
+    )
+    .exec(clientStream.send(candidate))
+    .exec(clientStream.copy(requestName = &quot;Wrong Type&quot;).send(&quot;wrong type&quot;))
+    .exec(clientStream.completeAndWait)
+    .exec(
+      clientStream.connect(CandidateServiceGrpc.METHOD_CREATE_CV)
+        .callOptions(CallOptions.DEFAULT.withDeadlineAfter(500, MILLISECONDS))
+        .check(statusCode is Status.Code.CANCELLED)
+    )
+
+  setUp(speaker.inject(rampUsersPerSec(1) to (2) during (20 seconds)))
+    .protocols(grpcConf)
+}
+</code></pre></li><li><p>server streaming</p><pre><code class=language-scala>package load
+    
+import com.github.phisgr.gatling.generic.SessionCombiner
+import com.github.phisgr.gatling.grpc.Predef._
+import demo.yowko.helloworld.grpc.greet.{CandidateServiceGrpc,DownloadByName}
+import io.gatling.core.Predef.{stringToExpression =&gt; _, _}
+import io.grpc.Status
+import scala.concurrent.duration.DurationInt
+import scala.language.postfixOps
+    
+class ServerStreamingSimulation extends Simulation {
+    
+val HOST: String = &quot;127.0.0.1&quot;
+  val PORT = 5143
+  val grpcConf = grpc(managedChannelBuilder(name = HOST, port = PORT).usePlaintext())
+  val serverCall = grpc(&quot;Replying&quot;).serverStream(&quot;replier&quot;)
+    
+  val scn = scenario(&quot;Server Streaming Flow&quot;)
+    .exec(serverCall.start(CandidateServiceGrpc.METHOD_DOWNLOAD_CV)
+    (DownloadByName(&quot;yowkotest&quot;))
+      .extract(_.name.some)(_ saveAs &quot;ServerReply&quot;)
+      .sessionCombiner(SessionCombiner.pick(&quot;ServerReply&quot;))
+      .endCheck(statusCode is Status.Code.OK)
+    )
+    
+  setUp(scn.inject(rampUsersPerSec(1) to (2) during (20 seconds)).protocols(grpcConf.shareChannel))
+}
+</code></pre></li><li><p>bi-directional streaming</p><pre><code class=language-scala>package load
+
+import com.github.phisgr.gatling.grpc.Predef._
+import demo.yowko.helloworld.grpc.greet._
+import io.gatling.core.Predef.{stringToExpression =&gt; _, _}
+import io.grpc.Status
+import scala.concurrent.duration.DurationInt
+import scala.language.postfixOps
+
+class BiDiStreamingSimulation extends Simulation {
+
+  val HOST: String = &quot;127.0.0.1&quot;
+  val PORT = 5143
+  val grpcConf = grpc(managedChannelBuilder(name = HOST, port = PORT).usePlaintext())
+    
+  var z = new Array[Job](2)
+  z(0) = new Job(&quot;it&quot;,1,&quot;test&quot;)
+  z(1)= new Job(&quot;hr&quot;,2,&quot;test hr&quot;)
+
+  var candidate = new Candidate(&quot;yowko&quot;,z)
+
+
+  val bidiCall = grpc(&quot;BiDi call&quot;).bidiStream(&quot;bidi&quot;)
+
+  val scn = scenario(&quot;BiDi streaming&quot;)
+    .exec(bidiCall.connect(CandidateServiceGrpc.METHOD_CREATE_DOWNLOAD_CV)
+    .endCheck(statusCode is Status.Code.OK))
+    .exec(bidiCall.send(candidate))
+    .exec(bidiCall.complete)
+
+  setUp(scn.inject(rampUsersPerSec(1) to (2) during (20 seconds)).protocols(grpcConf.shareChannel))
+}
+</code></pre></li><li><p>執行測試</p><blockquote><p>第一次執行或許需要先執行一次 <code>sbt compile</code> (我不確定)</p></blockquote><pre><code class=language-bash>sbt gatling-it:test
+</code></pre></li></ol><h2 id=心得>心得</h2><ol><li>scala 開發經驗不足</li></ol><blockquote><p>因為沒有使用 scala 開發，更沒有 sbt 設定經驗，所以在套件安裝、 project 規劃、測試腳本的語法 甚至連參考資源的 import 都一直卡關</p></blockquote><ol><li><p>套件相依很侷限</p><blockquote><p>原本想要用新版套件 (e.g. OpebJDK、sbt&hellip;)，但一改版本就會出現各式各樣的錯誤而無法執行，所以就依照 example project <a href=https://github.com/phiSgr/gatling-grpc-gradle-demo target=_blank>GitHub:phiSgr/gatling-grpc-gradle-demo</a> 內容來調整成自己的 service</p></blockquote></li><li><p>IDE 熟悉度不差</p><blockquote><p>不確定是不是因為我沒有 scala 或是 sbt 的經驗，造成我在使用 Visual Studio Code 或是 IntelliJ 時都無法提供有用的 debug 訊息，當然也沒有方法與參數的提示</p></blockquote></li><li><p>文件對新手不友善</p><blockquote><p>文件寫得很簡略，也許對 scala 開發人員已經足夠，但對新手來說是無法照著文件完成設定的</p></blockquote></li></ol><p>結論是以我一個非 scala 開發者的角色是不會再考慮使用 Gatling 來對 gRPC service 做負載測試，不僅要花太多時間來設定與撰寫測試腳本，還不確定測試的結果是否符合預期，如果是 scala 開發者也許會順手許多 像是 <a href=https://alexromanov.github.io/2021/08/23/gatling-grpc/ target=_blank>Load testing for gRPC - the case</a></p><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://gatling.io/ target=_blank>Gatling</a></li><li><a href=https://medium.com/@georgeleung_7777/a-demo-of-gatling-grpc-bc92158ca808 target=_blank>A Demo of Gatling-gRPC</a></li><li><a href=https://github.com/phiSgr/gatling-grpc-gradle-demo target=_blank>GitHub:phiSgr/gatling-grpc-gradle-demo</a></li><li><a href=https://alexromanov.github.io/2021/08/23/gatling-grpc/ target=_blank>Load testing for gRPC - the case</a></li><li><a href=https://github.com/alexromanov/gatling-grpc-tests-sample target=_blank>GitHub:alexromanov/gatling-grpc-tests-sample</a></li><li><a href=https://github.com/phiSgr/gatling-grpc target=_blank>GitHub:phiSgr/gatling-grpc</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2022-04-28</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/asp.net-core/>ASP.NET Core</a>
+<a href=https://blog.yowko.com/tags/csharp/>C#</a>
+<a href=https://blog.yowko.com/tags/grpc/>gRPC</a>
+<a href=https://blog.yowko.com/tags/benchmark/>Benchmark</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/grpc-load-test/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">關於 gRPC 的 Load Test</span></a></div><div><a class=prev href=https://blog.yowko.com/gce-mount-other-vpc-filestore/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">GCE 透過 Cloud VPN mount 不同 VPC networks 中的 Filestore</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/grpc-load-test-gatling\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2022
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-7PF6W2W48Y"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-7PF6W2W48Y');</script></body></html>
