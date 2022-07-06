@@ -1,7 +1,7 @@
 ---
 title: "透過 ProGet 取得官方 NuGet 套件"
 date: 2018-01-13T23:57:00+08:00
-lastmod: 2022-04-11T23:57:31+08:00
+lastmod: 2022-07-06T23:57:31+08:00
 draft: false
 tags: ["套件","NuGet","Tools"]
 slug: "proget-nuget-connector"

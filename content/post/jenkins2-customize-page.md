@@ -1,13 +1,13 @@
 ---
 title: "Jenkins 如何自訂首頁 header"
 date: 2017-04-18T23:30:00+08:00
-lastmod: 2021-11-02T23:30:24+08:00
+lastmod: 2022-07-06T23:30:24+08:00
 draft: false
 tags: ["Jenkins"]
 slug: "jenkins2-customize-page"
-aliases:
-    - /2017/04/jenkis2-customize-page.html
-    - /jenkis2-customize-page
+# aliases:
+#     - /2017/04/jenkis2-customize-page.html
+#     - /jenkis2-customize-page
 ---
 ## Jenkins 如何自訂首頁 header
 
@@ -31,12 +31,12 @@ aliases:
 
 * System Message
 
-  * `<javascript>`、`<style>`、`<link>` 都無法使用，僅能使用 inline style
-  * 實際效果當然就得靠個人美感XD 但又少了 Bootstrap 的支援@@"
+    * `<javascript>`、`<style>`、`<link>` 都無法使用，僅能使用 inline style
+    * 實際效果當然就得靠個人美感XD 但又少了 Bootstrap 的支援@@"
 
         ![4sysmsg](https://cloud.githubusercontent.com/assets/3851540/25125160/6a70fe72-2460-11e7-88d5-601606c97996.png)
 
-  * 可以 preview
+    * 可以 preview
 
         ![5preview](https://cloud.githubusercontent.com/assets/3851540/25125161/6a75c970-2460-11e7-9446-30160d3f9702.png)
 

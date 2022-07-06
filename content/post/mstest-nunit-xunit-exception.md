@@ -1,12 +1,12 @@
 ---
 title: "使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)"
 date: 2017-05-27T01:00:00+08:00
-lastmod: 2021-11-02T00:35:20+08:00
+lastmod: 2022-07-06T00:35:20+08:00
 draft: false
-tags: ["NUnit","Unit Test","MSTest","xUnit"]
+tags: ["NUnit","UnitTest","MSTest","xUnit"]
 slug: "mstest-nunit-xunit-exception"
-aliases:
-    - /2017/05/mstestnunit-3xunitnet.html
+# aliases:
+#     - /2017/05/mstestnunit-3xunitnet.html
 ---
 ## 使用 MSTest、Nunit 3、xUnit.net 2.0、NSubstitute、FluentAssertions 驗證例外(exception)
 
@@ -73,7 +73,7 @@ aliases:
 
 ## MSTest 驗證 exception
 
-* 方法一：在測試方法加上 `[ExpectedException(typeof({exception 型別}))]`
+1. 方法一：在測試方法加上 `[ExpectedException(typeof({exception 型別}))]`
 
     ```cs
     [TestMethod]
@@ -88,20 +88,19 @@ aliases:
     }
     ```
 
-  * 缺點是如果在執行目標方法前就遇到相同的錯誤時。測試會 pass
+    * 缺點是如果在執行目標方法前就遇到相同的錯誤時。測試會 pass
+2. 方法二：安裝 `MSTestExtensions`
 
-* 方法二：安裝 `MSTestExtensions`
-
-    1. `Install-Package MSTestExtensions`
-    2. `using MSTestExtensions`
-    3. 測試 class 繼承 `BaseTest`
+    * 1. `Install-Package MSTestExtensions`
+    * 2. `using MSTestExtensions`
+    * 3. 測試 class 繼承 `BaseTest`
 
         ```cs
         [TestClass()]
         public class ValuesControllerMSTests:BaseTest
         ```
 
-    4. 使用 `Assert.Throws<T>()` 驗證
+    * 4. 使用 `Assert.Throws<T>()` 驗證
 
         ```cs
         [TestMethod]

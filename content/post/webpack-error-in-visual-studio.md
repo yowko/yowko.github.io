@@ -1,12 +1,12 @@
 ---
 title: "WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常"
 date: 2017-11-14T23:21:00+08:00
-lastmod: 2021-05-11T23:21:36+08:00
+lastmod: 2022-07-06T23:21:36+08:00
 draft: false
-tags: ["Frontend","Tools","Visual Studio"]
+tags: ["Frontend","Tools","VisualStudio"]
 slug: "webpack-error-in-visual-studio"
-aliases:
-    - /2017/11/webpack-error-in-visual-studio.html
+# aliases:
+#     - /2017/11/webpack-error-in-visual-studio.html
 ---
 ## WebPack 在 Visual Studio 無法正確編譯，在 Command Prompt 卻正常
 
@@ -18,7 +18,7 @@ aliases:
 
 1. 訊息內容
 
-    ```cmd
+    ```txt
     C:\Users\YowkoTsai\Documents\Visual Studio 2017\Projects\TestWebpack\TestWebpack> cmd /c SET NODE_ENV=development&& webpack --color --display-error-details
     Hash: d15ba0238639a7c76803
     Version: webpack 3.8.1
