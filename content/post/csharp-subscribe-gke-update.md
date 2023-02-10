@@ -9,7 +9,7 @@ slug: "csharp-subscribe-gke-update"
 
 ## 使用 C# 訂閱 GKE 更新通知
 
-目前團隊的產品在 production 有不少各式各樣的監控：有針對網站的 health check、有針對 log 異常情境的、有針對 kubernetes 上 application 運行狀態的.....所以每次 GKE 有排定的更新都會觸發大量的監控警報，雖然可能不一定會影響產品運作，但收到大量通知還是心驚膽顫，除此之外也需要人工介入檢查產品狀態，也就興起了接收 GKE 更新通知的想法，希望讓團隊有個心理準備，避免收到大量警示時會手忙腳亂
+目前團隊的產品在 production 有不少各式各樣的監控：有針對網站的 health check、有針對 log 異常情境的、有針對 kubernetes 上 application 運行狀態的.....所以每次 GKE 有排定的更新都會觸發大量的監控警報，雖然可能不一定會影響產品運作，但收到大量通知還是不免心驚膽顫，除此之外也需要人工介入檢查產品狀態，也就興起了接收 GKE 更新通知的想法，希望讓團隊至少有個心理準備，避免收到大量警示時會手忙腳亂
 
 Google Cloud 上的相關文件很豐富，但相對比較零散，趁著這個機會，簡單紀錄整理一下，方便日後查閱
 
@@ -72,55 +72,49 @@ Google Cloud 上的相關文件很豐富，但相對比較零散，趁著這個�
 
     namespace GCPPubSub;
     
-    public class TimedHostedService : IHostedService, IDisposable
+    public class TimedHostedService : BackgroundService
     {
-        private int executionCount = 0;
         private readonly ILogger<TimedHostedService> _logger;
-        private Timer? _timer = null;
-    
+        
         public TimedHostedService(ILogger<TimedHostedService> logger)
         {
             _logger = logger;
         }
     
-        public Task StartAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation("Timed Hosted Service running.");
-            _timer = new Timer(PullMessages, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
-            return Task.CompletedTask;
+            _logger.LogInformation("GcpPubSubHostedService is startting.");
+            await PullMessages(stoppingToken);
         }
+
     
-        private void PullMessages(object? _object)
+        private Task PullMessages(CancellationToken stoppingToken)
         {
             var projectId = "clean-skill-374402";
             var subscriptionId = "gkeupdate";
             var acknowledge = true;
     
-            var subscriptionName = SubscriptionName.FromProjectSubscription(projectId,     subscriptionId);
+            var subscriptionName = SubscriptionName.FromProjectSubscription(projectId, subscriptionId);
             var subscriber = SubscriberClient.Create(subscriptionName);
     
-            subscriber.StartAsync((PubsubMessage message, CancellationToken cancel) =>
+            return subscriber.StartAsync((PubsubMessage message, CancellationToken cancel) =>
             {
                 var result = System.Text.Encoding.UTF8.GetString(message.Data.ToArray());
+    
+                // 這邊可以呼叫其他服務
                 Console.WriteLine(
-                    $"[{DateTimeOffset.Now}]{result}@{message.PublishTime.ToDateTimeOffset()} from     {message.Attributes["cluster_name"]}");
-                return Task.FromResult(acknowledge ? SubscriberClient.Reply.Ack : SubscriberClient.    Reply.Nack);
-            }).GetAwaiter().GetResult();
-            
+                    $"[{DateTimeOffset.Now}]{result}@{message.PublishTime.ToDateTimeOffset()} from {message.Attributes["cluster_name"]}");
+                
+                // 下面是用來處理呼叫其他服務後的結果，再決定是否要 ack 刪除通知
+                return Task.FromResult(acknowledge ? SubscriberClient.Reply.Ack :SubscriberClient.Reply.Nack);
+            });
         }
         
-        public Task StopAsync(CancellationToken stoppingToken)
+        public override async Task StopAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation("Timed Hosted Service is stopping.");
-    
-            _timer?.Change(Timeout.Infinite, 0);
-    
-            return Task.CompletedTask;
-        }
-    
-        public void Dispose()
-        {
-            _timer?.Dispose();
+            _logger.LogInformation("Consume Scoped Service Hosted Service is stopping.");
+
+            await base.StopAsync(stoppingToken);
         }
     }
     ```
@@ -137,6 +131,8 @@ Google Cloud 上的相關文件很豐富，但相對比較零散，趁著這個�
 
 1. 更新 node pool
 
+    > 更新 `gke-test-pubsub` cluster 中的 `default-pool` node pool 至 `1.21.14-gke.5300` (原為 `1.21.14-gke.4300`)
+
     ```bash
     gcloud container clusters upgrade gke-test-pubsub --region=asia-east1-a --node-pool=default-pool --cluster-version 1.21.14-gke.5300
     ```
@@ -144,6 +140,8 @@ Google Cloud 上的相關文件很豐富，但相對比較零散，趁著這個�
     ![1nodepool](https://user-images.githubusercontent.com/3851540/215448136-7ade2c4c-eed2-48eb-9f73-b4418f909781.png)
 
 2. 更新 control plane
+
+    > 更新 `gke-test-pubsub` cluster 中的 control plane 至 `1.22.15-gke.1000` (原為 `1.21.14-gke.4300`)
 
     ```bash
     gcloud container clusters upgrade gke-test-pubsub --master --region=asia-east1-a --cluster-version 1.22.15-gke.1000
@@ -153,9 +151,11 @@ Google Cloud 上的相關文件很豐富，但相對比較零散，趁著這個�
 
 ## 心得
 
-加上 poc 與正式環境設定，相同流程我做了 3-4 次，今天紀錄時還是滿卡的，還好有下定決心紀錄，不然之後一定忘記怎麼做
+一開始有這個想法在嘗試時，就遇到筆記開頭提到的文件太多、太零散的問題，整理完後自己看起來是清楚滿多的
 
-完整程式碼：[yowko/GCPPubSub](https://github.com/yowko/GCPPubSub)
+之前的 poc 加上正式環境，相同設定流程我做了 3-4 次，今天紀錄時還是滿卡的，還好有下定決心紀錄，不然之後一定忘記怎麼做
+
+完整程式碼可以參考：[yowko/GCPPubSub](https://github.com/yowko/GCPPubSub)
 
 ## 參考資訊
 
