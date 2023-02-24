@@ -1,7 +1,7 @@
 ---
 title: "在 CentOS 上安裝 Apache Kafka cluster"
 date: 2019-11-10T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2023-02-23T21:30:31+08:00
 draft: false
 tags: ["CentOS","Kafka"]
 slug: "kafka-cluster-centos"
@@ -27,11 +27,16 @@ slug: "kafka-cluster-centos"
 yum install java-11-openjdk-devel
 ```
 
-## 為執行 Kafka 建立專屬使用帳號
+## 為執行 Kafka 建立專屬群組與帳號
 
 建立 user 來執行 Kafka
 
-1. 建立 `kafka` 使用者
+```bash
+groupadd --system kafka
+useradd -s /sbin/nologin --system -g kafka kafka
+```
+
+<!-- 1. 建立 `kafka` 使用者
 
     > `-m` 會連帶建立 `home` 目錄： `/home/kafka`
 
