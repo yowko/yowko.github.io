@@ -4,7 +4,7 @@ date: 2018-12-22T23:45:00+08:00
 lastmod: 2021-11-03T23:44:30+08:00
 draft: false
 tags: ["dotnet","IIS"]
-slug: "appdomain-apppoll-difference"
+slug: "appdomain-apppool-difference"
 ---
 ## Application Domain 與 Application Pool 的差異
 
