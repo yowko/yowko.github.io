@@ -1,0 +1,86 @@
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>同時訂閱多個 Kafka topic - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="同時訂閱多個 Kafka topic 隨著產品的發展，團隊所建立的 application 也逐漸變多，不同 application 的溝通也變得複雜，為了避免直接相依，一部份的功能是透 kafka 來交換資料，但如果不加"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.56.3"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/subscribe-multiple-kafka-topics/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="同時訂閱多個 Kafka topic"><meta property=og:description content="同時訂閱多個 Kafka topic 隨著產品的發展，團隊所建立的 application 也逐漸變多，不同 application 的溝通也變得複雜，為了避免直接相依，一部份的功能是透 kafka 來交換資料，但如果不加"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/subscribe-multiple-kafka-topics/><meta property=article:published_time content=2023-01-18T00:30:00+08:00><meta property=article:modified_time content=2023-01-18T00:30:31+08:00><meta itemprop=name content="同時訂閱多個 Kafka topic"><meta itemprop=description content="同時訂閱多個 Kafka topic 隨著產品的發展，團隊所建立的 application 也逐漸變多，不同 application 的溝通也變得複雜，為了避免直接相依，一部份的功能是透 kafka 來交換資料，但如果不加"><meta itemprop=datePublished content=2023-01-18T00:30:00&#43;08:00><meta itemprop=dateModified content=2023-01-18T00:30:31&#43;08:00><meta itemprop=wordCount content=848><meta itemprop=keywords content=kafka,csharp,><meta name=twitter:card content=summary><meta name=twitter:title content="同時訂閱多個 Kafka topic"><meta name=twitter:description content="同時訂閱多個 Kafka topic 隨著產品的發展，團隊所建立的 application 也逐漸變多，不同 application 的溝通也變得複雜，為了避免直接相依，一部份的功能是透 kafka 來交換資料，但如果不加"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2023-01-18</span>
+<span class=more-meta>約 848 字</span>
+<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#同時訂閱多個-kafka-topic>同時訂閱多個 Kafka topic</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#設定方式>設定方式</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=同時訂閱多個-kafka-topic>同時訂閱多個 Kafka topic</h2><p>隨著產品的發展，團隊所建立的 application 也逐漸變多，不同 application 的溝通也變得複雜，為了避免直接相依，一部份的功能是透 kafka 來交換資料，但如果不加以管理，可以想見 kafka topic 的數量與 message 的大小、發送頻率很快就會失控，所以團隊就想要針對 kafka 的 topic 命名加上一些規範：</p><ol><li>[原生限制] 長度不得超過 <code>255</code> 字元</li><li>[原生限制] 只允許 <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, <code>. (dot)</code>, <code>_ (underscore)</code> 與 <code>- (dash)</code></li><li>[團隊建議] 命名格式為：<code>{發送端 application name}-{用途}</code> ex：<code>auth-log</code></li></ol><p>前兩項因為是 kafka 原生的限制，沒什麼討論空間，但第三點的團隊建議就有不同聲音了。希望以 <code>發送端 application name</code> 而不是接收端 application name 的原因是希望可以迅速定位到資料源頭也避免 topic 遭到誤用；以上面 <code>auth-log</code> 為例，如果改成接收端 (filebeat) 來命名：<code>filebeat-log</code>，這時候有個新 application 也將 log 接入 <code>filebeat-log</code> 可是格式不符，造成 log 爬不出來，這時候就需要逐一排除到底是哪個 application 造成的問題，也可能造成到其他沒問題 application 無法輸出 log</p><p>想要使用接收端 (filebeat) 來命名主要是因為需要同時接收多個 application 提供的資料，建立多個 consumer 很麻煩，但其實 kafka 是支援同時訂閱多個 topic 的，今天就快速紀錄一下使用方式</p><h2 id=基本環境說明>基本環境說明</h2><ol><li>macOS Ventura 13.1</li><li>.NET SDK 6.0.400</li><li>NuGet packages<ul><li>Confluent.Kafka 1.9.3</li></ul></li><li>docker images<ul><li>quay.io/strimzi/kafka:latest-kafka-3.3.1-amd64</li></ul></li><li><p>kafka 建立方式</p><blockquote><p>使用 kraft 算法而不用相依於 zookeeper 的方式來建立 kafka，詳細內容可以參考 <a href=https://blog.yowko.com/docker-kafka-without-zookeeper/>使用 Docker 啟動不依賴 ZooKeeper 的 Kafka</a></p></blockquote><ul><li><p>server.properties</p><pre><code class=language-config>process.roles=broker,controller
+node.id=1
+offsets.topic.replication.factor=1
+controller.quorum.voters=1@kafka:9093
+listeners=PLAINTEXT://:9092,CONTROLLER://:9093
+advertised.listeners=PLAINTEXT://kafka:9092
+controller.listener.names=CONTROLLER
+listener.security.protocol.map=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+log.dirs=kafka_data
+</code></pre></li><li><p>docker-compose.yaml</p><pre><code class=language-yaml>version: '3'
+services:
+  kafka:
+    container_name: kafka
+    user: root
+    image: quay.io/strimzi/kafka:latest-kafka-3.3.1-amd64
+    volumes:
+      - &quot;./server.properties:/opt/kafka/config/kraft/server.properties&quot;
+    command:
+      [
+        &quot;sh&quot;,
+        &quot;-c&quot;,
+        &quot;bin/kafka-storage.sh format -t $$(bin/kafka-storage.sh random-uuid) -c /opt/kafka/config/kraft/server.properties &amp;&amp; bin/kafka-server-start.sh /opt/kafka/config/kraft/server.properties&quot;
+      ]
+    ports:
+      - &quot;9092:9092&quot;
+</code></pre></li><li><p>topic 建立</p><pre><code class=language-bash>./bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t1 &amp;&amp; ./bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t2
+</code></pre></li></ul></li></ol><h2 id=設定方式>設定方式</h2><ol><li><p>C# code：進行 topic subscribe，傳入多個 topic</p><pre><code class=language-cs>class Program
+{
+    static void Main(string[] args)
+    {
+        var conf = new ConsumerConfig
+        { 
+            GroupId = &quot;yowkotest&quot;,
+            BootstrapServers = &quot;localhost:9092&quot;,
+            AutoOffsetReset = AutoOffsetReset.Earliest
+        };
+
+        using var c = new ConsumerBuilder&lt;Ignore, string&gt;(conf).Build();
+        //進行 topic subscribe，使用多個 topic
+        c.Subscribe(new []{&quot;t1&quot;,&quot;t2&quot;});
+            
+        CancellationTokenSource cts = new CancellationTokenSource();
+        Console.CancelKeyPress += (_, e) =&gt; {
+            e.Cancel = true; // prevent the process from terminating.
+            cts.Cancel();
+        };
+            
+        try
+        {
+            while (true)
+            {
+                try
+                {
+                    var cr = c.Consume(cts.Token);
+                    Console.WriteLine($&quot;Consumed message '{cr.Value}' at: '{cr.TopicPartitionOffset}'.&quot;);
+                }
+                catch (ConsumeException e)
+                {
+                    Console.WriteLine($&quot;Error occured: {e.Error.Reason}&quot;);
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            c.Close();
+        }
+    }
+}
+</code></pre></li><li><p>實際效果</p><p><img src=https://user-images.githubusercontent.com/3851540/213143842-4c7f05ee-2d69-4608-b687-c712a3187785.png alt=_output_1result></p></li></ol><h2 id=心得>心得</h2><p>看得出來 code 修改的部份很小： <code>c.Subscribe(&quot;topic&quot;);</code> &ndash;&gt; <code>c.Subscribe(new []{&quot;t1&quot;,&quot;t2&quot;});</code>，甚至以後預設都改用傳入 array 的方式來 <code>subscribe</code> 也行</p><p>這樣的筆記自己都覺得太水，但剛好趁這個機會驗證一下順便紀錄，大家討論時可以比較有信心</p><h2 id=參考資訊>參考資訊</h2><ol><li><a href="https://www.ibm.com/docs/en/integration-bus/10.0?topic=bus-producing-messages-kafka-topics" target=_blank>Producing messages on Kafka topics</a></li><li><a href=https://medium.com/@maverick11/kafka-consume-messages-from-multiple-queues-bdf0e07329b1 target=_blank>Kafka: Consume Messages From Multiple Queues</a></li><li><a href=https://blog.yowko.com/docker-kafka-without-zookeeper/>使用 Docker 啟動不依賴 ZooKeeper 的 Kafka</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2023-01-18</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/kafka/>kafka</a>
+<a href=https://blog.yowko.com/tags/csharp/>C#</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/csharp-subscribe-gke-update/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">使用 C# 訂閱 GKE 更新通知</span></a></div><div><a class=prev href=https://blog.yowko.com/kafkacat-container/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">在 CentOS 上使用 Kafkacat (更新) : 使用 container</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/subscribe-multiple-kafka-topics\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2023
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-7PF6W2W48Y"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-7PF6W2W48Y');</script></body></html>
