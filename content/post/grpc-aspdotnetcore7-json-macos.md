@@ -1,29 +1,25 @@
 ---
-title: "gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能"
-date: 2023-04-11T00:30:00+08:00
-lastmod: 2023-04-11T00:30:31+08:00
+title: "gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (macOS)"
+date: 2023-04-14T00:30:00+08:00
+lastmod: 2023-04-14T00:30:31+08:00
 draft: false
 tags: ["csharp","grpc","dotnet","aspdotnetcore"]
-slug: "grpc-aspdotnetcore7-json"
+slug: "grpc-aspdotnetcore7-json-macos"
 ---
 
-## gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能
+## gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (macOS)
 
-.NET 7 跟過去幾個 .NET 版本一樣有不少效能的改善，也增加了好幾個語法糖以及功能，但因為單數版本的關係屬於 Standard Term Support (STS)：只有 18 個月的 support 期限，原本打算等到下一個雙數版本 Long Term Support (LTS)：.NET 8 (雖說是 Long Term Support 為主，但也只有 36 個月 support) 再來一起看
+在之前筆記 [gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能](/grpc-aspdotnetcore7-json) 紀錄到如何使用 ASP.NET Core 7 加入的 JSON 轉碼功能：可以讓 gRPC service 也可以透過 rest api 的方式來呼叫
 
-不過有個功能想要提前試試：使用 gRPC services 建立 JSON Web APIs. 有下列幾個特色
+但由於該功能需要透過 TLS 來進行通訊協定溝通才能在相同的 port 上啟用 HTTP/1.1 與 HTTP/2，而以微軟的計劃 .NET 8 之前 Kestrel 不支援在 macOS 上使用 TLS 的 HTTP/2，所以在 macOS 上無法直接透過相同的 port 同時提供 gRPC 與 rest api 服務，所以在 macOS 上無法使用，不過如果不強求使用相同 port 來提供服務，倒是可以利用過去筆記 [ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法](/aspdotnetcore-grpc-secure-insecure/) 提到的方式來實做
 
-1. HTTP verbs
-2. URL parameter binding
-3. JSON requests/responses
-
-重要的先說：<span style="color: red;">macOS 不能用！！</span>，詳細原因在筆記結尾心得部份
+順手驗證看看，一併紀錄備查
 
 ## 基本環境說明
 
-1. ~~macOS Ventura 13.2~~ Microsoft Windows 10 Pro 10.0.19042 Build 19042
+1. macOS Ventura 13.2
 2. .NET SDK 7.0.203
-3. ~~JetBrains Rider 2023.1~~ Microsoft Visual Studio Enterprise 2022 (64-bit) Version 17.5.4
+3. JetBrains Rider 2023.1
 
     > 使用 gRPC service 預設專案範本
 
@@ -31,6 +27,8 @@ slug: "grpc-aspdotnetcore7-json"
     - Microsoft.AspNetCore.Grpc.JsonTranscoding 7.0.5
 
 ## 設定方式
+
+前四點皆與 [gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能](/grpc-aspdotnetcore7-json) 相同
 
 1. 將 NuGet package `Microsoft.AspNetCore.Grpc.JsonTranscoding` 加入 project
 2. 註冊轉碼功能：修改 `Program.cs`
@@ -72,11 +70,11 @@ slug: "grpc-aspdotnetcore7-json"
         // See the License for the specific language governing permissions and
         // limitations under the License.
         //
-        
+
         syntax = "proto3";
-        
+
         package google.api;
-        
+
         option cc_enable_arenas = true;
         option go_package = "google.golang.org/genproto/googleapis/api/annotations;annotations";
         option java_multiple_files = true;
@@ -442,7 +440,7 @@ slug: "grpc-aspdotnetcore7-json"
 
         <details>
 
-        <summary style="color: LightGreen;">展開摺疊區塊</summary>
+        <summary style="color:LightGreen">展開摺疊區塊</summary>
 
         ```proto
         // Copyright (c) 2015, Google Inc.
@@ -541,36 +539,11 @@ slug: "grpc-aspdotnetcore7-json"
         }
         ```
 
-5. 實際效果
+5. 設定 gRPC 與 rest api 走不同 port
 
-    - gRPC
+    > 修改 appsettings.json
 
-        ![1testfromgrpc](https://user-images.githubusercontent.com/3851540/231392122-8abd86e4-a96c-46bc-b9b3-68b99130a8ee.png)
-
-    - rest
-
-        ![2testfromrestnew](https://user-images.githubusercontent.com/3851540/231632186-181844e4-3982-48d7-9416-6f692fbb6dac.png)
-
-## 心得
-
-1. macOS 不能用
-
-    > - 詳細內容可以參考官方文件：[ASP.NET Core gRPC 應用程式中的 gRPC JSON 轉碼](https://learn.microsoft.com/en-us/aspnet/core/grpc/json-transcoding?view=aspnetcore-7.0&WT.mc_id=DOP-MVP-5002594) 與 [針對 .NET Core 上的 gRPC 進行疑難排解](https://learn.microsoft.com/en-us/aspnet/core/grpc/troubleshoot?view=aspnetcore-7.0&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos)
-    > - 如果沒有堅持讓 gRPC 與 rest api 使用相同 port 提供服務，可以參考之前筆記 [ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法](/aspdotnetcore-grpc-secure-insecure/) 或是 [gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (macOS)](/grpc-aspdotnetcore7-json-macos)
-
-    因為 gRPC JSON 轉碼需要透過 TLS 來進行通訊協定溝通才能在相同的 port 上啟用 HTTP/1.1 與 HTTP/2，而以微軟的計劃 .NET 8 之前 Kestrel 不支援在 macOS 上使用 TLS 的 HTTP/2
-
-    ![3http12](https://user-images.githubusercontent.com/3851540/231392147-d92b7884-e631-4a55-b7e7-487e2ef79eb8.png)
-
-    ![4notsupport](https://user-images.githubusercontent.com/3851540/231392158-f7605518-48e8-490c-af6c-a608e8c16982.png)
-
-2. 預設專案範本設定無法直接執行
-
-    > 詳細內容可以參考官方文件：[ASP.NET Core gRPC 應用程式中的 gRPC JSON 轉碼](https://learn.microsoft.com/en-us/aspnet/core/grpc/json-transcoding?view=aspnetcore-7.0&WT.mc_id=DOP-MVP-5002594)
-
-    ![5default](https://user-images.githubusercontent.com/3851540/231392170-a1583dfa-68f9-4abc-93d5-a30e89bb393f.png)
-
-    - 預設 appsettings.json
+    - 前
 
         ```json
         {
@@ -589,79 +562,47 @@ slug: "grpc-aspdotnetcore7-json"
         }
         ```
 
-        - http
+    - 後
 
-            - 錯誤訊息
-
-                ```txt
-                An HTTP/1.x request was sent to an HTTP/2 only endpoint.
-                ```
-
-            - 錯誤截圖
-
-                ![6defaulterror](https://user-images.githubusercontent.com/3851540/231392178-24f84dcd-808d-445d-aed9-417fc39baa65.png)
-
-        - https
-
-            - 錯誤訊息
-
-                ```txt
-                HTTP/2 over TLS was not negotiated on an HTTP/2-only endpoint.
-                ```
-
-            - 錯誤截圖
-
-                ![6defaulterror2](https://user-images.githubusercontent.com/3851540/231632192-212c5f17-3ea8-4c0f-9e0e-0ccf228ac4f9.png)
-
-    - 修改方式
-
-        1. 移除 `Kestrel:EndpointDefaults:Protocols` 預設值即為 `Http1AndHttp2`
-
-            ```json
-            {
-              "Logging": {
-                "LogLevel": {
-                  "Default": "Information",
-                  "Microsoft.AspNetCore": "Warning"
-                }
-              },
-              "AllowedHosts": "*"
+        ```json
+        {
+          "Logging": {
+            "LogLevel": {
+              "Default": "Information",
+              "Microsoft.AspNetCore": "Warning"
             }
-            ```
-
-        2. 指定 `Kestrel:EndpointDefaults:Protocols` 為 `Http1AndHttp2`
-
-            ```json
-            {
-              "Logging": {
-                "LogLevel": {
-                  "Default": "Information",
-                  "Microsoft.AspNetCore": "Warning"
-                }
+          },
+          "AllowedHosts": "*",
+          "Kestrel": {
+            "Endpoints": {
+              "Https": {
+                "Url": "https://*:7019",
+                "Protocols": "Http1"
               },
-              "AllowedHosts": "*",
-              "Kestrel": {
-                "EndpointDefaults": {
-                  "Protocols": "Http1AndHttp2"
-                }
+              "GrpcInsecure" : {
+                "Url": "http://*:5187",
+                "Protocols": "Http2"
               }
             }
-            ```
+          }
+        }
+        ```
 
-- 跟這個主題沒關係，是偶然發現的： .NET 7 在 macOS 上不用自己手動設定 gRPC endpoint 不使用 TLS (insecure grpc)，只是我沒有找到相關文件或是 source code。下面這段設定在 .NET 7 專案上可以不用加
+6. 實際效果
 
-    ```cs
-    var builder = WebApplication.CreateBuilder(args);
+    - gRPC
 
-    builder.WebHost.ConfigureKestrel(options =>
-    {
-        // Setup a HTTP/2 endpoint without TLS.
-        options.ListenLocalhost(<5287>, o => o.Protocols =
-            HttpProtocols.Http2);
-    });
-    ```
+        ![1grpc](https://user-images.githubusercontent.com/3851540/231978426-99ddaa77-6579-4b6e-8e78-c01c34c1c179.png)
 
-完整程式碼：[yowko/NET7gRPC](https://github.com/yowko/NET7gRPC)
+    - rest
+
+        ![2rest](https://user-images.githubusercontent.com/3851540/231978437-7dc04861-868b-45dc-9e99-8e8d2c5de06a.png)
+
+## 心得
+
+雖說不使用相同 port 來為 gRPC 與 rest api 提供服務，感覺不太符合 JSON 轉碼功能的概念，不過可以使用同一套 code 來提供服務，而不是個別寫一套，我個人已經覺得是很大的進步了，但實際使用上是否順手就不得而知了
+
+完整程式碼： [yowko/grpc-aspdotnetcore7-json-macos](https://github.com/yowko/grpc-aspdotnetcore7-json-macos)
 
 ## 參考資訊
 
@@ -671,6 +612,6 @@ slug: "grpc-aspdotnetcore7-json"
 4. [gRPC JSON 轉碼與 Swagger/OpenAPI](https://learn.microsoft.com/en-us/aspnet/core/grpc/json-transcoding-openapi?view=aspnetcore-7.0&WT.mc_id=DOP-MVP-5002594)
 5. [Build High Performance Services using gRPC and .NET7](https://medium.com/geekculture/build-high-performance-services-using-grpc-and-net7-7c0c434abbb0)
 6. [針對 .NET Core 上的 gRPC 進行疑難排解](https://learn.microsoft.com/en-us/aspnet/core/grpc/troubleshoot?view=aspnetcore-7.0&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos)
-7. [yowko/NET7gRPC](https://github.com/yowko/NET7gRPC)
+7. [yowko/grpc-aspdotnetcore7-json-macos](https://github.com/yowko/grpc-aspdotnetcore7-json-macos)
 8. [ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法](/aspdotnetcore-grpc-secure-insecure/)
-9. [gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (macOS)](/grpc-aspdotnetcore7-json-macos)
+9. [gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能](/grpc-aspdotnetcore7-json)
