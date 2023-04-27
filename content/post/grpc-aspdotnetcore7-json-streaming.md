@@ -1,45 +1,17 @@
 ---
-title: "再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能"
-date: 2023-04-26T00:30:00+08:00
-lastmod: 2023-04-26T00:30:31+08:00
+title: "再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (Streaming)"
+date: 2023-04-27T00:30:00+08:00
+lastmod: 2023-04-27T00:30:31+08:00
 draft: false
 tags: ["csharp","grpc","dotnet","aspdotnetcore"]
-slug: "grpc-aspdotnetcore7-json-post"
+slug: "grpc-aspdotnetcore7-json-streaming"
 ---
 
-## 再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能
+## 再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (Streaming)
 
-之前筆記 [gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能](/grpc-aspdotnetcore7-json) 紀錄到如何使用 ASP.NET Core 7 加入的 JSON 轉碼功能：可以讓 gRPC service 也可以透過 rest api 的方式來呼叫。
+之前筆記 [再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能](/grpc-aspdotnetcore7-json-post) 紀錄到如何使用 ASP.NET Core 7 加入的 JSON 轉碼功能讓 gRPC service 與 rest api 有接近的使用體驗：使用 POST 方法搭配 JSON 來發送 request (取代原本使用 GET 方法並透過 URL parameter 來傳遞參數)
 
-不過眼尖的人一定也發現了，呼叫 gRPC service 與呼叫 rest api 的內容有些不同，雖然 response 一致，但是 request 卻差了許多：
-
-1. service 的 endpoint
-
-    除了 protocol 不同之外，rest api 還包含了 path 及 parameter
-
-    - gRPC
-
-        > `grpc://localhost:7156`
-
-    - rest api
-
-        > `https://localhost:7156/v1/greeter/name`
-
-2. request 的 parameter 傳遞方式
-
-    - gRPC
-
-        ```json
-        {
-          "name": "gRPC"
-        }
-        ```
-
-    - rest api
-
-        > url parameter : `https://localhost:7156/v1/greeter/{name}`
-
-今天打算來嘗試將 gRPC 與 rest api 的使用體驗調整的接近些，因為團隊主要的開發環境是 macOS 所以會基於 [gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (macOS)](/grpc-aspdotnetcore7-json-macos) 來延伸設定，不過差異並不大 (只差在 appsettings.json 中 Kestrel 的 Endpoints 部份)
+今天就來額外測試 streaming 功能，官方文件 [gRPC JSON transcoding in ASP.NET Core gRPC apps](https://learn.microsoft.com/en-us/aspnet/core/grpc/json-transcoding?view=aspnetcore-7.0&WT.mc_id=DOP-MVP-5002594) 有提到 gRPC 支援 client streaming,server streaming 跟 bidirectional streaming 三種 streaming，但 ASP.NET Core 7 的 JSON 轉碼功能僅支援 server streaming
 
 ## 基本環境說明
 
@@ -54,10 +26,85 @@ slug: "grpc-aspdotnetcore7-json-post"
 
 ## 設定方式
 
-前三點皆與 [gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (macOS)](/grpc-aspdotnetcore7-json-macos) 相同
+1. 新增 streaming 用的 proto：`example.proto`
 
-1. 將 NuGet package `Microsoft.AspNetCore.Grpc.JsonTranscoding` 加入 project
-2. 註冊轉碼功能：修改 `Program.cs`
+    ```proto
+    syntax = "proto3";
+    option csharp_namespace = "NET7GrpcService";
+    
+    package greet;
+    
+    service ExampleService {
+      // Unary
+      rpc UnaryCall (ExampleRequest) returns (ExampleResponse);
+    
+      // Server streaming
+      rpc StreamingFromServer (ExampleRequest) returns;
+    
+      // Client streaming
+      rpc StreamingFromClient (stream ExampleRequest) returns (ExampleResponse);
+    
+      // Bi-directional streaming
+      rpc StreamingBothWays (stream ExampleRequest) returns (stream ExampleResponse);
+    }
+    
+    message ExampleRequest {
+      int32 pageIndex = 1;
+      int32 pageSize = 2;
+      bool isDescending = 3;
+    }
+    
+    message ExampleResponse {
+      string text = 1;
+    }
+    ```
+
+2. 新增 server streaming 實作
+
+    ```cs
+    using Grpc.Core;
+
+    namespace NET7GrpcService.Services;
+    
+    public class ExampleService:NET7GrpcService.ExampleService.ExampleServiceBase
+    {
+        public override async Task StreamingFromServer(ExampleRequest request, IServerStreamWriter<ExampleResponse> responseStream, ServerCallContext context)
+        {
+            for (var i = 1; i <= 3; i++)
+            {
+                await responseStream.WriteAsync(new ExampleResponse { Text = $"Message {i}" });
+                await Task.Delay(TimeSpan.FromSeconds(1));
+            }
+        }
+    }
+    ```
+
+3. 註冊 streaming service
+
+    - 前
+
+        ```cs
+        app.MapGrpcService<GreeterService>();
+        app.MapGet("/",
+            () =>
+                "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+
+        ```
+
+    - 後
+
+        ```cs
+        app.MapGrpcService<GreeterService>();
+        //加入下面這一行
+        app.MapGrpcService<ExampleService>();
+        app.MapGet("/",
+            () =>
+                "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+
+        ```
+
+4. 將 NuGet package `Microsoft.AspNetCore.Grpc.JsonTranscoding` 加入 project
+5. 註冊轉碼功能：修改 `Program.cs`
 
     - 前
 
@@ -71,7 +118,7 @@ slug: "grpc-aspdotnetcore7-json-post"
         builder.Services.AddGrpc().AddJsonTranscoding();
         ```
 
-3. 新增 `google/api/http.proto` 與 `google/api/annotations.proto`
+6. 新增 `google/api/http.proto` 與 `google/api/annotations.proto`
 
     > 引用額外的資料結構，以預設專案的例子可以在 `Protos` 資料下新增 `google/api` 並放入以下兩個檔案 (檔案位置會影響實際引用的設定，另個做法是與 .proj 放在同一層，引用填 .proj 的相對位置即可)
 
@@ -504,38 +551,40 @@ slug: "grpc-aspdotnetcore7-json-post"
 
         </details>
 
-4. 透過 HTTP binding 與 route 來標注 gRPC service
+7. 透過 HTTP binding 與 route 來標注 gRPC service
 
-    > 修改範例中的 `greet.proto` 檔案：將原本使用 get 方法並透過 url parameter 傳遞參數改為 post 與 json
+    > 修改 `example.proto` 檔案
 
     - 前
 
         ```proto
         syntax = "proto3";
-        //以實際放的位置為主
-        import "Protos/google/api/annotations.proto";
         option csharp_namespace = "NET7GrpcService";
         
         package greet;
         
-        // The greeting service definition.
-        service Greeter {
-          // Sends a greeting
-          rpc SayHello (HelloRequest) returns (HelloReply){
-              option (google.api.http) = {
-                get: "/v1/greeter/{name}"
-              };   
-          }
+        service ExampleService {
+          // Unary
+          rpc UnaryCall (ExampleRequest) returns (ExampleResponse);
+        
+          // Server streaming
+          rpc StreamingFromServer (ExampleRequest) returns (stream ExampleResponse);
+        
+          // Client streaming
+          rpc StreamingFromClient (stream ExampleRequest) returns (ExampleResponse);
+        
+          // Bi-directional streaming
+          rpc StreamingBothWays (stream ExampleRequest) returns (stream ExampleResponse);
         }
         
-        // The request message containing the user's name.
-        message HelloRequest {
-          string name = 1;
+        message ExampleRequest {
+          int32 pageIndex = 1;
+          int32 pageSize = 2;
+          bool isDescending = 3;
         }
         
-        // The response message containing the greetings.
-        message HelloReply {
-          string message = 1;
+        message ExampleResponse {
+          string text = 1;
         }
         ```
 
@@ -548,30 +597,38 @@ slug: "grpc-aspdotnetcore7-json-post"
         option csharp_namespace = "NET7GrpcService";
         
         package greet;
+
+        service ExampleService {
+          // Unary
+          rpc UnaryCall (ExampleRequest) returns (ExampleResponse);
         
-        // The greeting service definition.
-        service Greeter {
-          // Sends a greeting
-          rpc SayHello (HelloRequest) returns (HelloReply){
-              option (google.api.http) = {
-                post: "/Greeter/SayHello",
-                body: "*"
-              };   
-          }
+          // Server streaming
+          rpc StreamingFromServer (ExampleRequest) returns (stream ExampleResponse){
+            option (google.api.http) = {
+              post: "/ExampleService/StreamingFromServer",
+              body: "*"
+            };
+          };
+        
+          // Client streaming
+          rpc StreamingFromClient (stream ExampleRequest) returns (ExampleResponse);
+        
+          // Bi-directional streaming
+          rpc StreamingBothWays (stream ExampleRequest) returns (stream ExampleResponse);
+        }
+
+        message ExampleRequest {
+          int32 pageIndex = 1;
+          int32 pageSize = 2;
+          bool isDescending = 3;
         }
         
-        // The request message containing the user's name.
-        message HelloRequest {
-          string name = 1;
-        }
-        
-        // The response message containing the greetings.
-        message HelloReply {
-          string message = 1;
+        message ExampleResponse {
+          string text = 1;
         }
         ```
 
-5. (<span style="color: red;">非必要</span>，可在 macOS 上的啟用 insecure grpc) 設定 gRPC 與 rest api 走不同 port
+8. (<span style="color: red;">非必要</span>，可在 macOS 上的啟用 insecure grpc) 設定 gRPC 與 rest api 走不同 port
 
     > 修改 appsettings.json
 
@@ -620,23 +677,23 @@ slug: "grpc-aspdotnetcore7-json-post"
         }
         ```
 
-6. 實際效果
+9. 實際效果
 
     > 兩者 port 不同，是因為 macOS 的源故
 
     - gRPC
 
-        ![1grpc](https://user-images.githubusercontent.com/3851540/234491951-5325caf4-80d8-404e-87a4-657e8cba25d8.png)
+        ![1grpc](https://user-images.githubusercontent.com/3851540/234550882-73986f03-05e9-4170-b61a-2dfd94bf9357.gif)
 
     - rest api
 
-        ![2rest](https://user-images.githubusercontent.com/3851540/234491966-22028ee1-1313-4a58-a78d-ac32fc91e5ea.png)
+        ![2rest](https://user-images.githubusercontent.com/3851540/234550908-4e5d15f1-401f-41d9-b684-dedfac220fbf.gif)
 
 ## 心得
 
-這個調整純屬個人的喜好問題： gRPC 的 request body，rest 透過 POST 使用 json 感覺使用體驗比較一致，不過單就以範例這樣簡單的情境功能是完全相同的，只是如果 request 內容是個大型複雜型別的物件時，我個人相信 POST 是比較常見的做法
+雖然 ASP.NET Core 7 的 JSON 轉碼功能僅支援 server streaming，讓實際使用上有些受限，過還是多了個應用設計時不同的選項可供選擇，我想到的就是不用再自行實作 long polling 的機制與相關的 exception handling
 
-完整程式碼：[yowko/grpc-aspdotnetcore7-json-post](https://github.com/yowko/grpc-aspdotnetcore7-json-post)
+完整程式碼： [yowko/grpc-aspdotnetcore7-json-streaming](https://github.com/yowko/grpc-aspdotnetcore7-json-streaming)
 
 ## 參考資訊
 
@@ -646,7 +703,8 @@ slug: "grpc-aspdotnetcore7-json-post"
 4. [gRPC JSON 轉碼與 Swagger/OpenAPI](https://learn.microsoft.com/en-us/aspnet/core/grpc/json-transcoding-openapi?view=aspnetcore-7.0&WT.mc_id=DOP-MVP-5002594)
 5. [Build High Performance Services using gRPC and .NET7](https://medium.com/geekculture/build-high-performance-services-using-grpc-and-net7-7c0c434abbb0)
 6. [針對 .NET Core 上的 gRPC 進行疑難排解](https://learn.microsoft.com/en-us/aspnet/core/grpc/troubleshoot?view=aspnetcore-7.0&WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos)
-7. [yowko/grpc-aspdotnetcore7-json-post](https://github.com/yowko/grpc-aspdotnetcore7-json-post)
+7. [yowko/grpc-aspdotnetcore7-json-streaming](https://github.com/yowko/grpc-aspdotnetcore7-json-streaming)
 8. [ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法](/aspdotnetcore-grpc-secure-insecure/)
 9. [gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能](/grpc-aspdotnetcore7-json)
 10. [gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (macOS)](/grpc-aspdotnetcore7-json-macos)
+11. [再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能](/grpc-aspdotnetcore7-json-post)
