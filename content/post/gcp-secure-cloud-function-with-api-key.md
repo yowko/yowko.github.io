@@ -111,7 +111,7 @@ slug: "gcp-secure-cloud-function-with-api-key"
         ![6managedservice](https://user-images.githubusercontent.com/3851540/235078588-96f8eb60-b776-4797-b2e2-a313fe133e94.png)
 
     - 啟用後才能在 `APIs & Services` 中找到自訂的 api (我自己的經驗是要等個 5-10 分鐘才會出現)
-    
+
         ![7apis](https://user-images.githubusercontent.com/3851540/235078592-4cbcf54e-cc9e-452e-beca-c3637cc2d49e.png)
 
     ```cloud shell
