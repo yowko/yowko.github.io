@@ -153,6 +153,9 @@ slug: "gcp-cloud-function-pubsub"
 
         > 建立完成後，有個 `TESTING` tab 可以直接執行，並看到相關的 response 與 log
 
+        ![_output_3testing](https://user-images.githubusercontent.com/3851540/235037635-9c5e09b9-efb0-4c03-9a7d-6fe82185b8de.png)
+
+
 7. 實際效果
 
     ![2result](https://user-images.githubusercontent.com/3851540/234823608-43cac81f-3730-49b5-8273-811c0a6138f0.png)
@@ -163,8 +166,11 @@ GCP 的介面可以直接編輯 Cloud Function 的 code，只是 intellisense �
 
 完成程式碼：[yowko/cloud-function-cloud-pubsub](https://github.com/yowko/cloud-function-cloud-pubsub)
 
+如果需要為 Google Cloud Functions 增加基本保護可以參考 [使用 Google Api Gateway 為 Google Cloud Functions 加上 API Key 保護](/gcp-secure-cloud-function-with-api-key)
+
 ## 參考資訊
 
 1. [Write HTTP functions](https://cloud.google.com/functions/docs/writing/write-http-functions#http-example-csharp)
 2. [Google.Cloud.Functions.Templates](https://www.nuget.org/packages/Google.Cloud.Functions.Templates)
 3. [yowko/cloud-function-cloud-pubsub](https://github.com/yowko/cloud-function-cloud-pubsub)
+4. [使用 Google Api Gateway 為 Google Cloud Functions 加上 API Key 保護](/gcp-secure-cloud-function-with-api-key)
