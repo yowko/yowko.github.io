@@ -1,0 +1,520 @@
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 之前筆記 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 紀錄到如何使用 ASP.NET Core 7 加入的 JSON 轉碼功能：可以讓 gRPC service 也可以透過 rest api 的方式來呼叫。 不過眼尖"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.56.3"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/grpc-aspdotnetcore7-json-post/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能"><meta property=og:description content="再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 之前筆記 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 紀錄到如何使用 ASP.NET Core 7 加入的 JSON 轉碼功能：可以讓 gRPC service 也可以透過 rest api 的方式來呼叫。 不過眼尖"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/grpc-aspdotnetcore7-json-post/><meta property=article:published_time content=2023-04-26T00:30:00+08:00><meta property=article:modified_time content=2023-04-26T00:30:31+08:00><meta itemprop=name content="再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能"><meta itemprop=description content="再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 之前筆記 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 紀錄到如何使用 ASP.NET Core 7 加入的 JSON 轉碼功能：可以讓 gRPC service 也可以透過 rest api 的方式來呼叫。 不過眼尖"><meta itemprop=datePublished content=2023-04-26T00:30:00&#43;08:00><meta itemprop=dateModified content=2023-04-26T00:30:31&#43;08:00><meta itemprop=wordCount content=3467><meta itemprop=keywords content=csharp,grpc,dotnet,aspdotnetcore,><meta name=twitter:card content=summary><meta name=twitter:title content="再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能"><meta name=twitter:description content="再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 之前筆記 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 紀錄到如何使用 ASP.NET Core 7 加入的 JSON 轉碼功能：可以讓 gRPC service 也可以透過 rest api 的方式來呼叫。 不過眼尖"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2023-04-26</span>
+<span class=more-meta>約 3467 字</span>
+<span class=more-meta>預計閱讀 7 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#再探-grpc-在-asp-net-core-7-的-json-轉碼功能>再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#設定方式>設定方式</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=再探-grpc-在-asp-net-core-7-的-json-轉碼功能>再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能</h2><p>之前筆記 <a href=https://blog.yowko.com/grpc-aspdotnetcore7-json>gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能</a> 紀錄到如何使用 ASP.NET Core 7 加入的 JSON 轉碼功能：可以讓 gRPC service 也可以透過 rest api 的方式來呼叫。</p><p>不過眼尖的人一定也發現了，呼叫 gRPC service 與呼叫 rest api 的內容有些不同，雖然 response 一致，但是 request 卻差了許多：</p><ol><li><p>service 的 endpoint</p><p>除了 protocol 不同之外，rest api 還包含了 path 及 parameter</p><ul><li><p>gRPC</p><blockquote><p><code>grpc://localhost:7156</code></p></blockquote></li><li><p>rest api</p><blockquote><p><code>https://localhost:7156/v1/greeter/name</code></p></blockquote></li></ul></li><li><p>request 的 parameter 傳遞方式</p><ul><li><p>gRPC</p><pre><code class=language-json>{
+  &quot;name&quot;: &quot;gRPC&quot;
+}
+</code></pre></li><li><p>rest api</p><blockquote><p>url parameter : <code>https://localhost:7156/v1/greeter/{name}</code></p></blockquote></li></ul></li></ol><p>今天打算來嘗試將 gRPC 與 rest api 的使用體驗調整的接近些，因為團隊主要的開發環境是 macOS 所以會基於 <a href=https://blog.yowko.com/grpc-aspdotnetcore7-json-macos>gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (macOS)</a> 來延伸設定，不過差異並不大 (只差在 appsettings.json 中 Kestrel 的 Endpoints 部份)</p><h2 id=基本環境說明>基本環境說明</h2><ol><li>macOS Ventura 13.2</li><li>.NET SDK 7.0.203</li><li><p>JetBrains Rider 2023.1</p><blockquote><p>使用 gRPC service 預設專案範本</p></blockquote></li><li><p>NuGet packages</p><ul><li>Microsoft.AspNetCore.Grpc.JsonTranscoding 7.0.5</li></ul></li></ol><h2 id=設定方式>設定方式</h2><p>前三點皆與 <a href=https://blog.yowko.com/grpc-aspdotnetcore7-json-macos>gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (macOS)</a> 相同</p><ol><li>將 NuGet package <code>Microsoft.AspNetCore.Grpc.JsonTranscoding</code> 加入 project</li><li><p>註冊轉碼功能：修改 <code>Program.cs</code></p><ul><li><p>前</p><pre><code class=language-cs>builder.Services.AddGrpc();
+</code></pre></li><li><p>後</p><pre><code class=language-cs>builder.Services.AddGrpc().AddJsonTranscoding();
+</code></pre></li></ul></li><li><p>新增 <code>google/api/http.proto</code> 與 <code>google/api/annotations.proto</code></p><blockquote><p>引用額外的資料結構，以預設專案的例子可以在 <code>Protos</code> 資料下新增 <code>google/api</code> 並放入以下兩個檔案 (檔案位置會影響實際引用的設定，另個做法是與 .proj 放在同一層，引用填 .proj 的相對位置即可)</p></blockquote><ul><li><p><a href=https://github.com/dotnet/aspnetcore/blob/main/src/Grpc/JsonTranscoding/test/testassets/Sandbox/google/api/http.proto target=_blank>http.proto</a></p><p><details></p><p><summary style=color:LightGreen>展開摺疊區塊</summary></p><pre><code class=language-proto>// Copyright 2019 Google LLC.
+//
+// Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax = &quot;proto3&quot;;
+
+package google.api;
+
+option cc_enable_arenas = true;
+option go_package = &quot;google.golang.org/genproto/googleapis/api/annotations;annotations&quot;;
+option java_multiple_files = true;
+option java_outer_classname = &quot;HttpProto&quot;;
+option java_package = &quot;com.google.api&quot;;
+option objc_class_prefix = &quot;GAPI&quot;;
+        
+// Defines the HTTP configuration for an API service. It contains a list of
+// [HttpRule][google.api.HttpRule], each specifying the mapping of an RPC method
+// to one or more HTTP REST API methods.
+message Http {
+  // A list of HTTP configuration rules that apply to individual API methods.
+  //
+  // **NOTE:** All service configuration rules follow &quot;last one wins&quot; order.
+  repeated HttpRule rules = 1;
+        
+  // When set to true, URL path parameters will be fully URI-decoded except in
+  // cases of single segment matches in reserved expansion, where &quot;%2F&quot; will be
+  // left encoded.
+  //
+  // The default behavior is to not decode RFC 6570 reserved characters in multi
+  // segment matches.
+  bool fully_decode_reserved_expansion = 2;
+}
+        
+// # gRPC Transcoding
+//
+// gRPC Transcoding is a feature for mapping between a gRPC method and one or
+// more HTTP REST endpoints. It allows developers to build a single API service
+// that supports both gRPC APIs and REST APIs. Many systems, including [Google
+// APIs](https://github.com/googleapis/googleapis),
+// [Cloud Endpoints](https://cloud.google.com/endpoints), [gRPC
+// Gateway](https://github.com/grpc-ecosystem/grpc-gateway),
+// and [Envoy](https://github.com/envoyproxy/envoy) proxy support this feature
+// and use it for large scale production services.
+//
+// `HttpRule` defines the schema of the gRPC/REST mapping. The mapping specifies
+// how different portions of the gRPC request message are mapped to the URL
+// path, URL query parameters, and HTTP request body. It also controls how the
+// gRPC response message is mapped to the HTTP response body. `HttpRule` is
+// typically specified as an `google.api.http` annotation on the gRPC method.
+//
+// Each mapping specifies a URL path template and an HTTP method. The path
+// template may refer to one or more fields in the gRPC request message, as long
+// as each field is a non-repeated field with a primitive (non-message) type.
+// The path template controls how fields of the request message are mapped to
+// the URL path.
+//
+// Example:
+//
+//     service Messaging {
+//       rpc GetMessage(GetMessageRequest) returns (Message) {
+//         option (google.api.http) = {
+//             get: &quot;/v1/{name=messages/*}&quot;
+//         };
+//       }
+//     }
+//     message GetMessageRequest {
+//       string name = 1; // Mapped to URL path.
+//     }
+//     message Message {
+//       string text = 1; // The resource content.
+//     }
+//
+// This enables an HTTP REST to gRPC mapping as below:
+//
+// HTTP | gRPC
+// -----|-----
+// `GET /v1/messages/123456`  | `GetMessage(name: &quot;messages/123456&quot;)`
+//
+// Any fields in the request message which are not bound by the path template
+// automatically become HTTP query parameters if there is no HTTP request body.
+// For example:
+//
+//     service Messaging {
+//       rpc GetMessage(GetMessageRequest) returns (Message) {
+//         option (google.api.http) = {
+//             get:&quot;/v1/messages/{message_id}&quot;
+//         };
+//       }
+//     }
+//     message GetMessageRequest {
+//       message SubMessage {
+//         string subfield = 1;
+//       }
+//       string message_id = 1; // Mapped to URL path.
+//       int64 revision = 2;    // Mapped to URL query parameter `revision`.
+//       SubMessage sub = 3;    // Mapped to URL query parameter `sub.subfield`.
+//     }
+//
+// This enables a HTTP JSON to RPC mapping as below:
+//
+// HTTP | gRPC
+// -----|-----
+// `GET /v1/messages/123456?revision=2&amp;sub.subfield=foo` |
+// `GetMessage(message_id: &quot;123456&quot; revision: 2 sub: SubMessage(subfield:
+// &quot;foo&quot;))`
+//
+// Note that fields which are mapped to URL query parameters must have a
+// primitive type or a repeated primitive type or a non-repeated message type.
+// In the case of a repeated type, the parameter can be repeated in the URL
+// as `...?param=A&amp;param=B`. In the case of a message type, each field of the
+// message is mapped to a separate parameter, such as
+// `...?foo.a=A&amp;foo.b=B&amp;foo.c=C`.
+//
+// For HTTP methods that allow a request body, the `body` field
+// specifies the mapping. Consider a REST update method on the
+// message resource collection:
+//
+//     service Messaging {
+//       rpc UpdateMessage(UpdateMessageRequest) returns (Message) {
+//         option (google.api.http) = {
+//           patch: &quot;/v1/messages/{message_id}&quot;
+//           body: &quot;message&quot;
+//         };
+//       }
+//     }
+//     message UpdateMessageRequest {
+//       string message_id = 1; // mapped to the URL
+//       Message message = 2;   // mapped to the body
+//     }
+//
+// The following HTTP JSON to RPC mapping is enabled, where the
+// representation of the JSON in the request body is determined by
+// protos JSON encoding:
+//
+// HTTP | gRPC
+// -----|-----
+// `PATCH /v1/messages/123456 { &quot;text&quot;: &quot;Hi!&quot; }` | `UpdateMessage(message_id:
+// &quot;123456&quot; message { text: &quot;Hi!&quot; })`
+//
+// The special name `*` can be used in the body mapping to define that
+// every field not bound by the path template should be mapped to the
+// request body.  This enables the following alternative definition of
+// the update method:
+//
+//     service Messaging {
+//       rpc UpdateMessage(Message) returns (Message) {
+//         option (google.api.http) = {
+//           patch: &quot;/v1/messages/{message_id}&quot;
+//           body: &quot;*&quot;
+//         };
+//       }
+//     }
+//     message Message {
+//       string message_id = 1;
+//       string text = 2;
+//     }
+//
+//
+// The following HTTP JSON to RPC mapping is enabled:
+//
+// HTTP | gRPC
+// -----|-----
+// `PATCH /v1/messages/123456 { &quot;text&quot;: &quot;Hi!&quot; }` | `UpdateMessage(message_id:
+// &quot;123456&quot; text: &quot;Hi!&quot;)`
+//
+// Note that when using `*` in the body mapping, it is not possible to
+// have HTTP parameters, as all fields not bound by the path end in
+// the body. This makes this option more rarely used in practice when
+// defining REST APIs. The common usage of `*` is in custom methods
+// which don't use the URL at all for transferring data.
+//
+// It is possible to define multiple HTTP methods for one RPC by using
+// the `additional_bindings` option. Example:
+//
+//     service Messaging {
+//       rpc GetMessage(GetMessageRequest) returns (Message) {
+//         option (google.api.http) = {
+//           get: &quot;/v1/messages/{message_id}&quot;
+//           additional_bindings {
+//             get: &quot;/v1/users/{user_id}/messages/{message_id}&quot;
+//           }
+//         };
+//       }
+//     }
+//     message GetMessageRequest {
+//       string message_id = 1;
+//       string user_id = 2;
+//     }
+//
+// This enables the following two alternative HTTP JSON to RPC mappings:
+//
+// HTTP | gRPC
+// -----|-----
+// `GET /v1/messages/123456` | `GetMessage(message_id: &quot;123456&quot;)`
+// `GET /v1/users/me/messages/123456` | `GetMessage(user_id: &quot;me&quot; message_id:
+// &quot;123456&quot;)`
+//
+// ## Rules for HTTP mapping
+//
+// 1. Leaf request fields (recursive expansion nested messages in the request
+//    message) are classified into three categories:
+//    - Fields referred by the path template. They are passed via the URL path.
+//    - Fields referred by the [HttpRule.body][google.api.HttpRule.body]. They are passed via the HTTP
+//      request body.
+//    - All other fields are passed via the URL query parameters, and the
+//      parameter name is the field path in the request message. A repeated
+//      field can be represented as multiple query parameters under the same
+//      name.
+//  2. If [HttpRule.body][google.api.HttpRule.body] is &quot;*&quot;, there is no URL query parameter,all fields
+//     are passed via URL path and HTTP request body.
+//  3. If [HttpRule.body][google.api.HttpRule.body] is omitted, there is no HTTP request body,all
+//     fields are passed via URL path and URL query parameters.
+//
+// ### Path template syntax
+//
+//     Template = &quot;/&quot; Segments [ Verb ] ;
+//     Segments = Segment { &quot;/&quot; Segment } ;
+//     Segment  = &quot;*&quot; | &quot;**&quot; | LITERAL | Variable ;
+//     Variable = &quot;{&quot; FieldPath [ &quot;=&quot; Segments ] &quot;}&quot; ;
+//     FieldPath = IDENT { &quot;.&quot; IDENT } ;
+//     Verb     = &quot;:&quot; LITERAL ;
+//
+// The syntax `*` matches a single URL path segment. The syntax `**` matches
+// zero or more URL path segments, which must be the last part of the URL path
+// except the `Verb`.
+//
+// The syntax `Variable` matches part of the URL path as specified by its
+// template. A variable template must not contain other variables. If a variable
+// matches a single path segment, its template may be omitted, e.g. `{var}`
+// is equivalent to `{var=*}`.
+//
+// The syntax `LITERAL` matches literal text in the URL path. If the `LITERAL`
+// contains any reserved character, such characters should be percent-encoded
+// before the matching.
+//
+// If a variable contains exactly one path segment, such as `&quot;{var}&quot;` or
+// `&quot;{var=*}&quot;`, when such a variable is expanded into a URL path on the client
+// side, all characters except `[-_.~0-9a-zA-Z]` are percent-encoded. The
+// server side does the reverse decoding. Such variables show up in the
+// [Discovery
+// Document](https://developers.google.com/discovery/v1/reference/apis) as
+// `{var}`.
+//
+// If a variable contains multiple path segments, such as `&quot;{var=foo/*}&quot;`
+// or `&quot;{var=**}&quot;`, when such a variable is expanded into a URL path on the
+// client side, all characters except `[-_.~/0-9a-zA-Z]` are percent-encoded.
+// The server side does the reverse decoding, except &quot;%2F&quot; and &quot;%2f&quot; are left
+// unchanged. Such variables show up in the
+// [Discovery
+// Document](https://developers.google.com/discovery/v1/reference/apis) as
+// `{+var}`.
+//
+// ## Using gRPC API Service Configuration
+//
+// gRPC API Service Configuration (service config) is a configuration language
+// for configuring a gRPC service to become a user-facing product. The
+// service config is simply the YAML representation of the `google.api.Service`
+// proto message.
+//
+// As an alternative to annotating your proto file, you can configure gRPC
+// transcoding in your service config YAML files. You do this by specifying a
+// `HttpRule` that maps the gRPC method to a REST endpoint, achieving the same
+// effect as the proto annotation. This can be particularly useful if you
+// have a proto that is reused in multiple services. Note that any transcoding
+// specified in the service config will override any matching transcoding
+// configuration in the proto.
+//
+// Example:
+//
+//     http:
+//       rules:
+//         # Selects a gRPC method and applies HttpRule to it.
+//         - selector: example.v1.Messaging.GetMessage
+//           get: /v1/messages/{message_id}/{sub.subfield}
+//
+// ## Special notes
+//
+// When gRPC Transcoding is used to map a gRPC to JSON REST endpoints, the
+// proto to JSON conversion must follow the [proto3
+// specification](https://developers.google.com/protocol-buffers/docs/proto3#json).
+//
+// While the single segment variable follows the semantics of
+// [RFC 6570](https://tools.ietf.org/html/rfc6570) Section 3.2.2 Simple String
+// Expansion, the multi segment variable **does not** follow RFC 6570 Section
+// 3.2.3 Reserved Expansion. The reason is that the Reserved Expansion
+// does not expand special characters like `?` and `#`, which would lead
+// to invalid URLs. As the result, gRPC Transcoding uses a custom encoding
+// for multi segment variables.
+//
+// The path variables **must not** refer to any repeated or mapped field,
+// because client libraries are not capable of handling such variable expansion.
+//
+// The path variables **must not** capture the leading &quot;/&quot; character. The reason
+// is that the most common use case &quot;{var}&quot; does not capture the leading &quot;/&quot;
+// character. For consistency, all path variables must share the same behavior.
+//
+// Repeated message fields must not be mapped to URL query parameters, because
+// no client library can support such complicated mapping.
+//
+// If an API needs to use a JSON array for request or response body, it can map
+// the request or response body to a repeated field. However, some gRPC
+// Transcoding implementations may not support this feature.
+message HttpRule {
+  // Selects a method to which this rule applies.
+  //
+  // Refer to [selector][google.api.DocumentationRule.selector] for syntax details.
+  string selector = 1;
+        
+  // Determines the URL pattern is matched by this rules. This pattern can be
+  // used with any of the {get|put|post|delete|patch} methods. A custom method
+  // can be defined using the 'custom' field.
+  oneof pattern {
+    // Maps to HTTP GET. Used for listing and getting information about
+    // resources.
+    string get = 2;
+        
+    // Maps to HTTP PUT. Used for replacing a resource.
+    string put = 3;
+        
+    // Maps to HTTP POST. Used for creating a resource or performing an action.
+    string post = 4;
+        
+    // Maps to HTTP DELETE. Used for deleting a resource.
+    string delete = 5;
+        
+    // Maps to HTTP PATCH. Used for updating a resource.
+    string patch = 6;
+        
+    // The custom pattern is used for specifying an HTTP method that is not
+    // included in the `pattern` field, such as HEAD, or &quot;*&quot; to leave the
+    // HTTP method unspecified for this rule. The wild-card rule is useful
+    // for services that provide content to Web (HTML) clients.
+    CustomHttpPattern custom = 8;
+  }
+        
+  // The name of the request field whose value is mapped to the HTTP request
+  // body, or `*` for mapping all request fields not captured by the path
+  // pattern to the HTTP body, or omitted for not having any HTTP request body.
+  //
+  // NOTE: the referred field must be present at the top-level of the request
+  // message type.
+  string body = 7;
+        
+  // Optional. The name of the response field whose value is mapped to the HTTP
+  // response body. When omitted, the entire response message will be used
+  // as the HTTP response body.
+  //
+  // NOTE: The referred field must be present at the top-level of the response
+  // message type.
+  string response_body = 12;
+        
+  // Additional HTTP bindings for the selector. Nested bindings must
+  // not contain an `additional_bindings` field themselves (that is,
+  // the nesting may only be one level deep).
+  repeated HttpRule additional_bindings = 11;
+}
+        
+// A custom pattern is used for defining custom HTTP verb.
+message CustomHttpPattern {
+  // The name of this custom HTTP verb.
+  string kind = 1;
+        
+  // The path matched by this custom verb.
+  string path = 2;
+}
+</code></pre><p></details></p></li><li><p><a href=https://github.com/dotnet/aspnetcore/blob/main/src/Grpc/JsonTranscoding/test/testassets/Sandbox/google/api/annotations.proto target=_blank>annotations.proto</a></p><p><details></p><p><summary style=color:LightGreen>展開摺疊區塊</summary></p><pre><code class=language-proto>// Copyright (c) 2015, Google Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+        
+syntax = &quot;proto3&quot;;
+        
+package google.api;
+        
+import &quot;Protos/google/api/http.proto&quot;;
+import &quot;google/protobuf/descriptor.proto&quot;;
+        
+option go_package = &quot;google.golang.org/genproto/googleapis/api/annotations;annotations&quot;;
+option java_multiple_files = true;
+option java_outer_classname = &quot;AnnotationsProto&quot;;
+option java_package = &quot;com.google.api&quot;;
+option objc_class_prefix = &quot;GAPI&quot;;
+        
+extend google.protobuf.MethodOptions {
+  // See `HttpRule`.
+  HttpRule http = 72295728;
+}
+</code></pre><p></details></p></li></ul></li><li><p>透過 HTTP binding 與 route 來標注 gRPC service</p><blockquote><p>修改範例中的 <code>greet.proto</code> 檔案：將原本使用 get 方法並透過 url parameter 傳遞參數改為 post 與 json</p></blockquote><ul><li><p>前</p><pre><code class=language-proto>syntax = &quot;proto3&quot;;
+//以實際放的位置為主
+import &quot;Protos/google/api/annotations.proto&quot;;
+option csharp_namespace = &quot;NET7GrpcService&quot;;
+        
+package greet;
+        
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply){
+      option (google.api.http) = {
+        get: &quot;/v1/greeter/{name}&quot;
+      };   
+  }
+}
+        
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+        
+// The response message containing the greetings.
+message HelloReply {
+  string message = 1;
+}
+</code></pre></li><li><p>後</p><pre><code class=language-proto>syntax = &quot;proto3&quot;;
+//以實際放的位置為主
+import &quot;Protos/google/api/annotations.proto&quot;;
+option csharp_namespace = &quot;NET7GrpcService&quot;;
+        
+package greet;
+        
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply){
+      option (google.api.http) = {
+        post: &quot;/Greeter/SayHello&quot;,
+        body: &quot;*&quot;
+      };   
+  }
+}
+        
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+        
+// The response message containing the greetings.
+message HelloReply {
+  string message = 1;
+}
+</code></pre></li></ul></li><li><p>(<span style=color:red>非必要</span>，可在 macOS 上的啟用 insecure grpc) 設定 gRPC 與 rest api 走不同 port</p><blockquote><p>修改 appsettings.json</p></blockquote><ul><li><p>前</p><pre><code class=language-json>{
+  &quot;Logging&quot;: {
+    &quot;LogLevel&quot;: {
+      &quot;Default&quot;: &quot;Information&quot;,
+      &quot;Microsoft.AspNetCore&quot;: &quot;Warning&quot;
+    }
+  },
+  &quot;AllowedHosts&quot;: &quot;*&quot;,
+  &quot;Kestrel&quot;: {
+    &quot;EndpointDefaults&quot;: {
+      &quot;Protocols&quot;: &quot;Http2&quot;
+    }
+  }
+}
+</code></pre></li><li><p>後</p><pre><code class=language-json>{
+  &quot;Logging&quot;: {
+    &quot;LogLevel&quot;: {
+      &quot;Default&quot;: &quot;Information&quot;,
+      &quot;Microsoft.AspNetCore&quot;: &quot;Warning&quot;
+    }
+  },
+  &quot;AllowedHosts&quot;: &quot;*&quot;,
+  &quot;Kestrel&quot;: {
+    &quot;Endpoints&quot;: {
+      &quot;Https&quot;: {
+        &quot;Url&quot;: &quot;https://*:7019&quot;,
+        &quot;Protocols&quot;: &quot;Http1&quot;
+      },
+      &quot;GrpcInsecure&quot; : {
+        &quot;Url&quot;: &quot;http://*:5187&quot;,
+        &quot;Protocols&quot;: &quot;Http2&quot;
+      }
+    }
+  }
+}
+</code></pre></li></ul></li><li><p>實際效果</p><blockquote><p>兩者 port 不同，是因為 macOS 的源故</p></blockquote><ul><li><p>gRPC</p><p><img src=https://user-images.githubusercontent.com/3851540/234491951-5325caf4-80d8-404e-87a4-657e8cba25d8.png alt=1grpc></p></li><li><p>rest api</p><p><img src=https://user-images.githubusercontent.com/3851540/234491966-22028ee1-1313-4a58-a78d-ac32fc91e5ea.png alt=2rest></p></li></ul></li></ol><h2 id=心得>心得</h2><p>這個調整純屬個人的喜好問題： gRPC 的 request body，rest 透過 POST 使用 json 感覺使用體驗比較一致，不過單就以範例這樣簡單的情境功能是完全相同的，只是如果 request 內容是個大型複雜型別的物件時，我個人相信 POST 是比較常見的做法</p><p>完整程式碼：<a href=https://github.com/yowko/grpc-aspdotnetcore7-json-post target=_blank>yowko/grpc-aspdotnetcore7-json-post</a></p><h2 id=參考資訊>參考資訊</h2><ol><li><a href="https://learn.microsoft.com/zh-tw/dotnet/core/whats-new/dotnet-7?WT.mc_id=DOP-MVP-5002594" target=_blank>.NET 7 的新功能</a></li><li><a href="https://learn.microsoft.com/zh-tw/aspnet/core/release-notes/aspnetcore-7.0?view=aspnetcore-7.0&amp;WT.mc_id=DOP-MVP-5002594" target=_blank>ASP.NET Core 7.0 的新功能</a></li><li><a href="https://learn.microsoft.com/en-us/aspnet/core/grpc/json-transcoding?view=aspnetcore-7.0&amp;WT.mc_id=DOP-MVP-5002594" target=_blank>ASP.NET Core gRPC 應用程式中的 gRPC JSON 轉碼</a></li><li><a href="https://learn.microsoft.com/en-us/aspnet/core/grpc/json-transcoding-openapi?view=aspnetcore-7.0&amp;WT.mc_id=DOP-MVP-5002594" target=_blank>gRPC JSON 轉碼與 Swagger/OpenAPI</a></li><li><a href=https://medium.com/geekculture/build-high-performance-services-using-grpc-and-net7-7c0c434abbb0 target=_blank>Build High Performance Services using gRPC and .NET7</a></li><li><a href="https://learn.microsoft.com/en-us/aspnet/core/grpc/troubleshoot?view=aspnetcore-7.0&amp;WT.mc_id=DOP-MVP-5002594#unable-to-start-aspnet-core-grpc-app-on-macos" target=_blank>針對 .NET Core 上的 gRPC 進行疑難排解</a></li><li><a href=https://github.com/yowko/grpc-aspdotnetcore7-json-post target=_blank>yowko/grpc-aspdotnetcore7-json-post</a></li><li><a href=https://blog.yowko.com/aspdotnetcore-grpc-secure-insecure/>ASP.NET Core gRPC 的 Secure 與 Insecure 不同做法</a></li><li><a href=https://blog.yowko.com/grpc-aspdotnetcore7-json>gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能</a></li><li><a href=https://blog.yowko.com/grpc-aspdotnetcore7-json-macos>gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (macOS)</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2023-04-26</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/csharp/>C#</a>
+<a href=https://blog.yowko.com/tags/grpc/>grpc</a>
+<a href=https://blog.yowko.com/tags/dotnet/>.NET</a>
+<a href=https://blog.yowko.com/tags/aspdotnetcore/>aspdotnetcore</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/gcp-cloud-function-pubsub/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">Google Cloud Functions 發送訊息到 Google Cloud Pub/Sub</span></a></div><div><a class=prev href=https://blog.yowko.com/grpc-aspdotnetcore7-json-macos/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (macOS)</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/grpc-aspdotnetcore7-json-post\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2023
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-7PF6W2W48Y"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-7PF6W2W48Y');</script></body></html>

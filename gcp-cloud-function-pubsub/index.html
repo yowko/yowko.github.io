@@ -1,0 +1,107 @@
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Google Cloud Functions 發送訊息到 Google Cloud Pub/Sub - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="Google Cloud Functions 發送訊息到 Google Cloud Pub/Sub 因為公司部份產品建置在 SaaS 基礎上，但這些 SaaS 都有自己維護的時間跟計劃，所以為了避免 SaaS 維護造成產品服務異常，所以想要將 SaaS 的相"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.56.3"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/gcp-cloud-function-pubsub/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="Google Cloud Functions 發送訊息到 Google Cloud Pub/Sub"><meta property=og:description content="Google Cloud Functions 發送訊息到 Google Cloud Pub/Sub 因為公司部份產品建置在 SaaS 基礎上，但這些 SaaS 都有自己維護的時間跟計劃，所以為了避免 SaaS 維護造成產品服務異常，所以想要將 SaaS 的相"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/gcp-cloud-function-pubsub/><meta property=article:published_time content=2023-04-26T00:30:00+08:00><meta property=article:modified_time content=2023-04-26T00:30:31+08:00><meta itemprop=name content="Google Cloud Functions 發送訊息到 Google Cloud Pub/Sub"><meta itemprop=description content="Google Cloud Functions 發送訊息到 Google Cloud Pub/Sub 因為公司部份產品建置在 SaaS 基礎上，但這些 SaaS 都有自己維護的時間跟計劃，所以為了避免 SaaS 維護造成產品服務異常，所以想要將 SaaS 的相"><meta itemprop=datePublished content=2023-04-26T00:30:00&#43;08:00><meta itemprop=dateModified content=2023-04-26T00:30:31&#43;08:00><meta itemprop=wordCount content=782><meta itemprop=keywords content=csharp,gcp,><meta name=twitter:card content=summary><meta name=twitter:title content="Google Cloud Functions 發送訊息到 Google Cloud Pub/Sub"><meta name=twitter:description content="Google Cloud Functions 發送訊息到 Google Cloud Pub/Sub 因為公司部份產品建置在 SaaS 基礎上，但這些 SaaS 都有自己維護的時間跟計劃，所以為了避免 SaaS 維護造成產品服務異常，所以想要將 SaaS 的相"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2023-04-26</span>
+<span class=more-meta>約 782 字</span>
+<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#google-cloud-functions-發送訊息到-google-cloud-pub-sub>Google Cloud Functions 發送訊息到 Google Cloud Pub/Sub</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#使用方式>使用方式</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=google-cloud-functions-發送訊息到-google-cloud-pub-sub>Google Cloud Functions 發送訊息到 Google Cloud Pub/Sub</h2><p>因為公司部份產品建置在 SaaS 基礎上，但這些 SaaS 都有自己維護的時間跟計劃，所以為了避免 SaaS 維護造成產品服務異常，所以想要將 SaaS 的相關通知先打進 Google Cloud Pub/Sub，後續再介接進團隊的 IM 系統</p><p>在這個目標下，就想透過 Google Cloud Functions 來處理這個需求，不需額外建立 server 也不用 container，今天就先紀錄一下如何透過 Cloud Functions 將訊息送到 Cloud Pub/Sub</p><h2 id=基本環境說明>基本環境說明</h2><ol><li>macOS Ventura 13.2</li><li>.NET SDK 7.0.203</li><li><p>JetBrains Rider 2023.1</p><ul><li><a href=https://www.nuget.org/packages/Google.Cloud.Functions.Templates target=_blank>Google.Cloud.Functions.Templates</a></li></ul></li><li><p>NuGet packages</p><ul><li>Google.Cloud.Functions.Hosting 1.1.0</li><li>Google.Cloud.PubSub.V1 3.5.0</li></ul></li></ol><h2 id=使用方式>使用方式</h2><ol><li><p>安裝 Google Cloud Functions project template</p><pre><code class=language-bash>dotnet new install Google.Cloud.Functions.Templates::2.0.0
+</code></pre></li><li><p>透過 Google Cloud Functions project template 建立專案</p></li><li><p>安裝 NuGet packages：Google.Cloud.PubSub.V1 3.5.0</p></li><li><p>新增 <code>PublishMessages.cs</code> (用來發送訊息至 Google Cloud Pub/Sub)</p><pre><code class=language-cs>using Google.Cloud.PubSub.V1;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+    
+namespace PublishPubSub;
+    
+public class PublishMessages
+{
+    public async Task&lt;int&gt; PublishMessagesAsync(string projectId, string topicId,IEnumerable&lt;string&gt; messageTexts)
+    {
+        TopicName topicName = TopicName.FromProjectTopic(projectId, topicId);
+        PublisherClient publisher = await PublisherClient.CreateAsync(topicName);
+    
+        int publishedMessageCount = 0;
+        var publishTasks = messageTexts.Select(async text =&gt;
+        {
+            try
+            {
+                string message = await publisher.PublishAsync(text);
+                Console.WriteLine($&quot;Published message {message}&quot;);
+                Interlocked.Increment(ref publishedMessageCount);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($&quot;An error ocurred when publishing message {text}: {exception.Message}&quot;);
+            }
+        });
+        await Task.WhenAll(publishTasks);
+        return publishedMessageCount;
+    }
+}
+</code></pre></li><li><p>修改 <code>Function.cs</code></p><pre><code class=language-cs>using System.IO;
+using System.Text.Json;
+using Google.Cloud.Functions.Framework;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+    
+namespace PublishPubSub;
+    
+public class Function : IHttpFunction
+{
+    private readonly ILogger _logger;
+    private const string projectId = &quot;&quot;;
+    private const string topicId = &quot;&quot;;
+    
+    public Function(ILogger&lt;Function&gt; logger) =&gt; _logger = logger;
+    
+    public async Task HandleAsync(HttpContext context)
+    {
+        HttpRequest request = context.Request;
+    
+        // Check URL parameters for &quot;message&quot; field
+        string message = request.Query[&quot;message&quot;];
+    
+        // If there's a body, parse it as JSON and check for &quot;message&quot; field.
+        using TextReader reader = new StreamReader(request.Body);
+        string text = await reader.ReadToEndAsync();
+    
+        try
+        {
+            if (text.Length &gt; 0)
+            {
+                JsonElement json = JsonSerializer.Deserialize&lt;JsonElement&gt;(text);
+                if (json.TryGetProperty(&quot;message&quot;, out JsonElement messageElement) &amp;&amp; messageElement.ValueKind == JsonValueKind.String)
+                {
+                    message = messageElement.GetString();
+                }
+            }
+    
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                var pubsubClient = new PublishMessages();
+                await pubsubClient.PublishMessagesAsync(projectId, topicId, new[] { message });
+            }
+        }
+        catch (JsonException parseException)
+        {
+            _logger.LogError(parseException, &quot;Error parsing JSON request&quot;);
+        }
+    
+    
+        await context.Response.WriteAsync(message ?? &quot;Empty message&quot;);
+    }
+}
+</code></pre></li><li><p>GCP 設定</p><ul><li><p>建立 Google Cloud Pub/Sub topic</p><blockquote><p>預設會建立 subscription，最終的 message 是在 subscription 可以 pull 到的</p></blockquote><p><img src=https://user-images.githubusercontent.com/3851540/234823577-aa1d8245-7288-45d6-99a0-db2fc3940c71.png alt=1createtopic></p></li><li><p>建立 Google Cloud Function</p><ul><li><p><code>Configuration</code></p><blockquote><p>除了 name 與 Region 可依需求調整，其他部份皆可使用預設值</p></blockquote></li><li><p><code>Code</code></p><blockquote><p>將前面幾個步驟的結果貼上，或是可以打包成 zip 上傳</p></blockquote></li></ul><blockquote><p>建立完成後，有個 <code>TESTING</code> tab 可以直接執行，並看到相關的 response 與 log</p></blockquote><p><img src=https://user-images.githubusercontent.com/3851540/235037635-9c5e09b9-efb0-4c03-9a7d-6fe82185b8de.png alt=_output_3testing></p></li></ul></li><li><p>實際效果</p><p><img src=https://user-images.githubusercontent.com/3851540/234823608-43cac81f-3730-49b5-8273-811c0a6138f0.png alt=2result></p></li></ol><h2 id=心得>心得</h2><p>GCP 的介面可以直接編輯 Cloud Function 的 code，只是 intellisense 跟 lcoal 開發有不小的落差，加上沒有 NuGet 的 GUI，我個人手打沒辦法打出正確的內容，所以才在 local 先開發完再 sync 上去</p><p>完成程式碼：<a href=https://github.com/yowko/cloud-function-cloud-pubsub target=_blank>yowko/cloud-function-cloud-pubsub</a></p><p>如果需要為 Google Cloud Functions 增加基本保護可以參考 <a href=https://blog.yowko.com/gcp-secure-cloud-function-with-api-key>使用 Google Api Gateway 為 Google Cloud Functions 加上 API Key 保護</a></p><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://cloud.google.com/functions/docs/writing/write-http-functions#http-example-csharp target=_blank>Write HTTP functions</a></li><li><a href=https://www.nuget.org/packages/Google.Cloud.Functions.Templates target=_blank>Google.Cloud.Functions.Templates</a></li><li><a href=https://github.com/yowko/cloud-function-cloud-pubsub target=_blank>yowko/cloud-function-cloud-pubsub</a></li><li><a href=https://blog.yowko.com/gcp-secure-cloud-function-with-api-key>使用 Google Api Gateway 為 Google Cloud Functions 加上 API Key 保護</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2023-04-26</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/csharp/>C#</a>
+<a href=https://blog.yowko.com/tags/gcp/>gcp</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/grpc-aspdotnetcore7-json-streaming/ style=float:none><span class="next-text nav-mobile" style=display:inline-block>下一篇</span>
+<i class="fas fa-arrow-circle-right"></i><span class="next-text nav-default">再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能 (Streaming)</span></a></div><div><a class=prev href=https://blog.yowko.com/grpc-aspdotnetcore7-json-post/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">再探 gRPC 在 ASP.NET Core 7 的 JSON 轉碼功能</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/gcp-cloud-function-pubsub\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2023
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-7PF6W2W48Y"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-7PF6W2W48Y');</script></body></html>
