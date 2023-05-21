@@ -1,0 +1,193 @@
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>允許 Kibana 可以匯出並下載 CSV - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="允許 Kibana 可以匯出並下載 CSV 最近在為外部團隊建立 EFK 讓部份查詢不用開發人員介入，保留開發能量為更有價值的功能做準備 團隊在 Production 環境中，有嚴格的權限管理，"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.56.3"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/kibana-csv/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="允許 Kibana 可以匯出並下載 CSV"><meta property=og:description content="允許 Kibana 可以匯出並下載 CSV 最近在為外部團隊建立 EFK 讓部份查詢不用開發人員介入，保留開發能量為更有價值的功能做準備 團隊在 Production 環境中，有嚴格的權限管理，"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/kibana-csv/><meta property=article:published_time content=2023-05-20T00:30:00+08:00><meta property=article:modified_time content=2023-05-20T00:30:31+08:00><meta itemprop=name content="允許 Kibana 可以匯出並下載 CSV"><meta itemprop=description content="允許 Kibana 可以匯出並下載 CSV 最近在為外部團隊建立 EFK 讓部份查詢不用開發人員介入，保留開發能量為更有價值的功能做準備 團隊在 Production 環境中，有嚴格的權限管理，"><meta itemprop=datePublished content=2023-05-20T00:30:00&#43;08:00><meta itemprop=dateModified content=2023-05-20T00:30:31&#43;08:00><meta itemprop=wordCount content=1322><meta itemprop=keywords content=efk,elasticsearch,><meta name=twitter:card content=summary><meta name=twitter:title content="允許 Kibana 可以匯出並下載 CSV"><meta name=twitter:description content="允許 Kibana 可以匯出並下載 CSV 最近在為外部團隊建立 EFK 讓部份查詢不用開發人員介入，保留開發能量為更有價值的功能做準備 團隊在 Production 環境中，有嚴格的權限管理，"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2023-05-20</span>
+<span class=more-meta>約 1322 字</span>
+<span class=more-meta>預計閱讀 3 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#允許-kibana-可以匯出並下載-csv>允許 Kibana 可以匯出並下載 CSV</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#設定方式>設定方式</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=允許-kibana-可以匯出並下載-csv>允許 Kibana 可以匯出並下載 CSV</h2><p>最近在為外部團隊建立 EFK 讓部份查詢不用開發人員介入，保留開發能量為更有價值的功能做準備</p><p>團隊在 Production 環境中，有嚴格的權限管理，基本上遵循最小知識原則：依據權責給予對應的權限，不會多給，所以這次外部團隊也只會給到 readonly 或是建立個人查詢相關 visualize 與 dashboard 的權限，原本可以透過內建的 role：<code>reporting_user</code> 來賦予匯出 csv 的權限，但在 Kibana 8 中 <code>reporting_user</code> 已被註記為棄用，今天就來紀錄一下個人設定上的一些理解誤區</p><p><img src=https://github.com/yowko/picsbed/assets/3851540/8d805383-497c-43e5-8bdb-e8685a86cac3 alt=11deprecated></p><h2 id=基本環境說明>基本環境說明</h2><ol><li>macOS Ventura 13.2</li><li>OrbStack Version 0.8.1 (1331)</li><li><p>images</p><ul><li>docker.elastic.co/elasticsearch/elasticsearch:8.7.1</li><li>docker.elastic.co/kibana/kibana:8.7.1</li></ul></li><li><p>環境建置可以參考之前筆記：<a href=https://blog.yowko.com/docker-compose-elasticsearch-kibana-x-pack>使用 Docker Compose 建立啟用 X-Pack 的 Elasticsearch 與 Kibana</a></p><ul><li><p><code>.env</code></p><pre><code class=language-config># Password for the 'elastic' user (at least 6 characters)
+ELASTIC_PASSWORD=pass.123
+        
+# Password for the 'kibana_system' user (at least 6 characters)
+KIBANA_PASSWORD=pass.123
+        
+# Version of Elastic products
+STACK_VERSION=8.7.1
+        
+# Set the cluster name
+CLUSTER_NAME=docker-cluster
+        
+# Set to 'basic' or 'trial' to automatically start the 30-day trial
+LICENSE=basic
+#LICENSE=trial
+        
+# Port to expose Elasticsearch HTTP API to the host
+ES_PORT=9200
+#ES_PORT=127.0.0.1:9200
+        
+# Port to expose Kibana to the host
+KIBANA_PORT=5601
+#KIBANA_PORT=80
+        
+# Increase or decrease based on the available host memory (in bytes)
+MEM_LIMIT=1073741824
+        
+# Project namespace (defaults to the current folder name if not set)
+#COMPOSE_PROJECT_NAME=myproject
+</code></pre></li><li><p>建立 <code>docker-compose.yml</code></p><pre><code class=language-yaml>version: '3'
+
+services:
+        
+  setup:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    volumes:
+      - certs:/usr/share/elasticsearch/config/certs
+    user: &quot;0&quot;
+    command: &gt;
+      bash -c '
+        if [ x${ELASTIC_PASSWORD} == x ]; then
+          echo &quot;Set the ELASTIC_PASSWORD environment variable in the .env file&quot;;
+          exit 1;
+        elif [ x${KIBANA_PASSWORD} == x ]; then
+          echo &quot;Set the KIBANA_PASSWORD environment variable in the .env file&quot;;
+          exit 1;
+        fi;
+        if [ ! -f config/certs/ca.zip ]; then
+          echo &quot;Creating CA&quot;;
+          bin/elasticsearch-certutil ca --silent --pem -out config/certs/ca.zip;
+          unzip config/certs/ca.zip -d config/certs;
+        fi;
+        if [ ! -f config/certs/certs.zip ]; then
+          echo &quot;Creating certs&quot;;
+          echo -ne \
+          &quot;instances:\n&quot;\
+          &quot;  - name: elasticsearch\n&quot;\
+          &quot;    dns:\n&quot;\
+          &quot;      - elasticsearch\n&quot;\
+          &quot;      - localhost\n&quot;\
+          &quot;    ip:\n&quot;\
+          &quot;      - 127.0.0.1\n&quot;\
+          &gt; config/certs/instances.yml;
+          bin/elasticsearch-certutil cert --silent --pem -out config/certs/certs.zip --in config/certs/instances.yml --ca-cert config/certs/ca/ca.crt --ca-key config/certs/ca/ca.key;
+          unzip config/certs/certs.zip -d config/certs;
+        fi;
+        echo &quot;Setting file permissions&quot;
+        chown -R root:root config/certs;
+        find . -type d -exec chmod 750 \{\} \;;
+        find . -type f -exec chmod 640 \{\} \;;
+        echo &quot;Waiting for Elasticsearch availability&quot;;
+        until curl -s --cacert config/certs/ca/ca.crt https://elasticsearch:9200 | grep -q &quot;missing authentication credentials&quot;; do sleep 30; done;
+        echo &quot;Setting kibana_system password&quot;;
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u &quot;elastic:${ELASTIC_PASSWORD}&quot; -H &quot;Content-Type: application/json&quot; https://elasticsearch:9200/_security/user/kibana_system/_password -d &quot;{\&quot;password\&quot;:\&quot;${KIBANA_PASSWORD}\&quot;}&quot; | grep -q &quot;^{}&quot;; do sleep 10; done;
+        echo &quot;All done!&quot;;
+      '
+    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;[ -f config/certs/es01/es01.crt ]&quot;]
+      interval: 1s
+      timeout: 5s
+      retries: 120
+        
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    volumes:
+      - certs:/usr/share/elasticsearch/config/certs
+    ports:
+      - ${ES_PORT}:9200
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=${CLUSTER_NAME}
+      - cluster.initial_master_nodes=elasticsearch
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=certs/elasticsearch/elasticsearch.key
+      - xpack.security.http.ssl.certificate=certs/elasticsearch/elasticsearch.crt
+      - xpack.security.http.ssl.certificate_authorities=certs/ca/ca.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.key=certs/elasticsearch/elasticsearch.key
+      - xpack.security.transport.ssl.certificate=certs/elasticsearch/elasticsearch.crt
+      - xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt
+      - xpack.security.transport.ssl.verification_mode=certificate
+      - xpack.license.self_generated.type=${LICENSE}
+    mem_limit: ${MEM_LIMIT}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test:
+        [
+          &quot;CMD-SHELL&quot;,
+          &quot;curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q 'missing authentication credentials'&quot;,
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+        
+  kibana:
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
+    volumes:
+      - certs:/usr/share/kibana/config/certs
+    ports:
+      - ${KIBANA_PORT}:5601
+    environment:
+      - SERVERNAME=kibana
+      - ELASTICSEARCH_HOSTS=https://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=kibana_system
+      - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
+      - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=config/certs/ca/ca.crt
+    mem_limit: ${MEM_LIMIT}
+    healthcheck:
+      test:
+        [
+          &quot;CMD-SHELL&quot;,
+          &quot;curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'&quot;,
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+volumes:
+  certs:
+    driver: local
+</code></pre></li></ul></li></ol><h2 id=設定方式>設定方式</h2><ol><li><p>設定 kibana.yml</p><blockquote><p>加上 <code>xpack.reporting.roles.enabled: false</code> 這個設定是讓 Kibana 不要再使用 <code>reporting_user</code> 這個角色來管理 Reporting 相關功能 (CSV 包含在 Reporting 中)，其他設定都是預設產生的</p></blockquote><pre><code class=language-yml>server.host: &quot;0.0.0.0&quot;
+server.shutdownTimeout: &quot;5s&quot;
+elasticsearch.hosts: [ &quot;http://elasticsearch:9200&quot; ]
+monitoring.ui.container.elasticsearch.enabled: true
+xpack.reporting.roles.enabled: false
+</code></pre></li><li><p>設定 role 權限</p><ul><li><p>建立 reporting 用的 role</p><p><img src=https://github.com/yowko/picsbed/assets/3851540/c517cf0b-8eea-4612-9c2b-8c0db2b67548 alt=1createrole></p></li><li><p>設定 elaticsearch 權限</p><ul><li>1.指定 role name</li><li>2.指定 indices</li><li><p>3.加上 indices 對應權限</p><blockquote><p>Reporting 需要 <code>read</code> 與 <code>view_index_metadata</code></p></blockquote></li></ul><p><img src=https://github.com/yowko/picsbed/assets/3851540/b6b8debe-4491-4134-b841-82d05fb15e96 alt=2indexprivilege></p></li><li><p>設定 Kibana 權限</p><ul><li>1.指定 Space</li><li>2.選擇自訂權限</li><li><p>3.根據不同 applicaiton 給予權限</p><blockquote><p>基本授權(free) 不提供單一子功能設定，需要 Reporting 功能只能選 <code>All</code> 或是透過 role API 調整</p></blockquote></li></ul><p><img src=https://github.com/yowko/picsbed/assets/3851540/708517c7-eca7-4746-a961-c9107a7fc16c alt=3kibanaprivilege></p></li></ul></li><li><p>使用上述建立的 role 來建立 user</p><p><img src=https://github.com/yowko/picsbed/assets/3851540/81755937-6f05-43fb-9a14-b2d816f8cf49 alt=4createuser></p><ul><li>1. 指定 username</li><li>2. 設定 password</li><li>3. 指定使用上述建立的 role</li></ul><p><img src=https://github.com/yowko/picsbed/assets/3851540/26f30c36-74ee-4628-a439-c98004dc6a65 alt=5userwithrole></p></li><li><p>實際效果</p><ul><li><p>設定前</p><ul><li><p>無法匯出</p><p><img src=https://github.com/yowko/picsbed/assets/3851540/bce35e26-78f6-4113-8386-f3918f31718b alt=7before1></p><p><img src=https://github.com/yowko/picsbed/assets/3851540/83332fe0-4f67-4f00-b02e-c846d94c4afa alt=8before2></p></li><li><p>UI</p><p><img src=https://github.com/yowko/picsbed/assets/3851540/ea765b47-e452-423b-8a1a-d76f2fc3baa8 alt=9before3></p></li></ul></li><li><p>設定後</p><ul><li><p>UI</p><p><img src=https://github.com/yowko/picsbed/assets/3851540/08746721-d5a1-42b7-8dab-a868c11e2799 alt=10after1></p></li></ul></li></ul></li></ol><h2 id=心得>心得</h2><p><a href=https://www.elastic.co/guide/en/kibana/current/secure-reporting.html target=_blank>Kibana 官方文件 ： Configure reporting in Kibana</a> 有說明如何設定，只是文件說明讓我誤會了</p><ol><li><p><code>xpack.reporting.roles.enabled: false</code> 字面定義</p><blockquote><p>讓我誤以為是不啟用 reporting 相關功能，這只是個人腦補造成的，就是我自以為我要開啟 export csv 功能，直覺認為應該要將某個設定改為 <code>true</code>；殊不知官方的思維是另個角度：關閉 <code>reporting_user</code> 的管理權限改由 x-pack 設定</p></blockquote></li><li><p>role API 的版面配置：<a href=https://www.elastic.co/guide/en/kibana/current/secure-reporting.html#reporting-roles-user-api target=_blank>Configure reporting in Kibana - Grant access with the role API</a></p><blockquote><p>與上面的設定步驟：<a href=https://www.elastic.co/guide/en/kibana/current/secure-reporting.html#grant-user-access target=_blank>Grant users access to reporting</a> 是同一層，讓我以為 <code>Grant access with the role API</code> 也是一種設定方式，但實際上只是用來調整權限用的</p></blockquote></li><li><p>role API 內容有缺誤</p><ul><li><p>url 錯誤 (這個是出現在 Copy as curl 時，文件本身是正確的)</p><blockquote><p>應為 <code>localhost:5601/api/security/role/{role name}</code> 卻得到 <code>localhost:9200/&lt;kibana host&gt;:&lt;port&gt;/api/_security/role/{role name}?pretty</code></p></blockquote><ul><li>domain 應該是 <code>&lt;kibana host&gt;:&lt;port&gt;</code> 卻多了 <code>localhost:9200</code></li><li>path 應為 <code>security</code> 而非 <code>_security</code></li><li><p>不該有 <code>?pretty</code></p><pre><code class=language-log>{&quot;statusCode&quot;:400,&quot;error&quot;:&quot;Bad Request&quot;,&quot;message&quot;:&quot;[request query.pretty]: definition for this key is missing&quot;}% 
+</code></pre></li></ul></li><li><p>POST 一直遇到 404</p></li><li><p>沒有 auth 無法執行</p><pre><code class=language-log>{&quot;statusCode&quot;:401,&quot;error&quot;:&quot;Unauthorized&quot;,&quot;message&quot;:&quot;Unauthorized&quot;}% 
+</code></pre></li><li><p>缺 header</p><pre><code class=language-log>{&quot;statusCode&quot;:400,&quot;error&quot;:&quot;Bad Request&quot;,&quot;message&quot;:&quot;Request must contain a kbn-xsrf header.&quot;}% 
+</code></pre></li><li><p>權限不足：<code>generate_report</code> 與 <code>download_csv_report</code></p><p><img src=https://github.com/yowko/picsbed/assets/3851540/df69229d-2eb3-4e2c-bb73-6dd8931faa05 alt=6missingprivige></p></li></ul><blockquote><p>這邊我提供一下我可以使用的版本</p></blockquote><pre><code class=language-bash>curl -u {username}:{password} -X PUT &quot;{kibana host}:{kibana port}/api/security/role/{role name}&quot; -H 'Content-Type: application/json' -H 'kbn-version:8.7.1' -d'
+{
+        &quot;elasticsearch&quot;: {
+                &quot;cluster&quot;: [],
+                &quot;indices&quot;: [],
+                &quot;run_as&quot;: []
+        },
+        &quot;kibana&quot;: [{
+                &quot;spaces&quot;: [&quot;*&quot;],
+                &quot;base&quot;: [],
+                &quot;feature&quot;: {
+                        &quot;dashboard&quot;: [&quot;generate_report&quot;,  
+    &quot;download_csv_report&quot;], 
+    &quot;discover&quot;: [&quot;generate_report&quot;], 
+                        &quot;canvas&quot;: [&quot;generate_report&quot;], 
+                        &quot;visualize&quot;: [&quot;generate_report&quot;] 
+                }
+        }]
+}
+'
+</code></pre></li></ol><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://discuss.elastic.co/t/role-reporting-user-is-deprecated-please-use-kibana-feature-privileges-instead/294593 target=_blank>Role reporting_user is deprecated. Please use Kibana feature privileges instead</a></li><li><a href=https://www.elastic.co/guide/en/kibana/current/secure-reporting.html target=_blank>Configure reporting in Kibana</a></li><li><a href=https://blog.yowko.com/docker-compose-elasticsearch-kibana-x-pack>使用 Docker Compose 建立啟用 X-Pack 的 Elasticsearch 與 Kibana</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2023-05-20</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/efk/>efk</a>
+<a href=https://blog.yowko.com/tags/elasticsearch/>elasticsearch</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/docker-compose-elasticsearch-kibana-x-pack/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">使用 Docker Compose 建立啟用 X-Pack 的 Elasticsearch 與 Kibana</span></a></div></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>var disqus_config=function(){this.page.url='https:\/\/blog.yowko.com\/kibana-csv\/';};(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='yowkonotes';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2023
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-7PF6W2W48Y"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-7PF6W2W48Y');</script></body></html>
