@@ -1,7 +1,7 @@
 ---
 title: "如何在 .NET6 上指定 HttpClient 使用 HTTP/2"
 date: 2023-05-30T00:30:00+08:00
-lastmod: 2023-05-30T00:30:31+08:00
+lastmod: 2023-05-31T00:30:31+08:00
 draft: false
 tags: ["csharp","dotnet6","dotnet","httpclient"]
 slug: "httpclient-http2"
@@ -98,7 +98,10 @@ HTTP/2 的出現是為了解決 HTTP/1.1 的幾個問題，其中一個就是 he
 
 主要內容是從 [How to use HTTP/2 with HttpClient in .NET 6.0](https://www.siakabaro.com/use-http-2-with-httpclient-in-net-6-0/) `參考`來的，但 url 的部份則是從保哥文章 [設定 .NET 的 HttpClient 使用 HTTP/2 通訊協定發出 HTTP 要求](https://blog.miniasp.com/post/2023/01/17/How-to-use-HTTP-Version-2-with-HttpClient) 中來的，保哥提供的 url `https://http2.pro/api/v1` 回應比較直覺簡短，使用上方便很多更加一目瞭然
 
+完整程式碼：[yowko/HttpClientHttp2](https://github.com/yowko/HttpClientHttp2) (其實上面列出的內容，就是全部了XD)
+
 ## 參考資訊
 
 1. [How to use HTTP/2 with HttpClient in .NET 6.0](https://www.siakabaro.com/use-http-2-with-httpclient-in-net-6-0/)
 2. [設定 .NET 的 HttpClient 使用 HTTP/2 通訊協定發出 HTTP 要求](https://blog.miniasp.com/post/2023/01/17/How-to-use-HTTP-Version-2-with-HttpClient)
+3. [yowko/HttpClientHttp2](https://github.com/yowko/HttpClientHttp2)
