@@ -1,7 +1,7 @@
 ---
 title: "Ansible 變數不存在時指定預設值"
 date: 2021-11-09T00:30:00+08:00
-lastmod: 2021-11-09T00:30:31+08:00
+lastmod: 2023-06-09T00:30:31+08:00
 draft: false
 tags: ["Ansible"]
 slug: "ansible-vars-default"
@@ -52,15 +52,25 @@ slug: "ansible-vars-default"
 
     - 範例
 
-        > 以 bool 為例
+        - bool
 
-        ```ini
-        - hosts: localhost
-        tasks:
-        - name: DEBUG
-            debug:
-            msg: "{{ test|default(false) }}"
-        ```
+            ```ini
+            - hosts: localhost
+            tasks:
+            - name: DEBUG
+                debug:
+                msg: "{{ test|default(false) }}"
+            ```
+
+        - string
+
+            ```ini
+            - hosts: localhost
+            tasks:
+            - name: DEBUG
+                debug:
+                msg: "{{ test|default('string') }}"
+            ```
 
 2. refernce type : `dict`、`list`
 
