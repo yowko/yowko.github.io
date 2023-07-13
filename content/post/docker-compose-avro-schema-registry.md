@@ -87,17 +87,17 @@ Avro 需要 producer 與 consumer 使用相同 Avro schema 來進行資料的序
             environment:
               SCHEMA_REGISTRY_HOST_NAME: schema-registry
               SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'kafka:9092'
-          schema-registry-ui:
-            image: landoop/schema-registry-ui
-            container_name: schema-registry-ui
-            depends_on:
-              - schema-registry
-              - kafka
-            ports:
-              - "8000:8000"
-            environment:
-              - SCHEMAREGISTRY_URL=http://schema-registry:8081
-              - PROXY=true
+          #schema-registry-ui:
+          #  image: landoop/schema-registry-ui
+          #  container_name: schema-registry-ui
+          #  depends_on:
+          #    - schema-registry
+          #    - kafka
+          #  ports:
+          #    - "8000:8000"
+          #  environment:
+          #    - SCHEMAREGISTRY_URL=http://schema-registry:8081
+          #    - PROXY=true
         ```
 
 ## 心得
