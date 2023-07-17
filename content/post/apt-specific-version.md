@@ -72,7 +72,7 @@ slug: "apt-specific-version"
 2. 更新 apt cache 套用 preference
 
     ```bash
-     sudo apt policy
+    sudo apt policy
     ```
 
 3. 重新安裝指定版本 erlang
