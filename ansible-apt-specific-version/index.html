@@ -1,0 +1,160 @@
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>透過 Ansible 使用 APT 安裝指定版本套件 - Yowko&#39;s Notes</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Yowko Tsai"><meta name=description content="透過 Ansible 使用 APT 安裝指定版本套件 這是從之前筆記 透過 Ansible 加入 GPG key 的 APT repository 延伸而來，將使用 ansible 搭配 apt 來安裝 erlang 與 RabbitMQ 的指定版本，主要流程與步驟是參考 RabbitMQ 官網：I"><meta name=keywords content=yowko,.net,blog><meta name=generator content="Hugo 0.56.3"><meta name=msvalidate.01 content=FA1ADBDB8F0BBBD0F7F4E65CDEBF7898><link rel=canonical href=https://blog.yowko.com/ansible-apt-specific-version/><link rel=apple-touch-icon sizes=180x180 href=https://blog.yowko.com/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://blog.yowko.com/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://blog.yowko.com/favicon-16x16.png><link rel=manifest href=https://blog.yowko.com/manifest.json><link rel=mask-icon href=https://blog.yowko.com/safari-pinned-tab.svg color=#5bbad5><link href="https://blog.yowko.com/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.2.0/css/all.css integrity=sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ crossorigin=anonymous><meta property=og:title content="透過 Ansible 使用 APT 安裝指定版本套件"><meta property=og:description content="透過 Ansible 使用 APT 安裝指定版本套件 這是從之前筆記 透過 Ansible 加入 GPG key 的 APT repository 延伸而來，將使用 ansible 搭配 apt 來安裝 erlang 與 RabbitMQ 的指定版本，主要流程與步驟是參考 RabbitMQ 官網：I"><meta property=og:type content=article><meta property=og:url content=https://blog.yowko.com/ansible-apt-specific-version/><meta property=article:published_time content=2023-07-17T00:30:00+08:00><meta property=article:modified_time content=2023-07-17T00:30:31+08:00><meta itemprop=name content="透過 Ansible 使用 APT 安裝指定版本套件"><meta itemprop=description content="透過 Ansible 使用 APT 安裝指定版本套件 這是從之前筆記 透過 Ansible 加入 GPG key 的 APT repository 延伸而來，將使用 ansible 搭配 apt 來安裝 erlang 與 RabbitMQ 的指定版本，主要流程與步驟是參考 RabbitMQ 官網：I"><meta itemprop=datePublished content=2023-07-17T00:30:00&#43;08:00><meta itemprop=dateModified content=2023-07-17T00:30:31&#43;08:00><meta itemprop=wordCount content=937><meta itemprop=keywords content=ansible,linux,><meta name=twitter:card content=summary><meta name=twitter:title content="透過 Ansible 使用 APT 安裝指定版本套件"><meta name=twitter:description content="透過 Ansible 使用 APT 安裝指定版本套件 這是從之前筆記 透過 Ansible 加入 GPG key 的 APT repository 延伸而來，將使用 ansible 搭配 apt 來安裝 erlang 與 RabbitMQ 的指定版本，主要流程與步驟是參考 RabbitMQ 官網：I"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><link href=https://blog.yowko.com/opensearch.xml rel=search title="Content search" type=application/opensearchdescription+xml></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=https://blog.yowko.com/><li class=mobile-menu-item>首頁</li></a><a href=https://blog.yowko.com/post/><li class=mobile-menu-item>歷史筆記</li></a><a href=https://blog.yowko.com/tags/><li class=mobile-menu-item>內容標籤</li></a><a href=https://blog.yowko.com/search><li class=mobile-menu-item>站內搜尋</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header style=height:118px;padding-bottom:0><div class=logo-wrapper><a href=https://blog.yowko.com/ class=logo>Yowko&#39;s Notes</a></div><div style=padding-bottom:60px></div></nav><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/>首頁</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/post/>歷史筆記</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/tags/>內容標籤</a></li><li class=menu-item><a class=menu-item-link href=https://blog.yowko.com/search>站內搜尋</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><hr style="border-top:1px solid #e6e6e6;border-bottom:0;padding:0"><div id=content class=content><article class=post><header class=post-header><div class=post-meta><span class=post-time>2023-07-17</span>
+<span class=more-meta>約 937 字</span>
+<span class=more-meta>預計閱讀 2 分鐘</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目錄</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#透過-ansible-使用-apt-安裝指定版本套件>透過 Ansible 使用 APT 安裝指定版本套件</a></li><li><a href=#基本環境說明>基本環境說明</a></li><li><a href=#安裝方式>安裝方式</a></li><li><a href=#心得>心得</a></li><li><a href=#參考資訊>參考資訊</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=透過-ansible-使用-apt-安裝指定版本套件>透過 Ansible 使用 APT 安裝指定版本套件</h2><p>這是從之前筆記 <a href=https://blog.yowko.com/ansible-apt-repository-gpg>透過 Ansible 加入 GPG key 的 APT repository</a> 延伸而來，將使用 ansible 搭配 apt 來安裝 erlang 與 RabbitMQ 的指定版本，主要流程與步驟是參考 <a href=https://www.rabbitmq.com/install-debian.html target=_blank>RabbitMQ 官網：Installing on Debian and Ubuntu</a> 來的</p><pre><code class=language-bash>#!/bin/sh
+
+sudo apt-get install curl gnupg apt-transport-https -y
+
+## Team RabbitMQ's main signing key
+curl -1sLf &quot;https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA&quot; | sudo gpg --dearmor | sudo tee /usr/share/keyrings/com.rabbitmq.team.gpg &gt; /dev/null
+## Community mirror of Cloudsmith: modern Erlang repository
+curl -1sLf https://ppa1.novemberain.com/gpg.E495BB49CC4BBE5B.key | sudo gpg --dearmor | sudo tee /usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg &gt; /dev/null
+## Community mirror of Cloudsmith: RabbitMQ repository
+curl -1sLf https://ppa1.novemberain.com/gpg.9F4587F226208342.key | sudo gpg --dearmor | sudo tee /usr/share/keyrings/rabbitmq.9F4587F226208342.gpg &gt; /dev/null
+
+## Add apt repositories maintained by Team RabbitMQ
+sudo tee /etc/apt/sources.list.d/rabbitmq.list &lt;&lt;EOF
+## Provides modern Erlang/OTP releases
+##
+deb [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.novemberain.com/rabbitmq/rabbitmq-erlang/deb/ubuntu jammy main
+deb-src [signed-by=/usr/share/keyrings/rabbitmq.E495BB49CC4BBE5B.gpg] https://ppa1.novemberain.com/rabbitmq/rabbitmq-erlang/deb/ubuntu jammy main
+
+## Provides RabbitMQ
+##
+deb [signed-by=/usr/share/keyrings/rabbitmq.9F4587F226208342.gpg] https://ppa1.novemberain.com/rabbitmq/rabbitmq-server/deb/ubuntu jammy main
+deb-src [signed-by=/usr/share/keyrings/rabbitmq.9F4587F226208342.gpg] https://ppa1.novemberain.com/rabbitmq/rabbitmq-server/deb/ubuntu jammy main
+EOF
+
+## Update package indices
+sudo apt-get update -y
+</code></pre><h2 id=基本環境說明>基本環境說明</h2><ol><li>Azure VM Standard B2s (2 vcpu，4 GiB 記憶體)</li><li>Linux (ubuntu 22.04)</li><li>erlang 25.3.2.2</li><li>RabbitMQ 3.11.19</li></ol><h2 id=安裝方式>安裝方式</h2><ol><li><p>Install needed packages</p><p>詳細說明請參考 <a href=https://blog.yowko.com/ansible-apt-repository-gpg>透過 Ansible 加入 GPG key 的 APT repository</a></p><pre><code class=language-yml>- name: 1. Install needed packages
+  become: true
+  ansible.builtin.apt:
+    pkg:
+    - curl
+    - gnupg
+    - apt-transport-https
+</code></pre></li><li><p>One way to avoid apt_key once it is removed from your distro</p><p>詳細說明請參考 <a href=https://blog.yowko.com/ansible-apt-repository-gpg>透過 Ansible 加入 GPG key 的 APT repository</a></p><pre><code class=language-yml>- name: 2. One way to avoid apt_key once it is removed from your distro
+  block:
+    - name: 2-1. Add Erlang gpg key
+      become: true
+      apt_key:
+        url: https://ppa1.novemberain.com/gpg.E495BB49CC4BBE5B.key
+        state: present
+      register: _add_apt_key
+      until: _add_apt_key is succeeded
+      retries: 5
+      delay: 2
+    - name: 2-2. Add RabbitMQ gpg key
+      become: true
+      apt_key:
+        url: https://ppa1.novemberain.com/gpg.9F4587F226208342.key
+        state: present
+      register: _add_apt_rabbitmq_key
+      until: _add_apt_rabbitmq_key is succeeded
+      retries: 5
+      delay: 2
+    - name: 2-3. Add Erlang repository
+      become: true
+      ansible.builtin.apt_repository:
+        repo: deb https://ppa1.novemberain.com/rabbitmq/rabbitmq-erlang/deb/ubuntu {{ ansible_distribution_release }} main
+        state: present
+        filename: erlang-repo
+    - name: 2-4. Add RabbitMQ repository
+      become: true
+      ansible.builtin.apt_repository:
+        repo: deb https://ppa1.novemberain.com/rabbitmq/rabbitmq-server/deb/ubuntu {{ ansible_distribution_release }} main
+        state: present
+        filename: rabbitmq-repo
+</code></pre></li><li><p>Add Pin preference</p><p>將特別 package 與 version 透過設定 preference 的方式固定，詳細內容可以參考之前筆記 <a href=https://blog.yowko.com/apt-specific-version>APT 安裝指定版本套件</a></p><ul><li><p>prefernece.j2</p><pre><code class=language-yml>Package: erlang*
+Pin: version {{erlang_version}}
+Pin-Priority: 1000
+        
+Package: rabbitmq*
+Pin: version {{rabbitmq_version}}
+Pin-Priority: 1000
+</code></pre><pre><code class=language-yml>- name: 3. Add Pin preference
+become: true
+template: src=./prefernece.j2 dest=/etc/apt/preferences.d/erlang_rabbitmq
+</code></pre></li></ul></li><li><p>Update Cache and apply policy</p><p>這個步驟我在某些 vm 上可以不用執行，但有些 vm 會有 policy 未套用的狀況，可以依實際需求調整</p><pre><code class=language-yml>- name: 4. Update Cache and apply policy
+  become: true
+  ansible.builtin.shell: apt update -y &amp;&amp; apt policy
+</code></pre></li><li><p>Install Erlang and RabbitMQ</p><pre><code class=language-yml>- name: 5. Install Erlang and RabbitMQ
+  become: true
+  apt:
+    package:
+      - &quot;erlang-nox={{erlang_version}}&quot;
+      - &quot;rabbitmq-server={{rabbitmq_version}}&quot;
+    state: present
+    install_recommends: false
+</code></pre></li><li><p>完整內容</p><pre><code class=language-yaml>- hosts: azure_ubuntu
+  vars:
+    erlang_version: 1:25.3.2.2-1
+    rabbitmq_version: 3.11.19-1
+  tasks:
+  - name: 1. Install needed packages
+    become: true
+    ansible.builtin.apt:
+      pkg:
+      - curl
+      - gnupg
+      - apt-transport-https
+  - name: 2. One way to avoid apt_key once it is removed from your distro
+    block:
+      - name: 2-1. Add Erlang gpg key
+        become: true
+        apt_key:
+          url: https://ppa1.novemberain.com/gpg.E495BB49CC4BBE5B.key
+          state: present
+        register: _add_apt_key
+        until: _add_apt_key is succeeded
+        retries: 5
+        delay: 2
+      - name: 2-2. Add RabbitMQ gpg key
+        become: true
+        apt_key:
+          url: https://ppa1.novemberain.com/gpg.9F4587F226208342.key
+          state: present
+        register: _add_apt_rabbitmq_key
+        until: _add_apt_rabbitmq_key is succeeded
+        retries: 5
+        delay: 2
+      - name: 2-3. Add Erlang repository
+        become: true
+        ansible.builtin.apt_repository:
+          repo: deb https://ppa1.novemberain.com/rabbitmq/rabbitmq-erlang/deb/ubuntu {{ ansible_distribution_release }} main
+          state: present
+          filename: erlang-repo
+      - name: 2-4. Add RabbitMQ repository
+        become: true
+        ansible.builtin.apt_repository:
+          repo: deb https://ppa1.novemberain.com/rabbitmq/rabbitmq-server/deb/ubuntu {{ ansible_distribution_release }} main
+          state: present
+          filename: rabbitmq-repo
+  - name: 3. Add Pin preference
+    become: true
+    template: src=./prefernece.j2 dest=/etc/apt/preferences.d/erlang_rabbitmq
+  - name: 4. Update Cache and apply policy
+    become: true
+    ansible.builtin.shell: apt update -y &amp;&amp; apt policy
+  - name: 5. Install Erlang and RabbitMQ
+    become: true
+    apt:
+      package:
+        - &quot;erlang-nox={{erlang_version}}&quot;
+        - &quot;rabbitmq-server={{rabbitmq_version}}&quot;
+      state: present
+      install_recommends: false
+</code></pre></li></ol><h2 id=心得>心得</h2><p>該踩的坑大部份都在之前的筆記中紀錄了，唯一讓我覺得奇怪的是 <code>apt policy</code> 這個在 ansible apt module 沒有找到相關參數指令，我原本以為這個需求很常見，後來測試過程中發現好像不一定要執行，後續又測試了幾次但沒有找出問題的規則，只能用 shell 先補上，秉持著多做沒錯的原則避免少做出問題</p><p>完整原始碼：<a href=https://github.com/yowko/ansible-apt-rabbitmq target=_blank>yowko/ansible-apt-rabbitmq</a></p><h2 id=參考資訊>參考資訊</h2><ol><li><a href=https://blog.yowko.com/ansible-apt-repository-gpg>透過 Ansible 加入 GPG key 的 APT repository</a></li><li><a href=https://blog.yowko.com/apt-specific-version>APT 安裝指定版本套件</a></li><li><a href=https://www.rabbitmq.com/install-debian.html target=_blank>RabbitMQ 官網：Installing on Debian and Ubuntu</a></li><li><a href=https://github.com/yowko/ansible-apt-rabbitmq target=_blank>yowko/ansible-apt-rabbitmq</a></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>Yowko Tsai</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2023-07-17</span></p><p class=copyright-item><span class=item-title>授權合約</span>
+<span class=item-content>本部落格 (<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a>) 所有的文章內容(包含圖片)，任何轉載行為，必須通知並獲本部落格作者 (<a href=mailto:yowko@yowko.com>Yowko Tsai</a>) 的同意始得轉載,且轉載皆須註明出處與作者。<br><br><div class=separator style=clear:both;text-align:center><a href=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png imageanchor=1 style=margin-left:1em;margin-right:1em><img border=0 src=//i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png></a></div><br>&nbsp;<a href=//blog.yowko.com target=_blank>Yowko&#39;s Notes</a> 由 <a href=https://www.facebook.com/yowko.tsai target=_blank>Yowko Tsai</a> 製作，以<a href=//creativecommons.org/licenses/by-nc-sa/3.0/tw/ target=_blank>創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>&nbsp;釋出。</span></p></div><footer class=post-footer><div class=post-tags>標籤：
+<a href=https://blog.yowko.com/tags/ansible/>ansible</a>
+<a href=https://blog.yowko.com/tags/linux/>linux</a></div><nav class=post-nav><div><a class=prev href=https://blog.yowko.com/ansible-apt-repository-gpg/ style=float:none><span class="prev-text nav-mobile" style=display:inline-block>上一篇</span>
+<i class="fas fa-arrow-circle-left"></i><span class="prev-text nav-default">透過 Ansible 加入 GPG key 的 APT repository</span></a></div></nav></footer></article></div><script src=https://giscus.app/client.js data-repo=yowko/yowko.github.io data-repo-id data-category=Announcements data-category-id=DIC_kwDOCsJzG84CW4SD data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=preferred_color_scheme data-lang=zh-TW crossorigin=anonymous async></script></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:yowko@yowko.com class="iconfont icon-email" title=email></a><a href=https://www.linkedin.com/in/yowko/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/yowko class="iconfont icon-github" title=github></a><a href=https://blog.yowko.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 強力驅動</span>
+<span class=division>|</span>
+<span class=theme-info>主題 -
+<a class=theme-link href=https://github.com/huanlin/hugo-theme-even-more>Even More</a></span>
+<span class=copyright-year>&copy;
+2016 -
+2023
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Yowko Tsai</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="https://blog.yowko.com/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=https://blog.yowko.com/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=https://blog.yowko.com/lib/instantclick/instantclick-3.0.1.min.js data-no-instant></script><script data-no-instant>InstantClick.init();</script><script type=text/javascript src="https://blog.yowko.com/dist/even.min.js?v=3.2.0"></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','G-7PF6W2W48Y','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
