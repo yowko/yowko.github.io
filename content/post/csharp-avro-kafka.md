@@ -17,11 +17,17 @@ slug: "csharp-avro-kafka"
 2. .NET SDK 6.0.400
 3. JetBrains Rider 2023.1.3
 4. OrbStack 0.13.0(1910)
-5. container images
+5. NuGet Package
+
+    - Confluent.Kafka 2.1.1
+    - Confluent.SchemaRegistry 2.1.1
+    - Confluent.SchemaRegistry.Serdes.Avro 2.1.1
+
+6. container images
     - quay.io/strimzi/kafka:latest-kafka-3.5.0-amd64
     - confluentinc/cp-schema-registry:7.4.0
     - landoop/schema-registry-ui:0.9.4
-6. Apache.Avro.Tools 1.11.2
+7. dotnet tools: Apache.Avro.Tools 1.11.2
 
     > 用來將 Avro schemas 轉為 C# class
 
@@ -29,7 +35,7 @@ slug: "csharp-avro-kafka"
     dotnet tool install --global Apache.Avro.Tools
     ```
 
-7. Kafka 與 Schema Registry 建立
+8. Kafka 與 Schema Registry 建立
 
     > 完整說明請參考之前筆記 [使用 Docker Compose 啟動 Avro Schema Registry](/docker-compose-avro-schema-registry/)，其中 `advertised.listeners=PLAINTEXT://192.168.80.3:9092` 記得改為自己的 ip
 
