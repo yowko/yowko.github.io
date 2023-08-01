@@ -1,7 +1,7 @@
 ---
 title: "使用 jq 達成覆寫相同 json key 的效果"
 date: 2021-11-16T00:30:00+08:00
-lastmod: 2021-11-16T00:30:31+08:00
+lastmod: 2023-08-01T00:30:31+08:00
 draft: false
 tags: ["Tools","jq"]
 slug: "jq-merge-json"
@@ -96,8 +96,13 @@ slug: "jq-merge-json"
 
 語法使用上很簡單，不過對於語法的真諦就我目前的理解能力跟經驗還無法充份掌握，說白的就是能兜出可用的版本，無法靈活應用，簡單紀錄一下圖個經驗累積，希望日後慢慢可以上手了
 
+2023/08/01 update：
+
+新需求研究的筆記：[jq 合併多個 json](/jq-merge-multiple-json)，過程中發現不同的語法有相同效果：`jq -s add file1.json file2.json`
+
 ## 參考資訊
 
 1. [Configuration in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-6.0&WT.mc_id=DOP-MVP-5002594#appsettingsjson)
 2. [jq](https://stedolan.github.io/jq/)
 3. [jqplay](https://jqplay.org/)
+4. [jq 合併多個 json](/jq-merge-multiple-json)
