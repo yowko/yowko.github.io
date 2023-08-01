@@ -57,6 +57,8 @@ slug: "jq-merge-multiple-json"
 
 ## 使用方式
 
+> 需要留意 json 檔案內容，不能有註解或是嚴格定義不能有 `//` 符號，會出現 `parse error: Invalid numeric literal at line x, column x` 錯誤
+
 1. 語法 1： `jq -s ".[0] * .[1] * .[2]" file1.json file2.json file3.json`
 
     > 這是之前筆記 [使用 jq 達成覆寫相同 json key 的效果](jq-merge-json/) 的延伸，概念就是直接加上第三個檔案
