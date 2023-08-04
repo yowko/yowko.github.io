@@ -16,6 +16,13 @@ slug: "hostedservice-schedule-job"
 1. 程式啟動先執行一次快取更新
 2. 每日 GMT +8  00:00 執行快取更新
 
+所有工具使用筆記在此：
+
+1. [使用原生 HostedService 來進行 Schedule Job](/hostedservice-schedule-job)
+2. [使用 Hangfire 來進行 Schedule Job](/hangfire)
+3. [使用 Quartz.NET 來進行 Schedule Job"](/quartz-net)
+4. [使用 Coravel 來進行 Schedule Job](/coravel)
+
 ## 基本環境說明
 
 1. macOS Ventura 13.4.1
@@ -52,6 +59,10 @@ slug: "hostedservice-schedule-job"
 
     > 這是用來解析 Cron expression 的，可視需要加入
 
+     ```bash
+    dotnet add package Cronos --version 0.7.1
+    ```
+
 2. 新增 HostedService： `TimedHostedService.cs`
 
     {{< gist yowko 19f15f7b8ce68f2a423c4abbb5860dd1 >}}
@@ -59,7 +70,7 @@ slug: "hostedservice-schedule-job"
 3. 註冊 HostedService：`Program.cs`
 
     ```cs
-    builder.Services.AddHostedService<TimedHostedService.TimedHostedService>();
+    builder.Services.AddHostedService<TimedHostedService>();
     ```
 
 ## 心得
@@ -69,7 +80,21 @@ slug: "hostedservice-schedule-job"
 - 優點：不用再額外學習其他套件的使用方式
 - 缺點：程式碼沒那麼直覺 (我每次看到都要再想一下XD)
 
+原始程式碼在此：[yowko/timedhostedservicedemo](https://github.com/yowko/timedhostedservicedemo)
+
+所有工具使用筆記在此：
+
+1. [使用原生 HostedService 來進行 Schedule Job](/hostedservice-schedule-job)
+2. [使用 Hangfire 來進行 Schedule Job](/hangfire)
+3. [使用 Quartz.NET 來進行 Schedule Job"](/quartz-net)
+4. [使用 Coravel 來進行 Schedule Job](/coravel)
+
 ## 參考資訊
 
 1. [在 ASP.NET Core 中使用託管服務的背景工作](https://learn.microsoft.com/zh-tw/aspnet/core/fundamentals/host/hosted-services?WT.mc_id=DOP-MVP-5002594)
 2. [changhuixu/CronJobService.cs](https://gist.github.com/changhuixu/47ffb441575564b57e6446bb59466300)
+3. [使用原生 HostedService 來進行 Schedule Job](/hostedservice-schedule-job)
+4. [使用 Hangfire 來進行 Schedule Job](/hangfire)
+5. [使用 Quartz.NET 來進行 Schedule Job"](/quartz-net)
+6. [使用 Coravel 來進行 Schedule Job](/coravel)
+7. [yowko/timedhostedservicedemo](https://github.com/yowko/timedhostedservicedemo)
