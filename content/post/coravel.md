@@ -1,7 +1,7 @@
 ---
 title: "使用 Coravel 來進行 Schedule Job"
 date: 2023-08-04T00:30:00+08:00
-lastmod: 2023-08-04T00:30:31+08:00
+lastmod: 2023-08-07T00:30:31+08:00
 draft: false
 tags: ["csharp","ASP.NET Core","Tools"]
 slug: "coravel"
@@ -9,7 +9,7 @@ slug: "coravel"
 
 ## 使用 Coravel 來進行 Schedule Job
 
-最近有個舊專案 (.NET Core 2.1) 需要增加功能，升級 framework 是絕對必要的，只是其中一段用來執行每天更新 cache 的背景作引起了我的興趣，我忘記為什麼當時沒有引用其他套件 (`Hangfire`，`Quartz.NET`...) 來達成定期執行的目的，但持續以來運作地也滿好的，不過因為需求單純，打算趁著這個機會想要來比較幾個套件與原生做法的優劣，今天輪到 Coravel
+最近有個舊專案 (.NET Core 2.1) 需要增加功能，升級 framework 是絕對必要的，只是其中一段用來執行每天更新 cache 的背景作業引起了我的興趣，我忘記為什麼當時沒有引用其他套件 (`Hangfire`，`Quartz.NET`...) 來達成定期執行的目的，但持續以來運作地也滿好的，不過因為需求單純，打算趁著這個機會想要來比較幾個套件與原生做法的優劣，今天輪到 Coravel
 
 需求：
 
