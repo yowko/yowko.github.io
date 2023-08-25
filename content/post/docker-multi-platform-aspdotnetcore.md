@@ -1,7 +1,7 @@
 ---
 title: "為 ASP.NET Core 建立 Multi-Platform image"
 date: 2023-08-22T00:30:00+08:00
-lastmod: 2023-08-22T00:30:31+08:00
+lastmod: 2023-08-25T00:30:31+08:00
 draft: false
 tags: ["docker","dotnet core","aspdotnet core"]
 slug: "docker-multi-platform-aspdotnetcore"
@@ -52,9 +52,9 @@ slug: "docker-multi-platform-aspdotnetcore"
 
   1. stage 1 的 FROM 有指定 builder 的 image platform
   2. restore 有加上 `-a` 指定特定平台套件
-  3. image size 差很多 (8: 109MB，6: 306MB)
+  3. image size 差很多 ( `sdk 8`: 109MB， `sdk 6`: 306MB)
 
-- 我參考 Microsoft PM - Richard Lander 的文章：[Improving multi-platform container support](https://devblogs.microsoft.com/dotnet/improving-multiplatform-container-support?WT.mc_id=DOP-MVP-5002594) 嘗試幾種不同方式得到幾個不同錯誤，紀錄一下
+- 我參考 Microsoft PM - Richard Lander 的文章：[Improving multi-platform container support](https://devblogs.microsoft.com/dotnet/improving-multiplatform-container-support?WT.mc_id=DOP-MVP-5002594) 使用 SDK 加入的參數並嘗試幾種不同方式得到幾個不同錯誤，紀錄一下
 
   1. 用相同 dockerfile 來 build .NET 6 的專案，出現需要安裝 .NET runtime 的提示訊息
 
@@ -68,7 +68,7 @@ slug: "docker-multi-platform-aspdotnetcore"
 
         ![3selfcontained](https://github.com/yowko/picsbed/assets/3851540/eec2e6de-ee4d-455a-a517-21f9af74ba11)
 
-  4. 使用 .NET 8 的條件式來編輯出現找不到檔案
+  4. 使用 .NET 8 的條件式來編譯出現找不到檔案
 
         ![2nofile](https://github.com/yowko/picsbed/assets/3851540/2676f08d-8f9a-491b-8d0e-7eedaa487b6d)
 
