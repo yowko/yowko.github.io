@@ -1,13 +1,13 @@
 ---
-title: "將 ASP.NET Core 透過 Grafana Loki 來顯示"
+title: "將 ASP.NET Core 的 log 透過 Grafana Loki 來顯示"
 date: 2023-09-04T00:30:00+08:00
 lastmod: 2023-09-04T00:30:31+08:00
 draft: false
-tags: ["aspdotnet","loki","grafana"]
+tags: ["aspdotnet","loki","grafana","logging"]
 slug: "aspdotnet-loki"
 ---
 
-## 將 ASP.NET Core 透過 Grafana Loki 來顯示
+## 將 ASP.NET Core 的 log 透過 Grafana Loki 來顯示
 
 之前筆記 [使用 Docker Compose 啟動 Grafana Loki](/docker-compose-grafana-loki) 提到過去幾年時間都是透過 Elastic Stack 來處理 log 集中化，因為團隊正在評估下一代產品所使用的 technical stack 於是將 Grafana Loki 納入評估。另一則筆記 [Grafana Loki 搭配 Fluent Bit"](/grafana-loki-fluentbit) 紀錄到如何使用過去的 fluent-bit 來 parsing log file，以降低從 EFK 轉換至 Grafana Loki 的使用門檻，加上團隊還是以 log file 使用為鋌，但站在學術研究的立場，今天來看看如何將 ASP.NET Core 的 log 透過 Loki 顯示在 Grafana 上
 
@@ -23,10 +23,11 @@ slug: "aspdotnet-loki"
 
     - Serilog.Sinks.Grafana.Loki 8.1.0
     - Serilog.Extensions.Hosting 7.0.0
-    - Serilog.AspNetCore 7.0.0
     - Serilog.Sinks.Console 4.1.0
 
 5. docker-compose.yaml
+
+    內容取自之前筆記 [使用 Docker Compose 啟動 Grafana Loki](/docker-compose-grafana-loki)
 
     ```yaml
     version: "3"
@@ -40,13 +41,6 @@ slug: "aspdotnet-loki"
         ports:
           - "3100:3100"
         command: -config.file=/etc/loki/local-config.yaml
-        networks:
-          - loki
-      promtail:
-        image: grafana/promtail:2.6.0
-        volumes:
-          - /var/log:/var/log
-        command: -config.file=/etc/promtail/config.yml
         networks:
           - loki
       grafana:
