@@ -9,7 +9,7 @@ slug: "aspdotnet-loki"
 
 ## 將 ASP.NET Core 的 log 透過 Grafana Loki 來顯示
 
-之前筆記 [使用 Docker Compose 啟動 Grafana Loki](/docker-compose-grafana-loki) 提到過去幾年時間都是透過 Elastic Stack 來處理 log 集中化，因為團隊正在評估下一代產品所使用的 technical stack 於是將 Grafana Loki 納入評估。另一則筆記 [Grafana Loki 搭配 Fluent Bit"](/grafana-loki-fluentbit) 紀錄到如何使用過去的 fluent-bit 來 parsing log file，以降低從 EFK 轉換至 Grafana Loki 的使用門檻，加上團隊還是以 log file 使用為鋌，但站在學術研究的立場，今天來看看如何將 ASP.NET Core 的 log 透過 Loki 顯示在 Grafana 上
+之前筆記 [使用 Docker Compose 啟動 Grafana Loki](/docker-compose-grafana-loki) 提到過去幾年時間都是透過 Elastic Stack 來處理 log 集中化，因為團隊正在評估下一代產品所使用的 technical stack 於是將 Grafana Loki 納入評估。另一則筆記 [Grafana Loki 搭配 Fluent Bit](/grafana-loki-fluentbit) 紀錄到如何使用過去的 fluent-bit 來 parsing log file，以降低從 EFK 轉換至 Grafana Loki 的使用門檻，加上團隊還是以 log file 使用為主，但站在學術研究的立場，今天來看看如何將 ASP.NET Core 的 log 透過 Loki 顯示在 Grafana 上
 
 ## 基本環境說明
 
