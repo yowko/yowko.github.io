@@ -109,7 +109,7 @@ slug: "aspdotnet-loki"
     搭配前面提到的特性：`Serilog.WriteTo.Args.propertiesAsLabels` 可以將特定的 log property 以 Loki Label 方式處理 (以 `from` 為例)，在寫入 log 指定 `from` property 的 value 即可
 
     ```cs
-    using var logCtx = LogContext.PushProperty("from", "GrafanaLoki2");
+    using var logCtx = LogContext.PushProperty("from", "GrafanaLoki");
     ```
 
     - 使用 Serilog static Log
