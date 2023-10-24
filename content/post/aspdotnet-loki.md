@@ -130,7 +130,7 @@ slug: "aspdotnet-loki"
 
 ## 心得
 
-雖然可以使用 Serilog static Log 與 ILogger 兩者方式，但我個人比較偏好 ILogger，讓所有 logger 都使用同樣的做法也可以統一所有 log 內容，避免有的 log 是 ILogger 寫出來的就沒 output 至某個 sink；今天筆記一併紀錄兩種 log 設定方式純粹是因為網路上的範例還有不少使用 Serilog static Log，甚至有些官方範例也是這麼用的
+雖然可以使用 Serilog static Log 與 ILogger 兩者方式，但我個人比較偏好 ILogger，讓所有 logger 都使用同樣的做法也可以統一所有 log 內容 (使用 Serilog static Log 設定時，ILogger 寫出來的 log 將不會套用 Serilog static Log 設定)，避免有的 log 是 ILogger 寫出來的就沒 output 至某個 sink；今天筆記一併紀錄兩種 log 設定方式純粹是因為網路上的範例還有不少使用 Serilog static Log，甚至有些官方範例也是這麼用的
 
 Serilog.Sinks.Grafana.Loki 沒有支援 `outputTemplate` 設定，另外就是文件稍嫌不足，資料不是很好找，但可以成功把資料送到 Loki 上，我應該要知足了XD
 
