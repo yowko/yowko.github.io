@@ -28,32 +28,34 @@ RabbitMQ 團隊在 [RabbitMQ 3.9](https://www.rabbitmq.com/streams.html) 導入 
 
 1. macOS Ventura 13.3
 2. OrbStack 1.0.1(1697)
-3. NuGet librearies
+3. .NET SDK 6.0.413
+4. JetBrains Rider 2023.2.3
+5. NuGet libaries
 
     - RabbitMQ.Client 6.6.0
 
-4. docker images
+6. docker images
    - rabbitmq:3.12.7-management
    - yowko/rabbitmq:3.12.7-management
-5. RabbitMQ cluster docker compose
+7. RabbitMQ cluster docker compose
 
     > 詳細內容可以參考過去筆記 [透過 docker compose 啟動 RabbitMQ cluster](/docker-compose-rabbitmq-cluster/)
 
     {{<gist yowko 95998a9f62af6dc2ff1b55c40013a798>}}
 
-6. 建立 RabbitMQ exchange
+8. 建立 RabbitMQ exchange
 
     ```bash
     rabbitmqadmin declare exchange name=test type=topic -u admin -p pass.123
     ```
 
-7. 建立 RabbitMQ Stream queue
+9. 建立 RabbitMQ Stream queue
 
     ```bash
     rabbitmqadmin declare queue name=test-streams durable=true queue_type=stream -u admin -p pass.123
     ```
 
-8. 設定 exchange queue 的 binding
+10. 設定 exchange queue 的 binding
 
     ```bash
     rabbitmqadmin declare binding source=test destination_type=queue destination=test-streams routing_key=streams -u admin -p pass.123
@@ -61,7 +63,7 @@ RabbitMQ 團隊在 [RabbitMQ 3.9](https://www.rabbitmq.com/streams.html) 導入 
 
 ## C# 存取 RabbitMQ Stream
 
-1. Publish
+1. Produce
 
     {{< gist yowko 8fdfd3fa77e02298fafa08fe36568523 >}}
 
@@ -148,9 +150,13 @@ RabbitMQ 團隊在 [RabbitMQ 3.9](https://www.rabbitmq.com/streams.html) 導入 
 
 6. 雖然是對應 Kafka 相關功能，但還是有不少差異，其他像是 Kafka consumer group 的設定，RabbitMQ 可能需要透過 single active consumer 實作、RabbitMQ 有 Super streams，初步看來跟 Kafka partition 概念接近，但都還沒花時間仔細研究
 
+完整程式碼：[GitHub: yowko/streams-queue-demo](https://github.com/yowko/streams-queue-demo)
+
 ## 參考資料
 
 1. [RabbitMQ 3.9](https://www.rabbitmq.com/streams.html)
 2. [透過 docker compose 啟動 RabbitMQ cluster](/docker-compose-rabbitmq-cluster/)
 3. [RabbitMQ Streams Overview](https://blog.rabbitmq.com/posts/2021/07/rabbitmq-streams-overview/)
-4. [RabbitMQ.Stream.Client](https://www.nuget.org/packages/RabbitMQ.Stream.Client)
+4. [RabbitMQ Streams and Replay Features, Part 1: When to Use RabbitMQ Streams](https://www.cloudamqp.com/blog/rabbitmq-streams-and-replay-features-part-1-when-to-use-rabbitmq-streams.html)
+5. [RabbitMQ Streams and replay features, Part 2: How to work with RabbitMQ Streams](https://www.cloudamqp.com/blog/rabbitmq-streams-and-replay-features-part-2-how-to-work-with-rabbitmq-streams.html)
+6. [GitHub: yowko/streams-queue-demo](https://github.com/yowko/streams-queue-demo)
