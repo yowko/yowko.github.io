@@ -1,7 +1,7 @@
 ---
 title: "使用 C# 設定 Single Active Consumer 讀取 RabbitMQ Streams"
 date: 2023-11-07T00:30:00+08:00
-lastmod: 2023-11-07T00:30:31+08:00
+lastmod: 2023-11-10T00:30:31+08:00
 draft: false
 tags: ["csharp","rabbitmq"]
 slug: "csharp-rabbitmq-streams-single-active-consumer"
@@ -106,7 +106,8 @@ RabbitMQ 團隊在 [RabbitMQ 3.9](https://www.rabbitmq.com/streams.html) 導入 
 
 1. RabbitMQ Stream 的 consumer group 設定方式與 Kafka 不同，Kafka 是透過 group id 來設定，而 RabbitMQ Stream 則是透過 Reference 來設定
 2. RabbitMQ Stream single active consumer 的設定明顯比 Kafka consumer group 繁瑣，需要自行設定 offset 追蹤與儲存，相較需 kafka 只要指定 group id 其他的皆交由 kafka 處理
-3. 設定 ConsumerUpdateListener 時，如果 Reference 與 stream 不存在時，會拋出 `OffsetNotFoundException`，我修改官網的範例以回傳 `OffsetTypeFirst` 讓 consumer 從第一筆開始消費 (我覺得這邊可以改善，可以直接回傳 `OffsetTypeFirst`，不需要拋出例外，否則以我看就是會一直收到 `OffsetNotFoundException`，還是我誤會了什麼XD)
+3. 個人實測，在沒有新增 message 的情況下，雖然有回傳最後一筆 message 內容，但重啟 consumer 時還是會收到最後一筆 message (這筆 message 會重複收到)
+4. 設定 ConsumerUpdateListener 時，如果 Reference 與 stream 不存在時，會拋出 `OffsetNotFoundException`，我修改官網的範例以回傳 `OffsetTypeFirst` 讓 consumer 從第一筆開始消費 (我覺得這邊可以改善，可以直接回傳 `OffsetTypeFirst`，不需要拋出例外，否則以我看就是會一直收到 `OffsetNotFoundException`，還是我誤會了什麼XD)
 
     - 錯誤訊息
 
