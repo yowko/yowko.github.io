@@ -27,7 +27,7 @@ RabbitMQ 團隊在 [RabbitMQ 3.9](https://www.rabbitmq.com/streams.html) 導入 
 ## 基本環境說明
 
 1. macOS Ventura 13.3
-2. OrbStack 1.0.1(1697)
+2. OrbStack 1.0.1(16297)
 3. .NET SDK 6.0.413
 4. JetBrains Rider 2023.2.3
 5. NuGet libaries

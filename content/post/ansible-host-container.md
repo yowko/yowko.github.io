@@ -24,7 +24,7 @@ slug: "ansible-host-container"
 ## 基本環境說明
 
 1. macOS Ventura 13.3
-2. OrbStack 1.0.1(1697)
+2. OrbStack 1.0.1(16297)
 3. docker images
    - rabbitmq:3.12.7-management
    - yowko/rabbitmq:3.12.7-management
