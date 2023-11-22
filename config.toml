@@ -97,7 +97,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   baidu_analytics = ""      # Baidu Analytics
   baidu_verification = ""   # Baidu Verification
   google_verification = ""  # Google_Verification         # 谷歌
-  giscusrRepo = "yowko/yowko.github.io"
+  giscusRepo = "yowko/yowko.github.io"
   giscusRepoId = "MDEwOlJlcG9zaXRvcnkxODA1MTU2MTE="
   giscusCategory = "Announcements"
   giscusCategoryId = "DIC_kwDOCsJzG84CW4SD"
