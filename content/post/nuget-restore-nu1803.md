@@ -1,13 +1,15 @@
 ---
 title: "NuGet restore error NU1803"
 date: 2022-08-26T00:30:00+08:00
-lastmod: 2022-08-26T00:30:31+08:00
+lastmod: 2023-11-26T00:30:31+08:00
 draft: false
 tags: ["dotnet6","dotnet","NuGet"]
 slug: "nuget-restore-nu1803"
 ---
 
 ## NuGet restore error NU1803
+
+2023/11/26 update:  Microsoft NuGet team 的新計劃：[HTTPS Everywhere Update](https://devblogs.microsoft.com/nuget/https-everywhere-update/?WT.mc_id=DOP-MVP-5002594)，筆記可以參考 [NuGet 設定 Insecure HTTP source](/nuget-insecure) 或是 [停用 C# 編譯時特定的警告](/csharp-disable-warn)
 
 原本團隊使用 `.NET SDK 6.0.201` ，考慮到近期幾個更新可能有助於產品減少錯誤與增進效能，所以團隊便著手相應的升級動作，因為產品建立初期，團隊就已經決定使用 container 技術，因此在升級過程中並沒有遇到什麼困難：只要把 base image 改成新版 (`.NET SDK 6.0.400` 與 `.NET Runtime 6.0.8`) 整個升級就算完成了，跟過去逐一升級 server 的做法相比省事不少
 
@@ -78,8 +80,13 @@ slug: "nuget-restore-nu1803"
 
 近期都在忙 SRE 相關工作，好一陣子沒碰 .NET 生態系，這次遇到的問題也算是跨了兩個領域：DevOps 跟 .NET，雖然是 CI/CD 過程的問題，但根本原因還是 .NET 生態系造成的，每次遇到這類問題都能展現 DevOps 跟 SRE 的價值，不過回頭重新檢查似乎也沒那麼偉大XD
 
+2023/11/26 update:  Microsoft NuGet team 的新計劃：[HTTPS Everywhere Update](https://devblogs.microsoft.com/nuget/https-everywhere-update/?WT.mc_id=DOP-MVP-5002594)，筆記可以參考 [NuGet 設定 Insecure HTTP source](/nuget-insecure) 或是 [停用 C# 編譯時特定的警告](/csharp-disable-warn)
+
 ## 參考資訊
 
 1. [NuGet Warning NU1803](https://docs.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu1803?WT.mc_id=DOP-MVP-5002594)
 2. [HTTPS everywhere](https://devblogs.microsoft.com/nuget/https-everywhere?WT.mc_id=DOP-MVP-5002594)
 3. [NuGet 6.3](https://docs.microsoft.com/nuget/release-notes/nuget-6.3?WT.mc_id=DOP-MVP-5002594)
+4. [HTTPS Everywhere Update](https://devblogs.microsoft.com/nuget/https-everywhere-update/?WT.mc_id=DOP-MVP-5002594)
+5. [NuGet 設定 Insecure HTTP source](/nuget-insecure)
+6. [停用 C# 編譯時特定的警告](/csharp-disable-warn)
