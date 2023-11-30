@@ -11,6 +11,8 @@ slug: "docker-compose-grafana-tempo"
 
 過去筆記紀錄到團隊由 OpenTracing 轉換到 OpenTelemetry，其中一個原因是 OpenTracing 的專案已經不再維護，另一個原因是 OpenTelemetry 有提供更多的功能，其中一個就是 OpenTelemetry 有提供一個分散式追蹤系統：[Tempo](https://grafana.com/oss/tempo/)，過去只有紀錄 Zipkin 與 Jaeger 的使用，今天就來紀錄一下如何使用 Docker Compose 建立 Grafana Tempo 測試環境
 
+過去 trace 相關筆記如下：
+
 - OpenTracing
     - [.NET Core 上使用 Jaeger 追蹤 gRPC 呼叫](/dotnet-core-jaeger-grpc/)
     - [使用 Jaeger 追蹤 ASP.NET Core 呼叫](/jaeger-trace-aspdotnet-core/)
