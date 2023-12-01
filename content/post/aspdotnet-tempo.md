@@ -76,17 +76,29 @@ slug: "aspdotnet-tempo"
 
 1. 實際效果
 
-    > 點選 `Trace ID` 後，可以展開該 trace id 下的 activity (span)
+    - Home --> Explore
 
-    ![1result](https://github.com/yowko/picsbed/assets/3851540/678d00fa-0d0e-4b8a-bcc8-aab1e01c48a5)
+        ![1explorer](https://github.com/yowko/picsbed/assets/3851540/2fb698ad-bab3-4f05-99e6-22a1decbdb51)
 
-    ![2tag](https://github.com/yowko/picsbed/assets/3851540/4ed887c0-5be1-4a4c-b2e0-65f3fd675868)
+    - Outline 選 `Tempo` & Query tpye 選 `Search`
+
+        > 列出 trace 內容
+
+        ![2tracesource](https://github.com/yowko/picsbed/assets/3851540/dec2a31d-253c-4b01-945c-564e5519adad)
+
+        ![3trace](https://github.com/yowko/picsbed/assets/3851540/c91f0eb8-d78b-49bb-95ac-02c1ffac5605)
+
+    - 點選 `Trace ID` 後，可以展開該 trace id 下的 activity (span)
+
+        ![1result](https://github.com/yowko/picsbed/assets/3851540/678d00fa-0d0e-4b8a-bcc8-aab1e01c48a5)
+
+        ![2tag](https://github.com/yowko/picsbed/assets/3851540/4ed887c0-5be1-4a4c-b2e0-65f3fd675868)
 
 2. 沒有設定 [tracing.AddSource(sSource.Name );](https://gist.github.com/yowko/699df06242b8db3d5531f9dc51326117#file-otlpclient-program-cs-L31)
 
-    ![3nosource](https://github.com/yowko/picsbed/assets/3851540/069da725-897e-42fc-9574-3ab620b0d6eb))
+    ![3nosource](https://github.com/yowko/picsbed/assets/3851540/069da725-897e-42fc-9574-3ab620b0d6eb)
 
-3. OpenTelemetry 的 Github 上有 .NET 的範例：[Github:open-telemetry/opentelemetry-dotnet](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/examples/AspNetCore/Program.cs) 但寫法上與 Microsoft 官網：[Microsoft Learn:.NET observability with OpenTelemetry](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/observability-with-otel?WT.mc_id=DOP-MVP-5002594)，但可以多參考
+3. OpenTelemetry 的 Github 上有 .NET 的範例：[Github:open-telemetry/opentelemetry-dotnet](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/examples/AspNetCore/Program.cs) 但寫法上與 Microsoft 官網：[Microsoft Learn:.NET observability with OpenTelemetry](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/observability-with-otel?WT.mc_id=DOP-MVP-5002594) 不同，可以多參考看不同寫法
 
 完整程式碼請參考：[Github:yowko/OtlpWebApi](https://github.com/yowko/OtlpWebApi)
 
