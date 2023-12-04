@@ -118,7 +118,7 @@ slug: "aspdotnet-grpc-tempo"
 
 3. 使用上與 ASP.NET WebApi：[將 ASP.NET 的 Trace 整合至 Grafana Tempo](/aspdotnet-tempo/) 幾乎相同，只是 OtlpGrpcClient 多了一個 [`GrpcInstrumentation` 設定：`tracing.AddGrpcClientInstrumentation();`](https://gist.github.com/yowko/58a0b75afced949044399cff39227cde#file-otlpgrpcclient_program-cs-L26)
 
-4. ASP.NET 8 終於解決在 macOS 上啟動 gRPC Service 時 HTTP/2 的問題了，之前筆記 [在 macOS 上啟動 gRPC Service 時 HTTP/2 的問題](/grpc-service-http2-macos/) 有提到這個問題，現在 ASP.NET 8 終於解決這個問題了，詳情請看 官方文件 [Microsoft Learn:HTTP/2 over TLS (HTTPS) support on macOS in Kestrel](https://learn.microsoft.com/en-us/aspnet/core/release-notes/aspnetcore-8.0?view=aspnetcore-8.0&WT.mc_id=DOP-MVP-5002594#http2-over-tls-https-support-on-macos-in-kestrel)
+4. ASP.NET 8 在 macOS 上啟動 gRPC Service 時不用在刻意使用 Http1 與 insecure gRPC 了，之前筆記 [在 macOS 上啟動 gRPC Service 時 HTTP/2 的問題](/grpc-service-http2-macos/) 有提到這個問題，現在 ASP.NET 8 終於解決  HTTP/2 的問題了，詳情請看 官方文件 [Microsoft Learn:HTTP/2 over TLS (HTTPS) support on macOS in Kestrel](https://learn.microsoft.com/en-us/aspnet/core/release-notes/aspnetcore-8.0?view=aspnetcore-8.0&WT.mc_id=DOP-MVP-5002594#http2-over-tls-https-support-on-macos-in-kestrel)
 
 完整程式碼請參考：[Github:yowko/otlpgrpc](https://github.com/yowko/otlpgrpc)
 
