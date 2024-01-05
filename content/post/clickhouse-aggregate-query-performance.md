@@ -101,8 +101,11 @@ slug: "clickhouse-aggregate-query-performance"
 2. 不管是 ClickHouse 或是 MySql 在 table 的定義、index 的調整或是 table engine 的選擇，甚至是 query script 的寫法上都有不小優化空間，但還是想用這個例子來呈現不同技術在相同情境下的效能差異
 3. 單就本筆記的簡單範例看來，相同查詢在 ClickHouse 與 MySql 有接近 200 倍的效能差異
 
+完整程式碼可以參考 [GitHub:yowko/ClickHouseMySqlQueryBenchmark](https://github.com/yowko/ClickHouseMySqlQueryBenchmark)
+
 ## 參考資訊
 
 1. [What Is ClickHouse?](https://clickhouse.com/docs/en/intro)
 2. [C# 如何新增資料至 ClickHouse](/csharp-insert-clickhouse/)
 3. [C# 如何快速新增大量資料至 MySQL](/csharp-mysql-bulk-insert/)
+4. [GitHub:yowko/ClickHouseMySqlQueryBenchmark](https://github.com/yowko/ClickHouseMySqlQueryBenchmark)
