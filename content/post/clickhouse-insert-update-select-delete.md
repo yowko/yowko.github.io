@@ -1,5 +1,5 @@
 ---
-title: "新增更新刪除修改 ClickHouse 資料"
+title: "新增修改刪除查詢 ClickHouse 資料"
 date: 2024-01-10T00:30:00+08:00
 lastmod: 2024-01-10T00:30:31+08:00
 draft: false
@@ -7,7 +7,7 @@ tags: ["docker","csharp","clickhouse"]
 slug: "clickhouse-insert-update-select-delete"
 ---
 
-## 新增更新刪除修改 ClickHouse 資料
+## 新增修改刪除查詢 ClickHouse 資料"
 
 之前筆記 [C# 如何新增資料至 ClickHouse](/csharp-insert-clickhouse) 與 [ClickHouse 在彙總資料時的效能優勢](/clickhouse-aggregate-query-performance/) 分別紀錄到如何透過 C# 來新增大量資料至 ClickHouse 以及如何查詢 ClickHouse 資料，整理筆記時總覺得應該把其他操作一併紀錄一下，所以今天來看看如何更新、刪除、修改 ClickHouse 資料並且加上使用 c# 的範例
 
