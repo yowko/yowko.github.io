@@ -104,8 +104,11 @@ slug: "clickhouse-mysql-engine"
 
 4. ClickHouse MySql engine (database engine 與 table engine) 都支援 `SELECT` 與 `INSERT` 指令，但 `RENAME`、`CREATE TABLE`、`ALTER` 則不行
 
+完整程式碼請參考：[GitHub:yowko/ClickHouseMySqlEngineBenchmark](https://github.com/yowko/ClickHouseMySqlEngineBenchmark)
+
 ## 參考資訊
 
 1. [ClickHouse 在彙總資料時的效能優勢](/clickhouse-aggregate-query-performance)
 2. [DatabaseEngines:MySQL](https://clickhouse.com/docs/en/engines/database-engines/mysql)
 3. [TableEngin:MySQL](https://clickhouse.com/docs/en/engines/table-engines/integrations/mysql)
+4. [GitHub:yowko/ClickHouseMySqlEngineBenchmark](https://github.com/yowko/ClickHouseMySqlEngineBenchmark)
