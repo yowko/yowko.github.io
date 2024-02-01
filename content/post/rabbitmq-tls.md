@@ -3,7 +3,7 @@ title: "為 RabbitMQ container 啟用 TLS 連線"
 date: 2024-01-30T00:30:00+08:00
 lastmod: 2024-01-30T00:30:31+08:00
 draft: false
-tags: ["docker","csharp","rabbitmq"]
+tags: ["docker","rabbitmq"]
 slug: "rabbitmq-tls"
 ---
 
