@@ -1,13 +1,13 @@
 ---
 title: "從 Mac 移除 .NET Core Runtime 與 SDK"
 date: 2019-07-22T21:30:00+08:00
-lastmod: 2020-09-01T21:30:31+08:00
+lastmod: 2024-02-21T21:30:31+08:00
 draft: false
 tags: ["dotnet core","Mac"]
 slug: "remove-dotnet-from-mac"
 ---
 
-## 從 Mac 移除 .NET Core Runtime 與 SDK
+## 從 Mac 移除 .NET Core Runtime 與 SDK
 
 可以不時更新 .NET Core SDK 是幸福，也是痛苦;
 
@@ -46,7 +46,7 @@ slug: "remove-dotnet-from-mac"
 
 > 以下兩個方法 (或是其他方式皆可) 擇一執行即可，主要目的就是安裝新版的 .NET Core SDK
 
-1. [官網](https://dotnet.microsoft.com/download/dotnet-core) 下載 .NET Core SDK installer
+1. [官網](https://dotnet.microsoft.com/download/dotnet-core) 下載 .NET Core SDK installer
 2. 使用 homebrew
 
     ```bash
@@ -55,7 +55,7 @@ slug: "remove-dotnet-from-mac"
 
 ## 心得
 
-沒錯，我其實沒有真的更新 .NET Core SDK，我就是直接刪除所有 .NET Core SDK 再重新安裝最新版本的 .NET Core SDK，也許不一定比較省時間，但個人還是覺得清爽不少，花這個時間划算  哈哈
+沒錯，我其實沒有真的更新 .NET Core SDK，我就是直接刪除所有 .NET Core SDK 再重新安裝最新版本的 .NET Core SDK，也許不一定比較省時間，但個人還是覺得清爽不少，花這個時間划算  哈哈
 
 ## 參考資訊
 
