@@ -13,7 +13,7 @@ slug: "remove-dotnet-sdk-runtime-from-mac"
 
 ## 基本環境說明
 
-1. macOS Sonoma 14.3.1
+1. macOS Sonoma 14.3.1 (Apple M2 Pro)
 2. .NET 6.0.418
 
 ## 刪除方式
