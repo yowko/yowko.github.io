@@ -9,7 +9,7 @@ slug: "csharp-redis-table"
 
 ## 使用 C# 取得 Redis 複雜型別 table 資料
 
-之前筆記 [使用 C# 取得 Redis key 的記憶體用量](/csharp-redis-key-memory-usage) 提到如何使用 C# 取得 Redis key 的記憶體用量，但是把所有 redis key 全部拉回 C# 做處理，可以想見速度上一定會提升空間，至少網路傳輸的時間就是不必要的浪費，所以我就想在 lua 中將 key 以群組的方式來匯總資料，以加快資料取得的速度，於是就在 lua 中透過 table 的方式來儲存資料，可是在回傳至 C# 卻一直收到空資料，這時間想起過去也有篇筆記 [C# 使用 Lua 取得 Redis 自訂複雜型別](/csharp-lua-redis-custom-type/) 紀錄過做法，但當時沒有留下完整範例，造成無法重現當時成功的場景，因此利用這次機會完整紀錄一下
+之前筆記 [使用 C# 取得 Redis key 的記憶體用量](/csharp-redis-key-memory-usage) 提到如何使用 C# 取得 Redis key 的記憶體用量，但是把所有 redis key 全部拉回 C# 做處理，可以想見執行速度一定會有不少提升空間，至少網路傳輸的時間就是不必要的浪費，所以打算在 lua 中將 key 以群組的方式來匯總資料，以加快資料取得的速度，於是便在 lua 中透過 table 的方式來儲存資料，可是在回傳至 C# 卻一直收到空資料，這時想起過去也有篇筆記 [C# 使用 Lua 取得 Redis 自訂複雜型別](/csharp-lua-redis-custom-type/) 紀錄過做法，只是當時沒有留下完整範例，造成無法重現當時成功的場景，因此利用這次機會紀錄一下
 
 ## 基本環境說明
 
@@ -77,7 +77,7 @@ slug: "csharp-redis-table"
     - `continue` 執行至這個 breakpoint 或是 結束
     - `help` 列出所有指令
 
-    ![1debug](https://github.com/yowko/picsbed/assets/3851540/a61fd4b1-0e78-4fc7-ad00-220b6eb3e7b0)
+        ![1debug](https://github.com/yowko/picsbed/assets/3851540/a61fd4b1-0e78-4fc7-ad00-220b6eb3e7b0)
 
 4. lua table 有 key value，則會回傳 empty array
 
