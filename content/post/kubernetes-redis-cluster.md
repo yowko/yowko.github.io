@@ -1,13 +1,15 @@
 ---
 title: "在 Kubernetes 部署 Redis Cluster"
 date: 2019-08-15T01:30:00+08:00
-lastmod: 2021-11-02T01:30:31+08:00
+lastmod: 2024-06-05T01:30:31+08:00
 draft: false
 tags: ["Kubernetes","Redis"]
 slug: "kubernetes-redis-cluster"
 ---
 
 ## 在 Kubernetes 部署 Redis Cluster
+
+<span style="color:red">請使用新版安裝方式，請參考 [使用 Helm 安裝 Redis Cluster](/helm-redis-cluster/) </style>
 
 最近在 Kubernetes 上部暑相關基礎服務，大部份的服務都有對應的 Helm 可以使用，沒有遇到太多問題，唯獨 Redis，因為團隊使用 Redis Cluster,，而 Helm 官方的兩個 chart [helm/charts/stable/redis](https://github.com/helm/charts/tree/master/stable/redis) 與 [helm/charts/stable/redis-ha](https://github.com/helm/charts/tree/master/stable/redis-ha) 都無法滿足需求，雖然 [helm/charts/stable/redis](https://github.com/helm/charts/tree/master/stable/redis) 具有 cluster 相關設定，但實測下只是 master-slave + sentinel 的 cluster，並非 Redis cluster，後來同事建議試試 KubeDB 的 Redis cluster，過程中遇到不少問題，紀錄一下避免改天部署時還不起來該怎麼解決問題
 

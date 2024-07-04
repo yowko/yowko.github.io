@@ -1,13 +1,15 @@
 ---
 title: "使用 Helm 在 mac 中的 Kubernetes 上安裝 Redis Cluster"
 date: 2020-05-14T21:30:00+08:00
-lastmod: 2020-12-11T21:30:31+08:00
+lastmod: 2024-06-05T21:30:31+08:00
 draft: false
 tags: ["Kubernetes","Helm","Redis","macOS"]
 slug: "mac-helm-kubernetes-redis-cluster"
 ---
 
 ## 使用 Helm 在 Kubernetes 上安裝 Redis Cluster
+
+<span style="color:red">請使用新版安裝方式，請參考 [使用 Helm 安裝 Redis Cluster](/helm-redis-cluster/) </style>
 
 之前筆記 [在 Kubernetes 部署 Redis Cluster](/kubernetes-redis-cluster/) 曾經紀錄到使用 KubeDB Operator 與 Helm 在 Kubernetes 上安裝 Redis Cluster，最近剛好需要做些 Redis Clsuter 的測試，當然在 vm 上建立是最能完整模擬出測試環境的方式，但每次都重新安裝 Kubernetes 實在有些大廢周章，所以興起在 macOS 上簡單建立環境的想法，順手筆記一下  以免之後要用到又找好一陣子
 
