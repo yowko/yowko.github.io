@@ -26,7 +26,7 @@ slug: "csharp-kafka-streams"
 - 建立 kafka
     - server.properties
 
-        > 如果要從 docker compose 外部連接到 kafka，需要在 `etc/hosts` 加上 `127.0.0.1 kafka`；如果僅在同個 docker compose 中使用，則可以省略server.properties
+        > 如果要從 docker compose 外部連接到 kafka，需要在 `etc/hosts` 加上 `127.0.0.1 kafka`
 
         {{<gist yowko 2c9919888c6019a84a9f5c66bc57c16d "server.properties">}}
 
