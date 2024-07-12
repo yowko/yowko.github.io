@@ -9,6 +9,8 @@ slug: "remove-dotnet-from-mac"
 
 ## 從 Mac 移除 .NET Core Runtime 與 SDK
 
+<span style="color:red"> 2024-02-21 更新版，請參考 [從 macOS 中移除 .NET Runtime 與 SDK](/remove-dotnet-sdk-runtime-from-mac) </span>
+
 可以不時更新 .NET Core SDK 是幸福，也是痛苦;
 
 幸福的是可以使用新的語言特性或是新功能，而痛苦的是不僅又有新的 feature 要學習適應還要想辦法移除舊的 SDK。
@@ -62,3 +64,4 @@ slug: "remove-dotnet-from-mac"
 1. [如何移除 .NET Core 執行階段和 SDK](https://docs.microsoft.com/zh-tw/dotnet/core/versions/remove-runtime-sdk-versions?tabs=macos&WT.mc_id=DOP-MVP-5002594)
 2. [Steps to uninstall a DotNet CLI version on Mac OS X](https://gist.github.com/sandrovicente/5590f5ac993d9d7fef038fd2858efcc3)
 3. [dotnet/cli/scripts/obtain/uninstall/dotnet-uninstall-pkgs.sh](https://github.com/dotnet/cli/blob/master/scripts/obtain/uninstall/dotnet-uninstall-pkgs.sh)
+4. [從 macOS 中移除 .NET Runtime 與 SDK](/remove-dotnet-sdk-runtime-from-mac)

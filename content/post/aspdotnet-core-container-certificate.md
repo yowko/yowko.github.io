@@ -323,7 +323,7 @@ slug: "aspdotnet-core-container-certificate"
 ## 心得
 
 1. appsettings.json 中的 `Kestrel` ptotocol 不一定需要指定為 `http2` 使用預設的 `http1andhttp2` 亦可，重點是 certificate
-2. `AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);` 無效，需使用 `HttpClientHandler` 設定
+2. `AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);` 無效，需使用 `HttpClientHandler` 設定
 
 反覆測試了幾次，大致上歸納出目前的設定方式供參考
 
