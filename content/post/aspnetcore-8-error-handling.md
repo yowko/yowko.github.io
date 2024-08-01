@@ -83,6 +83,7 @@ ASP.NET Core 問市時提供了 Middleware 的做法：可以透過建立不同�
 1. IExceptionHandler 的確是更加符合意圖，但以程式碼來看我個人覺得 middleware 為簡潔 (一行 `app.UseMiddleware` 就搞定)，初步看來應該是為了避開 exception 的昂貴成本
 2. IExceptionHandler 有其彈性跟配套：IExceptionHandler 回傳 true/false 來判斷是否處理錯誤，並且可以透過 `app.UseExceptionHandler("/Error");` 來指定處理錯誤的路由，但目前還沒想到實際應用的場景
 3. IExceptionHandler 目前還沒辦法單獨存在，一定會搭配 `Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware` 造成 log 會是成對出現，目前僅能透過 config 關閉 Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware 的 log 輸出
+    {{<gist yowko 992366119cd9920c15742aa5c76a4f1b "appsettings.json">}}
 
 ## 參考資訊
 
