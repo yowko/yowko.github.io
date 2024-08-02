@@ -11,6 +11,10 @@ slug: "aspnetcore-problemdetail-error-handling"
 
 之前筆記 [ASP.NET 8 新增的錯誤處理](/aspnetcore-8-error-handling/) 主要是想嘗試 ASP.NET 8 新增的錯誤處理功能，不過剛好官網文件 [Microsoft Learn:Handle errors in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/error-handling?view=aspnetcore-8.0&WT.mc_id=DOP-MVP-5002594) 有提到其他錯誤處理做法，所以一併簡單紀錄，只是官網上的範例大多數情況下沒辦法滿足實際需求，所以今天就是進一步了解 ASP.NET 8 的 `ProblemDetail` 錯誤處理。
 
+ProblemDetails 是 [IETF RFC 7807](https://tools.ietf.org/html/rfc7807) 在 ASP.NET 中的實作，主要是為了標準化異常回應，讓 client 能夠更容易理解錯誤訊息
+
+從 ASP.NET Core 2.2 開始，在 controller 加上 `[ApiController]` 並使用 ControllerBase 內建方法返回 HTTP 狀態代碼回應（如 `Ok()` 或 `BadRequest()`），會自動將回應轉換為 ProblemDetails 格式
+
 ## 基本環境說明
 
 - macOS Sonoma 14.5 (Apple M2 Pro)
@@ -101,4 +105,7 @@ slug: "aspnetcore-problemdetail-error-handling"
 ## 參考資訊
 
 1. [ASP.NET 8 新增的錯誤處理](/aspnetcore-8-error-handling/)
-2. [Microsoft Learn:Handle errors in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/error-handling?view=aspnetcore-8.0&WT.mc_id=DOP-MVP-5002594)
+2. [IETF RFC 7807](https://tools.ietf.org/html/rfc7807)
+3. [Microsoft Learn:Handle errors in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/error-handling?view=aspnetcore-8.0&WT.mc_id=DOP-MVP-5002594)
+4. [Using the ProblemDetails Class in ASP.NET Core Web API](https://code-maze.com/using-the-problemdetails-class-in-asp-net-core-web-api/)
+5. [Microsoft Learn:ProblemDetails Class](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.problemdetails?view=aspnetcore-8.0&WT.mc_id=DOP-MVP-5002594)
