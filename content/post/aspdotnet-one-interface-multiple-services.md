@@ -29,7 +29,8 @@ slug: "aspdotnet-one-interface-multiple-services"
 
     - 在 Program.cs 註冊多個 Service
 
-        > 可以依實際使用 `AddScoped`、`AddTransient` 或 `AddSingleton` 來註冊多個 Service，以下使用 `AddSingleton` 來示範
+        > - 僅註冊實作的類別，不註冊 Interface
+        > - 可以依實際使用 `AddScoped`、`AddTransient` 或 `AddSingleton` 來註冊多個 Service，以下使用 `AddSingleton` 來示範
 
         {{<gist yowko 8b7de8564eb2f865fc847e81bc2b1fe6 "FuncProgram1.cs">}}
 
@@ -41,13 +42,14 @@ slug: "aspdotnet-one-interface-multiple-services"
 
     - 在 Program.cs 註冊多個 Service
 
-         > 可以依實際使用 `AddKeyedScoped`、`AddKeyedTransient` 或 `AddKeyedSingleton` 來註冊多個 Service，以下使用 `AddKeyedSingleton` 來示範
+         > - 將 Interface 與實作的類別綁定註冊
+         > - 可以依實際使用 `AddKeyedScoped`、`AddKeyedTransient` 或 `AddKeyedSingleton` 來註冊多個 Service，以下使用 `AddKeyedSingleton` 來示範
 
         {{<gist yowko 8b7de8564eb2f865fc847e81bc2b1fe6 "KeyedProgram1.cs">}}
 
     - 以 Web Api minimal API 中使用做示範
 
-        > 使用 `[FromKeyedServices]` 指定需要的 Service
+        > 在 constructor 的參數前使用 `[FromKeyedServices]` 指定需要的 Service
 
         {{<gist yowko 8b7de8564eb2f865fc847e81bc2b1fe6 "KeyedProgram2.cs">}}
 
@@ -58,6 +60,7 @@ slug: "aspdotnet-one-interface-multiple-services"
 ## 參考資訊
 
 1. [Microsoft Learn:Dependency injection in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-8.0&WT.mc_id=DOP-MVP-5002594)
-2. [.NET 8 Dependency Injection Changes: Keyed Services](https://weblogs.asp.net/ricardoperes/net-8-dependency-injection-changes-keyed-services?WT.mc_id=DOP-MVP-5002594)
-3. [Keyed Services in .NET 8 Dependency Injection](https://medium.com/@nirajranasinghe/keyed-services-in-net-8-dependency-injection-80a17fbe4b20)
-4. [Registering Multiple Services with a Single Interface in .NET Core](https://touseefkhan4pk.medium.com/registering-multiple-services-with-a-single-interface-in-net-core-e6e4a1a0ec04)
+2. [Microsoft Learn:.NET dependency injection](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection#service-registration-methods?WT.mc_id=DOP-MVP-5002594)
+3. [.NET 8 Dependency Injection Changes: Keyed Services](https://weblogs.asp.net/ricardoperes/net-8-dependency-injection-changes-keyed-services?WT.mc_id=DOP-MVP-5002594)
+4. [Keyed Services in .NET 8 Dependency Injection](https://medium.com/@nirajranasinghe/keyed-services-in-net-8-dependency-injection-80a17fbe4b20)
+5. [Registering Multiple Services with a Single Interface in .NET Core](https://touseefkhan4pk.medium.com/registering-multiple-services-with-a-single-interface-in-net-core-e6e4a1a0ec04)
