@@ -1,13 +1,15 @@
 ---
 title: "使用 Docker 啟動不依賴 ZooKeeper 的 Kafka"
 date: 2022-02-07T00:30:00+08:00
-lastmod: 2022-09-01T00:30:31+08:00
+lastmod: 2024-08-19T00:30:31+08:00
 draft: false
 tags: ["Kafka","Docker"]
 slug: "docker-kafka-without-zookeeper"
 ---
 
 ## 使用 Docker 啟動不依賴 ZooKeeper 的 Kafka
+
+<span style="color:red">建議改用官方 container image，請參考 [使用官方 image 來建立 Kafka)](/docker-compose-kafka/) </style>
 
 之前筆記 [試試不依賴 ZooKeeper 的 Kafka](/kafka-without-zookeeper) 紀錄到如何使用 Kafka 的 Preview Release (KRaft mode) 功能：不再依賴 ZooKeeper，雖然已經是大幅降低了安裝與設定的難度，但還是比不上 container 的一鍵啟動，所以今天就來紀錄一下如何使用 docker compose 來快速啟動沒有 ZooKeeper 的 Kafka
 
