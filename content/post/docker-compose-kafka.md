@@ -51,7 +51,7 @@ slug: "docker-compose-kafka"
 2. 官方建議 [GitHub:docker/examples/docker-compose-files/single-node/plaintext/docker-compose.yml](https://github.com/apache/kafka/blob/trunk/docker/examples/docker-compose-files/single-node/plaintext/docker-compose.yml) Single Node 設定
 
     > 我修改了以下項目：
-    > 1. version 由 `2` 改為 `3`
+    > 1. 移除 version (version 已淘汰)
     > 2. image 由 {image} 改為 `apache/kafka:3.8.0`
     > 3. 移除 `CLUSTER_ID: '4L6g3nShT-eMCtK--X86sw'`
 
@@ -72,7 +72,7 @@ slug: "docker-compose-kafka"
 3. 官方建議 [GitHub:docker/examples/docker-compose-files/cluster/combined/plaintext/docker-compose.yml](https://github.com/apache/kafka/blob/trunk/docker/examples/docker-compose-files/cluster/combined/plaintext/docker-compose.yml) 3 Node cluster 設定
 
     > 我修改了以下項目：
-    > 1. version 由 `2` 改為 `3`
+    > 1. 移除 version (version 已淘汰)
     > 2. image 由 {image} 改為 `apache/kafka:3.8.0`
 
     - docker-compose.yaml
