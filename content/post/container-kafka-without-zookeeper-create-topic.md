@@ -9,7 +9,7 @@ slug: "container-kafka-without-zookeeper-create-topic"
 
 ## Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image
 
-<span style="color:red">建議改用官方 container image，請參考 [使用官方 image 來建立 Kafka)](/docker-compose-kafka/) </style>
+<span style="color:red">建議改用官方 container image，請參考 [使用官方 image 來建立 Kafka](/docker-compose-kafka/) </style>
 
 之前筆記 [使用 Docker 啟動不依賴 ZooKeeper 的 Kafka](/docker-kafka-without-zookeeper) 紀錄到如何使用 docker compose 啟動 kraft mode (不依賴 zookeeper) 的 kafka
 
@@ -180,3 +180,4 @@ slug: "container-kafka-without-zookeeper-create-topic"
 3. [docker-compose](https://docs.docker.com/compose/compose-file/compose-file-v3/)
 4. [yowko/kafkanozk:v1](https://hub.docker.com/r/yowko/kafkanozk)
 5. [Build 個可以自動建立 topic 又不需依賴 ZooKeeper 的 Kafka image 更新](/container-kafka-without-zookeeper-create-topic-update)
+6. [使用官方 image 來建立 Kafka](/docker-compose-kafka/)
