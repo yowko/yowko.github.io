@@ -25,7 +25,7 @@ slug: "docker-compose-kafka"
 
     > 如果沒有特別設定，會使用官方提供的預設設定：`/opt/kafka/config/server.properties` 內容如下
 
-     <details>
+    <details>
 
     <summary style="color: LightGreen;">展開摺疊區塊</summary>
     {{<gist yowko c3780c2173033ae8a4ebed231bad4968 "default.properties">}}
