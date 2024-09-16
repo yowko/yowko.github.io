@@ -90,3 +90,5 @@ slug: "kubernetes-pod-debug"
 2. [shellless 容器、binaryless 容器以及 distroless 容器](https://mozillazg.com/2021/05/security-use-shell-less-and-binary-less-distroless-container-with-root-less-container.html)
 3. [Secure your .NET cloud apps with rootless Linux Containers](https://devblogs.microsoft.com/dotnet/securing-containers-with-rootless/?WT.mc_id=DOP-MVP-5002594)
 4. [當遇到 Distroless Container 除錯要什麼沒什麼該怎麼辦? 你的好朋友 kubectl debug](https://blog.pichuang.com.tw/20230713-distroless-container-debug.html)
+5. [GitHub:nicolaka/netshoot](https://github.com/nicolaka/netshoot)
+6. [GitHub:GoogleContainerTools/distroless](https://github.com/GoogleContainerTools/distroless)
