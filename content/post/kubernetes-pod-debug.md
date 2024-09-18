@@ -11,7 +11,12 @@ slug: "kubernetes-pod-debug"
 
 團隊從 .NET 8 問市之後就開始逐步將舊有的專案升級到 .NET 8，隨著所有專案都升級完成之後，團隊便開始套用 Microsoft PM - Richard Lander 發表的 [Announcing .NET Chiseled Containers](https://devblogs.microsoft.com/dotnet/announcing-dotnet-chiseled-containers/?WT.mc_id=DOP-MVP-5002594) 做法：將 base image 中改為 `mcr.microsoft.com/dotnet/aspnet:8.0-jammy-chiseled` 這樣可以讓 image 更小，並且更安全。
 
-在整理資料的過程發現我對於 image 的大小與 container 安全性的了解已經過時，我一直停留在 rootless 的 container (不要使用 root 來執行 container，以限制 process 的權限)，但隨著 container 的發展與安全性的重視，shellless (image 中不包含 shell)、binaryless (image 中除了由我們自行建立的 binary 之外不包含其他 binary)、distroless (image 中除了由我們自行建立的 binary 之外不包含其他程式、套件以及系統文件) 逐漸被提出並且被採納使用
+在整理資料的過程發現我對於 image 的大小與 container 安全性的了解已經過時，剛好趁著這個機會更新一下
+
+- rootless 的 container：不要使用 root 來執行 container，以限制 process 的權限
+- shellless：image 中不包含 shell
+- binaryless：image 中除了由我們自行建立的 binary 之外不包含其他 binary
+- distroless：image 中除了由我們自行建立的 binary 之外不包含其他程式、套件以及系統文件
 
 [.NET Chiseled Containers](https://devblogs.microsoft.com/dotnet/announcing-dotnet-chiseled-containers/?WT.mc_id=DOP-MVP-5002594) 就是 Google Distroless 的應用，讓 image 除了我們自行建立的 binary 之外不包含任何其他東西，這樣可以減少 image 的大小，也可以減少攻擊面，不過提高安全性就不免會犧牲便利性，所以今天就來紀錄一下如何 Debug Kubernetes 中使用這類 shellless、binaryless、distroless image 或是 chiseled container 的 Pod，以下紀錄主要以工作上用到的 .NET chiseled image 為例
 
