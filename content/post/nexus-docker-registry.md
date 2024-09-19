@@ -60,7 +60,7 @@ slug: "nexus-docker-registry"
 
     - Create Repository: docker (hosted)
 
-        - `Name` 是必填：會影響之後 image 的完整名稱
+        - `Name` 是必填
         - `HTTP` connector port 是為了方便 docker client 使用，也會影響之後 image 的完整名稱 (設定需與 docker compose 中除了 8081 之外的 port 一致)
 
         ![8dockerhosted](https://github.com/user-attachments/assets/bd728025-674b-4c61-8395-d325ae33b613)
@@ -71,7 +71,7 @@ slug: "nexus-docker-registry"
 
     - `未設定錯誤：Error response from daemon: unauthorized`
 
-        ![10unauthorized](https://github.com/user-attachments/assets/e2778146-9590-473c-aeaf-65f79054d6b7)
+        ![10unauthorized](https://github.com/user-attachments/assets/6d3296d9-6d69-4e23-9e80-5b5dd0a8df1d)
 
 4. 實際使用
 
@@ -81,13 +81,18 @@ slug: "nexus-docker-registry"
 
         ![11login](https://github.com/user-attachments/assets/a0e8a4a0-5789-4dc5-8bfb-8f5afcd54401)
 
-    - image 名稱模版： `{host}:{port}/{repository name}/{image name}:{tag}`
+    <!-- - image 名稱模版： `{host}:{port}/{repository name}/{image name}:{tag}`
 
         > Nexus 中的 {repository name} pattern 是 `repository/{建立時的 Name}`
 
     - image 名稱範例： `localhost:8082/repository/docker/redis:latest`
 
-        ![12dockerpush](https://github.com/user-attachments/assets/fcc615af-9dd7-4f5c-8fa9-ad87a89d731c)
+        ![12dockerpush](https://github.com/user-attachments/assets/fcc615af-9dd7-4f5c-8fa9-ad87a89d731c) -->
+    - image 名稱模版： `{host}:{port}/{image name}:{tag}`
+
+    - image 名稱範例： `localhost:8082/redis:latest`
+
+        ![13dockerpush](https://github.com/user-attachments/assets/87ccaba2-e832-4f41-9c7e-49b134b4ba44)
 
 ## 心得
 
