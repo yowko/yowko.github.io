@@ -1,7 +1,7 @@
 ---
 title: "使用 C# 體驗 Apache Kafka Streams"
 date: 2024-07-03T00:30:00+08:00
-lastmod: 2024-07-03T00:30:31+08:00
+lastmod: 2024-09-23T00:30:31+08:00
 draft: false
 tags: ["csharp","kafka"]
 slug: "csharp-kafka-streams"
@@ -64,8 +64,11 @@ slug: "csharp-kafka-streams"
 
 介紹文件：[Streamiz.Kafka.Net](https://lgouellec.github.io/kafka-streams-dotnet/) 還有不少功能，初步看來應該可以符合不同的需求，未來有機會再深入研究
 
+完整程式碼請參考 [GitHub:yowko/kafka-streams-demo](https://github.com/yowko/kafka-streams-demo)
+
 ## 參考資訊
 
 1. [Apache Kafka Streams](https://kafka.apache.org/documentation/streams)
 2. [GitHub:LGouellec/kafka-streams-dotnet](https://github.com/LGouellec/kafka-streams-dotnet)
 3. [Streamiz.Kafka.Net](https://lgouellec.github.io/kafka-streams-dotnet/)
+4. [GitHub:yowko/kafka-streams-demo](https://github.com/yowko/kafka-streams-demo)

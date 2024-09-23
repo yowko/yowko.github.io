@@ -1,7 +1,7 @@
 ---
 title: "使用 C# 與 redis 避免重複資料"
 date: 2024-07-30T00:30:00+08:00
-lastmod: 2024-07-30T00:30:31+08:00
+lastmod: 2024-09-23T00:30:31+08:00
 draft: false
 tags: ["csharp","redis"]
 slug: "csharp-redis-avoid-duplicate"
@@ -18,6 +18,7 @@ slug: "csharp-redis-avoid-duplicate"
 - .NET SDK 8.0.101
 - JetBrains Rider 2024.1.4
 - NuGet packages
+    - StackExchange.Redis 2.8.16
     - NRedisStack 0.12.0
 - docker image
 
@@ -69,8 +70,11 @@ slug: "csharp-redis-avoid-duplicate"
 
         ![1memory](https://github.com/user-attachments/assets/711c8304-9bd2-4629-b473-3edda56ef045)
 
+完整程式碼請參考 [GitHub:yowko/csharp-redis-avoid-duplicate](https://github.com/yowko/redis-deduplicate)
+
 ## 參考資料
 
 1. [Redis & .NET for Data Deduplication](https://medium.com/codenx/redis-net-for-data-deduplication-c47af1f004b1)
 2. [Redis sets](https://redis.io/docs/latest/develop/data-types/sets/)
 3. [Bloom filter](https://redis.io/docs/latest/develop/data-types/probabilistic/bloom-filter/)
+4. [GitHub:yowko/csharp-redis-avoid-duplicate](https://github.com/yowko/redis-deduplicate)

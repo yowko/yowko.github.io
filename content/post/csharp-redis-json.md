@@ -1,7 +1,7 @@
 ---
 title: "使用 C# 存取 redis JSON"
 date: 2024-07-22T00:30:00+08:00
-lastmod: 2024-07-22T00:30:31+08:00
+lastmod: 2024-09-23T00:30:31+08:00
 draft: false
 tags: ["csharp","redis"]
 slug: "csharp-redis-json"
@@ -165,6 +165,8 @@ slug: "csharp-redis-json"
 
         > 不確定是不是我誤會，但依照 [GitHub:redis/NRedisStack](https://github.com/redis/NRedisStack) readme 的說明，使用 `NRedisStack` 時，無法順利查詢資料，後來在 [GitHub:examples folder](https://github.com/redis/NRedisStack/blob/master/Examples/BasicQueryOperations.md) 找到成功範例
 
+完整程式碼請參考 [GitHub:yowko/csharp-redis-json](https://github.com/yowko/redis-json-demo)
+
 ## 參考資訊
 
 1. [.NET 中的 UUID(GUID) 與 ULID](/dotnet-uuid-guid-ulid/)
@@ -174,3 +176,4 @@ slug: "csharp-redis-json"
 5. [GitHub:redis/redis-om-dotnet](https://github.com/redis/redis-om-dotnet)
 6. [GitHub:redis/NRedisStack](https://github.com/redis/NRedisStack)
 7. [GitHub:examples folder](https://github.com/redis/NRedisStack/blob/master/Examples/BasicQueryOperations.md)
+8. [GitHub:yowko/csharp-redis-json](https://github.com/yowko/redis-json-demo)
