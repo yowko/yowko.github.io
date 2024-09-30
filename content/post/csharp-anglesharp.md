@@ -50,6 +50,15 @@ AngleSharp 能夠解析基於尖括弧的 hyper-texts ，如 HTML、SVG 和 Math
 
         ![1error](https://github.com/user-attachments/assets/1a40d961-5bd4-4da4-a23f-8e970d64ffbd)
 
+- 如何取得 xpath 或是 selector
+    - 開啟瀏覽器的開發者工具並選取要取得的元素
+
+        ![2developertool](https://github.com/user-attachments/assets/f1e243b3-8d93-4ddf-9e2e-706c4acc8292)
+
+    - 右鍵選擇 `Copy` --> `Copy XPath` 或是 `Copy selector`
+
+        ![3copy](https://github.com/user-attachments/assets/f947329f-d163-4c22-b89b-bd94c248522d)
+
 完整程式碼請參考 [GitHub - yowko/anglesharp-demo](https://github.com/yowko/anglesharp-demo)
 
 ## 參考資訊

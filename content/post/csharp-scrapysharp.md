@@ -38,7 +38,7 @@ ScrapySharp 的特色
 
 ## 心得
 
-- 方式名稱沒有按照 JavaScript 的標準 api，好處是避免淆，缺點就是不太直覺
+- 方式名稱沒有按照 JavaScript 的標準 api，好處是避免混淆，缺點就是不太直覺
 - 只能使用標準寫法 `li[class='List(n)']`，不允許 `li.List(n)`
 
     - 錯誤訊息
@@ -58,6 +58,15 @@ ScrapySharp 的特色
     - 錯誤截圖
 
         ![2error](https://github.com/user-attachments/assets/39f77aeb-5dea-4f9b-994f-b71d9402cd71)
+
+- 如何取得 xpath 或是 selector
+    - 開啟瀏覽器的開發者工具並選取要取得的元素
+
+        ![2developertool](https://github.com/user-attachments/assets/f1e243b3-8d93-4ddf-9e2e-706c4acc8292)
+
+    - 右鍵選擇 `Copy` --> `Copy XPath` 或是 `Copy selector`
+
+        ![3copy](https://github.com/user-attachments/assets/f947329f-d163-4c22-b89b-bd94c248522d)
 
 完整程式碼請參考 [GitHub - yowko/scrapy-harp-demo](https://github.com/yowko/scrapy-harp-demo)
 

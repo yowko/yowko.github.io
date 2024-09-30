@@ -49,6 +49,15 @@ Puppeteer Sharp 提供 API 通過 DevTools 協定或 WebDriver BiDi 控制 Chrom
 
 - 需要先安裝 Chrome 或 Firefox 瀏覽器而造成執行較慢
 
+- 如何取得 xpath 或是 selector
+    - 開啟瀏覽器的開發者工具並選取要取得的元素
+
+        ![2developertool](https://github.com/user-attachments/assets/f1e243b3-8d93-4ddf-9e2e-706c4acc8292)
+
+    - 右鍵選擇 `Copy` --> `Copy XPath` 或是 `Copy selector`
+
+        ![3copy](https://github.com/user-attachments/assets/f947329f-d163-4c22-b89b-bd94c248522d)
+
 完整程式碼請參考 [GitHub - yowko/puppeteer-sharp-demo](https://github.com/yowko/puppeteer-sharp-demo)
 
 ## 參考資訊

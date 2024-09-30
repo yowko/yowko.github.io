@@ -46,6 +46,15 @@ Selenium 主要是用來做 web application 的自動化測試，提供 extensio
 
         ![1error](https://github.com/user-attachments/assets/a980ce12-af28-4585-b12c-449b89f1a5a7)
 
+- 如何取得 xpath 或是 selector
+    - 開啟瀏覽器的開發者工具並選取要取得的元素
+
+        ![2developertool](https://github.com/user-attachments/assets/f1e243b3-8d93-4ddf-9e2e-706c4acc8292)
+
+    - 右鍵選擇 `Copy` --> `Copy XPath` 或是 `Copy selector`
+
+        ![3copy](https://github.com/user-attachments/assets/f947329f-d163-4c22-b89b-bd94c248522d)
+
 完整程式碼請參考 [GitHub - yowko/selenium-demo](https://github.com/yowko/selenium-demo)
 
 ## 參考資訊

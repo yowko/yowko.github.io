@@ -34,7 +34,7 @@ Playwright 是一個用於 Web 測試和自動化的框架。它允許使用單�
 
 ## 心得
 
-- Playwright 本質還是自動化測試框架，在爬蟲上的應用語法上還是沒那麼直覺，加上又不像 Selenium 發展時間較長，資源較少
+- Playwright 本質還是自動化測試框架，在爬蟲上的應用語法上還是沒那麼直覺，加上又不像 Selenium 發展時間長，所以網路上資源相對較少
 - Playwright 在 element 的處理上比較像是為元素操作而生 (像是點擊、輸入等)，需要取得內容時就會有點遶：像是 css selector 取得的 element 後的型別是 IElementHandle，沒辦法再使用 xpath 取得其他子元件，需要再透過 document.evaluate 才能使用 xpath
 - 只能使用標準寫法 `li[class='List(n)']`，不允許 `li.List(n)`
 
@@ -45,6 +45,15 @@ Playwright 是一個用於 Web 測試和自動化的框架。它允許使用單�
     - 錯誤截圖
 
         ![1error](https://github.com/user-attachments/assets/9142f04a-7643-4b48-b1a3-a9c0ecf9a9d8)
+
+- 如何取得 xpath 或是 selector
+    - 開啟瀏覽器的開發者工具並選取要取得的元素
+
+        ![2developertool](https://github.com/user-attachments/assets/f1e243b3-8d93-4ddf-9e2e-706c4acc8292)
+
+    - 右鍵選擇 `Copy` --> `Copy XPath` 或是 `Copy selector`
+
+        ![3copy](https://github.com/user-attachments/assets/f947329f-d163-4c22-b89b-bd94c248522d)
 
 完整程式碼請參考 [GitHub - yowko/playwright-demo](https://github.com/yowko/playwright-demo)
 
