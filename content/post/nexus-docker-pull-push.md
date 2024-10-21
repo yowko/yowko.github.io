@@ -13,6 +13,8 @@ slug: "nexus-docker-pull-push"
 
 不過 docker 流程比較簡單，只需要 pull image、tag image、push image 就可以，相對單純
 
+如果有 multi-arch image 的需求，可以參考 [將 Docker Multi-arch image 搬移至另個 registry 以 Nexus Repository 為例](/nexus-docker-multi-arch-pull-push)
+
 ## 基本環境說明
 
 - macOS Sequoia 15.0.1 (Apple M2 Pro)
@@ -41,19 +43,25 @@ slug: "nexus-docker-pull-push"
     - 語法
 
          ```bash
-        sh migrate-docker.sh -s=http://{source username}:{source password}@{source domain}:{source port}/ -d=http://{target username}:{target password}@{target domain}:{target port}/
+        bash migrate-docker.sh -s=http://{source username}:{source password}@{source domain}:{source port}/ -d=http://{target username}:{target password}@{target domain}:{target port}/
         ```
 
     - 範例
 
         ```bash
-        sh migrate-docker.sh -s=http://admin:pass.123@localhost:8082/ -d=http://admin:pass.123@localhost:8085/
+        bash migrate-docker.sh -s=http://admin:pass.123@localhost:8082/ -d=http://admin:pass.123@localhost:8085/
         ```
 
 ## 心得
 
 主觀感受上，docker image 搬移比較簡單，只需要 pull image、tag image、push image 就可以，相對單純，不過仔細想想，整體流程與 nuget 跟 npm 也大致都相同，至於為什麼其中有不小的差異，我自己推測與一致的 api 有關，雖然 nuget cli 與 npm cli 可能也提供了 api 來下載與上傳套件，但 nuget 與 cli 因為角色是軟體套件管理器的關係，行為終究與 docker image 直接 pull 就能使用的行為有所不同，造成 docker image 的遷移相較於 nuget 與 npm 簡單的原因
 
+如果有 multi-arch image 的需求，可以參考 [將 Docker Multi-arch image 搬移至另個 registry 以 Nexus Repository 為例](/nexus-docker-multi-arch-pull-push)
+
+完整程式碼請參考 [GitHub:yowko/nexus-migrate](https://github.com/yowko/nexus-migrate)
+
 ## 參考資料
 
 1. [使用 Nexus Repository 建立 Docker Registry](/nexus-docker-registry)
+2. [將 Docker Multi-arch image 搬移至另個 registry 以 Nexus Repository 為例](/nexus-docker-multi-arch-pull-push)
+3. [GitHub:yowko/nexus-migrate](https://github.com/yowko/nexus-migrate)

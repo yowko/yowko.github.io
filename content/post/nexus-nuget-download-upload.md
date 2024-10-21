@@ -60,9 +60,12 @@ NEXUS 官方文件不是很清楚，加上 NuGet server 使用 NEXUS 的網路�
 
 NuGet CLI 也可以用來上傳 NuGet 套件，但是僅有 exe (windows 版本)， mac 使用需要額外安裝 mono，所以這邊就不紀錄了
 
+完整程式碼請參考 [GitHub:yowko/nexus-migrate](https://github.com/yowko/nexus-migrate)
+
 ## 參考資料
 
 1. [A Guide to Using Nexus Repository for NuGet Package Hosting](https://medium.com/@tharakahalkewelatecs/a-guide-to-using-nexus-repository-for-nuget-package-hosting-e5f14b5ac05a)
 2. [File Upload&Download with a Nexus Repository Rest Api](https://cigdemkadakoglu.medium.com/file-upload-download-with-a-nexus-repository-rest-api-f760441bc01c)
 3. [upload artifacts to nexus 3.15 with curl](https://groups.google.com/a/glists.sonatype.com/g/nexus-users/c/ZrYFk_-XpSk?pli=1)
 4. [Sonatype Nexus Postman collection](https://www.postman.com/njrusmc/public-collections/collection/sw194bz/sonatype-nexus?action=share&creator=22257526)
+5. [GitHub:yowko/nexus-migrate](https://github.com/yowko/nexus-migrate)

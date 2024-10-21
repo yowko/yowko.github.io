@@ -50,6 +50,8 @@ slug: "nexus-npm-download-upload"
 
 相較於 NuGet，npm 在 NEXUS 官方文件上資源完整許多，網路上的資源也多了不少
 
+完整程式碼請參考 [GitHub:yowko/nexus-migrate](https://github.com/yowko/nexus-migrate)
+
 ## 參考資料
 
 1. [如何在 Nexus Repository 的 NuGet server 下載與上傳套件](/nexus-nuget-download-upload)
@@ -58,3 +60,4 @@ slug: "nexus-npm-download-upload"
 4. [How to set npm credentials using `npm login` without reading from stdin?](https://stackoverflow.com/questions/23460980/how-to-set-npm-credentials-using-npm-login-without-reading-from-stdin)
 5. [How to upload npm tgz to nexus3](https://stackoverflow.com/questions/54399393/how-to-upload-npm-tgz-to-nexus3)
 6. [Publishing npm Packages](https://help.sonatype.com/en/publishing-npm-packages.html)
+7. [GitHub:yowko/nexus-migrate](https://github.com/yowko/nexus-migrate)
