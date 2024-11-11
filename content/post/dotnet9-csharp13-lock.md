@@ -53,11 +53,12 @@ slug: "dotnet9-csharp13-lock"
 System.Threading.Lock 類型的優勢：
 
 1. 更好的性能：
-    System.Threading.Lock 類型比傳統的 Monitor 類更高效，從而在多線程應用程式中實現更好的性能。每個 C# 物件的標頭中都有一個 4 byte 的 field（稱為 SyncBlock），用於鎖定，該欄位還用於儲存物件的雜湊碼，需要同時執行這兩項操作時，就不免有額外的程式碼。而這個新的 Lock 單純只是 lock 沒有這個 field 而使鎖定代碼稍微簡單一些。
-2. 更清晰的語法：System.Threading.Lock 類型提供了更清晰、更直接的 API，使開發人員更容易實現正確的同步。
-3. 健壯的錯誤處理：通過強制實施 Dispose（） 模式，System.Threading.Lock 類型有助於防止常見錯誤，例如忘記釋放鎖。
+    System.Threading.Lock 比傳統的 Monitor 更高效，從而在多線程應用程式中實現更好的性能。
+    每個 C# 物件的標頭中都有一個 4 byte 的 field（稱為 SyncBlock），用於鎖定，該欄位還用於儲存物件的雜湊碼，需要同時執行這兩項操作時，就不免有額外的程式碼。而這個新的 Lock 單純只是 lock 沒有這個 field 而使鎖定代碼稍微簡單一些。
+2. 更清晰的語法：System.Threading.Lock 提供了更清晰、更直接的 API，使開發人員更容易實現正確的同步。
+3. 健壯的錯誤處理：通過強制實施 Dispose（） 模式，System.Threading.Lock 有助於防止常見錯誤，例如忘記釋放鎖。
 
-`Lock` 與 `Using` 兩者會產生相同的 IL 程式碼，使用時機我覺得可以考量
+`Lock` 與 `Using` 兩者會產生相同的 IL 程式碼，使用時機我覺得可以從下面幾點考量
 
 1. 如果是舊有的程式碼升級上來，直接用 `Lock` 改動會少點
 2. `Lock` 比 `Using` 語意更直接也更加直覺
