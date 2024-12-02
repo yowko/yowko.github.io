@@ -1,13 +1,13 @@
 ---
 title: "為 GCP Cloud Run 加上呼叫 key 保護"
 date: 2024-09-05T00:30:00+08:00
-lastmod: 2024-09-05T00:30:31+08:00
+lastmod: 2024-02-02T00:30:31+08:00
 draft: false
 tags: ["csharp","gcp"]
 slug: "gcp-cloud-run-secure"
 ---
 
-## Google Cloud Functions 發送訊息到 Google Cloud Pub/Sub
+## 為 GCP Cloud Run 加上呼叫 key 保護
 
 之前筆記  [使用 Google Api Gateway 為 Google Cloud Functions 加上 API Key 保護](/gcp-secure-cloud-function-with-api-key) 紀錄如何透過 Api Gateway 設定 key 來保護 Cloud Functions 避免被無差異呼叫攻擊，最近剛好有個類似的需求，雖然有著之前的經驗加上筆記 [使用 Google Api Gateway 為 Google Cloud Functions 加上 API Key 保護](/gcp-secure-cloud-function-with-api-key) 的幫助下，實作的速度不慢，但也不如預期的快，原因是兩個：
 
