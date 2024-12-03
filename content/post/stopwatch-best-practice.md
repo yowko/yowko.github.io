@@ -3,7 +3,7 @@ title: "Stopwatch 的正確用法"
 date: 2024-11-22T00:30:00+08:00
 lastmod: 2024-11-22T00:30:31+08:00
 draft: false
-tags: ["dotnet","csharp"]
+tags: ["dotnet","csharp","benchmark"]
 slug: "stopwatch-best-practice"
 ---
 
