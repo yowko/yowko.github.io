@@ -210,7 +210,7 @@ slug: "incremental-generators-stopwatch"
     1. 沒有產生出 class，但不知道卡在哪一步：標記錯誤？型別不對？還是 source 結構異常？方法用錯？
     2. Incremental Generators 的 class 都不是常見的，不知道哪些 property 可以使用
 
-    如果使用的是 JetBrains Rider 可以參考筆記 []()
+    如果使用的是 JetBrains Rider 可以參考筆記 [使用 JetBrains Rider 來 Debug Source Generators 或 Incremental Generators](/debug-source-generators-incremental-generators)
 
 3. 沒有正式文件？
 
@@ -235,5 +235,6 @@ slug: "incremental-generators-stopwatch"
 4. [GitHub:Incremental Generators Cookbook](https://github.com/dotnet/roslyn/blob/main/docs/features/incremental-generators.cookbook.md?WT.mc_id=DOP-MVP-5002594)
 5. [GitHub:Incremental Generators](https://github.com/dotnet/roslyn/blob/main/docs/features/incremental-generators.md?WT.mc_id=DOP-MVP-5002594)
 6. [Microsoft Learn:C# language versioning](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-versioning?WT.mc_id=DOP-MVP-5002594)
-7. [Andrew Lock | .NET Escapades:Creating an incremental generator](https://andrewlock.net/creating-a-source-generator-part-1-creating-an-incremental-source-generator/#7-parsing-the-enumdeclarationsyntax-to-create-an-enumtogenerate)
-8. [GitHub:yowko/incremental-generators-stopwatch](https://github.com/yowko/incremental-generators-stopwatch)
+7. [使用 JetBrains Rider 來 Debug Source Generators 或 Incremental Generators](/debug-source-generators-incremental-generators)
+8. [Andrew Lock | .NET Escapades:Creating an incremental generator](https://andrewlock.net/creating-a-source-generator-part-1-creating-an-incremental-source-generator/#7-parsing-the-enumdeclarationsyntax-to-create-an-enumtogenerate)
+9. [GitHub:yowko/incremental-generators-stopwatch](https://github.com/yowko/incremental-generators-stopwatch)

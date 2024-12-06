@@ -209,7 +209,7 @@ Fody 更像是 AOP 工具，適合通用功能的自動化處理；而 Source Ge
     1. 沒有產生出 class，但不知道卡在哪一步：標記錯誤？型別不對？還是 source 結構異常？方法用錯？
     2. Source Generators 的 class 都不是常見的，不知道哪些 property 可以使用
 
-    如果使用的是 JetBrains Rider 可以參考筆記 []()
+    如果使用的是 JetBrains Rider 可以參考筆記 [使用 JetBrains Rider 來 Debug Source Generators 或 Incremental Generators](/debug-source-generators-incremental-generators)
 
 5. 沒有正式文件？
 
@@ -228,5 +228,5 @@ Fody 更像是 AOP 工具，適合通用功能的自動化處理；而 Source Ge
 7. [GitHub:samples/CSharp/SourceGenerators](https://github.com/dotnet/roslyn-sdk/tree/main/samples/CSharp/SourceGenerators)
 8. [Converting between types in increasingly absurd ways](https://medium.com/@sunside/converting-between-types-in-increasingly-absurd-ways-89414ae6eb7c)
 9. [使用 Incremental Generators 來為 method 加上時間測量](/incremental-generators-stopwatch)
-10. []()
+10. [使用 JetBrains Rider 來 Debug Source Generators 或 Incremental Generators](/debug-source-generators-incremental-generators)
 11. [GitHub:yowko/source-generators-stopwatch](https://github.com/yowko/source-generators-stopwatch)
