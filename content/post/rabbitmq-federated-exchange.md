@@ -17,7 +17,7 @@ slug: "rabbitmq-federated-exchange"
 
 然後再透過 shovel 將 queue 中的 message 複製到另一個 vhost 的 queue 中，細節可以參考之前筆記：[RabbitMQ Shovel 將訊息同步至不同 Vhost (Cluster)](/rabbitmq-shovel/)
 
-雖然使用上沒有問題，但設定上就是有些繁瑣，所以今天就來紀錄一下不同用法：使用 Federated Exchange，但說實話設定上沒有比較簡單，只是在需要較多複本的情況下，Federated Exchange 看起來比較整潔，不用多個 replication 的 queue 跟多組 shovel 來同步。
+雖然使用上沒有問題，但設定上就是有些繁瑣，所以今天就來紀錄一下不同用法：使用 `Federated Exchange`，但說實話設定上沒有比較簡單，只是在需要較多複本的情況下，Federated Exchange 看起來比較整潔，不用多個 replication queue 跟多組 shovel 來進行同步。
 
 做法說明：
 
@@ -108,7 +108,7 @@ slug: "rabbitmq-federated-exchange"
 
 ## 心得
 
-- 版本間的 UI 有差異，造成功能的設定方式也有所不同，所以要注意版本間的差異
+- 版本間的 UI 有差異，造成功能的設定方式也有所不同
 - 來源 vhost 如果是 root vhost，則在設定 Federated Exchange 時，不能加上 `/` 否則會出現錯誤
 
     ![9error](https://github.com/user-attachments/assets/8bc41a7f-fe50-483f-bbd9-23c8f3577140)
