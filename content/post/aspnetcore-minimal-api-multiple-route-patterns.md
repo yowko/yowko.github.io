@@ -1,7 +1,7 @@
 ---
 title: "ASP.NET minimal API 將多個 route pattern 套用相同處理邏輯"
-date: 2025-01-22T00:30:00+08:00
-lastmod: 2025-01-22T00:30:31+08:00
+date: 2025-01-23T00:30:00+08:00
+lastmod: 2025-01-23T00:30:31+08:00
 draft: false
 tags: ["csharp","aspdotnet"]
 slug: "aspnetcore-minimal-api-multiple-route-patterns"
@@ -35,6 +35,9 @@ slug: "aspnetcore-minimal-api-multiple-route-patterns"
 
 相較 controller 可以直接使用 attribute 來設定 route pattern 絕對還是方便許多，但是 minimal api 透過 method 或是 handler dictionary 來儲存處理邏輯，雖然在程式碼上看來步驟與內容比較多，但是也能夠達到相同的效果。我自己是覺得對於 `意圖` 的呈現 attribute 還是比較直覺
 
+完整範例程式碼可以參考 [GitHub - yowko/multiple-route-text-json](https://github.com/yowko/multiple-route-text-json)
+
 ## 參考資訊
 
 1. [Microsoft Learn:Route Handlers in Minimal API apps](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/route-handlers?view=aspnetcore-9.0&WT.mc_id=DOP-MVP-5002594)
+2. [GitHub - yowko/multiple-route-text-json](https://github.com/yowko/multiple-route-text-json)
